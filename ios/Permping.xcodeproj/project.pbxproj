@@ -1,0 +1,414 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		04DFAC5D155E40A300AE9FFD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04DFAC5C155E40A300AE9FFD /* UIKit.framework */; };
+		04DFAC5F155E40A300AE9FFD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04DFAC5E155E40A300AE9FFD /* Foundation.framework */; };
+		04DFAC61155E40A300AE9FFD /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04DFAC60155E40A300AE9FFD /* CoreGraphics.framework */; };
+		04DFAC67155E40A300AE9FFD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 04DFAC65155E40A300AE9FFD /* InfoPlist.strings */; };
+		04DFAC69155E40A300AE9FFD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 04DFAC68155E40A300AE9FFD /* main.m */; };
+		04DFAC6D155E40A300AE9FFD /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 04DFAC6C155E40A300AE9FFD /* AppDelegate.m */; };
+		04DFAC97155E44C300AE9FFD /* ExplorerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04DFAC95155E44C300AE9FFD /* ExplorerViewController.m */; };
+		04DFAC98155E44C300AE9FFD /* ExplorerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04DFAC96155E44C300AE9FFD /* ExplorerViewController.xib */; };
+		04DFAC9C155E44D800AE9FFD /* FollowingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04DFAC9A155E44D800AE9FFD /* FollowingViewController.m */; };
+		04DFAC9D155E44D800AE9FFD /* FollowingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04DFAC9B155E44D800AE9FFD /* FollowingViewController.xib */; };
+		04DFACA1155E44EB00AE9FFD /* ImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04DFAC9F155E44EB00AE9FFD /* ImageViewController.m */; };
+		04DFACA2155E44EB00AE9FFD /* ImageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04DFACA0155E44EB00AE9FFD /* ImageViewController.xib */; };
+		04DFACA6155E44FC00AE9FFD /* MyDiaryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04DFACA4155E44FC00AE9FFD /* MyDiaryViewController.m */; };
+		04DFACA7155E44FC00AE9FFD /* MyDiaryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04DFACA5155E44FC00AE9FFD /* MyDiaryViewController.xib */; };
+		04DFACAB155E451300AE9FFD /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04DFACA9155E451300AE9FFD /* ProfileViewController.m */; };
+		04DFACAC155E451300AE9FFD /* ProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04DFACAA155E451300AE9FFD /* ProfileViewController.xib */; };
+		04DFACB1155E456100AE9FFD /* CommonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04DFACAF155E456100AE9FFD /* CommonViewController.m */; };
+		04DFACB8155E4B2100AE9FFD /* tab-item-explorer.png in Resources */ = {isa = PBXBuildFile; fileRef = 04DFACB3155E4B2100AE9FFD /* tab-item-explorer.png */; };
+		04DFACB9155E4B2100AE9FFD /* tab-item-following.png in Resources */ = {isa = PBXBuildFile; fileRef = 04DFACB4155E4B2100AE9FFD /* tab-item-following.png */; };
+		04DFACBA155E4B2100AE9FFD /* tab-item-image.png in Resources */ = {isa = PBXBuildFile; fileRef = 04DFACB5155E4B2100AE9FFD /* tab-item-image.png */; };
+		04DFACBB155E4B2100AE9FFD /* tab-item-mydiary.png in Resources */ = {isa = PBXBuildFile; fileRef = 04DFACB6155E4B2100AE9FFD /* tab-item-mydiary.png */; };
+		04DFACBC155E4B2100AE9FFD /* tab-item-profile.png in Resources */ = {isa = PBXBuildFile; fileRef = 04DFACB7155E4B2100AE9FFD /* tab-item-profile.png */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		04DFAC58155E40A300AE9FFD /* Permping.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Permping.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		04DFAC5C155E40A300AE9FFD /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		04DFAC5E155E40A300AE9FFD /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		04DFAC60155E40A300AE9FFD /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		04DFAC64155E40A300AE9FFD /* Permping-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Permping-Info.plist"; sourceTree = "<group>"; };
+		04DFAC66155E40A300AE9FFD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		04DFAC68155E40A300AE9FFD /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		04DFAC6A155E40A300AE9FFD /* Permping-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Permping-Prefix.pch"; sourceTree = "<group>"; };
+		04DFAC6B155E40A300AE9FFD /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		04DFAC6C155E40A300AE9FFD /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		04DFAC94155E44C300AE9FFD /* ExplorerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExplorerViewController.h; sourceTree = "<group>"; };
+		04DFAC95155E44C300AE9FFD /* ExplorerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExplorerViewController.m; sourceTree = "<group>"; };
+		04DFAC96155E44C300AE9FFD /* ExplorerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ExplorerViewController.xib; sourceTree = "<group>"; };
+		04DFAC99155E44D800AE9FFD /* FollowingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FollowingViewController.h; sourceTree = "<group>"; };
+		04DFAC9A155E44D800AE9FFD /* FollowingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FollowingViewController.m; sourceTree = "<group>"; };
+		04DFAC9B155E44D800AE9FFD /* FollowingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FollowingViewController.xib; sourceTree = "<group>"; };
+		04DFAC9E155E44EB00AE9FFD /* ImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageViewController.h; sourceTree = "<group>"; };
+		04DFAC9F155E44EB00AE9FFD /* ImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageViewController.m; sourceTree = "<group>"; };
+		04DFACA0155E44EB00AE9FFD /* ImageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImageViewController.xib; sourceTree = "<group>"; };
+		04DFACA3155E44FC00AE9FFD /* MyDiaryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyDiaryViewController.h; sourceTree = "<group>"; };
+		04DFACA4155E44FC00AE9FFD /* MyDiaryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyDiaryViewController.m; sourceTree = "<group>"; };
+		04DFACA5155E44FC00AE9FFD /* MyDiaryViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyDiaryViewController.xib; sourceTree = "<group>"; };
+		04DFACA8155E451300AE9FFD /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
+		04DFACA9155E451300AE9FFD /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
+		04DFACAA155E451300AE9FFD /* ProfileViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProfileViewController.xib; sourceTree = "<group>"; };
+		04DFACAE155E456100AE9FFD /* CommonViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonViewController.h; sourceTree = "<group>"; };
+		04DFACAF155E456100AE9FFD /* CommonViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonViewController.m; sourceTree = "<group>"; };
+		04DFACB3155E4B2100AE9FFD /* tab-item-explorer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab-item-explorer.png"; sourceTree = "<group>"; };
+		04DFACB4155E4B2100AE9FFD /* tab-item-following.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab-item-following.png"; sourceTree = "<group>"; };
+		04DFACB5155E4B2100AE9FFD /* tab-item-image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab-item-image.png"; sourceTree = "<group>"; };
+		04DFACB6155E4B2100AE9FFD /* tab-item-mydiary.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab-item-mydiary.png"; sourceTree = "<group>"; };
+		04DFACB7155E4B2100AE9FFD /* tab-item-profile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab-item-profile.png"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		04DFAC55155E40A300AE9FFD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				04DFAC5D155E40A300AE9FFD /* UIKit.framework in Frameworks */,
+				04DFAC5F155E40A300AE9FFD /* Foundation.framework in Frameworks */,
+				04DFAC61155E40A300AE9FFD /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		04DFAC4D155E40A300AE9FFD = {
+			isa = PBXGroup;
+			children = (
+				04DFAC62155E40A300AE9FFD /* Permping */,
+				04DFAC92155E446D00AE9FFD /* Resources */,
+				04DFAC5B155E40A300AE9FFD /* Frameworks */,
+				04DFAC59155E40A300AE9FFD /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		04DFAC59155E40A300AE9FFD /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				04DFAC58155E40A300AE9FFD /* Permping.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		04DFAC5B155E40A300AE9FFD /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				04DFAC5C155E40A300AE9FFD /* UIKit.framework */,
+				04DFAC5E155E40A300AE9FFD /* Foundation.framework */,
+				04DFAC60155E40A300AE9FFD /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		04DFAC62155E40A300AE9FFD /* Permping */ = {
+			isa = PBXGroup;
+			children = (
+				04DFAC8C155E445E00AE9FFD /* Classes */,
+				04DFAC6B155E40A300AE9FFD /* AppDelegate.h */,
+				04DFAC6C155E40A300AE9FFD /* AppDelegate.m */,
+				04DFAC63155E40A300AE9FFD /* Supporting Files */,
+			);
+			path = Permping;
+			sourceTree = "<group>";
+		};
+		04DFAC63155E40A300AE9FFD /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				04DFAC64155E40A300AE9FFD /* Permping-Info.plist */,
+				04DFAC65155E40A300AE9FFD /* InfoPlist.strings */,
+				04DFAC68155E40A300AE9FFD /* main.m */,
+				04DFAC6A155E40A300AE9FFD /* Permping-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		04DFAC8C155E445E00AE9FFD /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				04DFACAD155E455200AE9FFD /* Global */,
+				04DFAC8D155E445E00AE9FFD /* Explorer */,
+				04DFAC8E155E445E00AE9FFD /* Following */,
+				04DFAC8F155E445E00AE9FFD /* Image */,
+				04DFAC90155E445E00AE9FFD /* MyDiary */,
+				04DFAC91155E445E00AE9FFD /* Profile */,
+			);
+			name = Classes;
+			path = ../../../../../../../Users/MAC/Projects/Group/Permping/Source/Permping/Classes;
+			sourceTree = "<group>";
+		};
+		04DFAC8D155E445E00AE9FFD /* Explorer */ = {
+			isa = PBXGroup;
+			children = (
+				04DFAC94155E44C300AE9FFD /* ExplorerViewController.h */,
+				04DFAC95155E44C300AE9FFD /* ExplorerViewController.m */,
+				04DFAC96155E44C300AE9FFD /* ExplorerViewController.xib */,
+			);
+			path = Explorer;
+			sourceTree = "<group>";
+		};
+		04DFAC8E155E445E00AE9FFD /* Following */ = {
+			isa = PBXGroup;
+			children = (
+				04DFAC99155E44D800AE9FFD /* FollowingViewController.h */,
+				04DFAC9A155E44D800AE9FFD /* FollowingViewController.m */,
+				04DFAC9B155E44D800AE9FFD /* FollowingViewController.xib */,
+			);
+			path = Following;
+			sourceTree = "<group>";
+		};
+		04DFAC8F155E445E00AE9FFD /* Image */ = {
+			isa = PBXGroup;
+			children = (
+				04DFAC9E155E44EB00AE9FFD /* ImageViewController.h */,
+				04DFAC9F155E44EB00AE9FFD /* ImageViewController.m */,
+				04DFACA0155E44EB00AE9FFD /* ImageViewController.xib */,
+			);
+			path = Image;
+			sourceTree = "<group>";
+		};
+		04DFAC90155E445E00AE9FFD /* MyDiary */ = {
+			isa = PBXGroup;
+			children = (
+				04DFACA3155E44FC00AE9FFD /* MyDiaryViewController.h */,
+				04DFACA4155E44FC00AE9FFD /* MyDiaryViewController.m */,
+				04DFACA5155E44FC00AE9FFD /* MyDiaryViewController.xib */,
+			);
+			path = MyDiary;
+			sourceTree = "<group>";
+		};
+		04DFAC91155E445E00AE9FFD /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				04DFACA8155E451300AE9FFD /* ProfileViewController.h */,
+				04DFACA9155E451300AE9FFD /* ProfileViewController.m */,
+				04DFACAA155E451300AE9FFD /* ProfileViewController.xib */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		04DFAC92155E446D00AE9FFD /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				04DFAC93155E446D00AE9FFD /* Images */,
+			);
+			name = Resources;
+			path = ../../../../../../Users/MAC/Projects/Group/Permping/Source/Permping/Resources;
+			sourceTree = "<group>";
+		};
+		04DFAC93155E446D00AE9FFD /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				04DFACB3155E4B2100AE9FFD /* tab-item-explorer.png */,
+				04DFACB4155E4B2100AE9FFD /* tab-item-following.png */,
+				04DFACB5155E4B2100AE9FFD /* tab-item-image.png */,
+				04DFACB6155E4B2100AE9FFD /* tab-item-mydiary.png */,
+				04DFACB7155E4B2100AE9FFD /* tab-item-profile.png */,
+			);
+			path = Images;
+			sourceTree = "<group>";
+		};
+		04DFACAD155E455200AE9FFD /* Global */ = {
+			isa = PBXGroup;
+			children = (
+				04DFACAE155E456100AE9FFD /* CommonViewController.h */,
+				04DFACAF155E456100AE9FFD /* CommonViewController.m */,
+			);
+			path = Global;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		04DFAC57155E40A300AE9FFD /* Permping */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 04DFAC84155E40A300AE9FFD /* Build configuration list for PBXNativeTarget "Permping" */;
+			buildPhases = (
+				04DFAC54155E40A300AE9FFD /* Sources */,
+				04DFAC55155E40A300AE9FFD /* Frameworks */,
+				04DFAC56155E40A300AE9FFD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Permping;
+			productName = Permping;
+			productReference = 04DFAC58155E40A300AE9FFD /* Permping.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		04DFAC4F155E40A300AE9FFD /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+			};
+			buildConfigurationList = 04DFAC52155E40A300AE9FFD /* Build configuration list for PBXProject "Permping" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 04DFAC4D155E40A300AE9FFD;
+			productRefGroup = 04DFAC59155E40A300AE9FFD /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				04DFAC57155E40A300AE9FFD /* Permping */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		04DFAC56155E40A300AE9FFD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				04DFAC67155E40A300AE9FFD /* InfoPlist.strings in Resources */,
+				04DFAC98155E44C300AE9FFD /* ExplorerViewController.xib in Resources */,
+				04DFAC9D155E44D800AE9FFD /* FollowingViewController.xib in Resources */,
+				04DFACA2155E44EB00AE9FFD /* ImageViewController.xib in Resources */,
+				04DFACA7155E44FC00AE9FFD /* MyDiaryViewController.xib in Resources */,
+				04DFACAC155E451300AE9FFD /* ProfileViewController.xib in Resources */,
+				04DFACB8155E4B2100AE9FFD /* tab-item-explorer.png in Resources */,
+				04DFACB9155E4B2100AE9FFD /* tab-item-following.png in Resources */,
+				04DFACBA155E4B2100AE9FFD /* tab-item-image.png in Resources */,
+				04DFACBB155E4B2100AE9FFD /* tab-item-mydiary.png in Resources */,
+				04DFACBC155E4B2100AE9FFD /* tab-item-profile.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		04DFAC54155E40A300AE9FFD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				04DFAC69155E40A300AE9FFD /* main.m in Sources */,
+				04DFAC6D155E40A300AE9FFD /* AppDelegate.m in Sources */,
+				04DFAC97155E44C300AE9FFD /* ExplorerViewController.m in Sources */,
+				04DFAC9C155E44D800AE9FFD /* FollowingViewController.m in Sources */,
+				04DFACA1155E44EB00AE9FFD /* ImageViewController.m in Sources */,
+				04DFACA6155E44FC00AE9FFD /* MyDiaryViewController.m in Sources */,
+				04DFACAB155E451300AE9FFD /* ProfileViewController.m in Sources */,
+				04DFACB1155E456100AE9FFD /* CommonViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		04DFAC65155E40A300AE9FFD /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				04DFAC66155E40A300AE9FFD /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		04DFAC82155E40A300AE9FFD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		04DFAC83155E40A300AE9FFD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		04DFAC85155E40A300AE9FFD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Permping/Permping-Prefix.pch";
+				INFOPLIST_FILE = "Permping/Permping-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		04DFAC86155E40A300AE9FFD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Permping/Permping-Prefix.pch";
+				INFOPLIST_FILE = "Permping/Permping-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		04DFAC52155E40A300AE9FFD /* Build configuration list for PBXProject "Permping" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				04DFAC82155E40A300AE9FFD /* Debug */,
+				04DFAC83155E40A300AE9FFD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		04DFAC84155E40A300AE9FFD /* Build configuration list for PBXNativeTarget "Permping" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				04DFAC85155E40A300AE9FFD /* Debug */,
+				04DFAC86155E40A300AE9FFD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 04DFAC4F155E40A300AE9FFD /* Project object */;
+}
