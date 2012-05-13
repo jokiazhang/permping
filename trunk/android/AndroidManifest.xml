@@ -1,31 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.permping"
-    android:versionCode="1"
-    android:versionName="1.0" >
-
+      package="com.permping"
+      android:versionCode="1"
+      android:versionName="1.0">
     <uses-sdk android:minSdkVersion="10" />
 
-    <application
-        android:icon="@drawable/ic_launcher"
-        android:label="@string/app_name" >
-        <activity
-            android:name=".PermpingMain"
-            android:label="@string/app_name" >
+    <application android:icon="@drawable/icon" android:label="@string/app_name">
+        <activity android:name=".PermpingMain"
+            	android:theme="@style/CustomTheme"
+                  android:label="@string/app_name">
+                  
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         
-        <activity android:name=".LoginPermActivity"
-            android:label="@string/app_name">                        
-        </activity>
+        <activity android:name=".activity.FollowerActivity" />
+        <activity android:name=".activity.ExplorerActivity" />
+        <activity android:name=".activity.ImageActivity" />
+        <activity android:name=".activity.MyDiaryActivity" />
+        <activity android:name=".activity.ProfileActivity" />
+
         
         <activity android:name=".JoinPermActivity"
             android:label="@string/app_name">                        
         </activity>
     </application>
-
 </manifest>

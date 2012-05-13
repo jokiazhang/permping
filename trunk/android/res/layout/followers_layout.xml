@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:orientation="vertical"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent">
+  <include android:layout_width="fill_parent" layout="@layout/title_bar" />
+  
+  
+  <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:stretchColumns="1">
+	<TableRow>
+	     <TextView
+	         android:layout_span="2"
+	         android:layout_width="fill_parent"
+	         android:padding="15dp"
+	         android:textColor="#000000"
+	         android:text="Pemping is online social media book. Share and express the media you like on your online diary" />
+	</TableRow>
+	<TableRow>
+	    <LinearLayout
+			  xmlns:android="http://schemas.android.com/apk/res/android"
+			  android:orientation="vertical"
+			  android:layout_width="match_parent"
+			  android:layout_height="match_parent">
+	     <Button
+            android:id="@+id/btnJoin"
+            android:layout_width="80dp"
+            android:layout_height="30dp"
+            android:text="Join" 
+            android:textColor="#FFFFFF"
+            android:background="@drawable/button_bg"/>
+	     </LinearLayout>
+	     <LinearLayout
+			  xmlns:android="http://schemas.android.com/apk/res/android"
+			  android:orientation="vertical"
+			  android:layout_width="match_parent"
+			  android:layout_height="match_parent">
+	    <Button
+            android:id="@+id/bgnLogin"
+            android:layout_width="80dp"
+            android:layout_height="30dp"
+            android:text="Login" 
+            android:textColor="#FFFFFF"
+            android:background="@drawable/button_bg"/>
+	    </LinearLayout>
+	</TableRow>
+ 
+</TableLayout>
+  
+  
+  <TextView android:text="followers layout"
+  			android:padding="15dip"
+  			android:textSize="14dip"
+  			android:textColor="#FFFFFF"
+  			android:layout_width="fill_parent"
+  			android:layout_height="wrap_content"/>
+    
+</LinearLayout>
