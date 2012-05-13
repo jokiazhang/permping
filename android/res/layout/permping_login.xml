@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/permping_head_title"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/loginfb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/bt_facebook" />
+
+        <Button
+            android:id="@+id/logintw"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/bt_twitter" />
+        
+    </LinearLayout>
+    
+    <View
+    android:layout_width="fill_parent"
+    android:layout_height="2dp"
+    android:background="@android:color/darker_gray"/>
+    
+    <EditText
+        android:id="@+id/permUsername"
+        android:layout_width="315dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/hint_username" >
+        <requestFocus />
+    </EditText>
+
+    <EditText
+        android:id="@+id/permPassword"
+        android:layout_width="315dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPassword" 
+        android:hint="@string/hint_password"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <Button
+            android:id="@+id/loginPerm"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/bt_login" />
+
+        <Button
+            android:id="@+id/cancelPerm"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/bt_cancel" />
+
+    </LinearLayout>
+    	
+</LinearLayout>
