@@ -18,9 +18,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        
         <activity android:name=".LoginPermActivity"
-            android:label="@string/screen_login">"
-                        
+            android:label="@string/app_name">                        
+        </activity>
+        
+        <activity android:name=".JoinPermActivity"
+            android:label="@string/app_name">                        
         </activity>
     </application>
 

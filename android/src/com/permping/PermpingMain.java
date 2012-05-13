@@ -26,6 +26,15 @@ public class PermpingMain extends Activity {
         join = (Button) findViewById(R.id.bt_join);
         login = (Button) findViewById(R.id.bt_login);
         
+        login.setOnClickListener(new OnClickListener() {
+			
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent i = new Intent(v.getContext(), LoginPermActivity.class);
+				v.getContext().startActivity(i);
+			}
+		});
+        
         final OptionsDialog dialog = new OptionsDialog(this);
 		
         // Show the dialog
@@ -70,8 +79,9 @@ public class PermpingMain extends Activity {
 				
 			} else if (v == twitterLogin) {
 				
-			} else {
-				Intent i = new Intent(getContext(), LoginPermActivity.class);
+			} else { // Show Join Permping screen
+				// TODO Auto-generated method stub
+				Intent i = new Intent(getContext(), JoinPermActivity.class);
 				getContext().startActivity(i);
 			}
 		}
