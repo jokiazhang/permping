@@ -34,7 +34,7 @@
                 android:paddingLeft="70dp" >
 
                 <Button
-                    android:id="@+id/btnJoin"
+                    android:id="@+id/bt_join"
                     android:layout_width="80dp"
                     android:layout_height="30dp"
                     android:background="@drawable/button_bg"
@@ -50,7 +50,7 @@
                 android:paddingRight="70dp" >
 
                 <Button
-                    android:id="@+id/bgnLogin"
+                    android:id="@+id/bt_login"
                     android:layout_width="80dp"
                     android:layout_height="30dp"
                     android:background="@drawable/button_bg"
