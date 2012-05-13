@@ -7,6 +7,8 @@
 //
 
 #import "FollowingViewController.h"
+#import "JoinViewController.h"
+#import "LoginViewController.h"
 
 @implementation FollowingViewController
 
@@ -33,7 +35,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+    if (![self checkDidLogin]) {
+        permTableview.tableHeaderView = tableHeaderView;
+    }
 }
 
 - (void)viewDidUnload
@@ -43,10 +47,44 @@
     // e.g. self.myOutlet = nil;
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+#pragma mark - <UITableViewDelegate + DataSource> implementation
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 5;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 44.0;
+}
+
+- (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    static NSString *reuserIdentifier = @"PermCellIdentifier";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuserIdentifier];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:reuserIdentifier];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    }
+    UIView *v = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, 50, 50)] autorelease];
+    v.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    v.backgroundColor = [UIColor colorWithWhite:(indexPath.row*20)/255 alpha:1];
+    cell.textLabel.text = @"ajkd";
+    [cell.contentView addSubview:v];
+    return cell;
+}
+
+- (IBAction)joinButtonDidTouch:(id)sender {
+    JoinViewController *controller = [[JoinViewController alloc] initWithNibName:@"JoinViewController" bundle:nil];
+    [self.navigationController pushViewController:controller animated:YES];
+    [controller release];
+}
+
+- (IBAction)loginButtonDidTouch:(id)sender {
+    LoginViewController *controller = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
+    [self.navigationController pushViewController:controller animated:YES];
+    [controller release];
 }
 
 @end

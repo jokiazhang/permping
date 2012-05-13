@@ -8,6 +8,14 @@
 
 #import "CommonViewController.h"
 
+@implementation UINavigationBar (CustomImage)
+- (void)drawRect:(CGRect)rect {
+    UIImage *image = [UIImage imageNamed:@"NavigationBar.png"];
+    [image drawInRect:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
+}
+@end
+
+
 @implementation CommonViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -32,7 +40,16 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+    UINavigationBar *bar = [self.navigationController navigationBar];
+    float version = [[[UIDevice currentDevice] systemVersion] floatValue];
+    if (version >= 5.0)
+    {
+        [bar setBackgroundImage:[UIImage imageNamed:@"nav-bar-background.png"] forBarMetrics:UIBarMetricsDefault];
+    }
+    
+    self.navigationItem.title = @"Permping";
+    
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"default-background.png"]];
 }
 
 - (void)viewDidUnload
@@ -44,7 +61,12 @@
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
+    return (interfaceOrientation == UIInterfaceOrientationPortrait);;
+}
+
+- (BOOL)checkDidLogin {
     return NO;
 }
 
 @end
+
