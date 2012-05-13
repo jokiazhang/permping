@@ -10,4 +10,5 @@
 
 @interface CommonViewController : UIViewController
 
+- (BOOL)checkDidLogin;
 @end

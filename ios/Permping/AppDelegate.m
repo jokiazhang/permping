@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "UINavigationBar+CustomBackground.h"
 #import "FollowingViewController.h"
 #import "ExplorerViewController.h"
 #import "ImageViewController.h"
@@ -26,6 +27,11 @@
     [super dealloc];
 }
 
+- (UINavigationController*)navigationControllerWithRootController:(UIViewController*)viewController {
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:viewController];
+    return [navController autorelease];
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
@@ -36,7 +42,7 @@
     MyDiaryViewController *viewController4 = [[[MyDiaryViewController alloc] initWithNibName:@"MyDiaryViewController" bundle:nil] autorelease];
     ProfileViewController *viewController5 = [[[ProfileViewController alloc] initWithNibName:@"ProfileViewController" bundle:nil] autorelease];
     self.tabBarController = [[[UITabBarController alloc] init] autorelease];
-    self.tabBarController.viewControllers = [NSArray arrayWithObjects:viewController1, viewController2, viewController3, viewController4, viewController5, nil];
+    self.tabBarController.viewControllers = [NSArray arrayWithObjects:[self navigationControllerWithRootController:viewController1], [self navigationControllerWithRootController:viewController2], [self navigationControllerWithRootController:viewController3], [self navigationControllerWithRootController:viewController4], [self navigationControllerWithRootController:viewController5], nil];
     self.window.rootViewController = self.tabBarController;
     [self.window makeKeyAndVisible];
     return YES;
