@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <string name="hello">Hello World, PermpingMain!</string>
     <string name="app_name">Permping</string>
+    <string name="bt_join">Join</string>
+    <string name="bt_login">Login</string>
+    <string name="bt_facebook">Login with Facebook</string>
+    <string name="bt_twitter">Login with Twitter</string>
+    <string name="bt_join_permping">Join Permping</string>
+    <string name="permping_head_title">Permping</string>
+    <string name="hint_username">Username</string>
+    <string name="hint_password">Password</string>
+    <string name="bt_cancel">Cancel</string>
+    <string name="screen_login">Permping.com/Login</string>
 
 </resources>
