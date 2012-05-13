@@ -11,13 +11,48 @@ public final class R {
     public static final class attr {
     }
     public static final class drawable {
-        public static final int ic_launcher=0x7f020000;
+        public static final int action_bar_bg=0x7f020000;
+        public static final int background=0x7f020001;
+        public static final int button_bg=0x7f020002;
+        public static final int explorer=0x7f020003;
+        public static final int followers=0x7f020004;
+        public static final int ic_launcher=0x7f020005;
+        public static final int icon=0x7f020006;
+        public static final int icon_explorer_tab=0x7f020007;
+        public static final int icon_follower_tab=0x7f020008;
+        public static final int icon_image_tab=0x7f020009;
+        public static final int icon_mydiary_tab=0x7f02000a;
+        public static final int icon_profile_tab=0x7f02000b;
+        public static final int image=0x7f02000c;
+        public static final int mydiary=0x7f02000d;
+        public static final int photos_gray=0x7f02000e;
+        public static final int photos_white=0x7f02000f;
+        public static final int profile=0x7f020010;
+        public static final int round_corners_bg=0x7f020011;
+        public static final int songs_gray=0x7f020012;
+        public static final int songs_white=0x7f020013;
+        public static final int videos_gray=0x7f020014;
+        public static final int videos_white=0x7f020015;
+    }
+    public static final class id {
+        public static final int bgnLogin=0x7f060001;
+        public static final int btnJoin=0x7f060000;
     }
     public static final class layout {
-        public static final int main=0x7f030000;
+        public static final int explorer_layout=0x7f030000;
+        public static final int followers_layout=0x7f030001;
+        public static final int image_layout=0x7f030002;
+        public static final int main=0x7f030003;
+        public static final int mydiary_layout=0x7f030004;
+        public static final int profile_layout=0x7f030005;
+        public static final int title_bar=0x7f030006;
     }
     public static final class string {
-        public static final int app_name=0x7f040001;
-        public static final int hello=0x7f040000;
+        public static final int app_name=0x7f040000;
+    }
+    public static final class style {
+        public static final int CustomTabWidget=0x7f050001;
+        public static final int CustomTabWidgetText=0x7f050002;
+        public static final int CustomTheme=0x7f050000;
     }
 }
