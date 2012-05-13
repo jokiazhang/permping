@@ -55,11 +55,6 @@ public class PermpingMain extends TabActivity {
         profile.setContent(profileIntent);
         tabHost.addTab( profile );
         
-        /*
-        for(int i=0;i<tabHost.getTabWidget().getChildCount();i++)  
-        {  
-            tabHost.getTabWidget().getChildAt(i).setBackgroundColor(Color.parseColor("#8A4117"));  
-        } 
-        */ 
+        
     }
 }
