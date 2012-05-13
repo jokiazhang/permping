@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Permping</string>
+    <string name="app_name">Permping_test_app</string>
     <string name="bt_join">Join</string>
     <string name="bt_login">Login</string>
     <string name="bt_facebook">Login with Facebook</string>
