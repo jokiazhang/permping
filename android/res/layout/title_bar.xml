@@ -3,7 +3,8 @@
   android:orientation="vertical"
   android:layout_width="match_parent"
   android:layout_height="50dp"
-  android:background="#771541">
+  android:background="#771541"
+  android:angle="90">
   
   <!-- Screen Design for Photos -->
   <TextView android:text="Permping"

@@ -14,7 +14,7 @@
             android:layout_alignParentBottom="true"
             android:layout_width="fill_parent"
             android:layout_height="60dp" 
-            android:background="@drawable/action_bar_bg"
+            android:background="#FFFFFF"
             android:tabStripEnabled="false"/>
         <FrameLayout
             android:id="@android:id/tabcontent"
