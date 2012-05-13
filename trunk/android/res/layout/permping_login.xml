@@ -3,13 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/permping_head_title"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+    <include android:layout_width="fill_parent" layout="@layout/title_bar" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -20,13 +14,19 @@
             android:id="@+id/loginfb"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/bt_facebook" />
+            android:text="@string/bt_facebook"
+            android:layout_gravity="center"
+        android:textColor="#FFFFFF"
+            android:background="@drawable/button_bg" />
 
         <Button
             android:id="@+id/logintw"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/bt_twitter" />
+            android:text="@string/bt_twitter"
+            android:layout_gravity="center"
+        android:textColor="#FFFFFF"
+            android:background="@drawable/button_bg" />
         
     </LinearLayout>
     
@@ -40,7 +40,8 @@
         android:layout_width="315dp"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="@string/hint_username" >
+        android:hint="@string/hint_username"
+        style="@style/edit_text" >
         <requestFocus />
     </EditText>
 
@@ -54,22 +55,28 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content" android:layout_gravity="center">
 
         <Button
             android:id="@+id/loginPerm"
             style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/bt_login" />
+            android:text="@string/bt_login"
+            android:layout_gravity="center"
+        android:textColor="#FFFFFF"
+            android:background="@drawable/button_bg" android:gravity="center"/>
 
-        <Button
+        <!-- <Button
             android:id="@+id/cancelPerm"
             style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/bt_cancel" />
-
+            android:text="@string/bt_cancel"
+            android:layout_gravity="center"
+        android:textColor="#FFFFFF"
+            android:background="@drawable/button_bg" />
+ -->
     </LinearLayout>
     	
 </LinearLayout>

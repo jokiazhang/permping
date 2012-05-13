@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
+    <include android:layout_width="fill_parent" layout="@layout/title_bar" />
 
     <TextView
         android:id="@+id/textView1"
@@ -18,21 +19,26 @@
    	    
    	    <TableRow>
    	        <TextView android:padding="3dip"
-   	            android:text="@string/acc_name"/>
+   	            android:text="@string/acc_name"
+   	            style="@style/label"/>
    	        <EditText android:id="@+id/acccountName"
-   	            android:hint="@string/required"/>
+   	            android:hint="@string/required"
+   	            style="@style/edit_text" />
    	    </TableRow>
    	    
    	    <TableRow>
    	        <TextView android:padding="3dip"
-   	            android:text="@string/acc_email"/>
+   	            android:text="@string/acc_email"
+   	            style="@style/label"/>   	        	
    	        <EditText android:id="@+id/acccountEmail"
-   	            android:hint="@string/required"/>
+   	            android:hint="@string/required"
+   	            style="@style/edit_text" />
    	    </TableRow>
    	    
    	    <TableRow>
    	        <TextView android:padding="3dip"
-   	            android:text="@string/acc_password"/>
+   	            android:text="@string/acc_password"
+   	            style="@style/label"/>
    	        <EditText android:id="@+id/acccountPassword"
    	            android:inputType="textPassword"
    	            android:hint="@string/required"/>
@@ -40,7 +46,8 @@
    	    
    	    <TableRow>
    	        <TextView android:padding="3dip"
-   	            android:text="@string/acc_confirm_password"/>
+   	            android:text="@string/acc_confirm_password"
+   	            style="@style/label"/>
    	        <EditText android:id="@+id/accountConfirmPassword"
    	            android:hint="@string/required"/>
    	    </TableRow>
@@ -51,6 +58,8 @@
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/bt_create_account" />
+        android:text="@string/bt_create_account"
+        android:textColor="#FFFFFF"
+            android:background="@drawable/button_bg" android:gravity="center" />
 
 </LinearLayout>
