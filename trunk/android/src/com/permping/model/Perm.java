@@ -45,6 +45,10 @@ public class Perm implements Serializable{
 	
 	
 	
+	public String toString(){
+		return this.id;
+	}
+	
 	/**
 	 * Getters / Setters
 	 */
