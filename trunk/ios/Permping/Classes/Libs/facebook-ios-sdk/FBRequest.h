@@ -6,7 +6,7 @@
  * You may obtain a copy of the License at
  *
  *    http://www.apache.org/licenses/LICENSE-2.0
- 
+
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -19,27 +19,16 @@
 
 @protocol FBRequestDelegate;
 
-enum {
-    kFBRequestStateReady,
-    kFBRequestStateLoading,
-    kFBRequestStateComplete,
-    kFBRequestStateError
-};
-typedef NSUInteger FBRequestState;
-
 /**
  * Do not use this interface directly, instead, use method in Facebook.h
  */
 @interface FBRequest : NSObject {
-    id<FBRequestDelegate> _delegate;
-    NSString*             _url;
-    NSString*             _httpMethod;
-    NSMutableDictionary*  _params;
-    NSURLConnection*      _connection;
-    NSMutableData*        _responseText;
-    FBRequestState        _state;
-    NSError*              _error;
-    BOOL                  _sessionDidExpire;
+  id<FBRequestDelegate> _delegate;
+  NSString*             _url;
+  NSString*             _httpMethod;
+  NSMutableDictionary*  _params;
+  NSURLConnection*      _connection;
+  NSMutableData*        _responseText;
 }
 
 
@@ -62,15 +51,11 @@ typedef NSUInteger FBRequestState;
  * standard Objective-C object-to-string conversion facilities.
  */
 @property(nonatomic,retain) NSMutableDictionary* params;
-@property(nonatomic,retain) NSURLConnection*  connection;
-@property(nonatomic,retain) NSMutableData* responseText;
-@property(nonatomic,readonly) FBRequestState state;
-@property(nonatomic,readonly) BOOL sessionDidExpire;
 
-/**
- * Error returned by the server in case of request's failure (or nil otherwise).
- */
-@property(nonatomic,retain) NSError* error;
+
+@property(nonatomic,assign) NSURLConnection*  connection;
+
+@property(nonatomic,assign) NSMutableData* responseText;
 
 
 + (NSString*)serializeURL:(NSString *)baseUrl
@@ -90,7 +75,7 @@ typedef NSUInteger FBRequestState;
 
 @end
 
-////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////
 
 /*
  *Your application should implement this delegate
@@ -105,11 +90,7 @@ typedef NSUInteger FBRequestState;
 - (void)requestLoading:(FBRequest *)request;
 
 /**
- * Called when the Facebook API request has returned a response.
- *
- * This callback gives you access to the raw response. It's called before
- * (void)request:(FBRequest *)request didLoad:(id)result,
- * which is passed the parsed response object.
+ * Called when the server responds and begins to send back data.
  */
 - (void)request:(FBRequest *)request didReceiveResponse:(NSURLResponse *)response;
 
@@ -119,15 +100,10 @@ typedef NSUInteger FBRequestState;
 - (void)request:(FBRequest *)request didFailWithError:(NSError *)error;
 
 /**
- * Called when a request returns and its response has been parsed into
- * an object.
+ * Called when a request returns and its response has been parsed into an object.
  *
- * The resulting object may be a dictionary, an array or a string, depending
- * on the format of the API response. If you need access to the raw response,
- * use:
- *
- * (void)request:(FBRequest *)request
- *      didReceiveResponse:(NSURLResponse *)response
+ * The resulting object may be a dictionary, an array, a string, or a number, depending
+ * on thee format of the API response.
  */
 - (void)request:(FBRequest *)request didLoad:(id)result;
 

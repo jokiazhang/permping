@@ -6,9 +6,11 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
+#import <Twitter/TWTweetComposeViewController.h>
 #import "LoginViewController.h"
 #import "UserInfoTableViewCell.h"
 #import "FBFeedPost.h"
+
 
 @implementation LoginViewController
 
@@ -96,14 +98,34 @@
 }
 
 - (IBAction)twitterButtonDidTouch:(id)sender {
-    
+    float version = [[[UIDevice currentDevice] systemVersion] floatValue];
+    if (version >= 5.0) {
+        if ([TWTweetComposeViewController canSendTweet]) {
+            // do login with server
+        } else {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"No twitter account has been setup." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [alert show];
+            [alert release];
+        }
+        return;
+    } else {
+        if (!twitterEngine) {
+            twitterEngine = [[SA_OAuthTwitterEngine alloc] initOAuthWithDelegate:self];
+            twitterEngine.consumerKey = @"TJbmLdgKvs0QW05Gxi9ig";
+            twitterEngine.consumerSecret = @"mbaHUOiZAIZAIXZ1mmVrRW1A6FFTAosRl9x7bqiaA";
+        }
+        
+        if ([self twitterLoggedIn] == YES) {
+            
+        }
+    }
 }
 
 - (IBAction)loginButtonDidTouch:(id)sender {
     
 }
 
-#pragma mark
+#pragma mark - Facebook
 - (BOOL)fbLoggedIn {
     // if the user is not currently logged in begin the session
 	BOOL loggedIn = [[FBRequestWrapper defaultManager] isLoggedIn];
@@ -135,5 +157,25 @@
     NSLog(@"Facebook login failed");
     [_post release];
 }
+
+#pragma mark - Twitter
+- (BOOL)twitterLoggedIn {
+    if ([twitterEngine isAuthorized]) {
+        // logged in
+        return YES;
+    }
+    
+    // show login diaglog
+    if (saController) {
+        [saController release];        
+    }
+    SA_OAuthTwitterController *controller = [SA_OAuthTwitterController controllerToEnterCredentialsWithTwitterEngine:twitterEngine delegate:self];
+    if (controller) {
+        saController = [controller retain];
+    }
+    [saController showLoginDialog];
+    return NO;
+}
+
 
 @end
