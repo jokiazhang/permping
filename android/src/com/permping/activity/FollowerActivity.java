@@ -42,12 +42,7 @@ public class FollowerActivity extends Activity {
         
         PermAdapter permListAdapter = new PermAdapter(this, R.layout.perm_item_1, permList);
         permListView.setAdapter(permListAdapter);
-        
-        
-        
-        
-        
-        
+                
         join = (Button) findViewById(R.id.bt_join);
         login = (Button) findViewById(R.id.bt_login);
         
@@ -55,7 +50,7 @@ public class FollowerActivity extends Activity {
 			
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				Intent i = new Intent(v.		getContext(), LoginPermActivity.class);
+				Intent i = new Intent(v.getContext(), LoginPermActivity.class);
 				v.getContext().startActivity(i);
 			}
 		});
@@ -116,11 +111,18 @@ public class FollowerActivity extends Activity {
 			if (v == facebookLogin) {
 				
 			} else if (v == twitterLogin) {
-				if (!TwitterUtils.isAuthenticated(prefs)) {
+				/*if (!TwitterUtils.isAuthenticated(prefs)) {
 					Intent i = new Intent(getContext(), PrepareRequestTokenActivity.class);
-					i.putExtra("tweet_msg", getTweetMsg());
+					//i.putExtra("tweet_msg", getTweetMsg());
 					getContext().startActivity(i);
-				}
+				} else {
+					
+				}*/
+				
+				Intent i = new Intent(getContext(), PrepareRequestTokenActivity.class);
+				//i.putExtra("tweet_msg", getTweetMsg());
+				getContext().startActivity(i);
+				
 			} else { // Show Join Permping screen
 				// TODO Auto-generated method stub
 				Intent i = new Intent(getContext(), JoinPermActivity.class);

@@ -106,7 +106,7 @@ public class PrepareRequestTokenActivity extends Activity {
 				String secret = prefs.getString(OAuth.OAUTH_TOKEN_SECRET, "");
 				
 				consumer.setTokenWithSecret(token, secret);
-				context.startActivity(new Intent(context,PermpingMain.class));
+				context.startActivity(new Intent(context, PermpingMain.class));
 
 				executeAfterAccessTokenRetrieval();
 				
