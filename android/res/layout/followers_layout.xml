@@ -79,41 +79,20 @@
             </LinearLayout>
         </TableRow>
 
-        <TableRow android:layout_height="match_parent">
+        <TableRow android:layout_height="match_parent" >
+
             <LinearLayout
                 xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:layout_span="2" >
+                android:layout_height="250dp"
+                android:layout_span="2"
+                android:orientation="vertical" >
 
-                <LinearLayout
+                <ListView
+                    android:id="@+id/permList"
                     android:layout_width="match_parent"
-                    android:layout_height="260dp"
-                    android:isScrollContainer="true"
-                    android:orientation="horizontal" >
-
-                    <ScrollView
-                        android:fillViewport="true"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:padding="5dp">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="vertical" >
-                            
-                            <!-- Add popular pemrs here -->
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:text="aaaaaaaaaaaaaa" />
-
-                            
-                        </LinearLayout>
-                    </ScrollView>
-                </LinearLayout>
+                    android:layout_height="wrap_content" />
+                
             </LinearLayout>
         </TableRow>
     </TableLayout>

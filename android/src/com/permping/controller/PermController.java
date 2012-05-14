@@ -1,5 +1,5 @@
 package com.permping.controller;
 
-public class Perm {
+public class PermController {
 
 }
