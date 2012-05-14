@@ -18,6 +18,8 @@ public class Perm implements Serializable{
 	private String description;
 	private PermImage image;
 	private ArrayList<PermComment> comments;
+	private User author;
+	private PermBoard board;
 	
 	
 	/**
@@ -91,6 +93,22 @@ public class Perm implements Serializable{
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public User getAuthor() {
+		return author;
+	}
+
+	public void setAuthor(User author) {
+		this.author = author;
+	}
+
+	public PermBoard getBoard() {
+		return board;
+	}
+
+	public void setBoard(PermBoard board) {
+		this.board = board;
 	}
 	
 }
