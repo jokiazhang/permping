@@ -8,6 +8,7 @@
 
 #import "LoginViewController.h"
 #import "UserInfoTableViewCell.h"
+#import "FBFeedPost.h"
 
 @implementation LoginViewController
 
@@ -89,7 +90,9 @@
 }
 
 - (IBAction)facebookButtonDidTouch:(id)sender {
-    
+    if ([self fbLoggedIn]) {
+        
+    }
 }
 
 - (IBAction)twitterButtonDidTouch:(id)sender {
@@ -98,6 +101,39 @@
 
 - (IBAction)loginButtonDidTouch:(id)sender {
     
+}
+
+#pragma mark
+- (BOOL)fbLoggedIn {
+    // if the user is not currently logged in begin the session
+	BOOL loggedIn = [[FBRequestWrapper defaultManager] isLoggedIn];
+    //loggedIn = NO;
+	if (!loggedIn) {
+        FBFeedPost *post = [[FBFeedPost alloc] init];
+        [post showLoginViewWithDelegate:self];
+	}
+    return loggedIn;
+}
+
+#pragma mark - FBFeedPostDelegate
+
+- (void) failedToPublishPost:(FBFeedPost*) _post {
+	[_post release];
+}
+
+- (void) finishedPublishingPost:(FBFeedPost*) _post {
+	[_post release];
+    
+}
+
+- (void) didLogin:(FBFeedPost *)_post {
+    NSLog(@"Facebook login successed");
+    [_post release];
+}
+
+- (void) didNotLogin:(FBFeedPost *)_post {
+    NSLog(@"Facebook login failed");
+    [_post release];
 }
 
 @end

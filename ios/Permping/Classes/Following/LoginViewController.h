@@ -23,4 +23,6 @@
 
 - (IBAction)loginButtonDidTouch:(id)sender;
 
+- (BOOL)fbLoggedIn;
+
 @end
