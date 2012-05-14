@@ -18,6 +18,8 @@ public class PermpingMain extends TabActivity {
         setContentView(R.layout.main);
         
         TabHost tabHost = getTabHost();
+        //tabHost.setBackgroundResource(R.drawable.tabs_background);
+        tabHost.getTabWidget().setBackgroundResource( R.drawable.tabs_background );
         
         // Tab for followers
         TabSpec followers = tabHost.newTabSpec("Followers");
@@ -54,7 +56,6 @@ public class PermpingMain extends TabActivity {
         Intent profileIntent = new Intent(this, ProfileActivity.class);
         profile.setContent(profileIntent);
         tabHost.addTab( profile );
-        
         
     }
 }
