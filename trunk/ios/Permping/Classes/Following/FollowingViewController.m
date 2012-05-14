@@ -10,7 +10,17 @@
 #import "JoinViewController.h"
 #import "LoginViewController.h"
 
+
+#import "RequestManager.h"
+
+#import "WSPerm.h"
+#import "WSError.h"
+
+#import "PermListRequest.h"
+#import "LoginRequest.h"
+
 @implementation FollowingViewController
+@synthesize permsArray;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -47,13 +57,66 @@
     // e.g. self.myOutlet = nil;
 }
 
+- (void)loadPermsFromFile {
+    NSString *file = [[[NSBundle mainBundle] resourcePath] stringByAppendingString:@"/permList.xml"];
+    NSData *data = [NSData dataWithContentsOfFile:file];
+    NSError *error;
+    NSMutableArray *perms = [[NSMutableArray alloc] init];
+    TBXML *tbxml = [TBXML newTBXMLWithXMLData:data error:&error];
+    if (tbxml.rootXMLElement) {
+        TBXMLElement *child = tbxml.rootXMLElement->firstChild;
+        do {
+            if ([[TBXML elementName:child] isEqualToString:@"popularPerms"]) {
+                TBXMLElement *item = child->firstChild;
+                while (item) {
+                    WSPerm *perm = [[WSPerm alloc] initWithXmlElement:item];
+                    [perms addObject:perm];
+                    [perm release];
+                    item = item->nextSibling;
+                }
+            }
+        } while ((child = child->nextSibling));
+        self.permsArray = perms;
+    }
+    NSLog(@"self.permsArray: %@", self.permsArray);
+    [tbxml release];
+}
+
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    /*PermListRequest *request = [[PermListRequest alloc] initWithToken:@""];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleServerResponse:) name:REQUESTMANAGER_REQUEST_TERMINATED_NOTIFICATION object:request];
+	[[RequestManager sharedInstance] performRequest:request];*/
+    
+    [self loadPermsFromFile];
+}
+
+- (void)handleServerResponse: (NSNotification*)in_response {
+	//NSLog(@"handleServerResponse: %@", in_response);
+	
+	/*ServerRequest *request = in_response.object;
+	
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:REQUESTMANAGER_REQUEST_TERMINATED_NOTIFICATION object:request];
+	
+	if (!request.result.error) {
+		id result = request.result.object;
+		if ([result isKindOfClass:[NSArray class]]) {
+            
+		}
+	} else {
+		NSLog(@"Failed to load permlist");
+	}*/
+}
+
+
 #pragma mark - <UITableViewDelegate + DataSource> implementation
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 5;
+    return [self.permsArray count];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -67,11 +130,7 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:reuserIdentifier];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
-    UIView *v = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, 50, 50)] autorelease];
-    v.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    v.backgroundColor = [UIColor colorWithWhite:(indexPath.row*20)/255 alpha:1];
-    cell.textLabel.text = @"ajkd";
-    [cell.contentView addSubview:v];
+
     return cell;
 }
 
