@@ -16,7 +16,11 @@
     IBOutlet UIView     *tableHeaderView;
     
     IBOutlet UITableView *permTableview;
+    
+    NSArray              *permsArray;
 }
+
+@property (nonatomic, retain) NSArray *permsArray;
 
 - (IBAction)joinButtonDidTouch:(id)sender;
 

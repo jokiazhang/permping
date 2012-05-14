@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<response>
+    <user>
+        <userId>10</userId>
+        <userName>Jerry Pham</userName>
+        <userAvatar>http://localhost/avatars/jerrypham.jpg</userAvatar>
+    </user>
+    <popularPerms>
+        <item>
+            <permId>01</permId>
+            <permName>Perm 01</permName>
+            <permDesc>This is perm 01</permDesc>
+            <permImage>http://localhost/perms/perm01.jpg</permImage>
+            <permComments>
+                <comment>
+                    <userId>01</userId>
+                    <userName>User 01</userName>
+                    <userAvatar>http://localhost/avatars/user01.jpg</userAvatar>
+                    <content>Good pic, thanks for sharing.</content>
+                </comment>
+                <comment>
+                    <userId>02</userId>
+                    <userName>User 02</userName>
+                    <userAvatar>http://localhost/avatars/user02.jpg</userAvatar>
+                    <content>Good pic, thanks for sharing.</content>
+                </comment>
+                <comment>
+                    <userId>03</userId>
+                    <userName>User 03</userName>
+                    <userAvatar>http://localhost/avatars/user03.jpg</userAvatar>
+                    <content>Good pic, thanks for sharing.</content>
+                </comment>
+                
+            </permComments>
+        </item>
+        <item>
+            <permId>02</permId>
+            <permName>Perm 02</permName>
+            <permDesc>This is perm 02</permDesc>
+            <permImage>http://localhost/perms/perm02.jpg</permImage>
+            <permComments>
+                <comment>
+                    <userId>01</userId>
+                    <userName>User 03</userName>
+                    <userAvatar>http://localhost/avatars/user03.jpg</userAvatar>
+                    <content>Good pic, thanks for sharing.</content>
+                </comment>
+                <comment>
+                    <userId>02</userId>
+                    <userName>User 02</userName>
+                    <userAvatar>http://localhost/avatars/user02.jpg</userAvatar>
+                    <content>Good pic, thanks for sharing.</content>
+                </comment>
+                <comment>
+                    <userId>03</userId>
+                    <userName>User 01</userName>
+                    <userAvatar>http://localhost/avatars/user01.jpg</userAvatar>
+                    <content>Good pic, thanks for sharing.</content>
+                </comment>
+                
+            </permComments>
+        </item>
+    </popularPerms>
+</response>
