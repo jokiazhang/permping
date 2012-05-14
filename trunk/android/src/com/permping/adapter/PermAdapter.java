@@ -38,16 +38,21 @@ public class PermAdapter extends ArrayAdapter<Perm> {
             }
             Perm o = items.get(position);
             if (o != null) {
-                    TextView tt = (TextView) v.findViewById(R.id.toptext);
-                    TextView bt = (TextView) v.findViewById(R.id.bottomtext);
-                    ImageView iv = (ImageView) v.findViewById( R.id.icon);
-                    UrlImageViewHelper.setUrlDrawable(iv, o.getImage().getUrl());
+            		ImageView av = (ImageView) v.findViewById(R.id.authorAvatar);
+            		UrlImageViewHelper.setUrlDrawable(av, o.getAuthor().getAvatar().getUrl() );
+            		
+            		
+            		TextView an = (TextView) v.findViewById(R.id.authorName);
+            		an.setText("name" + o.getAuthor().getName() );
+            		
+            		//Board name
+            		TextView bn = (TextView) v.findViewById(R.id.boardName );
+            		bn.setText(o.getBoard().getName() );
+            		
+            		
+                    ImageView pv = (ImageView) v.findViewById( R.id.permImage);
+                    UrlImageViewHelper.setUrlDrawable(pv, o.getImage().getUrl());
                     
-                    if (tt != null) {
-                          tt.setText("ID: "+o.getId());                            }
-                    if(bt != null){
-                          bt.setText("Name: "+ o.getName());
-                    }
             }
             return v;
     }
