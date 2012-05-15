@@ -1,5 +1,7 @@
 package com.permping.activity;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import com.permping.R;
 import com.permping.controller.PermListController;
@@ -64,10 +66,8 @@ public class FollowerActivity extends Activity {
         permListView.setAdapter(permListAdapter);
         
         // Initialize the facebook connection
-        facebookConnector = new FacebookConnector(FACEBOOK_APP_ID, this, getApplicationContext(), new String[] {EMAIL, PUBLISH_STREAM});
-        
-        //facebook = new Facebook(APP_ID);
-        //mAsyncRunner = new AsyncFacebookRunner(facebook);
+        facebookConnector = new FacebookConnector(FACEBOOK_APP_ID, 
+        		this, getApplicationContext(), new String[] {EMAIL, PUBLISH_STREAM});
         
         join = (Button) findViewById(R.id.bt_join);
         login = (Button) findViewById(R.id.bt_login);
@@ -98,58 +98,6 @@ public class FollowerActivity extends Activity {
 		super.onResume();
 		//updateLoginStatus();
 	}
-    
-
-	/**
-     * Support to login to Facebook by opening facebook login window.
-     *//*
-    private void loginToFacebook() {
-    	sharedPreferences = getPreferences(MODE_PRIVATE);
-		String access_token = sharedPreferences.getString(ACCESS_TOKEN, null);
-		long expires = sharedPreferences.getLong(ACCESS_EXPIRES, 0);
-		
-		if (access_token != null) {
-			facebook.setAccessToken(access_token);
-		}
-		
-		if (expires != 0) {
-			facebook.setAccessExpires(expires);
-		}
-		
-		if (!facebook.isSessionValid()) {
-			facebook.authorize(this, new String[] {EMAIL, PUBLISH_STREAM}, 
-					new Facebook.DialogListener() {
-				
-				@Override
-				public void onFacebookError(FacebookError e) {
-					// TODO Auto-generated method stub
-					
-				}
-				
-				@Override
-				public void onError(DialogError e) {
-					// TODO Auto-generated method stub
-					
-				}
-				
-				@Override
-				public void onComplete(Bundle values) {
-					// Function to handle complete event
-					// Edit Preferences and update facebook access token
-					SharedPreferences.Editor editor = sharedPreferences.edit();
-					editor.putString(ACCESS_TOKEN, facebook.getAccessToken());
-					editor.putLong(ACCESS_EXPIRES, facebook.getAccessExpires());
-					editor.commit();
-				}
-				
-				@Override
-				public void onCancel() {
-					// TODO Auto-generated method stub
-					
-				}
-			});
-		}
-	}*/
     
     /**
      * This listener is to handle the click action of Join button
@@ -185,6 +133,15 @@ public class FollowerActivity extends Activity {
     	
     	public void onClick(View v) {
 			if (v == facebookLogin) {
+				// Clear FB info to show the login again
+				try {
+					facebookConnector.getFacebook().logout(getContext());
+				} catch (MalformedURLException me) {
+					me.printStackTrace();
+				} catch (IOException ioe) {
+					ioe.printStackTrace();
+				}
+				
 				if (!facebookConnector.getFacebook().isSessionValid()) {
 					AuthListener authListener = new AuthListener() {
 						
@@ -217,14 +174,7 @@ public class FollowerActivity extends Activity {
 				getContext().startActivity(i);
 				this.dismiss();
 			}			
-		}
-    	
-    	
-    	
-    	/*
-    	private String getTweetMsg() {
-    		return "Tweeting from Android App at " + new DateFormat().toString();
-    	}*/	
+		}    	
     }
     
 }
