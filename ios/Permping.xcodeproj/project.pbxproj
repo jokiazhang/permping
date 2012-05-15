@@ -114,21 +114,6 @@
 		040B305015617A6100F7CF99 /* FBRequestWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBRequestWrapper.m; sourceTree = "<group>"; };
 		040B305115617A6100F7CF99 /* NSString+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+HTML.h"; sourceTree = "<group>"; };
 		040B305215617A6100F7CF99 /* NSString+HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+HTML.m"; sourceTree = "<group>"; };
-		044B8BC41561822400836694 /* NSMutableURLRequest+Parameters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableURLRequest+Parameters.h"; sourceTree = "<group>"; };
-		044B8BC51561822400836694 /* NSString+URLEncoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+URLEncoding.h"; sourceTree = "<group>"; };
-		044B8BC61561822400836694 /* NSURL+Base.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+Base.h"; sourceTree = "<group>"; };
-		044B8BC71561822400836694 /* OAAsynchronousDataFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OAAsynchronousDataFetcher.h; sourceTree = "<group>"; };
-		044B8BC81561822400836694 /* OAConsumer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OAConsumer.h; sourceTree = "<group>"; };
-		044B8BC91561822400836694 /* OADataFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OADataFetcher.h; sourceTree = "<group>"; };
-		044B8BCA1561822400836694 /* OAHMAC_SHA1SignatureProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OAHMAC_SHA1SignatureProvider.h; sourceTree = "<group>"; };
-		044B8BCB1561822400836694 /* OAMutableURLRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OAMutableURLRequest.h; sourceTree = "<group>"; };
-		044B8BCC1561822400836694 /* OAPlaintextSignatureProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OAPlaintextSignatureProvider.h; sourceTree = "<group>"; };
-		044B8BCD1561822400836694 /* OARequestParameter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OARequestParameter.h; sourceTree = "<group>"; };
-		044B8BCE1561822400836694 /* OAServiceTicket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OAServiceTicket.h; sourceTree = "<group>"; };
-		044B8BCF1561822400836694 /* OASignatureProviding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OASignatureProviding.h; sourceTree = "<group>"; };
-		044B8BD01561822400836694 /* OAToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OAToken.h; sourceTree = "<group>"; };
-		044B8BD11561822400836694 /* OAToken_KeychainExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OAToken_KeychainExtensions.h; sourceTree = "<group>"; };
-		044B8BD21561822400836694 /* OAuthConsumer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OAuthConsumer.h; sourceTree = "<group>"; };
 		044B8BD41561822400836694 /* MGTwitterEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGTwitterEngine.h; sourceTree = "<group>"; };
 		044B8BD51561822400836694 /* MGTwitterEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGTwitterEngine.m; sourceTree = "<group>"; };
 		044B8BD61561822400836694 /* MGTwitterEngineDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGTwitterEngineDelegate.h; sourceTree = "<group>"; };
@@ -198,7 +183,7 @@
 		04695225156192C200620B12 /* permList.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = permList.xml; path = Permping/Resources/permList.xml; sourceTree = SOURCE_ROOT; };
 		0469524515619BF200620B12 /* WSComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSComment.h; sourceTree = "<group>"; };
 		0469524615619BF200620B12 /* WSComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSComment.m; sourceTree = "<group>"; };
-		0469525D1561A50500620B12 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Localizable.strings; path = Localizable.strings; sourceTree = "<group>"; };
+		0469525D1561A50500620B12 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		04AA8E6115600B8800B5E956 /* UserInfoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfoTableViewCell.h; sourceTree = "<group>"; };
 		04AA8E6215600B8800B5E956 /* UserInfoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoTableViewCell.m; sourceTree = "<group>"; };
 		04AA8E651560122F00B5E956 /* login-facebook-btn.btn */ = {isa = PBXFileReference; lastKnownFileType = file; name = "login-facebook-btn.btn"; path = "Permping/Resources/Images/login-facebook-btn.btn"; sourceTree = SOURCE_ROOT; };
@@ -260,6 +245,21 @@
 		6AC710AB1561102200DFE074 /* PermTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PermTableViewCell.m; sourceTree = "<group>"; };
 		6AC710AC1561102200DFE074 /* PermView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PermView.h; sourceTree = "<group>"; };
 		6AC710AD1561102200DFE074 /* PermView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PermView.m; sourceTree = "<group>"; };
+		6AD520FC156220D30055D76D /* NSMutableURLRequest+Parameters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableURLRequest+Parameters.h"; sourceTree = "<group>"; };
+		6AD520FD156220D30055D76D /* NSString+URLEncoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+URLEncoding.h"; sourceTree = "<group>"; };
+		6AD520FE156220D30055D76D /* NSURL+Base.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+Base.h"; sourceTree = "<group>"; };
+		6AD520FF156220D30055D76D /* OAAsynchronousDataFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OAAsynchronousDataFetcher.h; sourceTree = "<group>"; };
+		6AD52100156220D30055D76D /* OAConsumer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OAConsumer.h; sourceTree = "<group>"; };
+		6AD52101156220D30055D76D /* OADataFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OADataFetcher.h; sourceTree = "<group>"; };
+		6AD52102156220D30055D76D /* OAHMAC_SHA1SignatureProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OAHMAC_SHA1SignatureProvider.h; sourceTree = "<group>"; };
+		6AD52103156220D30055D76D /* OAMutableURLRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OAMutableURLRequest.h; sourceTree = "<group>"; };
+		6AD52104156220D30055D76D /* OAPlaintextSignatureProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OAPlaintextSignatureProvider.h; sourceTree = "<group>"; };
+		6AD52105156220D30055D76D /* OARequestParameter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OARequestParameter.h; sourceTree = "<group>"; };
+		6AD52106156220D30055D76D /* OAServiceTicket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OAServiceTicket.h; sourceTree = "<group>"; };
+		6AD52107156220D30055D76D /* OASignatureProviding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OASignatureProviding.h; sourceTree = "<group>"; };
+		6AD52108156220D30055D76D /* OAToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OAToken.h; sourceTree = "<group>"; };
+		6AD52109156220D30055D76D /* OAToken_KeychainExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OAToken_KeychainExtensions.h; sourceTree = "<group>"; };
+		6AD5210A156220D30055D76D /* OAuthConsumer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OAuthConsumer.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -284,41 +284,11 @@
 		044B8BC11561822400836694 /* Twitter+OAuth */ = {
 			isa = PBXGroup;
 			children = (
-				044B8BC21561822400836694 /* Libraries & Headers */,
+				6AD520FA156220D30055D76D /* Libraries & Headers */,
 				044B8BD31561822400836694 /* MGTwitterEngine */,
 				044B8BF41561822400836694 /* SAOAuthTwitterEngine */,
 			);
 			path = "Twitter+OAuth";
-			sourceTree = "<group>";
-		};
-		044B8BC21561822400836694 /* Libraries & Headers */ = {
-			isa = PBXGroup;
-			children = (
-				044B8BC31561822400836694 /* OAuthConsumer */,
-			);
-			path = "Libraries & Headers";
-			sourceTree = "<group>";
-		};
-		044B8BC31561822400836694 /* OAuthConsumer */ = {
-			isa = PBXGroup;
-			children = (
-				044B8BC41561822400836694 /* NSMutableURLRequest+Parameters.h */,
-				044B8BC51561822400836694 /* NSString+URLEncoding.h */,
-				044B8BC61561822400836694 /* NSURL+Base.h */,
-				044B8BC71561822400836694 /* OAAsynchronousDataFetcher.h */,
-				044B8BC81561822400836694 /* OAConsumer.h */,
-				044B8BC91561822400836694 /* OADataFetcher.h */,
-				044B8BCA1561822400836694 /* OAHMAC_SHA1SignatureProvider.h */,
-				044B8BCB1561822400836694 /* OAMutableURLRequest.h */,
-				044B8BCC1561822400836694 /* OAPlaintextSignatureProvider.h */,
-				044B8BCD1561822400836694 /* OARequestParameter.h */,
-				044B8BCE1561822400836694 /* OAServiceTicket.h */,
-				044B8BCF1561822400836694 /* OASignatureProviding.h */,
-				044B8BD01561822400836694 /* OAToken.h */,
-				044B8BD11561822400836694 /* OAToken_KeychainExtensions.h */,
-				044B8BD21561822400836694 /* OAuthConsumer.h */,
-			);
-			path = OAuthConsumer;
 			sourceTree = "<group>";
 		};
 		044B8BD31561822400836694 /* MGTwitterEngine */ = {
@@ -649,6 +619,36 @@
 				04B43BF61560364E00F61E6A /* tab-item-profile.png */,
 			);
 			path = Images;
+			sourceTree = "<group>";
+		};
+		6AD520FA156220D30055D76D /* Libraries & Headers */ = {
+			isa = PBXGroup;
+			children = (
+				6AD520FB156220D30055D76D /* OAuthConsumer */,
+			);
+			path = "Libraries & Headers";
+			sourceTree = "<group>";
+		};
+		6AD520FB156220D30055D76D /* OAuthConsumer */ = {
+			isa = PBXGroup;
+			children = (
+				6AD520FC156220D30055D76D /* NSMutableURLRequest+Parameters.h */,
+				6AD520FD156220D30055D76D /* NSString+URLEncoding.h */,
+				6AD520FE156220D30055D76D /* NSURL+Base.h */,
+				6AD520FF156220D30055D76D /* OAAsynchronousDataFetcher.h */,
+				6AD52100156220D30055D76D /* OAConsumer.h */,
+				6AD52101156220D30055D76D /* OADataFetcher.h */,
+				6AD52102156220D30055D76D /* OAHMAC_SHA1SignatureProvider.h */,
+				6AD52103156220D30055D76D /* OAMutableURLRequest.h */,
+				6AD52104156220D30055D76D /* OAPlaintextSignatureProvider.h */,
+				6AD52105156220D30055D76D /* OARequestParameter.h */,
+				6AD52106156220D30055D76D /* OAServiceTicket.h */,
+				6AD52107156220D30055D76D /* OASignatureProviding.h */,
+				6AD52108156220D30055D76D /* OAToken.h */,
+				6AD52109156220D30055D76D /* OAToken_KeychainExtensions.h */,
+				6AD5210A156220D30055D76D /* OAuthConsumer.h */,
+			);
+			path = OAuthConsumer;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
