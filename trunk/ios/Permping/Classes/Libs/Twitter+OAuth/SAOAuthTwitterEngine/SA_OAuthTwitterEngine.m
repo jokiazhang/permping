@@ -111,7 +111,6 @@
 	return request;
 }
 
-
 //A request token is used to eventually generate an access token
 - (void) requestRequestToken {
 	[self requestURL: self.requestTokenURL token: nil onSuccess: @selector(setRequestToken:withData:) onFail: @selector(outhTicketFailed:data:)];
@@ -121,7 +120,6 @@
 - (void) requestAccessToken {
 	[self requestURL: self.accessTokenURL token: _requestToken onSuccess: @selector(setAccessToken:withData:) onFail: @selector(outhTicketFailed:data:)];
 }
-
 
 - (void) clearAccessToken {
 	if ([_delegate respondsToSelector: @selector(storeCachedTwitterOAuthData:forUsername:)]) [(id) _delegate storeCachedTwitterOAuthData: @"" forUsername: self.username];
