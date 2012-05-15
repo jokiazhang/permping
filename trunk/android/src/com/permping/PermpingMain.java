@@ -25,25 +25,6 @@ public class PermpingMain extends TabActivity {
         setContentView(R.layout.main);
         
         
-        try {
-			XMLParser parser = new XMLParser( "http://tuoitre.vn/RssFeeds.aspx?ChannelID=6");
-			
-			String aa = parser.toString();
-			
-			String c = "sdfsdfdssdfsdf";
-			String a = c;
-			String b = "bbbbbbbbbbb";
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ParserConfigurationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SAXException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-        
         TabHost tabHost = getTabHost();
         //tabHost.setBackgroundResource(R.drawable.tabs_background);
         tabHost.getTabWidget().setBackgroundResource( R.drawable.tabs_background );
