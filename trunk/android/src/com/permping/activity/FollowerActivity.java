@@ -9,7 +9,7 @@ import com.permping.model.Perm;
 import com.permping.utils.facebook.FacebookConnector;
 import com.permping.utils.facebook.SessionEvents;
 import com.permping.utils.facebook.SessionEvents.AuthListener;
-import com.permping.utils.facebook.SessionStore;
+//import com.permping.utils.facebook.SessionStore;
 import com.permping.adapter.*;
 import android.view.View.OnClickListener;
 
@@ -19,7 +19,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Handler;
+//import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
@@ -32,7 +32,7 @@ public class FollowerActivity extends Activity {
 	// The Login button
 	private Button login;
 	
-	private String[] list1 = { "Icon", "Icon Creator", "Image", "Image Creator" };
+	private String[] list1 = new String[] { "Icon", "Icon Creator", "Image", "Image Creator" };
 	
 	/*
 	 * Facebook 
@@ -43,15 +43,8 @@ public class FollowerActivity extends Activity {
 	private static final String EMAIL = "email";
 	private static final String PUBLISH_STREAM = "publish_stream";
 	
-	/*private Facebook facebook;
-	private AsyncFacebookRunner mAsyncRunner;
-	private SharedPreferences sharedPreferences;
-	private Context context;*/
-	
-	private final Handler facebookHander = new Handler();
 	private FacebookConnector facebookConnector;
-	
-	
+		
 	/** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -75,7 +68,6 @@ public class FollowerActivity extends Activity {
         login.setOnClickListener(new OnClickListener() {
 			
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				Intent i = new Intent(v.getContext(), LoginPermActivity.class);
 				v.getContext().startActivity(i);
 			}
@@ -96,7 +88,6 @@ public class FollowerActivity extends Activity {
     @Override
 	protected void onResume() {
 		super.onResume();
-		//updateLoginStatus();
 	}
     
     /**
