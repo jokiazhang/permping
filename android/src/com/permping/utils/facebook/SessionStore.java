@@ -28,20 +28,9 @@ public class SessionStore {
     private static final String EXPIRES = "expires_in";
     private static final String KEY = "facebook-session";
     
-    private static Editor editor;
-    private String accessToken;
-    private long accessExpires;
-    
-    public SessionStore(Editor editor, Context context) {
-    	this.editor = editor;
-    	if (this.editor == null) {
-    		this.editor = context.getSharedPreferences(KEY, Context.MODE_PRIVATE).edit();
-    	}
-    }
-    
     public static boolean save(Facebook session, Context context) {
-        /*Editor editor =
-           context.getSharedPreferences(KEY, Context.MODE_PRIVATE).edit();*/ 
+        Editor editor =
+           context.getSharedPreferences(KEY, Context.MODE_PRIVATE).edit();
         editor.putString(TOKEN, session.getAccessToken());
         editor.putLong(EXPIRES, session.getAccessExpires());
         return editor.commit();
@@ -60,6 +49,5 @@ public class SessionStore {
             context.getSharedPreferences(KEY, Context.MODE_PRIVATE).edit();
         editor.clear();
         editor.commit();
-    }
-    
+    }    
 }
