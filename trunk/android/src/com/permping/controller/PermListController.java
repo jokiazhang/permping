@@ -9,6 +9,10 @@ public class PermListController {
 	 */
 	public PermListController(){
 		
+		//TODO try to parse xml document
+		
+		
+		
 	}
 	
 	/**

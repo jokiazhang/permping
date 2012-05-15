@@ -1,7 +1,14 @@
 package com.permping;
 
+import java.io.IOException;
+
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.xml.sax.SAXException;
+
 import com.permping.R;
 import com.permping.activity.*;
+import com.permping.utils.XMLParser;
 
 import android.app.TabActivity;
 import android.content.Intent;
@@ -16,6 +23,26 @@ public class PermpingMain extends TabActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+        
+        
+        try {
+			XMLParser parser = new XMLParser( "http://tuoitre.vn/RssFeeds.aspx?ChannelID=6");
+			
+			String aa = parser.toString();
+			
+			String c = "sdfsdfdssdfsdf";
+			String a = c;
+			String b = "bbbbbbbbbbb";
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ParserConfigurationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SAXException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         
         TabHost tabHost = getTabHost();
         //tabHost.setBackgroundResource(R.drawable.tabs_background);
