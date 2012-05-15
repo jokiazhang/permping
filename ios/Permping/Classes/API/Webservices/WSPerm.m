@@ -7,15 +7,18 @@
 //
 
 #import "WSPerm.h"
+#import "WSUser.h"
 #import "WSComment.h"
 
 @implementation WSPerm
-@synthesize permId, permName, permDesc, permImage, permComments;
+@synthesize owner, permId, permName, permDesc, permCategory, permImage, permComments;
 
 - (void)dealloc {
+    [owner release];
     [permId release];
     [permName release];
     [permDesc release];
+    [permCategory release];
     [permImage release];
     [permComments release];
     [super dealloc];
@@ -23,10 +26,14 @@
 
 - (id)initWithXmlElement:(TBXMLElement *)in_xmlElement {
     if (self = [super initWithXmlElement:in_xmlElement]) {
-        
+        TBXMLElement *userElement = [TBXML childElementNamed:@"user" parentElement:in_xmlElement];
+        if (userElement) {
+            self.owner = [[[WSUser alloc] initWithXmlElement:[TBXML childElementNamed:@"user" parentElement:in_xmlElement]] autorelease];
+        }
         self.permId = [TBXML textForElement:[TBXML childElementNamed:@"permId" parentElement:in_xmlElement]];
         self.permName = [TBXML textForElement:[TBXML childElementNamed:@"permName" parentElement:in_xmlElement]];
         self.permDesc = [TBXML textForElement:[TBXML childElementNamed:@"permDesc" parentElement:in_xmlElement]];
+        self.permCategory = [TBXML textForElement:[TBXML childElementNamed:@"permCategory" parentElement:in_xmlElement]];
         self.permImage = [TBXML textForElement:[TBXML childElementNamed:@"permImage" parentElement:in_xmlElement]];
 
 		NSMutableArray *comments = [[NSMutableArray alloc] init];

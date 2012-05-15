@@ -17,6 +17,7 @@
 
 
 @implementation CommonViewController
+@synthesize user;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -66,6 +67,11 @@
 
 - (BOOL)checkDidLogin {
     return NO;
+}
+
+- (void)dealloc {
+    [user release];
+    [super dealloc];
 }
 
 @end

@@ -3,31 +3,38 @@
     <user>
         <userId>10</userId>
         <userName>Jerry Pham</userName>
-        <userAvatar>http://localhost/avatars/jerrypham.jpg</userAvatar>
+        <userAvatar>http://farm9.static.flickr.com/8147/7135411419_c82bd0cf4d_s.jpg</userAvatar>
     </user>
     <popularPerms>
         <item>
             <permId>01</permId>
             <permName>Perm 01</permName>
             <permDesc>This is perm 01</permDesc>
+            <permCategory>Sport</permCategory>
             <permImage>http://localhost/perms/perm01.jpg</permImage>
             <permComments>
                 <comment>
-                    <userId>01</userId>
-                    <userName>User 01</userName>
-                    <userAvatar>http://localhost/avatars/user01.jpg</userAvatar>
+                    <user>
+                        <userId>01</userId>
+                        <userName>User 01</userName>
+                        <userAvatar>http://localhost/avatars/user01.jpg</userAvatar>
+                    </user>
                     <content>Good pic, thanks for sharing.</content>
                 </comment>
                 <comment>
-                    <userId>02</userId>
-                    <userName>User 02</userName>
-                    <userAvatar>http://localhost/avatars/user02.jpg</userAvatar>
+                    <user>
+                        <userId>02</userId>
+                        <userName>User 02</userName>
+                        <userAvatar>http://localhost/avatars/user02.jpg</userAvatar>
+                    </user>
                     <content>Good pic, thanks for sharing.</content>
                 </comment>
                 <comment>
-                    <userId>03</userId>
-                    <userName>User 03</userName>
-                    <userAvatar>http://localhost/avatars/user03.jpg</userAvatar>
+                    <user>
+                        <userId>03</userId>
+                        <userName>User 03</userName>
+                        <userAvatar>http://localhost/avatars/user03.jpg</userAvatar>
+                    </user>
                     <content>Good pic, thanks for sharing.</content>
                 </comment>
                 
@@ -37,27 +44,33 @@
             <permId>02</permId>
             <permName>Perm 02</permName>
             <permDesc>This is perm 02</permDesc>
+            <permCategory>Fashion</permCategory>
             <permImage>http://localhost/perms/perm02.jpg</permImage>
             <permComments>
                 <comment>
-                    <userId>01</userId>
-                    <userName>User 03</userName>
-                    <userAvatar>http://localhost/avatars/user03.jpg</userAvatar>
+                    <user>
+                        <userId>01</userId>
+                        <userName>User 03</userName>
+                        <userAvatar>http://localhost/avatars/user03.jpg</userAvatar>
+                    </user>
                     <content>Good pic, thanks for sharing.</content>
                 </comment>
                 <comment>
-                    <userId>02</userId>
-                    <userName>User 02</userName>
-                    <userAvatar>http://localhost/avatars/user02.jpg</userAvatar>
+                    <user>
+                        <userId>02</userId>
+                        <userName>User 02</userName>
+                        <userAvatar>http://localhost/avatars/user02.jpg</userAvatar>
+                    </user>
                     <content>Good pic, thanks for sharing.</content>
                 </comment>
                 <comment>
-                    <userId>03</userId>
-                    <userName>User 01</userName>
-                    <userAvatar>http://localhost/avatars/user01.jpg</userAvatar>
+                    <user>
+                        <userId>03</userId>
+                        <userName>User 01</userName>
+                        <userAvatar>http://localhost/avatars/user01.jpg</userAvatar>
+                    </user>
                     <content>Good pic, thanks for sharing.</content>
                 </comment>
-                
             </permComments>
         </item>
     </popularPerms>

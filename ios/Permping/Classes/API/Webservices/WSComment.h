@@ -7,15 +7,14 @@
 //
 
 #import "RemoteObject.h"
+@class WSUser;
 
 @interface WSComment : RemoteObject {
-    NSString *userId;
-    NSString *userName;
-    NSString *userAvatar;
+    WSUser   *user;
     NSString *content;
 }
-@property (nonatomic, retain) NSString *userId;
-@property (nonatomic, retain) NSString *userName;
-@property (nonatomic, retain) NSString *userAvatar;
+
+@property (nonatomic, retain) WSUser *user;
 @property (nonatomic, retain) NSString *content;
+
 @end

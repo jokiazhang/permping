@@ -1,21 +1,19 @@
 //
-//  PermTableViewCell.m
+//  PermHeaderCell.m
 //  Permping
 //
-//  Created by MAC on 5/14/12.
+//  Created by Andrew Duck on 5/15/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "PermTableViewCell.h"
+#import "PermHeaderCell.h"
 
-@implementation PermTableViewCell
-@synthesize userAvatarView, usernameLabel, categoryLabel, commentLabel, timeLabel, repermButton, likeButton, commentButton, statusLabel, perm;
+@implementation PermHeaderCell
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        // Initialization code
     }
     return self;
 }
@@ -25,6 +23,11 @@
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
+}
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    
 }
 
 @end

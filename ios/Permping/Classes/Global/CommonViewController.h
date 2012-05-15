@@ -7,8 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "WSUser.h"
 
-@interface CommonViewController : UIViewController
+@interface CommonViewController : UIViewController {
+    WSUser      *user;
+}
+
+@property (nonatomic, retain) WSUser *user;
 
 - (BOOL)checkDidLogin;
 @end

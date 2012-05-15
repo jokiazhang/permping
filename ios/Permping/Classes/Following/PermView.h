@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+@class WSPerm;
+
 @interface PermView : UIView 
 
 @property (nonatomic, readonly) UIImageView     *userAvatarView;
@@ -20,5 +22,7 @@
 @property (nonatomic, readonly) UIButton        *likeButton;
 @property (nonatomic, readonly) UIButton        *commentButton;
 @property (nonatomic, readonly) UILabel         *statusLabel;
+
+@property (nonatomic, retain) WSPerm            *perm;
 
 @end
