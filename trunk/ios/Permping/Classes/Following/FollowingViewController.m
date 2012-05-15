@@ -70,15 +70,19 @@
                 TBXMLElement *item = child->firstChild;
                 while (item) {
                     WSPerm *perm = [[WSPerm alloc] initWithXmlElement:item];
+                    if (!perm.owner) {
+                        perm.owner = self.user;
+                    }
                     [perms addObject:perm];
                     [perm release];
                     item = item->nextSibling;
                 }
+            } else if([[TBXML elementName:child] isEqualToString:@"user"]) {
+                self.user = [[[WSUser alloc] initWithXmlElement:child] autorelease];
             }
         } while ((child = child->nextSibling));
         self.permsArray = perms;
     }
-    NSLog(@"self.permsArray: %@", self.permsArray);
     [tbxml release];
 }
 
@@ -112,11 +116,14 @@
 
 #pragma mark - <UITableViewDelegate + DataSource> implementation
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+    return [self.permsArray count];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.permsArray count];
+//    WSPerm *perm = [self.permsArray objectAtIndex:section];
+//    NSInteger count = 5 + perm.permComments.count;
+//    return MIN(count, 10);
+    return 1;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -130,8 +137,20 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:reuserIdentifier];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
-
+    WSPerm *perm = [self.permsArray objectAtIndex:indexPath.section];
+    if (indexPath.row == 0) {
+        [cell.imageView setImageWithURL:[NSURL URLWithString:perm.owner.userAvatar]];
+        cell.textLabel.text = perm.owner.userName;
+        NSLog(@"perm.permCategory: %@, %@", perm.permCategory, perm.owner.userAvatar);
+        cell.detailTextLabel.text = perm.permCategory;
+    }
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    UIImageView *imageView = cell.imageView;
+    NSLog(@"%@", NSStringFromCGRect(imageView.frame));
+    imageView.hidden = NO;
 }
 
 - (IBAction)joinButtonDidTouch:(id)sender {

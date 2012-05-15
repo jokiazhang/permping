@@ -7,23 +7,20 @@
 //
 
 #import "WSComment.h"
+#import "WSUser.h"
 
 @implementation WSComment
-@synthesize userId, userName, userAvatar, content;
+@synthesize user, content;
 
 - (void)dealloc {
+    [user release];
     [content release];
-    [userAvatar release];
-    [userName release];
-    [userId release];
     [super dealloc];
 }
 
 - (id)initWithXmlElement:(TBXMLElement *)in_xmlElement {
     if (self = [super initWithXmlElement:in_xmlElement]) {
-        self.userId = [TBXML textForElement:[TBXML childElementNamed:@"userId" parentElement:in_xmlElement]];
-        self.userName = [TBXML textForElement:[TBXML childElementNamed:@"userName" parentElement:in_xmlElement]];
-        self.userAvatar = [TBXML textForElement:[TBXML childElementNamed:@"userAvatar" parentElement:in_xmlElement]];
+        self.user = [[[WSUser alloc] initWithXmlElement:[TBXML childElementNamed:@"user" parentElement:in_xmlElement]] autorelease];
         self.content = [TBXML textForElement:[TBXML childElementNamed:@"content" parentElement:in_xmlElement]];
     }
     return self;

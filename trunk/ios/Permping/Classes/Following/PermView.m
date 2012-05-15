@@ -7,10 +7,11 @@
 //
 
 #import "PermView.h"
+#import "Webservices.h"
 
 @implementation PermView
 
-@synthesize userAvatarView, usernameLabel, categoryLabel, imageView, commentLabel, timeLabel, repermButton, likeButton, commentButton, statusLabel;
+@synthesize userAvatarView, usernameLabel, categoryLabel, imageView, commentLabel, timeLabel, repermButton, likeButton, commentButton, statusLabel, perm;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -71,6 +72,11 @@
     likeButton.frame = CGRectMake(85, 330, 70, 37);
     commentButton.frame = CGRectMake(160, 330, 70, 37);
     statusLabel.frame = CGRectMake(10, 210, 300, 30);
+}
+
+- (void)setPerm:(WSPerm *)in_perm {
+    [perm release];
+    perm = [in_perm retain];
 }
 
 - (void)dealloc {
