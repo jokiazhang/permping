@@ -136,7 +136,6 @@ public class FollowerActivity extends Activity {
 				if (!facebookConnector.getFacebook().isSessionValid()) {
 					AuthListener authListener = new AuthListener() {
 						
-						@Override
 						public void onAuthSucceed() {							
 							//Edit Preferences and update facebook access token
 							SharedPreferences.Editor editor = prefs.edit();
@@ -145,7 +144,6 @@ public class FollowerActivity extends Activity {
 							editor.commit();
 						}
 						
-						@Override
 						public void onAuthFail(String error) {
 							// TODO Auto-generated method stub							
 						}
