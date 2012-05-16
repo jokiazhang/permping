@@ -14,6 +14,7 @@ import android.app.TabActivity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.Window;
 import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
 
@@ -23,7 +24,6 @@ public class PermpingMain extends TabActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-        
         
         TabHost tabHost = getTabHost();
         //tabHost.setBackgroundResource(R.drawable.tabs_background);
@@ -65,5 +65,8 @@ public class PermpingMain extends TabActivity {
         profile.setContent(profileIntent);
         tabHost.addTab( profile );
         
+        //Remove item background
+        for( int i = 0; i< tabHost.getTabWidget().getChildCount(); i ++ )
+        	tabHost.getTabWidget().getChildAt(i).setBackgroundColor(  Color.TRANSPARENT );
     }
 }
