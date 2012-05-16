@@ -1,7 +1,19 @@
 package com.permping.controller;
 
 import com.permping.model.*;
+
+import java.io.IOException;
 import java.util.ArrayList;
+
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.xml.sax.SAXException;
+
+import com.permping.utils.XMLParser;
+import com.permping.utils.API;
+import org.w3c.dom.*;
+
+
 public class PermListController {
 
 	/**
@@ -9,16 +21,16 @@ public class PermListController {
 	 */
 	public PermListController(){
 		
-		//TODO try to parse xml document
-		
-		
-		
 	}
 	
 	/**
 	 * @TODO simulate perm list
 	 */
 	public ArrayList<Perm> getPermList(){
+		
+		XMLParser parser = new XMLParser( API.popularPermsURL );
+		
+		
 		
 		ArrayList <Perm> permList = new ArrayList<Perm>();
 		for( int i = 0; i < 9 ; i++ ){
@@ -44,5 +56,6 @@ public class PermListController {
 			permList.add( permObject );
 		}
 		return permList;
+		
 	}
 }
