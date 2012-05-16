@@ -99,10 +99,12 @@
 - (void)setPerm:(WSPerm*)in_perm {
     [perm release];
     perm = [in_perm retain];
-    [self.avatarView setImageWithURL:[NSURL URLWithString:perm.owner.userAvatar] placeholderImage:nil];
+    [self.avatarView setImageWithURL:[NSURL URLWithString:perm.owner.userAvatar]];
     [self.textLabel setText:perm.owner.userName];
     [self.detailTextLabel setText:perm.permCategory];
-    [self.permImageView setImageWithURL:[NSURL URLWithString:perm.permImage] placeholderImage:nil];
+    
+    [self.permImageView setImageWithURL:[NSURL URLWithString:perm.permImage]];
+
     [self.ownerCommentLabel setText:perm.permOwnerComment];
     [self.descriptionLabel setText:perm.permDesc];
     [self.statusLabel setText:perm.permStatus];

@@ -13,8 +13,12 @@
     IBOutlet UILabel        *headerLabel;
     IBOutlet UITableView    *infoTableView;
     IBOutlet UIButton       *createAccountButton;
+    
+    BOOL    loggedin;
+    NSArray     *fieldsTitle;
 }
-
+@property (nonatomic, assign) BOOL loggedin;
+@property (nonatomic, retain) NSArray *fieldsTitle;
 - (IBAction)createAccountButtonDidTouch:(id)sender;
 
 @end
