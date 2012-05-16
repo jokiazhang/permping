@@ -12,16 +12,19 @@
 @interface WSPerm : RemoteObject {
     WSUser      *owner;
     NSString    *permId;
-    NSString    *permName;
+    NSString    *permOwnerComment;
     NSString    *permDesc;
+    NSString    *permStatus;
     NSString    *permImage;
     NSString    *permCategory;
     NSArray     *permComments;
+
 }
 @property (nonatomic, retain) WSUser   *owner;
 @property (nonatomic, retain) NSString *permId;
-@property (nonatomic, retain) NSString *permName;
+@property (nonatomic, retain) NSString *permOwnerComment;
 @property (nonatomic, retain) NSString *permDesc;
+@property (nonatomic, retain) NSString *permStatus;
 @property (nonatomic, retain) NSString *permCategory;
 @property (nonatomic, retain) NSString *permImage;
 @property (nonatomic, retain) NSArray *permComments;
