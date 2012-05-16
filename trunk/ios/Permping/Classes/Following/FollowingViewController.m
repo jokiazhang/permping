@@ -12,7 +12,9 @@
 #import "PermHeaderCell.h"
 #import "PermCommentCell.h"
 #import "Webservices.h"
-#import "JoinPopupDialog.h"
+#import <Twitter/TWTweetComposeViewController.h>
+#import "FBFeedPost.h"
+
 
 @implementation FollowingViewController
 @synthesize permsArray;
@@ -40,6 +42,16 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [useFacebookButton setBackgroundImage:[[UIImage imageNamed:@"btn-background.png"] stretchableImageWithLeftCapWidth:20 topCapHeight:0] forState:UIControlStateNormal];
+    
+    [useTwitterButton setBackgroundImage:[[UIImage imageNamed:@"btn-background.png"] stretchableImageWithLeftCapWidth:20 topCapHeight:0] forState:UIControlStateNormal];
+    
+    [joinPermpingButton setBackgroundImage:[[UIImage imageNamed:@"btn-background.png"] stretchableImageWithLeftCapWidth:20 topCapHeight:0] forState:UIControlStateNormal];
+
+    [joinViewContainer.layer setCornerRadius:10.0f];
+    [joinViewContainer.layer setBorderColor:[UIColor lightGrayColor].CGColor];
+    [joinViewContainer.layer setBorderWidth:1.f];
+    
     if (![self checkDidLogin]) {
         permTableview.tableHeaderView = tableHeaderView;
     }
@@ -163,18 +175,176 @@
 }
 
 - (IBAction)joinButtonDidTouch:(id)sender {
-    JoinViewController *controller = [[JoinViewController alloc] initWithNibName:@"JoinViewController" bundle:nil];
-    [self.navigationController pushViewController:controller animated:YES];
-    [controller release];
-    /*JoinPopupDialog *dialog = [[JoinPopupDialog alloc] initWithDelegate:self];
-    [dialog showWithScale:0.5];
-    [dialog release];*/
+    [self.view addSubview:joinView];
 }
 
 - (IBAction)loginButtonDidTouch:(id)sender {
     LoginViewController *controller = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
     [self.navigationController pushViewController:controller animated:YES];
     [controller release];
+}
+
+- (void)showJoinViewControllerLoggedin:(BOOL)loggedin {
+    JoinViewController *controller = [[JoinViewController alloc] initWithNibName:@"JoinViewController" bundle:nil];
+    controller.loggedin = loggedin;
+    [self.navigationController pushViewController:controller animated:YES];
+    [controller release];
+    [joinView removeFromSuperview];
+}
+
+#pragma mark - Twitter
+- (BOOL)twitterLoggedIn {
+    if (!twitterEngine) {
+        twitterEngine = [[SA_OAuthTwitterEngine alloc] initOAuthWithDelegate:self];
+        twitterEngine.consumerKey = @"TJbmLdgKvs0QW05Gxi9ig";
+        twitterEngine.consumerSecret = @"mbaHUOiZAIZAIXZ1mmVrRW1A6FFTAosRl9x7bqiaA";
+    }
+    
+    if ([twitterEngine isAuthorized]) {
+        return YES;
+    }
+    
+    // show login diaglog
+    if (saController) {
+        [saController release];        
+    }
+    SA_OAuthTwitterController *controller = [SA_OAuthTwitterController controllerToEnterCredentialsWithTwitterEngine:twitterEngine delegate:self];
+    if (controller) {
+        saController = [controller retain];
+    }
+    [saController showLoginDialog];
+    return NO;
+}
+
+#pragma mark - Facebook
+- (BOOL)fbLoggedIn {
+    // if the user is not currently logged in begin the session
+	BOOL loggedIn = [[FBRequestWrapper defaultManager] isLoggedIn];
+    //loggedIn = NO;
+	if (!loggedIn) {
+        FBFeedPost *post = [[FBFeedPost alloc] init];
+        [post showLoginViewWithDelegate:self];
+	}
+    return loggedIn;
+}
+
+- (IBAction)joinViewButtonDidTouch:(id)sender {
+    UIButton *button = (UIButton*)sender;
+    if (button.tag == 0) {
+        [joinView removeFromSuperview];
+    } else if (button.tag == 1) { // facebook
+        if ([self fbLoggedIn]) {
+            [self showJoinViewControllerLoggedin:YES];
+        }
+    } else if (button.tag == 2) { // twitter
+        float version = [[[UIDevice currentDevice] systemVersion] floatValue];
+        if (version >= 5.0) {
+            if ([TWTweetComposeViewController canSendTweet]) {
+                [self showJoinViewControllerLoggedin:YES];
+            } else {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"No twitter account has been setup." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                [alert show];
+                [alert release];
+            }
+            return;
+        } else {
+            if ([self twitterLoggedIn] == YES) {
+                [self showJoinViewControllerLoggedin:YES];
+            }
+        }
+    } else {
+        [self showJoinViewControllerLoggedin:NO];
+    }
+}
+
+#pragma mark - FBFeedPostDelegate
+
+- (void) didLogin:(FBFeedPost *)_post {
+    [self showJoinViewControllerLoggedin:YES];
+}
+
+- (void) didNotLogin:(FBFeedPost *)_post {
+    UIAlertView *view = [[UIAlertView alloc] initWithTitle:nil message:@"Failed to connect to Facebook" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+    [view show];
+    [view release];
+}
+
+
+#pragma mark - SA_OAuthTwitterEngineDelegate
+
+- (void) storeCachedTwitterOAuthData: (NSString *) data forUsername: (NSString *) username {
+    
+	NSUserDefaults	*defaults = [NSUserDefaults standardUserDefaults];
+    NSLog(@"storeCachedTwitterOAuthData data - username: %@ - %@", data, username);
+	[defaults setObject: data forKey: @"authData"];
+	[defaults synchronize];
+}
+
+- (NSString *) cachedTwitterOAuthDataForUsername: (NSString *) username {
+    
+	return [[NSUserDefaults standardUserDefaults] objectForKey: @"authData"];
+}
+
+
+#pragma mark - SA_OAuthTwitterController Delegate
+
+- (void) OAuthTwitterController: (SA_OAuthTwitterController *) controller authenticatedWithUsername: (NSString *) username {
+    
+	NSLog(@"Authenticated with user %@", username);
+    [self showJoinViewControllerLoggedin:YES];
+    
+}
+
+- (void) OAuthTwitterControllerFailed: (SA_OAuthTwitterController *) controller {
+    
+	NSLog(@"Authentication Failure");
+    
+}
+
+- (void) OAuthTwitterControllerCanceled: (SA_OAuthTwitterController *) controller {
+    
+	NSLog(@"Authentication Canceled");
+}
+
+
+#pragma mark - MGTwitterEngineDelegate Methods
+
+- (void)requestSucceeded:(NSString *)connectionIdentifier {
+    
+	NSLog(@"Request Suceeded: %@", connectionIdentifier);
+
+}
+
+- (void)requestFailed:(NSString *)connectionIdentifier withError:(NSError *)error {
+    
+    NSLog(@"Request Failed: %@. Error: %@", connectionIdentifier, [error localizedDescription]);
+     
+}
+
+
+- (void)statusesReceived:(NSArray *)statuses forRequest:(NSString *)connectionIdentifier {
+    
+	NSLog(@"Recieved Status");
+}
+
+- (void)receivedObject:(NSDictionary *)dictionary forRequest:(NSString *)connectionIdentifier {
+    
+	NSLog(@"Recieved Object: %@", dictionary);
+}
+
+- (void)directMessagesReceived:(NSArray *)messages forRequest:(NSString *)connectionIdentifier {
+    
+	NSLog(@"Direct Messages Received: %@", messages);
+}
+
+- (void)userInfoReceived:(NSArray *)userInfo forRequest:(NSString *)connectionIdentifier {
+    
+	NSLog(@"User Info Received: %@", userInfo);
+}
+
+- (void)miscInfoReceived:(NSArray *)miscInfo forRequest:(NSString *)connectionIdentifier {
+    
+	NSLog(@"Misc Info Received: %@", miscInfo);
 }
 
 @end

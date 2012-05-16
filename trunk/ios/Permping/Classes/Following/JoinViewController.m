@@ -10,6 +10,7 @@
 #import "UserInfoTableViewCell.h"
 
 @implementation JoinViewController
+@synthesize loggedin, fieldsTitle;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -33,7 +34,22 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self.navigationController.navigationItem setHidesBackButton:YES];
+    
+    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 65, 30)];
+    [button setTitle:@"Cancel" forState:UIControlStateNormal];
+    button.titleLabel.font = [UIFont systemFontOfSize:15];
+    [button setBackgroundImage:[UIImage imageNamed:@"bar-item-btn.png"] forState:UIControlStateNormal];
+    [button addTarget:self action:@selector(dismiss:) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
+	self.navigationItem.leftBarButtonItem = barButtonItem;
+	[barButtonItem release];
+    [button release];
+    
+    if (loggedin) {
+        self.fieldsTitle = [NSArray arrayWithObjects:@"Name :", @"Email :", @"Password :", @"Confirm Password :", nil];
+    } else {
+        self.fieldsTitle = [NSArray arrayWithObjects:@"Name :", @"Nick Name :", @"Username :", @"Email :", @"Password :", @"Confirm Password :", nil];
+    }
 }
 
 - (void)viewDidUnload
@@ -49,7 +65,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 6;
+    return self.fieldsTitle.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -68,21 +84,8 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.valueTextField.delegate = self;
     }
-    NSString *text = nil;
-    if (indexPath.row == 0) {
-        text = @"Name :";
-    } else if (indexPath.row == 1) {
-        text = @"Nick Name :";
-    } else if (indexPath.row == 2) {
-        text = @"Username :";
-    } else if (indexPath.row == 3) {
-        text = @"Email :";
-    } else if (indexPath.row == 4) {
-        text = @"Password :";
-    } else if (indexPath.row == 5) {
-        text = @"Confirm Password :";
-    }
-    cell.textLabel.text = text;
+    
+    cell.textLabel.text = [self.fieldsTitle objectAtIndex:indexPath.row];
     return cell;
 }
 
@@ -98,6 +101,10 @@
 
 - (IBAction)createAccountButtonDidTouch:(id)sender {
     
+}
+
+- (void)dismiss:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 @end
