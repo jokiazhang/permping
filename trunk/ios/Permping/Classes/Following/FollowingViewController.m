@@ -9,15 +9,10 @@
 #import "FollowingViewController.h"
 #import "JoinViewController.h"
 #import "LoginViewController.h"
-
-
-#import "RequestManager.h"
-
-#import "WSPerm.h"
-#import "WSError.h"
-
-#import "PermListRequest.h"
-#import "LoginRequest.h"
+#import "PermHeaderCell.h"
+#import "PermCommentCell.h"
+#import "Webservices.h"
+#import "JoinPopupDialog.h"
 
 @implementation FollowingViewController
 @synthesize permsArray;
@@ -120,43 +115,60 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-//    WSPerm *perm = [self.permsArray objectAtIndex:section];
-//    NSInteger count = 5 + perm.permComments.count;
-//    return MIN(count, 10);
-    return 1;
+    WSPerm *perm = [self.permsArray objectAtIndex:section];
+    NSInteger count = 1 + perm.permComments.count;
+    return MIN(count, 6);
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 44.0;
+    // TODO :
+    CGFloat h = 60.0;
+    if (indexPath.section == 0 && indexPath.row == 0) {
+        h = 400;
+    } else if (indexPath.section == 1 && indexPath.row == 0) {
+        h = 420;
+    }
+    return h;
 }
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString *reuserIdentifier = @"PermCellIdentifier";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuserIdentifier];
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:reuserIdentifier];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    }
+    static NSString *permReuseIdentifier = @"PermCellIdentifier";
+    static NSString *commentReuseIdentifier = @"CommentReuseIdentifier";
     WSPerm *perm = [self.permsArray objectAtIndex:indexPath.section];
+    
     if (indexPath.row == 0) {
-        [cell.imageView setImageWithURL:[NSURL URLWithString:perm.owner.userAvatar]];
-        cell.textLabel.text = perm.owner.userName;
-        NSLog(@"perm.permCategory: %@, %@", perm.permCategory, perm.owner.userAvatar);
-        cell.detailTextLabel.text = perm.permCategory;
+        PermHeaderCell *cell = (PermHeaderCell*)[tableView dequeueReusableCellWithIdentifier:permReuseIdentifier];
+        if (cell == nil) {
+            cell = [[PermHeaderCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:permReuseIdentifier];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        }
+        [cell setPerm:perm];
+        return cell;
+    } else {
+        PermCommentCell *cell = [tableView dequeueReusableCellWithIdentifier:commentReuseIdentifier];
+        if (cell == nil) {
+            cell = [[PermCommentCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:commentReuseIdentifier];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        }
+        WSComment *comment = [perm.permComments objectAtIndex:indexPath.row-1];
+        [cell setComment:comment];
+        return cell;
     }
-    return cell;
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-    UIImageView *imageView = cell.imageView;
-    NSLog(@"%@", NSStringFromCGRect(imageView.frame));
-    imageView.hidden = NO;
+    if ([cell isKindOfClass:[PermCommentCell class]]) {
+        cell.textLabel.font = [UIFont systemFontOfSize:15];
+    }
 }
 
 - (IBAction)joinButtonDidTouch:(id)sender {
     JoinViewController *controller = [[JoinViewController alloc] initWithNibName:@"JoinViewController" bundle:nil];
     [self.navigationController pushViewController:controller animated:YES];
     [controller release];
+    /*JoinPopupDialog *dialog = [[JoinPopupDialog alloc] initWithDelegate:self];
+    [dialog showWithScale:0.5];
+    [dialog release];*/
 }
 
 - (IBAction)loginButtonDidTouch:(id)sender {

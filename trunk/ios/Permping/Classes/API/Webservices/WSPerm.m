@@ -11,13 +11,14 @@
 #import "WSComment.h"
 
 @implementation WSPerm
-@synthesize owner, permId, permName, permDesc, permCategory, permImage, permComments;
+@synthesize owner, permId, permOwnerComment, permDesc, permStatus, permCategory, permImage, permComments;
 
 - (void)dealloc {
     [owner release];
     [permId release];
-    [permName release];
+    [permOwnerComment release];
     [permDesc release];
+    [permStatus release];
     [permCategory release];
     [permImage release];
     [permComments release];
@@ -31,8 +32,9 @@
             self.owner = [[[WSUser alloc] initWithXmlElement:[TBXML childElementNamed:@"user" parentElement:in_xmlElement]] autorelease];
         }
         self.permId = [TBXML textForElement:[TBXML childElementNamed:@"permId" parentElement:in_xmlElement]];
-        self.permName = [TBXML textForElement:[TBXML childElementNamed:@"permName" parentElement:in_xmlElement]];
+        self.permOwnerComment = [TBXML textForElement:[TBXML childElementNamed:@"permOwnerComment" parentElement:in_xmlElement]];
         self.permDesc = [TBXML textForElement:[TBXML childElementNamed:@"permDesc" parentElement:in_xmlElement]];
+        self.permStatus = [TBXML textForElement:[TBXML childElementNamed:@"permStatus" parentElement:in_xmlElement]];
         self.permCategory = [TBXML textForElement:[TBXML childElementNamed:@"permCategory" parentElement:in_xmlElement]];
         self.permImage = [TBXML textForElement:[TBXML childElementNamed:@"permImage" parentElement:in_xmlElement]];
 

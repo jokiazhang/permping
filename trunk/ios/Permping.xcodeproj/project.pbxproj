@@ -80,6 +80,9 @@
 		04B43C2A1560364E00F61E6A /* JoinViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04B43C281560364E00F61E6A /* JoinViewController.xib */; };
 		04B43C2E1560364E00F61E6A /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B43C2C1560364E00F61E6A /* LoginViewController.m */; };
 		04B43C2F1560364E00F61E6A /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04B43C2D1560364E00F61E6A /* LoginViewController.xib */; };
+		04B9B49915632C990051AE15 /* JoinPopupDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B9B49815632C990051AE15 /* JoinPopupDialog.m */; };
+		04B9B49C15632E170051AE15 /* close.png in Resources */ = {isa = PBXBuildFile; fileRef = 04B9B49B15632E170051AE15 /* close.png */; };
+		04B9B49F156332350051AE15 /* PermCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B9B49E156332350051AE15 /* PermCommentCell.m */; };
 		04C7C35B15615572004DB98D /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 04C7C35A15615572004DB98D /* libxml2.dylib */; };
 		04C7C35D15615764004DB98D /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04C7C35C15615764004DB98D /* Twitter.framework */; };
 		04DFAC5D155E40A300AE9FFD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04DFAC5C155E40A300AE9FFD /* UIKit.framework */; };
@@ -102,8 +105,6 @@
 		6AC710A315610F4200DFE074 /* TBXML.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AC7109E15610F4200DFE074 /* TBXML.m */; };
 		6AC710A415610F4200DFE074 /* TBXML+Compression.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AC710A015610F4200DFE074 /* TBXML+Compression.m */; };
 		6AC710A515610F4200DFE074 /* TBXML+HTTP.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AC710A215610F4200DFE074 /* TBXML+HTTP.m */; };
-		6AC710B01561102200DFE074 /* PermTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AC710AB1561102200DFE074 /* PermTableViewCell.m */; };
-		6AC710B11561102200DFE074 /* PermView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AC710AD1561102200DFE074 /* PermView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -234,6 +235,11 @@
 		04B43C2B1560364E00F61E6A /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		04B43C2C1560364E00F61E6A /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		04B43C2D1560364E00F61E6A /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
+		04B9B49715632C990051AE15 /* JoinPopupDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JoinPopupDialog.h; sourceTree = "<group>"; };
+		04B9B49815632C990051AE15 /* JoinPopupDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JoinPopupDialog.m; sourceTree = "<group>"; };
+		04B9B49B15632E170051AE15 /* close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = close.png; path = Permping/Resources/Images/close.png; sourceTree = SOURCE_ROOT; };
+		04B9B49D156332350051AE15 /* PermCommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PermCommentCell.h; sourceTree = "<group>"; };
+		04B9B49E156332350051AE15 /* PermCommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PermCommentCell.m; sourceTree = "<group>"; };
 		04C7C35A15615572004DB98D /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		04C7C35C15615764004DB98D /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
 		04DFAC58155E40A300AE9FFD /* Permping.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Permping.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -277,10 +283,6 @@
 		6AC710A015610F4200DFE074 /* TBXML+Compression.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "TBXML+Compression.m"; path = "Permping/Classes/Libs/TBXML/TBXML+Compression.m"; sourceTree = SOURCE_ROOT; };
 		6AC710A115610F4200DFE074 /* TBXML+HTTP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "TBXML+HTTP.h"; path = "Permping/Classes/Libs/TBXML/TBXML+HTTP.h"; sourceTree = SOURCE_ROOT; };
 		6AC710A215610F4200DFE074 /* TBXML+HTTP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "TBXML+HTTP.m"; path = "Permping/Classes/Libs/TBXML/TBXML+HTTP.m"; sourceTree = SOURCE_ROOT; };
-		6AC710AA1561102200DFE074 /* PermTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PermTableViewCell.h; sourceTree = "<group>"; };
-		6AC710AB1561102200DFE074 /* PermTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PermTableViewCell.m; sourceTree = "<group>"; };
-		6AC710AC1561102200DFE074 /* PermView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PermView.h; sourceTree = "<group>"; };
-		6AC710AD1561102200DFE074 /* PermView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PermView.m; sourceTree = "<group>"; };
 		6AD520FC156220D30055D76D /* NSMutableURLRequest+Parameters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableURLRequest+Parameters.h"; sourceTree = "<group>"; };
 		6AD520FD156220D30055D76D /* NSString+URLEncoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+URLEncoding.h"; sourceTree = "<group>"; };
 		6AD520FE156220D30055D76D /* NSURL+Base.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+Base.h"; sourceTree = "<group>"; };
@@ -474,10 +476,8 @@
 				04B43C2D1560364E00F61E6A /* LoginViewController.xib */,
 				04AA8E6115600B8800B5E956 /* UserInfoTableViewCell.h */,
 				04AA8E6215600B8800B5E956 /* UserInfoTableViewCell.m */,
-				6AC710AA1561102200DFE074 /* PermTableViewCell.h */,
-				6AC710AB1561102200DFE074 /* PermTableViewCell.m */,
-				6AC710AC1561102200DFE074 /* PermView.h */,
-				6AC710AD1561102200DFE074 /* PermView.m */,
+				04B9B49715632C990051AE15 /* JoinPopupDialog.h */,
+				04B9B49815632C990051AE15 /* JoinPopupDialog.m */,
 			);
 			name = Following;
 			path = Permping/Classes/Following;
@@ -649,6 +649,7 @@
 		04DFAC93155E446D00AE9FFD /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				04B9B49B15632E170051AE15 /* close.png */,
 				04AA8E651560122F00B5E956 /* login-facebook-btn.btn */,
 				04AA8E661560122F00B5E956 /* login-twitter-btn.png */,
 				04B43C241560364E00F61E6A /* btn-background.png */,
@@ -695,6 +696,8 @@
 			children = (
 				6A04633B15626C1800BB4E34 /* PermHeaderCell.h */,
 				6A04633C15626C1800BB4E34 /* PermHeaderCell.m */,
+				04B9B49D156332350051AE15 /* PermCommentCell.h */,
+				04B9B49E156332350051AE15 /* PermCommentCell.m */,
 			);
 			path = PermView;
 			sourceTree = "<group>";
@@ -802,6 +805,7 @@
 				0469516F156186A700620B12 /* README.md in Resources */,
 				04695226156192C200620B12 /* permList.xml in Resources */,
 				0469525E1561A50500620B12 /* Localizable.strings in Resources */,
+				04B9B49C15632E170051AE15 /* close.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -827,8 +831,6 @@
 				6AC710A315610F4200DFE074 /* TBXML.m in Sources */,
 				6AC710A415610F4200DFE074 /* TBXML+Compression.m in Sources */,
 				6AC710A515610F4200DFE074 /* TBXML+HTTP.m in Sources */,
-				6AC710B01561102200DFE074 /* PermTableViewCell.m in Sources */,
-				6AC710B11561102200DFE074 /* PermView.m in Sources */,
 				040B305315617A6100F7CF99 /* Facebook.m in Sources */,
 				040B305515617A6100F7CF99 /* FBDialog.m in Sources */,
 				040B305615617A6100F7CF99 /* FBFeedPost.m in Sources */,
@@ -877,6 +879,8 @@
 				6A0463341562591600BB4E34 /* UIImageView+WebCache.m in Sources */,
 				6A046337156259E700BB4E34 /* WSUser.m in Sources */,
 				6A04633D15626C1800BB4E34 /* PermHeaderCell.m in Sources */,
+				04B9B49915632C990051AE15 /* JoinPopupDialog.m in Sources */,
+				04B9B49F156332350051AE15 /* PermCommentCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

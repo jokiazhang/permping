@@ -9,6 +9,8 @@
 #import "RequestManager.h"
 
 #import "WSPerm.h"
+#import "WSUser.h"
+#import "WSComment.h"
 #import "WSError.h"
 
 #import "PermListRequest.h"
