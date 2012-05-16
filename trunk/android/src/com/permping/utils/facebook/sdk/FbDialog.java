@@ -39,7 +39,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 public class FbDialog extends Dialog {
-
     static final int FB_BLUE = 0xFF6D84B4;
     static final float[] DIMENSIONS_DIFF_LANDSCAPE = {20, 60};
     static final float[] DIMENSIONS_DIFF_PORTRAIT = {40, 60};
@@ -97,6 +96,7 @@ public class FbDialog extends Dialog {
         mCrossImage = new ImageView(getContext());
         // Dismiss the dialog when user click on the 'x'
         mCrossImage.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View v) {
                 mListener.onCancel();
                 FbDialog.this.dismiss();

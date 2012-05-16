@@ -52,7 +52,6 @@ import android.webkit.CookieSyncManager;
  *          Luke Shepard (lshepard@facebook.com)
  */
 public class Facebook {
-
     // Strings used in the authorization flow
     public static final String REDIRECT_URI = "fbconnect://success";
     public static final String CANCEL_URI = "fbconnect://cancel";
@@ -571,11 +570,13 @@ public class Facebook {
             this.serviceListener = serviceListener;
         }
 
+        @Override
         public void onServiceConnected(ComponentName className, IBinder service) {
             messageSender = new Messenger(service);
             refreshToken();
         }
 
+        @Override
         public void onServiceDisconnected(ComponentName arg) {
             serviceListener.onError(new Error("Service disconnected"));
             // We returned an error so there's no point in
