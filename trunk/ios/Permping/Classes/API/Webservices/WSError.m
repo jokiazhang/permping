@@ -12,14 +12,20 @@
 @synthesize code, message;
 
 - (void)dealloc {
-	[code release];
 	[message release];
 	[super dealloc];
 }
 
 -(id)initWithXmlElement:(TBXMLElement*)in_xmlElement{
 	if (self = [super initWithXmlElement:in_xmlElement]) {
-		// TODO
+		TBXMLElement *element = in_xmlElement->firstChild;
+        do {
+            if ([[TBXML elementName:element] isEqualToString:@"errorCode"]) {
+                self.code = [[TBXML textForElement:[TBXML childElementNamed:@"errorCode" parentElement:element]] intValue];
+            } else if ([[TBXML elementName:element] isEqualToString:@"errorMessage"]){
+                self.message = [TBXML textForElement:[TBXML childElementNamed:@"errorMessage" parentElement:element]];
+            }
+        } while ((element = element->nextSibling));
 	}
 	return self;
 }
@@ -28,7 +34,7 @@
 	NSString *domain = self.message;
 	if (!domain) domain = @"Unknown";
 	NSDictionary *userInfo = [NSDictionary dictionaryWithObject:self forKey:@"wserror"];
-	return [NSError errorWithDomain:domain code:[self.code intValue] userInfo:userInfo];
+	return [NSError errorWithDomain:domain code:code userInfo:userInfo];
 }
 
 @end

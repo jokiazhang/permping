@@ -9,11 +9,11 @@
 #import "RemoteObject.h"
 
 @interface WSError : RemoteObject {
-	NSString *code;
+	NSInteger     code;
 	NSString *message;
 }
 
-@property (nonatomic, retain) NSString *code;
+@property (nonatomic, assign) NSInteger code;
 @property (nonatomic, retain) NSString *message;
 
 - (NSError*)error;

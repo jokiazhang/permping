@@ -10,8 +10,12 @@
 #import "WSError.h"
 
 @implementation RequestError
--(id)handleXMLResponse:(TBXMLElement *)in_document error:(NSError **)out_error{
-    // TODO
+-(id)handleXMLResponse:(TBXMLElement *)in_document error:(NSError **)out_error {
+    TBXMLElement *firstChild = in_document->firstChild;
+    if (firstChild) {
+        WSError *error = [[WSError alloc] initWithXmlElement:in_document];
+        return [error autorelease];
+    }
 	return nil;
 }
 @end
