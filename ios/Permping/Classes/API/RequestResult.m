@@ -44,7 +44,20 @@
 	if (self != nil) {
 		self.error = in_error;
 		
-		// TODO
+		NSString *message = nil;
+        if ([self.error isKindOfClass:[NSError class]]) {
+            WSError *lcError = [[(NSError*)in_error userInfo] objectForKey:@"wserror"];
+            if (lcError.code != 200) {
+                message = lcError.message;
+            }
+        }
+        
+        if (!message) message = NSLocalizedString(@"RequestResult.error_occured", @"An error occured" );
+		UIAlertView *alert =[[UIAlertView alloc] initWithTitle: nil
+														  message: message
+														 delegate:self cancelButtonTitle:NSLocalizedString(@"RequestResult.ok_button", @"Ok button") otherButtonTitles: nil];
+		[alert show];
+		[alert release];
 	}
 	return self;
 }

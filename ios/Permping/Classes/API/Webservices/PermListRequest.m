@@ -7,6 +7,7 @@
 //
 
 #import "PermListRequest.h"
+#import "WSPerm.h"
 
 @implementation PermListRequest
 
@@ -24,11 +25,23 @@
 }
 
 - (id)handleXMLResponse:(TBXMLElement *)in_xmlElement error:(NSError **)out_error {
-    //TODO
-    NSString *file = [[[NSBundle mainBundle] resourcePath] stringByAppendingString:@"/permList.xml"];
-    NSError *error;
-    TBXML *tbxml = [TBXML newTBXMLWithXMLFile:file error:&error];
-    NSLog(@"tbxml %@, %@", tbxml, error);
+   if (in_xmlElement) {
+       NSMutableArray *perms = [NSMutableArray array];
+       TBXMLElement *child = in_xmlElement->firstChild;
+       NSLog(@"[TBXML elementName:child]: %@", [TBXML elementName:child]);
+       do {
+           if ([[TBXML elementName:child] isEqualToString:@"popularPerms"]) {
+                TBXMLElement *item = child->firstChild;
+                while (item) {
+                    WSPerm *perm = [[WSPerm alloc] initWithXmlElement:item];
+                    [perms addObject:perm];
+                    [perm release];
+                    item = item->nextSibling;
+                }
+            }
+       } while ((child = child->nextSibling));
+       return perms;
+    }
     return nil;
 }
 

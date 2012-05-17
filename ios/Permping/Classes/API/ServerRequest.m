@@ -7,8 +7,10 @@
 //
 
 #import "ServerRequest.h"
+#import "Constants.h"
 #import "RequestError.h"
 #import "WSError.h"
+#import "Constants.h"
 
 #ifdef USE_FAKE_CONNECTION
 #import "NSURLConnectionFake.h"
@@ -48,25 +50,66 @@ NSString * const ServerRequestErrorDomain = @"ServerRequestErrorDomain";
 }
 
 -(void)handleDataResponse:(NSData *)in_data {
+    NSError *error = nil;
+    
+#if TARGET_IPHONE_SIMULATOR
+    // Just for debug only
 	NSString *xml = [[NSString alloc] initWithData:in_data encoding:NSUTF8StringEncoding];
 	NSLog(@"xml %@", xml);
 	[xml release];
-	
-    // TODO
+#endif
+    
+    TBXML *document = [TBXML newTBXMLWithXMLData:data error:&error];
+    RequestResult *requestResult = nil;
+    if (!error) {
+        id obj = [self handleXMLResponse:document.rootXMLElement error:&error];
+        if (!error) {
+            if (!obj) {
+                RequestError *requestError = [[[RequestError alloc] init] autorelease];
+                id errorFromXml = [requestError handleXMLResponse:document.rootXMLElement error:&error];
+                if (errorFromXml) {
+                    error = [(WSError*)errorFromXml error];
+                }
+            }
+            if (!error) {
+                requestResult = [RequestResult resultWithObject:obj];
+            }
+        }
+    }
+    
+    if (error) {
+        requestResult = [RequestResult resultWithError:error];
+    }
+    
+    self.result = requestResult;
+    
+    if (requestResult) {
+        [requestResult release];
+    }
+    
+    [document release];
 }
 
 #pragma mark URL
-
--(NSString *)urlComplete{
-    // TODO
-    return nil;
+-(NSString *)urlComplete {
+    return kPopularPermURLString;
 }
+
 
 #pragma mark Request
 
 -(NSURLRequest *)urlRequest{
-    // TODO
-    return nil;
+    NSURL *url = [NSURL URLWithString:[self urlComplete]];
+	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
+	/*if(isUsingMethodPOST){
+		[lc_request setHTTPMethod:@"POST"];
+		[lc_request addValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+		NSString *lc_body = [self urlSpecificPart];
+		[lc_request addValue:[NSString stringWithFormat:@"%d", [lc_body length]] forHTTPHeaderField:@"Content-Length"];
+		[lc_request setHTTPBody:[lc_body dataUsingEncoding:NSUTF8StringEncoding]];
+	}*/
+	[request setTimeoutInterval:SERVER_REQUEST_TIMEOUT_DEFAULT];
+	return [request autorelease];
 }
 
 #pragma mark NSURLConnection delegate
@@ -101,7 +144,11 @@ NSString * const ServerRequestErrorDomain = @"ServerRequestErrorDomain";
 	if(!connection){
 		self.target = in_target;
 		self.action = in_action;
-		connection = [[NSURLConnection alloc] initWithRequest:[self urlRequest] delegate:self];
+#ifdef USE_FAKE_CONNECTION
+        connection = [[NSURLConnectionFake alloc] initWithRequest:[self urlRequest] delegate:self];
+#else
+        connection = [[NSURLConnection alloc] initWithRequest:[self urlRequest] delegate:self];
+#endif
 		if(!connection){
 			[self connection:nil didFailWithError:[NSError errorWithDomain:ServerRequestErrorDomain code:ServerRequestErrorConnectionNotEstablished userInfo:nil]];
 		}

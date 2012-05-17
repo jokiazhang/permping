@@ -276,6 +276,7 @@
 		6A04633815625E8100BB4E34 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		6A04633B15626C1800BB4E34 /* PermHeaderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PermHeaderCell.h; sourceTree = "<group>"; };
 		6A04633C15626C1800BB4E34 /* PermHeaderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PermHeaderCell.m; sourceTree = "<group>"; };
+		6A0566A11564BB660064A63B /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		6AC7109D15610F4200DFE074 /* TBXML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TBXML.h; path = Permping/Classes/Libs/TBXML/TBXML.h; sourceTree = SOURCE_ROOT; };
 		6AC7109E15610F4200DFE074 /* TBXML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TBXML.m; path = Permping/Classes/Libs/TBXML/TBXML.m; sourceTree = SOURCE_ROOT; };
 		6AC7109F15610F4200DFE074 /* TBXML+Compression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "TBXML+Compression.h"; path = "Permping/Classes/Libs/TBXML/TBXML+Compression.h"; sourceTree = SOURCE_ROOT; };
@@ -490,6 +491,7 @@
 				04B43BDA1560364E00F61E6A /* CommonViewController.m */,
 				04B43C1A1560364E00F61E6A /* UINavigationBar+CustomBackground.h */,
 				04B43C1B1560364E00F61E6A /* UINavigationBar+CustomBackground.m */,
+				6A0566A11564BB660064A63B /* Constants.h */,
 			);
 			name = Global;
 			path = Permping/Classes/Global;

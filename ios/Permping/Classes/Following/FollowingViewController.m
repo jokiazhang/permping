@@ -64,60 +64,30 @@
     // e.g. self.myOutlet = nil;
 }
 
-- (void)loadPermsFromFile {
-    NSString *file = [[[NSBundle mainBundle] resourcePath] stringByAppendingString:@"/permList.xml"];
-    NSData *data = [NSData dataWithContentsOfFile:file];
-    NSError *error;
-    NSMutableArray *perms = [[NSMutableArray alloc] init];
-    TBXML *tbxml = [TBXML newTBXMLWithXMLData:data error:&error];
-    if (tbxml.rootXMLElement) {
-        TBXMLElement *child = tbxml.rootXMLElement->firstChild;
-        do {
-            if ([[TBXML elementName:child] isEqualToString:@"popularPerms"]) {
-                TBXMLElement *item = child->firstChild;
-                while (item) {
-                    WSPerm *perm = [[WSPerm alloc] initWithXmlElement:item];
-                    if (!perm.owner) {
-                        perm.owner = self.user;
-                    }
-                    [perms addObject:perm];
-                    [perm release];
-                    item = item->nextSibling;
-                }
-            } else if([[TBXML elementName:child] isEqualToString:@"user"]) {
-                self.user = [[[WSUser alloc] initWithXmlElement:child] autorelease];
-            }
-        } while ((child = child->nextSibling));
-        self.permsArray = perms;
-    }
-    [tbxml release];
-}
-
-
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    /*PermListRequest *request = [[PermListRequest alloc] initWithToken:@""];
+    PermListRequest *request = [[PermListRequest alloc] initWithToken:@""];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleServerResponse:) name:REQUESTMANAGER_REQUEST_TERMINATED_NOTIFICATION object:request];
-	[[RequestManager sharedInstance] performRequest:request];*/
-    
-    [self loadPermsFromFile];
+	[[RequestManager sharedInstance] performRequest:request];
 }
 
 - (void)handleServerResponse: (NSNotification*)in_response {
-	//NSLog(@"handleServerResponse: %@", in_response);
+	NSLog(@"handleServerResponse: %@", in_response);
 	
-	/*ServerRequest *request = in_response.object;
+	ServerRequest *request = in_response.object;
 	
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:REQUESTMANAGER_REQUEST_TERMINATED_NOTIFICATION object:request];
 	
 	if (!request.result.error) {
 		id result = request.result.object;
+        NSLog(@"result class: %@, %d", [result class], [result count]);
 		if ([result isKindOfClass:[NSArray class]]) {
-            
+            self.permsArray = result;
+            [permTableview reloadData];
 		}
 	} else {
 		NSLog(@"Failed to load permlist");
-	}*/
+	}
 }
 
 
