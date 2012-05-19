@@ -55,9 +55,11 @@ public class FollowerActivity extends Activity {
         PermListController permListController = new PermListController();
         ArrayList<Perm> permList = permListController.getPermList();
         
-        PermAdapter permListAdapter = new PermAdapter(this, R.layout.perm_item_1, permList);
+        PermAdapter permListAdapter = new PermAdapter(this, R.layout.perm_item_1, permList, this);
         permListView.setAdapter(permListAdapter);
         
+        
+        /*
         // Initialize the facebook connection
         facebookConnector = new FacebookConnector(FACEBOOK_APP_ID, 
         		this, getApplicationContext(), new String[] {EMAIL, PUBLISH_STREAM});
@@ -82,7 +84,7 @@ public class FollowerActivity extends Activity {
 				dialog.show();
 			}
 		}); 
-		
+		*/
     }
     
     @Override

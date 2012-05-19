@@ -28,10 +28,6 @@ public class PermListController {
 	 */
 	public ArrayList<Perm> getPermList(){
 		
-		XMLParser parser = new XMLParser( API.popularPermsURL );
-		
-		
-		
 		ArrayList <Perm> permList = new ArrayList<Perm>();
 		for( int i = 0; i < 9 ; i++ ){
 			Perm permObject = new Perm( "ID-" + String.valueOf( i + 1 ));
