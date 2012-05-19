@@ -33,17 +33,10 @@ public class FollowerActivity extends Activity {
 	private Button login;
 	
 	private String[] list1 = new String[] { "Icon", "Icon Creator", "Image", "Image Creator" };
+
 	
-	/*
-	 * Facebook 
-	 */
-	private static final String FACEBOOK_APP_ID = "164668790213609";
-	private static final String ACCESS_TOKEN = "access_token";
-	private static final String ACCESS_EXPIRES = "access_expires";
-	private static final String EMAIL = "email";
-	private static final String PUBLISH_STREAM = "publish_stream";
 	
-	private FacebookConnector facebookConnector;
+	
 		
 	/** Called when the activity is first created. */
     @Override
@@ -92,80 +85,6 @@ public class FollowerActivity extends Activity {
 		super.onResume();
 	}
     
-    /**
-     * This listener is to handle the click action of Join button
-     * This should show the dialog and user can choose Facebook or Twitter login
-     * or login to Permping directly.
-     */
-    class OptionsDialog extends Dialog implements android.view.View.OnClickListener {
-    	
-    	// The "Login with Facebook" button
-    	private Button facebookLogin;
-    	
-    	// The "Login with Twitter" button
-    	private Button twitterLogin;
-    	
-    	// The "Join Permping" button
-    	private Button joinPermping;
-    	
-    	private SharedPreferences prefs;
-    	
-    	public OptionsDialog(Context context) {
-    		super(context);
-    		setContentView(R.layout.join_options);
-    		
-    		facebookLogin = (Button) findViewById(R.id.bt_login_with_facebook);
-    		facebookLogin.setOnClickListener(this);
-    		twitterLogin = (Button) findViewById(R.id.bt_login_with_twitter);
-    		twitterLogin.setOnClickListener(this);
-    		joinPermping = (Button) findViewById(R.id.bt_join_permping);
-    		joinPermping.setOnClickListener(this);
-    		
-    		this.prefs = PreferenceManager.getDefaultSharedPreferences(context);
-    	}
-    	
-    	public void onClick(View v) {
-			if (v == facebookLogin) {
-				// Clear FB info to show the login again
-				try {
-					facebookConnector.getFacebook().logout(getContext());
-				} catch (MalformedURLException me) {
-					me.printStackTrace();
-				} catch (IOException ioe) {
-					ioe.printStackTrace();
-				}
-				
-				if (!facebookConnector.getFacebook().isSessionValid()) {
-					AuthListener authListener = new AuthListener() {
-						
-						public void onAuthSucceed() {							
-							//Edit Preferences and update facebook access token
-							SharedPreferences.Editor editor = prefs.edit();
-							editor.putString(ACCESS_TOKEN, facebookConnector.getFacebook().getAccessToken());
-							editor.putLong(ACCESS_EXPIRES, facebookConnector.getFacebook().getAccessExpires());
-							editor.commit();
-						}
-						
-						public void onAuthFail(String error) {
-							// TODO Auto-generated method stub							
-						}
-					};
-					
-					SessionEvents.addAuthListener(authListener);
-					facebookConnector.login();
-				}
-				this.dismiss();
-			} else if (v == twitterLogin) {
-				Intent i = new Intent(getContext(), PrepareRequestTokenActivity.class);
-				getContext().startActivity(i);
-				this.dismiss();
-				
-			} else { // Show Join Permping screen
-				Intent i = new Intent(getContext(), JoinPermActivity.class);
-				getContext().startActivity(i);
-				this.dismiss();
-			}			
-		}    	
-    }
+    
     
 }
