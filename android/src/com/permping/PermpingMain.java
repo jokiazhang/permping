@@ -1,20 +1,12 @@
 package com.permping;
 
-import java.io.IOException;
-
-import javax.xml.parsers.ParserConfigurationException;
-
-import org.xml.sax.SAXException;
-
 import com.permping.R;
 import com.permping.activity.*;
-import com.permping.utils.XMLParser;
 
 import android.app.TabActivity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.view.Window;
 import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
 

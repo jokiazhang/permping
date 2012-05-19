@@ -3,7 +3,7 @@ package com.permping.activity;
 import com.permping.PermpingMain;
 import com.permping.utils.Constants;
 import com.permping.utils.twitter.OAuthRequestTokenTask;
-import com.permping.utils.twitter.TwitterUtils;
+//import com.permping.utils.twitter.TwitterUtils;
 
 import oauth.signpost.OAuth;
 import oauth.signpost.OAuthConsumer;
@@ -121,7 +121,7 @@ public class PrepareRequestTokenActivity extends Activity {
 			return null;
 		}
 
-
+/*
 		private void executeAfterAccessTokenRetrieval() {
 			String msg = getIntent().getExtras().getString("tweet_msg");
 			try {
@@ -129,7 +129,7 @@ public class PrepareRequestTokenActivity extends Activity {
 			} catch (Exception e) {
 				Log.e(TAG, "OAuth - Error sending to Twitter", e);
 			}
-		}
+		}*/
 	}	
 	
 }

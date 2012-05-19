@@ -1,7 +1,11 @@
 package com.permping.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 public class PermList implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4000596423729794461L;
 	
 }

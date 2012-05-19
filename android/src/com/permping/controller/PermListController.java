@@ -1,18 +1,7 @@
 package com.permping.controller;
 
 import com.permping.model.*;
-
-import java.io.IOException;
 import java.util.ArrayList;
-
-import javax.xml.parsers.ParserConfigurationException;
-
-import org.xml.sax.SAXException;
-
-import com.permping.utils.XMLParser;
-import com.permping.utils.API;
-import org.w3c.dom.*;
-
 
 public class PermListController {
 

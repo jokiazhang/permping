@@ -10,6 +10,7 @@ import com.permping.activity.LoginPermActivity;
 import com.permping.activity.PrepareRequestTokenActivity;
 import com.permping.model.Perm;
 import com.permping.utils.Constants;
+import com.permping.utils.UrlImageViewHelper;
 import com.permping.utils.facebook.FacebookConnector;
 import com.permping.utils.facebook.SessionEvents;
 import com.permping.utils.facebook.SessionEvents.AuthListener;
@@ -28,7 +29,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import com.koushikdutta.urlimageviewhelper.*;
 import android.view.View.OnClickListener;
 
 

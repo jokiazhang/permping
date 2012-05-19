@@ -4,7 +4,6 @@
 package com.permping.activity;
 
 import com.permping.R;
-import com.permping.R.layout;
 
 import android.app.Activity;
 import android.os.Bundle;

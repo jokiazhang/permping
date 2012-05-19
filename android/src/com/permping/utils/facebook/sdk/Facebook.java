@@ -22,7 +22,7 @@ import java.net.MalformedURLException;
 
 import android.Manifest;
 import android.app.Activity;
-import android.content.ActivityNotFoundException;
+//import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -220,7 +220,7 @@ public class Facebook {
      *            Activity code to uniquely identify the result Intent in the
      *            callback.
      */
-    private boolean startSingleSignOn(Activity activity, String applicationId,
+    /*private boolean startSingleSignOn(Activity activity, String applicationId,
             String[] permissions, int activityCode) {
         boolean didSucceed = true;
         Intent intent = new Intent();
@@ -249,7 +249,7 @@ public class Facebook {
         }
 
         return didSucceed;
-    }
+    }*/
 
     /**
      * Helper to validate an activity intent by resolving and checking the
@@ -260,7 +260,7 @@ public class Facebook {
      * @return true if the service intent resolution happens successfully and the
      * 	signatures match.
      */
-    private boolean validateActivityIntent(Context context, Intent intent) {
+    /*private boolean validateActivityIntent(Context context, Intent intent) {
         ResolveInfo resolveInfo =
             context.getPackageManager().resolveActivity(intent, 0);
         if (resolveInfo == null) {
@@ -271,7 +271,7 @@ public class Facebook {
             context,
             resolveInfo.activityInfo.packageName);
     }
-
+*/
 
     /**
      * Helper to validate a service intent by resolving and checking the
