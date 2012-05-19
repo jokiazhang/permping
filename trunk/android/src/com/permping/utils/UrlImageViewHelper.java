@@ -1,4 +1,4 @@
-package com.koushikdutta.urlimageviewhelper;
+package com.permping.utils;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -28,11 +28,10 @@ import android.graphics.drawable.Drawable;
 import android.net.http.AndroidHttpClient;
 import android.os.AsyncTask;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.widget.ImageView;
 
 public final class UrlImageViewHelper {
-    private static final String LOGTAG = "UrlImageViewHelper";
+    
     public static int copyStream(InputStream input, OutputStream output) throws IOException
     {
         byte[] stuff = new byte[1024];

@@ -18,7 +18,7 @@ import com.permping.model.Perm;
 
 public class XMLParser {
 	
-	private String TAG = "XML_PARSER";
+	//private String TAG = "XML_PARSER";
 	
 	private Document doc = null ;
 	public XMLParser( String document ) {
