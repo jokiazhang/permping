@@ -79,12 +79,10 @@ public class FacebookConnector {
             SessionEvents.onLoginSuccess();
         }
 
-        @Override
         public void onFacebookError(FacebookError error) {
             SessionEvents.onLoginError(error.getMessage());
         }
         
-        @Override
         public void onError(DialogError error) {
             SessionEvents.onLoginError(error.getMessage());
         }
@@ -108,25 +106,21 @@ public class FacebookConnector {
 	
 	private class SessionListener implements AuthListener, LogoutListener {
 
-		@Override
 		public void onLogoutBegin() {
 			// TODO Auto-generated method stub
 			
 		}
 
-		@Override
 		public void onLogoutFinish() {
 			// TODO Auto-generated method stub
 			
 		}
 
-		@Override
 		public void onAuthSucceed() {
 			// TODO Get token return here
 				
 		}
 
-		@Override
 		public void onAuthFail(String error) {
 			// TODO Auto-generated method stub
 			
