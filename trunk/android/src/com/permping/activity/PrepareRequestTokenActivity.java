@@ -97,10 +97,12 @@ public class PrepareRequestTokenActivity extends Activity {
 			try {
 				provider.retrieveAccessToken(consumer, oauth_verifier);
 
-				final Editor edit = prefs.edit();
-				edit.putString(OAuth.OAUTH_TOKEN, consumer.getToken());
-				edit.putString(OAuth.OAUTH_TOKEN_SECRET, consumer.getTokenSecret());
-				edit.commit();
+				final Editor editor = prefs.edit();
+				// Set the login type as Twitter
+				editor.putString(Constants.LOGIN_TYPE, Constants.TWITTER_LOGIN);
+				editor.putString(OAuth.OAUTH_TOKEN, consumer.getToken());
+				editor.putString(OAuth.OAUTH_TOKEN_SECRET, consumer.getTokenSecret());
+				editor.commit();
 				
 				String token = prefs.getString(OAuth.OAUTH_TOKEN, "");
 				String secret = prefs.getString(OAuth.OAUTH_TOKEN_SECRET, "");
@@ -108,7 +110,7 @@ public class PrepareRequestTokenActivity extends Activity {
 				consumer.setTokenWithSecret(token, secret);
 				context.startActivity(new Intent(context, PermpingMain.class));
 
-				executeAfterAccessTokenRetrieval();
+				//executeAfterAccessTokenRetrieval();
 				
 				Log.i(TAG, "OAuth - Access Token Retrieved");
 				

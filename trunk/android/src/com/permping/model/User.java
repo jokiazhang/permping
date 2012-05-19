@@ -7,7 +7,41 @@ public class User implements Serializable {
 	private String id;
 	private String name;
 	private PermImage avatar;
+	private int friendCounts;
+	private int followingCounts;
 	
+	/**
+	 * @return the friendCounts
+	 */
+	public int getFriendCounts() {
+		return friendCounts;
+	}
+
+
+	/**
+	 * @param friendCounts the friendCounts to set
+	 */
+	public void setFriendCounts(int friendCounts) {
+		this.friendCounts = friendCounts;
+	}
+
+
+	/**
+	 * @return the followingCounts
+	 */
+	public int getFollowingCounts() {
+		return followingCounts;
+	}
+
+
+	/**
+	 * @param followingCounts the followingCounts to set
+	 */
+	public void setFollowingCounts(int followingCounts) {
+		this.followingCounts = followingCounts;
+	}
+
+
 	/**
 	 *Constructor 
 	 */
