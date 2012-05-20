@@ -11,8 +11,11 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 import android.content.Context;
+import android.content.Intent;
 
 import com.permping.PermpingApplication;
+import com.permping.PermpingMain;
+import com.permping.activity.JoinPermActivity;
 import com.permping.model.PermBoard;
 import com.permping.model.PermImage;
 import com.permping.model.User;
@@ -34,7 +37,8 @@ public class AuthorizeController {
 		// If existed => back to Home page (Popular screen)
 		// If not existed => go to Create Account screen.
 		boolean ret = true;
-		XMLParser parser = new XMLParser(API.authorizeURL);
+		//XMLParser parser = new XMLParser(API.authorizeURL);
+		XMLParser parser = new XMLParser(API.nonAuthorizeURL);
 		Document document = parser.getDoc();
 		NodeList nodes = document.getElementsByTagName("response");
 		Element element = (Element) nodes.item(0);
@@ -47,8 +51,8 @@ public class AuthorizeController {
 			List<PermBoard> boards = new ArrayList<PermBoard>();
 			User user = null;
 			
-			String nodeName = element.getNodeName();
-			if (nodeName != null && !nodeName.equals("error")) {
+			NodeList error = element.getElementsByTagName("error");
+			if (error.getLength() == 0) {
 				/**
 				 * Login success
 				 */
@@ -72,7 +76,7 @@ public class AuthorizeController {
 						friends = Integer.parseInt(userElement.getElementsByTagName("friends").item(0).
 								getFirstChild().getNodeValue());
 						// Get list of boards
-						NodeList userBoards = userElement.getElementsByTagName("boards");
+						NodeList userBoards = userElement.getElementsByTagName("board");
 						if (userBoards != null) {
 							PermBoard permBoard;
 							for (int i = 0; i < userBoards.getLength(); i++) {
@@ -98,14 +102,16 @@ public class AuthorizeController {
 				user = new User(userId, userName, userAvatar, friends, followings, boards);
 			} else {
 				/**
-				 * Login fail
+				 * Not created Permping account yet
 				 */
 				ret = false;
 			}
 			
 			// Store the user object to PermpingApplication
-			PermpingApplication state = (PermpingApplication) context;
+			PermpingApplication state = (PermpingApplication) context.getApplicationContext();
 			state.setUser(user);
+			
+			
 		}	
 		return ret;
 	}

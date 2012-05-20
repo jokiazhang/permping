@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 
+import com.permping.PermpingMain;
 import com.permping.R;
 import com.permping.activity.JoinPermActivity;
 import com.permping.activity.LoginPermActivity;
@@ -144,7 +145,7 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 			if (v == facebookLogin) {				
 				// Clear FB info to show the login again
 				try {
-					facebookConnector.getFacebook().logout(v.getContext());
+					facebookConnector.getFacebook().logout(getContext());
 				} catch (MalformedURLException me) {
 					me.printStackTrace();
 				} catch (IOException ioe) {
@@ -160,6 +161,19 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 							editor.putString(Constants.ACCESS_TOKEN, facebookConnector.getFacebook().getAccessToken());
 							editor.putLong(Constants.ACCESS_EXPIRES, facebookConnector.getFacebook().getAccessExpires());
 							editor.commit();
+							
+							// Check on server
+							boolean existed = AuthorizeController.authorize(getContext());
+							Intent intent;
+							if (existed) {
+								// Forward back to Following tab
+								intent = new Intent(getContext(), PermpingMain.class);
+								getContext().startActivity(intent);
+							} else {
+								// Forward to Create account window
+								intent = new Intent(getContext(), JoinPermActivity.class);
+								getContext().startActivity(intent);
+							}
 						}
 						
 						public void onAuthFail(String error) {
@@ -170,22 +184,19 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 					SessionEvents.addAuthListener(authListener);
 					facebookConnector.login();
 				}
-				
-				
-				this.dismiss();								
 			} else if (v == twitterLogin) {
 				Intent i = new Intent(getContext(), PrepareRequestTokenActivity.class);
 				getContext().startActivity(i);
-				this.dismiss();
+				//this.dismiss();
 				
 			} else { // Show Join Permping screen
 				Intent i = new Intent(getContext(), JoinPermActivity.class);
 				getContext().startActivity(i);
-				this.dismiss();
+				//this.dismiss();
 			}
 			
-			// Check on server
-			boolean existed = AuthorizeController.authorize(v.getContext());
+			this.dismiss();
+			
 		}
     }
 }
