@@ -1,6 +1,9 @@
 package com.permping.controller;
 
 import com.permping.model.*;
+import com.permping.utils.API;
+import com.permping.utils.XMLParser;
+
 import java.util.ArrayList;
 
 public class PermListController {
@@ -13,10 +16,14 @@ public class PermListController {
 	}
 	
 	/**
-	 * @TODO simulate perm list
+	 * @TODO simulate perm lists
 	 */
 	public ArrayList<Perm> getPermList(){
 		
+		XMLParser parser = new XMLParser( API.popularPermsURL );
+		ArrayList <Perm> permList = parser.permListFromNodeList("popularPerms");
+		return permList;
+		/*
 		ArrayList <Perm> permList = new ArrayList<Perm>();
 		for( int i = 0; i < 9 ; i++ ){
 			Perm permObject = new Perm( "ID-" + String.valueOf( i + 1 ));
@@ -41,6 +48,6 @@ public class PermListController {
 			permList.add( permObject );
 		}
 		return permList;
-		
+		*/
 	}
 }

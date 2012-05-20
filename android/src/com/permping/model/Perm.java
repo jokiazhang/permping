@@ -25,6 +25,12 @@ public class Perm implements Serializable{
 	/**
 	 * Constructor
 	 */
+	
+	public Perm(){
+		
+	}
+	
+	
 	public Perm( String id){
 		this.setId(id);
 	}
