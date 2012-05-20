@@ -43,4 +43,25 @@ public class Constants {
 	// For Permping: use 
 	public static final String PERMPING_LOGIN = "permping";
 	
+	/**
+	 * XML tags
+	 */
+	public static final String RESPONSE = "response";
+	public static final String ERROR = "error";
+	public static final String USER = "user";
+	public static final String USER_ID = "userId";
+	public static final String USER_NAME = "userName";
+	public static final String USER_AVATAR = "userAvatar";
+	public static final String FOLLOWING_COUNT = "followingCount";
+	public static final String FOLLOWER_COUNT = "followerCount";
+	public static final String PIN_COUNT = "pinCount";
+	public static final String LIKE_COUNT = "likeCount";
+	public static final String BOARD_COUNT = "boardCount";
+	public static final String BOARDS = "boards";
+	public static final String ITEM = "item";
+	public static final String ID = "id";
+	public static final String NAME = "name";
+	public static final String DESCRIPTION = "description";
+	public static final String FOLLOWERS = "followers";
+	public static final String PINS = "pins";
 }
