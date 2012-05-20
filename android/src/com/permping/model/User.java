@@ -1,6 +1,7 @@
 package com.permping.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class User implements Serializable {
 
@@ -11,54 +12,57 @@ public class User implements Serializable {
 	private String id;
 	private String name;
 	private PermImage avatar;
-	private int friendCounts;
-	private int followingCounts;
+	private int friends;
+	private int followings;
+	List<PermBoard> boards;
+
+	/**
+	 * Default constructor
+	 */
+	public User() {
+		
+	}
 	
 	/**
-	 * @return the friendCounts
-	 */
-	public int getFriendCounts() {
-		return friendCounts;
-	}
-
-
-	/**
-	 * @param friendCounts the friendCounts to set
-	 */
-	public void setFriendCounts(int friendCounts) {
-		this.friendCounts = friendCounts;
-	}
-
-
-	/**
-	 * @return the followingCounts
-	 */
-	public int getFollowingCounts() {
-		return followingCounts;
-	}
-
-
-	/**
-	 * @param followingCounts the followingCounts to set
-	 */
-	public void setFollowingCounts(int followingCounts) {
-		this.followingCounts = followingCounts;
-	}
-
-
-	/**
-	 *Constructor 
+	 * 
+	 * @param id
 	 */
 	public User( String id){
 		this.setId(id);
 	}
 	
-	
-	public User( String id, String name ){
+	/**
+	 * 
+	 * @param id
+	 * @param name
+	 * @param avatar
+	 * @param friends
+	 * @param followings
+	 * @param boards
+	 */
+	public User(String id, String name, PermImage avatar, int friends, int followings, List<PermBoard> boards) {
 		this.setId(id);
 		this.setName(name);
+		this.setAvatar(avatar);
+		this.setFriends(friends);
+		this.setFollowings(followings);
+		this.setBoards(boards);
 	}
 
+
+	/**
+	 * @return the boards
+	 */
+	public List<PermBoard> getBoards() {
+		return boards;
+	}
+
+	/**
+	 * @param boards the boards to set
+	 */
+	public void setBoards(List<PermBoard> boards) {
+		this.boards = boards;
+	}
 
 	public String getName() {
 		return name;
@@ -87,5 +91,33 @@ public class User implements Serializable {
 
 	public void setAvatar(PermImage avatar) {
 		this.avatar = avatar;
+	}
+
+	/**
+	 * @return the friends
+	 */
+	public int getFriends() {
+		return friends;
+	}
+
+	/**
+	 * @param friends the friends to set
+	 */
+	public void setFriends(int friends) {
+		this.friends = friends;
+	}
+
+	/**
+	 * @return the followings
+	 */
+	public int getFollowings() {
+		return followings;
+	}
+
+	/**
+	 * @param followings the followings to set
+	 */
+	public void setFollowings(int followings) {
+		this.followings = followings;
 	}
 }
