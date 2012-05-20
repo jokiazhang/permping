@@ -20,7 +20,7 @@ public class PermListController {
 	 */
 	public ArrayList<Perm> getPermList(){
 		
-		XMLParser parser = new XMLParser( API.popularPermsURL );
+		XMLParser parser = new XMLParser( API.popularPermsURL , true );
 		ArrayList <Perm> permList = parser.permListFromNodeList("popularPerms");
 		return permList;
 		/*
