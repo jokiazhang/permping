@@ -5,31 +5,86 @@ import java.io.Serializable;
 public class PermBoard implements Serializable{
 	
 	/**
-	 * 
+	 * Serial version UID
 	 */
 	private static final long serialVersionUID = 1L;
 	
+	/**
+	 * The board Id
+	 */
 	private String id;
+	
+	/**
+	 * The board name
+	 */
 	private String name;
+	
+	/**
+	 * The board description
+	 */
 	private String description;
 	
+	/**
+	 * Number of board's followers 
+	 */
+	private int followers;
+	
+	/**
+	 * Number of board's pins;
+	 */
+	private int pins;
+	
+	/**
+	 * Default constructor
+	 */
 	public PermBoard() {
 		
 	}
 	
+	/**
+	 * Initialize a new Board with Id
+	 * @param id the board Id
+	 */
 	public PermBoard( String id ){
 		this.setId(id);
 	}
 	
+	/**
+	 * 
+	 * @param id
+	 * @param name
+	 */
 	public PermBoard( String id, String name ){
 		this.setId(id);
 		this.setName(name);
 	}
 	
+	/**
+	 * 
+	 * @param id
+	 * @param name
+	 * @param description
+	 */
 	public PermBoard( String id, String name, String description){
 		this.setId(id);
 		this.setName( name );
 		this.setDescription( description );
+	}
+	
+	/**
+	 * 
+	 * @param id
+	 * @param name
+	 * @param description
+	 * @param followers
+	 * @param pins
+	 */
+	public PermBoard(String id, String name, String description, int followers, int pins) {
+		this.setId(id);
+		this.setName( name );
+		this.setDescription( description );
+		this.setFollowers(followers);
+		this.setPins(pins);
 	}
 
 	public String getId() {
@@ -56,6 +111,31 @@ public class PermBoard implements Serializable{
 		this.description = description;
 	}
 	
-	
-	
+	/**
+	 * @return the followers
+	 */
+	public int getFollowers() {
+		return followers;
+	}
+
+	/**
+	 * @param followers the followers to set
+	 */
+	public void setFollowers(int followers) {
+		this.followers = followers;
+	}
+
+	/**
+	 * @return the pins
+	 */
+	public int getPins() {
+		return pins;
+	}
+
+	/**
+	 * @param pins the pins to set
+	 */
+	public void setPins(int pins) {
+		this.pins = pins;
+	}
 }

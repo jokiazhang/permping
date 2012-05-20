@@ -22,6 +22,7 @@ public class XMLParser {
 	
 	private Document doc = null ;
 	public XMLParser( String document ) {
+		
 		 //TODO Check for s  document is a url
 		if( document instanceof String  ){
 			this.setDoc(this.parseXMLFromUrl( document ));
