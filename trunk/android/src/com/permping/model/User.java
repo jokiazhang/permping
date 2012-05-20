@@ -14,6 +14,9 @@ public class User implements Serializable {
 	private PermImage avatar;
 	private int friends;
 	private int followings;
+	private int pin;
+	private int like;
+	private int board;
 	List<PermBoard> boards;
 
 	/**
@@ -38,14 +41,21 @@ public class User implements Serializable {
 	 * @param avatar
 	 * @param friends
 	 * @param followings
+	 * @param pin
+	 * @param like
+	 * @param board
 	 * @param boards
 	 */
-	public User(String id, String name, PermImage avatar, int friends, int followings, List<PermBoard> boards) {
+	public User(String id, String name, PermImage avatar, int friends, int followings, 
+			int pin, int like, int board, List<PermBoard> boards) {
 		this.setId(id);
 		this.setName(name);
 		this.setAvatar(avatar);
 		this.setFriends(friends);
 		this.setFollowings(followings);
+		this.setPin(pin);
+		this.setLike(like);
+		this.setBoard(board);
 		this.setBoards(boards);
 	}
 
@@ -105,6 +115,49 @@ public class User implements Serializable {
 	 */
 	public void setFriends(int friends) {
 		this.friends = friends;
+	}
+
+	
+	/**
+	 * @return the pin
+	 */
+	public int getPin() {
+		return pin;
+	}
+
+	/**
+	 * @param pin the pin to set
+	 */
+	public void setPin(int pin) {
+		this.pin = pin;
+	}
+
+	/**
+	 * @return the like
+	 */
+	public int getLike() {
+		return like;
+	}
+
+	/**
+	 * @param like the like to set
+	 */
+	public void setLike(int like) {
+		this.like = like;
+	}
+
+	/**
+	 * @return the board
+	 */
+	public int getBoard() {
+		return board;
+	}
+
+	/**
+	 * @param board the board to set
+	 */
+	public void setBoard(int board) {
+		this.board = board;
 	}
 
 	/**
