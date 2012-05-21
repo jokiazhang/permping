@@ -24,7 +24,7 @@ public class CategoryController {
 		Document doc  = parser.getDoc();
 		NodeList categoryList = doc.getElementsByTagName("category");
 		
-		for( int i = 1; i < categoryList.getLength(); i ++ ){
+		for( int i = 0; i < categoryList.getLength(); i ++ ){
 			Element categoryElement = (Element) categoryList.item(i);
 			
 			String categoryId = categoryElement.getElementsByTagName("id").item(0).getFirstChild().getNodeValue();
