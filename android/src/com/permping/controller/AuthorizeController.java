@@ -11,11 +11,8 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 import android.content.Context;
-import android.content.Intent;
 
 import com.permping.PermpingApplication;
-import com.permping.PermpingMain;
-import com.permping.activity.JoinPermActivity;
 import com.permping.model.PermBoard;
 import com.permping.model.PermImage;
 import com.permping.model.User;
