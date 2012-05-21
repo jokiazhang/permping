@@ -110,8 +110,7 @@ public class AuthorizeController {
 					}
 				}
 				// Initialize user object to store in the global app variable.
-				user = new User(userId, userName, userAvatar, friend, 
-						following, pin, like, board, boards);
+				user = new User(userId, userName, userAvatar, friend, following, pin, like, board, boards);
 				// Store the user object to PermpingApplication
 				PermpingApplication state = (PermpingApplication) context.getApplicationContext();
 				state.setUser(user);
