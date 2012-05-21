@@ -1,16 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
-  android:orientation="vertical"
-  android:layout_width="match_parent"
-  android:layout_height="match_parent">
-  
-  <!-- Screen Design for Photos -->
-  <TextView android:text="my diary layout"
-  			android:padding="15dip"
-  			android:textSize="14dip"
-  			android:textColor="#FFFFFF"
-  			android:layout_width="fill_parent"
-  			android:layout_height="wrap_content"/>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" 
+    android:layout_marginBottom="60dp">
+	<include
+        android:layout_width="fill_parent"
+        layout="@layout/title_bar" />
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/takePhoto"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/image_button_bg">
+
+         <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/take_photo_icon"
+            android:layout_weight="1"
+            android:paddingTop="5dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="15dip"
+            android:gravity="center"
+            android:text="Take Photo"
+            android:textColor="#000000"
+            android:textSize="20dip"
+            android:layout_weight="1" />
+    </LinearLayout>
     
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:id="@+id/galerry"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/image_button_bg">
+
+         <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/gallery_icon"
+            android:layout_weight="1"
+            android:paddingTop="5dp"
+            android:paddingRight="40dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="15dip"
+            android:gravity="center"
+            android:text="Galerry"
+            android:textColor="#000000"
+            android:textSize="20dip"
+            android:layout_weight="1" />
+    </LinearLayout>
+    
+    
+     <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:id="@+id/createBoard"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/image_button_bg">
+
+         <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/create_board_icon"
+            android:layout_weight="1"
+            android:paddingTop="5dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="15dip"
+            android:gravity="center"
+            android:text="Create Board"
+            android:textColor="#000000"
+            android:textSize="20dip"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+
 </LinearLayout>
