@@ -21,7 +21,6 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 import org.w3c.dom.Document;
-import org.w3c.dom.NodeList;
 import org.xml.sax.Attributes;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -190,7 +189,7 @@ public class XMLParser {
 	public class DataHandler extends DefaultHandler {
 
 		// booleans that check whether it's in a specific tag or not
-		private boolean _inSection, _inArea;
+		//private boolean _inSection, _inArea;
 
 		// this holds the data
 		
