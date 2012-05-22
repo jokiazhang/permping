@@ -3,23 +3,16 @@
  */
 package com.permping.controller;
 
-import java.util.ArrayList;
+//import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.http.NameValuePair;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
 
 import android.content.Context;
 
 import com.permping.PermpingApplication;
-import com.permping.model.PermBoard;
-import com.permping.model.PermImage;
 import com.permping.model.User;
 import com.permping.utils.API;
-import com.permping.utils.Constants;
-import com.permping.utils.HttpPermUtils;
 import com.permping.utils.XMLParser;
 
 /**

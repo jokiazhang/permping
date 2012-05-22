@@ -47,7 +47,7 @@ public class XMLParser {
 	public XMLParser(String document, Boolean DownloadFirst) {
 		this.setDoc(this.parseXMLFromUrl(document, DownloadFirst));
 	}
-
+/*
 	private Document parseXMLFromUrl(String url) {
 		try {
 			URL uri = new URL(url);
@@ -67,7 +67,7 @@ public class XMLParser {
 		}
 
 	}
-
+*/
 	public String getXML(String url) {
 		String line = null;
 
@@ -132,12 +132,12 @@ public class XMLParser {
 		return doc;
 
 	}
-
+/*
 	private Document parseXMLFromString(String document) {
 		// TODO implement this
 		return null;
 	}
-
+*/
 	public Document getDoc() {
 		return doc;
 	}
@@ -388,7 +388,7 @@ public class XMLParser {
 	 * @throws ParserConfigurationException
 	 * @throws SAXException
 	 */
-	private XMLReader initizliReader() throws ParserConfigurationException,
+	private XMLReader initializeReader() throws ParserConfigurationException,
 			SAXException {
 		SAXParserFactory factory = SAXParserFactory.newInstance();
 		// Create a parser
@@ -404,7 +404,7 @@ public class XMLParser {
 	 */
 	public User getUser() {
 		try {
-			XMLReader xmlReader = initizliReader();
+			XMLReader xmlReader = initializeReader();
 			UserHandler userHandler = new UserHandler();
 			// assign the handler
 			xmlReader.setContentHandler(userHandler);

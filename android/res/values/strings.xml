@@ -17,5 +17,7 @@
     <string name="acc_password">Password</string>
     <string name="acc_confirm_password">Confirm Password</string>
     <string name="bt_create_account">Create Account</string>
+    <string name="nick_name">Nickname:</string>
+    <string name="user_name">Username:</string>
     
 </resources>

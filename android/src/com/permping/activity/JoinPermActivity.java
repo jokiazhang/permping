@@ -37,6 +37,8 @@ import android.widget.EditText;
 public class JoinPermActivity extends Activity implements TextWatcher {
 	Button createAccount;
 	EditText name;
+	EditText nickName;
+	EditText userName;
 	EditText email;
 	EditText password;
 	EditText confirmPassword;
@@ -51,7 +53,8 @@ public class JoinPermActivity extends Activity implements TextWatcher {
         
         name = (EditText) findViewById(R.id.acccountName);
 		//name.addTextChangedListener(this);
-		email = (EditText) findViewById(R.id.acccountEmail);
+        nickName = (EditText) findViewById(R.id.nickName);
+        email = (EditText) findViewById(R.id.acccountEmail);
 		//email.addTextChangedListener(this);
 		password = (EditText) findViewById(R.id.acccountPassword);
 		//password.addTextChangedListener(this);
