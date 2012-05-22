@@ -28,6 +28,24 @@
    	    
    	    <TableRow>
    	        <TextView android:padding="3dip"
+   	            android:text="@string/nick_name"
+   	            style="@style/label"/>   	        	
+   	        <EditText android:id="@+id/nickName"
+   	            android:hint="@string/required"
+   	            style="@style/edit_text" />
+   	    </TableRow>
+   	    
+   	    <TableRow>
+   	        <TextView android:padding="3dip"
+   	            android:text="@string/user_name"
+   	            style="@style/label"/>   	        	
+   	        <EditText android:id="@+id/userName"
+   	            android:hint="@string/required"
+   	            style="@style/edit_text" />
+   	    </TableRow>
+   	    
+   	    <TableRow>
+   	        <TextView android:padding="3dip"
    	            android:text="@string/acc_email"
    	            style="@style/label"/>   	        	
    	        <EditText android:id="@+id/acccountEmail"

@@ -166,7 +166,8 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 							editor.putString(Constants.ACCESS_TOKEN, facebookConnector.getFacebook().getAccessToken());
 							editor.putLong(Constants.ACCESS_EXPIRES, facebookConnector.getFacebook().getAccessExpires());
 							editor.commit();
-							
+						
+
 							// Check on server
 							List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(4);
 							nameValuePairs.add(new BasicNameValuePair("type", prefs.getString(Constants.LOGIN_TYPE, "")));
@@ -193,6 +194,7 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 					
 					SessionEvents.addAuthListener(authListener);
 					facebookConnector.login();
+					this.dismiss();
 				}
 			} else if (v == twitterLogin) {
 				Intent i = new Intent(getContext(), PrepareRequestTokenActivity.class);
@@ -205,7 +207,7 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 				//this.dismiss();
 			}
 			
-			this.dismiss();
+			//this.dismiss();
 			
 		}
     }
