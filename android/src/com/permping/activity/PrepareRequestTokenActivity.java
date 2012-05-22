@@ -120,7 +120,7 @@ public class PrepareRequestTokenActivity extends Activity {
 				// Check on server
 				List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(4);
 				nameValuePairs.add(new BasicNameValuePair("type", "twitter"));
-				nameValuePairs.add(new BasicNameValuePair("oauth_token", consumer.getToken()));
+				nameValuePairs.add(new BasicNameValuePair("oauth_token", prefs.getString(OAuth.OAUTH_TOKEN, "")));
 				nameValuePairs.add(new BasicNameValuePair("email", ""));
 				nameValuePairs.add(new BasicNameValuePair("password", ""));
 				boolean existed = AuthorizeController.authorize(context, nameValuePairs);

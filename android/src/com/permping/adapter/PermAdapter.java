@@ -162,14 +162,15 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 						public void onAuthSucceed() {							
 							//Edit Preferences and update facebook access token
 							SharedPreferences.Editor editor = prefs.edit();
+							editor.putString(Constants.LOGIN_TYPE, Constants.FACEBOOK_LOGIN);
 							editor.putString(Constants.ACCESS_TOKEN, facebookConnector.getFacebook().getAccessToken());
 							editor.putLong(Constants.ACCESS_EXPIRES, facebookConnector.getFacebook().getAccessExpires());
 							editor.commit();
 							
 							// Check on server
 							List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(4);
-							nameValuePairs.add(new BasicNameValuePair("type", "facebook"));
-							nameValuePairs.add(new BasicNameValuePair("oauth_token", facebookConnector.getFacebook().getAccessToken()));
+							nameValuePairs.add(new BasicNameValuePair("type", prefs.getString(Constants.LOGIN_TYPE, "")));
+							nameValuePairs.add(new BasicNameValuePair("oauth_token", prefs.getString(Constants.ACCESS_TOKEN, "")));
 							nameValuePairs.add(new BasicNameValuePair("email", ""));
 							nameValuePairs.add(new BasicNameValuePair("password", ""));
 							boolean existed = AuthorizeController.authorize(getContext(), nameValuePairs);
