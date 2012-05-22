@@ -21,10 +21,12 @@ public class FollowerActivity extends Activity {
         
         ListView permListView = (ListView) findViewById(R.id.permList);
         PermListController permListController = new PermListController();
+        
         ArrayList<Perm> permList = permListController.getPermList();
         
         PermAdapter permListAdapter = new PermAdapter(this, R.layout.perm_item_1, permList, this);
         permListView.setAdapter(permListAdapter);
+        
         
     }
     

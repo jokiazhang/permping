@@ -10,12 +10,14 @@ import com.permping.model.Category;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.widget.ListView;
 
 public class ExplorerActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.explorer_layout);
+        
         
         ListView categoriesView = (ListView) findViewById(R.id.categories);
         CategoryController catController  = new CategoryController();
