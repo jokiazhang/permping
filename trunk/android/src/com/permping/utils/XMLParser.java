@@ -416,4 +416,8 @@ public class XMLParser {
 		}
 	}
 
+	/*public boolean isCreatedAccount() {
+		// TODO: Should check the response
+		return true;
+	}*/
 }
