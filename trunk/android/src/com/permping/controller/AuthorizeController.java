@@ -6,6 +6,7 @@ package com.permping.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.http.NameValuePair;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -18,6 +19,7 @@ import com.permping.model.PermImage;
 import com.permping.model.User;
 import com.permping.utils.API;
 import com.permping.utils.Constants;
+import com.permping.utils.HttpPermUtils;
 import com.permping.utils.XMLParser;
 
 /**
@@ -30,14 +32,31 @@ public class AuthorizeController {
 		
 	}
 	
-	public static boolean authorize(Context context) {
+	public static boolean authorize(Context context, List<NameValuePair> nameValuePairs) {
 		// Send to server to check if the account is created
 		// If existed => back to Home page (Popular screen)
 		// If not existed => go to Create Account screen.
 		boolean ret = true;
-		//XMLParser parser = new XMLParser(API.authorizeURL);
-		XMLParser parser = new XMLParser(API.nonAuthorizeURL);
-		Document document = parser.getDoc();
+		XMLParser parser = new XMLParser(API.authorizeURL, nameValuePairs);
+		User user = parser.getUser();
+		if (user != null) {
+			// Store the user object to PermpingApplication
+			PermpingApplication state = (PermpingApplication) context.getApplicationContext();
+			state.setUser(user);
+			ret = true;
+		} else {
+			ret = false;
+		}
+		
+		
+		return ret;
+		// 1. Send POST request to server
+		
+		
+		
+		
+		//XMLParser parser = new XMLParser(API.nonAuthorizeURL);
+		/*Document document = parser.getDoc();
 		NodeList nodes = document.getElementsByTagName("response");
 		Element element = (Element) nodes.item(0);
 		if (element != null) {
@@ -54,9 +73,9 @@ public class AuthorizeController {
 			
 			NodeList error = element.getElementsByTagName(Constants.ERROR);
 			if (error.getLength() == 0) {
-				/**
+				*//**
 				 * Login success
-				 */
+				 *//*
 				NodeList userInfo = element.getElementsByTagName(Constants.USER);
 				if (userInfo != null) {
 					Element userElement = (Element) userInfo.item(0);
@@ -115,12 +134,12 @@ public class AuthorizeController {
 				PermpingApplication state = (PermpingApplication) context.getApplicationContext();
 				state.setUser(user);
 			} else {
-				/**
+				*//**
 				 * Not created Permping account yet
-				 */
+				 *//*
 				ret = false;
 			}
-		}	
-		return ret;
+		}	*/
+
 	}
 }
