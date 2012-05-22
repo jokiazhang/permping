@@ -167,24 +167,7 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 							editor.putLong(Constants.ACCESS_EXPIRES, facebookConnector.getFacebook().getAccessExpires());
 							editor.commit();
 						
-
-							// Check on server
-							List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(4);
-							nameValuePairs.add(new BasicNameValuePair("type", prefs.getString(Constants.LOGIN_TYPE, "")));
-							nameValuePairs.add(new BasicNameValuePair("oauth_token", prefs.getString(Constants.ACCESS_TOKEN, "")));
-							nameValuePairs.add(new BasicNameValuePair("email", ""));
-							nameValuePairs.add(new BasicNameValuePair("password", ""));
-							boolean existed = AuthorizeController.authorize(getContext(), nameValuePairs);
-							Intent intent;
-							if (existed) {
-								// Forward back to Following tab
-								intent = new Intent(getContext(), PermpingMain.class);
-								getContext().startActivity(intent);
-							} else {
-								// Forward to Create account window
-								intent = new Intent(getContext(), JoinPermActivity.class);
-								getContext().startActivity(intent);
-							}
+							
 						}
 						
 						public void onAuthFail(String error) {
@@ -195,6 +178,24 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 					SessionEvents.addAuthListener(authListener);
 					facebookConnector.login();
 					this.dismiss();
+				}
+				
+				// Check on server
+				List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(4);
+				nameValuePairs.add(new BasicNameValuePair("type", prefs.getString(Constants.LOGIN_TYPE, "")));
+				nameValuePairs.add(new BasicNameValuePair("oauth_token", prefs.getString(Constants.ACCESS_TOKEN, "")));
+				nameValuePairs.add(new BasicNameValuePair("email", ""));
+				nameValuePairs.add(new BasicNameValuePair("password", ""));
+				boolean existed = AuthorizeController.authorize(getContext(), nameValuePairs);
+				Intent intent;
+				if (existed) {
+					// Forward back to Following tab
+					intent = new Intent(getContext(), PermpingMain.class);
+					getContext().startActivity(intent);
+				} else {
+					// Forward to Create account window
+					intent = new Intent(getContext(), JoinPermActivity.class);
+					getContext().startActivity(intent);
 				}
 			} else if (v == twitterLogin) {
 				Intent i = new Intent(getContext(), PrepareRequestTokenActivity.class);

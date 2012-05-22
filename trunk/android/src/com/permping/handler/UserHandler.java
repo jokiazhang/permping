@@ -25,47 +25,58 @@ public class UserHandler extends DefaultHandler {
 	private List<PermBoard> boards;
 	private PermBoard permBoard;
 	
-	private String currentTag;
+	private StringBuffer buffer = new StringBuffer();
 	
 	@Override
 	public void characters(char[] ch, int start, int length)
 			throws SAXException {
-		String value = new String(ch, start, length).trim();
-		
-		if (currentTag != null && currentTag.equals(Constants.USER_ID)) {
-			user.setId(value);
-		} else if (currentTag != null && currentTag.equals(Constants.USER_NAME)) {
-			user.setName(value);
-		} else if (currentTag != null && currentTag.equals(Constants.USER_AVATAR)) {
-			PermImage avatar = new PermImage(value);
-			user.setAvatar(avatar);
-		} else if (currentTag != null && currentTag.equals(Constants.FOLLOWING_COUNT)) {
-			user.setFollowings(Integer.parseInt(value));
-		} else if (currentTag != null && currentTag.equals(Constants.FOLLOWER_COUNT)) {
-			user.setFriends(Integer.parseInt(value));
-		} else if (currentTag != null && currentTag.equals(Constants.PIN_COUNT)) {
-			user.setPin(Integer.parseInt(value));
-		} else if (currentTag != null && currentTag.equals(Constants.LIKE_COUNT)) {
-			user.setLike(Integer.parseInt(value));
-		} else if (currentTag != null && currentTag.equals(Constants.BOARD_COUNT)) {
-			user.setBoard(Integer.parseInt(value));
-		} 
+		buffer.append(ch, start, length); 
 	}
 
 	@Override
 	public void endElement(String uri, String localName, String qName)
 			throws SAXException {
-		if (localName.equals(Constants.ITEM)) {
-			boards.add(permBoard);
+	
+		if (localName.equals(Constants.USER_ID)) {
+			user.setId(buffer.toString());
+		} else if (localName.equals(Constants.USER_NAME)) {
+			user.setName(buffer.toString());
+		} else if (localName.equals(Constants.USER_AVATAR)) {
+			PermImage avatar = new PermImage(buffer.toString());
+			user.setAvatar(avatar);
+		} else if (localName.equals(Constants.FOLLOWING_COUNT)) {
+			user.setFollowings(Integer.parseInt(buffer.toString()));			
+		} else if (localName.equals(Constants.FOLLOWER_COUNT)) {
+			user.setFriends(Integer.parseInt(buffer.toString()));
+		} else if (localName.equals(Constants.PIN_COUNT)) {
+			user.setPin(Integer.parseInt(buffer.toString()));
+		} else if (localName.equals(Constants.LIKE_COUNT)) {
+			user.setLike(Integer.parseInt(buffer.toString()));
+		} else if (localName.equals(Constants.BOARD_COUNT)) {
+			user.setBoard(Integer.parseInt(buffer.toString()));
 		} else if (localName.equals(Constants.BOARDS)) {
 			user.setBoards(boards);
+		} else if (localName.equals(Constants.ITEM)) {
+			boards.add(permBoard);
+		} else if (localName.equals(Constants.ID)) {
+			permBoard.setId(buffer.toString());
+		} else if (localName.equals(Constants.NAME)) {
+			permBoard.setName(buffer.toString());
+		} else if (localName.equals(Constants.DESCRIPTION)) {
+			permBoard.setDescription(buffer.toString());
+		} else if (localName.equals(Constants.FOLLOWERS)) {
+			permBoard.setFollowers(Integer.parseInt(buffer.toString()));
+		} else if (localName.equals(Constants.PINS)) {
+			permBoard.setPins(Integer.parseInt(buffer.toString()));
 		}
 	}
 
 	@Override
 	public void startElement(String uri, String localName, String qName,
 			Attributes attributes) throws SAXException {
-		currentTag = localName;
+		
+		buffer.setLength(0);
+		
 		if (localName.equals(Constants.USER)) {
 			user = new User();
 		} else if (localName.equals(Constants.BOARDS)) {
