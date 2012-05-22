@@ -3,6 +3,10 @@ package com.permping.adapter;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 
 import com.permping.PermpingMain;
 import com.permping.R;
@@ -163,7 +167,12 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 							editor.commit();
 							
 							// Check on server
-							boolean existed = AuthorizeController.authorize(getContext());
+							List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(4);
+							nameValuePairs.add(new BasicNameValuePair("type", "facebook"));
+							nameValuePairs.add(new BasicNameValuePair("oauth_token", facebookConnector.getFacebook().getAccessToken()));
+							nameValuePairs.add(new BasicNameValuePair("email", ""));
+							nameValuePairs.add(new BasicNameValuePair("password", ""));
+							boolean existed = AuthorizeController.authorize(getContext(), nameValuePairs);
 							Intent intent;
 							if (existed) {
 								// Forward back to Following tab

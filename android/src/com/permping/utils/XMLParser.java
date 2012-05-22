@@ -8,6 +8,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -17,6 +18,7 @@ import javax.xml.parsers.SAXParserFactory;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
@@ -29,52 +31,44 @@ import org.xml.sax.helpers.DefaultHandler;
 
 import android.util.Log;
 
+import com.permping.handler.UserHandler;
 import com.permping.model.Perm;
 import com.permping.model.PermBoard;
 import com.permping.model.PermImage;
 import com.permping.model.User;
 
 public class XMLParser {
-	
-	//private String TAG = "XML_PARSER";
-	
-	private Document doc = null ;
+
+	// private String TAG = "XML_PARSER";
+
+	private Document doc = null;
 	private String xml = "<empty></empty>";
-	public XMLParser( String document ) {
-		
-		 //TODO Check for s  document is a url
-		if( document instanceof String  ){
-			this.setDoc(this.parseXMLFromUrl( document ));
-		} else {
-			this.setDoc(this.parseXMLFromString(document));
-		}
+
+	public XMLParser(String document, Boolean DownloadFirst) {
+		this.setDoc(this.parseXMLFromUrl(document, DownloadFirst));
 	}
-	
-	public XMLParser( String document, Boolean DownloadFirst ){
-		this.setDoc(this.parseXMLFromUrl( document , DownloadFirst ));
-	}
-	
-	private Document parseXMLFromUrl( String url ) {
+
+	private Document parseXMLFromUrl(String url) {
 		try {
 			URL uri = new URL(url);
 			URLConnection ucon = uri.openConnection();
 			ucon.connect();
-			InputStream in = uri.openStream();
-			DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-			return builder.parse(in, null);
-			
-		} catch ( IOException e ) {
+			InputStream is = uri.openStream();
+			DocumentBuilder builder = DocumentBuilderFactory.newInstance()
+					.newDocumentBuilder();
+			return builder.parse(is);
+
+		} catch (IOException e) {
 			return null;
-		} catch ( ParserConfigurationException e ) {
+		} catch (ParserConfigurationException e) {
 			return null;
-		} catch( SAXException e ) {
+		} catch (SAXException e) {
 			return null;
 		}
-		
+
 	}
-	
-	
-	public String getXML( String url ) {
+
+	public String getXML(String url) {
 		String line = null;
 
 		try {
@@ -100,9 +94,9 @@ public class XMLParser {
 
 	}
 
-	private Document parseXMLFromUrl(String url, Boolean DownloadFirst ) {
-		String xml = this.getXML( url );
-		//String xml = API.xmlSample;
+	private Document parseXMLFromUrl(String url, Boolean DownloadFirst) {
+		String xml = this.getXML(url);
+		// String xml = API.xmlSample;
 		if (xml != null) {
 			this.xml = xml;
 			return this.XMLfromString(xml);
@@ -138,68 +132,63 @@ public class XMLParser {
 		return doc;
 
 	}
-	
-	private Document parseXMLFromString( String document ){
-		//TODO implement this
+
+	private Document parseXMLFromString(String document) {
+		// TODO implement this
 		return null;
 	}
-
 
 	public Document getDoc() {
 		return doc;
 	}
 
-
 	public void setDoc(Document doc) {
 		this.doc = doc;
 	}
-	
-	
-	
+
 	public ArrayList<Perm> permListFromNodeList(String parentNode) {
 
-		try { 
-		    SAXParserFactory spf = SAXParserFactory.newInstance(); 
-		    SAXParser sp = spf.newSAXParser(); 
-		 
-		    XMLReader xr = sp.getXMLReader(); 
-		 
-		    DataHandler dataHandler = new DataHandler(); 
-		    xr.setContentHandler(dataHandler); 
-		 
-		    //xr.parse(new InputSource(new StringReader("<data> <section id=\"1\">bla</section> <area>lala</area> </data> "))); 
-		    xr.parse(new InputSource(new StringReader(this.xml )));
-		 
-		    ArrayList<Perm> permList = dataHandler.getPermList(); 
-		    
-		    return permList;
-		  } catch(ParserConfigurationException pce) { 
-		    Log.e("SAX XML", "sax parse error", pce); 
-		  } catch(SAXException se) { 
-		    Log.e("SAX XML", "sax error", se); 
-		  } catch(IOException ioe) { 
-		    Log.e("SAX XML", "sax parse io error", ioe); 
-		  } 
-		
-		
+		try {
+			SAXParserFactory spf = SAXParserFactory.newInstance();
+			SAXParser sp = spf.newSAXParser();
+
+			XMLReader xr = sp.getXMLReader();
+
+			DataHandler dataHandler = new DataHandler();
+			xr.setContentHandler(dataHandler);
+
+			// xr.parse(new InputSource(new
+			// StringReader("<data> <section id=\"1\">bla</section> <area>lala</area> </data> ")));
+			xr.parse(new InputSource(new StringReader(this.xml)));
+
+			ArrayList<Perm> permList = dataHandler.getPermList();
+
+			return permList;
+		} catch (ParserConfigurationException pce) {
+			Log.e("SAX XML", "sax parse error", pce);
+		} catch (SAXException se) {
+			Log.e("SAX XML", "sax error", se);
+		} catch (IOException ioe) {
+			Log.e("SAX XML", "sax parse io error", ioe);
+		}
+
 		return null;
 	}
-
 
 	public class DataHandler extends DefaultHandler {
 
 		// booleans that check whether it's in a specific tag or not
-		//private boolean _inSection, _inArea;
+		// private boolean _inSection, _inArea;
 
 		// this holds the data
-		
+
 		private Perm currentPem = null;
 		private User currentUser = null;
 		private ArrayList<Perm> permList = new ArrayList<Perm>();
-		
+
 		private String currentElement = "";
 
-		public ArrayList<Perm> getPermList(){
+		public ArrayList<Perm> getPermList() {
 			return this.permList;
 		}
 
@@ -231,15 +220,15 @@ public class XMLParser {
 		 * @param atts
 		 * @throws SAXException
 		 */
-		public void startElement(String namespaceURI, String localName, String qName, Attributes atts) throws SAXException {
-			
+		public void startElement(String namespaceURI, String localName,
+				String qName, Attributes atts) throws SAXException {
+
 			this.currentElement = localName;
-			if( this.currentElement.equals("item")){
-				//Create new perm object
+			if (this.currentElement.equals("item")) {
+				// Create new perm object
 				this.currentPem = new Perm();
 			}
-			
-			
+
 		}
 
 		/**
@@ -251,13 +240,14 @@ public class XMLParser {
 		 * @param qName
 		 * @throws SAXException
 		 */
-		public void endElement(String namespaceURI, String localName, String qName) throws SAXException {
-			
-			if( this.currentPem != null && localName.equals("item")) {
-				this.permList.add(this.currentPem );
+		public void endElement(String namespaceURI, String localName,
+				String qName) throws SAXException {
+
+			if (this.currentPem != null && localName.equals("item")) {
+				this.permList.add(this.currentPem);
 			}
 			this.currentElement = null;
-			
+
 		}
 
 		/**
@@ -272,41 +262,158 @@ public class XMLParser {
 		public void characters(char ch[], int start, int length) {
 			String chars = new String(ch, start, length);
 			chars = chars.trim();
-			
-			
-			if( this.currentPem != null ) {
-				if( this.currentElement == "permId" ){
-					//Perm id
+
+			if (this.currentPem != null) {
+				if (this.currentElement == "permId") {
+					// Perm id
 					this.currentPem.setId(chars);
-				} else if( this.currentElement == "permImage"){
+				} else if (this.currentElement == "permImage") {
 					PermImage imageObject = new PermImage(chars);
-					this.currentPem.setImage( imageObject );
-					
-					User permAuthor = new User("user"); 
-					permAuthor.setName( "Author " );
-					permAuthor.setAvatar( imageObject );
-					
+					this.currentPem.setImage(imageObject);
+
+					User permAuthor = new User("user");
+					permAuthor.setName("Author ");
+					permAuthor.setAvatar(imageObject);
+
 					this.currentPem.setAuthor(permAuthor);
-					
-				} else if( this.currentElement == "permCategory"){
-					PermBoard permBoard  = new PermBoard( "Board ID ");
-					permBoard.setName( chars );
-					this.currentPem.setBoard( permBoard );
-				} else if( this.currentElement == "user"){
+
+				} else if (this.currentElement == "permCategory") {
+					PermBoard permBoard = new PermBoard("Board ID ");
+					permBoard.setName(chars);
+					this.currentPem.setBoard(permBoard);
+				} else if (this.currentElement == "user") {
 					this.currentUser = new User();
-				} else if( this.currentElement == "userId"){
-					this.currentUser.setId( chars );
-				} else if( this.currentElement=="userName") {
+				} else if (this.currentElement == "userId") {
+					this.currentUser.setId(chars);
+				} else if (this.currentElement == "userName") {
 					this.currentUser.setName(chars);
-				} else if( this.currentElement == "userAvatar"){
+				} else if (this.currentElement == "userAvatar") {
 					PermImage userAvatar = new PermImage(chars);
-					this.currentUser.setAvatar( userAvatar );
-					this.currentPem.setAuthor( this.currentUser );
+					this.currentUser.setAvatar(userAvatar);
+					this.currentPem.setAuthor(this.currentUser);
 				}
 			}
-			
+
 		}
 	}
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+/** Linh added to work with User Profile. Should re-work */
+
+	private String response;
+
+	/**
+	 * Initialize the parser with the url and params
+	 * @param url
+	 */
+	public XMLParser(String url, List<NameValuePair> nameValuePairs) {
+		setDoc(getResponseFromUrl(url, nameValuePairs));
+	}
+
+	/**
+	 * Get the response from URL, the result will be stored in the "response" variable.
+	 * @param url
+	 * @return
+	 */
+	private Document getResponseFromUrl(String url, List<NameValuePair> nameValuePairs) {
+		HttpPermUtils httpPermUtils = new HttpPermUtils();
+		String response = httpPermUtils.sendPostRequest(url, nameValuePairs);
+		if (response != null) {
+			this.response = response;
+			return parseResponse(response);
+		}
+		return null;
+	}
+
+	/**
+	 * 
+	 * @param response
+	 * @return
+	 */
+	private Document parseResponse(String response) {
+		Document doc = null;
+		try {
+			DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory
+					.newInstance();
+			DocumentBuilder documentBuilder = documentBuilderFactory
+					.newDocumentBuilder();
+			InputSource is = new InputSource();
+			is.setCharacterStream(new StringReader(response));
+			doc = documentBuilder.parse(is);
+		} catch (ParserConfigurationException e) {
+			e.printStackTrace();
+		} catch (SAXException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return doc;
+	}
+
+	/**
+	 * Initialize the XML Parser Reader
+	 * 
+	 * @return
+	 * @throws ParserConfigurationException
+	 * @throws SAXException
+	 */
+	private XMLReader initizliReader() throws ParserConfigurationException,
+			SAXException {
+		SAXParserFactory factory = SAXParserFactory.newInstance();
+		// Create a parser
+		SAXParser parser = factory.newSAXParser();
+		XMLReader xmlReader = parser.getXMLReader();
+		return xmlReader;
+	}
+
+	/**
+	 * Return the User object from response (API)
+	 * @param url
+	 * @return
+	 */
+	public User getUser() {
+		try {
+			XMLReader xmlReader = initizliReader();
+			UserHandler userHandler = new UserHandler();
+			// assign the handler
+			xmlReader.setContentHandler(userHandler);
+			xmlReader.parse(new InputSource(new StringReader(response)));
+			return userHandler.getUser();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
 }

@@ -12,8 +12,8 @@ public class User implements Serializable {
 	private String id;
 	private String name;
 	private PermImage avatar;
-	private int friends;
 	private int followings;
+	private int friends;	
 	private int pin;
 	private int like;
 	private int board;

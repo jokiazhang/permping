@@ -1,6 +1,13 @@
 package com.permping.activity;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+
 import com.permping.PermpingMain;
+import com.permping.controller.AuthorizeController;
 import com.permping.utils.Constants;
 import com.permping.utils.twitter.OAuthRequestTokenTask;
 //import com.permping.utils.twitter.TwitterUtils;
@@ -108,7 +115,27 @@ public class PrepareRequestTokenActivity extends Activity {
 				String secret = prefs.getString(OAuth.OAUTH_TOKEN_SECRET, "");
 				
 				consumer.setTokenWithSecret(token, secret);
-				context.startActivity(new Intent(context, PermpingMain.class));
+				
+				//TODO: validate user before forwarding to new page.
+				// Check on server
+				List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(4);
+				nameValuePairs.add(new BasicNameValuePair("type", "twitter"));
+				nameValuePairs.add(new BasicNameValuePair("oauth_token", consumer.getToken()));
+				nameValuePairs.add(new BasicNameValuePair("email", ""));
+				nameValuePairs.add(new BasicNameValuePair("password", ""));
+				boolean existed = AuthorizeController.authorize(context, nameValuePairs);
+				Intent intent;
+				if (existed) {
+					// Forward back to Following tab
+					intent = new Intent(context, PermpingMain.class);
+					context.startActivity(intent);
+				} else {
+					// Forward to Create account window
+					intent = new Intent(context, JoinPermActivity.class);
+					context.startActivity(intent);
+				}
+				
+				//context.startActivity(new Intent(context, PermpingMain.class));
 
 				//executeAfterAccessTokenRetrieval();
 				
