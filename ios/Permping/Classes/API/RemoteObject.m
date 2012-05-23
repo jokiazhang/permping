@@ -10,7 +10,7 @@
 
 @implementation RemoteObject
 
-- (id)initWithXmlElement: (TBXMLElement*)in_xmlElement {
+- (id)initWithXmlElement: (CXMLElement*)in_xmlElement {
     if (self = [self init]) {
 	}
 	return self;

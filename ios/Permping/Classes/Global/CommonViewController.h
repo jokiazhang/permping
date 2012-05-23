@@ -15,6 +15,4 @@
 
 @property (nonatomic, retain) WSUser *user;
 
-- (BOOL)checkDidLogin;
-
 @end

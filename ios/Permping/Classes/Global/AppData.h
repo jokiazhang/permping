@@ -7,6 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <Twitter/TWTweetComposeViewController.h>
+#import "SA_OAuthTwitterEngine.h"
+#import "SA_OAuthTwitterController.h"
+
 @class WSUser;
 
 typedef enum {
@@ -15,9 +19,13 @@ typedef enum {
     LoginTypeTwitter
 }LoginType;
 
-@interface AppData : NSObject {
+@interface AppData : NSObject<SA_OAuthTwitterEngineDelegate, SA_OAuthTwitterControllerDelegate> {
     WSUser          *_user;
     NSString        *_password;
+    
+    SA_OAuthTwitterEngine       *twitterEngine;
+    SA_OAuthTwitterController   *saController;
+    
     BOOL            _isLogout;
 }
 @property (nonatomic, retain) WSUser *user;
@@ -30,4 +38,11 @@ typedef enum {
 - (void) restoreState;
 
 - (void) saveState;
+
+- (BOOL)fbLoggedIn;
+
+- (BOOL)twitterLoggedIn;
+
+- (BOOL)checkDidLogin;
+
 @end

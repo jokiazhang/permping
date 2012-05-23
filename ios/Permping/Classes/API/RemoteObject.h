@@ -7,11 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "TBXML.h"
+#import "TouchXML.h"
 
 @interface RemoteObject : NSObject
 
-- (id)initWithXmlElement: (TBXMLElement*)in_xmlElement;
+- (id)initWithXmlElement: (CXMLElement*)in_xmlElement;
 
 - (id)initWithDictionary:(NSDictionary*)dict;
 

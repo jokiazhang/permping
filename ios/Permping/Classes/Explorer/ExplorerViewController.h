@@ -9,6 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "CommonViewController.h"
 
-@interface ExplorerViewController : CommonViewController
+@interface ExplorerViewController : CommonViewController <UITableViewDelegate, UITableViewDataSource> {
+    IBOutlet UITableView *categoriesTableView;
+    NSArray *categories;
+}
+@property (nonatomic, retain)NSArray *categories;
 
 @end

@@ -10,57 +10,97 @@
 #import "WSUser.h"
 #import "WSComment.h"
 
+#define kPermElements @"permId;permDesc;permCategory;permImage;permComments;permRepinCount;permLikeCount;permCommentCount;user"
+
+typedef enum {
+	kPermElementPermId = 0,
+	kPermElementDesc,
+	kPermElementCategory,
+	kPermElementImage,
+    kPermElementComments,
+    kPermElementRepinCount,
+    kPermElementLikeCount,
+    kPermElementCommentCount,
+    kPermElementUser
+} kPermElement;
+
 @implementation WSPerm
-@synthesize owner, permId, permOwnerComment, permDesc, permCategory, permImage, permComments, permRepinCount, permLikeCount, permCommentCount, permStatus;
+
+@synthesize permUser, permId, permDesc, permCategory, permImage, permRepinCount, permLikeCount, permCommentCount, permComments;
 
 - (void)dealloc {
-    [owner release];
+    [permUser release];
     [permId release];
-    [permOwnerComment release];
     [permDesc release];
     [permCategory release];
     [permImage release];
     [permRepinCount release];
     [permLikeCount release];
     [permCommentCount release];
-    [permStatus release];
     [permComments release];
     [super dealloc];
 }
 
-- (id)initWithXmlElement:(TBXMLElement *)in_xmlElement {
+- (id)initWithXmlElement:(CXMLElement *)in_xmlElement {
     if (self = [super initWithXmlElement:in_xmlElement]) {
-        TBXMLElement *userElement = [TBXML childElementNamed:@"user" parentElement:in_xmlElement];
-        if (userElement) {
-            self.owner = [[[WSUser alloc] initWithXmlElement:[TBXML childElementNamed:@"user" parentElement:in_xmlElement]] autorelease];
-        }
-        self.permId = [TBXML textForElement:[TBXML childElementNamed:@"permId" parentElement:in_xmlElement]];
-        self.permOwnerComment = [TBXML textForElement:[TBXML childElementNamed:@"permOwnerComment" parentElement:in_xmlElement]];
-        self.permDesc = [TBXML textForElement:[TBXML childElementNamed:@"permDesc" parentElement:in_xmlElement]];
-        /*self.permLikeCount = [TBXML textForElement:[TBXML childElementNamed:@"permLikeCount" parentElement:in_xmlElement]];
-        self.permCommentCount = [TBXML textForElement:[TBXML childElementNamed:@"permCommentCount" parentElement:in_xmlElement]];
-        self.permRepinCount = [TBXML textForElement:[TBXML childElementNamed:@"permRepinCount" parentElement:in_xmlElement]];*/
-        self.permCategory = [TBXML textForElement:[TBXML childElementNamed:@"permCategory" parentElement:in_xmlElement]];
-        self.permImage = [TBXML textForElement:[TBXML childElementNamed:@"permImage" parentElement:in_xmlElement]];
-		NSMutableArray *comments = [[NSMutableArray alloc] init];
-        TBXMLElement *child = [TBXML childElementNamed:@"permComments" parentElement:in_xmlElement]->firstChild;
-        while (child) {
-            WSComment *comment = [[WSComment alloc] initWithXmlElement:child];
-            if (comment) {
-                [comments addObject:comment];
-                [comment release];
+        NSArray *lc_elements = [kPermElements componentsSeparatedByString:@";"];
+        CXMLNode  *lc_child = [in_xmlElement childAtIndex:0];
+        while (lc_child) {
+            if ([lc_child isKindOfClass:[CXMLElement class]]) {
+                int lc_index = [lc_elements indexOfObject:[lc_child name]];
+                switch (lc_index) {
+                    case kPermElementPermId:
+                        self.permId = [lc_child stringValue];
+                        break;
+                    case kPermElementDesc:
+                        self.permDesc = [lc_child stringValue];
+                        break;
+                    case kPermElementCategory:
+                        self.permCategory = [lc_child stringValue];
+                        break;
+                    case kPermElementImage:
+                        self.permImage = [lc_child stringValue];
+                        break;
+                    case kPermElementComments:
+                    {
+                        NSArray *lc_commentsXML = [(CXMLElement*)lc_child elementsForName:@"comment"];
+                        NSMutableArray *lc_comments = [[NSMutableArray alloc] init];
+                        for(CXMLElement *lc_commentXML in lc_commentsXML){
+							WSComment *lc_comment = [[WSComment alloc] initWithXmlElement:lc_commentXML];
+							[lc_comments addObject:lc_comment];
+							[lc_comment release];
+						}
+						self.permComments = lc_comments;
+						[lc_comments release];
+                    }
+                        break;
+                    case kPermElementRepinCount:
+                        self.permRepinCount = [lc_child stringValue];
+                        break;
+                    case kPermElementLikeCount:
+                        self.permLikeCount = [lc_child stringValue];
+                        break;
+                    case kPermElementCommentCount:
+                        self.permCommentCount = [lc_child stringValue];
+                        break;
+                    case kPermElementUser:
+                        
+                        break;
+                        
+                    default:
+                        break;
+                }
+                
             }
-            child = child->nextSibling;
+            lc_child = [lc_child nextSibling];
         }
-        self.permComments = comments;
-        [comments release];
 	}
+    //NSLog(@"perm: %@", self);
 	return self;
-
 }
 
-/*- (NSString*)permStatus {
-    return [NSString stringWithFormat:@"%@ Likes %@ Comments %@ Repins", self.permLikeCount, self.permCommentCount, self.permRepinCount];
-}*/
+- (NSString*)description {
+    return [NSString stringWithFormat:@"permId: %@,\npermDesc: %@,\npermCategory: %@,\npermImage: %@,\npermComments: %@,\npermRepinCount: %@,\npermLikeCount: %@,\npermCommentCount: %@,\nuser: %@", permId, permDesc, permCategory, permImage, permComments, permRepinCount, permLikeCount, permCommentCount, permUser];
+}
 
 @end

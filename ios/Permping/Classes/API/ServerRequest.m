@@ -10,7 +10,6 @@
 #import "Constants.h"
 #import "RequestError.h"
 #import "WSError.h"
-#import "XMLReader.h"
 
 #ifdef USE_FAKE_CONNECTION
 #import "NSURLConnectionFake.h"
@@ -42,15 +41,15 @@ NSString * const ServerRequestErrorDomain = @"ServerRequestErrorDomain";
 
 #pragma mark Response
 
--(id)handleXMLResponse:(TBXMLElement *)in_xmlElement error:(NSError **)out_error{
+-(id)handleXMLResponse:(CXMLDocument *)in_document error:(NSError **)out_error{
 	return @"Must be overided in subclasses";
 }
 
-- (void)checkXmlForError:(TBXMLElement *)in_xmlElement error:(NSError **)out_error {
+- (void)checkXmlForError:(CXMLDocument *)in_document error:(NSError **)out_error {
 }
 
 -(void)handleDataResponse:(NSData *)in_data {
-    NSError *error = nil;
+    NSError *lc_error = nil;
     
 #if TARGET_IPHONE_SIMULATOR
     // Just for debug only
@@ -58,36 +57,44 @@ NSString * const ServerRequestErrorDomain = @"ServerRequestErrorDomain";
 	NSLog(@"xml %@", xml);
 	[xml release];
 #endif
+//    NSString *docPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
+//    NSString *filePath = [docPath stringByAppendingString:@"/temp.xml"];
+//    [[NSFileManager defaultManager] createFileAtPath:filePath contents:in_data attributes:nil];
     
-    TBXML *document = [TBXML newTBXMLWithXMLData:data error:&error];
-    RequestResult *requestResult = nil;
-    if (!error) {
-        id obj = [self handleXMLResponse:document.rootXMLElement error:&error];
-        if (!error) {
-            if (!obj) {
-                RequestError *requestError = [[[RequestError alloc] init] autorelease];
-                id errorFromXml = [requestError handleXMLResponse:document.rootXMLElement error:&error];
-                if (errorFromXml) {
-                    error = [(WSError*)errorFromXml error];
-                }
-            }
-            if (!error) {
-                requestResult = [RequestResult resultWithObject:obj];
-            }
-        }
-    }
+    CXMLDocument *lc_document = [[CXMLDocument alloc] initWithData:in_data options:0 error:&lc_error];
+
+    //NSLog(@"lc_document: %@", lc_document);
     
-    if (error) {
-        requestResult = [RequestResult resultWithError:error];
-    }
+    RequestResult *lc_result = nil;
+    if (!lc_error) {
+		id lc_obj = [self handleXMLResponse:lc_document error:&lc_error];
+		
+		if (!lc_error) {
+			if (!lc_obj) {
+				RequestError *lc_requestError = [[[RequestError alloc] init] autorelease];
+				id lc_errorFromXml = [lc_requestError handleXMLResponse:lc_document error:&lc_error];
+				if (lc_errorFromXml) {
+					lc_error = [(WSError*)lc_errorFromXml error];
+				}
+			}
+			
+			if (!lc_error) {
+				lc_result = [RequestResult resultWithObject:lc_obj];
+			}
+		}
+	}
+	
+	if (lc_error) {
+		lc_result = [RequestResult resultWithError:lc_error];
+	}
     
-    self.result = requestResult;
-    
-    if (requestResult) {
-        [requestResult release];
-    }
-    
-    [document release];
+	self.result = lc_result;
+
+	if (lc_result) {
+		[lc_result release];
+	}
+	
+	[lc_document release];
 }
 
 #pragma mark URL
@@ -108,6 +115,9 @@ NSString * const ServerRequestErrorDomain = @"ServerRequestErrorDomain";
 #endif
 		return lc_str;
 	} else {
+#if TARGET_IPHONE_SIMULATOR
+		NSLog(@"lc_str : %@", [self urlString]);
+#endif
 		return [self urlString];
 	}
 }
@@ -137,6 +147,8 @@ NSString * const ServerRequestErrorDomain = @"ServerRequestErrorDomain";
 
 - (void)connection:(NSURLConnection *)in_connection didReceiveResponse:(NSURLResponse *)response
 {
+    NSHTTPURLResponse *httpRes = (NSHTTPURLResponse *)response;
+    NSLog(@"response code : %d", httpRes.statusCode);
     [data setLength:0];
 }
 
@@ -162,7 +174,7 @@ NSString * const ServerRequestErrorDomain = @"ServerRequestErrorDomain";
 		self.target = in_target;
 		self.action = in_action;
 #ifdef USE_FAKE_CONNECTION
-        connection = [[NSURLConnectionFake alloc] initWithRequest:[self urlRequest] delegate:self];
+        connection = [[[NSURLConnectionFake alloc] initWithRequest:[self urlRequest] delegate:self] retain];
 #else
         connection = [[NSURLConnection alloc] initWithRequest:[self urlRequest] delegate:self];
 #endif

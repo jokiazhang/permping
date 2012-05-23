@@ -105,7 +105,6 @@
 
 }
 
-
 - (void)dealloc {
     [avatarView release];
     [userNameLabel release];

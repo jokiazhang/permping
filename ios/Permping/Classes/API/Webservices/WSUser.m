@@ -8,6 +8,15 @@
 
 #import "WSUser.h"
 
+#define kUserElements @"userId;userName;status;userAvatar"
+
+typedef enum {
+    kUserElementId = 0,
+    kUserElementName,
+    kUserElementStatus,
+    kUserElementAvatar,
+} kUserElement;
+
 @implementation WSUser
 @synthesize userId, userName, userAvatar, userStatus;
 
@@ -19,12 +28,33 @@
     [super dealloc];
 }
 
-- (id)initWithXmlElement:(TBXMLElement *)in_xmlElement {
+-(id)initWithXmlElement:(CXMLElement*)in_xmlElement {
     if (self = [super initWithXmlElement:in_xmlElement]) {
-        self.userId = [TBXML textForElement:[TBXML childElementNamed:@"userId" parentElement:in_xmlElement]];
-        self.userName = [TBXML textForElement:[TBXML childElementNamed:@"userName" parentElement:in_xmlElement]];
-        self.userAvatar = [TBXML textForElement:[TBXML childElementNamed:@"userAvatar" parentElement:in_xmlElement]];
-        //self.userStatus = [TBXML textForElement:[TBXML childElementNamed:@"status" parentElement:in_xmlElement]];
+        NSArray *lc_elements = [kUserElements componentsSeparatedByString:@";"];
+        CXMLNode  *lc_child = [in_xmlElement childAtIndex:0];
+        while (lc_child) {
+            if ([lc_child isKindOfClass:[CXMLElement class]]) {
+                int lc_index = [lc_elements indexOfObject:[lc_child name]];
+                switch (lc_index) {
+                    case kUserElementId:
+                        self.userId = [lc_child stringValue];
+                        break;
+                    case kUserElementName:
+                        self.userName = [lc_child stringValue];
+                        break;
+                    case kUserElementStatus:
+                        self.userStatus = [lc_child stringValue];
+                        break;
+                    case kUserElementAvatar:
+                        self.userAvatar = [lc_child stringValue];
+                        break;
+                        
+                    default:
+                        break;
+                }
+            }
+            lc_child = [lc_child nextSibling];
+        }
     }
     return self;
 }
@@ -46,6 +76,10 @@
     [dict setValue:userName forKey:@"userName"];
     [dict setValue:userAvatar forKey:@"userAvatar"];
     return dict;
+}
+
+- (NSString*)description {
+    return [NSString stringWithFormat:@"userId: %@,\nuserName: %@,\nstatus:%@,\nuserAvatar:%@",userId, userName, userStatus, userAvatar];
 }
 
 @end

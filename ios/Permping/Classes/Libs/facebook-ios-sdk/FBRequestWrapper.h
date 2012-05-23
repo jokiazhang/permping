@@ -8,9 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "Facebook.h"
-
-#define FB_APP_ID @"272022539557655"
-#define FB_APP_SECRET @"9d0b54305b11a48b7ca724cdd607cd60"
+#import "Constants.h"
 
 @interface FBRequestWrapper : NSObject <FBRequestDelegate, FBSessionDelegate> 
 {

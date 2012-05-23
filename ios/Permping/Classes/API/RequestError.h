@@ -7,10 +7,10 @@
 //
 
 #import "RemoteObject.h"
-#import "TBXML.h"
+#import "TouchXML.h"
 
 @interface RequestError : RemoteObject
 
--(id)handleXMLResponse:(TBXMLElement *)in_xmlElement error:(NSError **)out_error;
+-(id)handleXMLResponse:(CXMLDocument *)in_document error:(NSError **)out_error;
 
 @end
