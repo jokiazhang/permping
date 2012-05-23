@@ -102,7 +102,7 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 	            		
 	            		
 	            		TextView an = (TextView) v.findViewById(R.id.authorName);
-	            		an.setText("name" + o.getAuthor().getName() );
+	            		an.setText(o.getAuthor().getName() );
 	            		
 	            		//Board name
 	            		TextView bn = (TextView) v.findViewById(R.id.boardName );
