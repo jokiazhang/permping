@@ -7,6 +7,7 @@
 //
 
 #import "ProfileViewController.h"
+#import "UserProfileView.h"
 
 @implementation ProfileViewController
 
@@ -22,10 +23,7 @@
 
 - (void)didReceiveMemoryWarning
 {
-    // Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];
-    
-    // Release any cached data, images, etc that aren't in use.
 }
 
 #pragma mark - View lifecycle
@@ -33,14 +31,16 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+    UserProfileView *profileView = [[[UserProfileView alloc] initWithFrame:self.view.bounds] autorelease];
+    [self.view addSubview:profileView];
+    
+    self.user = [[WSUser alloc] initWithDictionary:[NSDictionary dictionaryWithObjectsAndKeys:@"Steve Raquel", @"userName", @"user01", @"userId", @"http://farm8.static.flickr.com/7123/7134938811_c22914bd39_s.jpg", @"userAvatar", nil]];
+    profileView.user = self.user;
 }
 
 - (void)viewDidUnload
 {
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
 }
 
 

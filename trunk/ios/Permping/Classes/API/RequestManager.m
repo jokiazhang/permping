@@ -40,6 +40,7 @@ NSString * const RequestManagerErrorDomain = @"RequestManagerErrorDomain";
 		[inProgressRequests addObject:in_request];
         [in_request startWithTarget:self action:@selector(handleRequest:)];
 	}
+    [in_request release];
 }
 
 -(void)handleRequest:(ServerRequest *)in_request{

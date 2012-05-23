@@ -66,9 +66,10 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    PermListRequest *request = [[PermListRequest alloc] initWithToken:@""];
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleServerResponse:) name:REQUESTMANAGER_REQUEST_TERMINATED_NOTIFICATION object:request];
-	[[RequestManager sharedInstance] performRequest:request];
+//    PermListRequest *request = [[PermListRequest alloc] initWithUserId:nil];
+//	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleServerResponse:) name:REQUESTMANAGER_REQUEST_TERMINATED_NOTIFICATION object:request];
+//	[[RequestManager sharedInstance] performRequest:request];
+
 }
 
 - (void)handleServerResponse: (NSNotification*)in_response {
@@ -166,8 +167,8 @@
 - (BOOL)twitterLoggedIn {
     if (!twitterEngine) {
         twitterEngine = [[SA_OAuthTwitterEngine alloc] initOAuthWithDelegate:self];
-        twitterEngine.consumerKey = @"TJbmLdgKvs0QW05Gxi9ig";
-        twitterEngine.consumerSecret = @"mbaHUOiZAIZAIXZ1mmVrRW1A6FFTAosRl9x7bqiaA";
+        twitterEngine.consumerKey = @"XL030SY0ABiJNVBq4grQ";
+        twitterEngine.consumerSecret = @"ttNPLjqLnjOkmjyZK5IsjvHU1iW0zC2hSSHigV1EU";
     }
     
     if ([twitterEngine isAuthorized]) {

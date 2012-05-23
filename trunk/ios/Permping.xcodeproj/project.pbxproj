@@ -47,13 +47,9 @@
 		046951C11561887700620B12 /* PermListRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 046951B51561887700620B12 /* PermListRequest.m */; };
 		046951C21561887700620B12 /* WSError.m in Sources */ = {isa = PBXBuildFile; fileRef = 046951B71561887700620B12 /* WSError.m */; };
 		046951C31561887700620B12 /* WSPerm.m in Sources */ = {isa = PBXBuildFile; fileRef = 046951B91561887700620B12 /* WSPerm.m */; };
-		046951D815618A0800620B12 /* LoginRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 046951D615618A0800620B12 /* LoginRequest.m */; };
-		04695226156192C200620B12 /* permList.xml in Resources */ = {isa = PBXBuildFile; fileRef = 04695225156192C200620B12 /* permList.xml */; };
 		0469524715619BF200620B12 /* WSComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 0469524615619BF200620B12 /* WSComment.m */; };
 		0469525E1561A50500620B12 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0469525D1561A50500620B12 /* Localizable.strings */; };
 		04AA8E6315600B8800B5E956 /* UserInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04AA8E6215600B8800B5E956 /* UserInfoTableViewCell.m */; };
-		04AA8E671560122F00B5E956 /* login-facebook-btn.btn in Resources */ = {isa = PBXBuildFile; fileRef = 04AA8E651560122F00B5E956 /* login-facebook-btn.btn */; };
-		04AA8E681560122F00B5E956 /* login-twitter-btn.png in Resources */ = {isa = PBXBuildFile; fileRef = 04AA8E661560122F00B5E956 /* login-twitter-btn.png */; };
 		04AA8E8A1560336300B5E956 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 04AA8E891560336300B5E956 /* libz.dylib */; };
 		04AA8EEB156049ED00B5E956 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04AA8EEA156049ED00B5E956 /* SystemConfiguration.framework */; };
 		04B43BE71560364E00F61E6A /* ExplorerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B43BD21560364E00F61E6A /* ExplorerViewController.m */; };
@@ -67,23 +63,39 @@
 		04B43BEF1560364E00F61E6A /* MyDiaryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04B43BE21560364E00F61E6A /* MyDiaryViewController.xib */; };
 		04B43BF01560364E00F61E6A /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B43BE51560364E00F61E6A /* ProfileViewController.m */; };
 		04B43BF11560364E00F61E6A /* ProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04B43BE61560364E00F61E6A /* ProfileViewController.xib */; };
-		04B43BF71560364E00F61E6A /* tab-item-explorer.png in Resources */ = {isa = PBXBuildFile; fileRef = 04B43BF21560364E00F61E6A /* tab-item-explorer.png */; };
-		04B43BF81560364E00F61E6A /* tab-item-following.png in Resources */ = {isa = PBXBuildFile; fileRef = 04B43BF31560364E00F61E6A /* tab-item-following.png */; };
-		04B43BF91560364E00F61E6A /* tab-item-image.png in Resources */ = {isa = PBXBuildFile; fileRef = 04B43BF41560364E00F61E6A /* tab-item-image.png */; };
-		04B43BFA1560364E00F61E6A /* tab-item-mydiary.png in Resources */ = {isa = PBXBuildFile; fileRef = 04B43BF51560364E00F61E6A /* tab-item-mydiary.png */; };
-		04B43BFB1560364E00F61E6A /* tab-item-profile.png in Resources */ = {isa = PBXBuildFile; fileRef = 04B43BF61560364E00F61E6A /* tab-item-profile.png */; };
-		04B43C181560364E00F61E6A /* nav-bar-background.png in Resources */ = {isa = PBXBuildFile; fileRef = 04B43C171560364E00F61E6A /* nav-bar-background.png */; };
 		04B43C1C1560364E00F61E6A /* UINavigationBar+CustomBackground.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B43C1B1560364E00F61E6A /* UINavigationBar+CustomBackground.m */; };
-		04B43C231560364E00F61E6A /* default-background.png in Resources */ = {isa = PBXBuildFile; fileRef = 04B43C221560364E00F61E6A /* default-background.png */; };
-		04B43C251560364E00F61E6A /* btn-background.png in Resources */ = {isa = PBXBuildFile; fileRef = 04B43C241560364E00F61E6A /* btn-background.png */; };
 		04B43C291560364E00F61E6A /* JoinViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B43C271560364E00F61E6A /* JoinViewController.m */; };
 		04B43C2A1560364E00F61E6A /* JoinViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04B43C281560364E00F61E6A /* JoinViewController.xib */; };
 		04B43C2E1560364E00F61E6A /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B43C2C1560364E00F61E6A /* LoginViewController.m */; };
 		04B43C2F1560364E00F61E6A /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04B43C2D1560364E00F61E6A /* LoginViewController.xib */; };
-		04B9B49C15632E170051AE15 /* close.png in Resources */ = {isa = PBXBuildFile; fileRef = 04B9B49B15632E170051AE15 /* close.png */; };
+		04B4983F1568ECC500BBF2EC /* UserProfileView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B4983E1568ECC500BBF2EC /* UserProfileView.m */; };
+		04B498471568F5E600BBF2EC /* AppData.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B498461568F5E500BBF2EC /* AppData.m */; };
+		04B4984A1569027200BBF2EC /* XMLReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B498491569027200BBF2EC /* XMLReader.m */; };
+		04B5D28115654B8C000E3E1B /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B5D28015654B8C000E3E1B /* Utils.m */; };
 		04B9B49F156332350051AE15 /* PermCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B9B49E156332350051AE15 /* PermCommentCell.m */; };
+		04BB036215642D2100C075CD /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 04BB036015642D2100C075CD /* Icon.png */; };
+		04BB036315642D2100C075CD /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04BB036115642D2100C075CD /* Icon@2x.png */; };
+		04C7AE83156939DC004ED1B0 /* CreatePermViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C7AE81156939DC004ED1B0 /* CreatePermViewController.m */; };
+		04C7AE84156939DC004ED1B0 /* CreatePermViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04C7AE82156939DC004ED1B0 /* CreatePermViewController.xib */; };
 		04C7C35B15615572004DB98D /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 04C7C35A15615572004DB98D /* libxml2.dylib */; };
 		04C7C35D15615764004DB98D /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04C7C35C15615764004DB98D /* Twitter.framework */; };
+		04CBAB4B15664C0E00BB45C8 /* NSURLConnectionFake.m in Sources */ = {isa = PBXBuildFile; fileRef = 04CBAB4A15664C0D00BB45C8 /* NSURLConnectionFake.m */; };
+		04CBAB4E15664CAA00BB45C8 /* popularPerms.xml in Resources */ = {isa = PBXBuildFile; fileRef = 04CBAB4D15664CAA00BB45C8 /* popularPerms.xml */; };
+		04CBAB5E1566560400BB45C8 /* bar-item-btn.png in Resources */ = {isa = PBXBuildFile; fileRef = 04CBAB4F1566560400BB45C8 /* bar-item-btn.png */; };
+		04CBAB5F1566560400BB45C8 /* btn-background.png in Resources */ = {isa = PBXBuildFile; fileRef = 04CBAB501566560400BB45C8 /* btn-background.png */; };
+		04CBAB601566560400BB45C8 /* close.png in Resources */ = {isa = PBXBuildFile; fileRef = 04CBAB511566560400BB45C8 /* close.png */; };
+		04CBAB621566560400BB45C8 /* default-background.png in Resources */ = {isa = PBXBuildFile; fileRef = 04CBAB531566560400BB45C8 /* default-background.png */; };
+		04CBAB631566560400BB45C8 /* img-gallery.png in Resources */ = {isa = PBXBuildFile; fileRef = 04CBAB541566560400BB45C8 /* img-gallery.png */; };
+		04CBAB641566560400BB45C8 /* login-facebook-btn.png in Resources */ = {isa = PBXBuildFile; fileRef = 04CBAB551566560400BB45C8 /* login-facebook-btn.png */; };
+		04CBAB651566560400BB45C8 /* login-twitter-btn.png in Resources */ = {isa = PBXBuildFile; fileRef = 04CBAB561566560400BB45C8 /* login-twitter-btn.png */; };
+		04CBAB661566560400BB45C8 /* nav-bar-background.png in Resources */ = {isa = PBXBuildFile; fileRef = 04CBAB571566560400BB45C8 /* nav-bar-background.png */; };
+		04CBAB671566560400BB45C8 /* tab-item-explorer.png in Resources */ = {isa = PBXBuildFile; fileRef = 04CBAB581566560400BB45C8 /* tab-item-explorer.png */; };
+		04CBAB681566560400BB45C8 /* tab-item-following.png in Resources */ = {isa = PBXBuildFile; fileRef = 04CBAB591566560400BB45C8 /* tab-item-following.png */; };
+		04CBAB691566560400BB45C8 /* tab-item-image.png in Resources */ = {isa = PBXBuildFile; fileRef = 04CBAB5A1566560400BB45C8 /* tab-item-image.png */; };
+		04CBAB6A1566560400BB45C8 /* tab-item-mydiary.png in Resources */ = {isa = PBXBuildFile; fileRef = 04CBAB5B1566560400BB45C8 /* tab-item-mydiary.png */; };
+		04CBAB6B1566560400BB45C8 /* tab-item-profile.png in Resources */ = {isa = PBXBuildFile; fileRef = 04CBAB5C1566560400BB45C8 /* tab-item-profile.png */; };
+		04CBAB6C1566560400BB45C8 /* img-take-photo.png in Resources */ = {isa = PBXBuildFile; fileRef = 04CBAB5D1566560400BB45C8 /* img-take-photo.png */; };
+		04CBAB6E1566565C00BB45C8 /* img-create-board.png in Resources */ = {isa = PBXBuildFile; fileRef = 04CBAB6D1566565C00BB45C8 /* img-create-board.png */; };
 		04DFAC5D155E40A300AE9FFD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04DFAC5C155E40A300AE9FFD /* UIKit.framework */; };
 		04DFAC5F155E40A300AE9FFD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04DFAC5E155E40A300AE9FFD /* Foundation.framework */; };
 		04DFAC61155E40A300AE9FFD /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04DFAC60155E40A300AE9FFD /* CoreGraphics.framework */; };
@@ -105,7 +117,6 @@
 		6AC710A415610F4200DFE074 /* TBXML+Compression.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AC710A015610F4200DFE074 /* TBXML+Compression.m */; };
 		6AC710A515610F4200DFE074 /* TBXML+HTTP.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AC710A215610F4200DFE074 /* TBXML+HTTP.m */; };
 		6AD1C8361563584200FB5CB1 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AD1C8351563584200FB5CB1 /* QuartzCore.framework */; };
-		6AD1C8381563657B00FB5CB1 /* bar-item-btn.png in Resources */ = {isa = PBXBuildFile; fileRef = 6AD1C8371563657B00FB5CB1 /* bar-item-btn.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -190,17 +201,12 @@
 		046951B71561887700620B12 /* WSError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSError.m; sourceTree = "<group>"; };
 		046951B81561887700620B12 /* WSPerm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSPerm.h; sourceTree = "<group>"; };
 		046951B91561887700620B12 /* WSPerm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSPerm.m; sourceTree = "<group>"; };
-		046951D515618A0800620B12 /* LoginRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginRequest.h; sourceTree = "<group>"; };
-		046951D615618A0800620B12 /* LoginRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginRequest.m; sourceTree = "<group>"; };
 		046951D715618A0800620B12 /* Webservices.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Webservices.h; sourceTree = "<group>"; };
-		04695225156192C200620B12 /* permList.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = permList.xml; path = Permping/Resources/permList.xml; sourceTree = SOURCE_ROOT; };
 		0469524515619BF200620B12 /* WSComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSComment.h; sourceTree = "<group>"; };
 		0469524615619BF200620B12 /* WSComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSComment.m; sourceTree = "<group>"; };
 		0469525D1561A50500620B12 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		04AA8E6115600B8800B5E956 /* UserInfoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfoTableViewCell.h; sourceTree = "<group>"; };
 		04AA8E6215600B8800B5E956 /* UserInfoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoTableViewCell.m; sourceTree = "<group>"; };
-		04AA8E651560122F00B5E956 /* login-facebook-btn.btn */ = {isa = PBXFileReference; lastKnownFileType = file; name = "login-facebook-btn.btn"; path = "Permping/Resources/Images/login-facebook-btn.btn"; sourceTree = SOURCE_ROOT; };
-		04AA8E661560122F00B5E956 /* login-twitter-btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "login-twitter-btn.png"; path = "Permping/Resources/Images/login-twitter-btn.png"; sourceTree = SOURCE_ROOT; };
 		04AA8E891560336300B5E956 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		04AA8EEA156049ED00B5E956 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		04B43BD11560364E00F61E6A /* ExplorerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExplorerViewController.h; sourceTree = "<group>"; };
@@ -220,27 +226,49 @@
 		04B43BE41560364E00F61E6A /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
 		04B43BE51560364E00F61E6A /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
 		04B43BE61560364E00F61E6A /* ProfileViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProfileViewController.xib; sourceTree = "<group>"; };
-		04B43BF21560364E00F61E6A /* tab-item-explorer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tab-item-explorer.png"; path = "Permping/Resources/Images/tab-item-explorer.png"; sourceTree = SOURCE_ROOT; };
-		04B43BF31560364E00F61E6A /* tab-item-following.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tab-item-following.png"; path = "Permping/Resources/Images/tab-item-following.png"; sourceTree = SOURCE_ROOT; };
-		04B43BF41560364E00F61E6A /* tab-item-image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tab-item-image.png"; path = "Permping/Resources/Images/tab-item-image.png"; sourceTree = SOURCE_ROOT; };
-		04B43BF51560364E00F61E6A /* tab-item-mydiary.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tab-item-mydiary.png"; path = "Permping/Resources/Images/tab-item-mydiary.png"; sourceTree = SOURCE_ROOT; };
-		04B43BF61560364E00F61E6A /* tab-item-profile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tab-item-profile.png"; path = "Permping/Resources/Images/tab-item-profile.png"; sourceTree = SOURCE_ROOT; };
-		04B43C171560364E00F61E6A /* nav-bar-background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "nav-bar-background.png"; path = "Permping/Resources/Images/nav-bar-background.png"; sourceTree = SOURCE_ROOT; };
 		04B43C1A1560364E00F61E6A /* UINavigationBar+CustomBackground.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationBar+CustomBackground.h"; sourceTree = "<group>"; };
 		04B43C1B1560364E00F61E6A /* UINavigationBar+CustomBackground.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationBar+CustomBackground.m"; sourceTree = "<group>"; };
-		04B43C221560364E00F61E6A /* default-background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "default-background.png"; path = "Permping/Resources/Images/default-background.png"; sourceTree = SOURCE_ROOT; };
-		04B43C241560364E00F61E6A /* btn-background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "btn-background.png"; path = "Permping/Resources/Images/btn-background.png"; sourceTree = SOURCE_ROOT; };
 		04B43C261560364E00F61E6A /* JoinViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JoinViewController.h; sourceTree = "<group>"; };
 		04B43C271560364E00F61E6A /* JoinViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JoinViewController.m; sourceTree = "<group>"; };
 		04B43C281560364E00F61E6A /* JoinViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JoinViewController.xib; sourceTree = "<group>"; };
 		04B43C2B1560364E00F61E6A /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		04B43C2C1560364E00F61E6A /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		04B43C2D1560364E00F61E6A /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
-		04B9B49B15632E170051AE15 /* close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = close.png; path = Permping/Resources/Images/close.png; sourceTree = SOURCE_ROOT; };
+		04B4983D1568ECC500BBF2EC /* UserProfileView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserProfileView.h; sourceTree = "<group>"; };
+		04B4983E1568ECC500BBF2EC /* UserProfileView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserProfileView.m; sourceTree = "<group>"; };
+		04B498451568F5E500BBF2EC /* AppData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppData.h; sourceTree = "<group>"; };
+		04B498461568F5E500BBF2EC /* AppData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppData.m; sourceTree = "<group>"; };
+		04B498481569027100BBF2EC /* XMLReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMLReader.h; sourceTree = "<group>"; };
+		04B498491569027200BBF2EC /* XMLReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMLReader.m; sourceTree = "<group>"; };
+		04B5D27F15654B8C000E3E1B /* Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
+		04B5D28015654B8C000E3E1B /* Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utils.m; sourceTree = "<group>"; };
 		04B9B49D156332350051AE15 /* PermCommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PermCommentCell.h; sourceTree = "<group>"; };
 		04B9B49E156332350051AE15 /* PermCommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PermCommentCell.m; sourceTree = "<group>"; };
+		04BB036015642D2100C075CD /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = Permping/Icon.png; sourceTree = SOURCE_ROOT; };
+		04BB036115642D2100C075CD /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon@2x.png"; path = "Permping/Icon@2x.png"; sourceTree = SOURCE_ROOT; };
+		04C7AE80156939DC004ED1B0 /* CreatePermViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreatePermViewController.h; sourceTree = "<group>"; };
+		04C7AE81156939DC004ED1B0 /* CreatePermViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreatePermViewController.m; sourceTree = "<group>"; };
+		04C7AE82156939DC004ED1B0 /* CreatePermViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CreatePermViewController.xib; sourceTree = "<group>"; };
 		04C7C35A15615572004DB98D /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		04C7C35C15615764004DB98D /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
+		04CBAB4915664C0D00BB45C8 /* NSURLConnectionFake.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSURLConnectionFake.h; sourceTree = "<group>"; };
+		04CBAB4A15664C0D00BB45C8 /* NSURLConnectionFake.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSURLConnectionFake.m; sourceTree = "<group>"; };
+		04CBAB4D15664CAA00BB45C8 /* popularPerms.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = popularPerms.xml; path = Permping/Resources/popularPerms.xml; sourceTree = SOURCE_ROOT; };
+		04CBAB4F1566560400BB45C8 /* bar-item-btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "bar-item-btn.png"; path = "Permping/Resources/Images/bar-item-btn.png"; sourceTree = SOURCE_ROOT; };
+		04CBAB501566560400BB45C8 /* btn-background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "btn-background.png"; path = "Permping/Resources/Images/btn-background.png"; sourceTree = SOURCE_ROOT; };
+		04CBAB511566560400BB45C8 /* close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = close.png; path = Permping/Resources/Images/close.png; sourceTree = SOURCE_ROOT; };
+		04CBAB531566560400BB45C8 /* default-background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "default-background.png"; path = "Permping/Resources/Images/default-background.png"; sourceTree = SOURCE_ROOT; };
+		04CBAB541566560400BB45C8 /* img-gallery.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "img-gallery.png"; path = "Permping/Resources/Images/img-gallery.png"; sourceTree = SOURCE_ROOT; };
+		04CBAB551566560400BB45C8 /* login-facebook-btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "login-facebook-btn.png"; path = "Permping/Resources/Images/login-facebook-btn.png"; sourceTree = SOURCE_ROOT; };
+		04CBAB561566560400BB45C8 /* login-twitter-btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "login-twitter-btn.png"; path = "Permping/Resources/Images/login-twitter-btn.png"; sourceTree = SOURCE_ROOT; };
+		04CBAB571566560400BB45C8 /* nav-bar-background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "nav-bar-background.png"; path = "Permping/Resources/Images/nav-bar-background.png"; sourceTree = SOURCE_ROOT; };
+		04CBAB581566560400BB45C8 /* tab-item-explorer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tab-item-explorer.png"; path = "Permping/Resources/Images/tab-item-explorer.png"; sourceTree = SOURCE_ROOT; };
+		04CBAB591566560400BB45C8 /* tab-item-following.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tab-item-following.png"; path = "Permping/Resources/Images/tab-item-following.png"; sourceTree = SOURCE_ROOT; };
+		04CBAB5A1566560400BB45C8 /* tab-item-image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tab-item-image.png"; path = "Permping/Resources/Images/tab-item-image.png"; sourceTree = SOURCE_ROOT; };
+		04CBAB5B1566560400BB45C8 /* tab-item-mydiary.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tab-item-mydiary.png"; path = "Permping/Resources/Images/tab-item-mydiary.png"; sourceTree = SOURCE_ROOT; };
+		04CBAB5C1566560400BB45C8 /* tab-item-profile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tab-item-profile.png"; path = "Permping/Resources/Images/tab-item-profile.png"; sourceTree = SOURCE_ROOT; };
+		04CBAB5D1566560400BB45C8 /* img-take-photo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "img-take-photo.png"; path = "Permping/Resources/Images/img-take-photo.png"; sourceTree = SOURCE_ROOT; };
+		04CBAB6D1566565C00BB45C8 /* img-create-board.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "img-create-board.png"; path = "Permping/Resources/Images/img-create-board.png"; sourceTree = SOURCE_ROOT; };
 		04DFAC58155E40A300AE9FFD /* Permping.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Permping.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04DFAC5C155E40A300AE9FFD /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		04DFAC5E155E40A300AE9FFD /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -284,7 +312,6 @@
 		6AC710A115610F4200DFE074 /* TBXML+HTTP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "TBXML+HTTP.h"; path = "Permping/Classes/Libs/TBXML/TBXML+HTTP.h"; sourceTree = SOURCE_ROOT; };
 		6AC710A215610F4200DFE074 /* TBXML+HTTP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "TBXML+HTTP.m"; path = "Permping/Classes/Libs/TBXML/TBXML+HTTP.m"; sourceTree = SOURCE_ROOT; };
 		6AD1C8351563584200FB5CB1 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		6AD1C8371563657B00FB5CB1 /* bar-item-btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "bar-item-btn.png"; path = "Permping/Resources/Images/bar-item-btn.png"; sourceTree = SOURCE_ROOT; };
 		6AD520FC156220D30055D76D /* NSMutableURLRequest+Parameters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableURLRequest+Parameters.h"; sourceTree = "<group>"; };
 		6AD520FD156220D30055D76D /* NSString+URLEncoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+URLEncoding.h"; sourceTree = "<group>"; };
 		6AD520FE156220D30055D76D /* NSURL+Base.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+Base.h"; sourceTree = "<group>"; };
@@ -410,11 +437,13 @@
 				046951AC1561887700620B12 /* RequestError.m */,
 				046951AD1561887700620B12 /* RequestManager.h */,
 				046951AE1561887700620B12 /* RequestManager.m */,
-				046951AF1561887700620B12 /* RequestResult.h */,
-				046951B01561887700620B12 /* RequestResult.m */,
 				046951B11561887700620B12 /* ServerRequest.h */,
 				046951B21561887700620B12 /* ServerRequest.m */,
+				046951AF1561887700620B12 /* RequestResult.h */,
+				046951B01561887700620B12 /* RequestResult.m */,
 				046951B31561887700620B12 /* Webservices */,
+				04CBAB4915664C0D00BB45C8 /* NSURLConnectionFake.h */,
+				04CBAB4A15664C0D00BB45C8 /* NSURLConnectionFake.m */,
 			);
 			name = API;
 			path = Permping/Classes/API;
@@ -423,8 +452,6 @@
 		046951B31561887700620B12 /* Webservices */ = {
 			isa = PBXGroup;
 			children = (
-				046951D515618A0800620B12 /* LoginRequest.h */,
-				046951D615618A0800620B12 /* LoginRequest.m */,
 				046951D715618A0800620B12 /* Webservices.h */,
 				046951B41561887700620B12 /* PermListRequest.h */,
 				046951B51561887700620B12 /* PermListRequest.m */,
@@ -492,6 +519,12 @@
 				04B43C1A1560364E00F61E6A /* UINavigationBar+CustomBackground.h */,
 				04B43C1B1560364E00F61E6A /* UINavigationBar+CustomBackground.m */,
 				6A0566A11564BB660064A63B /* Constants.h */,
+				04B5D27F15654B8C000E3E1B /* Utils.h */,
+				04B5D28015654B8C000E3E1B /* Utils.m */,
+				04B498451568F5E500BBF2EC /* AppData.h */,
+				04B498461568F5E500BBF2EC /* AppData.m */,
+				04B498481569027100BBF2EC /* XMLReader.h */,
+				04B498491569027200BBF2EC /* XMLReader.m */,
 			);
 			name = Global;
 			path = Permping/Classes/Global;
@@ -503,6 +536,9 @@
 				04B43BDC1560364E00F61E6A /* ImageViewController.h */,
 				04B43BDD1560364E00F61E6A /* ImageViewController.m */,
 				04B43BDE1560364E00F61E6A /* ImageViewController.xib */,
+				04C7AE80156939DC004ED1B0 /* CreatePermViewController.h */,
+				04C7AE81156939DC004ED1B0 /* CreatePermViewController.m */,
+				04C7AE82156939DC004ED1B0 /* CreatePermViewController.xib */,
 			);
 			name = Image;
 			path = Permping/Classes/Image;
@@ -525,6 +561,8 @@
 				04B43BE41560364E00F61E6A /* ProfileViewController.h */,
 				04B43BE51560364E00F61E6A /* ProfileViewController.m */,
 				04B43BE61560364E00F61E6A /* ProfileViewController.xib */,
+				04B4983D1568ECC500BBF2EC /* UserProfileView.h */,
+				04B4983E1568ECC500BBF2EC /* UserProfileView.m */,
 			);
 			name = Profile;
 			path = Permping/Classes/Profile;
@@ -643,7 +681,9 @@
 		04DFAC92155E446D00AE9FFD /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				04695225156192C200620B12 /* permList.xml */,
+				04CBAB4D15664CAA00BB45C8 /* popularPerms.xml */,
+				04BB036015642D2100C075CD /* Icon.png */,
+				04BB036115642D2100C075CD /* Icon@2x.png */,
 				04DFAC93155E446D00AE9FFD /* Images */,
 			);
 			path = Resources;
@@ -652,18 +692,21 @@
 		04DFAC93155E446D00AE9FFD /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				6AD1C8371563657B00FB5CB1 /* bar-item-btn.png */,
-				04B9B49B15632E170051AE15 /* close.png */,
-				04AA8E651560122F00B5E956 /* login-facebook-btn.btn */,
-				04AA8E661560122F00B5E956 /* login-twitter-btn.png */,
-				04B43C241560364E00F61E6A /* btn-background.png */,
-				04B43C221560364E00F61E6A /* default-background.png */,
-				04B43C171560364E00F61E6A /* nav-bar-background.png */,
-				04B43BF21560364E00F61E6A /* tab-item-explorer.png */,
-				04B43BF31560364E00F61E6A /* tab-item-following.png */,
-				04B43BF41560364E00F61E6A /* tab-item-image.png */,
-				04B43BF51560364E00F61E6A /* tab-item-mydiary.png */,
-				04B43BF61560364E00F61E6A /* tab-item-profile.png */,
+				04CBAB4F1566560400BB45C8 /* bar-item-btn.png */,
+				04CBAB501566560400BB45C8 /* btn-background.png */,
+				04CBAB511566560400BB45C8 /* close.png */,
+				04CBAB531566560400BB45C8 /* default-background.png */,
+				04CBAB6D1566565C00BB45C8 /* img-create-board.png */,
+				04CBAB541566560400BB45C8 /* img-gallery.png */,
+				04CBAB551566560400BB45C8 /* login-facebook-btn.png */,
+				04CBAB561566560400BB45C8 /* login-twitter-btn.png */,
+				04CBAB571566560400BB45C8 /* nav-bar-background.png */,
+				04CBAB581566560400BB45C8 /* tab-item-explorer.png */,
+				04CBAB591566560400BB45C8 /* tab-item-following.png */,
+				04CBAB5A1566560400BB45C8 /* tab-item-image.png */,
+				04CBAB5B1566560400BB45C8 /* tab-item-mydiary.png */,
+				04CBAB5C1566560400BB45C8 /* tab-item-profile.png */,
+				04CBAB5D1566560400BB45C8 /* img-take-photo.png */,
 			);
 			path = Images;
 			sourceTree = "<group>";
@@ -792,25 +835,31 @@
 				04B43BED1560364E00F61E6A /* ImageViewController.xib in Resources */,
 				04B43BEF1560364E00F61E6A /* MyDiaryViewController.xib in Resources */,
 				04B43BF11560364E00F61E6A /* ProfileViewController.xib in Resources */,
-				04B43BF71560364E00F61E6A /* tab-item-explorer.png in Resources */,
-				04B43BF81560364E00F61E6A /* tab-item-following.png in Resources */,
-				04B43BF91560364E00F61E6A /* tab-item-image.png in Resources */,
-				04B43BFA1560364E00F61E6A /* tab-item-mydiary.png in Resources */,
-				04B43BFB1560364E00F61E6A /* tab-item-profile.png in Resources */,
-				04B43C181560364E00F61E6A /* nav-bar-background.png in Resources */,
-				04B43C231560364E00F61E6A /* default-background.png in Resources */,
-				04B43C251560364E00F61E6A /* btn-background.png in Resources */,
 				04B43C2A1560364E00F61E6A /* JoinViewController.xib in Resources */,
 				04B43C2F1560364E00F61E6A /* LoginViewController.xib in Resources */,
-				04AA8E671560122F00B5E956 /* login-facebook-btn.btn in Resources */,
-				04AA8E681560122F00B5E956 /* login-twitter-btn.png in Resources */,
 				040B305415617A6100F7CF99 /* FBDialog.bundle in Resources */,
 				0469516D156186A700620B12 /* CHANGELOG.md in Resources */,
 				0469516F156186A700620B12 /* README.md in Resources */,
-				04695226156192C200620B12 /* permList.xml in Resources */,
 				0469525E1561A50500620B12 /* Localizable.strings in Resources */,
-				04B9B49C15632E170051AE15 /* close.png in Resources */,
-				6AD1C8381563657B00FB5CB1 /* bar-item-btn.png in Resources */,
+				04BB036215642D2100C075CD /* Icon.png in Resources */,
+				04BB036315642D2100C075CD /* Icon@2x.png in Resources */,
+				04CBAB4E15664CAA00BB45C8 /* popularPerms.xml in Resources */,
+				04CBAB5E1566560400BB45C8 /* bar-item-btn.png in Resources */,
+				04CBAB5F1566560400BB45C8 /* btn-background.png in Resources */,
+				04CBAB601566560400BB45C8 /* close.png in Resources */,
+				04CBAB621566560400BB45C8 /* default-background.png in Resources */,
+				04CBAB631566560400BB45C8 /* img-gallery.png in Resources */,
+				04CBAB641566560400BB45C8 /* login-facebook-btn.png in Resources */,
+				04CBAB651566560400BB45C8 /* login-twitter-btn.png in Resources */,
+				04CBAB661566560400BB45C8 /* nav-bar-background.png in Resources */,
+				04CBAB671566560400BB45C8 /* tab-item-explorer.png in Resources */,
+				04CBAB681566560400BB45C8 /* tab-item-following.png in Resources */,
+				04CBAB691566560400BB45C8 /* tab-item-image.png in Resources */,
+				04CBAB6A1566560400BB45C8 /* tab-item-mydiary.png in Resources */,
+				04CBAB6B1566560400BB45C8 /* tab-item-profile.png in Resources */,
+				04CBAB6C1566560400BB45C8 /* img-take-photo.png in Resources */,
+				04CBAB6E1566565C00BB45C8 /* img-create-board.png in Resources */,
+				04C7AE84156939DC004ED1B0 /* CreatePermViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -872,7 +921,6 @@
 				046951C11561887700620B12 /* PermListRequest.m in Sources */,
 				046951C21561887700620B12 /* WSError.m in Sources */,
 				046951C31561887700620B12 /* WSPerm.m in Sources */,
-				046951D815618A0800620B12 /* LoginRequest.m in Sources */,
 				0469524715619BF200620B12 /* WSComment.m in Sources */,
 				6A04632D1562591600BB4E34 /* MKAnnotationView+WebCache.m in Sources */,
 				6A04632E1562591600BB4E34 /* SDImageCache.m in Sources */,
@@ -885,6 +933,12 @@
 				6A046337156259E700BB4E34 /* WSUser.m in Sources */,
 				6A04633D15626C1800BB4E34 /* PermHeaderCell.m in Sources */,
 				04B9B49F156332350051AE15 /* PermCommentCell.m in Sources */,
+				04B5D28115654B8C000E3E1B /* Utils.m in Sources */,
+				04CBAB4B15664C0E00BB45C8 /* NSURLConnectionFake.m in Sources */,
+				04B4983F1568ECC500BBF2EC /* UserProfileView.m in Sources */,
+				04B498471568F5E600BBF2EC /* AppData.m in Sources */,
+				04B4984A1569027200BBF2EC /* XMLReader.m in Sources */,
+				04C7AE83156939DC004ED1B0 /* CreatePermViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -902,6 +956,58 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		0471109015643726007E5B1B /* Ad Hoc */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				OTHER_LDFLAGS = (
+					/usr/lib/libz.dylib,
+					"-ObjC",
+					"-all_load",
+				);
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = "Ad Hoc";
+		};
+		0471109115643726007E5B1B /* Ad Hoc */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: APPO CO., LTD";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: APPO CO., LTD";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Permping/Permping-Prefix.pch";
+				HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
+				INFOPLIST_FILE = "Permping/Permping-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Permping/Classes/Libs/Twitter+OAuth/SAOAuthTwitterEngine\"",
+				);
+				OTHER_LDFLAGS = (
+					/usr/lib/libz.dylib,
+					"-ObjC",
+					"-all_load",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "1310E8E9-3105-43D9-9BFD-730017106837";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "1310E8E9-3105-43D9-9BFD-730017106837";
+				USER_HEADER_SEARCH_PATHS = "";
+				WRAPPER_EXTENSION = app;
+			};
+			name = "Ad Hoc";
+		};
 		04DFAC82155E40A300AE9FFD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -959,6 +1065,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Permping/Permping-Prefix.pch";
@@ -984,7 +1091,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Tuan Do (P5JR675238)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Tuan Do (P5JR675238)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Permping/Permping-Prefix.pch";
 				HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
@@ -1000,6 +1108,8 @@
 					"-all_load",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "6E874A32-A8B7-4E21-A813-1B9D2F63828C";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "6E874A32-A8B7-4E21-A813-1B9D2F63828C";
 				USER_HEADER_SEARCH_PATHS = "";
 				WRAPPER_EXTENSION = app;
 			};
@@ -1013,6 +1123,7 @@
 			buildConfigurations = (
 				04DFAC82155E40A300AE9FFD /* Debug */,
 				04DFAC83155E40A300AE9FFD /* Release */,
+				0471109015643726007E5B1B /* Ad Hoc */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1022,6 +1133,7 @@
 			buildConfigurations = (
 				04DFAC85155E40A300AE9FFD /* Debug */,
 				04DFAC86155E40A300AE9FFD /* Release */,
+				0471109115643726007E5B1B /* Ad Hoc */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

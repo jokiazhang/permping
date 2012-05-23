@@ -47,9 +47,7 @@
 		NSString *message = nil;
         if ([self.error isKindOfClass:[NSError class]]) {
             WSError *lcError = [[(NSError*)in_error userInfo] objectForKey:@"wserror"];
-            if (lcError.code != 200) {
-                message = lcError.message;
-            }
+            message = lcError.message;
         }
         
         if (!message) message = NSLocalizedString(@"RequestResult.error_occured", @"An error occured" );

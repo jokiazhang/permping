@@ -1,18 +1,16 @@
+/* Globals values */
+"globals.cancel" = "Cancel";
+"globals.ok" = "OK";
+
 /* Tab items */
 "FollowingTabTitle" = "Followers";
-
 "ExplorerTabTitle" = "Explorer";
-
 "ImageTabTitle" = "Image";
-
 "MyDiaryTabTitle" = "My Diary";
-
 "ProfileTabTitle" = "Profile";
 
 /***************************************************************************************/
 /* Webservices                                                                         */
 /***************************************************************************************/
-
 "RequestResult.error_occured" = "An error occured";
-
-"RequestResult.ok_button" = "Ok";
+"RequestResult.ok_button" = "OK";

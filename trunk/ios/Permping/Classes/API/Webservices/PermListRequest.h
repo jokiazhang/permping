@@ -9,9 +9,9 @@
 #import "ServerRequest.h"
 
 @interface PermListRequest : ServerRequest {
-    NSString *accessToken;
+    NSString *userId;
 }
 
-- (id)initWithToken:(NSString*)in_token;
+- (id)initWithUserId:(NSString*)in_userId;
 
 @end

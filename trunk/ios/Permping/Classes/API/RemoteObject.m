@@ -16,4 +16,14 @@
 	return self;
 }
 
+- (id)initWithDictionary:(NSDictionary*)dict {
+    if (self = [self init]) {
+	}
+	return self;
+}
+
+- (NSDictionary*)dictionary {
+    return nil;
+}
+
 @end

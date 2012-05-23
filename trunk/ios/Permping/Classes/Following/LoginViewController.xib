@@ -92,7 +92,7 @@
 						</object>
 						<object class="NSCustomResource" key="IBUINormalImage">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">login-facebook-btn.btn</string>
+							<string key="NSResourceName">login-facebook-btn.png</string>
 						</object>
 						<object class="IBUIFontDescription" key="IBUIFontDescription" id="17934375">
 							<int key="type">2</int>
@@ -434,7 +434,7 @@
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
 			<string key="btn-background.png">{206, 85}</string>
-			<string key="login-facebook-btn.btn">{60, 60}</string>
+			<string key="login-facebook-btn.png">{60, 60}</string>
 			<string key="login-twitter-btn.png">{60, 60}</string>
 		</dictionary>
 		<string key="IBCocoaTouchPluginVersion">933</string>

@@ -16,9 +16,6 @@
 		UIAlertView *alert =[[UIAlertView alloc] initWithTitle: nil
 														  message: @"Please check your wifi or 3G."
 														 delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
-        //UIAlertView *alert =[[UIAlertView alloc] initWithTitle: nil
-        //                                                    message: @"Por favor, compruebe su wifi o 3G"
-        //                                                    delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
 		[alert show];
 		[alert release];
 	}
@@ -26,17 +23,6 @@
 
 - (NetworkStatus)checkNetworkStatus {
 	NetworkStatus netStatus  = [internetReach currentReachabilityStatus];
-	/*switch (netStatus) {
-		case ReachableViaWiFi:
-			NSLog(@"Access to internet throught wifi network");
-			break;
-		case ReachableViaWWAN:
-			NSLog(@"Access to internet throught carrier network");
-			break;
-		default:
-			NSLog(@"No access to internet");
-			break;
-	}*/
 	return netStatus;
 }
 
