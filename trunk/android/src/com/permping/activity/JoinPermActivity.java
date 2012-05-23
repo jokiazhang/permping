@@ -64,7 +64,6 @@ public class JoinPermActivity extends Activity implements TextWatcher {
         createAccount = (Button) findViewById(R.id.createAccount);
         createAccount.setOnClickListener(new View.OnClickListener() {
 			
-			@Override
 			public void onClick(View v) {
 				// Send request to server to create new account along with its params
 				List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(7);				
@@ -92,7 +91,6 @@ public class JoinPermActivity extends Activity implements TextWatcher {
 			}
 		});
 	}
-	@Override
 	public void afterTextChanged(Editable s) {
 		// TODO Auto-generated method stub
 		if (name.getText().toString().equals("")) {
@@ -108,13 +106,11 @@ public class JoinPermActivity extends Activity implements TextWatcher {
 			confirmPassword.setError("Confirm password is invalid!");
 		}
 	}
-	@Override
 	public void beforeTextChanged(CharSequence s, int start, int count,
 			int after) {
 		// TODO Auto-generated method stub
 		
 	}
-	@Override
 	public void onTextChanged(CharSequence s, int start, int before, int count) {
 		// TODO Auto-generated method stub
 		
