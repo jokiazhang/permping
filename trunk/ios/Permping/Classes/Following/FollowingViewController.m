@@ -9,14 +9,11 @@
 #import "FollowingViewController.h"
 #import "JoinViewController.h"
 #import "LoginViewController.h"
-#import "PermHeaderCell.h"
-#import "PermCommentCell.h"
 #import "Webservices.h"
 #import "AppData.h"
 
 
 @implementation FollowingViewController
-@synthesize permsArray;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -82,57 +79,6 @@
 	} else {
 		NSLog(@"Failed to load permlist");
 	}
-}
-
-#pragma mark - <UITableViewDelegate + DataSource> implementation
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return [self.permsArray count];
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    WSPerm *perm = [self.permsArray objectAtIndex:section];
-    NSInteger count = 1 + perm.permComments.count;
-    return MIN(count, 6);
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    // TODO :
-    CGFloat h = 60.0;
-    if (indexPath.row == 0) {
-        h = 420;
-    }
-    return h;
-}
-
-- (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString *permReuseIdentifier = @"PermCellIdentifier";
-    static NSString *commentReuseIdentifier = @"CommentReuseIdentifier";
-    WSPerm *perm = [self.permsArray objectAtIndex:indexPath.section];
-    
-    if (indexPath.row == 0) {
-        PermHeaderCell *cell = (PermHeaderCell*)[tableView dequeueReusableCellWithIdentifier:permReuseIdentifier];
-        if (cell == nil) {
-            cell = [[PermHeaderCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:permReuseIdentifier];
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        }
-        [cell setPerm:perm];
-        return cell;
-    } else {
-        PermCommentCell *cell = [tableView dequeueReusableCellWithIdentifier:commentReuseIdentifier];
-        if (cell == nil) {
-            cell = [[PermCommentCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:commentReuseIdentifier];
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        }
-        WSComment *comment = [perm.permComments objectAtIndex:indexPath.row-1];
-        [cell setComment:comment];
-        return cell;
-    }
-}
-
-- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if ([cell isKindOfClass:[PermCommentCell class]]) {
-        cell.textLabel.font = [UIFont systemFontOfSize:15];
-    }
 }
 
 - (IBAction)joinButtonDidTouch:(id)sender {

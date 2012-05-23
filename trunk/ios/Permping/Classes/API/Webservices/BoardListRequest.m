@@ -11,6 +11,7 @@
 #import "WSBoard.h"
 
 @implementation BoardListRequest
+@synthesize categoryId;
 
 - (void)dealloc {
     [categoryId release];

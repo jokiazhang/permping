@@ -28,6 +28,10 @@
         NSString *urlString = [[request URL] absoluteString];
 		if ([urlString hasSuffix:@"/permservice/getpupolarperm"]) {
             lc_fileName = @"popularPerms";
+        } else if ([urlString hasSuffix:@"/permservice/getcategories"]) {
+            lc_fileName = @"categories";
+        } else if ([urlString rangeOfString:@"/permservice/getboardswithcategoryid/"].location != NSNotFound) {
+            lc_fileName = @"category_22";
         }
 		fakeData = [[NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:lc_fileName ofType:@"xml"]] retain];
 		[self performSelector:@selector(launchFakeResponse:) withObject:delegate afterDelay:0.3];

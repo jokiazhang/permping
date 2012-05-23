@@ -54,16 +54,11 @@ NSString * const ServerRequestErrorDomain = @"ServerRequestErrorDomain";
 #if TARGET_IPHONE_SIMULATOR
     // Just for debug only
 	NSString *xml = [[NSString alloc] initWithData:in_data encoding:NSUTF8StringEncoding];
-	NSLog(@"xml %@", xml);
+    //NSLog(@"xml %@", xml);
 	[xml release];
 #endif
-//    NSString *docPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
-//    NSString *filePath = [docPath stringByAppendingString:@"/temp.xml"];
-//    [[NSFileManager defaultManager] createFileAtPath:filePath contents:in_data attributes:nil];
     
     CXMLDocument *lc_document = [[CXMLDocument alloc] initWithData:in_data options:0 error:&lc_error];
-
-    //NSLog(@"lc_document: %@", lc_document);
     
     RequestResult *lc_result = nil;
     if (!lc_error) {
@@ -127,7 +122,7 @@ NSString * const ServerRequestErrorDomain = @"ServerRequestErrorDomain";
 
 -(NSURLRequest *)urlRequest{
     NSURL *url = [NSURL URLWithString:[self urlComplete]];
-	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
+	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:SERVER_REQUEST_TIMEOUT_DEFAULT];
 	if(isUsingMethodPOST){
 		[request setHTTPMethod:@"POST"];
 		[request addValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
@@ -135,7 +130,7 @@ NSString * const ServerRequestErrorDomain = @"ServerRequestErrorDomain";
 		[request addValue:[NSString stringWithFormat:@"%d", [lc_body length]] forHTTPHeaderField:@"Content-Length"];
 		[request setHTTPBody:[lc_body dataUsingEncoding:NSUTF8StringEncoding]];
 	}
-	[request setTimeoutInterval:SERVER_REQUEST_TIMEOUT_DEFAULT];
+    
 	return [request autorelease];
 }
 
@@ -149,6 +144,7 @@ NSString * const ServerRequestErrorDomain = @"ServerRequestErrorDomain";
 {
     NSHTTPURLResponse *httpRes = (NSHTTPURLResponse *)response;
     NSLog(@"response code : %d", httpRes.statusCode);
+    NSLog(@"allHeaderFields: %@", httpRes.allHeaderFields);
     [data setLength:0];
 }
 
@@ -160,7 +156,7 @@ NSString * const ServerRequestErrorDomain = @"ServerRequestErrorDomain";
 	connection = nil;	
 }
 
-- (void)connectionDidFinishLoading:(NSURLConnection *)in_connection{	
+- (void)connectionDidFinishLoading:(NSURLConnection *)in_connection{
 	[self handleDataResponse:data];
 	[self.target performSelector:self.action withObject:self];
 	[connection release];
@@ -183,6 +179,5 @@ NSString * const ServerRequestErrorDomain = @"ServerRequestErrorDomain";
 		}
 	}
 }
-
 
 @end

@@ -8,14 +8,15 @@
 
 #import "WSError.h"
 
-@implementation WSError
-
 #define kErrorElements @"code;message"
 
 typedef enum {
 	kErrorElementCode = 0,
 	kErrorElementMessage
 } kErrorElement;
+
+@implementation WSError
+@synthesize code, message;
 
 - (void)dealloc {
     [code release];

@@ -12,4 +12,6 @@
 
 - (void)drawRect:(CGRect)rect;
 
+- (CGSize)sizeThatFits:(CGSize)size;
+
 @end

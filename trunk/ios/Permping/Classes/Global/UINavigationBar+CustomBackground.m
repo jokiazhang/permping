@@ -16,5 +16,10 @@
     [image drawInRect:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
 }
 
+- (CGSize)sizeThatFits:(CGSize)size {
+    CGSize newSize = CGSizeMake(320,46);
+    return newSize;
+}
+
 @end
 

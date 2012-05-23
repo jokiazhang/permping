@@ -43,6 +43,7 @@
     ProfileViewController *viewController5 = [[[ProfileViewController alloc] initWithNibName:@"ProfileViewController" bundle:nil] autorelease];
     self.tabBarController = [[[UITabBarController alloc] init] autorelease];
     self.tabBarController.viewControllers = [NSArray arrayWithObjects:[self navigationControllerWithRootController:viewController1], [self navigationControllerWithRootController:viewController2], [self navigationControllerWithRootController:viewController3], [self navigationControllerWithRootController:viewController4], [self navigationControllerWithRootController:viewController5], nil];
+    self.tabBarController.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"default-background.png"]];
     self.window.rootViewController = self.tabBarController;
     [self.window makeKeyAndVisible];
     return YES;
