@@ -8,10 +8,23 @@
 
 #import "ServerRequest.h"
 
+typedef enum {
+    PermListRequestTypePopular = 0,
+    PermListRequestTypeFollowing,
+    PermListRequestTypeBoards
+}PermListRequestType;
+
+extern NSString * const PermListRequestOptionIDKey;
+extern NSString * const PermListRequestOptionUserNameKey;
+extern NSString * const PermListRequestOptionPasswordKey;
+
 @interface PermListRequest : ServerRequest {
-    NSString *userId;
+    PermListRequestType type;
+    NSString            *requestId;
+    NSString            *userName;
+    NSString            *password;
 }
 
-- (id)initWithUserId:(NSString*)in_userId;
+- (id)initWithType:(PermListRequestType)in_type options:(NSDictionary*)options;
 
 @end

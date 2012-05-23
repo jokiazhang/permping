@@ -6,11 +6,9 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import <Twitter/TWTweetComposeViewController.h>
 #import "LoginViewController.h"
 #import "UserInfoTableViewCell.h"
-#import "FBFeedPost.h"
-
+#import "AppData.h"
 
 @implementation LoginViewController
 
@@ -100,88 +98,19 @@
 }
 
 - (IBAction)facebookButtonDidTouch:(id)sender {
-    if ([self fbLoggedIn]) {
-        
+    if ([[AppData getInstance] fbLoggedIn]) {
+        NSLog(@"fbLoggedIn");
     }
 }
 
 - (IBAction)twitterButtonDidTouch:(id)sender {
-    float version = [[[UIDevice currentDevice] systemVersion] floatValue];
-    if (version >= 5.0) {
-        if ([TWTweetComposeViewController canSendTweet]) {
-            // do login with server
-        } else {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"No twitter account has been setup." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-            [alert show];
-            [alert release];
-        }
-    } else {
-        if (!twitterEngine) {
-            twitterEngine = [[SA_OAuthTwitterEngine alloc] initOAuthWithDelegate:self];
-            twitterEngine.consumerKey = @"XL030SY0ABiJNVBq4grQ";
-            twitterEngine.consumerSecret = @"ttNPLjqLnjOkmjyZK5IsjvHU1iW0zC2hSSHigV1EU";
-        }
-        
-        if ([self twitterLoggedIn] == YES) {
-            
-        }
+    if ([[AppData getInstance] twitterLoggedIn]) {
+        NSLog(@"twitterLoggedIn");
     }
 }
 
 - (IBAction)loginButtonDidTouch:(id)sender {
     
-}
-
-#pragma mark - Facebook
-- (BOOL)fbLoggedIn {
-    // if the user is not currently logged in begin the session
-	BOOL loggedIn = [[FBRequestWrapper defaultManager] isLoggedIn];
-    //loggedIn = NO;
-	if (!loggedIn) {
-        FBFeedPost *post = [[FBFeedPost alloc] init];
-        [post showLoginViewWithDelegate:self];
-	}
-    return loggedIn;
-}
-
-#pragma mark - FBFeedPostDelegate
-
-- (void) failedToPublishPost:(FBFeedPost*) _post {
-	[_post release];
-}
-
-- (void) finishedPublishingPost:(FBFeedPost*) _post {
-	[_post release];
-    
-}
-
-- (void) didLogin:(FBFeedPost *)_post {
-    NSLog(@"Facebook login successed");
-    [_post release];
-}
-
-- (void) didNotLogin:(FBFeedPost *)_post {
-    NSLog(@"Facebook login failed");
-    [_post release];
-}
-
-#pragma mark - Twitter
-- (BOOL)twitterLoggedIn {
-    if ([twitterEngine isAuthorized]) {
-        // logged in
-        return YES;
-    }
-    
-    // show login diaglog
-    if (saController) {
-        [saController release];        
-    }
-    SA_OAuthTwitterController *controller = [SA_OAuthTwitterController controllerToEnterCredentialsWithTwitterEngine:twitterEngine delegate:self];
-    if (controller) {
-        saController = [controller retain];
-    }
-    [saController showLoginDialog];
-    return NO;
 }
 
 - (void)dismiss:(id)sender {

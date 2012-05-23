@@ -65,10 +65,6 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);;
 }
 
-- (BOOL)checkDidLogin {
-    return NO;
-}
-
 - (void)dealloc {
     [user release];
     [super dealloc];

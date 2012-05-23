@@ -9,32 +9,51 @@
 #import "WSError.h"
 
 @implementation WSError
-@synthesize code, message;
+
+#define kErrorElements @"code;message"
+
+typedef enum {
+	kErrorElementCode = 0,
+	kErrorElementMessage
+} kErrorElement;
 
 - (void)dealloc {
+    [code release];
 	[message release];
 	[super dealloc];
 }
 
--(id)initWithXmlElement:(TBXMLElement*)in_xmlElement{
+-(id)initWithXmlElement:(CXMLElement*)in_xmlElement{
 	if (self = [super initWithXmlElement:in_xmlElement]) {
-		TBXMLElement *element = in_xmlElement->firstChild;
-        do {
-            if ([[TBXML elementName:element] isEqualToString:@"errorCode"]) {
-                self.code = [[TBXML textForElement:[TBXML childElementNamed:@"errorCode" parentElement:element]] intValue];
-            } else if ([[TBXML elementName:element] isEqualToString:@"errorMessage"]){
-                self.message = [TBXML textForElement:[TBXML childElementNamed:@"errorMessage" parentElement:element]];
-            }
-        } while ((element = element->nextSibling));
+		NSArray *lc_elements = [kErrorElements componentsSeparatedByString:@";"];
+		CXMLNode  *lc_child = [in_xmlElement childAtIndex:0];
+		while (lc_child) {
+			if ([lc_child isKindOfClass:[CXMLElement class]]) {
+				int lc_index = [lc_elements indexOfObject:[lc_child name]];
+				if ([lc_child stringValue]!=nil)
+					switch (lc_index) {
+						case kErrorElementCode:
+							self.code=[lc_child stringValue];
+							break;
+						case kErrorElementMessage:
+							self.message=[lc_child stringValue];
+							break;
+						default:
+							break;
+					}
+				
+			}
+			lc_child = [lc_child nextSibling];
+		}
 	}
 	return self;
 }
 
 - (NSError*)error {
-	NSString *domain = self.message;
-	if (!domain) domain = @"Unknown";
-	NSDictionary *userInfo = [NSDictionary dictionaryWithObject:self forKey:@"wserror"];
-	return [NSError errorWithDomain:domain code:code userInfo:userInfo];
+	NSString *lc_domain = self.message;
+	if (!lc_domain) lc_domain = @"Unknown";
+	NSDictionary *lc_userInfo = [NSDictionary dictionaryWithObject:self forKey:@"wserror"];
+	return [NSError errorWithDomain:lc_domain code:[self.code intValue] userInfo:lc_userInfo];
 }
 
 @end

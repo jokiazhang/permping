@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "RequestResult.h"
-#import "TBXML.h"
+#import "TouchXML.h"
 
 extern NSString * const ServerRequestErrorDomain;
 
@@ -39,7 +39,7 @@ typedef enum ServerRequestErrors ServerRequestErrors;
 -(NSString *)urlComplete;
 -(NSURLRequest *)urlRequest;
 
--(id)handleXMLResponse:(TBXMLElement *)in_xmlElement error:(NSError **)out_error;
+-(id)handleXMLResponse:(CXMLDocument *)in_document error:(NSError **)out_error;
 
 -(void)startWithTarget:(id)in_target action:(SEL)in_action;
 

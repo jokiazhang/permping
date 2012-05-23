@@ -6,18 +6,20 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-//#ifndef Permping_Constants_h
-//#define Permping_Constants_h
+#ifndef Permping_Constants_h
+#define Permping_Constants_h
 #import <Foundation/Foundation.h>
 
-#define kPopularPermURLString   @"http://permping.autwin.com/services/permservice/getpupolarperm"
+#define USE_FAKE_CONNECTION
 
-#define kLoginURLString         @"http://permping.autwin.com/services/permservice/login"
-
-#define kCreateAccountURLString @"http://permping.autwin.com/services/permservice/createaccount"
-
+#define SERVER_API   @"http://permping.autwin.com/services"
 #define SERVER_REQUEST_TIMEOUT_DEFAULT 30
 
-#define SUCCESS 1000
+#define TWITTER_CONSUMER_KEY        @"XL030SY0ABiJNVBq4grQ"
+#define TWITTER_CONSUMER_SECRECT    @"ttNPLjqLnjOkmjyZK5IsjvHU1iW0zC2hSSHigV1EU"
 
-//#endif
+#define FB_APP_ID           @"272022539557655"
+#define FB_APP_SECRET       @"9d0b54305b11a48b7ca724cdd607cd60"
+
+
+#endif
