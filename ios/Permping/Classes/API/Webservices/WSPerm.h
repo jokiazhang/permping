@@ -14,9 +14,12 @@
     NSString    *permId;
     NSString    *permOwnerComment;
     NSString    *permDesc;
-    NSString    *permStatus;
     NSString    *permImage;
     NSString    *permCategory;
+    NSString    *permStatus;
+    NSString    *permRepinCount;
+    NSString    *permLikeCount;
+    NSString    *permCommentCount;
     NSArray     *permComments;
 
 }
@@ -27,5 +30,8 @@
 @property (nonatomic, retain) NSString *permStatus;
 @property (nonatomic, retain) NSString *permCategory;
 @property (nonatomic, retain) NSString *permImage;
+@property (nonatomic, retain) NSString *permRepinCount;
+@property (nonatomic, retain) NSString *permLikeCount;
+@property (nonatomic, retain) NSString *permCommentCount;
 @property (nonatomic, retain) NSArray *permComments;
 @end

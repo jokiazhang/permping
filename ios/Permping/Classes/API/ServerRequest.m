@@ -10,7 +10,7 @@
 #import "Constants.h"
 #import "RequestError.h"
 #import "WSError.h"
-#import "Constants.h"
+#import "XMLReader.h"
 
 #ifdef USE_FAKE_CONNECTION
 #import "NSURLConnectionFake.h"
@@ -91,8 +91,25 @@ NSString * const ServerRequestErrorDomain = @"ServerRequestErrorDomain";
 }
 
 #pragma mark URL
--(NSString *)urlComplete {
-    return kPopularPermURLString;
+- (NSString *)urlString {
+    return @"to be overrided and must not be called";
+}
+
+- (NSString *)urlSpecificPart {
+    return @"to be overrided and must not be called";
+}
+
+- (NSString *)urlComplete {
+    if(!self.isUsingMethodPOST){
+		NSString *lc_str;
+        lc_str = [NSString stringWithFormat:@"%@%@", [self urlString], [self urlSpecificPart]];
+#if TARGET_IPHONE_SIMULATOR
+		NSLog(@"lc_str : %@", lc_str);
+#endif
+		return lc_str;
+	} else {
+		return [self urlString];
+	}
 }
 
 
@@ -101,13 +118,13 @@ NSString * const ServerRequestErrorDomain = @"ServerRequestErrorDomain";
 -(NSURLRequest *)urlRequest{
     NSURL *url = [NSURL URLWithString:[self urlComplete]];
 	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
-	/*if(isUsingMethodPOST){
-		[lc_request setHTTPMethod:@"POST"];
-		[lc_request addValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+	if(isUsingMethodPOST){
+		[request setHTTPMethod:@"POST"];
+		[request addValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
 		NSString *lc_body = [self urlSpecificPart];
-		[lc_request addValue:[NSString stringWithFormat:@"%d", [lc_body length]] forHTTPHeaderField:@"Content-Length"];
-		[lc_request setHTTPBody:[lc_body dataUsingEncoding:NSUTF8StringEncoding]];
-	}*/
+		[request addValue:[NSString stringWithFormat:@"%d", [lc_body length]] forHTTPHeaderField:@"Content-Length"];
+		[request setHTTPBody:[lc_body dataUsingEncoding:NSUTF8StringEncoding]];
+	}
 	[request setTimeoutInterval:SERVER_REQUEST_TIMEOUT_DEFAULT];
 	return [request autorelease];
 }

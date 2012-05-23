@@ -11,16 +11,19 @@
 #import "WSComment.h"
 
 @implementation WSPerm
-@synthesize owner, permId, permOwnerComment, permDesc, permStatus, permCategory, permImage, permComments;
+@synthesize owner, permId, permOwnerComment, permDesc, permCategory, permImage, permComments, permRepinCount, permLikeCount, permCommentCount, permStatus;
 
 - (void)dealloc {
     [owner release];
     [permId release];
     [permOwnerComment release];
     [permDesc release];
-    [permStatus release];
     [permCategory release];
     [permImage release];
+    [permRepinCount release];
+    [permLikeCount release];
+    [permCommentCount release];
+    [permStatus release];
     [permComments release];
     [super dealloc];
 }
@@ -34,17 +37,19 @@
         self.permId = [TBXML textForElement:[TBXML childElementNamed:@"permId" parentElement:in_xmlElement]];
         self.permOwnerComment = [TBXML textForElement:[TBXML childElementNamed:@"permOwnerComment" parentElement:in_xmlElement]];
         self.permDesc = [TBXML textForElement:[TBXML childElementNamed:@"permDesc" parentElement:in_xmlElement]];
-        self.permStatus = [TBXML textForElement:[TBXML childElementNamed:@"permStatus" parentElement:in_xmlElement]];
+        /*self.permLikeCount = [TBXML textForElement:[TBXML childElementNamed:@"permLikeCount" parentElement:in_xmlElement]];
+        self.permCommentCount = [TBXML textForElement:[TBXML childElementNamed:@"permCommentCount" parentElement:in_xmlElement]];
+        self.permRepinCount = [TBXML textForElement:[TBXML childElementNamed:@"permRepinCount" parentElement:in_xmlElement]];*/
         self.permCategory = [TBXML textForElement:[TBXML childElementNamed:@"permCategory" parentElement:in_xmlElement]];
         self.permImage = [TBXML textForElement:[TBXML childElementNamed:@"permImage" parentElement:in_xmlElement]];
-
 		NSMutableArray *comments = [[NSMutableArray alloc] init];
         TBXMLElement *child = [TBXML childElementNamed:@"permComments" parentElement:in_xmlElement]->firstChild;
         while (child) {
             WSComment *comment = [[WSComment alloc] initWithXmlElement:child];
-            [comments addObject:comment];
-            [comment release];
-            
+            if (comment) {
+                [comments addObject:comment];
+                [comment release];
+            }
             child = child->nextSibling;
         }
         self.permComments = comments;
@@ -53,5 +58,9 @@
 	return self;
 
 }
+
+/*- (NSString*)permStatus {
+    return [NSString stringWithFormat:@"%@ Likes %@ Comments %@ Repins", self.permLikeCount, self.permCommentCount, self.permRepinCount];
+}*/
 
 @end

@@ -13,4 +13,8 @@
 
 - (id)initWithXmlElement: (TBXMLElement*)in_xmlElement;
 
+- (id)initWithDictionary:(NSDictionary*)dict;
+
+- (NSDictionary*)dictionary;
+
 @end

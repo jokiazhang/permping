@@ -13,3 +13,5 @@
     #import <Foundation/Foundation.h>
     #import "UIImageView+WebCache.h"
 #endif
+
+//#define USE_FAKE_CONNECTION

@@ -20,8 +20,10 @@
 
 - (id)initWithXmlElement:(TBXMLElement *)in_xmlElement {
     if (self = [super initWithXmlElement:in_xmlElement]) {
-        self.user = [[[WSUser alloc] initWithXmlElement:[TBXML childElementNamed:@"user" parentElement:in_xmlElement]] autorelease];
-        self.content = [TBXML textForElement:[TBXML childElementNamed:@"content" parentElement:in_xmlElement]];
+        if ([TBXML childElementNamed:@"user" parentElement:in_xmlElement]) {
+            self.user = [[[WSUser alloc] initWithXmlElement:[TBXML childElementNamed:@"user" parentElement:in_xmlElement]] autorelease];
+            self.content = [TBXML textForElement:[TBXML childElementNamed:@"content" parentElement:in_xmlElement]];
+        }
     }
     return self;
 }

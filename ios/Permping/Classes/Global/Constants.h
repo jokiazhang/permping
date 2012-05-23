@@ -10,7 +10,11 @@
 //#define Permping_Constants_h
 #import <Foundation/Foundation.h>
 
-#define kPopularPermURLString   @"http://permping.autwin.com/services/userservice/getpupolarperm"
+#define kPopularPermURLString   @"http://permping.autwin.com/services/permservice/getpupolarperm"
+
+#define kLoginURLString         @"http://permping.autwin.com/services/permservice/login"
+
+#define kCreateAccountURLString @"http://permping.autwin.com/services/permservice/createaccount"
 
 #define SERVER_REQUEST_TIMEOUT_DEFAULT 30
 

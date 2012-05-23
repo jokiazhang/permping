@@ -9,6 +9,16 @@
 #import <UIKit/UIKit.h>
 #import "CommonViewController.h"
 
-@interface ImageViewController : CommonViewController
+@interface ImageViewController : CommonViewController {
+    IBOutlet UIButton   *takePhotoButton;
+    IBOutlet UIButton   *galleryButton;
+    IBOutlet UIButton   *createBoardButton;
+}
+
+- (IBAction)takePhotoButtonDidTouch:(id)sender;
+
+- (IBAction)galleryButtonDidTouch:(id)sender;
+
+- (IBAction)createBoardButtonDidTouch:(id)sender;
 
 @end

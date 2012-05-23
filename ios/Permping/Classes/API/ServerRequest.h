@@ -34,6 +34,8 @@ typedef enum ServerRequestErrors ServerRequestErrors;
 
 
 -(void)handleDataResponse:(NSData *)in_data;
+-(NSString *)urlString;
+-(NSString *)urlSpecificPart;
 -(NSString *)urlComplete;
 -(NSURLRequest *)urlRequest;
 

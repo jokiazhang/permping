@@ -118,8 +118,8 @@
     } else {
         if (!twitterEngine) {
             twitterEngine = [[SA_OAuthTwitterEngine alloc] initOAuthWithDelegate:self];
-            twitterEngine.consumerKey = @"TJbmLdgKvs0QW05Gxi9ig";
-            twitterEngine.consumerSecret = @"mbaHUOiZAIZAIXZ1mmVrRW1A6FFTAosRl9x7bqiaA";
+            twitterEngine.consumerKey = @"XL030SY0ABiJNVBq4grQ";
+            twitterEngine.consumerSecret = @"ttNPLjqLnjOkmjyZK5IsjvHU1iW0zC2hSSHigV1EU";
         }
         
         if ([self twitterLoggedIn] == YES) {

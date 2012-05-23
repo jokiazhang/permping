@@ -1,21 +1,20 @@
 //
-//  ImageViewController.m
+//  CreatePermViewController.m
 //  Permping
 //
-//  Created by MAC on 5/12/12.
+//  Created by MAC on 5/20/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "ImageViewController.h"
+#import "CreatePermViewController.h"
 
-@implementation ImageViewController
+@implementation CreatePermViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.title = NSLocalizedString(@"ImageTabTitle", @"Image");
-        self.tabBarItem.image = [UIImage imageNamed:@"tab-item-image"];
+        // Custom initialization
     }
     return self;
 }
@@ -41,19 +40,6 @@
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
-}
-
-
-- (IBAction)takePhotoButtonDidTouch:(id)sender {
-    
-}
-
-- (IBAction)galleryButtonDidTouch:(id)sender {
-    
-}
-
-- (IBAction)createBoardButtonDidTouch:(id)sender {
-    
 }
 
 @end

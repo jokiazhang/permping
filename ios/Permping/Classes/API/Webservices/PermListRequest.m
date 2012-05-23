@@ -8,18 +8,20 @@
 
 #import "PermListRequest.h"
 #import "WSPerm.h"
+#import "Constants.h"
 
 @implementation PermListRequest
 
 - (void)dealloc {
-    [accessToken release];
+    [userId release];
     [super dealloc];
 }
 
-- (id)initWithToken:(NSString*)in_token {
+- (id)initWithUserId:(NSString *)in_userId {
     self = [super init];
     if (self) {
-        accessToken = [in_token retain];
+        userId = [in_userId retain];
+        isUsingMethodPOST = YES;
     }
     return self;
 }
@@ -27,22 +29,30 @@
 - (id)handleXMLResponse:(TBXMLElement *)in_xmlElement error:(NSError **)out_error {
    if (in_xmlElement) {
        NSMutableArray *perms = [NSMutableArray array];
-       TBXMLElement *child = in_xmlElement->firstChild;
-       NSLog(@"[TBXML elementName:child]: %@", [TBXML elementName:child]);
+       TBXMLElement *item = in_xmlElement->firstChild;
        do {
-           if ([[TBXML elementName:child] isEqualToString:@"popularPerms"]) {
-                TBXMLElement *item = child->firstChild;
-                while (item) {
-                    WSPerm *perm = [[WSPerm alloc] initWithXmlElement:item];
-                    [perms addObject:perm];
-                    [perm release];
-                    item = item->nextSibling;
-                }
-            }
-       } while ((child = child->nextSibling));
+           WSPerm *perm = [[WSPerm alloc] initWithXmlElement:item];
+           if (perm) {
+               [perms addObject:perm];
+               [perm release];
+           }
+       } while ((item = item->nextSibling));
        return perms;
     }
     return nil;
+}
+
+- (NSString*)urlString {
+    return kPopularPermURLString;
+}
+
+- (NSString*)urlSpecificPart {
+    if (userId) {
+        NSMutableString *lc_str = [[[NSMutableString alloc] initWithString:@"userid="] autorelease];
+        [lc_str appendString:userId];
+        return lc_str;
+    }
+    return @"";
 }
 
 @end
