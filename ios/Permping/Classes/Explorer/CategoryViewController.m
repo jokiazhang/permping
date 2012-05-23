@@ -1,20 +1,21 @@
 //
-//  ExplorerViewController.m
+//  CategoryViewController.m
 //  Permping
 //
-//  Created by MAC on 5/12/12.
+//  Created by MAC on 5/23/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "ExplorerViewController.h"
 #import "CategoryViewController.h"
 #import "Webservices.h"
+#import "Utils.h"
 
-@implementation ExplorerViewController
-@synthesize categories;
+@implementation CategoryViewController
+@synthesize category, boards;
 
 - (void)dealloc {
-    [categories release];
+    [category release];
+    [boards release];
     [super dealloc];
 }
 
@@ -22,8 +23,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.title = NSLocalizedString(@"ExplorerTabTitle", @"Explorer");
-        self.tabBarItem.image = [UIImage imageNamed:@"tab-item-explorer"];
+        // Custom initialization
     }
     return self;
 }
@@ -40,17 +40,20 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.navigationItem.leftBarButtonItem = [Utils barButtonnItemWithTitle:NSLocalizedString(@"globals.cancel", @"Cancel") target:self selector:@selector(dismiss:)];
 }
 
 - (void)viewDidUnload
 {
     [super viewDidUnload];
-
+    // Release any retained subviews of the main view.
+    // e.g. self.myOutlet = nil;
 }
+
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    CategoriesRequest *request = [[CategoriesRequest alloc] init];
+    BoardListRequest *request = [[BoardListRequest alloc] initWithCategoryId:self.category.categoryId];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleServerResponse:) name:REQUESTMANAGER_REQUEST_TERMINATED_NOTIFICATION object:request];
 	[[RequestManager sharedInstance] performRequest:request];
 }
@@ -63,8 +66,8 @@
 	if (!request.result.error) {
 		id result = request.result.object;
 		if ([result isKindOfClass:[NSArray class]]) {
-            self.categories = result;
-            [categoriesTableView reloadData];
+            self.boards= result;
+            [boardsTableView reloadData];
 		}
 	}
 }
@@ -75,7 +78,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.categories count];
+    return [self.boards count];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -89,18 +92,17 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:categoryReuseIdentifier];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
-    WSCategory *category = [categories objectAtIndex:indexPath.row];
-    cell.textLabel.text = category.title;
+    WSBoard *board = [boards objectAtIndex:indexPath.row];
+    cell.textLabel.text = board.title;
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [tableView deselectRowAtIndexPath:indexPath animated:NO];
-    
-    CategoryViewController *lc_controller = [[CategoryViewController alloc] initWithNibName:@"CategoryViewController" bundle:nil];
-    lc_controller.category = [self.categories objectAtIndex:indexPath.row];
-    [self.navigationController pushViewController:lc_controller animated:YES];
-    [lc_controller release];
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+- (void)dismiss:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 @end

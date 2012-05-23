@@ -8,6 +8,7 @@
 
 #import "JoinViewController.h"
 #import "UserInfoTableViewCell.h"
+#import "Utils.h"
 
 @implementation JoinViewController
 @synthesize loggedin, fieldsTitle;
@@ -35,15 +36,7 @@
 {
     [super viewDidLoad];
     
-    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 65, 30)];
-    [button setTitle:@"Cancel" forState:UIControlStateNormal];
-    button.titleLabel.font = [UIFont systemFontOfSize:15];
-    [button setBackgroundImage:[UIImage imageNamed:@"bar-item-btn.png"] forState:UIControlStateNormal];
-    [button addTarget:self action:@selector(dismiss:) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
-	self.navigationItem.leftBarButtonItem = barButtonItem;
-	[barButtonItem release];
-    [button release];
+    self.navigationItem.leftBarButtonItem = [Utils barButtonnItemWithTitle:NSLocalizedString(@"globals.cancel", @"Cancel") target:self selector:@selector(dismiss:)];
     
     if (loggedin) {
         self.fieldsTitle = [NSArray arrayWithObjects:@"Name :", @"Email :", @"Password :", @"Confirm Password :", nil];

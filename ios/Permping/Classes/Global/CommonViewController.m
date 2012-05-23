@@ -50,14 +50,12 @@
     
     self.navigationItem.title = @"Permping";
     
-    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"default-background.png"]];
+    self.view.backgroundColor = [UIColor clearColor];
 }
 
 - (void)viewDidUnload
 {
     [super viewDidUnload];
-    // Release any retained subviews of the main view. kjfejfefjfjjfjfjww
-    // e.g. self.myOutlet = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

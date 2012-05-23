@@ -14,4 +14,6 @@
 
 + (void)displayAlert:(NSString*)message delegate:(id)delegate;
 
++ (UIBarButtonItem*)barButtonnItemWithTitle:(NSString*)title target:(id)target selector:(SEL)selector;
+
 @end

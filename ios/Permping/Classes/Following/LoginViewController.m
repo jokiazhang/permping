@@ -9,6 +9,7 @@
 #import "LoginViewController.h"
 #import "UserInfoTableViewCell.h"
 #import "AppData.h"
+#import "Utils.h"
 
 @implementation LoginViewController
 
@@ -34,17 +35,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self.navigationController.navigationItem setHidesBackButton:YES];
     
-    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 65, 30)];
-    [button setTitle:@"Cancel" forState:UIControlStateNormal];
-    button.titleLabel.font = [UIFont systemFontOfSize:15];
-    [button setBackgroundImage:[UIImage imageNamed:@"bar-item-btn.png"] forState:UIControlStateNormal];
-    [button addTarget:self action:@selector(dismiss:) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
-	self.navigationItem.leftBarButtonItem = barButtonItem;
-	[barButtonItem release];
-    [button release];
+    self.navigationItem.leftBarButtonItem = [Utils barButtonnItemWithTitle:NSLocalizedString(@"globals.cancel", @"Cancel") target:self selector:@selector(dismiss:)];
 }
 
 - (void)viewDidUnload

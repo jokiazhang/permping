@@ -51,7 +51,7 @@ NSString * const PermListRequestOptionPasswordKey = @"password";
 }
 
 -(id)handleXMLResponse:(CXMLDocument *)in_document error:(NSError **)out_error{
-    NSArray *lc_permsXml = [in_document nodesForXPath:@"/popularPerms/item" error:out_error];
+    NSArray *lc_permsXml = [in_document nodesForXPath:@"response/popularPerms/item" error:out_error];
    if (!*out_error) {
        if ([lc_permsXml count] > 0) {
            NSMutableArray *lc_perms = [NSMutableArray array];
