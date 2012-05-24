@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class ProfileActivity extends Activity {
+	
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.profile_layout);
@@ -33,7 +34,7 @@ public class ProfileActivity extends Activity {
         if (user != null) {
         	String name = user.getName();
             PermImage avatar = user.getAvatar();
-            String permNo = String.valueOf(user.getBoard());
+            String permNo = String.valueOf(user.getPin());
             String friends = String.valueOf(user.getFriends());
             List<PermBoard> boards = user.getBoards();
             
@@ -46,13 +47,15 @@ public class ProfileActivity extends Activity {
             authorName.setText(name);
             
             // The info below the author name
-            authorProp.setText("N/A perms followers " + friends);
+            authorProp.setText(permNo + " perms followers " + friends);
         } else {
         	/** User is not authorized yet -> forward to login screen */
         	Toast toast = Toast.makeText(getApplicationContext(), "User is not authorized! Please do it.", Toast.LENGTH_SHORT);
-        	toast.setGravity(Gravity.TOP | Gravity.CENTER, 0, 30);
+        	toast.setGravity(Gravity.TOP | Gravity.CENTER, 0, 50);
         	toast.show();
         }
+        
+        /** Build the list of boards using ListAdapter */
         
     }
 }
