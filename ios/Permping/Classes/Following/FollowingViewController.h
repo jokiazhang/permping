@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
 #import "PermsViewController.h"
+#import "Taglist_NDModel.h"
 
 @interface FollowingViewController : PermsViewController {
     IBOutlet UILabel    *headerLabel;
@@ -22,7 +23,10 @@
     IBOutlet UIButton   *useTwitterButton;
     IBOutlet UIButton   *joinPermpingButton;
     
+    Taglist_NDModel                     *resultModel;
 }
+
+@property (nonatomic, retain) Taglist_NDModel               *resultModel;
 
 - (IBAction)joinButtonDidTouch:(id)sender;
 

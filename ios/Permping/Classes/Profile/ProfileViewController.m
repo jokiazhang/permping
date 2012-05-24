@@ -34,8 +34,9 @@
     UserProfileView *profileView = [[[UserProfileView alloc] initWithFrame:self.view.bounds] autorelease];
     [self.view addSubview:profileView];
     
-    self.user = [[WSUser alloc] initWithDictionary:[NSDictionary dictionaryWithObjectsAndKeys:@"Steve Raquel", @"userName", @"user01", @"userId", @"http://farm8.static.flickr.com/7123/7134938811_c22914bd39_s.jpg", @"userAvatar", nil]];
-    profileView.user = self.user;
+    //phong remove
+//    self.user = [[WSUser alloc] initWithDictionary:[NSDictionary dictionaryWithObjectsAndKeys:@"Steve Raquel", @"userName", @"user01", @"userId", @"http://farm8.static.flickr.com/7123/7134938811_c22914bd39_s.jpg", @"userAvatar", nil]];
+//    profileView.user = self.user;
 }
 
 - (void)viewDidUnload
