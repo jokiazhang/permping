@@ -47,6 +47,7 @@ public class PermAdapter extends ArrayAdapter<Perm> {
     public Button join;
     public Button login;
     private Activity activity ;
+    private Boolean header;
 
     private FacebookConnector facebookConnector;
     
@@ -54,9 +55,10 @@ public class PermAdapter extends ArrayAdapter<Perm> {
     
 
     
-    public PermAdapter(Context context, int textViewResourceId, ArrayList<Perm> items, Activity activity ) {
+    public PermAdapter(Context context, int textViewResourceId, ArrayList<Perm> items, Activity activity , Boolean header ) {
             super(context, textViewResourceId, items);
             this.activity = activity;
+            this.header = header;
             this.items = items;
             facebookConnector = new FacebookConnector(Constants.FACEBOOK_APP_ID, 
             		this.activity, context, new String[] {Constants.EMAIL, Constants.PUBLISH_STREAM});
@@ -66,7 +68,7 @@ public class PermAdapter extends ArrayAdapter<Perm> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
             View v = convertView;
-            if( position == 0 )
+            if( position == 0 && this.header == true )
             {
             	LayoutInflater vi = (LayoutInflater)this.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 v = vi.inflate(R.layout.perm_item_2, null);
