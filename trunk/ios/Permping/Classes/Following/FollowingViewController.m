@@ -11,9 +11,11 @@
 #import "LoginViewController.h"
 #import "Webservices.h"
 #import "AppData.h"
-
+#import "FollowingScreen_DataLoader.h"
+#import "PermListResponse.h"
 
 @implementation FollowingViewController
+@synthesize resultModel;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -60,10 +62,82 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    PermListRequest *request = [[PermListRequest alloc] initWithType:PermListRequestTypePopular options:nil];
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleServerResponse:) name:REQUESTMANAGER_REQUEST_TERMINATED_NOTIFICATION object:request];
-	[[RequestManager sharedInstance] performRequest:request];
+    //phong remove
+//    PermListRequest *request = [[PermListRequest alloc] initWithType:PermListRequestTypePopular options:nil];
+//	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleServerResponse:) name:REQUESTMANAGER_REQUEST_TERMINATED_NOTIFICATION object:request];
+//	[[RequestManager sharedInstance] performRequest:request];
+    
+    [self startActivityIndicator];
+    self.resultModel.arrResults = nil;
+    self.resultModel = [[[Taglist_NDModel alloc] init] autorelease];
+    self.dataLoaderThread = [[ThreadManager getInstance] dispatchToConcurrentBackgroundNormalPriorityQueueWithTarget:self selector:@selector(loadDataForMe:thread:) dataObject:[self getMyDataLoader]];
 }
+
+ - (void)dealloc
+{
+    self.resultModel = nil;
+    [super dealloc];
+}
+
+#pragma mark - Override methods
+- (id)getMyDataLoader
+{
+    FollowingScreen_DataLoader *loader = [[FollowingScreen_DataLoader alloc] init];
+    return [loader autorelease];
+}
+
+- (void)loadDataForMe:(id)loader thread:(id<ThreadManagementProtocol>)threadObj
+{
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+    if (![threadObj isCancelled]) {
+        dispatch_async(dispatch_get_main_queue(), ^(void)
+                       {
+                           //[self initializeUIControls]; 
+                           
+                       });
+        NSInteger    nextId = -1;
+        NSArray *arr = nil;
+        
+        PermListResponse *response = [(FollowingScreen_DataLoader *)loader getPopularFromNextItemId:nextId requestedCount:30];
+        nextId = response.nextItemId;
+        arr = [response getResponsePermList];
+        
+        if (![threadObj isCancelled]) {
+            self.resultModel.arrResults = arr;
+            self.permsArray = self.resultModel.arrResults;
+            self.resultModel.nextItemId = nextId;
+            
+            dispatch_async(dispatch_get_main_queue(), ^(void)
+                           {
+                               [self stopActivityIndicator];
+                               //reload table
+                               [permTableview reloadData]; 
+                           });
+            [self downloadThumbnailForObjectList:arr];
+        }
+    }
+    //[myLoader release];
+    [pool drain];
+}
+
+- (void)loadMoreDataForMe:(id)loader thread:(id<ThreadManagementProtocol>)threadObj
+{
+    
+}
+
+- (void)thumbnailDownloadDidPartialFinishForThread:(id<ThreadManagementProtocol>)threadObj
+{
+    if (![threadObj isCancelled]) 
+    {
+        dispatch_async(dispatch_get_main_queue(), ^(void)
+                       {
+                           //reload table
+                           [permTableview reloadData];
+                       });
+    }
+}
+
+#pragma mark - publice methods
 
 - (void)handleServerResponse: (NSNotification*)in_response {
 	ServerRequest *request = in_response.object;
