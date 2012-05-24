@@ -19,6 +19,11 @@ public class PermpingApplication extends Application {
 	private User user;
 
 	/**
+	 * The current login type 
+	 */
+	private String loginType;
+	
+	/**
 	 * @return the user
 	 */
 	public User getUser() {
@@ -31,4 +36,19 @@ public class PermpingApplication extends Application {
 	public void setUser(User user) {
 		this.user = user;
 	}
+
+	/**
+	 * @return the loginType
+	 */
+	public String getLoginType() {
+		return loginType;
+	}
+
+	/**
+	 * @param loginType the loginType to set
+	 */
+	public void setLoginType(String loginType) {
+		this.loginType = loginType;
+	}
+	
 }
