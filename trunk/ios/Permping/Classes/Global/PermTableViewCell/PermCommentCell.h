@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CommentModel.h"
 @class WSComment;
 
 @interface PermCommentCell : UITableViewCell {
@@ -14,6 +15,6 @@
 }
 @property (nonatomic, readonly) UIImageView *avatarView;
 
-- (void)setCellWithComment:(WSComment*)in_comment;
+- (void)setCellWithComment:(CommentModel*)in_comment;
 
 @end
