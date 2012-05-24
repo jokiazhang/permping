@@ -53,8 +53,6 @@ public class LoginPermActivity extends Activity {
         login         = (Button) findViewById(R.id.loginPerm);
         
         login.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
 			public void onClick(View v) {
 				List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(8);
 				nameValuePairs.add(new BasicNameValuePair("type", prefs.getString(Constants.LOGIN_TYPE, "")));
