@@ -81,7 +81,7 @@
     y = CGRectGetMaxY(repermButton.frame) + 10;
     statusLabel.frame = CGRectMake(10, y, 300, 21);
     
-    NSLog(@"h: %f", y+21);
+    //NSLog(@"h: %f", y+21);
 }
 
 - (void)setCellWithPerm:(WSPerm*)perm {
