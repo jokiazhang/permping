@@ -8,6 +8,7 @@ import java.util.List;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
+import com.permping.PermpingApplication;
 import com.permping.PermpingMain;
 import com.permping.R;
 import com.permping.activity.JoinPermActivity;
@@ -50,6 +51,8 @@ public class PermAdapter extends ArrayAdapter<Perm> {
     private FacebookConnector facebookConnector;
     
     private SharedPreferences prefs;
+    
+
     
     public PermAdapter(Context context, int textViewResourceId, ArrayList<Perm> items, Activity activity ) {
             super(context, textViewResourceId, items);
@@ -133,6 +136,8 @@ public class PermAdapter extends ArrayAdapter<Perm> {
     	// The "Join Permping" button
     	private Button joinPermping;
     	
+    	//PermpingApplication state;
+    	
     	public OptionsDialog(Context context) {
     		super(context);
     		setContentView(R.layout.join_options);
@@ -155,6 +160,8 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 				} catch (IOException ioe) {
 					ioe.printStackTrace();
 				}
+				
+			    //state = (PermpingApplication) getContext().getApplicationContext();
 				
 				if (!facebookConnector.getFacebook().isSessionValid()) {
 					AuthListener authListener = new AuthListener() {
@@ -203,6 +210,7 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 				this.dismiss();
 				
 			} else { // Show Join Permping screen
+				prefs.edit().putString(Constants.LOGIN_TYPE, Constants.PERMPING_LOGIN);
 				Intent i = new Intent(getContext(), JoinPermActivity.class);
 				getContext().startActivity(i);
 				this.dismiss();

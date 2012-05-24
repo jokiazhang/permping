@@ -36,7 +36,7 @@
     android:background="@android:color/darker_gray"/>
     
     <EditText
-        android:id="@+id/permUsername"
+        android:id="@+id/permEmail"
         android:layout_width="315dp"
         android:layout_height="wrap_content"
         android:ems="10"
