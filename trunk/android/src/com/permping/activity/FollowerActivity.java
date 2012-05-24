@@ -12,19 +12,28 @@ import android.widget.ListView;
 
 
 public class FollowerActivity extends Activity {
-		
+	
+	public String url = "";
+	public Boolean header = true;
 	/** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
     	super.onCreate(savedInstanceState);
         setContentView(R.layout.followers_layout);
         
+        
+    	Bundle extras = getIntent().getExtras();
+		if( extras != null ) {
+			this.url = (String) extras.get("boardUrl");
+			this.header = false;
+		}
+        
         ListView permListView = (ListView) findViewById(R.id.permList);
-        PermListController permListController = new PermListController();
+        PermListController permListController = new PermListController( );
         
-        ArrayList<Perm> permList = permListController.getPermList();
+        ArrayList<Perm> permList = permListController.getPermList( url );
         
-        PermAdapter permListAdapter = new PermAdapter(this, R.layout.perm_item_1, permList, this);
+        PermAdapter permListAdapter = new PermAdapter(this, R.layout.perm_item_1, permList, this, this.header);
         permListView.setAdapter(permListAdapter);
         
         

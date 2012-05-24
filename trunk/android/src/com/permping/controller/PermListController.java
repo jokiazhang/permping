@@ -18,9 +18,12 @@ public class PermListController {
 	/**
 	 * @TODO simulate perm lists
 	 */
-	public ArrayList<Perm> getPermList(){
+	public ArrayList<Perm> getPermList( String url ){
 		
-		XMLParser parser = new XMLParser( API.popularPermsURL , true );
+		if( url == "" ){
+			url = API.popularPermsURL;
+		}
+		XMLParser parser = new XMLParser( url , true );
 		ArrayList <Perm> permList = parser.permListFromNodeList("popularPerms");
 		return permList;
 		/*

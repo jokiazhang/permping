@@ -36,6 +36,8 @@ public class ExplorerActivity extends Activity {
 		categoriesView.setOnItemClickListener(new android.widget.AdapterView.OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				Intent myIntent = new Intent(view.getContext(), BoardListActivity.class);
+				Category cat = categories.get(position);
+				myIntent.putExtra("Category", cat);
 				View boardListView = ExplorerActivityGroup.group.getLocalActivityManager() .startActivity("BoardListActivity", myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
 				ExplorerActivityGroup.group.replaceView(boardListView);
 			}

@@ -81,11 +81,11 @@ public class XMLParser {
 			line = EntityUtils.toString(httpEntity);
 
 		} catch (UnsupportedEncodingException e) {
-			line = "<results status=\"error\"><msg>Can't connect to server</msg></results>";
+			line = "<results status=\"error\"><msg>Can't connect to server: "+e.toString()+" </msg></results>";
 		} catch (MalformedURLException e) {
-			line = "<results status=\"error\"><msg>Can't connect to server</msg></results>";
+			line = "<results status=\"error\"><msg>Can't connect to server: "+e.toString()+" </msg></results>";
 		} catch (IOException e) {
-			line = "<results status=\"error\"><msg>Can't connect to server</msg></results>";
+			line = "<results status=\"error\"><msg>Can't connect to server: "+e.toString()+" </msg></results>";
 		}
 
 		String newString = line.replace(
