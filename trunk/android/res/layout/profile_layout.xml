@@ -4,12 +4,67 @@
     android:layout_height="fill_parent" 
     android:stretchColumns="0">
     
-	<TableRow>
-	    <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	<TableRow
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content" >
+
+	    <RelativeLayout
+	        xmlns:android="http://schemas.android.com/apk/res/android"
 	        android:layout_width="fill_parent"
-	        android:layout_height="fill_parent"
-	        android:stretchColumns="2">
-	        
-	    </TableLayout>
+	        android:layout_height="wrap_content"
+	        android:layout_marginTop="10dp" >
+
+	        <ImageView
+	            android:id="@+id/authorAvatar"
+	            android:layout_width="40dp"
+	            android:layout_height="40dp"/>
+	        <LinearLayout android:id="@+id/proplayout" android:layout_width="150dp"
+	            android:layout_height="40dp"
+	            android:layout_marginLeft="45dp"
+	            android:orientation="vertical" >
+	            <TableLayout 
+	                android:layout_width="fill_parent"
+				    android:layout_height="fill_parent" 
+				    android:stretchColumns="0">
+
+	                <TextView
+	                    android:id="@+id/authorName"
+	                    android:layout_width="fill_parent"
+	                    android:layout_height="wrap_content"
+	                    android:gravity="left"
+	                    android:text="Test User"
+	                    android:textStyle="bold" />
+
+	                <TextView
+	                    android:id="@+id/authorProp"
+	                    android:layout_width="fill_parent"
+	                    android:layout_height="wrap_content"
+	                    android:gravity="left"
+	                    android:text="perm 15 followers 16"
+	                    android:textStyle="bold" />
+
+	            </TableLayout>
+	        </LinearLayout>
+
+	        <Button
+                    android:id="@+id/bt_join"
+                    android:layout_width="80dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/button_bg"
+                    android:text="Follow"
+                    android:layout_toRightOf="@+id/proplayout"
+                    android:textColor="#FFFFFF" />
+		</RelativeLayout>
+	</TableRow>
+		<LinearLayout android:layout_width="fill_parent"
+		     android:orientation="vertical"
+                android:padding="5dp">
+		    <View
+                    android:id="@+id/item_separator"
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dip"
+                    android:background="#000000" />
+		</LinearLayout>
+	<TableRow>
 	</TableRow>
 </TableLayout>
