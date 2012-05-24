@@ -64,14 +64,19 @@ public class JoinPermActivity extends Activity implements TextWatcher {
         createAccount = (Button) findViewById(R.id.createAccount);
         createAccount.setOnClickListener(new View.OnClickListener() {
 			
+			@Override
 			public void onClick(View v) {
 				// Send request to server to create new account along with its params
-				List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(7);				
+				List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(8);				
 				nameValuePairs.add(new BasicNameValuePair("type", prefs.getString(Constants.LOGIN_TYPE, "")));
-				if (prefs.getString(Constants.LOGIN_TYPE, "").equals(Constants.FACEBOOK_LOGIN))
+				if (prefs.getString(Constants.LOGIN_TYPE, "").equals(Constants.FACEBOOK_LOGIN)) // Facebook
 					nameValuePairs.add(new BasicNameValuePair("oauth_token", prefs.getString(Constants.ACCESS_TOKEN, "")));
-				else
+				else if(prefs.getString(Constants.LOGIN_TYPE, "").equals(Constants.TWITTER_LOGIN)) { // Twitter
 					nameValuePairs.add(new BasicNameValuePair("oauth_token", prefs.getString(OAuth.OAUTH_TOKEN, "")));
+					nameValuePairs.add(new BasicNameValuePair("oauth_token_secret", prefs.getString(OAuth.OAUTH_TOKEN_SECRET, "")));
+				} else { // Perm
+					
+				}
 				nameValuePairs.add(new BasicNameValuePair("name", name.getText().toString()));
 				nameValuePairs.add(new BasicNameValuePair("username", name.getText().toString()));
 				nameValuePairs.add(new BasicNameValuePair("email", email.getText().toString()));
@@ -91,6 +96,7 @@ public class JoinPermActivity extends Activity implements TextWatcher {
 			}
 		});
 	}
+	@Override
 	public void afterTextChanged(Editable s) {
 		// TODO Auto-generated method stub
 		if (name.getText().toString().equals("")) {
@@ -106,11 +112,13 @@ public class JoinPermActivity extends Activity implements TextWatcher {
 			confirmPassword.setError("Confirm password is invalid!");
 		}
 	}
+	@Override
 	public void beforeTextChanged(CharSequence s, int start, int count,
 			int after) {
 		// TODO Auto-generated method stub
 		
 	}
+	@Override
 	public void onTextChanged(CharSequence s, int start, int before, int count) {
 		// TODO Auto-generated method stub
 		

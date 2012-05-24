@@ -200,12 +200,12 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 			} else if (v == twitterLogin) {
 				Intent i = new Intent(getContext(), PrepareRequestTokenActivity.class);
 				getContext().startActivity(i);
-				//this.dismiss();
+				this.dismiss();
 				
 			} else { // Show Join Permping screen
 				Intent i = new Intent(getContext(), JoinPermActivity.class);
 				getContext().startActivity(i);
-				//this.dismiss();
+				this.dismiss();
 			}
 			
 			//this.dismiss();

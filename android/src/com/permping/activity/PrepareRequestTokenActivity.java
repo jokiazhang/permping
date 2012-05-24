@@ -118,9 +118,10 @@ public class PrepareRequestTokenActivity extends Activity {
 				
 				//TODO: validate user before forwarding to new page.
 				// Check on server
-				List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(4);
+				List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(5);
 				nameValuePairs.add(new BasicNameValuePair("type", "twitter"));
-				nameValuePairs.add(new BasicNameValuePair("oauth_token", prefs.getString(OAuth.OAUTH_TOKEN, "")));
+				nameValuePairs.add(new BasicNameValuePair("oauth_token", token));
+				nameValuePairs.add(new BasicNameValuePair("oauth_token_secret", secret));
 				nameValuePairs.add(new BasicNameValuePair("email", ""));
 				nameValuePairs.add(new BasicNameValuePair("password", ""));
 				boolean existed = AuthorizeController.authorize(context, nameValuePairs);

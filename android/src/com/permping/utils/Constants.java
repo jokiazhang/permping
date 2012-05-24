@@ -12,8 +12,11 @@ public class Constants {
 	/**
 	 * Twitter parameters required by the API
 	 */
-	public static final String CONSUMER_KEY = "aZNx8rmFPHMMNm8t4kqhmQ";
-	public static final String CONSUMER_SECRET= "P2m0Ow5pKFjql1Uco0aiTeYZ7089fP4s7wmWxanE";
+	//public static final String CONSUMER_KEY = "aZNx8rmFPHMMNm8t4kqhmQ";
+	//public static final String CONSUMER_SECRET= "P2m0Ow5pKFjql1Uco0aiTeYZ7089fP4s7wmWxanE";
+	
+	public static final String CONSUMER_KEY = "XL030SY0ABiJNVBq4grQ";
+	public static final String CONSUMER_SECRET= "ttNPLjqLnjOkmjyZK5IsjvHU1iW0zC2hSSHigV1EU";
 	
 	public static final String REQUEST_URL = "https://api.twitter.com/oauth/request_token";
 	public static final String ACCESS_URL = "https://api.twitter.com/oauth/access_token";
