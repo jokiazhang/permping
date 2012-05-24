@@ -33,7 +33,7 @@ public class PermpingMain extends TabActivity {
         TabSpec explorer = tabHost.newTabSpec("Explorer");
         // setting Title and Icon for the Tab
         explorer.setIndicator("Explorer", getResources().getDrawable(R.drawable.icon_explorer_tab));
-        Intent explorerIntent = new Intent(this, ExplorerActivity.class);
+        Intent explorerIntent = new Intent(this, ExplorerActivityGroup.class);
         explorer.setContent(explorerIntent);
         tabHost.addTab( explorer );
         
