@@ -30,9 +30,9 @@
     // Configure the view for the selected state
 }
 
-- (void)setCellWithComment:(WSComment*)in_comment{
-    [self.avatarView setImageWithURL:[NSURL URLWithString:in_comment.user.userAvatar]];
-    self.textLabel.text = in_comment.user.userName;
+- (void)setCellWithComment:(CommentModel*)in_comment{
+    [self.avatarView setImageWithURL:[NSURL URLWithString:in_comment.commentUser.userAvatar]];
+    self.textLabel.text = in_comment.commentUser.userAvatar;
     self.detailTextLabel.text = in_comment.content;
 }
 

@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PermModel.h"
+
 @class WSPerm;
 
 @interface PermInfoCell : UITableViewCell {
@@ -30,5 +32,5 @@
 
 @property (nonatomic, readonly) UILabel *statusLabel;
 
-- (void)setCellWithPerm:(WSPerm*)perm;
+- (void)setCellWithPerm:(PermModel*)perm;
 @end

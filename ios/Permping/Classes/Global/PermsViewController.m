@@ -12,6 +12,9 @@
 #import "PermInfoCell.h"
 #import "PermCommentCell.h"
 #import "WSPerm.h"
+//phong add
+#import "PermModel.h"
+#import "CommentModel.h"
 
 @implementation PermsViewController
 @synthesize permsArray;
@@ -90,7 +93,7 @@
 }
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    WSPerm *perm = [self.permsArray objectAtIndex:indexPath.section];
+    PermModel *perm = [self.permsArray objectAtIndex:indexPath.section];
     NSInteger index = indexPath.row;
     if (index == 0) {
         static NSString *cellIdentifier = @"PermUserCell";
@@ -98,7 +101,8 @@
         if (cell == nil) {
             cell = [[[PermUserCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] autorelease];
         }
-        [cell setCellWithAvartarURLString:perm.permUser.userAvatar userName:perm.permUser.userName category:perm.permCategory];
+        //phong remove
+//        [cell setCellWithAvartarURLString:perm.permUser.userAvatar userName:perm.permUser.userName category:perm.permCategory];
         return cell;
     } else if (index == 1){
         static NSString *cellIdentifier = @"PermImageCell";
@@ -126,7 +130,7 @@
         if (cell == nil) {
             cell = [[[PermCommentCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] autorelease];
         }
-        WSComment *comment = [perm.permComments objectAtIndex:index-3];
+        CommentModel *comment = [perm.permComments objectAtIndex:index-3];
         [cell setCellWithComment:comment];
         return cell;
     }

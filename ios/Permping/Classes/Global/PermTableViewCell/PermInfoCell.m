@@ -8,7 +8,6 @@
 
 #import "PermInfoCell.h"
 #import "WSPerm.h"
-
 @implementation PermInfoCell
 @synthesize commentLabel, descriptionLabel, repermButton, commentButton, likeButton, locationButton, statusLabel;
 
@@ -84,7 +83,7 @@
     //NSLog(@"h: %f", y+21);
 }
 
-- (void)setCellWithPerm:(WSPerm*)perm {
+- (void)setCellWithPerm:(PermModel*)perm {
     self.commentLabel.text = perm.permDesc;
     self.descriptionLabel.text = @"No desc :D";
     self.statusLabel.text = [NSString stringWithFormat:@"Likes %@ Comments %@ Repin %@", perm.permLikeCount, perm.permCommentCount, perm.permRepinCount];
