@@ -7,14 +7,7 @@
 //
 
 #import "CommonViewController.h"
-
-@implementation UINavigationBar (CustomImage)
-- (void)drawRect:(CGRect)rect {
-    UIImage *image = [UIImage imageNamed:@"NavigationBar.png"];
-    [image drawInRect:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
-}
-@end
-
+#import <QuartzCore/QuartzCore.h>
 
 @implementation CommonViewController
 @synthesize user;
@@ -47,9 +40,7 @@
     {
         [bar setBackgroundImage:[UIImage imageNamed:@"nav-bar-background.png"] forBarMetrics:UIBarMetricsDefault];
     }
-    
     self.navigationItem.title = @"Permping";
-    
     self.view.backgroundColor = [UIColor clearColor];
 }
 

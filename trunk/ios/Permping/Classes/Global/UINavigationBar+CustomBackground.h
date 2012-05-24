@@ -14,4 +14,6 @@
 
 - (CGSize)sizeThatFits:(CGSize)size;
 
+- (void)applyDefaultStyle;
+
 @end

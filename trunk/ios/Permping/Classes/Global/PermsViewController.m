@@ -54,6 +54,7 @@
 {
     [super viewDidLoad];
     permTableview = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
+    permTableview.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     permTableview.separatorStyle = UITableViewCellSeparatorStyleNone;
     permTableview.backgroundColor = [UIColor clearColor];
     permTableview.delegate = self;
