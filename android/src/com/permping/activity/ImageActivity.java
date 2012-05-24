@@ -19,13 +19,15 @@ import android.widget.Toast;
 
 public class ImageActivity extends Activity {
 	private int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 1224;
+	
+	private int SELECT_PICTURE = 1;
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.image_layout);
 
-		final LinearLayout actionHide = (LinearLayout) findViewById(R.id.takePhoto);
-		actionHide.setOnClickListener(new View.OnClickListener() {
+		final LinearLayout takePhoto = (LinearLayout) findViewById(R.id.takePhoto);
+		takePhoto.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				// define the file-name to save photo taken by Camera activity
 				String fileName = "new-photo-name.jpg";
@@ -44,6 +46,19 @@ public class ImageActivity extends Activity {
 				intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1);
 				startActivityForResult(intent,
 						CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
+			}
+		});
+		
+		
+		
+		final LinearLayout openGalerry = (LinearLayout) findViewById(R.id.gallery);
+		openGalerry.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				   // select a file
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(intent, "Select Picture"), SELECT_PICTURE);
 			}
 		});
 
@@ -90,4 +105,32 @@ public class ImageActivity extends Activity {
 			}
 		}
 	}
+	
+	
+	
+	
+	
+	
+	
+	/*
+	
+	//Gallery process
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+	    if (resultCode == RESULT_OK) {
+	        if (requestCode == SELECT_PICTURE) {
+	            Uri selectedImageUri = data.getData();
+	            selectedImagePath = getPath(selectedImageUri);
+	        }
+	    }
+	}
+
+	public String getPath(Uri uri) {
+	    String[] projection = { MediaStore.Images.Media.DATA };
+	    Cursor cursor = managedQuery(uri, projection, null, null, null);
+	    int column_index = cursor
+	            .getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+	    cursor.moveToFirst();
+	    return cursor.getString(column_index);
+	}
+	*/
 }
