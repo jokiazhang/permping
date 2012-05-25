@@ -7,7 +7,7 @@
 //
 
 #import "Taglist_UpdateSettingRequest.h"
-#import "EyeConstant.h"
+#import "Constants.h"
 
 @interface EntityModel : NSObject {
 }

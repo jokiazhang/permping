@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "EyeConstant.h"
+#import "Constants.h"
 
 @interface CheckNetworkStatus : NSObject {
 	BOOL					isNetworkAvailable;

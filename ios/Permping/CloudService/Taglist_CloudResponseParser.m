@@ -7,7 +7,7 @@
 //
 
 #import "Taglist_CloudResponseParser.h"
-#import "EyeConstant.h"
+#import "Constants.h"
 #import "Logger.h"
 
 @interface Taglist_CloudResponseParser()
