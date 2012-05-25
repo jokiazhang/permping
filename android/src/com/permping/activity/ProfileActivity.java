@@ -26,7 +26,8 @@ public class ProfileActivity extends Activity {
         
         ImageView authorAvatar = (ImageView) findViewById(R.id.authorAvatar);
         TextView authorName = (TextView) findViewById(R.id.authorName);
-        TextView authorProp = (TextView) findViewById(R.id.authorProp);
+        TextView friends = (TextView) findViewById(R.id.friends);
+        TextView followings = (TextView) findViewById(R.id.followings);
         
         /** Load the information from Appliaction (user info) when the page is loaded. */
         PermpingApplication state = (PermpingApplication) getApplicationContext();
@@ -34,8 +35,8 @@ public class ProfileActivity extends Activity {
         if (user != null) {
         	String name = user.getName();
             PermImage avatar = user.getAvatar();
-            String permNo = String.valueOf(user.getPin());
-            String friends = String.valueOf(user.getFriends());
+            //String permNo = String.valueOf(user.getPin());
+            String fr = String.valueOf(user.getFriends());
             List<PermBoard> boards = user.getBoards();
             
             /** Get the component Ids to fill the data */
@@ -47,7 +48,8 @@ public class ProfileActivity extends Activity {
             authorName.setText(name);
             
             // The info below the author name
-            authorProp.setText(permNo + " perms followers " + friends);
+            friends.setText(fr + " friends");
+            followings.setText(String.valueOf(user.getFollowings() + " followings"));
         } else {
         	/** User is not authorized yet -> forward to login screen */
         	Toast toast = Toast.makeText(getApplicationContext(), "User is not authorized! Please do it.", Toast.LENGTH_SHORT);
