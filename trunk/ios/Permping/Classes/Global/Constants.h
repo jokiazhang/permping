@@ -26,7 +26,6 @@
 
 /*
  *  Constant.h
- *  Eyecon
  *
  *  Created by PhongLe on 7/20/10.
  *  Copyright 2010 Appo CO., LTD. All rights reserved.
