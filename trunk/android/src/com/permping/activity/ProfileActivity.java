@@ -40,8 +40,8 @@ public class ProfileActivity extends Activity {
             
             /** Get the component Ids to fill the data */
             // The author avatar on the top left.
-            // UrlImageViewHelper.setUrlDrawable(authorAvatar, avatar.getUrl());
-            UrlImageViewHelper.setUrlDrawable(authorAvatar, "http://4.bp.blogspot.com/_n3ecP8ZNh28/TEYB2wyIJDI/AAAAAAAAACw/Fry7Qdpvbzo/s1600/390261_f520.jpg");
+            UrlImageViewHelper.setUrlDrawable(authorAvatar, avatar.getUrl());
+            //UrlImageViewHelper.setUrlDrawable(authorAvatar, "http://4.bp.blogspot.com/_n3ecP8ZNh28/TEYB2wyIJDI/AAAAAAAAACw/Fry7Qdpvbzo/s1600/390261_f520.jpg");
             
             // The author name
             authorName.setText(name);
