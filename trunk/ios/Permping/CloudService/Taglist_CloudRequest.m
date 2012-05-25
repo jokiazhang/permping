@@ -7,7 +7,7 @@
 //
 
 #import "Taglist_CloudRequest.h"
-#import "EyeConstant.h"
+#import "Constants.h"
 #import "Utility.h"
 #import "Logger.h"
 @interface Taglist_CloudRequest()

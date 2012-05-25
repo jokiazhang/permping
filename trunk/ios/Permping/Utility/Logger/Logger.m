@@ -8,7 +8,7 @@
 
 #import "Logger.h"
 #import "Configuration.h"
-#import "EyeConstant.h"
+#import "Constants.h"
 #import "Configuration.h"
 #import "CustomizedEnumType.h"
 

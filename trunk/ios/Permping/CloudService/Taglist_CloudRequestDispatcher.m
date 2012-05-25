@@ -9,7 +9,7 @@
 #import "Taglist_CloudRequestDispatcher.h"
 #import "Taglist_CloudResponseParser.h" 
 #import "Taglist_CloudResponse.h"
-#import "EyeConstant.h"
+#import "Constants.h"
 #import "Utility.h" 
 #import "Taglist_AlertManager.h"
 #import "Logger.h"

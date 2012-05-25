@@ -418,7 +418,6 @@
 		26642EB3156EBA1D00577978 /* CustomizedEnumType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomizedEnumType.h; sourceTree = "<group>"; };
 		26642EB4156EBA1D00577978 /* DateTimeUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DateTimeUtil.h; sourceTree = "<group>"; };
 		26642EB5156EBA1D00577978 /* DateTimeUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DateTimeUtil.m; sourceTree = "<group>"; };
-		26642EB6156EBA1D00577978 /* EyeConstant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EyeConstant.h; sourceTree = "<group>"; };
 		26642EB8156EBA1D00577978 /* Logger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Logger.h; sourceTree = "<group>"; };
 		26642EB9156EBA1D00577978 /* Logger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Logger.m; sourceTree = "<group>"; };
 		26642EBB156EBA1D00577978 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
@@ -1068,7 +1067,6 @@
 				26642EB3156EBA1D00577978 /* CustomizedEnumType.h */,
 				26642EB4156EBA1D00577978 /* DateTimeUtil.h */,
 				26642EB5156EBA1D00577978 /* DateTimeUtil.m */,
-				26642EB6156EBA1D00577978 /* EyeConstant.h */,
 				26642EB7156EBA1D00577978 /* Logger */,
 				26642EBA156EBA1D00577978 /* MBProgressHUD */,
 				26642EBD156EBA1D00577978 /* Utility.h */,

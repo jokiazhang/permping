@@ -8,7 +8,7 @@
 
 #import "Utility.h"
 #import "CheckNetworkStatus.h"
-#import "EyeConstant.h"
+#import "Constants.h"
 #import "IdentityModel.h"
 #import <Foundation/Foundation.h>
 #import <CoreTelephony/CTTelephonyNetworkInfo.h>
