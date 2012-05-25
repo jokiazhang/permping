@@ -22,11 +22,6 @@
 + (void)setObject:(id)value forKey:(NSString *)key;
 + (BOOL)isSupportedPersonalization;
 + (NSString *)getResouceDLNAForContentFormat:(NSString *)contentFormat;
-+ (NSDictionary *)getSupportedDeviceCategory;
-+ (BOOL)isSupportedRecommendation;
-+ (BOOL)isSupportedLocalLibrary;
-+ (BOOL)isSupportedRovi;
-+ (BOOL)isSupportedSharing;
 + (BOOL)isSupportedFeature:(NSString *)keyFeature;
  
 + (void)readConfigurationFile;

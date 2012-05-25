@@ -303,51 +303,8 @@ static Taglist_CloudRequestDispatcher *instance = nil;
  
 - (NSString *)setupRequestHeaders:(NSMutableURLRequest *)request additionalHeaders:(NSDictionary *)headers
 { 
-    NSMutableString *log = [[NSMutableString alloc] init];
-    
-    NSString *userToken = @"token";//[[Taglist_UserManager getInstance] getCurrentUserAuthorizationToken];
-    [request setValue:userToken  forHTTPHeaderField: @"X-Eyecon-UserId"];
-    [log appendFormat:@"\tX-Eyecon-UserId : %@\n", userToken];
- 
-    [request setValue:TAGLIST_CLIENT_VERSION forHTTPHeaderField:@"X-Eyecon-Client-Version"];
-    [log appendFormat:@"\tX-Eyecon-Client-Version: %@\n", TAGLIST_CLIENT_VERSION];
-    
-    [request setValue:[Configuration getValueForKey:CLOUD_SERVICE_DISCOVERY_AUDIENCE_KEY] forHTTPHeaderField:@"X-Eyecon-Audience"];
-    [log appendFormat:@"\tX-Eyecon-Audience: %@\n", [Configuration getValueForKey:CLOUD_SERVICE_DISCOVERY_AUDIENCE_KEY]];
-
-    NSString *clientType = [Utility getIOSClientType];
-    [request setValue:clientType forHTTPHeaderField:@"X-Eyecon-Client-Type"];
-    [log appendFormat:@"\tX-Eyecon-Client-Type: %@\n", clientType];
-    
-    [request setValue:PROTOCOL_VERSION_2 forHTTPHeaderField:@"X-Eyecon-Protocol"];
-    [log appendFormat:@"\tX-Eyecon-Protocol: %@\n", PROTOCOL_VERSION_2];
-    
-    [request setValue:[Configuration getValueForKey:PARTNER_ID_KEY] forHTTPHeaderField:@"X-Eyecon-PartnerId"];
-    [log appendFormat:@"\tX-Eyecon-PartnerId: %@\n", [Configuration getValueForKey:PARTNER_ID_KEY]];
-    
-    NSString *uuid = [Utility getUniqueDeviceIdentifier];
-    [request setValue:uuid forHTTPHeaderField:@"X-Eyecon-Device-Id"];
-    [log appendFormat:@"\tX-Eyecon-Device-Id: %@\n", uuid];
-    
-    //TODO: need to add this header for future logging analytics
-    //[request setValue: forHTTPHeaderField:@"X-Eyecon-Log-Session"];
-    //[log appendFormat:@"\tX-Eyecon-Log-Session: %@\n", ];
-    
-    
-    if ([Configuration applicationSupportGZIPCommunication]) {
-        [request setValue:@"gzip" forHTTPHeaderField:@"Accept-Encoding"];
-        [log appendFormat:@"\tAccept-Encoding: %@\n", @"gzip"];
-    }   
-    
-    if ([[request HTTPMethod] caseInsensitiveCompare:@"GET"] != NSOrderedSame) {
-        [request setValue:[Configuration getValueForKey:XML_MIMETYPE_REQUEST_KEY] forHTTPHeaderField:@"Content-Type"];
-    }
-    [request setValue:@"" forHTTPHeaderField:@"Cookie"];
-    
-    
-    NSString *logResult = [NSString stringWithString:log];
-    [log release];
-    return logResult;
+   
+    return @"";
 }
 
 - (NSString *)changeEyeconTemplateToRealConfig:(NSString *)text
