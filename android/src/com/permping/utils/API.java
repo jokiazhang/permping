@@ -7,4 +7,5 @@ public class API {
 	public static final String categoryListURL = "http://permping.autwin.com/services/permservice/getcategories";
 	public static final String boardListFromCategoryUrl = "http://permping.autwin.com/services/permservice/getboardswithcategoryid/"; //Add category id when make request
 	public static final String permListFromBoardUrl = "http://permping.autwin.com/services/permservice/getpermwithboardid/"; //Add board id when make request
+	public static final String addNewPermUrl = "http://permping.autwin.com/services/permservice/addPerm";
 }

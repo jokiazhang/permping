@@ -40,7 +40,7 @@ public class PermpingMain extends TabActivity {
         // Tab for Image
         TabSpec image = tabHost.newTabSpec("Images");
         image.setIndicator("Images", getResources().getDrawable(R.drawable.icon_image_tab));
-        Intent imageIntent = new Intent(this, ImageActivity.class);
+        Intent imageIntent = new Intent(this, ImageActivityGroup.class);
         image.setContent(imageIntent);
         tabHost.addTab( image );
         
