@@ -29,7 +29,7 @@ public class CreateBoardActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-	//	setContentView(R.layout.createboard_layout);
+		setContentView(R.layout.createboard_layout);
 		
 		CategoryController catController = new CategoryController();
 		final ArrayList<Category> categories = catController.getCategoryList();
