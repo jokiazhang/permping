@@ -1,24 +1,46 @@
 package com.permping.activity;
 
+import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.InputStreamReader;
 
 import com.permping.R;
+import com.permping.utils.API;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.Bitmap.CompressFormat;
+import android.graphics.BitmapFactory;
+import android.hardware.Camera;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.mime.HttpMultipartMode;
+import org.apache.http.entity.mime.MultipartEntity;
+import org.apache.http.entity.mime.content.ByteArrayBody;
+import org.apache.http.entity.mime.content.StringBody;
+import org.apache.http.impl.client.DefaultHttpClient;
+
 public class ImageActivity extends Activity {
 	private int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 1224;
 	
 	private int SELECT_PICTURE = 1;
+	
+	
+	private ProgressDialog dialog;
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -56,7 +78,7 @@ public class ImageActivity extends Activity {
                 Intent intent = new Intent();
                 intent.setType("image/*");
                 intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(Intent.createChooser(intent, "Select Picture"), SELECT_PICTURE);
+                getParent().startActivityForResult(Intent.createChooser(intent, "Select Picture"), SELECT_PICTURE);
 			}
 		});
 		
@@ -73,11 +95,14 @@ public class ImageActivity extends Activity {
 
 	}
 
+	/* Camera process 
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
 			if (resultCode == RESULT_OK) {
 				// use imageUri here to access the image
-
+				Uri selectedImageUri = data.getData();
+				String selectedImagePath = selectedImageUri.getPath();
+				String b  = selectedImagePath;
 			} else if (resultCode == RESULT_CANCELED) {
 				Toast.makeText(this, "Picture was not taken",
 						Toast.LENGTH_SHORT);
@@ -116,30 +141,11 @@ public class ImageActivity extends Activity {
 	}
 	
 	
-	
-	
-	
-	
-	
-	/*
-	
-	//Gallery process
-	public void onActivityResult(int requestCode, int resultCode, Intent data) {
-	    if (resultCode == RESULT_OK) {
-	        if (requestCode == SELECT_PICTURE) {
-	            Uri selectedImageUri = data.getData();
-	            selectedImagePath = getPath(selectedImageUri);
-	        }
-	    }
-	}
-
-	public String getPath(Uri uri) {
-	    String[] projection = { MediaStore.Images.Media.DATA };
-	    Cursor cursor = managedQuery(uri, projection, null, null, null);
-	    int column_index = cursor
-	            .getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-	    cursor.moveToFirst();
-	    return cursor.getString(column_index);
-	}
 	*/
+	
+	
+	
+	
+	
+	
 }

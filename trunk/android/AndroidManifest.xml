@@ -27,7 +27,9 @@
         <activity android:name=".activity.FollowerActivity" />
         <activity android:name=".activity.BoardListActivity" />
         <activity android:name=".activity.ExplorerActivityGroup" />
+        <activity android:name=".activity.ImageActivityGroup" />
         <activity android:name=".activity.ImageActivity" />
+        <activity android:name=".activity.NewPermActivity" />
         <activity android:name=".activity.MyDiaryActivity" />
         <activity android:name=".activity.ProfileActivity" />
 		<activity android:name=".activity.JoinPermActivity" />
