@@ -8,11 +8,9 @@ import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
-import android.hardware.Camera;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -59,6 +57,17 @@ public class ImageActivity extends Activity {
                 intent.setType("image/*");
                 intent.setAction(Intent.ACTION_GET_CONTENT);
                 startActivityForResult(Intent.createChooser(intent, "Select Picture"), SELECT_PICTURE);
+			}
+		});
+		
+		final LinearLayout createBoard = (LinearLayout) findViewById(R.id.createBoard);
+		createBoard.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// Go to the Create Board screen.
+				Intent i = new Intent(v.getContext(), CreateBoardActivity.class);
+				v.getContext().startActivity(i);	
 			}
 		});
 

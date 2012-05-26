@@ -32,6 +32,7 @@
         <activity android:name=".activity.ProfileActivity" />
 		<activity android:name=".activity.JoinPermActivity" />
 		<activity android:name=".activity.LoginPermActivity" />
+		<activity android:name=".activity.CreateBoardActivity" />
         <activity android:name=".activity.PrepareRequestTokenActivity" android:launchMode="singleTask">>
 			<intent-filter>
 				<action android:name="android.intent.action.VIEW" />
