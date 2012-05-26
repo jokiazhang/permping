@@ -85,7 +85,6 @@ public class LoginPermActivity extends Activity {
         //Login with Facebook button
         facebookLogin.setOnClickListener(new View.OnClickListener() {
 			
-			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				// Clear FB info to show the login again
@@ -145,7 +144,6 @@ public class LoginPermActivity extends Activity {
         // Twitter Login button
         twitterLogin.setOnClickListener(new View.OnClickListener() {
 			
-			@Override
 			public void onClick(View v) {
 				Intent i = new Intent(v.getContext(), PrepareRequestTokenActivity.class);
 				v.getContext().startActivity(i);	
