@@ -98,8 +98,8 @@ public class NewPermActivity extends Activity {
 				byte[] data = bos.toByteArray();
 				
 				HttpClient httpClient = new DefaultHttpClient();
-				HttpPost postRequest = new HttpPost("http://10.0.2.2/perm/testupload.php");
-				//HttpPost postRequest = new HttpPost(API.addNewPermUrl);
+				//HttpPost postRequest = new HttpPost("http://10.0.2.2/perm/testupload.php");
+				HttpPost postRequest = new HttpPost(API.addNewPermUrl);
 				String fileName = new File(filePath).getName();
 				ByteArrayBody bab = new ByteArrayBody(data, fileName);
 				MultipartEntity reqEntity = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
@@ -136,8 +136,8 @@ public class NewPermActivity extends Activity {
 			
 			if (dialog.isShowing()){
 				dialog.dismiss();
-				//Toast.makeText(getApplicationContext(),sResponse,Toast.LENGTH_LONG).show();
 				ImageActivityGroup.group.back();
+				Toast.makeText(getApplicationContext(),"Uploaded new perm!",Toast.LENGTH_LONG).show();
 			}
 			
 		}

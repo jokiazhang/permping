@@ -26,11 +26,10 @@ public class CreateBoardActivity extends Activity {
 	/* (non-Javadoc)
 	 * @see android.app.Activity#onCreate(android.os.Bundle)
 	 */
-	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.createboard_layout);
+	//	setContentView(R.layout.createboard_layout);
 		
 		CategoryController catController = new CategoryController();
 		final ArrayList<Category> categories = catController.getCategoryList();
@@ -38,7 +37,6 @@ public class CreateBoardActivity extends Activity {
 		createBoard = (Button) findViewById(R.id.createBoard);
 		createBoard.setOnClickListener(new View.OnClickListener() {
 			
-			@Override
 			public void onClick(View v) {
 				Toast toast = Toast.makeText(getApplicationContext(), "Not finished yet!", Toast.LENGTH_SHORT);
 	        	toast.setGravity(Gravity.TOP | Gravity.CENTER, 0, 50);

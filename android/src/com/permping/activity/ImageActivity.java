@@ -1,38 +1,17 @@
 package com.permping.activity;
 
-import java.io.BufferedReader;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.InputStreamReader;
-
 import com.permping.R;
-import com.permping.utils.API;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.Intent;
-import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.Bitmap.CompressFormat;
-import android.graphics.BitmapFactory;
-import android.hardware.Camera;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.mime.HttpMultipartMode;
-import org.apache.http.entity.mime.MultipartEntity;
-import org.apache.http.entity.mime.content.ByteArrayBody;
-import org.apache.http.entity.mime.content.StringBody;
-import org.apache.http.impl.client.DefaultHttpClient;
 
 public class ImageActivity extends Activity {
 	private int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 1224;
@@ -84,8 +63,6 @@ public class ImageActivity extends Activity {
 		
 		final LinearLayout createBoard = (LinearLayout) findViewById(R.id.createBoard);
 		createBoard.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
 			public void onClick(View v) {
 				// Go to the Create Board screen.
 				Intent i = new Intent(v.getContext(), CreateBoardActivity.class);

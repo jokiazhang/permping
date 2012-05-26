@@ -12,8 +12,8 @@
 
     <corners
         android:radius="1dp"
-        android:topRightRadius="15dp"
-        android:topLeftRadius="15dp" />
+        android:topRightRadius="10dp"
+        android:topLeftRadius="10dp" />
     
 
     <solid android:color="#FFFFFF" />
