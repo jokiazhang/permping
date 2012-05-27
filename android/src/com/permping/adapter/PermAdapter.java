@@ -141,19 +141,23 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 	                   for( int i =0 ; i< o.getComments().size() ; i ++ ){
 		                   View cm = vi.inflate(R.layout.comment_item, null );
 		                   PermComment pcm = o.getComments().get(i);
+		                   if( pcm != null ){
 		                   
-		                   ImageView cma = (ImageView) cm.findViewById(R.id.commentAvatar );
-		                   UrlImageViewHelper.setUrlDrawable(cma, pcm.getAuthor().getAvatar().getUrl());
-		                   
-		                   TextView cmt = (TextView) cm.findViewById(R.id.commentContent );
-		                   cmt.setText(pcm.getContent());
-		                   
-		                   if( i == ( o.getComments().size() -1 ) ){
-		                	   View sp = (View) cm.findViewById(R.id.separator);
-		                	   sp.setVisibility(View.INVISIBLE);
+		                	   if( pcm.getAuthor() != null ){
+		                		   ImageView cma = (ImageView) cm.findViewById(R.id.commentAvatar );
+		                		   UrlImageViewHelper.setUrlDrawable(cma, pcm.getAuthor().getAvatar().getUrl());
+		                	   }
+			                   
+			                   TextView cmt = (TextView) cm.findViewById(R.id.commentContent );
+			                   cmt.setText(pcm.getContent());
+			                   
+			                   if( i == ( o.getComments().size() -1 ) ){
+			                	   View sp = (View) cm.findViewById(R.id.separator);
+			                	   sp.setVisibility(View.INVISIBLE);
+			                   }
+			                   
+			                   comments.addView(cm);
 		                   }
-		                   
-		                   comments.addView(cm);
 	                   }
 	                   
 	            }

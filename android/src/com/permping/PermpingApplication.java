@@ -6,6 +6,7 @@ package com.permping;
 import com.permping.model.User;
 
 import android.app.Application;
+import android.content.Context;
 
 /**
  * @author Linh Nguyen
@@ -50,5 +51,17 @@ public class PermpingApplication extends Application {
 	public void setLoginType(String loginType) {
 		this.loginType = loginType;
 	}
+	
+	
+	
+	private static Context context;
+	public void onCreate(){
+		PermpingApplication.context = getApplicationContext();
+	}
+	
+	public static Context getAppContext(){
+		return PermpingApplication.context;
+	}
+	
 	
 }

@@ -18,6 +18,8 @@ public class FollowerActivity extends Activity {
 	public String url = "";
 	public Boolean header = true;
 	
+	private ArrayList<Perm> permListMain;
+	
 	
 	private ProgressDialog dialog;
 	/** Called when the activity is first created. */
@@ -33,18 +35,30 @@ public class FollowerActivity extends Activity {
 			this.header = false;
 		}
 		 ListView permListView = (ListView) findViewById(R.id.permList);
+		 /*
 	        PermListController permListController = new PermListController( );
 	        
 	        ArrayList<Perm> permList = permListController.getPermList( url );
 	        
 	        PermAdapter permListAdapter = new PermAdapter(FollowerActivity.this, R.layout.perm_item_1, permList, FollowerActivity.this, header);
 	        permListView.setAdapter(permListAdapter);
+	        */
+		 
+		 
+		 dialog = ProgressDialog.show(getParent(), "Loading","Please wait...", true);
+		 new LoadPermList().execute();
     }
     
     @Override
 	protected void onResume() {
 		super.onResume();
 	}
+    
+    private void loadPerms(){
+    	ListView permListView = (ListView) findViewById(R.id.permList);
+    	PermAdapter permListAdapter = new PermAdapter(this, R.layout.perm_item_1, permListMain, this, header);
+	    permListView.setAdapter(permListAdapter);
+    }
     
     
     
@@ -56,17 +70,10 @@ public class FollowerActivity extends Activity {
   		
   		@Override
   		protected String doInBackground(Void... params) {
-  			ListView permListView = (ListView) findViewById(R.id.permList);
   	        PermListController permListController = new PermListController( );
-  	        
   	        ArrayList<Perm> permList = permListController.getPermList( url );
   	        
-  	        PermAdapter permListAdapter = new PermAdapter(FollowerActivity.this, R.layout.perm_item_1, permList, FollowerActivity.this, header);
-  	        permListView.setAdapter(permListAdapter);
-  	        
-  	        if (dialog.isShowing()){
-				dialog.dismiss();
-			}
+  	        permListMain = permList;
   			return null;
   		}
   		
@@ -77,6 +84,7 @@ public class FollowerActivity extends Activity {
 
   		@Override
   		protected void onPostExecute(String sResponse) {
+  			loadPerms();
   			if (dialog.isShowing()){
   				dialog.dismiss();
   			}
