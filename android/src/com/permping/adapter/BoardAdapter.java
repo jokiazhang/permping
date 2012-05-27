@@ -47,7 +47,7 @@ public class BoardAdapter extends ArrayAdapter<PermBoard> {
 		this.textViewResourceId = textViewResourceId;
 		this.items = items;
 	}
-
+	
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		View v = convertView;

@@ -117,6 +117,10 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 	                    ImageView pv = (ImageView) v.findViewById( R.id.permImage);
 	                    UrlImageViewHelper.setUrlDrawable(pv, o.getImage().getUrl());
 	                    
+	                    
+	                    //Perm description
+	                   TextView pd = (TextView) v.findViewById(R.id.permDesc);
+	                   pd.setText(o.getDescription());
 	            }
             }
             return v;
