@@ -2,84 +2,142 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@drawable/background" >
-    <include android:layout_width="fill_parent" layout="@layout/title_bar" />
+    android:background="@drawable/background"
+    android:orientation="vertical" >
+
+    <include
+        android:layout_width="fill_parent"
+        layout="@layout/title_bar" />
 
     <TextView
-        android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
         android:text="@string/bt_join_permping"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#000000" />
 
-   	<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-   	    android:layout_width="fill_parent"
-   	    android:layout_height="wrap_content"
-   	    android:stretchColumns="1">
-   	    
-   	    <TableRow>
-   	        <TextView android:padding="3dip"
-   	            android:text="@string/acc_name"
-   	            style="@style/label"/>
-   	        <EditText android:id="@+id/acccountName"
-   	            android:hint="@string/required"
-   	            style="@style/edit_text" />
-   	    </TableRow>
-   	    
-   	    <TableRow>
-   	        <TextView android:padding="3dip"
-   	            android:text="@string/nick_name"
-   	            style="@style/label"/>   	        	
-   	        <EditText android:id="@+id/nickName"
-   	            android:hint="@string/required"
-   	            style="@style/edit_text" />
-   	    </TableRow>
-   	    
-   	    <TableRow>
-   	        <TextView android:padding="3dip"
-   	            android:text="@string/user_name"
-   	            style="@style/label"/>   	        	
-   	        <EditText android:id="@+id/userName"
-   	            android:hint="@string/required"
-   	            style="@style/edit_text" />
-   	    </TableRow>
-   	    
-   	    <TableRow>
-   	        <TextView android:padding="3dip"
-   	            android:text="@string/acc_email"
-   	            style="@style/label"/>   	        	
-   	        <EditText android:id="@+id/acccountEmail"
-   	            android:hint="@string/required"
-   	            style="@style/edit_text" />
-   	    </TableRow>
-   	    
-   	    <TableRow>
-   	        <TextView android:padding="3dip"
-   	            android:text="@string/acc_password"
-   	            style="@style/label"/>
-   	        <EditText android:id="@+id/acccountPassword"
-   	            android:inputType="textPassword"
-   	            android:hint="@string/required"/>
-   	    </TableRow>
-   	    
-   	    <TableRow>
-   	        <TextView android:padding="3dip"
-   	            android:text="@string/acc_confirm_password"
-   	            style="@style/label"/>
-   	        <EditText android:id="@+id/accountConfirmPassword"
-   	            android:inputType="textPassword"
-   	            android:hint="@string/required"/>
-   	    </TableRow>
-   	</TableLayout>
-
-    <Button
-        android:id="@+id/createAccount"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
+    <TableLayout 
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:padding="10dp"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/bt_create_account"
-        android:textColor="#FFFFFF"
-            android:background="@drawable/button_bg" android:gravity="center" />
+        android:stretchColumns="1" >
+
+        <TableRow android:background="@drawable/explorer_item_bg_first" >
+
+            <TextView
+                style="@style/label"
+                android:padding="3dip"
+                android:text="@string/acc_name" />
+
+            <EditText
+                android:id="@+id/acccountName"
+                style="@style/edit_text"
+                android:background="#00000000"
+                android:hint="@string/required" />
+        </TableRow>
+
+        <TableRow android:background="@drawable/explorer_item_bg" >
+
+            <TextView
+                style="@style/label"
+                android:padding="3dip"
+                android:text="@string/nick_name" />
+
+            <EditText
+                android:id="@+id/nickName"
+                style="@style/edit_text"
+                android:background="#00000000"
+                android:hint="@string/required" />
+        </TableRow>
+
+        <TableRow android:background="@drawable/explorer_item_bg" >
+
+            <TextView
+                style="@style/label"
+                android:padding="3dip"
+                android:text="@string/user_name" />
+
+            <EditText
+                android:id="@+id/userName"
+                style="@style/edit_text"
+                android:background="#00000000"
+                android:hint="@string/required" />
+        </TableRow>
+
+        <TableRow android:background="@drawable/explorer_item_bg" >
+
+            <TextView
+                style="@style/label"
+                android:padding="3dip"
+                android:text="@string/acc_email" />
+
+            <EditText
+                android:id="@+id/acccountEmail"
+                style="@style/edit_text"
+                android:background="#00000000"
+                android:hint="@string/required" />
+        </TableRow>
+
+        <TableRow android:background="@drawable/explorer_item_bg" >
+
+            <TextView
+                style="@style/label"
+                android:padding="3dip"
+                android:text="@string/acc_password" />
+
+            <EditText
+                android:id="@+id/acccountPassword"
+                android:hint="@string/required"
+                style="@style/edit_text"
+                android:background="#00000000"
+                android:inputType="textPassword" />
+        </TableRow>
+
+        <TableRow android:background="@drawable/explorer_item_bg_end" >
+
+            <TextView
+                style="@style/label"
+                android:padding="3dip"
+                android:text="@string/acc_confirm_password" />
+
+            <EditText
+                android:id="@+id/accountConfirmPassword"
+                android:hint="@string/required"
+                android:background="#00000000"
+                style="@style/edit_text"
+                android:inputType="textPassword" />
+        </TableRow>
+
+        <TableRow>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="2dp"
+                android:layout_marginBottom="20dp"
+                android:layout_span="2"
+                android:layout_marginTop="20dp"
+                android:background="@android:color/darker_gray" />
+        </TableRow>
+        
+    </TableLayout>
+    
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" 
+        android:gravity="center">
+     <Button
+                android:id="@+id/createAccount"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="150dp"
+                android:layout_height="40dp"
+                android:background="@drawable/button_bg"
+                android:gravity="center"
+                android:layout_span="2"
+                android:text="@string/bt_create_account"
+                android:textColor="#FFFFFF" />
+     
+     </LinearLayout>
 
 </LinearLayout>

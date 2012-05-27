@@ -4,37 +4,38 @@
     android:layout_height="fill_parent"
     android:orientation="vertical"
     android:stretchColumns="0" >
-    
-    <TableRow >                   
-        <Button
-        android:id="@+id/bt_login_with_facebook"        
-        style="?android:attr/buttonStyleSmall"
-        android:text="@string/bt_facebook"
-        android:layout_gravity="center"
-        android:textColor="#FFFFFF"
-            android:background="@drawable/button_bg" />
+
+    <TableRow android:paddingTop="40dp" android:paddingBottom="20dp" >
 
         <Button
-        android:id="@+id/bt_login_with_twitter"        
-        style="?android:attr/buttonStyleSmall"
-        android:text="@string/bt_twitter"
-        android:layout_gravity="center"
-        android:textColor="#FFFFFF"
-            android:background="@drawable/button_bg" />
+            android:id="@+id/bt_login_with_facebook"
+            android:layout_gravity="center"
+            android:background="@drawable/fb_icon"
+            android:text="@string/bt_facebook"
+            android:textColor="#FFFFFF" 
+            android:layout_height="40dp"/>
+
+        <Button
+            android:id="@+id/bt_login_with_twitter"
+            android:layout_gravity="center"
+            android:background="@drawable/button_bg"
+            android:text="@string/bt_twitter"
+            android:textColor="#FFFFFF" 
+            android:layout_height="40dp"/>
     </TableRow>
-	<TableRow android:gravity="center">
-	    <Button
-        android:id="@+id/bt_join_permping"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        style="?android:attr/buttonStyleSmall"
-        android:text="@string/bt_join_permping"
-        android:textColor="#FFFFFF"
-            android:background="@drawable/button_bg" />
-    
-		    
-	</TableRow>
-    
-    
-      
+
+    <TableRow
+        android:gravity="center"
+        android:paddingBottom="40dp"
+        android:paddingTop="20dp" >
+
+        <Button
+            android:id="@+id/bt_join_permping"
+            android:layout_width="150dp"
+            android:layout_height="40dp"
+            android:background="@drawable/button_bg"
+            android:text="@string/bt_join_permping"
+            android:textColor="#FFFFFF" />
+    </TableRow>
+
 </TableLayout>
