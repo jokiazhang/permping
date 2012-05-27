@@ -114,7 +114,7 @@ public class CreateBoardActivity extends Activity {
 			categoryId = Integer.parseInt(category.getId());		}
 
 		public void onNothingSelected(AdapterView<?> arg0) {
-			// TODO Auto-generated method stub
+			
 			
 		}		
 	}
