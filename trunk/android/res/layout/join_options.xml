@@ -4,7 +4,7 @@
     android:layout_height="fill_parent"
     android:stretchColumns="0" >
     
-    <TableRow >                   
+    <TableRow  android:paddingBottom="20dp">                   
         <Button
         android:id="@+id/bt_login_with_facebook"        
         android:text="@string/bt_facebook"
@@ -23,7 +23,7 @@
         android:textColor="#FFFFFF"
             android:background="@drawable/button_bg" />
     </TableRow>
-	<TableRow android:gravity="center">
+	<TableRow android:gravity="center" android:paddingBottom="20dp">
 	    <Button
         android:id="@+id/bt_join_permping"
         android:layout_width="160dp"
