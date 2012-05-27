@@ -9,6 +9,9 @@
 #import "JoinViewController.h"
 #import "UserInfoTableViewCell.h"
 #import "Utils.h"
+#import "Taglist_CloudService.h"
+#import "CreateAccount_DataLoader.h"
+#import "CreateAccountResponse.h"
 
 @implementation JoinViewController
 @synthesize loggedin, fieldsTitle;
@@ -49,7 +52,11 @@
 {
     [super viewDidUnload];
     // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
+}
+
+- (void)dealloc
+{
+    [super dealloc];
 }
 
 #pragma mark - <UITableViewDelegate + DataSource> implementation
@@ -93,7 +100,41 @@
 }
 
 - (IBAction)createAccountButtonDidTouch:(id)sender {
-    
+    [self startActivityIndicator];
+    self.dataLoaderThread = [[ThreadManager getInstance] dispatchToConcurrentBackgroundNormalPriorityQueueWithTarget:self selector:@selector(loadDataForMe:thread:) dataObject:[self getMyDataLoader]];
+}
+
+#pragma mark - Override methods
+- (id)getMyDataLoader
+{
+    CreateAccount_DataLoader *loader = [[CreateAccount_DataLoader alloc] init];
+    return [loader autorelease];
+}
+
+- (void)loadDataForMe:(id)loader thread:(id<ThreadManagementProtocol>)threadObj
+{
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+    if (![threadObj isCancelled]) {
+        dispatch_async(dispatch_get_main_queue(), ^(void)
+                       {
+                           //[self initializeUIControls]; 
+                           
+                       });
+        
+        userInfo = [[NSMutableDictionary alloc] initWithObjectsAndKeys:kUserServiceTypeNormal, kUserServiceTypeKey, @"test name", kUserServiceNameKey, @"test user name", kUserServiceUserNameKey, @"aa@yahoo.com", kUserServiceEmailKey, @"nopass", kUserServicePasswordKey, @"nopass", kUserServiceCPasswordKey, nil];
+        CreateAccountResponse *response = [(CreateAccount_DataLoader *)loader createAccountWithUserInfo:userInfo];
+        
+        if (![threadObj isCancelled]) {
+            
+            dispatch_async(dispatch_get_main_queue(), ^(void)
+                           {
+                               [self stopActivityIndicator];
+                               NSLog(@"done create account request");
+                           });
+        }
+    }
+    //[myLoader release];
+    [pool drain];
 }
 
 - (void)dismiss:(id)sender {

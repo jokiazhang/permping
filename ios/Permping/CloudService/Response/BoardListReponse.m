@@ -63,22 +63,6 @@
     return;
 }
 
-
-/*<response>
- <boards>
- <item>
- <id>530</id>
- <user_id>160</user_id>
- <title><![CDATA[내가  원하는 것들]]></title>
- <category_id>22</category_id>
- <desc><![CDATA[]]></desc>
- <added_date>0000-00-00 00:00:00</added_date>
- <updated_date>2012-05-07 11:38:17</updated_date>
- <type>me</type>
- <friend_id>0</friend_id>
- </item> */
-
-
 - (void) onEndElement:(NSString *)path name:(NSString *)name text:(NSString *)text
 {
     [super onEndElement:path name:name text:text];        

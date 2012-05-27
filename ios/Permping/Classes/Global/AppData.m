@@ -10,6 +10,8 @@
 #import "Webservices.h"
 #import "Constants.h"
 #import "FBFeedPost.h"
+#import "Taglist_CloudService.h"
+#import "CreateAccountResponse.h"
 
 @implementation AppData
 
@@ -63,41 +65,11 @@
     [super dealloc];
 }
 
-- (BOOL) loginWithUsername:(NSString *)username password:(NSString *)password type:(LoginType)type accessToken:(NSString*)accessToken {
-    if( !username || !password )
-		return FALSE;  
+#pragma mark	-
+#pragma mark		user service
+#pragma mark	-
 
-	self.user.userName = username;
-	self.password = password;
-	
-	NSURL *url = [NSURL URLWithString:[SERVER_API stringByAppendingString:@"/userservice/login"]];
-	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:30.0f];
-	[request setHTTPMethod:@"POST"];
-    NSString *body = nil;
-    if (type == LoginTypeNormal) {
-        body = [NSString stringWithFormat:@"username=%@&password=%@", self.user.userName, _password];
-    } else if (type == LoginTypeFacebook) {
-        body = [NSString stringWithFormat:@"access_token=%@&type=facebook", accessToken];
-    } else if (type == LoginTypeTwitter) {
-        body = [NSString stringWithFormat:@"access_token=%@&type=twitter", accessToken];
-    }
 
-	[request setHTTPBody:[body dataUsingEncoding:NSUTF8StringEncoding]];
-	NSError *error = nil;
-	NSURLResponse *response = nil;
-	
-	NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
-    
-    NSLog(@"login response: %@", [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease]);
-    
-	[request release];
-	if (!error) {
-        // process data response
-		return TRUE;
-	}
-
-	return FALSE;	
-}
 
 #pragma mark	-
 #pragma mark		save / restore state

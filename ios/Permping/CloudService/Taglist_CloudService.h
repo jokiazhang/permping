@@ -10,6 +10,19 @@
 #import "PermListResponse.h"
 #import "CategoryListResponse.h"
 #import "BoardListReponse.h"
+#import "CreateAccountResponse.h"
+
+extern NSString *const kUserServiceTypeNormal;
+extern NSString *const kUserServiceTypeTwitter;
+extern NSString *const kUserServiceTypeFacebook;
+
+extern NSString *const kUserServiceTypeKey;
+extern NSString *const kUserServiceOauthTokenKey;
+extern NSString *const kUserServiceNameKey;
+extern NSString *const kUserServiceUserNameKey;
+extern NSString *const kUserServiceEmailKey;
+extern NSString *const kUserServicePasswordKey;
+extern NSString *const kUserServiceCPasswordKey;
 
 @interface Taglist_CloudService : NSObject 
 {
@@ -21,4 +34,7 @@
 + (CategoryListResponse*)getCategoryList;
 + (BoardListReponse*)getBoardListWithCategoryId:(NSString*)categoryId;
 + (PermListResponse *)getPermWithBoardId:(NSString*)boardId nextItemId:(NSInteger)nextId requestedCount:(NSUInteger)count;
+
+// User service
++ (CreateAccountResponse*)createAccountWithUserInfo:(NSDictionary*)userInfo;
 @end
