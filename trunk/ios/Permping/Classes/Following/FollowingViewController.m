@@ -62,10 +62,6 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    //phong remove
-//    PermListRequest *request = [[PermListRequest alloc] initWithType:PermListRequestTypePopular options:nil];
-//	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleServerResponse:) name:REQUESTMANAGER_REQUEST_TERMINATED_NOTIFICATION object:request];
-//	[[RequestManager sharedInstance] performRequest:request];
     
     [self startActivityIndicator];
     self.resultModel.arrResults = nil;
@@ -138,22 +134,6 @@
 }
 
 #pragma mark - publice methods
-
-- (void)handleServerResponse: (NSNotification*)in_response {
-	ServerRequest *request = in_response.object;
-	
-	[[NSNotificationCenter defaultCenter] removeObserver:self name:REQUESTMANAGER_REQUEST_TERMINATED_NOTIFICATION object:request];
-	
-	if (!request.result.error) {
-		id result = request.result.object;
-		if ([result isKindOfClass:[NSArray class]]) {
-            self.permsArray = result;
-            [permTableview reloadData];
-		}
-	} else {
-		NSLog(@"Failed to load permlist");
-	}
-}
 
 - (IBAction)joinButtonDidTouch:(id)sender {
     [self.view addSubview:joinView];

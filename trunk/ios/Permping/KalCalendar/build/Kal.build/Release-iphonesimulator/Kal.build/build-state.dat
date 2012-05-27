@@ -1,0 +1,387 @@
+TKal
+v4
+r1
+cCheck dependencies
+cProcessPCH /var/folders/KA/KARGsaFSFCeGPlGZBf7bcU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/Kal_Prefix-bylxbutdocylwrbsfrhysqweyona/Kal_Prefix.pch.pth Kal_Prefix.pch normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+cCompileC build/Kal.build/Release-iphonesimulator/Kal.build/Objects-normal/i386/KalDate.o /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/KalDate.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+cCompileC build/Kal.build/Release-iphonesimulator/Kal.build/Objects-normal/i386/KalTileView.o /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/KalTileView.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+cCompileC build/Kal.build/Release-iphonesimulator/Kal.build/Objects-normal/i386/KalGridView.o /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/KalGridView.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+cCompileC build/Kal.build/Release-iphonesimulator/Kal.build/Objects-normal/i386/KalView.o /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/KalView.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+cCompileC build/Kal.build/Release-iphonesimulator/Kal.build/Objects-normal/i386/KalDataSource.o /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/KalDataSource.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+cCompileC build/Kal.build/Release-iphonesimulator/Kal.build/Objects-normal/i386/KalLogic.o /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/KalLogic.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+cCompileC build/Kal.build/Release-iphonesimulator/Kal.build/Objects-normal/i386/KalMonthView.o /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/KalMonthView.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+cCompileC build/Kal.build/Release-iphonesimulator/Kal.build/Objects-normal/i386/KalViewController.o /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/KalViewController.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+cCompileC build/Kal.build/Release-iphonesimulator/Kal.build/Objects-normal/i386/NSDateAdditions.o /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/NSDateAdditions.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+cCompileC build/Kal.build/Release-iphonesimulator/Kal.build/Objects-normal/i386/UIViewAdditions.o /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/UIViewAdditions.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+cLibtool /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Release-iphonesimulator/libKal.a normal i386
+
+N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator5.0.sdk
+c000000004FB23CF50000000000000110
+t1337081077
+s272
+
+N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator5.0.sdk/System/Library/Frameworks/Foundation.framework/Foundation
+c000000004E72F2960000000000353830
+t1316156054
+s3487792
+
+N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator5.0.sdk/System/Library/Frameworks/Foundation.framework/Headers/Foundation.h
+c000000004E72F28F0000000000001534
+t1316156047
+s5428
+
+N/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/KalDataSource.h
+c000000004D48D6980000000000000E03
+t1296619160
+s3587
+
+N/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/KalDataSource.m
+c000000004D48D6980000000000000569
+t1296619160
+s1385
+
+N/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/KalDate.h
+c000000004D48D6980000000000000297
+t1296619160
+s663
+
+N/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/KalDate.m
+c000000004D48D6980000000000000919
+t1296619160
+s2329
+
+N/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/KalGridView.h
+c000000004D48D698000000000000047F
+t1296619160
+s1151
+
+N/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/KalGridView.m
+c000000004D48D6980000000000001C7A
+t1296619160
+s7290
+
+N/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/KalLogic.h
+c000000004D48D698000000000000075D
+t1296619160
+s1885
+
+N/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/KalLogic.m
+c000000004D48D69800000000000011E0
+t1296619160
+s4576
+
+N/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/KalMonthView.h
+c000000004D48D698000000000000025F
+t1296619160
+s607
+
+N/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/KalMonthView.m
+c000000004D48D698000000000000094F
+t1296619160
+s2383
+
+N/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/KalPrivate.h
+c000000004D48D69800000000000000A4
+t1296619160
+s164
+
+N/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/KalTileView.h
+c000000004D48D698000000000000033B
+t1296619160
+s827
+
+N/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/KalTileView.m
+c000000004D48D69800000000000015BF
+t1296619160
+s5567
+
+N/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/KalView.h
+c000000004D48D6980000000000000951
+t1296619160
+s2385
+
+N/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/KalView.m
+c000000004D48D69800000000000026B0
+t1296619160
+s9904
+
+N/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/KalViewController.h
+c000000004FC1FCF800000000000008FD
+t1338113272
+s2301
+
+N/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/KalViewController.m
+c000000004D48D6980000000000001661
+t1296619160
+s5729
+
+N/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/Kal_Prefix.pch
+c000000004D48D69800000000000000BC
+t1296619160
+s188
+i<Foundation/Foundation.h>
+
+N/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/NSDateAdditions.h
+c000000004D48D6980000000000000289
+t1296619160
+s649
+
+N/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/NSDateAdditions.m
+c000000004D48D698000000000000092B
+t1296619160
+s2347
+
+N/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/UIViewAdditions.h
+c000000004D48D6980000000000000184
+t1296619160
+s388
+
+N/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/UIViewAdditions.m
+c000000004D48D69800000000000004ED
+t1296619160
+s1261
+
+N/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Kal.build/Release-iphonesimulator/Kal.build/Objects-normal/i386/Kal.LinkFileList
+c000000004FC1F53900000000000005A6
+t1338111289
+s1446
+
+N/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Kal.build/Release-iphonesimulator/Kal.build/Objects-normal/i386/KalDataSource.o
+t1338111289
+s44248
+
+N/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Kal.build/Release-iphonesimulator/Kal.build/Objects-normal/i386/KalDate.o
+t1338111289
+s13260
+
+N/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Kal.build/Release-iphonesimulator/Kal.build/Objects-normal/i386/KalGridView.o
+t1338111289
+s59656
+
+N/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Kal.build/Release-iphonesimulator/Kal.build/Objects-normal/i386/KalLogic.o
+t1338111289
+s23796
+
+N/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Kal.build/Release-iphonesimulator/Kal.build/Objects-normal/i386/KalMonthView.o
+t1338111289
+s47088
+
+N/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Kal.build/Release-iphonesimulator/Kal.build/Objects-normal/i386/KalTileView.o
+t1338111290
+s53672
+
+N/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Kal.build/Release-iphonesimulator/Kal.build/Objects-normal/i386/KalView.o
+t1338111290
+s63248
+
+N/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Kal.build/Release-iphonesimulator/Kal.build/Objects-normal/i386/KalViewController.o
+t1338113288
+s60376
+
+N/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Kal.build/Release-iphonesimulator/Kal.build/Objects-normal/i386/NSDateAdditions.o
+t1338111290
+s11176
+
+N/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Kal.build/Release-iphonesimulator/Kal.build/Objects-normal/i386/UIViewAdditions.o
+t1338111290
+s42560
+
+N/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Release-iphonesimulator/libKal.a
+t1338113288
+s422568
+
+N/var/folders/KA/KARGsaFSFCeGPlGZBf7bcU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/Kal_Prefix-bylxbutdocylwrbsfrhysqweyona/Kal_Prefix.pch.pth
+t1338111289
+s2468520
+
+CBuild AST from /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/KalDataSource.m
+r0
+
+CBuild AST from /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/KalDate.m
+r0
+
+CBuild AST from /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/KalGridView.m
+r0
+
+CBuild AST from /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/KalLogic.m
+r0
+
+CBuild AST from /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/KalMonthView.m
+r0
+
+CBuild AST from /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/KalTileView.m
+r0
+
+CBuild AST from /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/KalView.m
+r0
+
+CBuild AST from /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/KalViewController.m
+r0
+
+CBuild AST from /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/NSDateAdditions.m
+r0
+
+CBuild AST from /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/UIViewAdditions.m
+r0
+
+CCheck dependencies
+r0
+lSLF04#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection18"Check dependencies4e0acfac3772b541^ffcfd5ac3772b541^---0#1#0#--18"Check dependencies36"CB199141-72D4-4DB9-A696-B8EC92092B2C-
+
+CCompileC build/Kal.build/Release-iphonesimulator/Kal.build/Objects-normal/i386/KalDataSource.o /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/KalDataSource.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+s359804089.463387
+e359804089.752013
+r1
+xCompileC
+xbuild/Kal.build/Release-iphonesimulator/Kal.build/Objects-normal/i386/KalDataSource.o
+x/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/KalDataSource.m
+xnormal
+xi386
+xobjective-c
+xcom.apple.compilers.llvm.clang.1_0.compiler
+lSLF04#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection83"Compile /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/KalDataSource.mfdbf76b92c72b541^9b8ec0b92c72b541^---0#0#0#-19%DVTDocumentLocation2@91"file://localhost/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/KalDataSource.m0000000000000000^2790"CompileC build/Kal.build/Release-iphonesimulator/Kal.build/Objects-normal/i386/KalDataSource.o KalDataSource.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/clang -x objective-c -arch i386 -fmessage-length=0 -fdiagnostics-print-source-range-info -fdiagnostics-show-category=id -fdiagnostics-parseable-fixits -std=c99 -Wno-trigraphs -fpascal-strings -Os -Wreturn-type -Wparentheses -Wswitch -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-shorten-64-to-32 -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator5.0.sdk -fexceptions -fasm-blocks -mmacosx-version-min=10.6 -gdwarf-2 -Wno-sign-conversion -fobjc-abi-version=2 -fobjc-legacy-dispatch "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -D__IPHONE_OS_VERSION_MIN_REQUIRED=30100 -iquote /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Kal.build/Release-iphonesimulator/Kal.build/Kal-generated-files.hmap -I/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Kal.build/Release-iphonesimulator/Kal.build/Kal-own-target-headers.hmap -I/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Kal.build/Release-iphonesimulator/Kal.build/Kal-all-target-headers.hmap -iquote /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Kal.build/Release-iphonesimulator/Kal.build/Kal-project-headers.hmap -I/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Release-iphonesimulator/include -I/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Kal.build/Release-iphonesimulator/Kal.build/DerivedSources/i386 -I/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Kal.build/Release-iphonesimulator/Kal.build/DerivedSources -F/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Release-iphonesimulator -include /var/folders/KA/KARGsaFSFCeGPlGZBf7bcU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/Kal_Prefix-bylxbutdocylwrbsfrhysqweyona/Kal_Prefix.pch -MMD -MT dependencies -MF /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Kal.build/Release-iphonesimulator/Kal.build/Objects-normal/i386/KalDataSource.d -c /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/KalDataSource.m -o /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Kal.build/Release-iphonesimulator/Kal.build/Objects-normal/i386/KalDataSource.o36"676A812C-942B-4062-92F2-420209B4FB3B-
+
+CCompileC build/Kal.build/Release-iphonesimulator/Kal.build/Objects-normal/i386/KalDate.o /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/KalDate.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+s359804089.753242
+e359804089.988817
+r1
+xCompileC
+xbuild/Kal.build/Release-iphonesimulator/Kal.build/Objects-normal/i386/KalDate.o
+x/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/KalDate.m
+xnormal
+xi386
+xobjective-c
+xcom.apple.compilers.llvm.clang.1_0.compiler
+lSLF04#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection77"Compile /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/KalDate.madf6c0b92c72b541^512efdb92c72b541^---0#0#0#-19%DVTDocumentLocation2@85"file://localhost/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/KalDate.m0000000000000000^2760"CompileC build/Kal.build/Release-iphonesimulator/Kal.build/Objects-normal/i386/KalDate.o KalDate.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/clang -x objective-c -arch i386 -fmessage-length=0 -fdiagnostics-print-source-range-info -fdiagnostics-show-category=id -fdiagnostics-parseable-fixits -std=c99 -Wno-trigraphs -fpascal-strings -Os -Wreturn-type -Wparentheses -Wswitch -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-shorten-64-to-32 -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator5.0.sdk -fexceptions -fasm-blocks -mmacosx-version-min=10.6 -gdwarf-2 -Wno-sign-conversion -fobjc-abi-version=2 -fobjc-legacy-dispatch "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -D__IPHONE_OS_VERSION_MIN_REQUIRED=30100 -iquote /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Kal.build/Release-iphonesimulator/Kal.build/Kal-generated-files.hmap -I/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Kal.build/Release-iphonesimulator/Kal.build/Kal-own-target-headers.hmap -I/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Kal.build/Release-iphonesimulator/Kal.build/Kal-all-target-headers.hmap -iquote /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Kal.build/Release-iphonesimulator/Kal.build/Kal-project-headers.hmap -I/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Release-iphonesimulator/include -I/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Kal.build/Release-iphonesimulator/Kal.build/DerivedSources/i386 -I/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Kal.build/Release-iphonesimulator/Kal.build/DerivedSources -F/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Release-iphonesimulator -include /var/folders/KA/KARGsaFSFCeGPlGZBf7bcU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/Kal_Prefix-bylxbutdocylwrbsfrhysqweyona/Kal_Prefix.pch -MMD -MT dependencies -MF /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Kal.build/Release-iphonesimulator/Kal.build/Objects-normal/i386/KalDate.d -c /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/KalDate.m -o /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Kal.build/Release-iphonesimulator/Kal.build/Objects-normal/i386/KalDate.o36"A560D62A-7092-416C-B667-1B7C824E3083-
+
+CCompileC build/Kal.build/Release-iphonesimulator/Kal.build/Objects-normal/i386/KalGridView.o /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/KalGridView.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+s359804089.463397
+e359804089.869242
+r1
+xCompileC
+xbuild/Kal.build/Release-iphonesimulator/Kal.build/Objects-normal/i386/KalGridView.o
+x/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/KalGridView.m
+xnormal
+xi386
+xobjective-c
+xcom.apple.compilers.llvm.clang.1_0.compiler
+lSLF04#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection81"Compile /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/KalGridView.mf8c476b92c72b541^3a93deb92c72b541^---0#0#0#-19%DVTDocumentLocation2@89"file://localhost/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/KalGridView.m0000000000000000^2780"CompileC build/Kal.build/Release-iphonesimulator/Kal.build/Objects-normal/i386/KalGridView.o KalGridView.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/clang -x objective-c -arch i386 -fmessage-length=0 -fdiagnostics-print-source-range-info -fdiagnostics-show-category=id -fdiagnostics-parseable-fixits -std=c99 -Wno-trigraphs -fpascal-strings -Os -Wreturn-type -Wparentheses -Wswitch -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-shorten-64-to-32 -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator5.0.sdk -fexceptions -fasm-blocks -mmacosx-version-min=10.6 -gdwarf-2 -Wno-sign-conversion -fobjc-abi-version=2 -fobjc-legacy-dispatch "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -D__IPHONE_OS_VERSION_MIN_REQUIRED=30100 -iquote /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Kal.build/Release-iphonesimulator/Kal.build/Kal-generated-files.hmap -I/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Kal.build/Release-iphonesimulator/Kal.build/Kal-own-target-headers.hmap -I/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Kal.build/Release-iphonesimulator/Kal.build/Kal-all-target-headers.hmap -iquote /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Kal.build/Release-iphonesimulator/Kal.build/Kal-project-headers.hmap -I/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Release-iphonesimulator/include -I/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Kal.build/Release-iphonesimulator/Kal.build/DerivedSources/i386 -I/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Kal.build/Release-iphonesimulator/Kal.build/DerivedSources -F/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Release-iphonesimulator -include /var/folders/KA/KARGsaFSFCeGPlGZBf7bcU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/Kal_Prefix-bylxbutdocylwrbsfrhysqweyona/Kal_Prefix.pch -MMD -MT dependencies -MF /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Kal.build/Release-iphonesimulator/Kal.build/Objects-normal/i386/KalGridView.d -c /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/KalGridView.m -o /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Kal.build/Release-iphonesimulator/Kal.build/Objects-normal/i386/KalGridView.o36"BD6CFECA-A5A5-4840-A0C8-A20D2D1027C9-
+
+CCompileC build/Kal.build/Release-iphonesimulator/Kal.build/Objects-normal/i386/KalLogic.o /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/KalLogic.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+s359804089.464098
+e359804089.811832
+r1
+xCompileC
+xbuild/Kal.build/Release-iphonesimulator/Kal.build/Objects-normal/i386/KalLogic.o
+x/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/KalLogic.m
+xnormal
+xi386
+xobjective-c
+xcom.apple.compilers.llvm.clang.1_0.compiler
+lSLF04#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection78"Compile /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/KalLogic.m0fee76b92c72b541^c443d0b92c72b541^---0#0#0#-19%DVTDocumentLocation2@86"file://localhost/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/KalLogic.m0000000000000000^2765"CompileC build/Kal.build/Release-iphonesimulator/Kal.build/Objects-normal/i386/KalLogic.o KalLogic.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/clang -x objective-c -arch i386 -fmessage-length=0 -fdiagnostics-print-source-range-info -fdiagnostics-show-category=id -fdiagnostics-parseable-fixits -std=c99 -Wno-trigraphs -fpascal-strings -Os -Wreturn-type -Wparentheses -Wswitch -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-shorten-64-to-32 -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator5.0.sdk -fexceptions -fasm-blocks -mmacosx-version-min=10.6 -gdwarf-2 -Wno-sign-conversion -fobjc-abi-version=2 -fobjc-legacy-dispatch "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -D__IPHONE_OS_VERSION_MIN_REQUIRED=30100 -iquote /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Kal.build/Release-iphonesimulator/Kal.build/Kal-generated-files.hmap -I/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Kal.build/Release-iphonesimulator/Kal.build/Kal-own-target-headers.hmap -I/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Kal.build/Release-iphonesimulator/Kal.build/Kal-all-target-headers.hmap -iquote /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Kal.build/Release-iphonesimulator/Kal.build/Kal-project-headers.hmap -I/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Release-iphonesimulator/include -I/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Kal.build/Release-iphonesimulator/Kal.build/DerivedSources/i386 -I/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Kal.build/Release-iphonesimulator/Kal.build/DerivedSources -F/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Release-iphonesimulator -include /var/folders/KA/KARGsaFSFCeGPlGZBf7bcU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/Kal_Prefix-bylxbutdocylwrbsfrhysqweyona/Kal_Prefix.pch -MMD -MT dependencies -MF /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Kal.build/Release-iphonesimulator/Kal.build/Objects-normal/i386/KalLogic.d -c /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/KalLogic.m -o /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Kal.build/Release-iphonesimulator/Kal.build/Objects-normal/i386/KalLogic.o36"5A7F3697-684B-4F02-9CFC-429399FA328C-
+
+CCompileC build/Kal.build/Release-iphonesimulator/Kal.build/Objects-normal/i386/KalMonthView.o /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/KalMonthView.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+s359804089.464121
+e359804089.838688
+r1
+xCompileC
+xbuild/Kal.build/Release-iphonesimulator/Kal.build/Objects-normal/i386/KalMonthView.o
+x/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/KalMonthView.m
+xnormal
+xi386
+xobjective-c
+xcom.apple.compilers.llvm.clang.1_0.compiler
+lSLF04#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection82"Compile /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/KalMonthView.md9ee76b92c72b541^77bfd6b92c72b541^---0#0#0#-19%DVTDocumentLocation2@90"file://localhost/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/KalMonthView.m0000000000000000^2785"CompileC build/Kal.build/Release-iphonesimulator/Kal.build/Objects-normal/i386/KalMonthView.o KalMonthView.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/clang -x objective-c -arch i386 -fmessage-length=0 -fdiagnostics-print-source-range-info -fdiagnostics-show-category=id -fdiagnostics-parseable-fixits -std=c99 -Wno-trigraphs -fpascal-strings -Os -Wreturn-type -Wparentheses -Wswitch -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-shorten-64-to-32 -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator5.0.sdk -fexceptions -fasm-blocks -mmacosx-version-min=10.6 -gdwarf-2 -Wno-sign-conversion -fobjc-abi-version=2 -fobjc-legacy-dispatch "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -D__IPHONE_OS_VERSION_MIN_REQUIRED=30100 -iquote /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Kal.build/Release-iphonesimulator/Kal.build/Kal-generated-files.hmap -I/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Kal.build/Release-iphonesimulator/Kal.build/Kal-own-target-headers.hmap -I/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Kal.build/Release-iphonesimulator/Kal.build/Kal-all-target-headers.hmap -iquote /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Kal.build/Release-iphonesimulator/Kal.build/Kal-project-headers.hmap -I/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Release-iphonesimulator/include -I/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Kal.build/Release-iphonesimulator/Kal.build/DerivedSources/i386 -I/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Kal.build/Release-iphonesimulator/Kal.build/DerivedSources -F/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Release-iphonesimulator -include /var/folders/KA/KARGsaFSFCeGPlGZBf7bcU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/Kal_Prefix-bylxbutdocylwrbsfrhysqweyona/Kal_Prefix.pch -MMD -MT dependencies -MF /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Kal.build/Release-iphonesimulator/Kal.build/Objects-normal/i386/KalMonthView.d -c /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/KalMonthView.m -o /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Kal.build/Release-iphonesimulator/Kal.build/Objects-normal/i386/KalMonthView.o36"41FA2C88-4CFB-4E9A-AAAA-8D9AE7B51CFC-
+
+CCompileC build/Kal.build/Release-iphonesimulator/Kal.build/Objects-normal/i386/KalTileView.o /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/KalTileView.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+s359804089.813974
+e359804090.152622
+r1
+xCompileC
+xbuild/Kal.build/Release-iphonesimulator/Kal.build/Objects-normal/i386/KalTileView.o
+x/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/KalTileView.m
+xnormal
+xi386
+xobjective-c
+xcom.apple.compilers.llvm.clang.1_0.compiler
+lSLF04#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection81"Compile /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/KalTileView.m2b85d0b92c72b541^a11227ba2c72b541^---0#0#0#-19%DVTDocumentLocation2@89"file://localhost/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/KalTileView.m0000000000000000^2780"CompileC build/Kal.build/Release-iphonesimulator/Kal.build/Objects-normal/i386/KalTileView.o KalTileView.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/clang -x objective-c -arch i386 -fmessage-length=0 -fdiagnostics-print-source-range-info -fdiagnostics-show-category=id -fdiagnostics-parseable-fixits -std=c99 -Wno-trigraphs -fpascal-strings -Os -Wreturn-type -Wparentheses -Wswitch -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-shorten-64-to-32 -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator5.0.sdk -fexceptions -fasm-blocks -mmacosx-version-min=10.6 -gdwarf-2 -Wno-sign-conversion -fobjc-abi-version=2 -fobjc-legacy-dispatch "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -D__IPHONE_OS_VERSION_MIN_REQUIRED=30100 -iquote /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Kal.build/Release-iphonesimulator/Kal.build/Kal-generated-files.hmap -I/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Kal.build/Release-iphonesimulator/Kal.build/Kal-own-target-headers.hmap -I/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Kal.build/Release-iphonesimulator/Kal.build/Kal-all-target-headers.hmap -iquote /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Kal.build/Release-iphonesimulator/Kal.build/Kal-project-headers.hmap -I/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Release-iphonesimulator/include -I/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Kal.build/Release-iphonesimulator/Kal.build/DerivedSources/i386 -I/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Kal.build/Release-iphonesimulator/Kal.build/DerivedSources -F/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Release-iphonesimulator -include /var/folders/KA/KARGsaFSFCeGPlGZBf7bcU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/Kal_Prefix-bylxbutdocylwrbsfrhysqweyona/Kal_Prefix.pch -MMD -MT dependencies -MF /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Kal.build/Release-iphonesimulator/Kal.build/Objects-normal/i386/KalTileView.d -c /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/KalTileView.m -o /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Kal.build/Release-iphonesimulator/Kal.build/Objects-normal/i386/KalTileView.o36"EF612610-7873-496C-99DA-EF29575A2EBC-
+
+CCompileC build/Kal.build/Release-iphonesimulator/Kal.build/Objects-normal/i386/KalView.o /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/KalView.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+s359804089.840935
+e359804090.159068
+r1
+xCompileC
+xbuild/Kal.build/Release-iphonesimulator/Kal.build/Objects-normal/i386/KalView.o
+x/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/KalView.m
+xnormal
+xi386
+xobjective-c
+xcom.apple.compilers.llvm.clang.1_0.compiler
+lSLF04#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection77"Compile /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/KalView.ma46ed7b92c72b541^13b928ba2c72b541^---0#0#0#-19%DVTDocumentLocation2@85"file://localhost/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/KalView.m0000000000000000^2760"CompileC build/Kal.build/Release-iphonesimulator/Kal.build/Objects-normal/i386/KalView.o KalView.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/clang -x objective-c -arch i386 -fmessage-length=0 -fdiagnostics-print-source-range-info -fdiagnostics-show-category=id -fdiagnostics-parseable-fixits -std=c99 -Wno-trigraphs -fpascal-strings -Os -Wreturn-type -Wparentheses -Wswitch -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-shorten-64-to-32 -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator5.0.sdk -fexceptions -fasm-blocks -mmacosx-version-min=10.6 -gdwarf-2 -Wno-sign-conversion -fobjc-abi-version=2 -fobjc-legacy-dispatch "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -D__IPHONE_OS_VERSION_MIN_REQUIRED=30100 -iquote /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Kal.build/Release-iphonesimulator/Kal.build/Kal-generated-files.hmap -I/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Kal.build/Release-iphonesimulator/Kal.build/Kal-own-target-headers.hmap -I/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Kal.build/Release-iphonesimulator/Kal.build/Kal-all-target-headers.hmap -iquote /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Kal.build/Release-iphonesimulator/Kal.build/Kal-project-headers.hmap -I/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Release-iphonesimulator/include -I/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Kal.build/Release-iphonesimulator/Kal.build/DerivedSources/i386 -I/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Kal.build/Release-iphonesimulator/Kal.build/DerivedSources -F/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Release-iphonesimulator -include /var/folders/KA/KARGsaFSFCeGPlGZBf7bcU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/Kal_Prefix-bylxbutdocylwrbsfrhysqweyona/Kal_Prefix.pch -MMD -MT dependencies -MF /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Kal.build/Release-iphonesimulator/Kal.build/Objects-normal/i386/KalView.d -c /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/KalView.m -o /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Kal.build/Release-iphonesimulator/Kal.build/Objects-normal/i386/KalView.o36"666D4E17-3810-44A8-B6AE-59AA58CC758B-
+
+CCompileC build/Kal.build/Release-iphonesimulator/Kal.build/Objects-normal/i386/KalViewController.o /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/KalViewController.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+s359806088.695540
+e359806088.857057
+r1
+xCompileC
+xbuild/Kal.build/Release-iphonesimulator/Kal.build/Objects-normal/i386/KalViewController.o
+x/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/KalViewController.m
+xnormal
+xi386
+xobjective-c
+xcom.apple.compilers.llvm.clang.1_0.compiler
+lSLF04#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection87"Compile /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/KalViewController.m732db2883472b541^be68db883472b541^---0#0#0#-19%DVTDocumentLocation2@95"file://localhost/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/KalViewController.m0000000000000000^2810"CompileC build/Kal.build/Release-iphonesimulator/Kal.build/Objects-normal/i386/KalViewController.o KalViewController.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/clang -x objective-c -arch i386 -fmessage-length=0 -fdiagnostics-print-source-range-info -fdiagnostics-show-category=id -fdiagnostics-parseable-fixits -std=c99 -Wno-trigraphs -fpascal-strings -Os -Wreturn-type -Wparentheses -Wswitch -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-shorten-64-to-32 -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator5.0.sdk -fexceptions -fasm-blocks -mmacosx-version-min=10.6 -gdwarf-2 -Wno-sign-conversion -fobjc-abi-version=2 -fobjc-legacy-dispatch "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -D__IPHONE_OS_VERSION_MIN_REQUIRED=30100 -iquote /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Kal.build/Release-iphonesimulator/Kal.build/Kal-generated-files.hmap -I/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Kal.build/Release-iphonesimulator/Kal.build/Kal-own-target-headers.hmap -I/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Kal.build/Release-iphonesimulator/Kal.build/Kal-all-target-headers.hmap -iquote /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Kal.build/Release-iphonesimulator/Kal.build/Kal-project-headers.hmap -I/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Release-iphonesimulator/include -I/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Kal.build/Release-iphonesimulator/Kal.build/DerivedSources/i386 -I/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Kal.build/Release-iphonesimulator/Kal.build/DerivedSources -F/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Release-iphonesimulator -include /var/folders/KA/KARGsaFSFCeGPlGZBf7bcU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/Kal_Prefix-bylxbutdocylwrbsfrhysqweyona/Kal_Prefix.pch -MMD -MT dependencies -MF /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Kal.build/Release-iphonesimulator/Kal.build/Objects-normal/i386/KalViewController.d -c /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/KalViewController.m -o /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Kal.build/Release-iphonesimulator/Kal.build/Objects-normal/i386/KalViewController.o36"7F9C0C1B-C557-4D93-BD00-00F51682A5E7-
+
+CCompileC build/Kal.build/Release-iphonesimulator/Kal.build/Objects-normal/i386/NSDateAdditions.o /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/NSDateAdditions.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+s359804089.990038
+e359804090.048975
+r1
+xCompileC
+xbuild/Kal.build/Release-iphonesimulator/Kal.build/Objects-normal/i386/NSDateAdditions.o
+x/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/NSDateAdditions.m
+xnormal
+xi386
+xobjective-c
+xcom.apple.compilers.llvm.clang.1_0.compiler
+lSLF04#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection85"Compile /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/NSDateAdditions.m9da0fdb92c72b541^8a920cba2c72b541^---0#0#0#-19%DVTDocumentLocation2@93"file://localhost/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/NSDateAdditions.m0000000000000000^2800"CompileC build/Kal.build/Release-iphonesimulator/Kal.build/Objects-normal/i386/NSDateAdditions.o NSDateAdditions.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/clang -x objective-c -arch i386 -fmessage-length=0 -fdiagnostics-print-source-range-info -fdiagnostics-show-category=id -fdiagnostics-parseable-fixits -std=c99 -Wno-trigraphs -fpascal-strings -Os -Wreturn-type -Wparentheses -Wswitch -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-shorten-64-to-32 -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator5.0.sdk -fexceptions -fasm-blocks -mmacosx-version-min=10.6 -gdwarf-2 -Wno-sign-conversion -fobjc-abi-version=2 -fobjc-legacy-dispatch "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -D__IPHONE_OS_VERSION_MIN_REQUIRED=30100 -iquote /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Kal.build/Release-iphonesimulator/Kal.build/Kal-generated-files.hmap -I/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Kal.build/Release-iphonesimulator/Kal.build/Kal-own-target-headers.hmap -I/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Kal.build/Release-iphonesimulator/Kal.build/Kal-all-target-headers.hmap -iquote /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Kal.build/Release-iphonesimulator/Kal.build/Kal-project-headers.hmap -I/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Release-iphonesimulator/include -I/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Kal.build/Release-iphonesimulator/Kal.build/DerivedSources/i386 -I/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Kal.build/Release-iphonesimulator/Kal.build/DerivedSources -F/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Release-iphonesimulator -include /var/folders/KA/KARGsaFSFCeGPlGZBf7bcU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/Kal_Prefix-bylxbutdocylwrbsfrhysqweyona/Kal_Prefix.pch -MMD -MT dependencies -MF /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Kal.build/Release-iphonesimulator/Kal.build/Objects-normal/i386/NSDateAdditions.d -c /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/NSDateAdditions.m -o /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Kal.build/Release-iphonesimulator/Kal.build/Objects-normal/i386/NSDateAdditions.o36"43D5712A-D540-43AB-AF8F-AAEFFAB19D0D-
+
+CCompileC build/Kal.build/Release-iphonesimulator/Kal.build/Objects-normal/i386/UIViewAdditions.o /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/UIViewAdditions.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+s359804090.050194
+e359804090.221941
+r1
+xCompileC
+xbuild/Kal.build/Release-iphonesimulator/Kal.build/Objects-normal/i386/UIViewAdditions.o
+x/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/UIViewAdditions.m
+xnormal
+xi386
+xobjective-c
+xcom.apple.compilers.llvm.clang.1_0.compiler
+lSLF04#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection85"Compile /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/UIViewAdditions.m22ff0cba2c72b541^d9d138ba2c72b541^---0#0#0#-19%DVTDocumentLocation2@93"file://localhost/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/UIViewAdditions.m0000000000000000^2800"CompileC build/Kal.build/Release-iphonesimulator/Kal.build/Objects-normal/i386/UIViewAdditions.o UIViewAdditions.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/clang -x objective-c -arch i386 -fmessage-length=0 -fdiagnostics-print-source-range-info -fdiagnostics-show-category=id -fdiagnostics-parseable-fixits -std=c99 -Wno-trigraphs -fpascal-strings -Os -Wreturn-type -Wparentheses -Wswitch -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-shorten-64-to-32 -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator5.0.sdk -fexceptions -fasm-blocks -mmacosx-version-min=10.6 -gdwarf-2 -Wno-sign-conversion -fobjc-abi-version=2 -fobjc-legacy-dispatch "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -D__IPHONE_OS_VERSION_MIN_REQUIRED=30100 -iquote /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Kal.build/Release-iphonesimulator/Kal.build/Kal-generated-files.hmap -I/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Kal.build/Release-iphonesimulator/Kal.build/Kal-own-target-headers.hmap -I/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Kal.build/Release-iphonesimulator/Kal.build/Kal-all-target-headers.hmap -iquote /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Kal.build/Release-iphonesimulator/Kal.build/Kal-project-headers.hmap -I/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Release-iphonesimulator/include -I/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Kal.build/Release-iphonesimulator/Kal.build/DerivedSources/i386 -I/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Kal.build/Release-iphonesimulator/Kal.build/DerivedSources -F/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Release-iphonesimulator -include /var/folders/KA/KARGsaFSFCeGPlGZBf7bcU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/Kal_Prefix-bylxbutdocylwrbsfrhysqweyona/Kal_Prefix.pch -MMD -MT dependencies -MF /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Kal.build/Release-iphonesimulator/Kal.build/Objects-normal/i386/UIViewAdditions.d -c /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/UIViewAdditions.m -o /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Kal.build/Release-iphonesimulator/Kal.build/Objects-normal/i386/UIViewAdditions.o36"DF91B19B-CEA9-49E1-8A0F-14DF8C7D488D-
+
+CLibtool /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Release-iphonesimulator/libKal.a normal i386
+s359806088.858501
+e359806088.872562
+r1
+xLibtool
+x/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Release-iphonesimulator/libKal.a
+xnormal
+xi386
+o/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/libtool: -dynamic not specified the following flags are invalid: -ObjC 
+lSLF04#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection58"Libtool build/Release-iphonesimulator/libKal.a normal i38606d8db883472b541^cc61df883472b541^---0#0#0#--873"Libtool build/Release-iphonesimulator/libKal.a normal i386    cd /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar    setenv MACOSX_DEPLOYMENT_TARGET 10.6    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/libtool -static -arch_only i386 -syslibroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator5.0.sdk -L/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Release-iphonesimulator -filelist /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Kal.build/Release-iphonesimulator/Kal.build/Objects-normal/i386/Kal.LinkFileList -ObjC -framework Foundation -o /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Release-iphonesimulator/libKal.a36"AD83D5F1-B771-439A-8789-F60FEF005EA4-
+
+CProcessPCH /Users/MAC/Projects/permping_trunk/ios/DerivedData/Permping/Index/PrecompiledHeaders/Kal_Prefix-fddidmduegiqckejvddljmxlmbyp_ast/Kal_Prefix.pch.pth Kal_Prefix.pch normal i386 objective-c com.apple.compilers.llvm.clang.1_0.astbuilder
+r0
+
+CProcessPCH /var/folders/KA/KARGsaFSFCeGPlGZBf7bcU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/Kal_Prefix-bylxbutdocylwrbsfrhysqweyona/Kal_Prefix.pch.pth Kal_Prefix.pch normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+s359804089.193279
+e359804089.462144
+r1
+xProcessPCH
+x/var/folders/KA/KARGsaFSFCeGPlGZBf7bcU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/Kal_Prefix-bylxbutdocylwrbsfrhysqweyona/Kal_Prefix.pch.pth
+xKal_Prefix.pch
+xnormal
+xi386
+xobjective-c
+xcom.apple.compilers.llvm.clang.1_0.compiler
+lSLF04#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection25"Precompile Kal_Prefix.pch209a31b92c72b541^b94f76b92c72b541^---0#0#0#-19%DVTDocumentLocation2@90"file://localhost/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/Kal_Prefix.pch0000000000000000^2726"ProcessPCH /var/folders/KA/KARGsaFSFCeGPlGZBf7bcU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/Kal_Prefix-bylxbutdocylwrbsfrhysqweyona/Kal_Prefix.pch.pth Kal_Prefix.pch normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/clang -x objective-c-header -arch i386 -fmessage-length=0 -fdiagnostics-print-source-range-info -fdiagnostics-show-category=id -fdiagnostics-parseable-fixits -std=c99 -Wno-trigraphs -fpascal-strings -Os -Wreturn-type -Wparentheses -Wswitch -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-shorten-64-to-32 -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator5.0.sdk -fexceptions -fasm-blocks -mmacosx-version-min=10.6 -gdwarf-2 -Wno-sign-conversion -fobjc-abi-version=2 -fobjc-legacy-dispatch "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -D__IPHONE_OS_VERSION_MIN_REQUIRED=30100 -iquote /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Kal.build/Release-iphonesimulator/Kal.build/Kal-generated-files.hmap -I/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Kal.build/Release-iphonesimulator/Kal.build/Kal-own-target-headers.hmap -I/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Kal.build/Release-iphonesimulator/Kal.build/Kal-all-target-headers.hmap -iquote /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Kal.build/Release-iphonesimulator/Kal.build/Kal-project-headers.hmap -I/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Release-iphonesimulator/include -I/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Kal.build/Release-iphonesimulator/Kal.build/DerivedSources/i386 -I/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Kal.build/Release-iphonesimulator/Kal.build/DerivedSources -F/Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/build/Release-iphonesimulator -c /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/Kal_Prefix.pch -o /var/folders/KA/KARGsaFSFCeGPlGZBf7bcU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/Kal_Prefix-bylxbutdocylwrbsfrhysqweyona/Kal_Prefix.pch.pth -MMD -MT dependencies -MF /var/folders/KA/KARGsaFSFCeGPlGZBf7bcU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/Kal_Prefix-bylxbutdocylwrbsfrhysqweyona/Kal_Prefix.pch.d36"66176BCF-8E40-4E51-B487-99EFA4969D51-
+

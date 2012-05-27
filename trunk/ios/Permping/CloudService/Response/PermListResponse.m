@@ -22,6 +22,7 @@
 @synthesize currentPerm;
 @synthesize currentComment;
 @synthesize currentUser;
+@synthesize permFromBoard;
 
 - (id)init
 {
@@ -49,9 +50,192 @@
     return nil;
 }
 
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+// Temp
+
+- (void) permFromBoardOnStartElement:(NSString *)path name:(NSString *)name
+{
+    [super onStartElement:path name:name];
+    
+    if ([@"/response/perms/item" isEqualToString:path]) 
+	{
+		PermModel *model = [[PermModel alloc] init];
+        self.currentPerm = model;
+        [model release];
+	}
+    else if ([@"/response/perms/item/permComments/comment" isEqualToString:path]) 
+	{
+		CommentModel *model = [[CommentModel alloc] init];
+        self.currentComment = model;
+        [model release];
+	} 
+    else if ([@"/response/perms/item/permComments/comment/content" isEqualToString:path]) 
+	{
+		NSLog(@"okokokokoko");
+	}
+    else if ([@"/response/perms/item/permComments/comment/user" isEqualToString:path]) 
+	{
+		UserModel *model = [[UserModel alloc] init];
+        self.currentUser = model;
+        [model release];
+	}
+    else if ([@"/response/perms/item/user" isEqualToString:path]) 
+	{
+		UserModel *model = [[UserModel alloc] init];
+        self.currentUser = model;
+        [model release];
+	}
+	return;
+}
+
+- (void)permFromBoardFoundCDATA:(NSData *)CDATABlock onPath:(NSString *)path
+{
+    if ([@"/response/perms/item/permDesc" isEqualToString:path]) 
+	{
+        NSString *text = [[NSString alloc] initWithData:CDATABlock encoding:NSUTF8StringEncoding];
+        
+        if (self.currentPerm) {
+            self.currentPerm.permDesc = [[text copy] autorelease];
+        }
+        [text release];
+	}
+    else if ([@"/response/perms/item/permCategory" isEqualToString:path]) 
+	{
+        NSString *text = [[NSString alloc] initWithData:CDATABlock encoding:NSUTF8StringEncoding];
+        
+        if (self.currentPerm) {
+            self.currentPerm.permCategory = [[text copy] autorelease];
+        }
+        [text release];
+	}
+    else if ([@"/response/perms/item/permComments/comment/user/userName" isEqualToString:path]) {
+        NSString *text = [[NSString alloc] initWithData:CDATABlock encoding:NSUTF8StringEncoding];
+        
+        if (self.currentUser) {
+            self.currentUser.userName = [[text copy] autorelease];
+        }
+        [text release];
+    }
+    else if ([@"/response/perms/item/permComments/comment/content" isEqualToString:path]) {
+        NSString *text = [[NSString alloc] initWithData:CDATABlock encoding:NSUTF8StringEncoding];
+        
+        if (self.currentComment) {
+            self.currentComment.content = [[text copy] autorelease];
+        }
+        [text release];
+    }
+    else if ([@"/response/perms/item/user/userName" isEqualToString:path]) {
+        NSString *text = [[NSString alloc] initWithData:CDATABlock encoding:NSUTF8StringEncoding];
+        
+        if (self.currentUser) {
+            self.currentUser.userName = [[text copy] autorelease];
+        }
+        [text release];
+    }
+}
+
+- (void) permFromBoardOnEndElement:(NSString *)path name:(NSString *)name text:(NSString *)text
+{       
+    
+	if ([@"/response/perms/item/permId" isEqualToString:path]) 
+	{
+        if (self.currentPerm)
+            self.currentPerm.permId = [[text copy] autorelease];
+	}
+    else if ([@"/response/perms/item/permImage" isEqualToString:path]) {
+        if (self.currentPerm)
+            self.currentPerm.permImage = [[text copy] autorelease];
+    }
+    else if ([@"/response/perms/item/permComments/comment" isEqualToString:path])
+    {
+        if (self.currentComment) {
+            if (!self.permCommentList) {
+                NSMutableArray *array= [[NSMutableArray alloc] init];
+                self.permCommentList = array;
+                [array release];
+            }
+            [self.permCommentList addObject:self.currentComment];
+        }
+    }
+    else if ([@"/response/perms/item/permComments/comment/user/userId" isEqualToString:path]) {
+        if (self.currentUser)
+            self.currentUser.userId = [[text copy] autorelease];
+    }
+    else if ([@"/response/perms/item/permComments/comment/user/status" isEqualToString:path]) {
+        if (self.currentUser)
+            self.currentUser.userStatus = [[text copy] autorelease];
+    }
+    else if ([@"/response/perms/item/permComments/comment/user/userAvatar" isEqualToString:path]) {
+        if (self.currentUser)
+            self.currentUser.userAvatar = [[text copy] autorelease];
+    }
+    else if ([@"/response/perms/item/permComments/comment/user" isEqualToString:path]) {
+        if (self.currentComment)
+            self.currentComment.commentUser = self.currentUser;
+    }
+    else if ([@"/response/perms/item/permComments" isEqualToString:path]) {
+        if (self.currentPerm) {
+            if (!self.permCommentList) {
+                NSMutableArray *array= [[NSMutableArray alloc] init];
+                self.permCommentList = array;
+                [array release];
+            }
+            self.currentPerm.permComments = self.permCommentList;
+        }
+    }
+    else if ([@"/response/perms/item/permRepinCount" isEqualToString:path]) {
+        if (self.currentPerm)
+            self.currentPerm.permRepinCount = [[text copy] autorelease];
+    }
+    else if ([@"/response/perms/item/permLikeCount" isEqualToString:path]) {
+        if (self.currentPerm)
+            self.currentPerm.permLikeCount = [[text copy] autorelease];
+    }
+    else if ([@"/response/perms/item/permCommentCount" isEqualToString:path]) {
+        if (self.currentPerm)
+            self.currentPerm.permCommentCount = [[text copy] autorelease];
+    }
+    
+    else if ([@"/response/perms/item/user/userId" isEqualToString:path]) {
+        if (self.currentUser)
+            self.currentUser.userId = [[text copy] autorelease];
+    }
+    else if ([@"/response/perms/item/user/status" isEqualToString:path]) {
+        if (self.currentUser)
+            self.currentUser.userStatus = [[text copy] autorelease];
+    }
+    else if ([@"/response/perms/item/user/userAvatar" isEqualToString:path]) {
+        if (self.currentUser)
+            self.currentUser.userAvatar = [[text copy] autorelease];
+    }
+    else if ([@"/response/perms/item/user" isEqualToString:path]) {
+        if (self.currentPerm)
+            self.currentPerm.permUser = self.currentUser;
+    }
+    else if ([@"/response/perms/item" isEqualToString:path])
+    {
+        if (self.currentPerm) {
+            if (!self.permList) {
+                NSMutableArray *array= [[NSMutableArray alloc] init];
+                self.permList = array;
+                [array release];
+            }
+            [self.permList addObject:self.currentPerm];
+        }
+    }
+   	return;
+}
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+
 - (void) onStartElement:(NSString *)path name:(NSString *)name
 {
     [super onStartElement:path name:name];
+    
+    if (self.permFromBoard) {
+        [self permFromBoardOnStartElement:path name:name];
+        return;
+    }
     
     if ([@"/response/popularPerms/item" isEqualToString:path]) 
 	{
@@ -86,6 +270,11 @@
 
 - (void)foundCDATA:(NSData *)CDATABlock onPath:(NSString *)path
 {
+    if (self.permFromBoard) {
+        [self permFromBoardFoundCDATA:CDATABlock onPath:path];
+        return;
+    }
+    
     if ([@"/response/popularPerms/item/permDesc" isEqualToString:path]) 
 	{
         NSString *text = [[NSString alloc] initWithData:CDATABlock encoding:NSUTF8StringEncoding];
@@ -132,7 +321,12 @@
 
 - (void) onEndElement:(NSString *)path name:(NSString *)name text:(NSString *)text
 {
-    [super onEndElement:path name:name text:text];        
+    [super onEndElement:path name:name text:text];  
+    
+    if (self.permFromBoard) {
+        [self permFromBoardOnEndElement:path name:name text:text];
+        return;
+    }
     
 	if ([@"/response/popularPerms/item/permId" isEqualToString:path]) 
 	{
@@ -234,6 +428,5 @@
     [super onParsingError:error];
     NSLog(@"ERRRRRO = %@",error.description);
 }
-
 
 @end

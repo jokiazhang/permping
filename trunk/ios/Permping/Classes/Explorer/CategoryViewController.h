@@ -8,14 +8,15 @@
 
 #import <UIKit/UIKit.h>
 #import "CommonViewController.h"
-
-@class WSCategory;
+#import "CategoryModel.h"
+#import "Taglist_NDModel.h"
 
 @interface CategoryViewController : CommonViewController<UITableViewDelegate, UITableViewDataSource> {
     IBOutlet UITableView *boardsTableView;
-    WSCategory  *category;
-    NSArray     *boards;
+    CategoryModel               *category;
+    Taglist_NDModel             *resultModel;
 }
-@property (nonatomic, retain) WSCategory    *category;
-@property (nonatomic, retain) NSArray       *boards;
+@property (nonatomic, retain)CategoryModel      *category;
+@property (nonatomic, retain)Taglist_NDModel    *resultModel;
+
 @end

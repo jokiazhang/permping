@@ -18,14 +18,6 @@
 
 #define THUMBNAIL_DOWNLOAD_ALERT_COUNT      1
 
-
-@implementation UINavigationBar (CustomImage)
-- (void)drawRect:(CGRect)rect {
-    UIImage *image = [UIImage imageNamed:@"NavigationBar.png"];
-    [image drawInRect:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
-}
-@end
-
 @implementation CommonViewController
 @synthesize spinner, spinnerBackground;
 @synthesize dataLoader, dataLoaderThread;
@@ -43,7 +35,16 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+    UINavigationBar *bar = [self.navigationController navigationBar];
+    float version = [[[UIDevice currentDevice] systemVersion] floatValue];
+    if (version >= 5.0)
+    {
+        [bar setBackgroundImage:[UIImage imageNamed:@"nav-bar-background.png"] forBarMetrics:UIBarMetricsDefault];
+    }
+    self.navigationItem.title = @"Permping";
+    self.view.backgroundColor = [UIColor clearColor];
+    
+    
     self.dataLoader = nil;
     self.dataLoaderThread = nil;
     
@@ -54,17 +55,6 @@
 {
     [super viewDidUnload];
     // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
-    UINavigationBar *bar = [self.navigationController navigationBar];
-    float version = [[[UIDevice currentDevice] systemVersion] floatValue];
-    if (version >= 5.0)
-    {
-        [bar setBackgroundImage:[UIImage imageNamed:@"nav-bar-background.png"] forBarMetrics:UIBarMetricsDefault];
-    }
-    
-    self.navigationItem.title = @"Permping";
-    
-    self.view.backgroundColor = [UIColor clearColor];
 }
 
 - (void)dealloc {

@@ -1,6 +1,7 @@
 /* Globals values */
 "globals.cancel" = "Cancel";
 "globals.ok" = "OK";
+"globals.back" = "Back";
 
 /* Tab items */
 "FollowingTabTitle" = "Followers";
@@ -14,3 +15,5 @@
 /***************************************************************************************/
 "RequestResult.error_occured" = "An error occured";
 "RequestResult.ok_button" = "OK";
+
+"MyDiaryHeader" = "My Diary";

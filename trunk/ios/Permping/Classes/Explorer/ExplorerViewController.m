@@ -8,13 +8,15 @@
 
 #import "ExplorerViewController.h"
 #import "CategoryViewController.h"
-#import "Webservices.h"
+#import "CategoryList_DataLoader.h"
+#import "CategoryListResponse.h"
+#import "CategoryModel.h"
 
 @implementation ExplorerViewController
-@synthesize categories;
+@synthesize resultModel;
 
 - (void)dealloc {
-    [categories release];
+    self.resultModel = nil;
     [super dealloc];
 }
 
@@ -50,24 +52,47 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    CategoriesRequest *request = [[CategoriesRequest alloc] init];
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleServerResponse:) name:REQUESTMANAGER_REQUEST_TERMINATED_NOTIFICATION object:request];
-	[[RequestManager sharedInstance] performRequest:request];
+    [self startActivityIndicator];
+    self.resultModel.arrResults = nil;
+    self.resultModel = [[[Taglist_NDModel alloc] init] autorelease];
+    self.dataLoaderThread = [[ThreadManager getInstance] dispatchToConcurrentBackgroundNormalPriorityQueueWithTarget:self selector:@selector(loadDataForMe:thread:) dataObject:[self getMyDataLoader]];
 }
 
-- (void)handleServerResponse: (NSNotification*)in_response {
-	ServerRequest *request = in_response.object;
-	
-	[[NSNotificationCenter defaultCenter] removeObserver:self name:REQUESTMANAGER_REQUEST_TERMINATED_NOTIFICATION object:request];
-	
-	if (!request.result.error) {
-		id result = request.result.object;
-		if ([result isKindOfClass:[NSArray class]]) {
-            self.categories = result;
-            [categoriesTableView reloadData];
-		}
-	}
+#pragma mark - Override methods
+- (id)getMyDataLoader
+{
+    CategoryList_DataLoader *loader = [[CategoryList_DataLoader alloc] init];
+    return [loader autorelease];
 }
+
+- (void)loadDataForMe:(id)loader thread:(id<ThreadManagementProtocol>)threadObj
+{
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+    if (![threadObj isCancelled]) {
+        dispatch_async(dispatch_get_main_queue(), ^(void)
+                       {
+                           //[self initializeUIControls]; 
+                           
+                       });
+        NSArray *arr = nil;
+        
+        CategoryListResponse *response = [(CategoryList_DataLoader *)loader getCategoryList];
+        arr = [response getResponseCategoryList];
+        
+        if (![threadObj isCancelled]) {
+            self.resultModel.arrResults = arr;
+            
+            dispatch_async(dispatch_get_main_queue(), ^(void)
+                           {
+                               [self stopActivityIndicator];
+                               //reload table
+                               [categoriesTableView reloadData]; 
+                           });
+        }
+    }
+    [pool drain];
+}
+
 
 #pragma mark - <UITableViewDelegate + DataSource> implementation
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -75,7 +100,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.categories count];
+    return [self.resultModel.arrResults count];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -89,7 +114,7 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:categoryReuseIdentifier];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
-    WSCategory *category = [categories objectAtIndex:indexPath.row];
+    CategoryModel *category = [self.resultModel.arrResults objectAtIndex:indexPath.row];
     cell.textLabel.text = category.title;
     return cell;
 }
@@ -98,7 +123,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     
     CategoryViewController *lc_controller = [[CategoryViewController alloc] initWithNibName:@"CategoryViewController" bundle:nil];
-    lc_controller.category = [self.categories objectAtIndex:indexPath.row];
+    lc_controller.category = [self.resultModel.arrResults objectAtIndex:indexPath.row];
     [self.navigationController pushViewController:lc_controller animated:YES];
     [lc_controller release];
 }

@@ -7,15 +7,18 @@
 //
 
 #import "CategoryViewController.h"
-#import "Webservices.h"
+#import "BoardViewController.h"
+#import "BoardList_DataLoader.h"
+#import "BoardListReponse.h"
+#import "BoardModel.h"
 #import "Utils.h"
 
 @implementation CategoryViewController
-@synthesize category, boards;
-
+@synthesize category;
+@synthesize resultModel;
 - (void)dealloc {
-    [category release];
-    [boards release];
+    self.category = nil;
+    self.resultModel = nil;
     [super dealloc];
 }
 
@@ -40,37 +43,59 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.navigationItem.leftBarButtonItem = [Utils barButtonnItemWithTitle:NSLocalizedString(@"globals.cancel", @"Cancel") target:self selector:@selector(dismiss:)];
+    self.navigationItem.leftBarButtonItem = [Utils barButtonnItemWithTitle:NSLocalizedString(@"globals.back", @"Back") target:self selector:@selector(dismiss:)];
 }
 
 - (void)viewDidUnload
 {
     [super viewDidUnload];
     // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
 }
 
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    BoardListRequest *request = [[BoardListRequest alloc] initWithCategoryId:self.category.categoryId];
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleServerResponse:) name:REQUESTMANAGER_REQUEST_TERMINATED_NOTIFICATION object:request];
-	[[RequestManager sharedInstance] performRequest:request];
+    [self startActivityIndicator];
+    self.resultModel.arrResults = nil;
+    self.resultModel = [[[Taglist_NDModel alloc] init] autorelease];
+    self.dataLoaderThread = [[ThreadManager getInstance] dispatchToConcurrentBackgroundNormalPriorityQueueWithTarget:self selector:@selector(loadDataForMe:thread:) dataObject:[self getMyDataLoader]];
 }
 
-- (void)handleServerResponse: (NSNotification*)in_response {
-	ServerRequest *request = in_response.object;
-	
-	[[NSNotificationCenter defaultCenter] removeObserver:self name:REQUESTMANAGER_REQUEST_TERMINATED_NOTIFICATION object:request];
-	
-	if (!request.result.error) {
-		id result = request.result.object;
-		if ([result isKindOfClass:[NSArray class]]) {
-            self.boards= result;
-            [boardsTableView reloadData];
-		}
-	}
+#pragma mark - Override methods
+- (id)getMyDataLoader
+{
+    BoardList_DataLoader *loader = [[BoardList_DataLoader alloc] init];
+    return [loader autorelease];
 }
+
+- (void)loadDataForMe:(id)loader thread:(id<ThreadManagementProtocol>)threadObj
+{
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+    if (![threadObj isCancelled]) {
+        dispatch_async(dispatch_get_main_queue(), ^(void)
+                       {
+                           //[self initializeUIControls]; 
+                           
+                       });
+        NSArray *arr = nil;
+        
+        BoardListReponse *response = [(BoardList_DataLoader *)loader getBoardListWithCategoryId:self.category.categoryId];
+        arr = [response getResponseBoardList];
+        
+        if (![threadObj isCancelled]) {
+            self.resultModel.arrResults = arr;
+            
+            dispatch_async(dispatch_get_main_queue(), ^(void)
+                           {
+                               [self stopActivityIndicator];
+                               //reload table
+                               [boardsTableView reloadData]; 
+                           });
+        }
+    }
+    [pool drain];
+}
+
 
 #pragma mark - <UITableViewDelegate + DataSource> implementation
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -78,7 +103,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.boards count];
+    return [self.resultModel.arrResults count];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -92,13 +117,18 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:categoryReuseIdentifier];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
-    WSBoard *board = [boards objectAtIndex:indexPath.row];
+    BoardModel *board = [self.resultModel.arrResults objectAtIndex:indexPath.row];
     cell.textLabel.text = board.title;
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    BoardViewController *lc_controller = [[BoardViewController alloc] initWithNibName:@"BoardViewController" bundle:nil];
+    lc_controller.board = [self.resultModel.arrResults objectAtIndex:indexPath.row];
+    [self.navigationController pushViewController:lc_controller animated:YES];
+    [lc_controller release];
 }
 
 - (void)dismiss:(id)sender {
