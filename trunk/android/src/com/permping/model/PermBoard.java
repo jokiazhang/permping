@@ -27,12 +27,12 @@ public class PermBoard implements Serializable{
 	/**
 	 * Number of board's followers 
 	 */
-	private int followers;
+	private int followers = 0;
 	
 	/**
 	 * Number of board's pins;
 	 */
-	private int pins;
+	private int pins = 0;
 	
 	/**
 	 * Default constructor

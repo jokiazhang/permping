@@ -30,6 +30,7 @@ public class PermListController {
 		
 		if( url == "" ){
 			url = API.popularPermsURL;
+			permList.add(new Perm());
 		}
 		XMLParser parser = new XMLParser( url , true );
 		Document doc = parser.getDoc();
@@ -75,6 +76,7 @@ public class PermListController {
 					String commentUserId = getValue(commentUser, "userId");
 					String commentUserName = getValue(commentUser, "userName");
 					String commentUserAvatar = getValue(commentUser, "userAvatar");
+					//commentUserAvatar = "http://www.lahiguera.net/cinemania/actores/jackie_chan/fotos/5635/jackie_chan.jpg";
 					
 					PermImage commentAvatar = new PermImage( commentUserAvatar );
 					User commentAuthor = new User(commentUserId );
@@ -88,9 +90,22 @@ public class PermListController {
 				
 			}
 			
+			
+			//Perm Stat
+			String permRepinCount  = getValue(permElement, "permRepinCount");
+			String permLikeCount  = getValue(permElement, "permLikeCount");
+			String permCommentCount  = getValue(permElement, "permCommentCount");
+			
+			
 			Perm perm = new Perm(permId, new PermBoard("BoardID", permBoard), permDesc, new PermImage(permImage), comments);
 			perm.setAuthor(permAuthor);
+			perm.setPermRepinCount(permRepinCount);
+			perm.setPermLikecount(permLikeCount);
+			perm.setPermCommentCount(permCommentCount);
+			
 			permList.add(perm);
+			
+			
 			
 		}
 		

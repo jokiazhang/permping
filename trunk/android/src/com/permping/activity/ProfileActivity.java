@@ -66,7 +66,7 @@ public class ProfileActivity extends Activity {
         ListView userBoards = (ListView) findViewById(R.id.userBoards);
         BoardController boardController = new BoardController();
 		final ArrayList<PermBoard> boards = boardController.getUserBoads();
-        BoardAdapter boardAdapter = new BoardAdapter(this,R.layout.category_item, boards);
+        BoardAdapter boardAdapter = new BoardAdapter(this,R.layout.board_item, boards  );
         userBoards.setAdapter(boardAdapter);
         
         
