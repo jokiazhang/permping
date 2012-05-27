@@ -29,8 +29,14 @@ import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.DefaultHandler;
 
+import android.app.Activity;
+import android.app.ProgressDialog;
+import android.os.AsyncTask;
 import android.util.Log;
 
+import com.permping.PermpingApplication;
+import com.permping.activity.FollowerActivity;
+import com.permping.controller.PermListController;
 import com.permping.handler.UserHandler;
 import com.permping.model.Perm;
 import com.permping.model.PermBoard;
@@ -43,6 +49,10 @@ public class XMLParser {
 
 	private Document doc = null;
 	private String xml = "<empty></empty>";
+	
+	public XMLParser(){
+		
+	}
 
 	public XMLParser(String document, Boolean DownloadFirst) {
 		this.setDoc(this.parseXMLFromUrl(document, DownloadFirst));
@@ -92,6 +102,50 @@ public class XMLParser {
 				"<?xml version=\"1.0\" encoding=\"UTF-8\"?>", "");
 		return newString;
 
+	}
+	
+	
+	public void getXMLAsync(final String url  ) {
+		AsyncTask<Void, Void , Document > downloader = new AsyncTask<Void, Void, Document >() {
+			
+			private Activity a;
+			
+			protected void onPreExecute() {
+				
+			}
+			
+			
+	        @Override
+	        protected Document doInBackground(Void... params) {
+	        	String line = null;
+
+	    		try {
+
+	    			DefaultHttpClient httpClient = new DefaultHttpClient();
+	    			HttpPost httpPost = new HttpPost(url);
+
+	    			HttpResponse httpResponse = httpClient.execute(httpPost);
+	    			HttpEntity httpEntity = httpResponse.getEntity();
+	    			line = EntityUtils.toString(httpEntity);
+
+	    		} catch (UnsupportedEncodingException e) {
+	    			line = "<results status=\"error\"><msg>Can't connect to server: "+e.toString()+" </msg></results>";
+	    		} catch (MalformedURLException e) {
+	    			line = "<results status=\"error\"><msg>Can't connect to server: "+e.toString()+" </msg></results>";
+	    		} catch (IOException e) {
+	    			line = "<results status=\"error\"><msg>Can't connect to server: "+e.toString()+" </msg></results>";
+	    		}
+
+	    		String newString = line.replace(
+	    				"<?xml version=\"1.0\" encoding=\"UTF-8\"?>", "");
+	    		Document result = XMLfromString( newString );
+	    		return result;
+	        }
+
+	        protected void onPostExecute(Document result) {
+	        }
+	    };
+	    downloader.execute();
 	}
 
 	private Document parseXMLFromUrl(String url, Boolean DownloadFirst) {
