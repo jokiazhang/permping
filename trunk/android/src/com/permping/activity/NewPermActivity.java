@@ -48,6 +48,8 @@ public class NewPermActivity extends Activity {
 	
 	private EditText permDesc;
 	
+	private ArrayList<Category> categories;
+	
 	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -81,13 +83,15 @@ public class NewPermActivity extends Activity {
         
         permDesc = (EditText)findViewById(R.id.permDesc);
         
-        CategoryController catController = new CategoryController();
-		final ArrayList<Category> categories = catController.getCategoryList();
-        Spinner mainCategory = (Spinner) findViewById(R.id.categorySpinnerNewPerm);
+        dialog = ProgressDialog.show(getParent(), "Loading","Please wait...", true);
+        new LoadBoards().execute();
+        
+	}
+	
+	public void setSpinnerData(  ){
+		Spinner mainCategory = (Spinner) findViewById(R.id.categorySpinnerNewPerm);
 		addItemsOnMainCategory(mainCategory, categories);
-		mainCategory.setOnItemSelectedListener(new CategorySpinnerSelectedListener());		
-        
-        
+		mainCategory.setOnItemSelectedListener(new CategorySpinnerSelectedListener());
 	}
 	
 	private void addItemsOnMainCategory(Spinner spinner, ArrayList<Category> categories) {
@@ -112,6 +116,29 @@ public class NewPermActivity extends Activity {
 		}		
 	}
 	
+	class LoadBoards extends AsyncTask<Void, Void, String> {
+
+  		
+  		@Override
+  		protected String doInBackground(Void... params) {
+  			CategoryController catController = new CategoryController();
+  			 categories = catController.getCategoryList();
+  			return null;
+  		}
+  		
+  		@Override
+  		protected void onProgressUpdate(Void... unsued) {
+
+  		}
+
+  		@Override
+  		protected void onPostExecute(String sResponse) {
+  			setSpinnerData();
+  			if (dialog.isShowing()){
+  				dialog.dismiss();
+  			}
+  		}
+  	}
 	
 	//AsyncTask task for upload file
 	

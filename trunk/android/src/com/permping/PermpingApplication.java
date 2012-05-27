@@ -28,7 +28,9 @@ public class PermpingApplication extends Application {
 	 * @return the user
 	 */
 	public User getUser() {
-		return user;
+		return new User("121");
+		//return user;
+		
 	}
 
 	/**
