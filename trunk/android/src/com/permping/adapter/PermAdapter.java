@@ -11,6 +11,7 @@ import org.apache.http.message.BasicNameValuePair;
 import com.permping.PermpingApplication;
 import com.permping.PermpingMain;
 import com.permping.R;
+import com.permping.activity.FollowerActivityGroup;
 import com.permping.activity.JoinPermActivity;
 import com.permping.activity.LoginPermActivity;
 import com.permping.activity.PrepareRequestTokenActivity;
@@ -81,6 +82,9 @@ public class PermAdapter extends ArrayAdapter<Perm> {
                 login.setOnClickListener(new OnClickListener() {
         			
         			public void onClick(View v) {
+        				//Intent myIntent = new Intent(v.getContext(), LoginPermActivity.class);
+        				//View loginView = FollowerActivityGroup.group.getLocalActivityManager() .startActivity("LoginPermActivity", myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
+        				//FollowerActivityGroup.group.replaceView(loginView);
         				Intent i = new Intent(v.getContext(), LoginPermActivity.class);
         				v.getContext().startActivity(i);
         			}

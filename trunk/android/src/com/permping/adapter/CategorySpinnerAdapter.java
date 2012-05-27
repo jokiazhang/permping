@@ -34,7 +34,6 @@ public class CategorySpinnerAdapter extends BaseAdapter implements
 	/**
 	 * Returns the total of categories binding in the Spinner
 	 */
-	@Override
 	public int getCount() {
 		return categories.size();
 	}
@@ -42,7 +41,6 @@ public class CategorySpinnerAdapter extends BaseAdapter implements
 	/**
 	 * Returns the Category object at current position
 	 */
-	@Override
 	public Object getItem(int position) {
 		return categories.get(position);
 	}
@@ -50,7 +48,6 @@ public class CategorySpinnerAdapter extends BaseAdapter implements
 	/**
 	 * Returns the row id of current position
 	 */
-	@Override
 	public long getItemId(int position) {
 		// TODO Auto-generated method stub
 		return position;
@@ -59,7 +56,6 @@ public class CategorySpinnerAdapter extends BaseAdapter implements
 	/**
 	 * Returns a View which represents this position.
 	 */
-	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		final LayoutInflater inflater = activity.getLayoutInflater();
 		View view = inflater.inflate(R.layout.category_spinner_entry, null);
