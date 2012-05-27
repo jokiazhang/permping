@@ -18,7 +18,8 @@ public class PermComment implements Serializable{
 	}
 	
 	public PermComment( String id, String content ){
-		
+		this.id = id;
+		this.content = content;
 	}
 	
 	public void setAuthor( User author ){

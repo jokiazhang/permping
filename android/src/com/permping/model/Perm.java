@@ -21,6 +21,11 @@ public class Perm implements Serializable{
 	private User author;
 	private PermBoard board;
 	
+	private String permRepinCount = "0";
+	private String permLikecount = "0";
+	private String permCommentCount = "0";
+	
+	
 	
 	/**
 	 * Constructor
@@ -115,6 +120,54 @@ public class Perm implements Serializable{
 
 	public void setBoard(PermBoard board) {
 		this.board = board;
+	}
+
+
+	/**
+	 * @return the permRepinCount
+	 */
+	public String getPermRepinCount() {
+		return permRepinCount;
+	}
+
+
+	/**
+	 * @param permRepinCount the permRepinCount to set
+	 */
+	public void setPermRepinCount(String permRepinCount) {
+		this.permRepinCount = permRepinCount;
+	}
+
+
+	/**
+	 * @return the permLikecount
+	 */
+	public String getPermLikecount() {
+		return permLikecount;
+	}
+
+
+	/**
+	 * @param permLikecount the permLikecount to set
+	 */
+	public void setPermLikecount(String permLikecount) {
+		this.permLikecount = permLikecount;
+	}
+
+
+	/**
+	 * @return the permCommentCount
+	 */
+	public String getPermCommentCount() {
+		return permCommentCount;
+	}
+
+
+	/**
+	 * @param permCommentCount the permCommentCount to set
+	 */
+	public void setPermCommentCount(String permCommentCount) {
+		this.permCommentCount = permCommentCount;
 	}
 	
 }

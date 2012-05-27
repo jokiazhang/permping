@@ -16,6 +16,7 @@ import com.permping.activity.LoginPermActivity;
 import com.permping.activity.PrepareRequestTokenActivity;
 import com.permping.controller.AuthorizeController;
 import com.permping.model.Perm;
+import com.permping.model.PermComment;
 import com.permping.utils.Constants;
 import com.permping.utils.UrlImageViewHelper;
 import com.permping.utils.facebook.FacebookConnector;
@@ -35,6 +36,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.view.View.OnClickListener;
 
@@ -121,6 +123,35 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 	                    //Perm description
 	                   TextView pd = (TextView) v.findViewById(R.id.permDesc);
 	                   pd.setText(o.getDescription());
+	                   
+	                   String permInfo = "via " + o.getAuthor().getName() + " on to " + o.getBoard().getName();
+	                   TextView pi = (TextView) v.findViewById(R.id.permInfo );
+	                   pi.setText(permInfo);
+	                   
+	                   
+	                   String permStat = "Like: " + o.getPermLikecount() + " - Repin: " + o.getPermRepinCount() + " - Comment: " + o.getPermCommentCount();
+	                   TextView ps = (TextView) v.findViewById(R.id.permStat );
+	                   ps.setText(permStat) ;
+	                   
+	                   LinearLayout comments = (LinearLayout) v.findViewById(R.id.comments);
+	                   for( int i =0 ; i< o.getComments().size() ; i ++ ){
+		                   View cm = vi.inflate(R.layout.comment_item, null );
+		                   PermComment pcm = o.getComments().get(i);
+		                   
+		                   ImageView cma = (ImageView) cm.findViewById(R.id.commentAvatar );
+		                   UrlImageViewHelper.setUrlDrawable(cma, pcm.getAuthor().getAvatar().getUrl());
+		                   
+		                   TextView cmt = (TextView) cm.findViewById(R.id.commentContent );
+		                   cmt.setText(pcm.getContent());
+		                   
+		                   if( i == ( o.getComments().size() -1 ) ){
+		                	   View sp = (View) cm.findViewById(R.id.separator);
+		                	   sp.setVisibility(View.INVISIBLE);
+		                   }
+		                   
+		                   comments.addView(cm);
+	                   }
+	                   
 	            }
             }
             return v;

@@ -69,6 +69,12 @@ public class BoardAdapter extends ArrayAdapter<PermBoard> {
 		if (o != null) {
 			TextView an = (TextView) v.findViewById(R.id.categoryName);
 			an.setText(o.getName());
+			
+			TextView boardStat = (TextView) v.findViewById(R.id.boardStat);
+			if( boardStat != null ){
+				String str = "Perms " + String.valueOf( o.getPins() ) + " followers " + String.valueOf(o.getFollowers() );
+				boardStat.setText( str );
+			}
 		}
 		
 		return v;
