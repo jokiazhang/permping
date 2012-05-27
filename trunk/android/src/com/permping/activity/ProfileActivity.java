@@ -5,6 +5,8 @@ import java.util.List;
 
 import com.permping.PermpingApplication;
 import com.permping.R;
+import com.permping.adapter.BoardAdapter;
+import com.permping.controller.BoardController;
 import com.permping.model.PermBoard;
 import com.permping.model.PermImage;
 import com.permping.model.User;
@@ -15,6 +17,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -60,6 +63,12 @@ public class ProfileActivity extends Activity {
         */
         
         /** Build the list of boards using ListAdapter */
+        ListView userBoards = (ListView) findViewById(R.id.userBoards);
+        BoardController boardController = new BoardController();
+		final ArrayList<PermBoard> boards = boardController.getUserBoads();
+        BoardAdapter boardAdapter = new BoardAdapter(this,R.layout.category_item, boards);
+        userBoards.setAdapter(boardAdapter);
+        
         
     }
 }

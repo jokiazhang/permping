@@ -43,9 +43,9 @@ public class Perm implements Serializable{
 	}
 	
 	
-	public Perm( String id, String name, String description, PermImage image , ArrayList<PermComment> comments){
+	public Perm( String id, PermBoard board, String description, PermImage image , ArrayList<PermComment> comments){
 		this.setId(id);
-		this.setName(name);
+		this.setBoard(board);
 		this.setDescription(description);
 		this.setImage(image);
 		this.setComments( comments );

@@ -6,6 +6,11 @@ import com.permping.utils.XMLParser;
 
 import java.util.ArrayList;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+
 public class PermListController {
 
 	/**
@@ -19,38 +24,90 @@ public class PermListController {
 	 * @TODO simulate perm lists
 	 */
 	public ArrayList<Perm> getPermList( String url ){
+
+		
+		ArrayList<Perm> permList = new ArrayList<Perm>();
 		
 		if( url == "" ){
 			url = API.popularPermsURL;
 		}
 		XMLParser parser = new XMLParser( url , true );
-		ArrayList <Perm> permList = parser.permListFromNodeList("popularPerms");
-		return permList;
-		/*
-		ArrayList <Perm> permList = new ArrayList<Perm>();
-		for( int i = 0; i < 9 ; i++ ){
-			Perm permObject = new Perm( "ID-" + String.valueOf( i + 1 ));
-			//Set attributes
-			String name = "Perm number " + String.valueOf( i + 1 );
-			permObject.setName(name);
+		Document doc = parser.getDoc();
+		NodeList permNodeList =  doc.getElementsByTagName("item");
+		
+		for( int i = 0; i< permNodeList.getLength(); i++ ){
 			
-			PermImage imageObject = new PermImage("http://static.adzerk.net/Advertisers/d18eea9d28f3490b8dcbfa9e38f8336e.jpg");
-			permObject.setImage( imageObject );
+			//Create perm
+			Element permElement = (Element ) permNodeList.item(i);
+			String permId = getValue(permElement, "permId");
+			String permDesc = getValue(permElement, "permDesc");
+			String permBoard = getValue(permElement, "permCategory");
+			String permImage = getValue(permElement, "permImage");
 			
-			PermBoard permBoard  = new PermBoard( "Board ID " + String.valueOf( i + 1 ));
-			permBoard.setName( "Board name " + String.valueOf( i + 1 ));
-			permObject.setBoard( permBoard );
+			//User 
+			Element permUser = (Element) permElement.getElementsByTagName("user").item(0);
+			String userId  = getValue(permUser, "userId");
+			String userName  = getValue(permUser, "userName");
+			String userAvatar  = getValue(permUser, "userAvatar");
 			
-			User permAuthor = new User( String.valueOf( i  + 1) );
-			permAuthor.setName( "Author " + String.valueOf( i + 1 ));
-			permAuthor.setAvatar( imageObject );
+			//user avatar
+			PermImage userAvatarImage = new PermImage(userAvatar);
+			//user object
+			User permAuthor = new User(userId);
+			permAuthor.setName(userName);
+			permAuthor.setAvatar(userAvatarImage);
 			
-			permObject.setAuthor(permAuthor);
 			
-			//Add to list
-			permList.add( permObject );
+			//Comment
+			NodeList permComments = permElement.getElementsByTagName("comment");
+			
+			ArrayList<PermComment> comments = new ArrayList<PermComment>();
+			for( int j = 0; j < permComments.getLength(); j ++ ){
+				Element comment = (Element) permComments.item(i);
+				String commentId = getValue(comment, "id");
+				String commentContent = getValue(comment, "content");
+				
+				PermComment permComment = new PermComment( commentId, commentContent );
+				
+				//Comment user
+				if( comment != null ){
+					Element commentUser = (Element) comment.getElementsByTagName("user").item(0);
+					String commentUserId = getValue(commentUser, "userId");
+					String commentUserName = getValue(commentUser, "userName");
+					String commentUserAvatar = getValue(commentUser, "userAvatar");
+					
+					PermImage commentAvatar = new PermImage( commentUserAvatar );
+					User commentAuthor = new User(commentUserId );
+					commentAuthor.setName(commentUserName);
+					commentAuthor.setAvatar( commentAvatar );
+					
+					permComment.setAuthor( commentAuthor );
+				}
+				
+				comments.add(permComment);
+				
+			}
+			
+			Perm perm = new Perm(permId, new PermBoard("BoardID", permBoard), permDesc, new PermImage(permImage), comments);
+			perm.setAuthor(permAuthor);
+			permList.add(perm);
+			
 		}
+		
+		//ArrayList <Perm> permList = parser.permListFromNodeList("popularPerms");
 		return permList;
-		*/
+		
+	}
+	
+	
+	public String getValue( Element e, String tag ){
+		if( e != null )
+		{
+			Node node = e.getElementsByTagName(tag).item(0).getFirstChild();
+			if( node != null ){
+				return node.getNodeValue();
+			}
+		}
+		return "";
 	}
 }

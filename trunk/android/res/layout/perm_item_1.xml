@@ -62,10 +62,24 @@
             <ImageView
             android:id="@+id/permImage"
             android:layout_width="fill_parent"
-            android:layout_height="170dp"
+            android:layout_height="wrap_content"
             android:layout_marginRight="5dip" 
             android:src="@drawable/icon" />
+              
     </TableRow>
+    
+    <TableRow >
+
+           <TextView
+                android:layout_width="fill_parent"
+                android:id="@+id/permDesc"
+                android:layout_span="2"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:text="Perm Description"
+                android:textColor="#000000"/>
+    </TableRow>
+    
     <TableRow>
 
             <!-- Horizonal split line -->
