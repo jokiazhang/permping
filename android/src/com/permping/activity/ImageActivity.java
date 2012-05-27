@@ -1,5 +1,10 @@
 package com.permping.activity;
 
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 import com.permping.PermpingApplication;
 import com.permping.R;
 import com.permping.model.User;
@@ -34,22 +39,25 @@ public class ImageActivity extends Activity {
 		takePhoto.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				// define the file-name to save photo taken by Camera activity
-				String fileName = "new-photo-name.jpg";
+				SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.ENGLISH);
+		        String strCurDate = dateFormat.format(new Date(System.currentTimeMillis()));
+		        String imageName = "" + strCurDate + ".jpg";
+		        
 				// create parameters for Intent with filename
 				ContentValues values = new ContentValues();
-				values.put(MediaStore.Images.Media.TITLE, fileName);
-				values.put(MediaStore.Images.Media.DESCRIPTION,
-						"Image capture by camera");
+				values.put(MediaStore.Images.Media.TITLE, imageName );
+				values.put(MediaStore.Images.Media.DESCRIPTION, "Image capture by camera");
 				// imageUri is the current activity attribute, define and save
 				// it for later usage (also in onSaveInstanceState)
-				Uri imageUri = getContentResolver().insert(
-						MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+				Uri imageUri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+				ImageActivityGroup.imagePath = imageUri.getPath() + "/" + imageName ;
 				// create new Intent
 				Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-				intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+				intent.putExtra(MediaStore.EXTRA_OUTPUT, imageName );
 				intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1);
-				startActivityForResult(intent,
-						CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
+				getParent().startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
+				//ImageActivityGroup.imagePath = intent.getData().getPath();
+				//getParent().startActivityForResult(Intent.createChooser(intent, "Select Picture"), CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
 			}
 		});
 		
@@ -84,8 +92,7 @@ public class ImageActivity extends Activity {
 		});
 
 	}
-
-	/* Camera process 
+	/*
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
 			if (resultCode == RESULT_OK) {
@@ -102,7 +109,8 @@ public class ImageActivity extends Activity {
 			}
 		}
 	}
-
+	
+	 /*
 	public static File convertImageUriToFile(Uri imageUri, Activity activity) {
 		Cursor cursor = null;
 		try {
