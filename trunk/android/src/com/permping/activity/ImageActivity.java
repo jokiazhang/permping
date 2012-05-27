@@ -1,6 +1,8 @@
 package com.permping.activity;
 
+import com.permping.PermpingApplication;
 import com.permping.R;
+import com.permping.utils.PermUtils;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -9,8 +11,10 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 
 public class ImageActivity extends Activity {
@@ -64,9 +68,17 @@ public class ImageActivity extends Activity {
 		final LinearLayout createBoard = (LinearLayout) findViewById(R.id.createBoard);
 		createBoard.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				// Go to the Create Board screen.
-				Intent i = new Intent(v.getContext(), CreateBoardActivity.class);
-				v.getContext().startActivity(i);	
+				boolean authenticated = PermUtils.isAuthenticated(getApplicationContext());
+				if (authenticated) {
+					// Go to the Create Board screen.
+					Intent i = new Intent(v.getContext(), CreateBoardActivity.class);
+					v.getContext().startActivity(i);	
+				} else {
+					// Go to login screen
+					Intent i = new Intent(v.getContext(), LoginPermActivity.class);
+					v.getContext().startActivity(i);
+				}
+				
 			}
 		});
 

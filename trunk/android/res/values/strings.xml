@@ -19,5 +19,10 @@
     <string name="bt_create_account">Create Account</string>
     <string name="nick_name">Nickname:</string>
     <string name="user_name">Username:</string>
+    <string name="category">Category:</string>
+    <string name="category_prompt">Main category</string>
+    <string name="board_name">Board Name:</string>
+    <string name="board_description">Board Description:</string>
+    <string name="bt_create_board">Create Board</string>
     
 </resources>

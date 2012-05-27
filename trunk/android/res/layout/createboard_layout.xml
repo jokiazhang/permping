@@ -9,66 +9,48 @@
         android:layout_width="fill_parent"
         layout="@layout/title_bar" />
 	
-	<ListView
-        android:id="@+id/categoryList"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-    </ListView>
-    
-	<LinearLayout
-	    xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_weight="1"> 
-        
-		<TextView android:text="Name:"
-		    android:layout_width="wrap_content"
-		    android:layout_height="wrap_content"
-		    style="@style/label"/>
-		<EditText android:id="@+id/boardName" 
-		    android:layout_width="315dp"
-		    android:layout_height="wrap_content"
-		    android:hint="@string/required"
-   	        style="@style/edit_text" />
-	</LinearLayout>
-	
-	<LinearLayout
-	    xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_weight="1"> 
-        
-		<TextView android:text="Description:"
-		    android:layout_width="wrap_content"
-		    android:layout_height="wrap_content"
-		    style="@style/label"/>
-		<EditText android:id="@+id/boardDescription"
-		    android:layout_width="315dp"
-		    android:layout_height="wrap_content"
-		    android:hint="@string/required"
-   	        style="@style/edit_text" />
-	</LinearLayout>
-	
-	<LinearLayout
-	    xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_weight="1"> 
-    
+	<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+   	    android:layout_width="fill_parent"
+   	    android:layout_height="wrap_content"
+   	    android:stretchColumns="1">
+   	    
+	    <TableRow >
+	        <TextView android:padding="3dip"
+   	            android:text="@string/category"
+   	            style="@style/label"/>
+   	        <Spinner android:id="@+id/categorySpinner"
+   	            android:layout_width="fill_parent"
+   	            android:layout_height="wrap_content" 
+   	            android:prompt="@string/category_prompt"/>
+	    </TableRow>
+	    
+	    <TableRow >
+	        <TextView android:padding="3dip"
+   	            android:text="@string/board_name"
+   	            style="@style/label"/>
+   	        <EditText android:id="@+id/boardName"
+   	            android:hint="@string/required"
+   	            style="@style/edit_text" />
+	    </TableRow>
+	    
+	    <TableRow >
+	        <TextView android:padding="3dip"
+   	            android:text="@string/board_description"
+   	            style="@style/label"/>
+   	        <EditText android:id="@+id/boardDescription"
+   	            android:hint="@string/required"
+   	            style="@style/edit_text" />
+	    </TableRow>
+	    
+	</TableLayout>
+
 	<Button
         android:id="@+id/createBoard"
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Create Board"
+        android:text="@string/bt_create_board"
         android:textColor="#FFFFFF"
         android:background="@drawable/button_bg" />
-	</LinearLayout>
 </LinearLayout>
