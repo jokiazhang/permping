@@ -14,15 +14,13 @@ import com.permping.model.User;
  */
 public class PermUtils {
 
-	public static boolean isAuthenticated(Context context) {
-		boolean ret = false;
+	public static User isAuthenticated(Context context) {
 		PermpingApplication state = (PermpingApplication) context;
     	if (state != null) {
     		User user = state.getUser();
-    		if (user != null)
-    			ret = true;
+    		return user;
     	}
     	
-    	return ret;
+    	return null;
 	}
 }

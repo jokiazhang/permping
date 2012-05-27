@@ -2,6 +2,7 @@ package com.permping.activity;
 
 import com.permping.PermpingApplication;
 import com.permping.R;
+import com.permping.model.User;
 import com.permping.utils.PermUtils;
 
 import android.app.Activity;
@@ -68,8 +69,8 @@ public class ImageActivity extends Activity {
 		final LinearLayout createBoard = (LinearLayout) findViewById(R.id.createBoard);
 		createBoard.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				boolean authenticated = PermUtils.isAuthenticated(getApplicationContext());
-				if (authenticated) {
+				User user = PermUtils.isAuthenticated(getApplicationContext());
+				if (user != null) {
 					// Go to the Create Board screen.
 					Intent i = new Intent(v.getContext(), CreateBoardActivity.class);
 					v.getContext().startActivity(i);	

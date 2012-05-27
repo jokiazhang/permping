@@ -26,14 +26,14 @@ public class ProfileActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.profile_layout);
-        /*
+        
         ImageView authorAvatar = (ImageView) findViewById(R.id.authorAvatar);
         TextView authorName = (TextView) findViewById(R.id.authorName);
         TextView friends = (TextView) findViewById(R.id.friends);
         TextView followings = (TextView) findViewById(R.id.followings);
         
         /** Load the information from Appliaction (user info) when the page is loaded. */
-        /*
+        
         PermpingApplication state = (PermpingApplication) getApplicationContext();
         User user = state.getUser();
         if (user != null) {
@@ -60,8 +60,7 @@ public class ProfileActivity extends Activity {
         	toast.setGravity(Gravity.TOP | Gravity.CENTER, 0, 50);
         	toast.show();
         }
-        */
-        
+                
         /** Build the list of boards using ListAdapter */
         ListView userBoards = (ListView) findViewById(R.id.userBoards);
         BoardController boardController = new BoardController();
