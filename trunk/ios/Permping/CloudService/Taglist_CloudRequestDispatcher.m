@@ -96,11 +96,12 @@ static Taglist_CloudRequestDispatcher *instance = nil;
             [URLRequest setHTTPMethod:@"POST"];
             NSData *body = [request requestToXMLBody];
             [log appendFormat:@"\tBodyMsg : %@\n", [[[NSString alloc] initWithData:body encoding:NSUTF8StringEncoding] autorelease]];
-            if ([Configuration applicationSupportGZIPCommunication]) {
+            // tuan comment
+            /*if ([Configuration applicationSupportGZIPCommunication]) {
                 [URLRequest setHTTPBody:[body gzipDeflate]];
                 [URLRequest setValue:@"gzip" forHTTPHeaderField:@"Content-Encoding"];
             }
-            else
+            else*/
             {
                 [URLRequest setHTTPBody:body];
             }

@@ -33,7 +33,7 @@ typedef enum {
 
 + (AppData *)getInstance;
 
-- (BOOL) loginWithUsername:(NSString *)username password:(NSString *)password type:(LoginType)type accessToken:(NSString*)accessToken;
+- (BOOL)createAccountWithUserInfo:(NSDictionary*)userInfo;
 
 - (void) restoreState;
 

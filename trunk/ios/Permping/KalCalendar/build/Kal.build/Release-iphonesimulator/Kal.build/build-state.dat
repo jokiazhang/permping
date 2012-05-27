@@ -3,12 +3,12 @@ v4
 r1
 cCheck dependencies
 cProcessPCH /var/folders/KA/KARGsaFSFCeGPlGZBf7bcU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/Kal_Prefix-bylxbutdocylwrbsfrhysqweyona/Kal_Prefix.pch.pth Kal_Prefix.pch normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
-cCompileC build/Kal.build/Release-iphonesimulator/Kal.build/Objects-normal/i386/KalDate.o /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/KalDate.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
-cCompileC build/Kal.build/Release-iphonesimulator/Kal.build/Objects-normal/i386/KalTileView.o /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/KalTileView.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
-cCompileC build/Kal.build/Release-iphonesimulator/Kal.build/Objects-normal/i386/KalGridView.o /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/KalGridView.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
-cCompileC build/Kal.build/Release-iphonesimulator/Kal.build/Objects-normal/i386/KalView.o /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/KalView.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
 cCompileC build/Kal.build/Release-iphonesimulator/Kal.build/Objects-normal/i386/KalDataSource.o /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/KalDataSource.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+cCompileC build/Kal.build/Release-iphonesimulator/Kal.build/Objects-normal/i386/KalDate.o /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/KalDate.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
 cCompileC build/Kal.build/Release-iphonesimulator/Kal.build/Objects-normal/i386/KalLogic.o /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/KalLogic.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+cCompileC build/Kal.build/Release-iphonesimulator/Kal.build/Objects-normal/i386/KalTileView.o /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/KalTileView.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+cCompileC build/Kal.build/Release-iphonesimulator/Kal.build/Objects-normal/i386/KalView.o /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/KalView.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+cCompileC build/Kal.build/Release-iphonesimulator/Kal.build/Objects-normal/i386/KalGridView.o /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/KalGridView.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
 cCompileC build/Kal.build/Release-iphonesimulator/Kal.build/Objects-normal/i386/KalMonthView.o /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/KalMonthView.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
 cCompileC build/Kal.build/Release-iphonesimulator/Kal.build/Objects-normal/i386/KalViewController.o /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/KalViewController.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
 cCompileC build/Kal.build/Release-iphonesimulator/Kal.build/Objects-normal/i386/NSDateAdditions.o /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/NSDateAdditions.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
@@ -226,7 +226,7 @@ r0
 
 CCheck dependencies
 r0
-lSLF04#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection18"Check dependencies4e0acfac3772b541^ffcfd5ac3772b541^---0#1#0#--18"Check dependencies36"CB199141-72D4-4DB9-A696-B8EC92092B2C-
+lSLF04#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection18"Check dependencies6abcd0d74c72b541^6763d1d74c72b541^---0#1#0#--18"Check dependencies36"BBF6D99A-B463-4858-B868-22FAB9D67722-
 
 CCompileC build/Kal.build/Release-iphonesimulator/Kal.build/Objects-normal/i386/KalDataSource.o /Users/MAC/Projects/permping_trunk/ios/Permping/KalCalendar/KalDataSource.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
 s359804089.463387

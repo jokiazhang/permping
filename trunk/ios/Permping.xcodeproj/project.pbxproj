@@ -93,6 +93,8 @@
 		04A0712D15721EBF00C6FFB8 /* BoardViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04A0712B15721EBF00C6FFB8 /* BoardViewController.xib */; };
 		04A071461572298900C6FFB8 /* Kal.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 04A071451572298800C6FFB8 /* Kal.bundle */; };
 		04A0715115722D7800C6FFB8 /* libKal.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 04A071421572296800C6FFB8 /* libKal.a */; };
+		04A0715815723B8D00C6FFB8 /* CreateAccountResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A0715715723B8B00C6FFB8 /* CreateAccountResponse.m */; };
+		04A0715B1572471B00C6FFB8 /* CreateAccount_DataLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A0715A1572471A00C6FFB8 /* CreateAccount_DataLoader.m */; };
 		04AA8E6315600B8800B5E956 /* UserInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04AA8E6215600B8800B5E956 /* UserInfoTableViewCell.m */; };
 		04AA8E8A1560336300B5E956 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 04AA8E891560336300B5E956 /* libz.dylib */; };
 		04AA8EEB156049ED00B5E956 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04AA8EEA156049ED00B5E956 /* SystemConfiguration.framework */; };
@@ -356,6 +358,10 @@
 		04A0712B15721EBF00C6FFB8 /* BoardViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BoardViewController.xib; sourceTree = "<group>"; };
 		04A0713A1572296700C6FFB8 /* Kal.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Kal.xcodeproj; path = KalCalendar/Kal.xcodeproj; sourceTree = "<group>"; };
 		04A071451572298800C6FFB8 /* Kal.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = Kal.bundle; path = KalCalendar/Kal.bundle; sourceTree = "<group>"; };
+		04A0715615723B8400C6FFB8 /* CreateAccountResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateAccountResponse.h; sourceTree = "<group>"; };
+		04A0715715723B8B00C6FFB8 /* CreateAccountResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateAccountResponse.m; sourceTree = "<group>"; };
+		04A071591572471A00C6FFB8 /* CreateAccount_DataLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateAccount_DataLoader.h; sourceTree = "<group>"; };
+		04A0715A1572471A00C6FFB8 /* CreateAccount_DataLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateAccount_DataLoader.m; sourceTree = "<group>"; };
 		04AA8E6115600B8800B5E956 /* UserInfoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfoTableViewCell.h; sourceTree = "<group>"; };
 		04AA8E6215600B8800B5E956 /* UserInfoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoTableViewCell.m; sourceTree = "<group>"; };
 		04AA8E891560336300B5E956 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
@@ -1057,6 +1063,8 @@
 				04A0711E15720B9300C6FFB8 /* CategoryListResponse.m */,
 				04A071231572163400C6FFB8 /* BoardListReponse.h */,
 				04A071241572163400C6FFB8 /* BoardListReponse.m */,
+				04A0715615723B8400C6FFB8 /* CreateAccountResponse.h */,
+				04A0715715723B8B00C6FFB8 /* CreateAccountResponse.m */,
 			);
 			path = Response;
 			sourceTree = "<group>";
@@ -1070,6 +1078,8 @@
 				04A0712115720E2C00C6FFB8 /* CategoryList_DataLoader.m */,
 				04A071261572185000C6FFB8 /* BoardList_DataLoader.h */,
 				04A071271572185100C6FFB8 /* BoardList_DataLoader.m */,
+				04A071591572471A00C6FFB8 /* CreateAccount_DataLoader.h */,
+				04A0715A1572471A00C6FFB8 /* CreateAccount_DataLoader.m */,
 			);
 			path = Dataloader;
 			sourceTree = "<group>";
@@ -1545,6 +1555,8 @@
 				04A071251572163500C6FFB8 /* BoardListReponse.m in Sources */,
 				04A071281572185100C6FFB8 /* BoardList_DataLoader.m in Sources */,
 				04A0712C15721EBF00C6FFB8 /* BoardViewController.m in Sources */,
+				04A0715815723B8D00C6FFB8 /* CreateAccountResponse.m in Sources */,
+				04A0715B1572471B00C6FFB8 /* CreateAccount_DataLoader.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

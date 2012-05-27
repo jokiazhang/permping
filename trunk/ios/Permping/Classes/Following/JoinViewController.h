@@ -16,6 +16,7 @@
     
     BOOL    loggedin;
     NSArray     *fieldsTitle;
+    NSMutableDictionary *userInfo;
 }
 @property (nonatomic, assign) BOOL loggedin;
 @property (nonatomic, retain) NSArray *fieldsTitle;

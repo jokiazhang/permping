@@ -7,7 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "UserModel.h"
 
-@interface UserManager : NSObject
+@interface UserManager : NSObject {
+    UserModel   *currentUser;
+}
 + (UserManager *)getInstance;
+
 @end
