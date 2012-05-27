@@ -8,11 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "CommonViewController.h"
+#import "Taglist_NDModel.h"
 
 @interface ExplorerViewController : CommonViewController <UITableViewDelegate, UITableViewDataSource> {
-    IBOutlet UITableView *categoriesTableView;
-    NSArray *categories;
+    IBOutlet UITableView        *categoriesTableView;
+    Taglist_NDModel             *resultModel;
 }
-@property (nonatomic, retain)NSArray *categories;
+@property (nonatomic, retain)Taglist_NDModel *resultModel;
 
 @end

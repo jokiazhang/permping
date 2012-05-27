@@ -83,6 +83,16 @@
 		046951C31561887700620B12 /* WSPerm.m in Sources */ = {isa = PBXBuildFile; fileRef = 046951B91561887700620B12 /* WSPerm.m */; };
 		0469524715619BF200620B12 /* WSComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 0469524615619BF200620B12 /* WSComment.m */; };
 		0469525E1561A50500620B12 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0469525D1561A50500620B12 /* Localizable.strings */; };
+		04A0711815720A3C00C6FFB8 /* BoardModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A0711715720A3C00C6FFB8 /* BoardModel.m */; };
+		04A0711C15720A4C00C6FFB8 /* CategoryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A0711B15720A4C00C6FFB8 /* CategoryModel.m */; };
+		04A0711F15720B9400C6FFB8 /* CategoryListResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A0711E15720B9300C6FFB8 /* CategoryListResponse.m */; };
+		04A0712215720E2C00C6FFB8 /* CategoryList_DataLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A0712115720E2C00C6FFB8 /* CategoryList_DataLoader.m */; };
+		04A071251572163500C6FFB8 /* BoardListReponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A071241572163400C6FFB8 /* BoardListReponse.m */; };
+		04A071281572185100C6FFB8 /* BoardList_DataLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A071271572185100C6FFB8 /* BoardList_DataLoader.m */; };
+		04A0712C15721EBF00C6FFB8 /* BoardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A0712A15721EBF00C6FFB8 /* BoardViewController.m */; };
+		04A0712D15721EBF00C6FFB8 /* BoardViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04A0712B15721EBF00C6FFB8 /* BoardViewController.xib */; };
+		04A071461572298900C6FFB8 /* Kal.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 04A071451572298800C6FFB8 /* Kal.bundle */; };
+		04A0715115722D7800C6FFB8 /* libKal.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 04A071421572296800C6FFB8 /* libKal.a */; };
 		04AA8E6315600B8800B5E956 /* UserInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04AA8E6215600B8800B5E956 /* UserInfoTableViewCell.m */; };
 		04AA8E8A1560336300B5E956 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 04AA8E891560336300B5E956 /* libz.dylib */; };
 		04AA8EEB156049ED00B5E956 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04AA8EEA156049ED00B5E956 /* SystemConfiguration.framework */; };
@@ -185,6 +195,23 @@
 		6AD1DC8D156C922600551787 /* CXMLNode_XPathExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AD1DC7D156C922600551787 /* CXMLNode_XPathExtensions.m */; };
 		6AD1DC8E156C922600551787 /* CTidy.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AD1DC80156C922600551787 /* CTidy.m */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		04A071411572296800C6FFB8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 04A0713A1572296700C6FFB8 /* Kal.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D2AAC07E0554694100DB518D;
+			remoteInfo = Kal;
+		};
+		04A071431572297500C6FFB8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 04A0713A1572296700C6FFB8 /* Kal.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = D2AAC07D0554694100DB518D;
+			remoteInfo = Kal;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		040B304115617A6100F7CF99 /* Facebook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Facebook.h; sourceTree = "<group>"; };
@@ -312,6 +339,23 @@
 		0469524515619BF200620B12 /* WSComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSComment.h; sourceTree = "<group>"; };
 		0469524615619BF200620B12 /* WSComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSComment.m; sourceTree = "<group>"; };
 		0469525D1561A50500620B12 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
+		04A0711615720A3C00C6FFB8 /* BoardModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BoardModel.h; sourceTree = "<group>"; };
+		04A0711715720A3C00C6FFB8 /* BoardModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BoardModel.m; sourceTree = "<group>"; };
+		04A0711A15720A4C00C6FFB8 /* CategoryModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoryModel.h; sourceTree = "<group>"; };
+		04A0711B15720A4C00C6FFB8 /* CategoryModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoryModel.m; sourceTree = "<group>"; };
+		04A0711D15720B9300C6FFB8 /* CategoryListResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoryListResponse.h; sourceTree = "<group>"; };
+		04A0711E15720B9300C6FFB8 /* CategoryListResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoryListResponse.m; sourceTree = "<group>"; };
+		04A0712015720E2C00C6FFB8 /* CategoryList_DataLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoryList_DataLoader.h; sourceTree = "<group>"; };
+		04A0712115720E2C00C6FFB8 /* CategoryList_DataLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoryList_DataLoader.m; sourceTree = "<group>"; };
+		04A071231572163400C6FFB8 /* BoardListReponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BoardListReponse.h; sourceTree = "<group>"; };
+		04A071241572163400C6FFB8 /* BoardListReponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BoardListReponse.m; sourceTree = "<group>"; };
+		04A071261572185000C6FFB8 /* BoardList_DataLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BoardList_DataLoader.h; sourceTree = "<group>"; };
+		04A071271572185100C6FFB8 /* BoardList_DataLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BoardList_DataLoader.m; sourceTree = "<group>"; };
+		04A0712915721EBF00C6FFB8 /* BoardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BoardViewController.h; sourceTree = "<group>"; };
+		04A0712A15721EBF00C6FFB8 /* BoardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BoardViewController.m; sourceTree = "<group>"; };
+		04A0712B15721EBF00C6FFB8 /* BoardViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BoardViewController.xib; sourceTree = "<group>"; };
+		04A0713A1572296700C6FFB8 /* Kal.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Kal.xcodeproj; path = KalCalendar/Kal.xcodeproj; sourceTree = "<group>"; };
+		04A071451572298800C6FFB8 /* Kal.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = Kal.bundle; path = KalCalendar/Kal.bundle; sourceTree = "<group>"; };
 		04AA8E6115600B8800B5E956 /* UserInfoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfoTableViewCell.h; sourceTree = "<group>"; };
 		04AA8E6215600B8800B5E956 /* UserInfoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoTableViewCell.m; sourceTree = "<group>"; };
 		04AA8E891560336300B5E956 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
@@ -520,6 +564,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04A0715115722D7800C6FFB8 /* libKal.a in Frameworks */,
 				26642EE4156EBA6F00577978 /* CoreTelephony.framework in Frameworks */,
 				6AD1C8361563584200FB5CB1 /* QuartzCore.framework in Frameworks */,
 				6A04633915625E8200BB4E34 /* MapKit.framework in Frameworks */,
@@ -677,6 +722,14 @@
 			path = Webservices;
 			sourceTree = "<group>";
 		};
+		04A0713B1572296700C6FFB8 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				04A071421572296800C6FFB8 /* libKal.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		04AA8E7F1560329C00B5E956 /* TBXML */ = {
 			isa = PBXGroup;
 			children = (
@@ -699,6 +752,9 @@
 				0411A427156D2D31005EBF18 /* CategoryViewController.h */,
 				0411A428156D2D31005EBF18 /* CategoryViewController.m */,
 				0411A429156D2D31005EBF18 /* CategoryViewController.xib */,
+				04A0712915721EBF00C6FFB8 /* BoardViewController.h */,
+				04A0712A15721EBF00C6FFB8 /* BoardViewController.m */,
+				04A0712B15721EBF00C6FFB8 /* BoardViewController.xib */,
 			);
 			name = Explorer;
 			path = Permping/Classes/Explorer;
@@ -856,6 +912,8 @@
 		04DFAC62155E40A300AE9FFD /* Permping */ = {
 			isa = PBXGroup;
 			children = (
+				04A071451572298800C6FFB8 /* Kal.bundle */,
+				04A0713A1572296700C6FFB8 /* Kal.xcodeproj */,
 				26642E76156EBA1D00577978 /* AlertManager */,
 				26642E79156EBA1D00577978 /* CloudService */,
 				26642E93156EBA1D00577978 /* Dataloader */,
@@ -995,6 +1053,10 @@
 				26642E83156EBA1D00577978 /* PermListResponse.m */,
 				26642E84156EBA1D00577978 /* Taglist_CloudPagingResponse.h */,
 				26642E85156EBA1D00577978 /* Taglist_CloudPagingResponse.m */,
+				04A0711D15720B9300C6FFB8 /* CategoryListResponse.h */,
+				04A0711E15720B9300C6FFB8 /* CategoryListResponse.m */,
+				04A071231572163400C6FFB8 /* BoardListReponse.h */,
+				04A071241572163400C6FFB8 /* BoardListReponse.m */,
 			);
 			path = Response;
 			sourceTree = "<group>";
@@ -1004,6 +1066,10 @@
 			children = (
 				26642E94156EBA1D00577978 /* FollowingScreen_DataLoader.h */,
 				26642E95156EBA1D00577978 /* FollowingScreen_DataLoader.m */,
+				04A0712015720E2C00C6FFB8 /* CategoryList_DataLoader.h */,
+				04A0712115720E2C00C6FFB8 /* CategoryList_DataLoader.m */,
+				04A071261572185000C6FFB8 /* BoardList_DataLoader.h */,
+				04A071271572185100C6FFB8 /* BoardList_DataLoader.m */,
 			);
 			path = Dataloader;
 			sourceTree = "<group>";
@@ -1031,6 +1097,10 @@
 				26642EA4156EBA1D00577978 /* Taglist_NDModel.m */,
 				26642EA5156EBA1D00577978 /* UserModel.h */,
 				26642EA6156EBA1D00577978 /* UserModel.m */,
+				04A0711615720A3C00C6FFB8 /* BoardModel.h */,
+				04A0711715720A3C00C6FFB8 /* BoardModel.m */,
+				04A0711A15720A4C00C6FFB8 /* CategoryModel.h */,
+				04A0711B15720A4C00C6FFB8 /* CategoryModel.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1237,6 +1307,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				04A071441572297500C6FFB8 /* PBXTargetDependency */,
 			);
 			name = Permping;
 			productName = Permping;
@@ -1261,12 +1332,28 @@
 			mainGroup = 04DFAC4D155E40A300AE9FFD;
 			productRefGroup = 04DFAC59155E40A300AE9FFD /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 04A0713B1572296700C6FFB8 /* Products */;
+					ProjectRef = 04A0713A1572296700C6FFB8 /* Kal.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				04DFAC57155E40A300AE9FFD /* Permping */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		04A071421572296800C6FFB8 /* libKal.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libKal.a;
+			remoteRef = 04A071411572296800C6FFB8 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		04DFAC56155E40A300AE9FFD /* Resources */ = {
@@ -1321,6 +1408,8 @@
 				0411A494156D7D9E005EBF18 /* tab-shadow.png in Resources */,
 				0411A495156D7D9E005EBF18 /* tab-shadow@2x.png in Resources */,
 				26642EE2156EBA2C00577978 /* CommonViewController.xib in Resources */,
+				04A0712D15721EBF00C6FFB8 /* BoardViewController.xib in Resources */,
+				04A071461572298900C6FFB8 /* Kal.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1449,10 +1538,25 @@
 				26642EDA156EBA1D00577978 /* MBProgressHUD.m in Sources */,
 				26642EDB156EBA1D00577978 /* Utility.m in Sources */,
 				26642EE1156EBA2C00577978 /* CommonViewController.m in Sources */,
+				04A0711815720A3C00C6FFB8 /* BoardModel.m in Sources */,
+				04A0711C15720A4C00C6FFB8 /* CategoryModel.m in Sources */,
+				04A0711F15720B9400C6FFB8 /* CategoryListResponse.m in Sources */,
+				04A0712215720E2C00C6FFB8 /* CategoryList_DataLoader.m in Sources */,
+				04A071251572163500C6FFB8 /* BoardListReponse.m in Sources */,
+				04A071281572185100C6FFB8 /* BoardList_DataLoader.m in Sources */,
+				04A0712C15721EBF00C6FFB8 /* BoardViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		04A071441572297500C6FFB8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Kal;
+			targetProxy = 04A071431572297500C6FFB8 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		04DFAC65155E40A300AE9FFD /* InfoPlist.strings */ = {
@@ -1469,7 +1573,7 @@
 		0471109015643726007E5B1B /* Ad Hoc */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
@@ -1478,14 +1582,17 @@
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = /usr/include/libxml2;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				OTHER_LDFLAGS = (
+					"-lxml2",
 					/usr/lib/libz.dylib,
 					"-ObjC",
 					"-all_load",
 				);
 				SDKROOT = iphoneos;
+				USER_HEADER_SEARCH_PATHS = ". ./Permping/KalCalendar";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = "Ad Hoc";
@@ -1493,7 +1600,7 @@
 		0471109115643726007E5B1B /* Ad Hoc */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: APPO CO., LTD";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: APPO CO., LTD";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -1513,7 +1620,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "1310E8E9-3105-43D9-9BFD-730017106837";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "1310E8E9-3105-43D9-9BFD-730017106837";
-				USER_HEADER_SEARCH_PATHS = "";
+				USER_HEADER_SEARCH_PATHS = ". ./Permping/KalCalendar";
 				WRAPPER_EXTENSION = app;
 			};
 			name = "Ad Hoc";
@@ -1521,7 +1628,7 @@
 		04DFAC82155E40A300AE9FFD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
@@ -1546,13 +1653,14 @@
 					"-all_load",
 				);
 				SDKROOT = iphoneos;
+				USER_HEADER_SEARCH_PATHS = ". ./Permping/KalCalendar";
 			};
 			name = Debug;
 		};
 		04DFAC83155E40A300AE9FFD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
@@ -1571,6 +1679,7 @@
 					"-all_load",
 				);
 				SDKROOT = iphoneos;
+				USER_HEADER_SEARCH_PATHS = ". ./Permping/KalCalendar";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -1578,7 +1687,7 @@
 		04DFAC85155E40A300AE9FFD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -1596,7 +1705,7 @@
 					"-all_load",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				USER_HEADER_SEARCH_PATHS = "";
+				USER_HEADER_SEARCH_PATHS = ". ./Permping/KalCalendar";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1604,7 +1713,7 @@
 		04DFAC86155E40A300AE9FFD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Tuan Do (P5JR675238)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Tuan Do (P5JR675238)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -1624,7 +1733,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "6E874A32-A8B7-4E21-A813-1B9D2F63828C";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "6E874A32-A8B7-4E21-A813-1B9D2F63828C";
-				USER_HEADER_SEARCH_PATHS = "";
+				USER_HEADER_SEARCH_PATHS = ". ./Permping/KalCalendar";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

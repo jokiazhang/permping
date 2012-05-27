@@ -8,7 +8,22 @@
 
 #import <UIKit/UIKit.h>
 #import "CommonViewController.h"
+#import "Kal.h"
 
-@interface MyDiaryViewController : CommonViewController
+@class KalLogic, KalDate;
 
+@interface MyDiaryViewController : CommonViewController<KalViewDelegate, KalDataSourceCallbacks> {
+    IBOutlet UILabel    *headerLabel;
+    KalView *kalView;
+    KalLogic *logic;
+    id <KalDataSource> dataSource;
+    NSDate *initialDate;
+    NSDate *selectedDate;
+}
+
+@property (nonatomic, assign) id<KalDataSource> dataSource;
+@property (nonatomic, retain, readonly) NSDate *selectedDate;
+
+- (void)reloadData;
+- (void)showAndSelectDate:(NSDate *)date;
 @end

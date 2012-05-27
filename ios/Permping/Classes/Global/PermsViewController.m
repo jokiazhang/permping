@@ -130,8 +130,8 @@
         if (cell == nil) {
             cell = [[[PermCommentCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] autorelease];
         }
-        CommentModel *comment = [perm.permComments objectAtIndex:index-3];
-        [cell setCellWithComment:comment];
+        //CommentModel *comment = [perm.permComments objectAtIndex:index-3];
+        //[cell setCellWithComment:comment];
         return cell;
     }
 }

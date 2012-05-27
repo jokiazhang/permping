@@ -10,7 +10,7 @@
 #define Permping_Constants_h
 #import <Foundation/Foundation.h>
 
-#define USE_FAKE_CONNECTION
+//#define USE_FAKE_CONNECTION
 
 #define SERVER_API   @"http://permping.autwin.com/services"
 #define SERVER_REQUEST_TIMEOUT_DEFAULT 30

@@ -19,7 +19,9 @@
     PermModel               *currentPerm;
     CommentModel            *currentComment;
     UserModel               *currentUser;
+    
+    BOOL                    permFromBoard;
 }
-
+@property (nonatomic, assign) BOOL permFromBoard;
 - (NSArray *)getResponsePermList;
 @end

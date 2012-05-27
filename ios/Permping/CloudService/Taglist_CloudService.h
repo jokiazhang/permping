@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import "PermListResponse.h"
+#import "CategoryListResponse.h"
+#import "BoardListReponse.h"
 
 @interface Taglist_CloudService : NSObject 
 {
@@ -16,4 +18,7 @@
 
 + (NSString *)getTaglistHTTPURLBase;
 + (PermListResponse *)getPopularListWithRequestCount:(NSUInteger)count nextItemId:(NSInteger)nextId;
++ (CategoryListResponse*)getCategoryList;
++ (BoardListReponse*)getBoardListWithCategoryId:(NSString*)categoryId;
++ (PermListResponse *)getPermWithBoardId:(NSString*)boardId nextItemId:(NSInteger)nextId requestedCount:(NSUInteger)count;
 @end

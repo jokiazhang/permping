@@ -41,4 +41,37 @@
     
     return [response autorelease];
 }
+
++ (CategoryListResponse*)getCategoryList {
+    Taglist_CloudRequest *request = [[Taglist_CloudRequest alloc] init];
+    request.requestURL = [SERVER_API stringByAppendingString:@"/permservice/getcategories"];
+    CategoryListResponse *response = [[CategoryListResponse alloc] init];
+    [[Taglist_CloudRequestDispatcher getInstance] dispatchRequest:request response:response];
+    [request release];
+    return [response autorelease];
+}
+
++ (BoardListReponse*)getBoardListWithCategoryId:(NSString *)categoryId {
+    Taglist_CloudRequest *request = [[Taglist_CloudRequest alloc] init];
+    request.requestURL = [SERVER_API stringByAppendingFormat:@"/permservice/getboardswithcategoryid/%@", categoryId];
+    BoardListReponse *response = [[BoardListReponse alloc] init];
+    [[Taglist_CloudRequestDispatcher getInstance] dispatchRequest:request response:response];
+    [request release];
+    return [response autorelease];
+}
+
++ (PermListResponse *)getPermWithBoardId:(NSString*)boardId nextItemId:(NSInteger)nextId requestedCount:(NSUInteger)count { 
+    Taglist_CloudPagingRequest *request = [[Taglist_CloudPagingRequest alloc] init];
+    request.requestURL = [SERVER_API stringByAppendingFormat:@"/permservice/getpermwithboardid/%@", boardId];
+    [request addRequestCount:count];
+    if (nextId != -1) {
+        [request addNextItemId:nextId];
+    }
+    PermListResponse *response = [[PermListResponse alloc] init];
+    response.permFromBoard = YES;
+    [[Taglist_CloudRequestDispatcher getInstance] dispatchRequest:request response:response];
+    [request release];
+    return [response autorelease];
+}
+
 @end
