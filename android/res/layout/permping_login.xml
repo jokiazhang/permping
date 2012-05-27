@@ -2,66 +2,116 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:padding="5dp" 
+    android:background="#FFFFFF">
     <include android:layout_width="fill_parent" layout="@layout/title_bar" />
-
+	 <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" 
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp">
+    	    <TextView
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:id="@+id/categoryName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Login and start Permping"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="#000000" />
+	     
+	</LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+        android:orientation="horizontal"
+        android:gravity="center_horizontal" 
+        android:padding="30dp">
 
         <Button
             android:id="@+id/loginfb"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/bt_facebook"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:text=""
             android:layout_gravity="center"
-        android:textColor="#FFFFFF"
-            android:background="@drawable/button_bg" />
+            android:background="@drawable/fb_icon" 
+            android:layout_marginRight="80dp" />
 
         <Button
             android:id="@+id/logintw"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/bt_twitter"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:text=""
             android:layout_gravity="center"
-        android:textColor="#FFFFFF"
-            android:background="@drawable/button_bg" />
+            android:background="@drawable/twitter_icon" />
         
     </LinearLayout>
     
     <View
     android:layout_width="fill_parent"
     android:layout_height="2dp"
-    android:background="@android:color/darker_gray"/>
+    android:background="@android:color/darker_gray"
+    android:layout_marginTop="20dp"
+    android:layout_marginBottom="20dp"/>
     
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/categoryItemLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/explorer_item_bg_first">
     <EditText
         android:id="@+id/permEmail"
         android:layout_width="315dp"
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="@string/hint_username"
+        android:background="#00000000"
         style="@style/edit_text" >
         <requestFocus />
     </EditText>
-
+	</LinearLayout>
+	
+     <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/categoryItemLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="-3dp"
+        android:background="@drawable/explorer_item_bg_end">
     <EditText
         android:id="@+id/permPassword"
         android:layout_width="315dp"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:background="#00000000"
         android:inputType="textPassword" 
         android:hint="@string/hint_password"/>
-
+	</LinearLayout>
+     <View
+    android:layout_width="fill_parent"
+    android:layout_height="2dp"
+    android:background="@android:color/darker_gray"
+    android:layout_marginTop="20dp"
+    android:layout_marginBottom="20dp"/>
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" android:layout_gravity="center">
+       android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal" 
+        android:padding="30dp">
 
         <Button
             android:id="@+id/loginPerm"
             style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="150dp"
+            android:layout_height="40dp"
             android:text="@string/bt_login"
             android:layout_gravity="center"
         android:textColor="#FFFFFF"

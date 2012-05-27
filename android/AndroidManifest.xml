@@ -24,6 +24,7 @@
         </activity>
         
         <activity android:name=".activity.ExplorerActivity" />
+        <activity android:name=".activity.FollowerActivityGroup" />
         <activity android:name=".activity.FollowerActivity" />
         <activity android:name=".activity.BoardListActivity" />
         <activity android:name=".activity.ExplorerActivityGroup" />

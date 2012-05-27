@@ -108,13 +108,11 @@ public class CreateBoardActivity extends Activity {
 	
 	private class CategorySpinnerSelectedListener implements OnItemSelectedListener {
 
-		@Override
 		public void onItemSelected(AdapterView<?> parent, View view, int pos,
 				long id) {
 			Category category = (Category) parent.getItemAtPosition(pos);
 			categoryId = Integer.parseInt(category.getId());		}
 
-		@Override
 		public void onNothingSelected(AdapterView<?> arg0) {
 			// TODO Auto-generated method stub
 			
