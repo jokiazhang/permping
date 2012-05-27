@@ -9,4 +9,5 @@ public class API {
 	public static final String permListFromBoardUrl = "http://permping.autwin.com/services/permservice/getpermwithboardid/"; //Add board id when make request
 	public static final String addNewPermUrl = "http://permping.autwin.com/services/permservice/uploadPerm";
 	public static final String userBoardUrl  = "http://permping.autwin.com/services/permservice/getboardswithcategoryid/22"; //Not implemented yet on server
+	public static final String createBoardURL = "http://permping.autwin.com/services/permservice/createboard";
 }

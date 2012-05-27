@@ -67,4 +67,12 @@ public class Constants {
 	public static final String DESCRIPTION = "description";
 	public static final String FOLLOWERS = "followers";
 	public static final String PINS = "pins";
+	
+	/**
+	 * Create Board parameters
+	 */
+	public static final String BOARD_NAME = "bname";
+	public static final String CATEGORY_ID = "cid";
+	public static final String BOARD_USER_ID = "uid";
+	public static final String BOARD_DESCRIPTION = "board_desc";
 }
