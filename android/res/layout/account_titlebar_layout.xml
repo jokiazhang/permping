@@ -13,7 +13,7 @@
         <TableRow>
 
             <Button
-                android:id="@+id/btAccount"
+                android:id="@+id/btBack"
                 android:layout_width="10dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
