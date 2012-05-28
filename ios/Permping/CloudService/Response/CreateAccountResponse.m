@@ -14,7 +14,6 @@
 - (void) onStartElement:(NSString *)path name:(NSString *)name
 {
     [super onStartElement:path name:name];
-    NSLog(@"onStartElement:%@ name:%@", path, name);
 	return;
 }
 
@@ -26,7 +25,6 @@
 - (void) onEndElement:(NSString *)path name:(NSString *)name text:(NSString *)text
 {
     [super onEndElement:path name:name text:text];        
-    NSLog(@"onEndElement:%@ name:%@ text:\"%@\"", path, name, text);
 	
    	return;
 }

@@ -120,8 +120,7 @@
                            //[self initializeUIControls]; 
                            
                        });
-        
-        userInfo = [[NSMutableDictionary alloc] initWithObjectsAndKeys:kUserServiceTypeNormal, kUserServiceTypeKey, @"test name", kUserServiceNameKey, @"test user name", kUserServiceUserNameKey, @"aa@yahoo.com", kUserServiceEmailKey, @"nopass", kUserServicePasswordKey, @"nopass", kUserServiceCPasswordKey, nil];
+        userInfo = [[NSMutableDictionary alloc] initWithObjectsAndKeys:@"perm", kUserServiceTypeKey, @"test123", kUserServiceNameKey, @"test123", kUserServiceUserNameKey, @"test123@test.com", kUserServiceEmailKey, @"123456", kUserServicePasswordKey, @"123456", kUserServiceCPasswordKey, @"", kUserServiceOauthTokenKey, nil];
         CreateAccountResponse *response = [(CreateAccount_DataLoader *)loader createAccountWithUserInfo:userInfo];
         
         if (![threadObj isCancelled]) {
@@ -129,7 +128,6 @@
             dispatch_async(dispatch_get_main_queue(), ^(void)
                            {
                                [self stopActivityIndicator];
-                               NSLog(@"done create account request");
                            });
         }
     }

@@ -18,6 +18,10 @@
     NSDate      *dateUpdated;
     NSString    *type;
     NSString    *friendId;
+    
+    // user profile
+    NSString    *followers;
+    NSString    *pinCount;
 }
 
 @property (nonatomic, copy) NSString    *boardId;
@@ -29,5 +33,8 @@
 @property (nonatomic, copy) NSDate      *dateUpdated;
 @property (nonatomic, copy) NSString    *type;
 @property (nonatomic, copy) NSString    *friendId;
+
+@property (nonatomic, copy) NSString    *followers;
+@property (nonatomic, copy) NSString    *pinCount;
 
 @end

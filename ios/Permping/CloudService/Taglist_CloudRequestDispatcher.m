@@ -94,14 +94,17 @@ static Taglist_CloudRequestDispatcher *instance = nil;
         if ([request.method isEqualToString:@"POST"])
         {
             [URLRequest setHTTPMethod:@"POST"];
-            NSData *body = [request requestToXMLBody];
+            
+            // tuan change
+            // NSData *body = [request requestToXMLBody];
+            NSData *body = [[request parameterListForGetMethod] dataUsingEncoding:NSUTF8StringEncoding];
+            
             [log appendFormat:@"\tBodyMsg : %@\n", [[[NSString alloc] initWithData:body encoding:NSUTF8StringEncoding] autorelease]];
-            // tuan comment
-            /*if ([Configuration applicationSupportGZIPCommunication]) {
+            /* if ([Configuration applicationSupportGZIPCommunication]) {
                 [URLRequest setHTTPBody:[body gzipDeflate]];
                 [URLRequest setValue:@"gzip" forHTTPHeaderField:@"Content-Encoding"];
             }
-            else*/
+            else */
             {
                 [URLRequest setHTTPBody:body];
             }
@@ -533,7 +536,6 @@ static Taglist_CloudRequestDispatcher *instance = nil;
             cloudResponse.pureResponseData = [NSData dataWithData:receivedData];
         }
     }
-	
 	[receivedData release];
 	receivedData = nil;
 	

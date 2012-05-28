@@ -11,6 +11,7 @@
 #import "CategoryListResponse.h"
 #import "BoardListReponse.h"
 #import "CreateAccountResponse.h"
+#import "UserProfileResponse.h"
 
 extern NSString *const kUserServiceTypeNormal;
 extern NSString *const kUserServiceTypeTwitter;
@@ -37,4 +38,5 @@ extern NSString *const kUserServiceCPasswordKey;
 
 // User service
 + (CreateAccountResponse*)createAccountWithUserInfo:(NSDictionary*)userInfo;
++ (UserProfileResponse*)getUserProfileWithId:(NSString*)userId;
 @end

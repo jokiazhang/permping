@@ -8,7 +8,6 @@
 
 #import "PermCommentCell.h"
 #import "WSComment.h"
-#import "WSUser.h"
 
 @implementation PermCommentCell
 @synthesize avatarView;

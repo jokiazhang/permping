@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "CommentModel.h"
-@class WSComment;
 
 @interface PermCommentCell : UITableViewCell {
     UIImageView *avatarView;
