@@ -23,6 +23,7 @@ public class AccountActivity extends Activity {
 
 	Button logout;
 	Button cancel;
+	Button back;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +34,7 @@ public class AccountActivity extends Activity {
 		
 		logout = (Button) findViewById(R.id.btLogout);
 		cancel = (Button) findViewById(R.id.btCancel);
+		back = (Button) findViewById(R.id.btBack);
 		
 		logout.setOnClickListener(new View.OnClickListener() {
 			
@@ -43,9 +45,6 @@ public class AccountActivity extends Activity {
 				state.setUser(null);
 				
 				// Forward to PermpingMain screen (Followers tab)
-				/*Intent i = new Intent(v.getContext(), PermpingMain.class);
-				View view = ProfileActivityGroup.group.getLocalActivityManager().startActivity("FollowerActivity", i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
-				ProfileActivityGroup.group.replaceView(view);*/
 				Intent intent = new Intent(v.getContext(), PermpingMain.class);
 				v.getContext().startActivity(intent);
 			}
@@ -55,7 +54,14 @@ public class AccountActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
+				ProfileActivityGroup.group.back();
+			}
+		});
+		
+		back.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
 				ProfileActivityGroup.group.back();
 			}
 		});
