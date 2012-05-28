@@ -101,8 +101,8 @@
         if (cell == nil) {
             cell = [[[PermUserCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] autorelease];
         }
-        //phong remove
-//        [cell setCellWithAvartarURLString:perm.permUser.userAvatar userName:perm.permUser.userName category:perm.permCategory];
+
+        [cell setCellWithAvartarURLString:perm.permUser.userAvatar userName:perm.permUser.userName category:perm.permCategory];
         return cell;
     } else if (index == 1){
         static NSString *cellIdentifier = @"PermImageCell";
@@ -130,8 +130,8 @@
         if (cell == nil) {
             cell = [[[PermCommentCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] autorelease];
         }
-        //CommentModel *comment = [perm.permComments objectAtIndex:index-3];
-        //[cell setCellWithComment:comment];
+        CommentModel *comment = [perm.permComments objectAtIndex:index-3];
+        [cell setCellWithComment:comment];
         return cell;
     }
 }

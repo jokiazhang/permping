@@ -8,7 +8,21 @@
 
 #import <UIKit/UIKit.h>
 #import "CommonViewController.h"
+#import "UserProfileModel.h"
 
-@interface ProfileViewController : CommonViewController
+@interface ProfileViewController : CommonViewController<UITableViewDelegate, UITableViewDataSource> {
+    UserProfileModel *userProfile;
+    
+    IBOutlet UIView         *headerView;
+    IBOutlet UIImageView    *avatarView;
+    IBOutlet UILabel        *userNameLabel;
+    IBOutlet UILabel        *permsNumberLabel;
+    IBOutlet UIButton       *followButton;
+    
+    
+    IBOutlet UITableView *boardTableView;
+}
+@property (nonatomic, retain) UserProfileModel *userProfile;
 
+- (void)reloadData;
 @end

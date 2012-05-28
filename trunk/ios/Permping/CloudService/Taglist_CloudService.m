@@ -16,7 +16,7 @@
 #import "Constants.h"
 #import "AppData.h"
 
-NSString *const kUserServiceTypeNormal = @"normal";
+NSString *const kUserServiceTypeNormal = @"perm";
 NSString *const kUserServiceTypeTwitter = @"twitter";
 NSString *const kUserServiceTypeFacebook = @"Facebook";
 
@@ -91,20 +91,34 @@ NSString *const kUserServiceCPasswordKey = @"UserServiceCPasswordKey";
     Taglist_CloudRequest *request = [[Taglist_CloudRequest alloc] init];
     request.requestURL = [SERVER_API stringByAppendingString:@"/userservice/createaccount"];
     request.method = @"POST";
+    /*[request addParameter:@"type" value:[userInfo valueForKey:kUserServiceTypeKey]];
+    [request addParameter:@"oauth_token" value:[userInfo valueForKey:kUserServiceOauthTokenKey]];
     [request addParameter:@"name" value:[userInfo valueForKey:kUserServiceNameKey]];
+    [request addParameter:@"username" value:[userInfo valueForKey:kUserServiceUserNameKey]];
     [request addParameter:@"email" value:[userInfo valueForKey:kUserServiceEmailKey]];
     [request addParameter:@"password" value:[userInfo valueForKey:kUserServicePasswordKey]];
-    [request addParameter:@"cpassword" value:[userInfo valueForKey:kUserServiceCPasswordKey]];
+    [request addParameter:@"cpassword" value:[userInfo valueForKey:kUserServiceCPasswordKey]];*/
     
-    NSString *type = [userInfo valueForKey:kUserServiceTypeKey];
-    [request addParameter:@"type" value:type];
-    if ([type isEqualToString:kUserServiceTypeNormal]) {
-        [request addParameter:@"username" value:[userInfo valueForKey:kUserServiceUserNameKey]];
-    } else {
-        [request addParameter:@"oauth_token" value:[userInfo valueForKey:kUserServiceOauthTokenKey]];
-    }
+    [request addParameter:@"type" value:@"perm"];
+    [request addParameter:@"oauth_token" value:@""];
+    [request addParameter:@"name" value:@"tttest123"];
+    [request addParameter:@"username" value:@"tttest123"];
+    [request addParameter:@"email" value:@"tttest@test.com"];
+    [request addParameter:@"password" value:@"123456"];
+    [request addParameter:@"cpassword" value:@"123456"];
     
     CreateAccountResponse *response = [[CreateAccountResponse alloc] init];    
+    [[Taglist_CloudRequestDispatcher getInstance] dispatchRequest: request response:response];
+    [request release];
+    
+    return [response autorelease];
+}
+
++ (UserProfileResponse*)getUserProfileWithId:(NSString*)userId {
+    Taglist_CloudRequest *request = [[Taglist_CloudRequest alloc] init];
+    request.requestURL = [SERVER_API stringByAppendingFormat:@"/userservice/getprofile/%@", userId];
+    
+    UserProfileResponse *response = [[UserProfileResponse alloc] init];    
     [[Taglist_CloudRequestDispatcher getInstance] dispatchRequest: request response:response];
     [request release];
     

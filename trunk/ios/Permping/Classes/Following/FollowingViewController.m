@@ -133,6 +133,10 @@
     }
 }
 
+- (void)performDownloadThumbnailForObjectList:(NSArray *)objectList thread:(id<ThreadManagementProtocol>)threadObj
+{
+}
+
 #pragma mark - publice methods
 
 - (IBAction)joinButtonDidTouch:(id)sender {

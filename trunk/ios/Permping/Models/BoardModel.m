@@ -10,6 +10,7 @@
 
 @implementation BoardModel
 @synthesize boardId, userId, title, categoryId, desc, dateAdded, dateUpdated, type, friendId;
+@synthesize followers, pinCount;
 
 - (id)init {
     self = [super init];
@@ -29,6 +30,8 @@
     self.dateUpdated = nil;
     self.type = nil;
     self.friendId = nil;
+    self.followers = nil;
+    self.pinCount = nil;
     [super dealloc];
 }
 @end

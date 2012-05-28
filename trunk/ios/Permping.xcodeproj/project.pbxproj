@@ -50,6 +50,7 @@
 		0411A493156D7D9E005EBF18 /* tab-item-profile@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0411A477156D7D9E005EBF18 /* tab-item-profile@2x.png */; };
 		0411A494156D7D9E005EBF18 /* tab-shadow.png in Resources */ = {isa = PBXBuildFile; fileRef = 0411A478156D7D9E005EBF18 /* tab-shadow.png */; };
 		0411A495156D7D9E005EBF18 /* tab-shadow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0411A479156D7D9E005EBF18 /* tab-shadow@2x.png */; };
+		0441C0A51572CD81003C9380 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0441C0A41572CD81003C9380 /* MobileCoreServices.framework */; };
 		044B8BFC1561822400836694 /* MGTwitterEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 044B8BD51561822400836694 /* MGTwitterEngine.m */; };
 		044B8BFD1561822400836694 /* MGTwitterHTTPURLConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 044B8BD91561822400836694 /* MGTwitterHTTPURLConnection.m */; };
 		044B8BFE1561822400836694 /* MGTwitterLibXMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 044B8BDB1561822400836694 /* MGTwitterLibXMLParser.m */; };
@@ -113,11 +114,13 @@
 		04B43C2A1560364E00F61E6A /* JoinViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04B43C281560364E00F61E6A /* JoinViewController.xib */; };
 		04B43C2E1560364E00F61E6A /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B43C2C1560364E00F61E6A /* LoginViewController.m */; };
 		04B43C2F1560364E00F61E6A /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04B43C2D1560364E00F61E6A /* LoginViewController.xib */; };
-		04B4983F1568ECC500BBF2EC /* UserProfileView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B4983E1568ECC500BBF2EC /* UserProfileView.m */; };
 		04B498471568F5E600BBF2EC /* AppData.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B498461568F5E500BBF2EC /* AppData.m */; };
 		04B5D28115654B8C000E3E1B /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B5D28015654B8C000E3E1B /* Utils.m */; };
 		04BB036215642D2100C075CD /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 04BB036015642D2100C075CD /* Icon.png */; };
 		04BB036315642D2100C075CD /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04BB036115642D2100C075CD /* Icon@2x.png */; };
+		04C586051572A90E003435D9 /* UserProfileModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C586041572A90E003435D9 /* UserProfileModel.m */; };
+		04C586081572AC66003435D9 /* UserProfileResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C586071572AC66003435D9 /* UserProfileResponse.m */; };
+		04C5860B1572B71C003435D9 /* UserProfile_DataLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C5860A1572B71C003435D9 /* UserProfile_DataLoader.m */; };
 		04C7AE83156939DC004ED1B0 /* CreatePermViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C7AE81156939DC004ED1B0 /* CreatePermViewController.m */; };
 		04C7AE84156939DC004ED1B0 /* CreatePermViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04C7AE82156939DC004ED1B0 /* CreatePermViewController.xib */; };
 		04C7C35B15615572004DB98D /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 04C7C35A15615572004DB98D /* libxml2.dylib */; };
@@ -274,6 +277,7 @@
 		0411A477156D7D9E005EBF18 /* tab-item-profile@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tab-item-profile@2x.png"; path = "Permping/Resources/Images/tab-item-profile@2x.png"; sourceTree = SOURCE_ROOT; };
 		0411A478156D7D9E005EBF18 /* tab-shadow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tab-shadow.png"; path = "Permping/Resources/Images/tab-shadow.png"; sourceTree = SOURCE_ROOT; };
 		0411A479156D7D9E005EBF18 /* tab-shadow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tab-shadow@2x.png"; path = "Permping/Resources/Images/tab-shadow@2x.png"; sourceTree = SOURCE_ROOT; };
+		0441C0A41572CD81003C9380 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		044B8BD41561822400836694 /* MGTwitterEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGTwitterEngine.h; sourceTree = "<group>"; };
 		044B8BD51561822400836694 /* MGTwitterEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGTwitterEngine.m; sourceTree = "<group>"; };
 		044B8BD61561822400836694 /* MGTwitterEngineDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGTwitterEngineDelegate.h; sourceTree = "<group>"; };
@@ -389,14 +393,18 @@
 		04B43C2B1560364E00F61E6A /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		04B43C2C1560364E00F61E6A /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		04B43C2D1560364E00F61E6A /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
-		04B4983D1568ECC500BBF2EC /* UserProfileView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserProfileView.h; sourceTree = "<group>"; };
-		04B4983E1568ECC500BBF2EC /* UserProfileView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserProfileView.m; sourceTree = "<group>"; };
 		04B498451568F5E500BBF2EC /* AppData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppData.h; sourceTree = "<group>"; };
 		04B498461568F5E500BBF2EC /* AppData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppData.m; sourceTree = "<group>"; };
 		04B5D27F15654B8C000E3E1B /* Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
 		04B5D28015654B8C000E3E1B /* Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utils.m; sourceTree = "<group>"; };
 		04BB036015642D2100C075CD /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = Permping/Icon.png; sourceTree = SOURCE_ROOT; };
 		04BB036115642D2100C075CD /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon@2x.png"; path = "Permping/Icon@2x.png"; sourceTree = SOURCE_ROOT; };
+		04C586031572A90E003435D9 /* UserProfileModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserProfileModel.h; sourceTree = "<group>"; };
+		04C586041572A90E003435D9 /* UserProfileModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserProfileModel.m; sourceTree = "<group>"; };
+		04C586061572AC66003435D9 /* UserProfileResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserProfileResponse.h; sourceTree = "<group>"; };
+		04C586071572AC66003435D9 /* UserProfileResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserProfileResponse.m; sourceTree = "<group>"; };
+		04C586091572B71C003435D9 /* UserProfile_DataLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserProfile_DataLoader.h; sourceTree = "<group>"; };
+		04C5860A1572B71C003435D9 /* UserProfile_DataLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserProfile_DataLoader.m; sourceTree = "<group>"; };
 		04C7AE80156939DC004ED1B0 /* CreatePermViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreatePermViewController.h; sourceTree = "<group>"; };
 		04C7AE81156939DC004ED1B0 /* CreatePermViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreatePermViewController.m; sourceTree = "<group>"; };
 		04C7AE82156939DC004ED1B0 /* CreatePermViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CreatePermViewController.xib; sourceTree = "<group>"; };
@@ -570,6 +578,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0441C0A51572CD81003C9380 /* MobileCoreServices.framework in Frameworks */,
 				04A0715115722D7800C6FFB8 /* libKal.a in Frameworks */,
 				26642EE4156EBA6F00577978 /* CoreTelephony.framework in Frameworks */,
 				6AD1C8361563584200FB5CB1 /* QuartzCore.framework in Frameworks */,
@@ -834,8 +843,6 @@
 				04B43BE41560364E00F61E6A /* ProfileViewController.h */,
 				04B43BE51560364E00F61E6A /* ProfileViewController.m */,
 				04B43BE61560364E00F61E6A /* ProfileViewController.xib */,
-				04B4983D1568ECC500BBF2EC /* UserProfileView.h */,
-				04B4983E1568ECC500BBF2EC /* UserProfileView.m */,
 			);
 			name = Profile;
 			path = Permping/Classes/Profile;
@@ -883,6 +890,7 @@
 		04DFAC4D155E40A300AE9FFD = {
 			isa = PBXGroup;
 			children = (
+				0441C0A41572CD81003C9380 /* MobileCoreServices.framework */,
 				04DFAC62155E40A300AE9FFD /* Permping */,
 				04DFAC92155E446D00AE9FFD /* Resources */,
 				04DFAC5B155E40A300AE9FFD /* Frameworks */,
@@ -1065,6 +1073,8 @@
 				04A071241572163400C6FFB8 /* BoardListReponse.m */,
 				04A0715615723B8400C6FFB8 /* CreateAccountResponse.h */,
 				04A0715715723B8B00C6FFB8 /* CreateAccountResponse.m */,
+				04C586061572AC66003435D9 /* UserProfileResponse.h */,
+				04C586071572AC66003435D9 /* UserProfileResponse.m */,
 			);
 			path = Response;
 			sourceTree = "<group>";
@@ -1080,6 +1090,8 @@
 				04A071271572185100C6FFB8 /* BoardList_DataLoader.m */,
 				04A071591572471A00C6FFB8 /* CreateAccount_DataLoader.h */,
 				04A0715A1572471A00C6FFB8 /* CreateAccount_DataLoader.m */,
+				04C586091572B71C003435D9 /* UserProfile_DataLoader.h */,
+				04C5860A1572B71C003435D9 /* UserProfile_DataLoader.m */,
 			);
 			path = Dataloader;
 			sourceTree = "<group>";
@@ -1111,6 +1123,8 @@
 				04A0711715720A3C00C6FFB8 /* BoardModel.m */,
 				04A0711A15720A4C00C6FFB8 /* CategoryModel.h */,
 				04A0711B15720A4C00C6FFB8 /* CategoryModel.m */,
+				04C586031572A90E003435D9 /* UserProfileModel.h */,
+				04C586041572A90E003435D9 /* UserProfileModel.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1505,7 +1519,6 @@
 				6AD1DC8E156C922600551787 /* CTidy.m in Sources */,
 				04B5D28115654B8C000E3E1B /* Utils.m in Sources */,
 				04CBAB4B15664C0E00BB45C8 /* NSURLConnectionFake.m in Sources */,
-				04B4983F1568ECC500BBF2EC /* UserProfileView.m in Sources */,
 				04B498471568F5E600BBF2EC /* AppData.m in Sources */,
 				04C7AE83156939DC004ED1B0 /* CreatePermViewController.m in Sources */,
 				6A625B22156CED6E00D5F37A /* CategoriesRequest.m in Sources */,
@@ -1557,6 +1570,9 @@
 				04A0712C15721EBF00C6FFB8 /* BoardViewController.m in Sources */,
 				04A0715815723B8D00C6FFB8 /* CreateAccountResponse.m in Sources */,
 				04A0715B1572471B00C6FFB8 /* CreateAccount_DataLoader.m in Sources */,
+				04C586051572A90E003435D9 /* UserProfileModel.m in Sources */,
+				04C586081572AC66003435D9 /* UserProfileResponse.m in Sources */,
+				04C5860B1572B71C003435D9 /* UserProfile_DataLoader.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MobileCoreServices/MobileCoreServices.h>
 #import "CommonViewController.h"
 
-@interface ImageViewController : CommonViewController {
+@interface ImageViewController : CommonViewController<UINavigationControllerDelegate, UIImagePickerControllerDelegate> {
     IBOutlet UIButton   *takePhotoButton;
     IBOutlet UIButton   *galleryButton;
     IBOutlet UIButton   *createBoardButton;
