@@ -14,11 +14,10 @@
     IBOutlet UITableView    *infoTableView;
     IBOutlet UIButton       *createAccountButton;
     
-    BOOL    loggedin;
     NSArray     *fieldsTitle;
     NSMutableDictionary *userInfo;
 }
-@property (nonatomic, assign) BOOL loggedin;
+@property (nonatomic, retain) NSMutableDictionary *userInfo;
 @property (nonatomic, retain) NSArray *fieldsTitle;
 - (IBAction)createAccountButtonDidTouch:(id)sender;
 

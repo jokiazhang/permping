@@ -56,8 +56,6 @@
 
 - (void) permFromBoardOnStartElement:(NSString *)path name:(NSString *)name
 {
-    [super onStartElement:path name:name];
-    
     if ([@"/response/perms/item" isEqualToString:path]) 
 	{
 		PermModel *model = [[PermModel alloc] init];
@@ -137,7 +135,6 @@
 
 - (void) permFromBoardOnEndElement:(NSString *)path name:(NSString *)name text:(NSString *)text
 {       
-    
 	if ([@"/response/perms/item/permId" isEqualToString:path]) 
 	{
         if (self.currentPerm)
@@ -227,6 +224,8 @@
    	return;
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////
 
 - (void) onStartElement:(NSString *)path name:(NSString *)name
 {
@@ -270,6 +269,8 @@
 
 - (void)foundCDATA:(NSData *)CDATABlock onPath:(NSString *)path
 {
+    [super foundCDATA:CDATABlock onPath:path];
+    
     if (self.permFromBoard) {
         [self permFromBoardFoundCDATA:CDATABlock onPath:path];
         return;

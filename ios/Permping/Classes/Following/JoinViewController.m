@@ -9,12 +9,11 @@
 #import "JoinViewController.h"
 #import "UserInfoTableViewCell.h"
 #import "Utils.h"
+#import "AppData.h"
 #import "Taglist_CloudService.h"
-#import "CreateAccount_DataLoader.h"
-#import "CreateAccountResponse.h"
 
 @implementation JoinViewController
-@synthesize loggedin, fieldsTitle;
+@synthesize fieldsTitle, userInfo;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -41,11 +40,8 @@
     
     self.navigationItem.leftBarButtonItem = [Utils barButtonnItemWithTitle:NSLocalizedString(@"globals.cancel", @"Cancel") target:self selector:@selector(dismiss:)];
     
-    if (loggedin) {
-        self.fieldsTitle = [NSArray arrayWithObjects:@"Name :", @"Email :", @"Password :", @"Confirm Password :", nil];
-    } else {
-        self.fieldsTitle = [NSArray arrayWithObjects:@"Name :", @"Nick Name :", @"Username :", @"Email :", @"Password :", @"Confirm Password :", nil];
-    }
+    self.fieldsTitle = [NSArray arrayWithObjects:@"Name :", @"Username :", @"Email :", @"Password :", @"Confirm Password :", nil];
+
 }
 
 - (void)viewDidUnload
@@ -56,7 +52,20 @@
 
 - (void)dealloc
 {
+    self.userInfo = nil;
     [super dealloc];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    //add notification
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(createAccountDidFinish:) name:kCreateAccountFinishNotification object:nil];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kCreateAccountFinishNotification object:nil];
 }
 
 #pragma mark - <UITableViewDelegate + DataSource> implementation
@@ -83,8 +92,12 @@
         cell = [[UserInfoTableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:reuserIdentifier];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.valueTextField.delegate = self;
+        // note : cell must not be reused
+        cell.valueTextField.tag = indexPath.row;
     }
-    
+    if (indexPath.row == 3 || indexPath.row == 4) {
+        cell.valueTextField.secureTextEntry = YES;
+    }
     cell.textLabel.text = [self.fieldsTitle objectAtIndex:indexPath.row];
     return cell;
 }
@@ -94,49 +107,60 @@
     cell.textLabel.font = [UIFont systemFontOfSize:15];
 }
 
+#pragma mark - TextFieldDelegate
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
     return YES;
 }
 
-- (IBAction)createAccountButtonDidTouch:(id)sender {
-    [self startActivityIndicator];
-    self.dataLoaderThread = [[ThreadManager getInstance] dispatchToConcurrentBackgroundNormalPriorityQueueWithTarget:self selector:@selector(loadDataForMe:thread:) dataObject:[self getMyDataLoader]];
-}
-
-#pragma mark - Override methods
-- (id)getMyDataLoader
-{
-    CreateAccount_DataLoader *loader = [[CreateAccount_DataLoader alloc] init];
-    return [loader autorelease];
-}
-
-- (void)loadDataForMe:(id)loader thread:(id<ThreadManagementProtocol>)threadObj
-{
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-    if (![threadObj isCancelled]) {
-        dispatch_async(dispatch_get_main_queue(), ^(void)
-                       {
-                           //[self initializeUIControls]; 
-                           
-                       });
-        userInfo = [[NSMutableDictionary alloc] initWithObjectsAndKeys:@"perm", kUserServiceTypeKey, @"test123", kUserServiceNameKey, @"test123", kUserServiceUserNameKey, @"test123@test.com", kUserServiceEmailKey, @"123456", kUserServicePasswordKey, @"123456", kUserServiceCPasswordKey, @"", kUserServiceOauthTokenKey, nil];
-        CreateAccountResponse *response = [(CreateAccount_DataLoader *)loader createAccountWithUserInfo:userInfo];
-        
-        if (![threadObj isCancelled]) {
-            
-            dispatch_async(dispatch_get_main_queue(), ^(void)
-                           {
-                               [self stopActivityIndicator];
-                           });
+- (BOOL)validateInputData {
+    NSString *errorMessage = nil;
+    NSInteger count = self.fieldsTitle.count;
+    for (NSInteger i=0; i<count; i++) {
+        UserInfoTableViewCell *cell = (UserInfoTableViewCell*)[infoTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
+        if ([cell.valueTextField.text isEqualToString:@""]) {
+            errorMessage = @"Please input required fields";
+            break;
+        }
+        if (i == 0) {
+            [self.userInfo setObject:cell.valueTextField.text forKey:kUserServiceNameKey];
+        } else if (i == 1) {
+            [self.userInfo setObject:cell.valueTextField.text forKey:kUserServiceUserNameKey];
+        } else if (i == 2) {
+            [self.userInfo setObject:cell.valueTextField.text forKey:kUserServiceEmailKey];
+        } else if (i == 3) {
+            [self.userInfo setObject:cell.valueTextField.text forKey:kUserServicePasswordKey];
+        } else if (i == 4) {
+            [self.userInfo setObject:cell.valueTextField.text forKey:kUserServiceCPasswordKey];
         }
     }
-    //[myLoader release];
-    [pool drain];
+    
+    if (errorMessage) {
+        [Utils displayAlert:errorMessage delegate:nil];
+        return NO;
+    }
+    [self.userInfo setObject:[[AppData getInstance] oauthToken] forKey:kUserServiceOauthTokenKey];
+    [self.userInfo setObject:[[AppData getInstance] oauthTokenType] forKey:kUserServiceTypeKey];
+    return YES;
+}
+
+- (IBAction)createAccountButtonDidTouch:(id)sender {
+    [self startActivityIndicator];
+    if ([self validateInputData]) {
+        [[AppData getInstance] createAccountWithUserInfo:userInfo];
+    }
 }
 
 - (void)dismiss:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)createAccountDidFinish:(NSNotification*)notification {
+    [self stopActivityIndicator];
+    BOOL isSuccess = [(NSNumber*)notification.object boolValue];
+    if (isSuccess) {
+        [self dismiss:nil];
+    }
 }
 
 @end

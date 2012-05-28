@@ -211,12 +211,12 @@ static Taglist_CloudRequestDispatcher *instance = nil;
             NSData *body = [request requestToXMLBody];
 			[log appendFormat:@"\tBodyMsg : %@\n", [[[NSString alloc] initWithData:body encoding:NSUTF8StringEncoding] autorelease]];
 			[URLRequest setHTTPMethod:@"POST"];
-            
-            if ([Configuration applicationSupportGZIPCommunication]) {
+            // tuan comment
+            /*if ([Configuration applicationSupportGZIPCommunication]) {
                 [URLRequest setHTTPBody:[body gzipDeflate]];
                 [URLRequest setValue:@"gzip" forHTTPHeaderField:@"Content-Encoding"];
             }
-            else
+            else*/
             {
                 [URLRequest setHTTPBody:body];
             }
@@ -501,6 +501,8 @@ static Taglist_CloudRequestDispatcher *instance = nil;
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)conn
 {
+    NSLog(@"receivedData %d: %@", [receivedData length], [[NSString alloc] initWithData:receivedData encoding:NSUTF8StringEncoding]);
+    
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 
     [Logger logDebug:@"Cloud Dispatch request result for target URL:%@\n%@\nTotal bytes received:%d", [currentRequest getTargetRequestURL], [[[NSString alloc] initWithData:receivedData encoding:NSUTF8StringEncoding] autorelease], [receivedData length]];

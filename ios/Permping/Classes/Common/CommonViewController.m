@@ -7,8 +7,6 @@
 //
 
 #import "CommonViewController.h"
-#import "ThreadManager.h"
-#import <QuartzCore/QuartzCore.h>
 
 #define SPINNER_BACKGROUND_WIDTH    100
 #define SPINNER_BACKGROUND_HEIGHT   60

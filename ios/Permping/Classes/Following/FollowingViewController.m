@@ -50,9 +50,7 @@
     [joinViewContainer.layer setBorderColor:[UIColor lightGrayColor].CGColor];
     [joinViewContainer.layer setBorderWidth:1.f];
     
-    if (![[AppData getInstance] checkDidLogin]) {
-        permTableview.tableHeaderView = tableHeaderView;
-    }
+    
 }
 
 - (void)viewDidUnload
@@ -63,10 +61,25 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
+    if (![[AppData getInstance] didLogin]) {
+        permTableview.tableHeaderView = tableHeaderView;
+    } else {
+        permTableview.tableHeaderView = nil;
+    }
+    
     [self startActivityIndicator];
     self.resultModel.arrResults = nil;
     self.resultModel = [[[Taglist_NDModel alloc] init] autorelease];
     self.dataLoaderThread = [[ThreadManager getInstance] dispatchToConcurrentBackgroundNormalPriorityQueueWithTarget:self selector:@selector(loadDataForMe:thread:) dataObject:[self getMyDataLoader]];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    if ([joinView superview]) {
+        [joinView removeFromSuperview];
+    }
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kSocialNetworkDidLoginNotification object:nil];
+    
 }
 
  - (void)dealloc
@@ -94,7 +107,12 @@
         NSInteger    nextId = -1;
         NSArray *arr = nil;
         
-        PermListResponse *response = [(FollowingScreen_DataLoader *)loader getPopularFromNextItemId:nextId requestedCount:30];
+        PermListResponse *response = nil;
+        if ([[AppData getInstance] didLogin]) {
+            response = [(FollowingScreen_DataLoader *)loader getPermWithUserId:@"118" nextItemId:nextId requestedCount:30];
+        } else {
+            [(FollowingScreen_DataLoader *)loader getPopularFromNextItemId:nextId requestedCount:30];
+        }
         nextId = response.nextItemId;
         arr = [response getResponsePermList];
         
@@ -149,12 +167,14 @@
     [controller release];
 }
 
-- (void)showJoinViewControllerLoggedin:(BOOL)loggedin {
-    JoinViewController *controller = [[JoinViewController alloc] initWithNibName:@"JoinViewController" bundle:nil];
-    controller.loggedin = loggedin;
-    [self.navigationController pushViewController:controller animated:YES];
-    [controller release];
-    [joinView removeFromSuperview];
+- (void)showJoinViewController {
+    if ([joinView superview]) {
+        [joinView removeFromSuperview];
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:kSocialNetworkDidLoginNotification object:nil];
+        JoinViewController *controller = [[JoinViewController alloc] initWithNibName:@"JoinViewController" bundle:nil];
+        [self.navigationController pushViewController:controller animated:YES];
+        [controller release];
+    }
 }
 
 - (IBAction)joinViewButtonDidTouch:(id)sender {
@@ -163,26 +183,18 @@
         [joinView removeFromSuperview];
     } else if (button.tag == 1) { // facebook
         if ([[AppData getInstance] fbLoggedIn]) {
-            [self showJoinViewControllerLoggedin:YES];
+            [self showJoinViewController];
+        } else {
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showJoinViewController) name:kSocialNetworkDidLoginNotification object:nil];
         }
     } else if (button.tag == 2) { // twitter
-        float version = [[[UIDevice currentDevice] systemVersion] floatValue];
-        if (version >= 5.0) {
-            if ([TWTweetComposeViewController canSendTweet]) {
-                [self showJoinViewControllerLoggedin:YES];
-            } else {
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"No twitter account has been setup." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-                [alert show];
-                [alert release];
-            }
-            return;
+        if ([[AppData getInstance] twitterLoggedIn]) {
+            [self showJoinViewController];
         } else {
-            if ([[AppData getInstance] twitterLoggedIn] == YES) {
-                [self showJoinViewControllerLoggedin:YES];
-            }
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showJoinViewController) name:kSocialNetworkDidLoginNotification object:nil];
         }
     } else {
-        [self showJoinViewControllerLoggedin:NO];
+        [self showJoinViewController];
     }
 }
 

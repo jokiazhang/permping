@@ -8,9 +8,13 @@
 
 #import <Foundation/Foundation.h>
 #import "Taglist_CloudResponse.h"
+#import "UserProfileModel.h"
+#import "BoardModel.h"
 
 @interface CreateAccountResponse : Taglist_CloudResponse {
-    
+    NSMutableArray          *boardList;
+    BoardModel              *currentBoard;
+    UserProfileModel        *currentUser;
 }
-
+- (UserProfileModel*)getUserProfile;
 @end

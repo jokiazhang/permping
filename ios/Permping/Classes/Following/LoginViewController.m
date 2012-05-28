@@ -44,6 +44,10 @@
     [super viewDidUnload];
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kSocialNetworkDidLoginNotification object:nil];
+}
 #pragma mark - <UITableViewDelegate + DataSource> implementation
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
@@ -89,15 +93,24 @@
     return YES;
 }
 
+- (void)performLoginWithSocialNetworkToken:(NSNotification*)notification {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kSocialNetworkDidLoginNotification object:nil];
+    
+}
+
 - (IBAction)facebookButtonDidTouch:(id)sender {
     if ([[AppData getInstance] fbLoggedIn]) {
-        NSLog(@"fbLoggedIn");
+        [self performLoginWithSocialNetworkToken:nil];
+    } else {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(performLoginWithSocialNetworkToken:) name:kSocialNetworkDidLoginNotification object:nil];
     }
 }
 
 - (IBAction)twitterButtonDidTouch:(id)sender {
     if ([[AppData getInstance] twitterLoggedIn]) {
-        NSLog(@"twitterLoggedIn");
+        [self performLoginWithSocialNetworkToken:nil];
+    } else {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(performLoginWithSocialNetworkToken:) name:kSocialNetworkDidLoginNotification object:nil];
     }
 }
 

@@ -47,6 +47,8 @@
 
 - (void)foundCDATA:(NSData *)CDATABlock onPath:(NSString *)path
 {
+    [super foundCDATA:CDATABlock onPath:path];
+    
     if ([@"/response/categories/item/title" isEqualToString:path]) 
 	{
         NSString *text = [[NSString alloc] initWithData:CDATABlock encoding:NSUTF8StringEncoding];
