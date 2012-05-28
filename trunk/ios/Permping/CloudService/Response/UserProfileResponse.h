@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Taglist_CloudPagingResponse.h"
+#import "Taglist_CloudResponse.h"
 #import "UserProfileModel.h"
 #import "BoardModel.h"
 

@@ -17,4 +17,7 @@
 - (PermListResponse *)getPopularFromNextItemId:(NSInteger)nextItemId requestedCount:(NSUInteger)count;
 
 - (PermListResponse *)getPermWithBoardId:(NSString*)boardId nextItemId:(NSInteger)nextId requestedCount:(NSUInteger)count;
+
+- (PermListResponse*)getPermWithUserId:(NSString*)userId nextItemId:(NSInteger)nextId requestedCount:(NSUInteger)count;
+
 @end

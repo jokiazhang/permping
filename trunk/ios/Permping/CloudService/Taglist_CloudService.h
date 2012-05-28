@@ -31,10 +31,11 @@ extern NSString *const kUserServiceCPasswordKey;
 } 
 
 + (NSString *)getTaglistHTTPURLBase;
-+ (PermListResponse *)getPopularListWithRequestCount:(NSUInteger)count nextItemId:(NSInteger)nextId;
++ (PermListResponse*)getPopularListWithRequestCount:(NSUInteger)count nextItemId:(NSInteger)nextId;
 + (CategoryListResponse*)getCategoryList;
 + (BoardListReponse*)getBoardListWithCategoryId:(NSString*)categoryId;
-+ (PermListResponse *)getPermWithBoardId:(NSString*)boardId nextItemId:(NSInteger)nextId requestedCount:(NSUInteger)count;
++ (PermListResponse*)getPermWithBoardId:(NSString*)boardId nextItemId:(NSInteger)nextId requestedCount:(NSUInteger)count;
++ (PermListResponse*)getPermWithUserId:(NSString*)userId requestCount:(NSUInteger)count nextItemId:(NSInteger)nextId;
 
 // User service
 + (CreateAccountResponse*)createAccountWithUserInfo:(NSDictionary*)userInfo;

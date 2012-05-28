@@ -10,30 +10,35 @@
 #import <Twitter/TWTweetComposeViewController.h>
 #import "SA_OAuthTwitterEngine.h"
 #import "SA_OAuthTwitterController.h"
+#import "UserProfileModel.h"
 
-@class WSUser;
+#define kCreateAccountFinishNotification    @"CreateAccountFinishNotification"
+#define kLoginFinishNotification            @"kLoginFinishNotification"
+#define kSocialNetworkDidLoginNotification  @"SocialNetworkDidLoginNotification"
 
-typedef enum {
-    LoginTypeNormal,
-    LoginTypeFacebook,
-    LoginTypeTwitter
-}LoginType;
+#define kOauthTokenTypeKey                  @"OauthTokenType"
 
 @interface AppData : NSObject<SA_OAuthTwitterEngineDelegate, SA_OAuthTwitterControllerDelegate> {
-    WSUser          *_user;
-    NSString        *_password;
+    UserProfileModel        *_user;
+    NSString                *_password;
+    
+    NSDictionary            *_userInfo;
     
     SA_OAuthTwitterEngine       *twitterEngine;
     SA_OAuthTwitterController   *saController;
     
     BOOL            _isLogout;
+    BOOL            _isCreatingAccount;
+    BOOL            _isLogging;
 }
-@property (nonatomic, retain) WSUser *user;
-@property (nonatomic, retain) NSString *password;
+@property (nonatomic, retain) UserProfileModel  *user;
+@property (nonatomic, retain) NSString          *password;
 
 + (AppData *)getInstance;
 
-- (BOOL)createAccountWithUserInfo:(NSDictionary*)userInfo;
+- (void)createAccountWithUserInfo:(NSDictionary*)userInfo;
+
+- (void)logout;
 
 - (void) restoreState;
 
@@ -43,6 +48,10 @@ typedef enum {
 
 - (BOOL)twitterLoggedIn;
 
-- (BOOL)checkDidLogin;
+- (BOOL)didLogin;
+
+- (NSString*)oauthTokenType;
+
+- (NSString*)oauthToken;
 
 @end

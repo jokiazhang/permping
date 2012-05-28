@@ -7,15 +7,22 @@
 //
 
 #import "AppData.h"
-#import "Webservices.h"
 #import "Constants.h"
+#import "Utils.h"
 #import "FBFeedPost.h"
+#import "ThreadManager.h"
 #import "Taglist_CloudService.h"
+#import "CreateAccount_DataLoader.h"
 #import "CreateAccountResponse.h"
+
+@interface AppData ()
+@property (nonatomic, retain)NSDictionary *userInfo;
+@end
 
 @implementation AppData
 
 @synthesize user=_user, password=_password;
+@synthesize userInfo=_userInfo;
 
 // --------------------------------------------------------------------------
 // singelton
@@ -45,7 +52,7 @@
 	{
         _user               = nil;
         _password           = nil;
-		_isLogout           = NO;
+		_isLogout           = YES;
         // read the user settings.
         [self restoreState];
 	}
@@ -59,7 +66,7 @@
 - (void)dealloc
 {
     [self saveState];
-	
+	[_userInfo release];
     [_user release];
     [_password release];
     [super dealloc];
@@ -68,8 +75,55 @@
 #pragma mark	-
 #pragma mark		user service
 #pragma mark	-
+- (id)getMyDataLoader
+{
+    CreateAccount_DataLoader *loader = [[CreateAccount_DataLoader alloc] init];
+    return [loader autorelease];
+}
+
+- (void)loadDataForMe:(id)loader thread:(id<ThreadManagementProtocol>)threadObj
+{
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+    if (![threadObj isCancelled]) {
+        dispatch_async(dispatch_get_main_queue(), ^(void)
+                       {
+                           //[self initializeUIControls]; 
+                           
+                       });
+        CreateAccountResponse *response = [(CreateAccount_DataLoader *)loader createAccountWithUserInfo:self.userInfo];
+        NSError *error = response.responseError;
+        if (!error) {
+            self.user = [response getUserProfile];
+            _isLogout = NO;
+        }
+        
+        if (![threadObj isCancelled]) {
+            
+            dispatch_async(dispatch_get_main_queue(), ^(void)
+                           {
+                               if (error) {
+                                   [Utils displayAlert:[error localizedDescription] delegate:nil];
+                               }
+                               [[NSNotificationCenter defaultCenter] postNotificationName:kCreateAccountFinishNotification object:[NSNumber numberWithBool:_isLogout] userInfo:nil];
+                           });
+        }
+    }
+    //[myLoader release];
+    [pool drain];
+}
 
 
+- (void)createAccountWithUserInfo:(NSDictionary*)in_userInfo {
+    if (in_userInfo == nil) {
+        return;
+    }
+    self.userInfo = in_userInfo;
+    [[ThreadManager getInstance] dispatchToConcurrentBackgroundNormalPriorityQueueWithTarget:self selector:@selector(loadDataForMe:thread:) dataObject:[self getMyDataLoader]];
+}
+
+- (void)logout {
+    
+}
 
 #pragma mark	-
 #pragma mark		save / restore state
@@ -84,11 +138,8 @@
     //
     // Read the global preferences and set the app preferences 
     //
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    //NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	
-	NSDictionary *userDict = [defaults objectForKey:@"userkey"];
-	
-    self.user = [[[WSUser alloc] initWithDictionary:userDict] autorelease];
     self.password = @"";
     
     return;
@@ -99,13 +150,12 @@
 - (void) saveState
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject:[self.user dictionary] forKey:@"userkey"];
     [defaults synchronize];
     return;
 }
 
-- (BOOL)checkDidLogin {
-    return NO;
+- (BOOL)didLogin {
+    return !_isLogout;
 }
 
 #pragma mark	-
@@ -136,6 +186,7 @@
 
 - (void) didLogin:(FBFeedPost *)_post {
     NSLog(@"Facebook login successed");
+    [[NSNotificationCenter defaultCenter] postNotificationName:kSocialNetworkDidLoginNotification object:nil];
     [_post release];
 }
 
@@ -148,50 +199,36 @@
 #pragma mark		Twitter
 #pragma mark	-
 - (BOOL)twitterLoggedIn {
-    float version = [[[UIDevice currentDevice] systemVersion] floatValue];
-    if (version >= 5.0) {
-        if ([TWTweetComposeViewController canSendTweet]) {
-            return YES;
-        } else {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"No twitter account has been setup." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-            [alert show];
-            [alert release];
-        }
-    } else {
-        if (!twitterEngine) {
-            twitterEngine = [[SA_OAuthTwitterEngine alloc] initOAuthWithDelegate:self];
-            twitterEngine.consumerKey = TWITTER_CONSUMER_KEY;
-            twitterEngine.consumerSecret = TWITTER_CONSUMER_SECRECT;
-        }
-        
-        if ([twitterEngine isAuthorized]) {
-            // logged in
-            return YES;
-        }
-        
-        // show login diaglog
-        if (saController) {
-            [saController release];        
-        }
-        SA_OAuthTwitterController *controller = [SA_OAuthTwitterController controllerToEnterCredentialsWithTwitterEngine:twitterEngine delegate:self];
-        if (controller) {
-            saController = [controller retain];
-        }
-        [saController showLoginDialog];
+    if (!twitterEngine) {
+        twitterEngine = [[SA_OAuthTwitterEngine alloc] initOAuthWithDelegate:self];
+        twitterEngine.consumerKey = TWITTER_CONSUMER_KEY;
+        twitterEngine.consumerSecret = TWITTER_CONSUMER_SECRECT;
     }
+    
+    if ([twitterEngine isAuthorized]) {
+        return YES;
+    }
+    
+    // show login diaglog
+    if (saController) {
+        [saController release];        
+    }
+    SA_OAuthTwitterController *controller = [SA_OAuthTwitterController controllerToEnterCredentialsWithTwitterEngine:twitterEngine delegate:self];
+    if (controller) {
+        saController = [controller retain];
+    }
+    [saController showLoginDialog];
     
     return NO;
 }
 
-
-
 #pragma mark - SA_OAuthTwitterEngineDelegate
 
 - (void) storeCachedTwitterOAuthData: (NSString *) data forUsername: (NSString *) username {
-    
 	NSUserDefaults	*defaults = [NSUserDefaults standardUserDefaults];
     NSLog(@"storeCachedTwitterOAuthData data - username: %@ - %@", data, username);
 	[defaults setObject: data forKey: @"authData"];
+    [defaults setObject: kUserServiceTypeTwitter forKey:kUserServiceTypeKey];
 	[defaults synchronize];
 }
 
@@ -206,8 +243,8 @@
 - (void) OAuthTwitterController: (SA_OAuthTwitterController *) controller authenticatedWithUsername: (NSString *) username {
     
 	NSLog(@"Authenticated with user %@", username);
-    //[self showJoinViewControllerLoggedin:YES];
     
+    [[NSNotificationCenter defaultCenter] postNotificationName:kSocialNetworkDidLoginNotification object:nil];
 }
 
 - (void) OAuthTwitterControllerFailed: (SA_OAuthTwitterController *) controller {
@@ -223,7 +260,6 @@
 
 
 #pragma mark - MGTwitterEngineDelegate Methods
-
 - (void)requestSucceeded:(NSString *)connectionIdentifier {
     
 	NSLog(@"Request Suceeded: %@", connectionIdentifier);
@@ -262,5 +298,31 @@
 	NSLog(@"Misc Info Received: %@", miscInfo);
 }
 
+
+- (NSString*)oauthTokenType {
+    NSString *oauthTokenType = [[NSUserDefaults standardUserDefaults] objectForKey:kOauthTokenTypeKey];
+    if (!oauthTokenType) {
+        oauthTokenType = kUserServiceTypeNormal;
+    }
+    return oauthTokenType;
+    
+}
+
+- (NSString*)oauthToken {
+    NSString *oauthTokenType = [self oauthTokenType];
+    NSString *oauthToken = @"";
+    if ([oauthTokenType isEqualToString:kUserServiceTypeFacebook]) {
+        NSString *fbToken = [[NSUserDefaults standardUserDefaults] objectForKey:@"access_token"];
+        if (fbToken) {
+            oauthToken = fbToken;
+        }
+    } else if ([oauthTokenType isEqualToString:kUserServiceTypeTwitter]){
+        NSString *twToken = [[NSUserDefaults standardUserDefaults] objectForKey:@"authData"];
+        if (twToken) {
+            oauthToken = twToken;
+        }
+    }
+    return oauthToken;
+}
 
 @end

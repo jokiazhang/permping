@@ -19,4 +19,8 @@
 - (PermListResponse *)getPermWithBoardId:(NSString*)boardId nextItemId:(NSInteger)nextId requestedCount:(NSUInteger)count {
     return [Taglist_CloudService getPermWithBoardId:boardId nextItemId:nextId requestedCount:count];
 }
+
+- (PermListResponse*)getPermWithUserId:(NSString*)userId nextItemId:(NSInteger)nextId requestedCount:(NSUInteger)count {
+    return [Taglist_CloudService getPermWithUserId:userId requestCount:count nextItemId:nextId];
+}
 @end

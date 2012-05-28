@@ -87,25 +87,36 @@ NSString *const kUserServiceCPasswordKey = @"UserServiceCPasswordKey";
     return [response autorelease];
 }
 
++ (PermListResponse*)getPermWithUserId:(NSString*)userId requestCount:(NSUInteger)count nextItemId:(NSInteger)nextId {
+    Taglist_CloudPagingRequest *request = [[Taglist_CloudPagingRequest alloc] init];
+    request.requestURL = [SERVER_API stringByAppendingFormat:@"/permservice/getfollowingperm/%@", userId];
+    [request addRequestCount:count];    
+    if (nextId != -1) {
+        [request addNextItemId:nextId];
+    }
+    
+    PermListResponse *response = [[PermListResponse alloc] init];    
+    [[Taglist_CloudRequestDispatcher getInstance] dispatchRequest: request response:response];
+    [request release];
+    
+    return [response autorelease];
+}
+
+#pragma mark	-
+#pragma mark		user services
+#pragma mark	-
+
 + (CreateAccountResponse*)createAccountWithUserInfo:(NSDictionary *)userInfo {
     Taglist_CloudRequest *request = [[Taglist_CloudRequest alloc] init];
     request.requestURL = [SERVER_API stringByAppendingString:@"/userservice/createaccount"];
     request.method = @"POST";
-    /*[request addParameter:@"type" value:[userInfo valueForKey:kUserServiceTypeKey]];
+    [request addParameter:@"type" value:[userInfo valueForKey:kUserServiceTypeKey]];
     [request addParameter:@"oauth_token" value:[userInfo valueForKey:kUserServiceOauthTokenKey]];
     [request addParameter:@"name" value:[userInfo valueForKey:kUserServiceNameKey]];
     [request addParameter:@"username" value:[userInfo valueForKey:kUserServiceUserNameKey]];
     [request addParameter:@"email" value:[userInfo valueForKey:kUserServiceEmailKey]];
     [request addParameter:@"password" value:[userInfo valueForKey:kUserServicePasswordKey]];
-    [request addParameter:@"cpassword" value:[userInfo valueForKey:kUserServiceCPasswordKey]];*/
-    
-    [request addParameter:@"type" value:@"perm"];
-    [request addParameter:@"oauth_token" value:@""];
-    [request addParameter:@"name" value:@"tttest123"];
-    [request addParameter:@"username" value:@"tttest123"];
-    [request addParameter:@"email" value:@"tttest@test.com"];
-    [request addParameter:@"password" value:@"123456"];
-    [request addParameter:@"cpassword" value:@"123456"];
+    [request addParameter:@"cpassword" value:[userInfo valueForKey:kUserServiceCPasswordKey]];
     
     CreateAccountResponse *response = [[CreateAccountResponse alloc] init];    
     [[Taglist_CloudRequestDispatcher getInstance] dispatchRequest: request response:response];

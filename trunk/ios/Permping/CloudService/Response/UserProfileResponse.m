@@ -49,6 +49,8 @@
 
 - (void)foundCDATA:(NSData *)CDATABlock onPath:(NSString *)path
 {
+    [super foundCDATA:CDATABlock onPath:path];
+    
     if ([@"/response/user/boards/item/name" isEqualToString:path]) 
 	{
         NSString *text = [[NSString alloc] initWithData:CDATABlock encoding:NSUTF8StringEncoding];

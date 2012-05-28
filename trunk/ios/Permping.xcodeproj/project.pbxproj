@@ -199,6 +199,9 @@
 		6AD1DC8C156C922600551787 /* CXMLNode_PrivateExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AD1DC7B156C922600551787 /* CXMLNode_PrivateExtensions.m */; };
 		6AD1DC8D156C922600551787 /* CXMLNode_XPathExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AD1DC7D156C922600551787 /* CXMLNode_XPathExtensions.m */; };
 		6AD1DC8E156C922600551787 /* CTidy.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AD1DC80156C922600551787 /* CTidy.m */; };
+		6AEA545715736190005A025B /* ErrorModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AEA545615736190005A025B /* ErrorModel.m */; };
+		6AEA547115738EE9005A025B /* LogoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AEA546F15738EE8005A025B /* LogoutViewController.m */; };
+		6AEA547215738EE9005A025B /* LogoutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6AEA547015738EE8005A025B /* LogoutViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -571,6 +574,11 @@
 		6AD52108156220D30055D76D /* OAToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OAToken.h; sourceTree = "<group>"; };
 		6AD52109156220D30055D76D /* OAToken_KeychainExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OAToken_KeychainExtensions.h; sourceTree = "<group>"; };
 		6AD5210A156220D30055D76D /* OAuthConsumer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OAuthConsumer.h; sourceTree = "<group>"; };
+		6AEA545515736190005A025B /* ErrorModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ErrorModel.h; sourceTree = "<group>"; };
+		6AEA545615736190005A025B /* ErrorModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ErrorModel.m; sourceTree = "<group>"; };
+		6AEA546E15738EE8005A025B /* LogoutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogoutViewController.h; sourceTree = "<group>"; };
+		6AEA546F15738EE8005A025B /* LogoutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogoutViewController.m; sourceTree = "<group>"; };
+		6AEA547015738EE8005A025B /* LogoutViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LogoutViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -843,6 +851,9 @@
 				04B43BE41560364E00F61E6A /* ProfileViewController.h */,
 				04B43BE51560364E00F61E6A /* ProfileViewController.m */,
 				04B43BE61560364E00F61E6A /* ProfileViewController.xib */,
+				6AEA546E15738EE8005A025B /* LogoutViewController.h */,
+				6AEA546F15738EE8005A025B /* LogoutViewController.m */,
+				6AEA547015738EE8005A025B /* LogoutViewController.xib */,
 			);
 			name = Profile;
 			path = Permping/Classes/Profile;
@@ -890,7 +901,6 @@
 		04DFAC4D155E40A300AE9FFD = {
 			isa = PBXGroup;
 			children = (
-				0441C0A41572CD81003C9380 /* MobileCoreServices.framework */,
 				04DFAC62155E40A300AE9FFD /* Permping */,
 				04DFAC92155E446D00AE9FFD /* Resources */,
 				04DFAC5B155E40A300AE9FFD /* Frameworks */,
@@ -909,6 +919,7 @@
 		04DFAC5B155E40A300AE9FFD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0441C0A41572CD81003C9380 /* MobileCoreServices.framework */,
 				26642EE3156EBA6F00577978 /* CoreTelephony.framework */,
 				6AD1C8351563584200FB5CB1 /* QuartzCore.framework */,
 				6A04633815625E8100BB4E34 /* MapKit.framework */,
@@ -1125,6 +1136,8 @@
 				04A0711B15720A4C00C6FFB8 /* CategoryModel.m */,
 				04C586031572A90E003435D9 /* UserProfileModel.h */,
 				04C586041572A90E003435D9 /* UserProfileModel.m */,
+				6AEA545515736190005A025B /* ErrorModel.h */,
+				6AEA545615736190005A025B /* ErrorModel.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1434,6 +1447,7 @@
 				26642EE2156EBA2C00577978 /* CommonViewController.xib in Resources */,
 				04A0712D15721EBF00C6FFB8 /* BoardViewController.xib in Resources */,
 				04A071461572298900C6FFB8 /* Kal.bundle in Resources */,
+				6AEA547215738EE9005A025B /* LogoutViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1573,6 +1587,8 @@
 				04C586051572A90E003435D9 /* UserProfileModel.m in Sources */,
 				04C586081572AC66003435D9 /* UserProfileResponse.m in Sources */,
 				04C5860B1572B71C003435D9 /* UserProfile_DataLoader.m in Sources */,
+				6AEA545715736190005A025B /* ErrorModel.m in Sources */,
+				6AEA547115738EE9005A025B /* LogoutViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
