@@ -54,7 +54,7 @@ public class PermpingMain extends TabActivity {
         
         TabSpec profile = tabHost.newTabSpec("Profile");
         profile.setIndicator("Profile", getResources().getDrawable(R.drawable.icon_profile_tab));
-        Intent profileIntent = new Intent(this, ProfileActivity.class);
+        Intent profileIntent = new Intent(this, ProfileActivityGroup.class);
         profile.setContent(profileIntent);
         tabHost.addTab( profile );
         

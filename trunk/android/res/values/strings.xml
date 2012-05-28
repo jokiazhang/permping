@@ -24,5 +24,7 @@
     <string name="board_name">Board Name:</string>
     <string name="board_description">Board Description:</string>
     <string name="bt_create_board">Create Board</string>
+    <string name="logout">Logout</string>
+    <string name="cancel">Cancel</string>
     
 </resources>

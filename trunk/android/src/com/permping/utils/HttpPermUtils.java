@@ -15,6 +15,7 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 
 import android.util.Log;
@@ -30,7 +31,7 @@ public class HttpPermUtils {
 		HttpPost postRequest = new HttpPost(url);
 		try {			
 			if (nameValuePairs != null) {
-				postRequest.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+				postRequest.setEntity(new UrlEncodedFormEntity(nameValuePairs, HTTP.UTF_8));
 			}
 			HttpResponse postResponse = client.execute(postRequest);
 			int statusCode = postResponse.getStatusLine().getStatusCode();

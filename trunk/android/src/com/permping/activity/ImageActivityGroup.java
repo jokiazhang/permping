@@ -31,7 +31,7 @@ private int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 1224;
 	    if (resultCode == RESULT_OK) {
 	        if (requestCode == SELECT_PICTURE || requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE ) {
 	        	String selectedImagePath = "";
-	        	if( data == null || true ) {
+	        	if( data == null  ) {
 	        		selectedImagePath = getImagePath();
 	        	} else {
 		            Uri selectedImageUri = data.getData();

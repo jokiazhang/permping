@@ -23,6 +23,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -50,7 +51,10 @@ public class CreateBoardActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.createboard_layout);
+		//setContentView(R.layout.createboard_layout);
+		
+		View contentView = LayoutInflater.from(getParent()).inflate(R.layout.createboard_layout, null);
+        setContentView(contentView);
 		
 		CategoryController catController = new CategoryController();
 		final ArrayList<Category> categories = catController.getCategoryList();
@@ -89,8 +93,7 @@ public class CreateBoardActivity extends Activity {
 	        			if (parser != null) {
 	        				// TODO: Notify that board is created already
 	        			}
-	        			Intent intent = new Intent(v.getContext(), ImageActivity.class);
-	        			v.getContext().startActivity(intent);
+	        			ImageActivityGroup.group.back();
 	        		}
 	        	}
 	        	

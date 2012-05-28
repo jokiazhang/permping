@@ -39,8 +39,12 @@ public class TabGroupActivity extends ActivityGroup {
 
 	public void back() {
 		if (history.size() > 0) {
-			history.remove(history.size() - 1);
-			setContentView(history.get(history.size() - 1));
+			if (history.size() == 1)
+				setContentView(history.get(history.size() - 1));
+			else {
+				history.remove(history.size() - 1);
+				setContentView(history.get(history.size() - 1));
+			}
 		} else {
 			finish();
 		}
