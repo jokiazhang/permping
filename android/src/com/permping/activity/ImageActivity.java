@@ -1,27 +1,21 @@
 package com.permping.activity;
 
-import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-import com.permping.PermpingApplication;
 import com.permping.R;
 import com.permping.model.User;
 import com.permping.utils.PermUtils;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.Toast;
-
 
 public class ImageActivity extends Activity {
 	private int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 1224;
@@ -29,7 +23,7 @@ public class ImageActivity extends Activity {
 	private int SELECT_PICTURE = 1;
 	
 	
-	private ProgressDialog dialog;
+	//private ProgressDialog dialog;
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -81,7 +75,8 @@ public class ImageActivity extends Activity {
 				if (user != null) {
 					// Go to the Create Board screen.
 					Intent i = new Intent(v.getContext(), CreateBoardActivity.class);
-					v.getContext().startActivity(i);	
+					View view = ImageActivityGroup.group.getLocalActivityManager().startActivity("CreateBoardActivity", i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
+					ImageActivityGroup.group.replaceView(view);
 				} else {
 					// Go to login screen
 					Intent i = new Intent(v.getContext(), LoginPermActivity.class);
@@ -137,13 +132,5 @@ public class ImageActivity extends Activity {
 			}
 		}
 	}
-	
-	
 	*/
-	
-	
-	
-	
-	
-	
 }

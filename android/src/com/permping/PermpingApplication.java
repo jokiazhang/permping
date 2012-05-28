@@ -28,8 +28,8 @@ public class PermpingApplication extends Application {
 	 * @return the user
 	 */
 	public User getUser() {
-		return new User("121");
-		//return user;
+		//return new User("121");
+		return user;
 		
 	}
 
@@ -54,7 +54,7 @@ public class PermpingApplication extends Application {
 		this.loginType = loginType;
 	}
 	
-	
+	/*
 	
 	private static Context context;
 	public void onCreate(){
@@ -65,5 +65,5 @@ public class PermpingApplication extends Application {
 		return PermpingApplication.context;
 	}
 	
-	
+	*/
 }

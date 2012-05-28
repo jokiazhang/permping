@@ -34,9 +34,11 @@
         <activity android:name=".activity.NewPermActivity" />
         <activity android:name=".activity.MyDiaryActivity" />
         <activity android:name=".activity.ProfileActivity" />
+        <activity android:name=".activity.ProfileActivityGroup" />
 		<activity android:name=".activity.JoinPermActivity" />
 		<activity android:name=".activity.LoginPermActivity" />
 		<activity android:name=".activity.CreateBoardActivity" />
+		<activity android:name=".activity.AccountActivity" />
         <activity android:name=".activity.PrepareRequestTokenActivity" android:launchMode="singleTask">>
 			<intent-filter>
 				<action android:name="android.intent.action.VIEW" />

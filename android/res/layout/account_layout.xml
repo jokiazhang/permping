@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <include
+        android:layout_width="fill_parent"
+        layout="@layout/account_titlebar_layout" />
+    
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:paddingTop="20dp" >
+
+        <Button
+            android:id="@+id/btLogout"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:text="@string/logout"
+			android:background="@drawable/button_bg"
+			android:textSize="20dp"
+             />
+    </LinearLayout>
+
+	<LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:paddingTop="20dp" >
+
+        <Button
+            android:id="@+id/btCancel"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:text="@string/cancel"
+            android:background="@drawable/button_bg"
+            android:textSize="20dp" />
+    </LinearLayout>"
+	
+</LinearLayout>

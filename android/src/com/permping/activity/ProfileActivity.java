@@ -15,12 +15,14 @@ import com.permping.utils.UrlImageViewHelper;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -32,6 +34,7 @@ public class ProfileActivity extends Activity {
 	TextView authorName;
 	TextView friends;
 	TextView followings;
+	Button account;
 	
 	private int selectedBoardId = -1;
 	
@@ -43,6 +46,7 @@ public class ProfileActivity extends Activity {
         authorName = (TextView) findViewById(R.id.authorName);
         friends = (TextView) findViewById(R.id.friends);
         followings = (TextView) findViewById(R.id.followings);
+        account = (Button) findViewById(R.id.btAccount);
         
         /** Load the information from Appliaction (user info) when the page is loaded. */
         User user = PermUtils.isAuthenticated(getApplicationContext());
@@ -67,6 +71,18 @@ public class ProfileActivity extends Activity {
             BoardAdapter boardAdapter = new BoardAdapter(this,R.layout.board_item, boards);
             userBoards.setAdapter(boardAdapter);
             userBoards.setOnItemClickListener(new BoardClickListener());
+            
+            // Account button process
+            account.setOnClickListener(new View.OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					// Go to the Create Board screen.
+					Intent i = new Intent(v.getContext(), AccountActivity.class);
+					View view = ProfileActivityGroup.group.getLocalActivityManager().startActivity("AccountActivity", i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
+					ProfileActivityGroup.group.replaceView(view);
+				}
+			});
             
         } else {
         	// User is not authorized yet -> forward to login screen
