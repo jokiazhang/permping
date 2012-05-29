@@ -2,11 +2,15 @@ package com.permping;
 
 import com.permping.R;
 import com.permping.activity.*;
+import com.permping.model.User;
+import com.permping.utils.PermUtils;
 
 import android.app.TabActivity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.MotionEvent;
+import android.view.View;
 import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
 
@@ -61,5 +65,28 @@ public class PermpingMain extends TabActivity {
         //Remove item background
         for( int i = 0; i< tabHost.getTabWidget().getChildCount(); i ++ )
         	tabHost.getTabWidget().getChildAt(i).setBackgroundColor(  Color.TRANSPARENT );
+        
+        // Set the event for Profile tab
+        tabHost.getTabWidget().getChildAt(4).setOnTouchListener(new View.OnTouchListener() {
+			
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {				
+				boolean ret = false;
+				int action = event.getAction();
+				if (action == MotionEvent.ACTION_UP) {
+					/** Load the information from Appliaction (user info) when the page is loaded. */
+			        User user = PermUtils.isAuthenticated(getApplicationContext());
+			        if (user != null) {
+			        	ret = false;
+			        } else {
+			        	// Go to login screen
+						Intent i = new Intent(getApplicationContext(), LoginPermActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+						getApplicationContext().startActivity(i);
+						ret = true;
+			        }
+				}
+				return ret;
+			}
+		});
     }
 }

@@ -40,6 +40,12 @@ public class ProfileActivity extends Activity {
 	
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        
+        /*// Check if user is authorized
+        User user = PermUtils.isAuthenticated(getApplicationContext());
+        if (user != null) {
+        	Intent i = new Intent(getApplicationContext())
+        }*/
         setContentView(R.layout.profile_layout);
         
         authorAvatar = (ImageView) findViewById(R.id.authorAvatar);
@@ -85,10 +91,8 @@ public class ProfileActivity extends Activity {
 			});
             
         } else {
-        	// User is not authorized yet -> forward to login screen
-        	Toast toast = Toast.makeText(getApplicationContext(), "User is not authorized! Please do it.", Toast.LENGTH_SHORT);
-        	toast.setGravity(Gravity.TOP | Gravity.CENTER, 0, 50);
-        	toast.show();
+        	Intent i = new Intent(getApplicationContext(), LoginPermActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			getApplicationContext().startActivity(i);
         }        
     }
     
