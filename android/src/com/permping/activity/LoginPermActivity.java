@@ -24,9 +24,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 /**
  * @author Linh Nguyen
@@ -74,7 +76,9 @@ public class LoginPermActivity extends Activity {
 					intent = new Intent(v.getContext(), PermpingMain.class);
 					v.getContext().startActivity(intent);
 				} else {
-					// Error! Login failed!
+					Toast toast = Toast.makeText(getApplicationContext(), "Invalid username or password. Please try again!", Toast.LENGTH_LONG);
+		        	toast.setGravity(Gravity.TOP | Gravity.CENTER, 0, 300);
+		        	toast.show();
 				}
 			}			
 		});
