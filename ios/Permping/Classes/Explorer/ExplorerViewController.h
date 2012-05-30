@@ -13,7 +13,11 @@
 @interface ExplorerViewController : CommonViewController <UITableViewDelegate, UITableViewDataSource> {
     IBOutlet UITableView        *categoriesTableView;
     Taglist_NDModel             *resultModel;
+    
+    id  target;
+    SEL action;
 }
 @property (nonatomic, retain)Taglist_NDModel *resultModel;
 
+- (void)setTarget:(id)in_target action:(SEL)in_action;
 @end

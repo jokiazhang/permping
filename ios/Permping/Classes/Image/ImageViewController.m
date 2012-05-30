@@ -8,6 +8,7 @@
 
 #import "ImageViewController.h"
 #import "CreatePermViewController.h"
+#import "CreateBoardViewController.h"
 
 @implementation ImageViewController
 
@@ -121,7 +122,9 @@
 }
 
 - (IBAction)createBoardButtonDidTouch:(id)sender {
-    
+    CreateBoardViewController *controller = [[CreateBoardViewController alloc] initWithNibName:@"CreateBoardViewController" bundle:nil];
+    [self.navigationController pushViewController:controller animated:YES];
+    [controller release];
 }
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
