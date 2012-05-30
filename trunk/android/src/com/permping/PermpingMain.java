@@ -69,7 +69,6 @@ public class PermpingMain extends TabActivity {
         // Set the event for Profile tab
         tabHost.getTabWidget().getChildAt(4).setOnTouchListener(new View.OnTouchListener() {
 			
-			@Override
 			public boolean onTouch(View v, MotionEvent event) {				
 				boolean ret = false;
 				int action = event.getAction();

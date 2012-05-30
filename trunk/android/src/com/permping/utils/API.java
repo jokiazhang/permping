@@ -11,4 +11,5 @@ public class API {
 	public static final String addNewPermUrl = "http://permping.autwin.com/services/permservice/uploadperm";
 	public static final String userBoardUrl  = "http://permping.autwin.com/services/permservice/getboardswithcategoryid/22"; //Not implemented yet on server
 	public static final String createBoardURL = "http://permping.autwin.com/services/permservice/createboard";
+	public static final String followingPerm = "http://permping.autwin.com/services/permservice/getfollowingperm/"; //Add user id when make request
 }

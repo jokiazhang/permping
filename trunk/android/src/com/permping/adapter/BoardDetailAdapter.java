@@ -38,7 +38,6 @@ public class BoardDetailAdapter extends BaseAdapter implements ListAdapter {
 		this.boardName = boardName;
 	}
 	
-	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		final LayoutInflater inflater = activity.getLayoutInflater();
 		View view = inflater.inflate(R.layout.profile_perm_layout, null);
@@ -89,19 +88,16 @@ public class BoardDetailAdapter extends BaseAdapter implements ListAdapter {
 		return view;
 	}
 	
-	@Override
 	public int getCount() {
 		// TODO Auto-generated method stub
 		return perms.size();
 	}
 	
-	@Override
 	public Object getItem(int position) {
 		// TODO Auto-generated method stub
 		return perms.get(position);
 	}
 	
-	@Override
 	public long getItemId(int position) {
 		// TODO Auto-generated method stub
 		return position;
