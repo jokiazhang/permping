@@ -71,8 +71,7 @@
     static NSString *reuseIdentifier = @"boardReuseIdentifier";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier];
-        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier] autorelease];
     }
     BoardModel *board = [self.boardsArray objectAtIndex:indexPath.row];
     cell.textLabel.text = board.title;

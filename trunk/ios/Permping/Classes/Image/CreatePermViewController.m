@@ -119,11 +119,12 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
-    
-    BoardListViewController *controller = [[BoardListViewController alloc] initWithNibName:@"BoardListViewController" bundle:nil];
-    [controller setTarget:self action:@selector(selectBoard:)];
-    [self.navigationController pushViewController:controller animated:YES];
-    [controller release];
+    if (indexPath.section == 0 && indexPath.row == 1) {
+        BoardListViewController *controller = [[BoardListViewController alloc] initWithNibName:@"BoardListViewController" bundle:nil];
+        [controller setTarget:self action:@selector(selectBoard:)];
+        [self.navigationController pushViewController:controller animated:YES];
+        [controller release];
+    }
 }
 
 - (void)selectBoard:(BoardModel*)board {
@@ -137,6 +138,11 @@
 
 - (void)createPerm {
     
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    return YES;
 }
 
 @end

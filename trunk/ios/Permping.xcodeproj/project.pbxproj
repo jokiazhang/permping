@@ -50,6 +50,8 @@
 		0411A493156D7D9E005EBF18 /* tab-item-profile@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0411A477156D7D9E005EBF18 /* tab-item-profile@2x.png */; };
 		0411A494156D7D9E005EBF18 /* tab-shadow.png in Resources */ = {isa = PBXBuildFile; fileRef = 0411A478156D7D9E005EBF18 /* tab-shadow.png */; };
 		0411A495156D7D9E005EBF18 /* tab-shadow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0411A479156D7D9E005EBF18 /* tab-shadow@2x.png */; };
+		043D4F1D157681D800D10276 /* CreateBoardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 043D4F1B157681D800D10276 /* CreateBoardViewController.m */; };
+		043D4F1E157681D800D10276 /* CreateBoardViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 043D4F1C157681D800D10276 /* CreateBoardViewController.xib */; };
 		0441C0A51572CD81003C9380 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0441C0A41572CD81003C9380 /* MobileCoreServices.framework */; };
 		044B8BFC1561822400836694 /* MGTwitterEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 044B8BD51561822400836694 /* MGTwitterEngine.m */; };
 		044B8BFD1561822400836694 /* MGTwitterHTTPURLConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 044B8BD91561822400836694 /* MGTwitterHTTPURLConnection.m */; };
@@ -285,6 +287,9 @@
 		0411A477156D7D9E005EBF18 /* tab-item-profile@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tab-item-profile@2x.png"; path = "Permping/Resources/Images/tab-item-profile@2x.png"; sourceTree = SOURCE_ROOT; };
 		0411A478156D7D9E005EBF18 /* tab-shadow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tab-shadow.png"; path = "Permping/Resources/Images/tab-shadow.png"; sourceTree = SOURCE_ROOT; };
 		0411A479156D7D9E005EBF18 /* tab-shadow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tab-shadow@2x.png"; path = "Permping/Resources/Images/tab-shadow@2x.png"; sourceTree = SOURCE_ROOT; };
+		043D4F1A157681D800D10276 /* CreateBoardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateBoardViewController.h; sourceTree = "<group>"; };
+		043D4F1B157681D800D10276 /* CreateBoardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateBoardViewController.m; sourceTree = "<group>"; };
+		043D4F1C157681D800D10276 /* CreateBoardViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CreateBoardViewController.xib; sourceTree = "<group>"; };
 		0441C0A41572CD81003C9380 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		044B8BD41561822400836694 /* MGTwitterEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGTwitterEngine.h; sourceTree = "<group>"; };
 		044B8BD51561822400836694 /* MGTwitterEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGTwitterEngine.m; sourceTree = "<group>"; };
@@ -848,6 +853,9 @@
 				6ADA0C551575FB3E000DA9F2 /* BoardListViewController.h */,
 				6ADA0C561575FB3E000DA9F2 /* BoardListViewController.m */,
 				6ADA0C571575FB3F000DA9F2 /* BoardListViewController.xib */,
+				043D4F1A157681D800D10276 /* CreateBoardViewController.h */,
+				043D4F1B157681D800D10276 /* CreateBoardViewController.m */,
+				043D4F1C157681D800D10276 /* CreateBoardViewController.xib */,
 			);
 			name = Image;
 			path = Permping/Classes/Image;
@@ -1472,6 +1480,7 @@
 				04A071461572298900C6FFB8 /* Kal.bundle in Resources */,
 				6AEA547215738EE9005A025B /* LogoutViewController.xib in Resources */,
 				6ADA0C591575FB3F000DA9F2 /* BoardListViewController.xib in Resources */,
+				043D4F1E157681D800D10276 /* CreateBoardViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1617,6 +1626,7 @@
 				6ADA0C3F1575DAFF000DA9F2 /* CreatePermCell.m in Sources */,
 				6ADA0C581575FB3F000DA9F2 /* BoardListViewController.m in Sources */,
 				6ADA0C5C15760F45000DA9F2 /* UploadPermResponse.m in Sources */,
+				043D4F1D157681D800D10276 /* CreateBoardViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

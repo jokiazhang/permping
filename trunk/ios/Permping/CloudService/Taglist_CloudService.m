@@ -121,6 +121,7 @@ NSString *const kUserServiceCPasswordKey = @"UserServiceCPasswordKey";
     request.requestURL = [SERVER_API stringByAppendingString:@"/permservice/uploadperm"];
     request.method = @"POST";*/
     // Upload perm
+    return nil;
 }
 
 #pragma mark	-

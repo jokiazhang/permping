@@ -16,6 +16,7 @@
 @synthesize resultModel;
 
 - (void)dealloc {
+    [target release];
     self.resultModel = nil;
     [super dealloc];
 }
@@ -122,10 +123,21 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     
-    CategoryViewController *lc_controller = [[CategoryViewController alloc] initWithNibName:@"CategoryViewController" bundle:nil];
-    lc_controller.category = [self.resultModel.arrResults objectAtIndex:indexPath.row];
-    [self.navigationController pushViewController:lc_controller animated:YES];
-    [lc_controller release];
+    CategoryModel *category = [self.resultModel.arrResults objectAtIndex:indexPath.row];;
+    if(target) {
+        [target performSelector:action withObject:category];
+    } else {
+        CategoryViewController *lc_controller = [[CategoryViewController alloc] initWithNibName:@"CategoryViewController" bundle:nil];
+        lc_controller.category = category;
+        [self.navigationController pushViewController:lc_controller animated:YES];
+        [lc_controller release];
+    }
+}
+
+- (void)setTarget:(id)in_target action:(SEL)in_action {
+    [target release];
+    target = [in_target retain];
+    action = in_action;
 }
 
 @end
