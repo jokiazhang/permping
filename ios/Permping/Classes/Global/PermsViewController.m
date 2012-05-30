@@ -11,7 +11,7 @@
 #import "PermImageCell.h"
 #import "PermInfoCell.h"
 #import "PermCommentCell.h"
-#import "WSPerm.h"
+#import "Utils.h"
 //phong add
 #import "PermModel.h"
 #import "CommentModel.h"
@@ -22,6 +22,7 @@
 - (void)dealloc {
     [permTableview release];
     [permsArray release];
+    [permsImageHeight release];
     [super dealloc];
 }
 
@@ -29,7 +30,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+        permsImageHeight = [[NSMutableDictionary alloc] init];
     }
     return self;
 }
@@ -75,19 +76,32 @@
 
 #pragma mark - <UITableViewDelegate + DataSource> implementation
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    NSLog(@"numberOfSectionsInTableView: %d", self.permsArray.count);
     return [self.permsArray count];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    WSPerm *perm = [self.permsArray objectAtIndex:section];
-    NSInteger count = 3 + perm.permComments.count;
-    return MIN(count, 8); // max 5 comment;
+    PermModel *perm = [self.permsArray objectAtIndex:section];
+    NSInteger seperator = (section==(self.permsArray.count-1))?0:1;
+    NSInteger count = 3 + perm.permComments.count + seperator;
+
+    //NSLog(@"section %d : %d, %d", section, count, perm.permComments.count);
+    return MIN(count, 8+seperator); // max 5 comment;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     CGFloat h = 60.0;
-    if (indexPath.row == 2) {
-        h = 140.0;
+    PermModel *perm = [self.permsArray objectAtIndex:indexPath.section];
+    if (indexPath.row == 1) {
+        NSNumber *height = [permsImageHeight objectForKey:[NSString stringWithFormat:@"%d", indexPath.section]];
+        if (height) {
+            h = [height floatValue];
+        }
+    } else if (indexPath.row == 2) {
+        CGSize s = [perm.permDesc sizeWithFont:[UIFont systemFontOfSize:15] constrainedToSize:CGSizeMake(300, CGFLOAT_MAX)];
+        h = 120 + s.height;
+    } else if (indexPath.row - 3 == perm.permComments.count) { 
+        h = 10;
     }
     return h;
 }
@@ -95,6 +109,7 @@
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     PermModel *perm = [self.permsArray objectAtIndex:indexPath.section];
     NSInteger index = indexPath.row;
+    NSInteger section = indexPath.section;
     if (index == 0) {
         static NSString *cellIdentifier = @"PermUserCell";
         PermUserCell *cell = (PermUserCell*)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
@@ -110,11 +125,20 @@
         if (cell == nil) {
             cell = [[[PermImageCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] autorelease];
         }
-        __block NSString *imageString = perm.permImage;
+        
+        //NSLog(@"imageString: %@", perm.permImage);
         [cell.permImageView setImageWithURL:[NSURL URLWithString:perm.permImage] success:^(UIImage *image) {
+            if (![permsImageHeight objectForKey:[NSString stringWithFormat:@"%d", section]]) {
+                CGFloat height = [Utils sizeWithImage:image constrainedToSize:CGSizeMake(300, CGFLOAT_MAX)].height;
+                [permsImageHeight setObject:[NSNumber numberWithFloat:height] forKey:[NSString stringWithFormat:@"%d", section]];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [permTableview reloadData];
+                });
+            }
         } failure:^(NSError *error) {
-            NSLog(@"fail image: %@", imageString);
+            
         }];
+
         return cell;
     } else if (index == 2) {
         static NSString *cellIdentifier = @"PermInfoCell";
@@ -123,6 +147,18 @@
             cell = [[[PermInfoCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] autorelease];
         }
         [cell setCellWithPerm:perm];
+        return cell;
+    } else if (index == perm.permComments.count+3) {
+        static NSString *cellIdentifier = @"SeperatorCell";
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+        if (cell == nil) {
+            cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] autorelease];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            UIView *seperator = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, 1, 1)] autorelease];
+            seperator.tag = 333;
+            seperator.backgroundColor = [UIColor colorWithWhite:0 alpha:0.1];
+            [cell.contentView addSubview:seperator];
+        }
         return cell;
     } else {
         static NSString *cellIdentifier = @"PermCommentCell";
@@ -139,6 +175,9 @@
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     if ([cell isKindOfClass:[PermCommentCell class]]) {
         cell.textLabel.font = [UIFont systemFontOfSize:15];
+    } else if ([cell isKindOfClass:[UITableViewCell class]]) {
+        UIView *v = [cell.contentView viewWithTag:333];
+        v.frame = CGRectMake(10, cell.frame.size.height/2, cell.frame.size.width-20, 2);
     }
 }
 @end

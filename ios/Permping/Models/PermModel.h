@@ -33,6 +33,6 @@
 @property (nonatomic, copy)     NSString                    *permLikeCount;
 @property (nonatomic, copy)     NSString                    *permCommentCount;
 
-@property (nonatomic, assign)   NSMutableArray                    *permComments;
+@property (nonatomic, retain)   NSMutableArray                    *permComments;
  
 @end

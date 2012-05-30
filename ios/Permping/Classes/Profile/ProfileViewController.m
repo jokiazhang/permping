@@ -91,7 +91,7 @@
     if (self.userProfile) {
         boardTableView.hidden = NO;
         headerView.hidden = NO;
-        [avatarView setImageWithURL:[NSURL URLWithString:self.userProfile.userAvatar]];
+        [avatarView setImageWithURL:[NSURL URLWithString:self.userProfile.userAvatar] placeholderImage:[UIImage imageNamed:@"user-img.png"]];
         userNameLabel.text = self.userProfile.userName;
         permsNumberLabel.text = [NSString stringWithFormat:@"perms %@ followers %@", self.userProfile.pinCount, self.userProfile.followerCount];
         [boardTableView reloadData];

@@ -111,7 +111,7 @@
         if ([[AppData getInstance] didLogin]) {
             response = [(FollowingScreen_DataLoader *)loader getPermWithUserId:@"118" nextItemId:nextId requestedCount:30];
         } else {
-            [(FollowingScreen_DataLoader *)loader getPopularFromNextItemId:nextId requestedCount:30];
+            response = [(FollowingScreen_DataLoader *)loader getPopularFromNextItemId:nextId requestedCount:30];
         }
         nextId = response.nextItemId;
         arr = [response getResponsePermList];

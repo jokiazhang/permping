@@ -29,5 +29,18 @@
     [super dealloc];
 }
 
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    if (permImageView.image) {
+        permImageView.frame = CGRectInset(self.bounds, 10, 0);
+    } else {
+        permImageView.frame = CGRectZero;
+    }
+}
+
+- (void)prepareForReuse {
+    [super prepareForReuse];
+    permImageView.image = nil;
+}
 
 @end

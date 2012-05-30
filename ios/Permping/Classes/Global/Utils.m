@@ -27,4 +27,19 @@
     return [barButtonItem autorelease];
 }
 
++ (CGSize)sizeWithImage:(UIImage*)image constrainedToSize:(CGSize)constraintSize {
+    CGSize size;
+    CGSize imageSize = image.size;
+    CGFloat hscale = constraintSize.height / imageSize.height;
+    CGFloat wscale = constraintSize.width / imageSize.width;
+    if (hscale < wscale) {
+        size.height = constraintSize.height;
+        size.width = imageSize.width * hscale;
+    } else {
+        size.width = constraintSize.width;
+        size.height = imageSize.height * wscale;
+    }
+    return size;
+}
+
 @end

@@ -21,6 +21,7 @@
         commentLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         commentLabel.backgroundColor = [UIColor clearColor];
         commentLabel.numberOfLines = 0;
+        commentLabel.font  = [UIFont systemFontOfSize:15];
         [myContentView addSubview:commentLabel];
         
         descriptionLabel = [[UILabel alloc] initWithFrame:CGRectZero];
@@ -80,7 +81,7 @@
     y = CGRectGetMaxY(repermButton.frame) + 10;
     statusLabel.frame = CGRectMake(10, y, 300, 21);
     
-    //NSLog(@"h: %f", y+21);
+    //NSLog(@"h: %f, %f", y+21, y+21-s.height);
 }
 
 - (void)setCellWithPerm:(PermModel*)perm {
