@@ -68,5 +68,4 @@ public class CategorySpinnerAdapter extends BaseAdapter implements
 		
 		return view;
 	}
-
 }

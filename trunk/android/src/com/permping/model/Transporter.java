@@ -16,6 +16,8 @@ public class Transporter implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	
+	private String boardName;
+	
 	private List<Perm> perms;
 	
 	/**
@@ -25,6 +27,23 @@ public class Transporter implements Serializable {
 		
 	}
 	
+	
+	/**
+	 * @return the boardName
+	 */
+	public String getBoardName() {
+		return boardName;
+	}
+
+
+	/**
+	 * @param boardName the boardName to set
+	 */
+	public void setBoardName(String boardName) {
+		this.boardName = boardName;
+	}
+
+
 	/**
 	 * Constructor which initializes the list of perms
 	 * @param perms the list of perms
