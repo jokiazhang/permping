@@ -92,4 +92,6 @@ public class Constants {
 	public static final String CATEGORY_ID = "cid";
 	public static final String BOARD_USER_ID = "uid";
 	public static final String BOARD_DESCRIPTION = "board_desc";
+
+	public static final String TRANSPORTER = "transporter";
 }

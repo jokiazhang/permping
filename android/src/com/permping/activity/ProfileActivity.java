@@ -13,6 +13,7 @@ import com.permping.model.PermBoard;
 import com.permping.model.PermImage;
 import com.permping.model.Transporter;
 import com.permping.model.User;
+import com.permping.utils.Constants;
 import com.permping.utils.PermUtils;
 import com.permping.utils.UrlImageViewHelper;
 
@@ -39,7 +40,7 @@ public class ProfileActivity extends Activity {
 	TextView followings;
 	Button account;
 	
-	private int selectedBoardId = -1;
+	//private int selectedBoardId = -1;
 	
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -103,9 +104,11 @@ public class ProfileActivity extends Activity {
 			List<Perm> perms = boardController.getPermByBoardId(board.getId());
 			Transporter transporter = new Transporter();
 			transporter.setPerms(perms);
+			transporter.setBoardName(board.getName());
+			
 			// Go to the Board Detail screen
 			Intent i = new Intent(view.getContext(), BoardDetailActivity.class);
-			i.putExtra("transporter", transporter);
+			i.putExtra(Constants.TRANSPORTER, transporter);
 			View boardDetail = ProfileActivityGroup.group.getLocalActivityManager() .startActivity("BoardDetailActivity", i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
 			ProfileActivityGroup.group.replaceView(boardDetail);
 		}

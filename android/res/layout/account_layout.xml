@@ -37,6 +37,6 @@
             android:text="@string/cancel"
             android:background="@drawable/button_bg"
             android:textSize="20dp" />
-    </LinearLayout>"
+    </LinearLayout>
 	
 </LinearLayout>
