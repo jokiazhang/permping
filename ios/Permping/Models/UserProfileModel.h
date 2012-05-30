@@ -31,6 +31,6 @@
 @property (nonatomic, copy)     NSString                    *pinCount;
 @property (nonatomic, copy)     NSString                    *likeCount;
 @property (nonatomic, copy)     NSString                    *boardCount;
-@property (nonatomic, assign)   NSMutableArray              *boards;
+@property (nonatomic, retain)   NSMutableArray              *boards;
 
 @end

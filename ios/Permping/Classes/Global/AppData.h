@@ -38,6 +38,8 @@
 
 - (void)createAccountWithUserInfo:(NSDictionary*)userInfo;
 
+- (void)loginWithUserInfo:(NSDictionary*)userInfo;
+
 - (void)logout;
 
 - (void) restoreState;

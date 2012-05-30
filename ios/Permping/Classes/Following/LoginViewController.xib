@@ -131,7 +131,7 @@
 					<object class="IBUITableView" id="588746596">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">306</int>
-						<string key="NSFrame">{{5, 160}, {310, 137}}</string>
+						<string key="NSFrame">{{5, 142}, {310, 137}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="414252651"/>
@@ -156,7 +156,7 @@
 					<object class="IBUIButton" id="414252651">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">288</int>
-						<string key="NSFrame">{{75, 319}, {170, 37}}</string>
+						<string key="NSFrame">{{75, 294}, {170, 37}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView"/>
@@ -241,6 +241,14 @@
 					<int key="connectionID">17</int>
 				</object>
 				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">formTableView</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="588746596"/>
+					</object>
+					<int key="connectionID">18</int>
+				</object>
+				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">facebookButtonDidTouch:</string>
 						<reference key="source" ref="546093254"/>
@@ -299,8 +307,8 @@
 							<reference ref="444061336"/>
 							<reference ref="546093254"/>
 							<reference ref="443733911"/>
-							<reference ref="414252651"/>
 							<reference ref="588746596"/>
+							<reference ref="414252651"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -358,7 +366,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">17</int>
+			<int key="maxID">18</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">

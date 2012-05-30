@@ -124,24 +124,23 @@
     
 }
 
-
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     NSLog(@"Media Info: %@", info);
     NSString *mediaType = [info valueForKey:UIImagePickerControllerMediaType];
     
     if([mediaType isEqualToString:(NSString*)kUTTypeImage]) {
         UIImage *photoTaken = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
-        
         //Save Photo to library only if it wasnt already saved i.e. its just been taken
         if (picker.sourceType == UIImagePickerControllerSourceTypeCamera) {
             UIImageWriteToSavedPhotosAlbum(photoTaken, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
         }
-        
-        
     }
     
     [picker dismissModalViewControllerAnimated:YES];
-    [picker release];
+    
+    CreatePermViewController *controller = [[CreatePermViewController alloc] initWithNibName:@"CreatePermViewController" bundle:nil];
+    [self.navigationController pushViewController:controller animated:YES];
+    [controller release];
 }
 
 - (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo {
@@ -156,7 +155,6 @@
         [alert show];
         [alert release];
     }
-    
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {

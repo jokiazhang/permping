@@ -12,6 +12,12 @@
 #import "CommentModel.h"
 #import "UserModel.h"
 
+typedef enum {
+    PermResponseTypePopular = 0,
+    PermResponseTypeFromBoard,
+    PermResponseTypeFollowing
+}PermResponseType;
+
 @interface PermListResponse : Taglist_CloudPagingResponse
 {
     NSMutableArray          *permList;
@@ -20,8 +26,8 @@
     CommentModel            *currentComment;
     UserModel               *currentUser;
     
-    BOOL                    permFromBoard;
+    PermResponseType        responseType;
 }
-@property (nonatomic, assign) BOOL permFromBoard;
+@property (nonatomic, assign) PermResponseType responseType;
 - (NSArray *)getResponsePermList;
 @end

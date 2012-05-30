@@ -14,6 +14,7 @@
 #import "Taglist_CloudService.h"
 #import "CreateAccount_DataLoader.h"
 #import "CreateAccountResponse.h"
+#import "Login_DataLoader.h"
 
 @interface AppData ()
 @property (nonatomic, retain)NSDictionary *userInfo;
@@ -75,13 +76,13 @@
 #pragma mark	-
 #pragma mark		user service
 #pragma mark	-
-- (id)getMyDataLoader
+- (id)getCreateAccountDataLoader
 {
     CreateAccount_DataLoader *loader = [[CreateAccount_DataLoader alloc] init];
     return [loader autorelease];
 }
 
-- (void)loadDataForMe:(id)loader thread:(id<ThreadManagementProtocol>)threadObj
+- (void)loadCreateAccountDataForMe:(id)loader thread:(id<ThreadManagementProtocol>)threadObj
 {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     if (![threadObj isCancelled]) {
@@ -91,6 +92,53 @@
                            
                        });
         CreateAccountResponse *response = [(CreateAccount_DataLoader *)loader createAccountWithUserInfo:self.userInfo];
+        NSError *error = response.responseError;
+        if (!error) {
+            self.user = [response getUserProfile];
+            //_isLogout = NO;
+        }
+        
+        if (![threadObj isCancelled]) {
+            
+            dispatch_async(dispatch_get_main_queue(), ^(void)
+                           {
+                               if (error) {
+                                   [Utils displayAlert:[error localizedDescription] delegate:nil];
+                               }
+                               [[NSNotificationCenter defaultCenter] postNotificationName:kCreateAccountFinishNotification object:[NSNumber numberWithBool:(error==nil)] userInfo:nil];
+                           });
+        }
+    }
+    //[myLoader release];
+    [pool drain];
+}
+
+
+- (void)createAccountWithUserInfo:(NSDictionary*)in_userInfo {
+    if (in_userInfo == nil) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:kCreateAccountFinishNotification object:[NSNumber numberWithBool:_isLogout] userInfo:nil];
+        return;
+    }
+    self.userInfo = in_userInfo;
+    [[ThreadManager getInstance] dispatchToConcurrentBackgroundNormalPriorityQueueWithTarget:self selector:@selector(loadCreateAccountDataForMe:thread:) dataObject:[self getCreateAccountDataLoader]];
+}
+
+- (id)getLoginDataLoader
+{
+    Login_DataLoader *loader = [[Login_DataLoader alloc] init];
+    return [loader autorelease];
+}
+
+- (void)loadLoginDataForMe:(id)loader thread:(id<ThreadManagementProtocol>)threadObj
+{
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+    if (![threadObj isCancelled]) {
+        dispatch_async(dispatch_get_main_queue(), ^(void)
+                       {
+                           //[self initializeUIControls]; 
+                           
+                       });
+        UserProfileResponse *response = [(Login_DataLoader *)loader loginWithUserInfo:self.userInfo];
         NSError *error = response.responseError;
         if (!error) {
             self.user = [response getUserProfile];
@@ -104,7 +152,7 @@
                                if (error) {
                                    [Utils displayAlert:[error localizedDescription] delegate:nil];
                                }
-                               [[NSNotificationCenter defaultCenter] postNotificationName:kCreateAccountFinishNotification object:[NSNumber numberWithBool:_isLogout] userInfo:nil];
+                               [[NSNotificationCenter defaultCenter] postNotificationName:kLoginFinishNotification object:[NSNumber numberWithBool:!_isLogout] userInfo:nil];
                            });
         }
     }
@@ -112,13 +160,12 @@
     [pool drain];
 }
 
-
-- (void)createAccountWithUserInfo:(NSDictionary*)in_userInfo {
+- (void)loginWithUserInfo:(NSDictionary*)in_userInfo {
     if (in_userInfo == nil) {
         return;
     }
     self.userInfo = in_userInfo;
-    [[ThreadManager getInstance] dispatchToConcurrentBackgroundNormalPriorityQueueWithTarget:self selector:@selector(loadDataForMe:thread:) dataObject:[self getMyDataLoader]];
+    [[ThreadManager getInstance] dispatchToConcurrentBackgroundNormalPriorityQueueWithTarget:self selector:@selector(loadLoginDataForMe:thread:) dataObject:[self getLoginDataLoader]];
 }
 
 - (void)logout {
@@ -186,12 +233,13 @@
 
 - (void) didLogin:(FBFeedPost *)_post {
     NSLog(@"Facebook login successed");
-    [[NSNotificationCenter defaultCenter] postNotificationName:kSocialNetworkDidLoginNotification object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kSocialNetworkDidLoginNotification object:nil userInfo:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:YES], @"isSuccess", kUserServiceTypeFacebook, kUserServiceTypeKey, nil]];
     [_post release];
 }
 
 - (void) didNotLogin:(FBFeedPost *)_post {
     NSLog(@"Facebook login failed");
+    [[NSNotificationCenter defaultCenter] postNotificationName:kSocialNetworkDidLoginNotification object:nil userInfo:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:NO], @"isSuccess", nil]];
     [_post release];
 }
 
@@ -243,12 +291,11 @@
 - (void) OAuthTwitterController: (SA_OAuthTwitterController *) controller authenticatedWithUsername: (NSString *) username {
     
 	NSLog(@"Authenticated with user %@", username);
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:kSocialNetworkDidLoginNotification object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kSocialNetworkDidLoginNotification object:nil userInfo:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:YES], @"isSuccess", kUserServiceTypeTwitter, kUserServiceTypeKey, nil]];
 }
 
 - (void) OAuthTwitterControllerFailed: (SA_OAuthTwitterController *) controller {
-    
+    [[NSNotificationCenter defaultCenter] postNotificationName:kSocialNetworkDidLoginNotification object:nil userInfo:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:NO], @"isSuccess", nil]];
 	NSLog(@"Authentication Failure");
     
 }

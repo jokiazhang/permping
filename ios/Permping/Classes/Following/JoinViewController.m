@@ -19,7 +19,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+        userInfo = [[NSMutableDictionary alloc] init];
     }
     return self;
 }
@@ -146,9 +146,18 @@
 
 - (IBAction)createAccountButtonDidTouch:(id)sender {
     [self startActivityIndicator];
-    if ([self validateInputData]) {
-        [[AppData getInstance] createAccountWithUserInfo:userInfo];
-    }
+    
+    [self.userInfo setObject:@"abcd" forKey:kUserServiceNameKey];
+    [self.userInfo setObject:@"abcd" forKey:kUserServiceUserNameKey];
+    [self.userInfo setObject:@"abcd@test.com" forKey:kUserServiceEmailKey];
+    [self.userInfo setObject:@"123456" forKey:kUserServicePasswordKey];
+    [self.userInfo setObject:@"123456" forKey:kUserServiceCPasswordKey];
+
+    [self.userInfo setObject:[[AppData getInstance] oauthToken] forKey:kUserServiceOauthTokenKey];
+    [self.userInfo setObject:[[AppData getInstance] oauthTokenType] forKey:kUserServiceTypeKey];
+    //if ([self validateInputData]) {
+        [[AppData getInstance] createAccountWithUserInfo:self.userInfo];
+    //}
 }
 
 - (void)dismiss:(id)sender {
