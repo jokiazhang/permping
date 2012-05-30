@@ -38,7 +38,6 @@ public class AccountActivity extends Activity {
 		
 		logout.setOnClickListener(new View.OnClickListener() {
 			
-			@Override
 			public void onClick(View v) {
 				// Remove the User object in application state.
 				PermpingApplication state = (PermpingApplication) getApplicationContext();
@@ -52,7 +51,6 @@ public class AccountActivity extends Activity {
 		
 		cancel.setOnClickListener(new View.OnClickListener() {
 			
-			@Override
 			public void onClick(View v) {
 				ProfileActivityGroup.group.back();
 			}
@@ -60,7 +58,6 @@ public class AccountActivity extends Activity {
 		
 		back.setOnClickListener(new View.OnClickListener() {
 			
-			@Override
 			public void onClick(View v) {
 				ProfileActivityGroup.group.back();
 			}

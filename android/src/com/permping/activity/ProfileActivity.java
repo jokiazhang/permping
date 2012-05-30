@@ -79,7 +79,6 @@ public class ProfileActivity extends Activity {
             // Account button process
             account.setOnClickListener(new View.OnClickListener() {
 				
-				@Override
 				public void onClick(View v) {
 					// Go to the Create Board screen.
 					Intent i = new Intent(v.getContext(), AccountActivity.class);
@@ -96,7 +95,6 @@ public class ProfileActivity extends Activity {
     
     private class BoardClickListener implements OnItemClickListener {
 
-		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int pos,
 				long id) {
 			PermBoard board = (PermBoard) parent.getItemAtPosition(pos);

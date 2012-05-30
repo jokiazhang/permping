@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import com.permping.R;
 import com.permping.controller.PermListController;
 import com.permping.model.Perm;
+import com.permping.model.User;
+import com.permping.utils.API;
+import com.permping.utils.PermUtils;
 import com.permping.adapter.*;
 
 import android.app.Activity;
@@ -29,9 +32,13 @@ public class FollowerActivity extends Activity {
         setContentView(R.layout.followers_layout);
         
         
+        User user = PermUtils.isAuthenticated(getApplicationContext());
     	Bundle extras = getIntent().getExtras();
 		if( extras != null ) {
 			this.url = (String) extras.get("boardUrl");
+			this.header = false;
+		} else if ( user != null ) {
+			this.url = API.followingPerm + String.valueOf(user.getId());
 			this.header = false;
 		}
 		 ListView permListView = (ListView) findViewById(R.id.permList);
