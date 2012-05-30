@@ -235,7 +235,12 @@ public class NewPermActivity extends Activity {
 			if (dialog.isShowing()){
 				dialog.dismiss();
 				ImageActivityGroup.group.back();
-				Toast.makeText(getApplicationContext(),"Uploaded new perm!",Toast.LENGTH_LONG).show();
+				PermpingApplication state = (PermpingApplication) getApplicationContext();
+		        User user = state.getUser();
+		        if( user != null )
+		        	Toast.makeText(getApplicationContext(),"Uploaded new perm!",Toast.LENGTH_LONG).show();
+		        else 
+		        	Toast.makeText(getApplicationContext(),"You are not logged in! Please log in first.",Toast.LENGTH_LONG).show();
 			}
 			
 		}
