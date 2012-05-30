@@ -76,7 +76,7 @@ public class LoginPermActivity extends Activity {
 					intent = new Intent(v.getContext(), PermpingMain.class);
 					v.getContext().startActivity(intent);
 				} else {
-					Toast toast = Toast.makeText(getApplicationContext(), "Invalid username or password. Please try again!", Toast.LENGTH_LONG);
+					Toast toast = Toast.makeText(getApplicationContext(), "Authentication failed!. Please try again!", Toast.LENGTH_LONG);
 		        	toast.setGravity(Gravity.TOP | Gravity.CENTER, 0, 300);
 		        	toast.show();
 				}
