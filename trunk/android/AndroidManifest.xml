@@ -33,6 +33,7 @@
         <activity android:name=".activity.ImageActivity" />
         <activity android:name=".activity.NewPermActivity" />
         <activity android:name=".activity.MyDiaryActivity" />
+        <activity android:name=".activity.MyDiaryActivityGroup" />
         <activity android:name=".activity.ProfileActivity" />
         <activity android:name=".activity.ProfileActivityGroup" />
 		<activity android:name=".activity.JoinPermActivity" />

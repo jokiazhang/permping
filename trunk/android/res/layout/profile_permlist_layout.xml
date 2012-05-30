@@ -13,7 +13,7 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:stretchColumns="0"
-        android:layout_marginBottom="60dp" >
+        android:layout_marginBottom="59dp" >
         <ListView
         	android:id="@+id/permList"
             android:layout_width="match_parent"

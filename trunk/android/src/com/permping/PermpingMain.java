@@ -67,13 +67,14 @@ public class PermpingMain extends TabActivity {
         	tabHost.getTabWidget().getChildAt(i).setBackgroundColor(  Color.TRANSPARENT );
         
         // Set the event for Profile tab
-        tabHost.getTabWidget().getChildAt(4).setOnTouchListener(new View.OnTouchListener() {
+        tabHost.getTabWidget().getChildAt(4).setOnTouchListener(new ValidateHandler());
+        /*tabHost.getTabWidget().getChildAt(4).setOnTouchListener(new View.OnTouchListener() {
 			
 			public boolean onTouch(View v, MotionEvent event) {				
 				boolean ret = false;
 				int action = event.getAction();
 				if (action == MotionEvent.ACTION_UP) {
-					/** Load the information from Appliaction (user info) when the page is loaded. */
+					*//** Load the information from Appliaction (user info) when the page is loaded. *//*
 			        User user = PermUtils.isAuthenticated(getApplicationContext());
 			        if (user != null) {
 			        	ret = false;
@@ -86,6 +87,51 @@ public class PermpingMain extends TabActivity {
 				}
 				return ret;
 			}
-		});
+		});*/
+        
+        // Set the event for MyDiary tab
+        tabHost.getTabWidget().getChildAt(3).setOnTouchListener(new ValidateHandler());
+        /*tabHost.getTabWidget().getChildAt(3).setOnTouchListener(new View.OnTouchListener() {
+			
+        	public boolean onTouch(View v, MotionEvent event) {				
+				boolean ret = false;
+				int action = event.getAction();
+				if (action == MotionEvent.ACTION_UP) {
+					*//** Load the information from Appliaction (user info) when the page is loaded. *//*
+			        User user = PermUtils.isAuthenticated(getApplicationContext());
+			        if (user != null) {
+			        	ret = false;
+			        } else {
+			        	// Go to login screen
+						Intent i = new Intent(getApplicationContext(), LoginPermActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+						getApplicationContext().startActivity(i);
+						ret = true;
+			        }
+				}
+				return ret;
+			}
+		});*/
+    }
+    
+    private class ValidateHandler implements View.OnTouchListener {
+
+		@Override
+		public boolean onTouch(View v, MotionEvent event) {
+			boolean ret = false;
+			int action = event.getAction();
+			if (action == MotionEvent.ACTION_UP) {
+				/** Load the information from Appliaction (user info) when the page is loaded. */
+		        User user = PermUtils.isAuthenticated(getApplicationContext());
+		        if (user != null) {
+		        	ret = false;
+		        } else {
+		        	// Go to login screen
+					Intent i = new Intent(getApplicationContext(), LoginPermActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+					getApplicationContext().startActivity(i);
+					ret = true;
+		        }
+			}
+			return ret;
+		}
     }
 }
