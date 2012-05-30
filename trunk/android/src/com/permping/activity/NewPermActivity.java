@@ -17,11 +17,15 @@ import org.apache.http.impl.client.DefaultHttpClient;
 
 import com.permping.PermpingApplication;
 import com.permping.R;
+import com.permping.adapter.BoardSpinnerAdapter;
 import com.permping.adapter.CategorySpinnerAdapter;
+import com.permping.controller.BoardController;
 import com.permping.controller.CategoryController;
 import com.permping.model.Category;
+import com.permping.model.PermBoard;
 import com.permping.model.User;
 import com.permping.utils.API;
+import com.permping.utils.PermUtils;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -44,11 +48,13 @@ public class NewPermActivity extends Activity {
 
 	private String imagePath = "";
 	private ProgressDialog dialog;
-	private int categoryId = -1;
+	private int boardId = -1;
 	
 	private EditText permDesc;
 	
 	private ArrayList<Category> categories;
+	
+	private ArrayList<PermBoard> boards;
 	
 	
 	public void onCreate(Bundle savedInstanceState) {
@@ -89,17 +95,17 @@ public class NewPermActivity extends Activity {
 	}
 	
 	public void setSpinnerData(  ){
-		Spinner mainCategory = (Spinner) findViewById(R.id.categorySpinnerNewPerm);
-		addItemsOnMainCategory(mainCategory, categories);
-		mainCategory.setOnItemSelectedListener(new CategorySpinnerSelectedListener());
+		Spinner boardSelect = (Spinner) findViewById(R.id.boardSpinnerNewPerm);
+		addItemsOnMainCategory(boardSelect, boards);
+		boardSelect.setOnItemSelectedListener(new CategorySpinnerSelectedListener());
 	}
 	
-	private void addItemsOnMainCategory(Spinner spinner, ArrayList<Category> categories) {
-		CategorySpinnerAdapter categorySpinnerAdapter = new CategorySpinnerAdapter(this, categories);
-		spinner.setAdapter(categorySpinnerAdapter);
-		Category initial = (Category) categorySpinnerAdapter.getItem(0);
+	private void addItemsOnMainCategory(Spinner spinner, ArrayList<PermBoard> boards) {
+		BoardSpinnerAdapter boardSpinnerAdapter = new BoardSpinnerAdapter(this, boards);
+		spinner.setAdapter(boardSpinnerAdapter);
+		PermBoard initial = (PermBoard) boardSpinnerAdapter.getItem(0);
 		if (initial != null)
-			categoryId = Integer.parseInt(initial.getId());		
+			boardId = Integer.parseInt(initial.getId());		
 	}
 	
 	
@@ -107,8 +113,8 @@ public class NewPermActivity extends Activity {
 
 		public void onItemSelected(AdapterView<?> parent, View view, int pos,
 				long id) {
-			Category category = (Category) parent.getItemAtPosition(pos);
-			categoryId = Integer.parseInt(category.getId());		}
+			PermBoard board = (PermBoard) parent.getItemAtPosition(pos);
+			boardId = Integer.parseInt(board.getId());		}
 
 		public void onNothingSelected(AdapterView<?> arg0) {
 			// TODO Auto-generated method stub
@@ -121,8 +127,13 @@ public class NewPermActivity extends Activity {
   		
   		@Override
   		protected String doInBackground(Void... params) {
-  			CategoryController catController = new CategoryController();
-  			 categories = catController.getCategoryList();
+  			//CategoryController catController = new CategoryController();
+  			 //categories = catController.getCategoryList();
+  			BoardController boardController = new BoardController();
+  			User user = PermUtils.isAuthenticated(getApplicationContext());
+  			if( user != null || true )
+  				boards = boardController.getBoardList("121");
+  			
   			return null;
   		}
   		
@@ -186,7 +197,7 @@ public class NewPermActivity extends Activity {
 					//reqEntity.addPart("url", new StringBody( "http://www.allbestwallpapers.com/wallpaper/black/thumb/white_rose.jpg") );
 					reqEntity.addPart("photoCaption", new StringBody(fileName));
 					reqEntity.addPart("uid", new StringBody( user.getId() ) );
-					reqEntity.addPart("board", new StringBody( String.valueOf( categoryId )));
+					reqEntity.addPart("board", new StringBody( String.valueOf( boardId )));
 					reqEntity.addPart("board_desc", new StringBody(permDesc.getText().toString()  ) );
 					
 					

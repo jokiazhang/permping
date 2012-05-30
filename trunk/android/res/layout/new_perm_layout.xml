@@ -62,12 +62,12 @@
               android:textColor="#000000" />  -->
 
 		<Spinner
-		    android:id="@+id/categorySpinnerNewPerm"
+		    android:id="@+id/boardSpinnerNewPerm"
 		    android:layout_width="200dp"
 		    android:layout_height="25dp"
 		    android:background="#00000000"
 		    android:gravity="center"
-		    android:prompt="@string/category_prompt" />
+		    android:prompt="@string/board_prompt" />
 
          <ImageView
             android:layout_width="0dp"
