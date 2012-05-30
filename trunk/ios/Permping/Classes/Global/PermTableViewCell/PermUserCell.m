@@ -27,7 +27,7 @@
 }
 
 - (void)setCellWithAvartarURLString:(NSString *)urlString userName:(NSString *)userName category:(NSString *)category {
-    [avatarView setImageWithURL:[NSURL URLWithString:urlString]];
+    [avatarView setImageWithURL:[NSURL URLWithString:urlString] placeholderImage:[UIImage imageNamed:@"user-img.png"]];
     self.textLabel.text = userName;
     self.detailTextLabel.text = category;
 }

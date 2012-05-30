@@ -16,4 +16,6 @@
 
 + (UIBarButtonItem*)barButtonnItemWithTitle:(NSString*)title target:(id)target selector:(SEL)selector;
 
++ (CGSize)sizeWithImage:(UIImage*)image constrainedToSize:(CGSize)constrainedSize;
+
 @end

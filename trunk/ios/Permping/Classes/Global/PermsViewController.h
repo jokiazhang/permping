@@ -12,6 +12,7 @@
 @interface PermsViewController : CommonViewController<UITableViewDelegate, UITableViewDataSource> {
     UITableView         *permTableview;
     NSArray             *permsArray;
+    NSMutableDictionary *permsImageHeight;
 }
 @property (nonatomic, retain) NSArray *permsArray;
 @end

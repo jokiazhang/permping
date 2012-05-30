@@ -179,6 +179,7 @@
                 [array release];
             }
             self.currentPerm.permComments = self.permCommentList;
+            self.permCommentList = nil;
         }
     }
     else if ([@"/response/perms/item/permRepinCount" isEqualToString:path]) {
@@ -373,6 +374,7 @@
                 [array release];
             }
             self.currentPerm.permComments = self.permCommentList;
+            self.permCommentList = nil;
         }
     }
     else if ([@"/response/popularPerms/item/permRepinCount" isEqualToString:path]) {

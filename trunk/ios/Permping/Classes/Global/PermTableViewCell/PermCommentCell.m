@@ -7,7 +7,6 @@
 //
 
 #import "PermCommentCell.h"
-#import "WSComment.h"
 
 @implementation PermCommentCell
 @synthesize avatarView;
@@ -30,8 +29,8 @@
 }
 
 - (void)setCellWithComment:(CommentModel*)in_comment{
-    [self.avatarView setImageWithURL:[NSURL URLWithString:in_comment.commentUser.userAvatar]];
-    self.textLabel.text = in_comment.commentUser.userAvatar;
+    [self.avatarView setImageWithURL:[NSURL URLWithString:in_comment.commentUser.userAvatar] placeholderImage:[UIImage imageNamed:@"user-img.png"]];
+    self.textLabel.text = in_comment.commentUser.userName;
     self.detailTextLabel.text = in_comment.content;
 }
 
