@@ -8,6 +8,8 @@ import com.permping.adapter.CategoryAdapter;
 import com.permping.adapter.PermAdapter;
 import com.permping.controller.CategoryController;
 import com.permping.model.Category;
+import com.permping.model.PermBoard;
+import com.permping.utils.API;
 
 import android.app.Activity;
 import android.app.ActivityGroup;
@@ -35,9 +37,17 @@ public class ExplorerActivity extends Activity {
 		categoriesView.setAdapter(categoriesAdapter);
 		categoriesView.setOnItemClickListener(new android.widget.AdapterView.OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				/*
 				Intent myIntent = new Intent(view.getContext(), BoardListActivity.class);
 				Category cat = categories.get(position);
 				myIntent.putExtra("Category", cat);
+				View boardListView = ExplorerActivityGroup.group.getLocalActivityManager() .startActivity("BoardListActivity", myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
+				ExplorerActivityGroup.group.replaceView(boardListView);
+				*/
+				Intent myIntent = new Intent(view.getContext(), FollowerActivity.class);
+				Category cat = categories.get(position);
+				String categoryUrl = API.permListFromCategory + cat.getId();
+				myIntent.putExtra("categoryURL", categoryUrl);
 				View boardListView = ExplorerActivityGroup.group.getLocalActivityManager() .startActivity("BoardListActivity", myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
 				ExplorerActivityGroup.group.replaceView(boardListView);
 			}

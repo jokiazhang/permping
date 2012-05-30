@@ -35,7 +35,7 @@ public class FollowerActivity extends Activity {
         User user = PermUtils.isAuthenticated(getApplicationContext());
     	Bundle extras = getIntent().getExtras();
 		if( extras != null ) {
-			this.url = (String) extras.get("boardUrl");
+			this.url = (String) extras.get("categoryURL");
 			this.header = false;
 		} else if ( user != null ) {
 			this.url = API.followingPerm + String.valueOf(user.getId());
