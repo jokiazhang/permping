@@ -10,11 +10,14 @@ import com.permping.utils.Constants;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 
 public class BoardDetailActivity extends Activity {
 
 	private ListView permList;
+	Button back;
 	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -28,6 +31,15 @@ public class BoardDetailActivity extends Activity {
 		permList = (ListView) findViewById(R.id.permList);
 		BoardDetailAdapter boardDetailAdapter = new BoardDetailAdapter(this, perms, boardName);
 		permList.setAdapter(boardDetailAdapter);
+		
+		back = (Button) findViewById(R.id.btBack);
+		
+		back.setOnClickListener(new View.OnClickListener() {
+			
+			public void onClick(View v) {
+				ProfileActivityGroup.group.back();
+			}
+		});
 		
 	}
 }
