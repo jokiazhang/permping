@@ -109,7 +109,9 @@
         
         PermListResponse *response = nil;
         if ([[AppData getInstance] didLogin]) {
-            response = [(FollowingScreen_DataLoader *)loader getPermWithUserId:@"118" nextItemId:nextId requestedCount:30];
+            NSString *userId = [[[AppData getInstance] user] userId];
+            NSLog(@"userId: %@", userId);
+            response = [(FollowingScreen_DataLoader *)loader getPermWithUserId:userId nextItemId:nextId requestedCount:30];
         } else {
             response = [(FollowingScreen_DataLoader *)loader getPopularFromNextItemId:nextId requestedCount:30];
         }

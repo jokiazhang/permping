@@ -81,7 +81,7 @@ NSString *const kUserServiceCPasswordKey = @"UserServiceCPasswordKey";
         [request addNextItemId:nextId];
     }
     PermListResponse *response = [[PermListResponse alloc] init];
-    response.permFromBoard = YES;
+    response.responseType = PermResponseTypeFromBoard;
     [[Taglist_CloudRequestDispatcher getInstance] dispatchRequest:request response:response];
     [request release];
     return [response autorelease];
@@ -96,10 +96,31 @@ NSString *const kUserServiceCPasswordKey = @"UserServiceCPasswordKey";
     }
     
     PermListResponse *response = [[PermListResponse alloc] init];    
+    response.responseType = PermResponseTypeFollowing;
     [[Taglist_CloudRequestDispatcher getInstance] dispatchRequest: request response:response];
     [request release];
     
     return [response autorelease];
+}
+
+- (void)buildMultipartFormDataPostBody
+{
+#if DEBUG_FORM_DATA_REQUEST
+	[self addToDebugBody:@"\r\n==== Building a multipart/form-data body ====\r\n"];
+#endif
+	
+	
+	
+#if DEBUG_FORM_DATA_REQUEST
+	[self addToDebugBody:@"==== End of multipart/form-data body ====\r\n"];
+#endif
+}
+
++ (UploadPermResponse*)uploadPermWithInfo:(NSDictionary*)permInfo {
+    /*Taglist_CloudRequest *request = [[Taglist_CloudRequest alloc] init];
+    request.requestURL = [SERVER_API stringByAppendingString:@"/permservice/uploadperm"];
+    request.method = @"POST";*/
+    // Upload perm
 }
 
 #pragma mark	-
@@ -124,6 +145,23 @@ NSString *const kUserServiceCPasswordKey = @"UserServiceCPasswordKey";
     
     return [response autorelease];
 }
+
++ (UserProfileResponse*)loginWithUserInfo:(NSDictionary *)userInfo {
+    Taglist_CloudRequest *request = [[Taglist_CloudRequest alloc] init];
+    request.requestURL = [SERVER_API stringByAppendingString:@"/userservice/login"];
+    request.method = @"POST";
+    [request addParameter:@"type" value:[userInfo valueForKey:kUserServiceTypeKey]];
+    [request addParameter:@"oauth_token" value:[userInfo valueForKey:kUserServiceOauthTokenKey]];
+    [request addParameter:@"email" value:[userInfo valueForKey:kUserServiceEmailKey]];
+    [request addParameter:@"password" value:[userInfo valueForKey:kUserServicePasswordKey]];
+    
+    UserProfileResponse *response = [[UserProfileResponse alloc] init];    
+    [[Taglist_CloudRequestDispatcher getInstance] dispatchRequest: request response:response];
+    [request release];
+    
+    return [response autorelease];
+}
+
 
 + (UserProfileResponse*)getUserProfileWithId:(NSString*)userId {
     Taglist_CloudRequest *request = [[Taglist_CloudRequest alloc] init];

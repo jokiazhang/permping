@@ -15,6 +15,8 @@
     IBOutlet UIButton       *twitterButton;
     IBOutlet UITableView    *formTableView;
     IBOutlet UIButton       *loginButton;
+    
+    BOOL    _showingKeyBoard;
 }
 
 - (IBAction)facebookButtonDidTouch:(id)sender;
