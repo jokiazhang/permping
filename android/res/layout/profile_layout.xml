@@ -3,7 +3,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" 
     android:stretchColumns="0"
-    android:layout_marginBottom="60dp">
+    android:layout_marginBottom="59dp">
     
     <include
         android:layout_width="fill_parent"
