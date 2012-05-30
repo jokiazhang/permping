@@ -6,6 +6,7 @@ package com.permping.adapter;
 import java.util.List;
 
 import com.permping.R;
+import com.permping.model.Comment;
 import com.permping.model.Perm;
 import com.permping.utils.UrlImageViewHelper;
 
@@ -17,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 
@@ -57,9 +59,34 @@ public class BoardDetailAdapter extends BaseAdapter implements ListAdapter {
 			
 			// Perm Information
 			TextView txtPermInfo = (TextView) view.findViewById(R.id.permInfo);
-			//txtPermInfo.
+			txtPermInfo.setText("via " + perm.getAuthor().getName() + " on to " + boardName);
+			
+			String permStat = "Like: " + perm.getPermLikeCount() + " - Repin: " + perm.getPermRepinCount() + " - Comment: " + perm.getPermCommentCount();
+            TextView txtStatus = (TextView) view.findViewById(R.id.permStat );
+            txtStatus.setText(permStat);
+            
+            LinearLayout comments = (LinearLayout) view.findViewById(R.id.comments);
+            for(int i = 0; i < perm.getComments().size(); i ++){
+                View cm = inflater.inflate(R.layout.comment_item, null );
+                Comment comment = perm.getComments().get(i);
+                if(comment != null) {
+                   if(comment.getAuthor() != null ){
+             		   ImageView cma = (ImageView) cm.findViewById(R.id.commentAvatar);
+             		   UrlImageViewHelper.setUrlDrawable(cma, comment.getAuthor().getAvatar().getUrl());
+             	   }
+	                   
+	               TextView cmt = (TextView) cm.findViewById(R.id.commentContent);
+	               cmt.setText(comment.getContent());
+	                   
+	               if( i == (perm.getComments().size() -1)){
+	            	   View sp = (View) cm.findViewById(R.id.separator);
+	            	   sp.setVisibility(View.INVISIBLE);
+	               }
+	               comments.addView(cm);
+                }
+            }
 		}
-		return null;
+		return view;
 	}
 	
 	@Override
