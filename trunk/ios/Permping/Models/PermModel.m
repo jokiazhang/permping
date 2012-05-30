@@ -18,7 +18,7 @@
 @synthesize                    permLikeCount;
 @synthesize                    permCommentCount; 
 @synthesize                    permComments;
-
+@synthesize                    permUserlikeCount;
 - (id)init
 {
 	if (self = [super init])
@@ -39,6 +39,7 @@
     self.permLikeCount = nil;
     self.permCommentCount = nil; 
     self.permComments = nil;
+    self.permUserlikeCount = nil;
 	[super dealloc];
 }
 

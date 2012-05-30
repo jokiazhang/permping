@@ -8,12 +8,17 @@
 
 #import <UIKit/UIKit.h>
 #import "BoardModel.h"
+#import "PermModel.h"
+#import "CommonViewController.h"
 
-@interface CreatePermViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate> {
+@interface CreatePermViewController : CommonViewController <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate> {
     IBOutlet UITableView *permTableView;
     NSDictionary    *imageInfo;
     BoardModel      *selectedBoard;
+    PermModel       *currentPerm;
+    NSData          *fileData;
 }
 @property (nonatomic, retain) NSDictionary  *imageInfo;
 @property (nonatomic, retain) BoardModel    *selectedBoard;
+@property (nonatomic, retain) NSData          *fileData;
 @end

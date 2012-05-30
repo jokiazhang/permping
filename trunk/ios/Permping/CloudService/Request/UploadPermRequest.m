@@ -1,12 +1,12 @@
 //
-//  Taglist_UpdateSettingRequest.m
+//  UploadPermRequest.m
 //  EyeconSocial
 //
 //  Created by PhongLe on 4/25/12.
 //  Copyright (c) 2012 Appo CO., LTD. All rights reserved.
 //
 
-#import "Taglist_UpdateSettingRequest.h"
+#import "UploadPermRequest.h"
 #import "Constants.h"
 
 @interface EntityModel : NSObject {
@@ -37,12 +37,12 @@
 }
 @end
 
-@interface Taglist_UpdateSettingRequest()
+@interface UploadPermRequest()
 
 @property (nonatomic, retain)   NSMutableArray          *params;
 @end
 
-@implementation Taglist_UpdateSettingRequest
+@implementation UploadPermRequest
 
 @synthesize params;
 
