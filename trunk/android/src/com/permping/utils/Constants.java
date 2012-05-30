@@ -53,10 +53,15 @@ public class Constants {
 	public static final String RESPONSE = "response";
 	public static final String ERROR = "error";
 	public static final String USER = "user";
+	public static final String L_USER = "l_user";
 	public static final String USER_ID = "userId";
+	public static final String L_USER_ID = "l_userId";
 	public static final String USER_NAME = "userName";
+	public static final String L_USER_NAME = "l_userName";
 	public static final String STATUS = "status";
+	public static final String L_STATUS = "l_status";
 	public static final String USER_AVATAR = "userAvatar";
+	public static final String L_USER_AVATAR = "l_userAvatar";
 	public static final String FOLLOWING_COUNT = "followingCount";
 	public static final String FOLLOWER_COUNT = "followerCount";
 	public static final String PIN_COUNT = "pinCount";

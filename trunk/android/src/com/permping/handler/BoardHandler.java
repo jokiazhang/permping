@@ -47,13 +47,13 @@ public class BoardHandler extends DefaultHandler {
 	@Override
 	public void endElement(String uri, String localName, String qName)
 			throws SAXException {
-		String tag = peekTag();
+		/*String tag = peekTag();
 		if (!localName.equals(tag)) {
 			throw new InternalError();
 		}
 		
 		popTag();
-		String parentTag = peekTag();
+		String parentTag = peekTag();*/
 		
 		if (localName != null && localName.equals(Constants.ITEM)) {
 			perms.add(perm);
@@ -63,6 +63,9 @@ public class BoardHandler extends DefaultHandler {
 			perm.setDescription(buffer.toString());
 		} else if (localName != null && localName.equals(Constants.PERM_CATEGORY)) {
 			perm.setCategory(buffer.toString());
+		} else if (localName != null && localName.equals(Constants.PERM_IMAGE)) {
+			PermImage permImage = new PermImage(buffer.toString());
+			perm.setImage(permImage);
 		} else if (localName != null && localName.equals(Constants.PERM_COMMENTS)) {
 			perm.setComments(comments);
 		} else if (localName != null && localName.equals(Constants.COMMENT)) {
@@ -70,36 +73,27 @@ public class BoardHandler extends DefaultHandler {
 		} else if (localName != null && localName.equals(Constants.ID)) {
 			comment.setId(buffer.toString());
 		} else if (localName != null && localName.equals(Constants.USER)) {
-			if (parentTag.equals(Constants.COMMENT)) {
-				comment.setAuthor(commentAuthor);
-			} else if (parentTag.equals(Constants.ITEM)) {
-				perm.setAuthor(user);
-			}
+			perm.setAuthor(user);
+		} else if (localName != null && localName.equals(Constants.L_USER)) {
+			comment.setAuthor(commentAuthor);
 		} else if (localName != null && localName.equals(Constants.USER_ID)) {
-			if (parentTag.equals(Constants.COMMENT)) {
-				commentAuthor.setId(buffer.toString());
-			} else if (parentTag.equals(Constants.ITEM)) {
-				user.setId(buffer.toString());
-			}
+			user.setId(buffer.toString());
+		} else if (localName != null && localName.equals(Constants.L_USER_ID)) {
+			commentAuthor.setId(buffer.toString());
 		} else if (localName != null && localName.equals(Constants.USER_NAME)) {
-			if (parentTag.equals(Constants.COMMENT)) {
-				commentAuthor.setName(buffer.toString());
-			} else if (parentTag.equals(Constants.ITEM)) {
-				user.setName(buffer.toString());
-			}			
+			user.setName(buffer.toString());
+		} else if (localName != null && localName.equals(Constants.L_USER_NAME)) {
+			commentAuthor.setName(buffer.toString());
 		} else if (localName != null && localName.equals(Constants.STATUS)) {
-			if (parentTag.equals(Constants.COMMENT)) {
-				commentAuthor.setStatus(buffer.toString());
-			} else if (parentTag.equals(Constants.ITEM)) {
-				user.setStatus(buffer.toString());
-			}
+			user.setStatus(buffer.toString());
+		} else if (localName != null && localName.equals(Constants.L_STATUS)) {
+			commentAuthor.setStatus(buffer.toString());
 		} else if (localName != null && localName.equals(Constants.USER_AVATAR)) {
 			PermImage avatar = new PermImage(buffer.toString());
-			if (parentTag.equals(Constants.COMMENT)) {
-				commentAuthor.setAvatar(avatar);
-			} else if (parentTag.equals(Constants.ITEM)) {
-				user.setAvatar(avatar);
-			}
+			user.setAvatar(avatar);
+		} else if (localName != null && localName.equals(Constants.L_USER_AVATAR)) {
+			PermImage avatar = new PermImage(buffer.toString());
+			commentAuthor.setAvatar(avatar);
 		} else if (localName != null && localName.equals(Constants.CONTENT)) {
 			comment.setContent(buffer.toString());
 		} else if (localName != null && localName.equals(Constants.IS_MORE)) {
@@ -118,7 +112,8 @@ public class BoardHandler extends DefaultHandler {
 	@Override
 	public void startElement(String uri, String localName, String qName,
 			Attributes attributes) throws SAXException {
-		pushTag(localName);
+		/*String parentTag = peekTag();
+		pushTag(localName);*/
 		buffer.setLength(0);
 		
 		if (localName != null && localName.equals(Constants.PERMS)) {
@@ -127,6 +122,8 @@ public class BoardHandler extends DefaultHandler {
 			perm = new Perm();
 		} else if (localName != null && localName.equals(Constants.USER)) {
 			user = new User();
+		} else if (localName != null && localName.equals(Constants.L_USER)) {
+			commentAuthor = new User();
 		} else if (localName != null && localName.equals(Constants.PERM_COMMENTS)) {
 			comments = new ArrayList<Comment>();
 		} else if (localName != null && localName.equals(Constants.COMMENT)) {
@@ -142,7 +139,7 @@ public class BoardHandler extends DefaultHandler {
 
 	@Override
 	public void startDocument() throws SAXException {
-		pushTag("");
+		//pushTag("");
 	}
 	
 	private void pushTag(String tag) {
