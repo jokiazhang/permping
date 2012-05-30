@@ -40,12 +40,6 @@ public class ProfileActivity extends Activity {
 	
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
-        /*// Check if user is authorized
-        User user = PermUtils.isAuthenticated(getApplicationContext());
-        if (user != null) {
-        	Intent i = new Intent(getApplicationContext())
-        }*/
         setContentView(R.layout.profile_layout);
         
         authorAvatar = (ImageView) findViewById(R.id.authorAvatar);
