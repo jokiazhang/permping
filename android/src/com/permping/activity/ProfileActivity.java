@@ -60,7 +60,7 @@ public class ProfileActivity extends Activity {
             UrlImageViewHelper.setUrlDrawable(authorAvatar, avatar.getUrl());
             
             // The number of friends
-            friends.setText(String.valueOf(user.getFriends()) + " friends ");
+            friends.setText(String.valueOf(user.getFriends()) + " followers ");
             
             // The number of followings
             followings.setText(String.valueOf(user.getFollowings() + " followings"));
