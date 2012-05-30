@@ -137,7 +137,7 @@
 		26642EBF156EBA1D00577978 /* Taglist_AlertManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 26642E78156EBA1D00577978 /* Taglist_AlertManager.m */; };
 		26642EC0156EBA1D00577978 /* Taglist_CloudPagingRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 26642E7C156EBA1D00577978 /* Taglist_CloudPagingRequest.m */; };
 		26642EC1156EBA1D00577978 /* Taglist_LinkSourceRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 26642E7E156EBA1D00577978 /* Taglist_LinkSourceRequest.m */; };
-		26642EC2156EBA1D00577978 /* Taglist_UpdateSettingRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 26642E80156EBA1D00577978 /* Taglist_UpdateSettingRequest.m */; };
+		26642EC2156EBA1D00577978 /* UploadPermRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 26642E80156EBA1D00577978 /* UploadPermRequest.m */; };
 		26642EC3156EBA1D00577978 /* PermListResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 26642E83156EBA1D00577978 /* PermListResponse.m */; };
 		26642EC4156EBA1D00577978 /* Taglist_CloudPagingResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 26642E85156EBA1D00577978 /* Taglist_CloudPagingResponse.m */; };
 		26642EC5156EBA1D00577978 /* Taglist_CloudDirectBodyRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 26642E87156EBA1D00577978 /* Taglist_CloudDirectBodyRequest.m */; };
@@ -166,6 +166,7 @@
 		26642EE1156EBA2C00577978 /* CommonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26642EDF156EBA2C00577978 /* CommonViewController.m */; };
 		26642EE2156EBA2C00577978 /* CommonViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26642EE0156EBA2C00577978 /* CommonViewController.xib */; };
 		26642EE4156EBA6F00577978 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26642EE3156EBA6F00577978 /* CoreTelephony.framework */; };
+		26AAAA261576AEA200BB6E9B /* CreatePermScreen_DataLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 26AAAA251576AEA200BB6E9B /* CreatePermScreen_DataLoader.m */; };
 		6A04632D1562591600BB4E34 /* MKAnnotationView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A04631A1562591600BB4E34 /* MKAnnotationView+WebCache.m */; };
 		6A04632E1562591600BB4E34 /* SDImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A04631C1562591600BB4E34 /* SDImageCache.m */; };
 		6A04632F1562591600BB4E34 /* SDWebImageDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A0463201562591600BB4E34 /* SDWebImageDecoder.m */; };
@@ -441,8 +442,8 @@
 		26642E7C156EBA1D00577978 /* Taglist_CloudPagingRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Taglist_CloudPagingRequest.m; sourceTree = "<group>"; };
 		26642E7D156EBA1D00577978 /* Taglist_LinkSourceRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Taglist_LinkSourceRequest.h; sourceTree = "<group>"; };
 		26642E7E156EBA1D00577978 /* Taglist_LinkSourceRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Taglist_LinkSourceRequest.m; sourceTree = "<group>"; };
-		26642E7F156EBA1D00577978 /* Taglist_UpdateSettingRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Taglist_UpdateSettingRequest.h; sourceTree = "<group>"; };
-		26642E80156EBA1D00577978 /* Taglist_UpdateSettingRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Taglist_UpdateSettingRequest.m; sourceTree = "<group>"; };
+		26642E7F156EBA1D00577978 /* UploadPermRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UploadPermRequest.h; sourceTree = "<group>"; };
+		26642E80156EBA1D00577978 /* UploadPermRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UploadPermRequest.m; sourceTree = "<group>"; };
 		26642E82156EBA1D00577978 /* PermListResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PermListResponse.h; sourceTree = "<group>"; };
 		26642E83156EBA1D00577978 /* PermListResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PermListResponse.m; sourceTree = "<group>"; };
 		26642E84156EBA1D00577978 /* Taglist_CloudPagingResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Taglist_CloudPagingResponse.h; sourceTree = "<group>"; };
@@ -499,6 +500,8 @@
 		26642EDF156EBA2C00577978 /* CommonViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonViewController.m; sourceTree = "<group>"; };
 		26642EE0156EBA2C00577978 /* CommonViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommonViewController.xib; sourceTree = "<group>"; };
 		26642EE3156EBA6F00577978 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		26AAAA241576AEA200BB6E9B /* CreatePermScreen_DataLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreatePermScreen_DataLoader.h; sourceTree = "<group>"; };
+		26AAAA251576AEA200BB6E9B /* CreatePermScreen_DataLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreatePermScreen_DataLoader.m; sourceTree = "<group>"; };
 		6A0463191562591600BB4E34 /* MKAnnotationView+WebCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MKAnnotationView+WebCache.h"; sourceTree = "<group>"; };
 		6A04631A1562591600BB4E34 /* MKAnnotationView+WebCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MKAnnotationView+WebCache.m"; sourceTree = "<group>"; };
 		6A04631B1562591600BB4E34 /* SDImageCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDImageCache.h; sourceTree = "<group>"; };
@@ -1092,8 +1095,8 @@
 				26642E7C156EBA1D00577978 /* Taglist_CloudPagingRequest.m */,
 				26642E7D156EBA1D00577978 /* Taglist_LinkSourceRequest.h */,
 				26642E7E156EBA1D00577978 /* Taglist_LinkSourceRequest.m */,
-				26642E7F156EBA1D00577978 /* Taglist_UpdateSettingRequest.h */,
-				26642E80156EBA1D00577978 /* Taglist_UpdateSettingRequest.m */,
+				26642E7F156EBA1D00577978 /* UploadPermRequest.h */,
+				26642E80156EBA1D00577978 /* UploadPermRequest.m */,
 			);
 			path = Request;
 			sourceTree = "<group>";
@@ -1134,6 +1137,8 @@
 				04C5860A1572B71C003435D9 /* UserProfile_DataLoader.m */,
 				6ADA0C371575CB3E000DA9F2 /* Login_DataLoader.h */,
 				6ADA0C381575CB3E000DA9F2 /* Login_DataLoader.m */,
+				26AAAA241576AEA200BB6E9B /* CreatePermScreen_DataLoader.h */,
+				26AAAA251576AEA200BB6E9B /* CreatePermScreen_DataLoader.m */,
 			);
 			path = Dataloader;
 			sourceTree = "<group>";
@@ -1581,7 +1586,7 @@
 				26642EBF156EBA1D00577978 /* Taglist_AlertManager.m in Sources */,
 				26642EC0156EBA1D00577978 /* Taglist_CloudPagingRequest.m in Sources */,
 				26642EC1156EBA1D00577978 /* Taglist_LinkSourceRequest.m in Sources */,
-				26642EC2156EBA1D00577978 /* Taglist_UpdateSettingRequest.m in Sources */,
+				26642EC2156EBA1D00577978 /* UploadPermRequest.m in Sources */,
 				26642EC3156EBA1D00577978 /* PermListResponse.m in Sources */,
 				26642EC4156EBA1D00577978 /* Taglist_CloudPagingResponse.m in Sources */,
 				26642EC5156EBA1D00577978 /* Taglist_CloudDirectBodyRequest.m in Sources */,
@@ -1627,6 +1632,7 @@
 				6ADA0C581575FB3F000DA9F2 /* BoardListViewController.m in Sources */,
 				6ADA0C5C15760F45000DA9F2 /* UploadPermResponse.m in Sources */,
 				043D4F1D157681D800D10276 /* CreateBoardViewController.m in Sources */,
+				26AAAA261576AEA200BB6E9B /* CreatePermScreen_DataLoader.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

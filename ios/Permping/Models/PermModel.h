@@ -19,7 +19,7 @@
     NSString    *permRepinCount;
     NSString    *permLikeCount;
     NSString    *permCommentCount;
-    
+    NSString    *permUserlikeCount;
     NSMutableArray     *permComments;
     
 }
@@ -32,7 +32,7 @@
 @property (nonatomic, copy)     NSString                    *permRepinCount;
 @property (nonatomic, copy)     NSString                    *permLikeCount;
 @property (nonatomic, copy)     NSString                    *permCommentCount;
-
+@property (nonatomic, copy)     NSString                    *permUserlikeCount;
 @property (nonatomic, retain)   NSMutableArray                    *permComments;
  
 @end

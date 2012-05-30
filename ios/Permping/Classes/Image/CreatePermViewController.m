@@ -10,13 +10,25 @@
 #import "BoardListViewController.h"
 #import "CreatePermCell.h"
 #import "Utils.h"
+#import "CreatePermScreen_DataLoader.h"
+
+@interface CreatePermViewController ()
+@property (nonatomic, retain) PermModel    *currentPerm;
+- (void)uploadPermForMe:(id)loader thread:(id<ThreadManagementProtocol>)threadObj;
+@end
+
+
 
 @implementation CreatePermViewController
 @synthesize imageInfo, selectedBoard;
+@synthesize currentPerm;
+@synthesize fileData;
 
 - (void)dealloc {
     self.imageInfo = nil;
     self.selectedBoard = nil;
+    self.currentPerm = nil;
+    self.fileData = nil;
     [super dealloc];
 }
 
@@ -55,6 +67,51 @@
 - (void)viewWillAppear:(BOOL)animated {
     [permTableView reloadData];
 }
+
+#pragma mark - Override methods
+- (id)getMyDataLoader
+{
+    CreatePermScreen_DataLoader *loader = [[CreatePermScreen_DataLoader alloc] init];
+    return [loader autorelease];
+}
+
+- (void)uploadPermForMe:(id)loader thread:(id<ThreadManagementProtocol>)threadObj
+{
+    
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+    if (![threadObj isCancelled]) {
+        dispatch_async(dispatch_get_main_queue(), ^(void)
+                       {
+                           //[self initializeUIControls]; 
+                           
+                       });
+        NSArray *keys = [NSArray arrayWithObjects:@"perm", @"board", @"fileData", nil];
+        NSArray *objects = [NSArray arrayWithObjects:self.currentPerm, self.selectedBoard, self.fileData, nil];
+        NSDictionary *dictionary = [NSDictionary dictionaryWithObjects:objects 
+                                                               forKeys:keys];
+        NSArray *arr = nil;
+        
+        UploadPermResponse *response =  [(CreatePermScreen_DataLoader *)loader uploadPerm:dictionary];
+
+    
+       // arr = [response getResponsePermList];
+        
+        if (![threadObj isCancelled]) {
+            
+            
+            dispatch_async(dispatch_get_main_queue(), ^(void)
+                           {
+                               [self stopActivityIndicator];
+                                
+                           });
+            
+        }
+    }
+    //[myLoader release];
+    [pool drain];
+}
+
+
 #pragma mark - <UITableViewDelegate + DataSource> implementation
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 2;
@@ -136,8 +193,17 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+
+
 - (void)createPerm {
     
+    if(self.selectedBoard  != nil)
+    {
+        self.currentPerm = [[PermModel alloc] init];
+        self.currentPerm.permDesc = @"";
+        [self startActivityIndicator];
+        self.dataLoaderThread = [[ThreadManager getInstance] dispatchToConcurrentBackgroundNormalPriorityQueueWithTarget:self selector:@selector(uploadPermForMe:thread:) dataObject:[self getMyDataLoader]];
+    }
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {

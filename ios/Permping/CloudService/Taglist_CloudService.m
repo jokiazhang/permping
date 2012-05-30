@@ -12,6 +12,9 @@
 #import "Taglist_CloudRequestDispatcher.h"
 #import "Taglist_CloudPagingRequest.h"
 #import "Taglist_CloudPagingResponse.h"
+#import "UploadPermRequest.h"
+#import "UploadPermResponse.h"
+#import "Utility.h"
 #import "Configuration.h"
 #import "Constants.h"
 #import "AppData.h"
@@ -117,11 +120,52 @@ NSString *const kUserServiceCPasswordKey = @"UserServiceCPasswordKey";
 }
 
 + (UploadPermResponse*)uploadPermWithInfo:(NSDictionary*)permInfo {
-    /*Taglist_CloudRequest *request = [[Taglist_CloudRequest alloc] init];
-    request.requestURL = [SERVER_API stringByAppendingString:@"/permservice/uploadperm"];
-    request.method = @"POST";*/
-    // Upload perm
-    return nil;
+    UploadPermRequest *request = [[UploadPermRequest alloc] init];
+    request.method = @"POST";
+    request.contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@", UPLOAD_MULTIPART_BOUNDARY];
+    
+    request.requestURL = [SERVER_API stringByAppendingFormat:@"/permservice/uploadperm"];
+    
+    PermModel *perm = [permInfo objectForKey:@"perm"];
+    BoardModel *board = [permInfo objectForKey:@"board"];
+    NSData *fileData = [permInfo objectForKey:@"fileData"];
+    [request addParameter:@"uid" value:[AppData getInstance].user.userId];
+    [request addParameter:@"board" value:board.boardId];
+    [request addParameter:@"board_desc" value:perm.permDesc];
+
+    NSString *extType = [Utility getExtImageType:fileData];
+    if (extType != nil) {
+        // get the current date
+        NSDate *date = [NSDate date];
+        
+        // format it
+        NSDateFormatter *dateFormat = [[NSDateFormatter alloc]init];
+        [dateFormat setDateFormat:@"HH:mm:ss zzz"];
+        
+        // convert it to a string
+        NSString *dateString = [dateFormat stringFromDate:date];
+        
+        // free up memory
+        [dateFormat release];
+        
+        [request addPartName:@"url" contentType:[NSString stringWithFormat:@"image/%@", extType] transferEncode:@"binary" body:fileData filename:[NSString stringWithFormat:@"perm-%@.%@",dateString, extType]];
+    }
+    
+    //   
+    ////    [request addPartName:@"xml" contentType:@"application/xml; charset=UTF-8" transferEncode:@"8bit" body:[mstr dataUsingEncoding:NSUTF8StringEncoding] filename:nil];
+    //    
+    //    if (userSetting.avatar != nil) {
+    //        NSString *extType = [Utility getExtImageType:userSetting.avatar];
+    //        if (extType != nil) {
+    //            [request addPartName:@"image" contentType:[NSString stringWithFormat:@"image/%@", extType] transferEncode:@"binary" body:userSetting.avatar filename:[NSString stringWithFormat:@"avatar.%@", extType]];
+    //        }
+    //    }
+    //    
+    UploadPermResponse *response = [[UploadPermResponse alloc] init]; 
+    [[Taglist_CloudRequestDispatcher getInstance] dispatchRequest:request response:response];
+    [request release];
+    
+    return [response autorelease];
 }
 
 #pragma mark	-
