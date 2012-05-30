@@ -37,6 +37,7 @@ import android.util.Log;
 import com.permping.PermpingApplication;
 import com.permping.activity.FollowerActivity;
 import com.permping.controller.PermListController;
+import com.permping.handler.BoardHandler;
 import com.permping.handler.UserHandler;
 import com.permping.model.Perm;
 import com.permping.model.PermBoard;
@@ -391,7 +392,11 @@ public class XMLParser {
 	 * @param url
 	 */
 	public XMLParser(String url, List<NameValuePair> nameValuePairs) {
-		setDoc(getResponseFromUrl(url, nameValuePairs));
+		setDoc(getResponseFromURL(url, nameValuePairs));
+	}
+	
+	public XMLParser(String url) {
+		setDoc(getResponseFromURL(url));
 	}
 
 	/**
@@ -399,7 +404,7 @@ public class XMLParser {
 	 * @param url
 	 * @return
 	 */
-	private Document getResponseFromUrl(String url, List<NameValuePair> nameValuePairs) {
+	private Document getResponseFromURL(String url, List<NameValuePair> nameValuePairs) {
 		HttpPermUtils httpPermUtils = new HttpPermUtils();
 		String response = httpPermUtils.sendPostRequest(url, nameValuePairs);
 		if (response != null) {
@@ -410,9 +415,24 @@ public class XMLParser {
 	}
 
 	/**
-	 * 
-	 * @param response
-	 * @return
+	 * Get the response from the web service as Document object.
+	 * @param url the url.
+	 * @return the Document.
+	 */
+	private Document getResponseFromURL(String url) {
+		HttpPermUtils httpPermUtils = new HttpPermUtils();
+		String response = httpPermUtils.sendGetRequest(url);
+		if (response != null) {
+			this.response = response;
+			return parseResponse(response);
+		}
+		return null;
+	}
+	
+	/**
+	 * Prase the response returned from the web service.
+	 * @param response the response.
+	 * @return the Document object.
 	 */
 	private Document parseResponse(String response) {
 		Document doc = null;
@@ -454,7 +474,7 @@ public class XMLParser {
 	/**
 	 * Return the User object from response (API)
 	 * @param url
-	 * @return
+	 * @return an User object
 	 */
 	public User getUser() {
 		try {
@@ -464,6 +484,23 @@ public class XMLParser {
 			xmlReader.setContentHandler(userHandler);
 			xmlReader.parse(new InputSource(new StringReader(response)));
 			return userHandler.getUser();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	/**
+	 * Return a list of perms from response (API)
+	 * @return a list of perms
+	 */
+	public List<Perm> getPerms() {
+		try {
+			XMLReader xmlReader = initializeReader();
+			BoardHandler boardHandler = new BoardHandler();
+			xmlReader.setContentHandler(boardHandler);
+			xmlReader.parse(new InputSource(new StringReader(response)));
+			return boardHandler.getPerms();
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;

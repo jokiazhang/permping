@@ -1,12 +1,13 @@
 package com.permping.controller;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
-import com.permping.model.Category;
+import com.permping.model.Perm;
 import com.permping.model.PermBoard;
 import com.permping.utils.API;
 import com.permping.utils.XMLParser;
@@ -38,10 +39,15 @@ public class BoardController {
 		return boards;
 	}
 	
-	public ArrayList<PermBoard> getPermByBoardId(String boardId) {
-		ArrayList<PermBoard> boards = new ArrayList<PermBoard>();
-		XMLParser parser = new XMLParser(API.permListFromBoardUrl + boardId, true);
-		Document document = parser.getDoc();
-		return boards;
+	/**
+	 * Return the list of perm of selected board
+	 * @param boardId the board id
+	 * @return the list of perms
+	 */
+	public List<Perm> getPermByBoardId(String boardId) {
+		if (boardId == null || "".equals(boardId))
+			return null;
+		XMLParser parser = new XMLParser(API.permListFromBoardUrl + boardId);
+		return parser.getPerms();
 	}
 }

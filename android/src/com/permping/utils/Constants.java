@@ -49,11 +49,13 @@ public class Constants {
 	/**
 	 * XML tags
 	 */
+	// User response
 	public static final String RESPONSE = "response";
 	public static final String ERROR = "error";
 	public static final String USER = "user";
 	public static final String USER_ID = "userId";
 	public static final String USER_NAME = "userName";
+	public static final String STATUS = "status";
 	public static final String USER_AVATAR = "userAvatar";
 	public static final String FOLLOWING_COUNT = "followingCount";
 	public static final String FOLLOWER_COUNT = "followerCount";
@@ -67,6 +69,21 @@ public class Constants {
 	public static final String DESCRIPTION = "description";
 	public static final String FOLLOWERS = "followers";
 	public static final String PINS = "pins";
+	// Perm list reponse 
+	public static final String PERMS = "perms";
+	public static final String PERM_ID = "permId";
+	public static final String PERM_DESCRIPTION = "permDesc";
+	public static final String PERM_CATEGORY = "permCategory";
+	public static final String PERM_IMAGE = "permImage";
+	public static final String PERM_COMMENTS = "permComments";
+	public static final String COMMENT = "comment";
+	public static final String CONTENT = "content";
+	public static final String IS_MORE = "isMore";
+	public static final String PERM_REPINCOUNT = "permRepinCount";
+	public static final String PERM_LIKECOUNT = "permLikeCount";
+	public static final String PERM_COMMENTCOUNT = "permCommentCount";
+	public static final String NEXT_ITEM = "nextItem";
+		
 	
 	/**
 	 * Create Board parameters

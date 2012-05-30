@@ -17,7 +17,7 @@ import com.permping.activity.LoginPermActivity;
 import com.permping.activity.PrepareRequestTokenActivity;
 import com.permping.controller.AuthorizeController;
 import com.permping.model.Perm;
-import com.permping.model.PermComment;
+import com.permping.model.Comment;
 import com.permping.utils.Constants;
 import com.permping.utils.UrlImageViewHelper;
 import com.permping.utils.facebook.FacebookConnector;
@@ -133,14 +133,14 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 	                   pi.setText(permInfo);
 	                   
 	                   
-	                   String permStat = "Like: " + o.getPermLikecount() + " - Repin: " + o.getPermRepinCount() + " - Comment: " + o.getPermCommentCount();
+	                   String permStat = "Like: " + o.getPermLikeCount() + " - Repin: " + o.getPermRepinCount() + " - Comment: " + o.getPermCommentCount();
 	                   TextView ps = (TextView) v.findViewById(R.id.permStat );
 	                   ps.setText(permStat) ;
 	                   
 	                   LinearLayout comments = (LinearLayout) v.findViewById(R.id.comments);
 	                   for( int i =0 ; i< o.getComments().size() ; i ++ ){
 		                   View cm = vi.inflate(R.layout.comment_item, null );
-		                   PermComment pcm = o.getComments().get(i);
+		                   Comment pcm = o.getComments().get(i);
 		                   if( pcm != null ){
 		                   
 		                	   if( pcm.getAuthor() != null ){

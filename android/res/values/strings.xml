@@ -7,7 +7,7 @@
     <string name="bt_twitter">Login with Twitter</string>
     <string name="bt_join_permping">Join Permping</string>
     <string name="permping_head_title">Permping</string>
-    <string name="hint_username">Username</string>
+    <string name="hint_email">Email</string>
     <string name="hint_password">Password</string>
     <string name="bt_cancel">Cancel</string>
     <string name="screen_login">Permping.com/Login</string>
@@ -26,5 +26,8 @@
     <string name="bt_create_board">Create Board</string>
     <string name="logout">Logout</string>
     <string name="cancel">Cancel</string>
+    <string name="bt_reperm">Reperm</string>
+    <string name="bt_like">Like</string>
+    <string name="bt_comment">Comment</string>
     
 </resources>

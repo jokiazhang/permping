@@ -5,6 +5,7 @@ package com.permping.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 public class Perm implements Serializable{
 
 	/**
@@ -17,14 +18,18 @@ public class Perm implements Serializable{
 	private String name;
 	private String description;
 	private PermImage image;
-	private ArrayList<PermComment> comments;
+	private List<Comment> comments;
 	private User author;
 	private PermBoard board;
+	private String category;
 	
 	private String permRepinCount = "0";
-	private String permLikecount = "0";
+	private String permLikeCount = "0";
 	private String permCommentCount = "0";
 	
+	// TODO :This is not good but for now, I will do it
+	// This is for keeping the value of <nextItem> in the response when get the list of Perm
+	private String nextItem;
 	
 	
 	/**
@@ -48,7 +53,7 @@ public class Perm implements Serializable{
 	}
 	
 	
-	public Perm( String id, PermBoard board, String description, PermImage image , ArrayList<PermComment> comments){
+	public Perm( String id, PermBoard board, String description, PermImage image , ArrayList<Comment> comments){
 		this.setId(id);
 		this.setBoard(board);
 		this.setDescription(description);
@@ -66,11 +71,11 @@ public class Perm implements Serializable{
 	 * Getters / Setters
 	 */
 	
-	public void setComments( ArrayList<PermComment> comments){
+	public void setComments(List<Comment> comments){
 		this.comments = comments;
 	}
 	
-	public ArrayList<PermComment> getComments(){
+	public List<Comment> getComments(){
 		return this.comments;
 	}
 
@@ -142,16 +147,16 @@ public class Perm implements Serializable{
 	/**
 	 * @return the permLikecount
 	 */
-	public String getPermLikecount() {
-		return permLikecount;
+	public String getPermLikeCount() {
+		return permLikeCount;
 	}
 
 
 	/**
 	 * @param permLikecount the permLikecount to set
 	 */
-	public void setPermLikecount(String permLikecount) {
-		this.permLikecount = permLikecount;
+	public void setPermLikeCount(String permLikecount) {
+		this.permLikeCount = permLikecount;
 	}
 
 
@@ -169,5 +174,24 @@ public class Perm implements Serializable{
 	public void setPermCommentCount(String permCommentCount) {
 		this.permCommentCount = permCommentCount;
 	}
-	
+
+
+	public String getCategory() {
+		return category;
+	}
+
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
+
+
+	public String getNextItem() {
+		return nextItem;
+	}
+
+
+	public void setNextItem(String nextItem) {
+		this.nextItem = nextItem;
+	}
 }
