@@ -52,7 +52,7 @@ public class ProfileActivity extends Activity {
         followings = (TextView) findViewById(R.id.followings);
         account = (Button) findViewById(R.id.btAccount);
         
-        /** Load the information from Appliaction (user info) when the page is loaded. */
+        /** Load the information from Application (user info) when the page is loaded. */
         User user = PermUtils.isAuthenticated(getApplicationContext());
         if (user != null) {
         	// The author name
