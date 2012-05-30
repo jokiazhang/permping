@@ -11,6 +11,7 @@ public class User implements Serializable {
 	private static final long serialVersionUID = -4778518614772031293L;
 	private String id;
 	private String name;
+	private String status;
 	private PermImage avatar;
 	private int followings;
 	private int friends;	
@@ -173,4 +174,14 @@ public class User implements Serializable {
 	public void setFollowings(int followings) {
 		this.followings = followings;
 	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	
+	
 }

@@ -62,13 +62,13 @@ public class PermListController {
 			//Comment
 			NodeList permComments = permElement.getElementsByTagName("comment");
 			
-			ArrayList<PermComment> comments = new ArrayList<PermComment>();
+			ArrayList<Comment> comments = new ArrayList<Comment>();
 			for( int j = 0; j < permComments.getLength(); j ++ ){
 				Element comment = (Element) permComments.item(i);
 				String commentId = getValue(comment, "id");
 				String commentContent = getValue(comment, "content");
 				
-				PermComment permComment = new PermComment( commentId, commentContent );
+				Comment permComment = new Comment( commentId, commentContent );
 				
 				//Comment user
 				if( comment != null ){
@@ -100,7 +100,7 @@ public class PermListController {
 			Perm perm = new Perm(permId, new PermBoard("BoardID", permBoard), permDesc, new PermImage(permImage), comments);
 			perm.setAuthor(permAuthor);
 			perm.setPermRepinCount(permRepinCount);
-			perm.setPermLikecount(permLikeCount);
+			perm.setPermLikeCount(permLikeCount);
 			perm.setPermCommentCount(permCommentCount);
 			
 			permList.add(perm);
