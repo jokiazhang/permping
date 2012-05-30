@@ -18,7 +18,11 @@ import com.permping.activity.PrepareRequestTokenActivity;
 import com.permping.controller.AuthorizeController;
 import com.permping.model.Perm;
 import com.permping.model.Comment;
+import com.permping.model.User;
+import com.permping.utils.API;
 import com.permping.utils.Constants;
+import com.permping.utils.HttpPermUtils;
+import com.permping.utils.PermUtils;
 import com.permping.utils.UrlImageViewHelper;
 import com.permping.utils.facebook.FacebookConnector;
 import com.permping.utils.facebook.SessionEvents;
@@ -27,9 +31,11 @@ import com.permping.utils.facebook.SessionEvents.AuthListener;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,6 +45,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.view.View.OnClickListener;
 
 
@@ -49,8 +56,10 @@ public class PermAdapter extends ArrayAdapter<Perm> {
     
     public Button join;
     public Button login;
+    public Button like;
     private Activity activity ;
     private Boolean header;
+    private User user;
 
     private FacebookConnector facebookConnector;
     
@@ -67,6 +76,18 @@ public class PermAdapter extends ArrayAdapter<Perm> {
             		this.activity, context, new String[] {Constants.EMAIL, Constants.PUBLISH_STREAM});
             prefs = PreferenceManager.getDefaultSharedPreferences(context);
     }
+    
+    
+    public PermAdapter(Context context, int textViewResourceId, ArrayList<Perm> items, Activity activity , Boolean header, User user ) {
+        super(context, textViewResourceId, items);
+        this.activity = activity;
+        this.header = header;
+        this.items = items;
+        this.user = user;
+        facebookConnector = new FacebookConnector(Constants.FACEBOOK_APP_ID, 
+        		this.activity, context, new String[] {Constants.EMAIL, Constants.PUBLISH_STREAM});
+        prefs = PreferenceManager.getDefaultSharedPreferences(context);
+}
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -106,7 +127,55 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 	            LayoutInflater vi = (LayoutInflater)this.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	            v = vi.inflate(R.layout.perm_item_1, null);
 	            
-	            Perm o = items.get(position);
+	            final Perm o = items.get(position);
+	            
+	            final Button like = (Button) v.findViewById(R.id.btnLike );
+	            like.setOnClickListener(new OnClickListener() {
+					public void onClick(final View v) {
+						
+						
+						
+						
+						if( user != null ) {
+							//final ProgressDialog  dialog = ProgressDialog.show(v.getContext(), "Loading","Please wait...", true);
+							
+							HttpPermUtils util = new HttpPermUtils();
+							List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+							nameValuePairs.add(new BasicNameValuePair("pid", String.valueOf(o.getId())));
+							nameValuePairs.add(new BasicNameValuePair("uid", String.valueOf(user.getId()))); 
+							util.sendPostRequest(API.likeURL, nameValuePairs);
+							
+							like.setText("Unlike");
+							
+							/*
+							AsyncTask<Void, Void, Void> likeFunction = new AsyncTask<Void, Void, Void>(){
+								@Override
+								protected Void doInBackground(Void... params) {
+									// TODO Auto-generated method stub
+									 HttpPermUtils util = new HttpPermUtils();
+									List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+									nameValuePairs.add(new BasicNameValuePair("pid", String.valueOf(o.getId())));
+									nameValuePairs.add(new BasicNameValuePair("uid", String.valueOf(user.getId()))); 
+									util.sendPostRequest(API.likeURL, nameValuePairs);
+									
+									like.setText("Unlike");
+//									if (dialog.isShowing()){
+//						  				dialog.dismiss();
+//						  			}
+									return null;
+								}
+								
+				            };
+				            likeFunction.execute();
+				            */
+						} else {
+							Toast.makeText(v.getContext(),"You are not logged in.",Toast.LENGTH_LONG).show();
+						}
+					}
+				});
+	            
+	            
+	            
 	            if (o != null) {
 	            		ImageView av = (ImageView) v.findViewById(R.id.authorAvatar);
 	            		UrlImageViewHelper.setUrlDrawable(av, o.getAuthor().getAvatar().getUrl() );
