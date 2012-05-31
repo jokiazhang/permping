@@ -23,12 +23,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 
+import org.apache.http.protocol.HTTP;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -93,8 +95,13 @@ public final class Util {
             }
 
             if (first) first = false; else sb.append("&");
-            sb.append(URLEncoder.encode(key) + "=" +
-                      URLEncoder.encode(parameters.getString(key)));
+            try {
+				sb.append(URLEncoder.encode(key, HTTP.UTF_8) + "=" +
+				          URLEncoder.encode(parameters.getString(key), HTTP.UTF_8));
+			} catch (UnsupportedEncodingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
         }
         return sb.toString();
     }
