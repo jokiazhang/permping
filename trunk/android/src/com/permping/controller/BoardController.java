@@ -24,7 +24,7 @@ public class BoardController {
 		
 		ArrayList<PermBoard> boards = new ArrayList<PermBoard>();
 		
-		XMLParser parser = new XMLParser( API.userBoardUrl + userId, true );
+		XMLParser parser = new XMLParser( API.getProfileURL + userId, true );
 		Document doc  = parser.getDoc();
 		NodeList boardNodeList = doc.getElementsByTagName("item");
 		

@@ -12,8 +12,10 @@ import org.apache.http.message.BasicNameValuePair;
 import com.permping.PermpingApplication;
 import com.permping.R;
 import com.permping.adapter.CategorySpinnerAdapter;
+import com.permping.controller.AuthorizeController;
 import com.permping.controller.CategoryController;
 import com.permping.model.Category;
+import com.permping.model.PermBoard;
 import com.permping.model.User;
 import com.permping.utils.API;
 import com.permping.utils.Constants;
@@ -25,6 +27,7 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -71,10 +74,6 @@ public class CreateBoardActivity extends Activity {
 		createBoard.setOnClickListener(new View.OnClickListener() {
 			
 			public void onClick(View v) {
-				/*Toast toast = Toast.makeText(getApplicationContext(), "Not finished yet!", Toast.LENGTH_SHORT);
-	        	toast.setGravity(Gravity.TOP | Gravity.CENTER, 0, 50);
-	        	toast.show();*/
-	        	
 	        	List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(4);
 	        	PermpingApplication state = (PermpingApplication) getApplicationContext();
 	        	if (state != null) {
@@ -90,13 +89,25 @@ public class CreateBoardActivity extends Activity {
 	        					boardDescription.getText().toString()));
 	        			
 	        			XMLParser parser = new XMLParser(API.createBoardURL, nameValuePairs);
-	        			if (parser != null) {
-	        				// TODO: Notify that board is created already
+	        			if (parser.getDoc() != null) {
+	        				AuthorizeController authorizeController = new AuthorizeController();
+	        				User updated = authorizeController.getUserProfileById(user.getId());
+	        				if (updated != null)
+	        					state.setUser(updated);
+	        				Toast toast = Toast.makeText(getApplicationContext(), "Board is created successfully!", Toast.LENGTH_LONG);
+	    		        	toast.setGravity(Gravity.TOP | Gravity.CENTER, 0, 300);
+	    		        	toast.show();
+	    		        	getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+	    		        	ImageActivityGroup.group.back();
+	        			} else {
+	        				Toast toast = Toast.makeText(getApplicationContext(), "Create new board failed! Please try again.", Toast.LENGTH_LONG);
+	    		        	toast.setGravity(Gravity.TOP | Gravity.CENTER, 0, 300);
+	    		        	toast.show();
+	    		        	boardName.setText("");
+	    		        	boardDescription.setText("");
 	        			}
-	        			ImageActivityGroup.group.back();
 	        		}
 	        	}
-	        	
 			}
 		});
 	}
@@ -118,8 +129,11 @@ public class CreateBoardActivity extends Activity {
 
 		public void onNothingSelected(AdapterView<?> arg0) {
 			
-			
 		}		
+	}
+	
+	private void getUserProfileById(String userId) {
+				
 	}
 }
 
