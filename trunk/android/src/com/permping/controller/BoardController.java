@@ -56,11 +56,11 @@ public class BoardController {
 	
 	
 	/**
-	 * Return the list of perm of selected board
-	 * @param boardId the board id
-	 * @return the list of perms
+	 * Return the list of perms of selected board.
+	 * @param boardId the board id.
+	 * @return the list of perms.
 	 */
-	public List<Perm> getPermByBoardId(String boardId) {
+	public List<Perm> getPermsByBoardId(String boardId) {
 		if (boardId == null || "".equals(boardId))
 			return null;
 		XMLParser parser = new XMLParser(API.permListFromBoardUrl + boardId);

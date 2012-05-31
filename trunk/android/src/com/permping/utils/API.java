@@ -14,4 +14,5 @@ public class API {
 	public static final String followingPerm = "http://permping.autwin.com/services/permservice/getfollowingperm/"; //Add user id when make request
 	public static final String permListFromCategory = "http://permping.autwin.com/services/permservice/getpermwithcategoryid/"; //Add category id when make request
 	public static final String likeURL = "http://permping.autwin.com/services/permservice/like";
+	public static final String getPermsByDate = "http://permping.autwin.com/services/permservice/getpermwithdate/"; // Add the date as yyyy-dd-mm
 }

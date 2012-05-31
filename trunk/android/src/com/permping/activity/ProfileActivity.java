@@ -99,7 +99,7 @@ public class ProfileActivity extends Activity {
 				long id) {
 			PermBoard board = (PermBoard) parent.getItemAtPosition(pos);
 			BoardController boardController = new BoardController();
-			List<Perm> perms = boardController.getPermByBoardId(board.getId());
+			List<Perm> perms = boardController.getPermsByBoardId(board.getId());
 			Transporter transporter = new Transporter();
 			transporter.setPerms(perms);
 			transporter.setBoardName(board.getName());

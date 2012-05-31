@@ -52,7 +52,7 @@ public class PermpingMain extends TabActivity {
         
         TabSpec mydiary = tabHost.newTabSpec("My Diary");
         mydiary.setIndicator("My Diary", getResources().getDrawable(R.drawable.icon_mydiary_tab));
-        Intent mydiaryIntent = new Intent(this, MyDiaryActivity.class);
+        Intent mydiaryIntent = new Intent(this, MyDiaryActivityGroup.class);
         mydiary.setContent(mydiaryIntent);
         tabHost.addTab( mydiary );
         
