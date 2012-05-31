@@ -11,9 +11,14 @@ import java.util.List;
 import java.util.Locale;
 
 import com.permping.R;
+import com.permping.controller.MyDiaryController;
+import com.permping.model.Perm;
+import com.permping.model.Transporter;
+import com.permping.utils.Constants;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.format.DateFormat;
@@ -401,6 +406,23 @@ public class MyDiaryActivity extends Activity implements View.OnClickListener {
 				Date parsedDate = dateFormatter.parse(date_month_year);
 				Log.d(tag, "Parsed Date: " + parsedDate.toString());
 
+				// TODO: click to show the perms here
+				String[] values = date_month_year.split("-");
+				if (values != null) {
+					String date = values[0];
+					String month = convertMonth(values[1]);
+					String year = values[2];
+					MyDiaryController myDiaryController = new MyDiaryController();
+					List<Perm> perms = myDiaryController.getPermsByDate(year + "-" + month + "-" + date);
+					Transporter transporter = new Transporter();
+					transporter.setPerms(perms);
+					
+					// Go to Perm detail screen
+					Intent i = new Intent(view.getContext(), BoardDetailActivity.class);
+					i.putExtra(Constants.TRANSPORTER, transporter);
+					View boardDetail = MyDiaryActivityGroup.group.getLocalActivityManager() .startActivity("MyDiaryDetailActivity", i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
+					MyDiaryActivityGroup.group.replaceView(boardDetail);
+				}
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
@@ -420,6 +442,43 @@ public class MyDiaryActivity extends Activity implements View.OnClickListener {
 
 		public int getCurrentWeekDay() {
 			return currentWeekDay;
+		}
+		
+		/**
+		 * Convert the month as name to month as number.
+		 * @param monthAsString the month as name.
+		 * @return the month as number.
+		 */
+		private String convertMonth(String monthAsString) {
+			String ret = null;
+			if (monthAsString != null) {
+				if (monthAsString.equals(months[0]))
+					ret = "01";
+				else if (monthAsString.equals(months[1])) 
+					ret = "02";
+				else if (monthAsString.equals(months[2])) 
+					ret = "03";
+				else if (monthAsString.equals(months[3])) 
+					ret = "04";
+				else if (monthAsString.equals(months[4])) 
+					ret = "05";
+				else if (monthAsString.equals(months[5])) 
+					ret = "06";
+				else if (monthAsString.equals(months[6])) 
+					ret = "07";
+				else if (monthAsString.equals(months[7])) 
+					ret = "08";
+				else if (monthAsString.equals(months[8])) 
+					ret = "09";
+				else if (monthAsString.equals(months[9])) 
+					ret = "10";
+				else if (monthAsString.equals(months[10])) 
+					ret = "11";
+				else if (monthAsString.equals(months[12])) 
+					ret = "12";
+			}
+			
+			return ret;
 		}
 	}
 }

@@ -36,8 +36,8 @@
         <activity android:name=".activity.MyDiaryActivityGroup" />
         <activity android:name=".activity.ProfileActivity" />
         <activity android:name=".activity.ProfileActivityGroup" />
-		<activity android:name=".activity.JoinPermActivity" />
-		<activity android:name=".activity.LoginPermActivity" />
+		<activity android:name=".activity.JoinPermActivity" android:theme="@android:style/Theme.NoTitleBar" />
+		<activity android:name=".activity.LoginPermActivity" android:theme="@android:style/Theme.NoTitleBar" />
 		<activity android:name=".activity.CreateBoardActivity" />
 		<activity android:name=".activity.AccountActivity" />
 		<activity android:name=".activity.BoardDetailActivity" />
