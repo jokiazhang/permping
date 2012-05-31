@@ -1,9 +1,17 @@
 package com.permping.utils.twitter;
 
+import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Set;
+
+import org.apache.http.protocol.HTTP;
+
 import com.permping.utils.Constants;
 
 import oauth.signpost.OAuthConsumer;
 import oauth.signpost.OAuthProvider;
+import oauth.signpost.http.HttpParameters;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -54,7 +62,16 @@ public class OAuthRequestTokenTask extends AsyncTask<Void, Void, Void> {
 		
 		try {
 			Log.i(TAG, "Retrieving request token from Google servers");
+			/*
+			HttpParameters parameters = consumer.getRequestParameters();
+			Set<String> keys = parameters.keySet();
+			for (Iterator<String> it = keys.iterator(); it.hasNext();) {
+				String key = (String) it.next();
+				URLEncoder.encode(parameters.getFirst(key, false), HTTP.UTF_8);
+			}
+			*/
 			final String url = provider.retrieveRequestToken(consumer, Constants.OAUTH_CALLBACK_URL);
+			URLEncoder.encode(url, HTTP.UTF_8);
 			Log.i(TAG, "Popping a browser with the authorize URL : " + url);
 			Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url)).setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NO_HISTORY | Intent.FLAG_FROM_BACKGROUND);
 			context.startActivity(intent);
