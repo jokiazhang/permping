@@ -72,10 +72,10 @@ public class PermListController {
 				
 				//Comment user
 				if( comment != null ){
-					Element commentUser = (Element) comment.getElementsByTagName("user").item(0);
-					String commentUserId = getValue(commentUser, "userId");
-					String commentUserName = getValue(commentUser, "userName");
-					String commentUserAvatar = getValue(commentUser, "userAvatar");
+					Element commentUser = (Element) comment.getElementsByTagName("l_user").item(0);
+					String commentUserId = getValue(commentUser, "l_userId");
+					String commentUserName = getValue(commentUser, "l_userName");
+					String commentUserAvatar = getValue(commentUser, "l_userAvatar");
 					//commentUserAvatar = "http://www.lahiguera.net/cinemania/actores/jackie_chan/fotos/5635/jackie_chan.jpg";
 					
 					PermImage commentAvatar = new PermImage( commentUserAvatar );

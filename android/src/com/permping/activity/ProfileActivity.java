@@ -100,15 +100,22 @@ public class ProfileActivity extends Activity {
 			PermBoard board = (PermBoard) parent.getItemAtPosition(pos);
 			BoardController boardController = new BoardController();
 			List<Perm> perms = boardController.getPermsByBoardId(board.getId());
-			Transporter transporter = new Transporter();
-			transporter.setPerms(perms);
-			transporter.setBoardName(board.getName());
 			
-			// Go to the Board Detail screen
-			Intent i = new Intent(view.getContext(), BoardDetailActivity.class);
-			i.putExtra(Constants.TRANSPORTER, transporter);
-			View boardDetail = ProfileActivityGroup.group.getLocalActivityManager() .startActivity("BoardDetailActivity", i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
-			ProfileActivityGroup.group.replaceView(boardDetail);
+			if (perms != null && perms.size() > 0) {
+				Transporter transporter = new Transporter();
+				transporter.setPerms(perms);
+				transporter.setBoardName(board.getName());
+				
+				// Go to the Board Detail screen
+				Intent i = new Intent(view.getContext(), BoardDetailActivity.class);
+				i.putExtra(Constants.TRANSPORTER, transporter);
+				View boardDetail = ProfileActivityGroup.group.getLocalActivityManager() .startActivity("BoardDetailActivity", i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
+				ProfileActivityGroup.group.replaceView(boardDetail);
+			} else {
+				Toast toast = Toast.makeText(getApplicationContext(), board.getName() + " has no perms to display!", Toast.LENGTH_LONG);
+	        	toast.setGravity(Gravity.TOP | Gravity.CENTER, 0, 300);
+	        	toast.show();
+			}			
 		}
 
 		/*@Override

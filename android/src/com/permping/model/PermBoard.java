@@ -35,6 +35,11 @@ public class PermBoard implements Serializable{
 	private int pins = 0;
 	
 	/**
+	 * The category Id
+	 */
+	private String categoryId;
+	
+	/**
 	 * Default constructor
 	 */
 	public PermBoard() {
@@ -138,4 +143,20 @@ public class PermBoard implements Serializable{
 	public void setPins(int pins) {
 		this.pins = pins;
 	}
+
+	/**
+	 * @return the categoryId
+	 */
+	public String getCategoryId() {
+		return categoryId;
+	}
+
+	/**
+	 * @param categoryId the categoryId to set
+	 */
+	public void setCategoryId(String categoryId) {
+		this.categoryId = categoryId;
+	}
+	
+	
 }

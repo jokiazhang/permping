@@ -29,7 +29,7 @@ public class AuthorizeController {
 		// Send to server to check if the account is created
 		// If existed => back to Home page (Popular screen)
 		// If not existed => go to Create Account screen.
-		boolean ret = true;
+		boolean ret = false;
 		XMLParser parser = new XMLParser(API.authorizeURL, nameValuePairs);
 		User user = parser.getUser();
 		if (user != null) {
@@ -134,5 +134,18 @@ public class AuthorizeController {
 			}
 		}	*/
 
+	}
+	
+	/**
+	 * Get the profile of specified user.
+	 * @param userId the user Id
+	 * @return the User object.
+	 */
+	public User getUserProfileById(String userId) {
+		if (userId != null && !"".equals(userId)) {
+			XMLParser parser = new XMLParser(API.getProfileURL + userId);
+			return parser.getUser();
+		}
+		return null;
 	}
 }
