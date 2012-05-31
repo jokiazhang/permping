@@ -40,7 +40,7 @@
                 android:hint="@string/required" />
         </TableRow>
 
-        <TableRow android:background="@drawable/explorer_item_bg" >
+        <!-- <TableRow android:background="@drawable/explorer_item_bg" >
 
             <TextView
                 style="@style/label"
@@ -52,7 +52,7 @@
                 style="@style/edit_text"
                 android:background="#00000000"
                 android:hint="@string/required" />
-        </TableRow>
+        </TableRow> -->
 
         <TableRow android:background="@drawable/explorer_item_bg" >
 

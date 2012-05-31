@@ -32,7 +32,7 @@ public class MyDiaryActivity extends Activity implements View.OnClickListener {
 
 	private static final String TAG = "MyDiaryActivity";
 
-	private ImageView calendarToJournalButton;
+	//private ImageView calendarToJournalButton;
 	private Button selectedDayMonthYearButton;
 	private Button currentMonth;
 	private ImageView prevMonth;

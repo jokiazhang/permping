@@ -53,7 +53,7 @@ public class JoinPermActivity extends Activity implements TextWatcher {
         
         name = (EditText) findViewById(R.id.acccountName);
 		//name.addTextChangedListener(this);
-        nickName = (EditText) findViewById(R.id.nickName);
+        //nickName = (EditText) findViewById(R.id.nickName);
         email = (EditText) findViewById(R.id.acccountEmail);
 		//email.addTextChangedListener(this);
 		password = (EditText) findViewById(R.id.acccountPassword);
