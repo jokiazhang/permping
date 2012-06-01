@@ -13,11 +13,9 @@
 
 @implementation BoardViewController
 @synthesize board;
-@synthesize resultModel;
 
 - (void)dealloc {
     self.board = nil;
-    self.resultModel = nil;
     [super dealloc];
 }
 
@@ -56,8 +54,7 @@
     [super viewWillAppear:animated];
     
     [self startActivityIndicator];
-    self.resultModel.arrResults = nil;
-    self.resultModel = [[[Taglist_NDModel alloc] init] autorelease];
+    [self resetData];
     self.dataLoaderThread = [[ThreadManager getInstance] dispatchToConcurrentBackgroundNormalPriorityQueueWithTarget:self selector:@selector(loadDataForMe:thread:) dataObject:[self getMyDataLoader]];
 }
 
@@ -86,14 +83,12 @@
         
         if (![threadObj isCancelled]) {
             self.resultModel.arrResults = arr;
-            self.permsArray = self.resultModel.arrResults;
             self.resultModel.nextItemId = nextId;
             
             dispatch_async(dispatch_get_main_queue(), ^(void)
                            {
                                [self stopActivityIndicator];
-                               //reload table
-                               [permTableview reloadData]; 
+                               [self finishLoadData];
                            });
             [self downloadThumbnailForObjectList:arr];
         }
@@ -105,10 +100,6 @@
 - (void)loadMoreDataForMe:(id)loader thread:(id<ThreadManagementProtocol>)threadObj
 {
     
-}
-
-- (void)dismiss:(id)sender {
-    [self.navigationController popViewControllerAnimated:YES];
 }
 
 @end

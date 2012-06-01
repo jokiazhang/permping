@@ -160,10 +160,6 @@
     //}
 }
 
-- (void)dismiss:(id)sender {
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
 - (void)createAccountDidFinish:(NSNotification*)notification {
     [self stopActivityIndicator];
     BOOL isSuccess = [(NSNumber*)notification.object boolValue];

@@ -74,17 +74,6 @@
 		0469516D156186A700620B12 /* CHANGELOG.md in Resources */ = {isa = PBXBuildFile; fileRef = 04695169156186A700620B12 /* CHANGELOG.md */; };
 		0469516E156186A700620B12 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 0469516B156186A700620B12 /* JSONKit.m */; };
 		0469516F156186A700620B12 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 0469516C156186A700620B12 /* README.md */; };
-		046951BA1561887700620B12 /* NetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 046951A61561887700620B12 /* NetworkManager.m */; };
-		046951BB1561887700620B12 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 046951A81561887700620B12 /* Reachability.m */; };
-		046951BC1561887700620B12 /* RemoteObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 046951AA1561887700620B12 /* RemoteObject.m */; };
-		046951BD1561887700620B12 /* RequestError.m in Sources */ = {isa = PBXBuildFile; fileRef = 046951AC1561887700620B12 /* RequestError.m */; };
-		046951BE1561887700620B12 /* RequestManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 046951AE1561887700620B12 /* RequestManager.m */; };
-		046951BF1561887700620B12 /* RequestResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 046951B01561887700620B12 /* RequestResult.m */; };
-		046951C01561887700620B12 /* ServerRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 046951B21561887700620B12 /* ServerRequest.m */; };
-		046951C11561887700620B12 /* PermListRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 046951B51561887700620B12 /* PermListRequest.m */; };
-		046951C21561887700620B12 /* WSError.m in Sources */ = {isa = PBXBuildFile; fileRef = 046951B71561887700620B12 /* WSError.m */; };
-		046951C31561887700620B12 /* WSPerm.m in Sources */ = {isa = PBXBuildFile; fileRef = 046951B91561887700620B12 /* WSPerm.m */; };
-		0469524715619BF200620B12 /* WSComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 0469524615619BF200620B12 /* WSComment.m */; };
 		0469525E1561A50500620B12 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0469525D1561A50500620B12 /* Localizable.strings */; };
 		04A0711815720A3C00C6FFB8 /* BoardModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A0711715720A3C00C6FFB8 /* BoardModel.m */; };
 		04A0711C15720A4C00C6FFB8 /* CategoryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A0711B15720A4C00C6FFB8 /* CategoryModel.m */; };
@@ -127,7 +116,6 @@
 		04C7AE84156939DC004ED1B0 /* CreatePermViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04C7AE82156939DC004ED1B0 /* CreatePermViewController.xib */; };
 		04C7C35B15615572004DB98D /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 04C7C35A15615572004DB98D /* libxml2.dylib */; };
 		04C7C35D15615764004DB98D /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04C7C35C15615764004DB98D /* Twitter.framework */; };
-		04CBAB4B15664C0E00BB45C8 /* NSURLConnectionFake.m in Sources */ = {isa = PBXBuildFile; fileRef = 04CBAB4A15664C0D00BB45C8 /* NSURLConnectionFake.m */; };
 		04DFAC5D155E40A300AE9FFD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04DFAC5C155E40A300AE9FFD /* UIKit.framework */; };
 		04DFAC5F155E40A300AE9FFD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04DFAC5E155E40A300AE9FFD /* Foundation.framework */; };
 		04DFAC61155E40A300AE9FFD /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04DFAC60155E40A300AE9FFD /* CoreGraphics.framework */; };
@@ -175,16 +163,11 @@
 		6A0463321562591600BB4E34 /* SDWebImagePrefetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A0463281562591600BB4E34 /* SDWebImagePrefetcher.m */; };
 		6A0463331562591600BB4E34 /* UIButton+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A04632A1562591600BB4E34 /* UIButton+WebCache.m */; };
 		6A0463341562591600BB4E34 /* UIImageView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A04632C1562591600BB4E34 /* UIImageView+WebCache.m */; };
-		6A046337156259E700BB4E34 /* WSUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A046336156259E700BB4E34 /* WSUser.m */; };
 		6A04633915625E8200BB4E34 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A04633815625E8100BB4E34 /* MapKit.framework */; };
 		6A625B1E156CEB5700D5F37A /* categories.xml in Resources */ = {isa = PBXBuildFile; fileRef = 6A625B1C156CEB5700D5F37A /* categories.xml */; };
 		6A625B1F156CEB5700D5F37A /* popularPerms.xml in Resources */ = {isa = PBXBuildFile; fileRef = 6A625B1D156CEB5700D5F37A /* popularPerms.xml */; };
-		6A625B22156CED6E00D5F37A /* CategoriesRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A625B21156CED6E00D5F37A /* CategoriesRequest.m */; };
-		6A625B25156CEDF100D5F37A /* WSBoard.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A625B24156CEDF000D5F37A /* WSBoard.m */; };
-		6A625B28156CF12E00D5F37A /* WSCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A625B27156CF12D00D5F37A /* WSCategory.m */; };
 		6A625B2B156CF53300D5F37A /* board_530.xml in Resources */ = {isa = PBXBuildFile; fileRef = 6A625B29156CF53300D5F37A /* board_530.xml */; };
 		6A625B2C156CF53300D5F37A /* category_22.xml in Resources */ = {isa = PBXBuildFile; fileRef = 6A625B2A156CF53300D5F37A /* category_22.xml */; };
-		6A625B33156D022C00D5F37A /* BoardListRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A625B32156D022900D5F37A /* BoardListRequest.m */; };
 		6AC710A315610F4200DFE074 /* TBXML.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AC7109E15610F4200DFE074 /* TBXML.m */; };
 		6AC710A415610F4200DFE074 /* TBXML+Compression.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AC710A015610F4200DFE074 /* TBXML+Compression.m */; };
 		6AC710A515610F4200DFE074 /* TBXML+HTTP.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AC710A215610F4200DFE074 /* TBXML+HTTP.m */; };
@@ -207,6 +190,8 @@
 		6ADA0C581575FB3F000DA9F2 /* BoardListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6ADA0C561575FB3E000DA9F2 /* BoardListViewController.m */; };
 		6ADA0C591575FB3F000DA9F2 /* BoardListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6ADA0C571575FB3F000DA9F2 /* BoardListViewController.xib */; };
 		6ADA0C5C15760F45000DA9F2 /* UploadPermResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 6ADA0C5B15760F44000DA9F2 /* UploadPermResponse.m */; };
+		6AE0E686157895B200F7C52B /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AE0E685157895B100F7C52B /* ImageIO.framework */; };
+		6AE0E68D1578C05300F7C52B /* PermsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6AE0E68C1578C05200F7C52B /* PermsViewController.xib */; };
 		6AEA545715736190005A025B /* ErrorModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AEA545615736190005A025B /* ErrorModel.m */; };
 		6AEA547115738EE9005A025B /* LogoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AEA546F15738EE8005A025B /* LogoutViewController.m */; };
 		6AEA547215738EE9005A025B /* LogoutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6AEA547015738EE8005A025B /* LogoutViewController.xib */; };
@@ -335,29 +320,6 @@
 		0469516A156186A700620B12 /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
 		0469516B156186A700620B12 /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
 		0469516C156186A700620B12 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
-		046951A51561887700620B12 /* NetworkManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkManager.h; sourceTree = "<group>"; };
-		046951A61561887700620B12 /* NetworkManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkManager.m; sourceTree = "<group>"; };
-		046951A71561887700620B12 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
-		046951A81561887700620B12 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
-		046951A91561887700620B12 /* RemoteObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RemoteObject.h; sourceTree = "<group>"; };
-		046951AA1561887700620B12 /* RemoteObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RemoteObject.m; sourceTree = "<group>"; };
-		046951AB1561887700620B12 /* RequestError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequestError.h; sourceTree = "<group>"; };
-		046951AC1561887700620B12 /* RequestError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RequestError.m; sourceTree = "<group>"; };
-		046951AD1561887700620B12 /* RequestManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequestManager.h; sourceTree = "<group>"; };
-		046951AE1561887700620B12 /* RequestManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RequestManager.m; sourceTree = "<group>"; };
-		046951AF1561887700620B12 /* RequestResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequestResult.h; sourceTree = "<group>"; };
-		046951B01561887700620B12 /* RequestResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RequestResult.m; sourceTree = "<group>"; };
-		046951B11561887700620B12 /* ServerRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerRequest.h; sourceTree = "<group>"; };
-		046951B21561887700620B12 /* ServerRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerRequest.m; sourceTree = "<group>"; };
-		046951B41561887700620B12 /* PermListRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PermListRequest.h; sourceTree = "<group>"; };
-		046951B51561887700620B12 /* PermListRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PermListRequest.m; sourceTree = "<group>"; };
-		046951B61561887700620B12 /* WSError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSError.h; sourceTree = "<group>"; };
-		046951B71561887700620B12 /* WSError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSError.m; sourceTree = "<group>"; };
-		046951B81561887700620B12 /* WSPerm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSPerm.h; sourceTree = "<group>"; };
-		046951B91561887700620B12 /* WSPerm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSPerm.m; sourceTree = "<group>"; };
-		046951D715618A0800620B12 /* Webservices.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Webservices.h; sourceTree = "<group>"; };
-		0469524515619BF200620B12 /* WSComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSComment.h; sourceTree = "<group>"; };
-		0469524615619BF200620B12 /* WSComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSComment.m; sourceTree = "<group>"; };
 		0469525D1561A50500620B12 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		04A0711615720A3C00C6FFB8 /* BoardModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BoardModel.h; sourceTree = "<group>"; };
 		04A0711715720A3C00C6FFB8 /* BoardModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BoardModel.m; sourceTree = "<group>"; };
@@ -424,8 +386,6 @@
 		04C7AE82156939DC004ED1B0 /* CreatePermViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CreatePermViewController.xib; sourceTree = "<group>"; };
 		04C7C35A15615572004DB98D /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		04C7C35C15615764004DB98D /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
-		04CBAB4915664C0D00BB45C8 /* NSURLConnectionFake.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSURLConnectionFake.h; sourceTree = "<group>"; };
-		04CBAB4A15664C0D00BB45C8 /* NSURLConnectionFake.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSURLConnectionFake.m; sourceTree = "<group>"; };
 		04DFAC58155E40A300AE9FFD /* Permping.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Permping.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04DFAC5C155E40A300AE9FFD /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		04DFAC5E155E40A300AE9FFD /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -522,22 +482,12 @@
 		6A04632A1562591600BB4E34 /* UIButton+WebCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+WebCache.m"; sourceTree = "<group>"; };
 		6A04632B1562591600BB4E34 /* UIImageView+WebCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+WebCache.h"; sourceTree = "<group>"; };
 		6A04632C1562591600BB4E34 /* UIImageView+WebCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+WebCache.m"; sourceTree = "<group>"; };
-		6A046335156259E700BB4E34 /* WSUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSUser.h; sourceTree = "<group>"; };
-		6A046336156259E700BB4E34 /* WSUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSUser.m; sourceTree = "<group>"; };
 		6A04633815625E8100BB4E34 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		6A0566A11564BB660064A63B /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		6A625B1C156CEB5700D5F37A /* categories.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = categories.xml; sourceTree = "<group>"; };
 		6A625B1D156CEB5700D5F37A /* popularPerms.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = popularPerms.xml; sourceTree = "<group>"; };
-		6A625B20156CED6D00D5F37A /* CategoriesRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoriesRequest.h; sourceTree = "<group>"; };
-		6A625B21156CED6E00D5F37A /* CategoriesRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoriesRequest.m; sourceTree = "<group>"; };
-		6A625B23156CEDF000D5F37A /* WSBoard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSBoard.h; sourceTree = "<group>"; };
-		6A625B24156CEDF000D5F37A /* WSBoard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSBoard.m; sourceTree = "<group>"; };
-		6A625B26156CF12C00D5F37A /* WSCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSCategory.h; sourceTree = "<group>"; };
-		6A625B27156CF12D00D5F37A /* WSCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSCategory.m; sourceTree = "<group>"; };
 		6A625B29156CF53300D5F37A /* board_530.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = board_530.xml; sourceTree = "<group>"; };
 		6A625B2A156CF53300D5F37A /* category_22.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = category_22.xml; sourceTree = "<group>"; };
-		6A625B31156D022800D5F37A /* BoardListRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BoardListRequest.h; sourceTree = "<group>"; };
-		6A625B32156D022900D5F37A /* BoardListRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BoardListRequest.m; sourceTree = "<group>"; };
 		6AC7109D15610F4200DFE074 /* TBXML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TBXML.h; path = Permping/Classes/Libs/TBXML/TBXML.h; sourceTree = SOURCE_ROOT; };
 		6AC7109E15610F4200DFE074 /* TBXML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TBXML.m; path = Permping/Classes/Libs/TBXML/TBXML.m; sourceTree = SOURCE_ROOT; };
 		6AC7109F15610F4200DFE074 /* TBXML+Compression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "TBXML+Compression.h"; path = "Permping/Classes/Libs/TBXML/TBXML+Compression.h"; sourceTree = SOURCE_ROOT; };
@@ -596,6 +546,8 @@
 		6ADA0C571575FB3F000DA9F2 /* BoardListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BoardListViewController.xib; sourceTree = "<group>"; };
 		6ADA0C5A15760F43000DA9F2 /* UploadPermResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UploadPermResponse.h; sourceTree = "<group>"; };
 		6ADA0C5B15760F44000DA9F2 /* UploadPermResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UploadPermResponse.m; sourceTree = "<group>"; };
+		6AE0E685157895B100F7C52B /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
+		6AE0E68C1578C05200F7C52B /* PermsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PermsViewController.xib; sourceTree = "<group>"; };
 		6AEA545515736190005A025B /* ErrorModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ErrorModel.h; sourceTree = "<group>"; };
 		6AEA545615736190005A025B /* ErrorModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ErrorModel.m; sourceTree = "<group>"; };
 		6AEA546E15738EE8005A025B /* LogoutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogoutViewController.h; sourceTree = "<group>"; };
@@ -608,6 +560,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6AE0E686157895B200F7C52B /* ImageIO.framework in Frameworks */,
 				0441C0A51572CD81003C9380 /* MobileCoreServices.framework in Frameworks */,
 				04A0715115722D7800C6FFB8 /* libKal.a in Frameworks */,
 				26642EE4156EBA6F00577978 /* CoreTelephony.framework in Frameworks */,
@@ -716,57 +669,6 @@
 			path = JSONKit;
 			sourceTree = "<group>";
 		};
-		046951A41561887700620B12 /* API */ = {
-			isa = PBXGroup;
-			children = (
-				046951A51561887700620B12 /* NetworkManager.h */,
-				046951A61561887700620B12 /* NetworkManager.m */,
-				046951A71561887700620B12 /* Reachability.h */,
-				046951A81561887700620B12 /* Reachability.m */,
-				046951A91561887700620B12 /* RemoteObject.h */,
-				046951AA1561887700620B12 /* RemoteObject.m */,
-				046951AB1561887700620B12 /* RequestError.h */,
-				046951AC1561887700620B12 /* RequestError.m */,
-				046951AD1561887700620B12 /* RequestManager.h */,
-				046951AE1561887700620B12 /* RequestManager.m */,
-				046951B11561887700620B12 /* ServerRequest.h */,
-				046951B21561887700620B12 /* ServerRequest.m */,
-				046951AF1561887700620B12 /* RequestResult.h */,
-				046951B01561887700620B12 /* RequestResult.m */,
-				046951B31561887700620B12 /* Webservices */,
-				04CBAB4915664C0D00BB45C8 /* NSURLConnectionFake.h */,
-				04CBAB4A15664C0D00BB45C8 /* NSURLConnectionFake.m */,
-			);
-			name = API;
-			path = Permping/Classes/API;
-			sourceTree = SOURCE_ROOT;
-		};
-		046951B31561887700620B12 /* Webservices */ = {
-			isa = PBXGroup;
-			children = (
-				6A625B31156D022800D5F37A /* BoardListRequest.h */,
-				6A625B32156D022900D5F37A /* BoardListRequest.m */,
-				6A625B20156CED6D00D5F37A /* CategoriesRequest.h */,
-				6A625B21156CED6E00D5F37A /* CategoriesRequest.m */,
-				046951B41561887700620B12 /* PermListRequest.h */,
-				046951B51561887700620B12 /* PermListRequest.m */,
-				046951D715618A0800620B12 /* Webservices.h */,
-				6A625B23156CEDF000D5F37A /* WSBoard.h */,
-				6A625B24156CEDF000D5F37A /* WSBoard.m */,
-				6A625B26156CF12C00D5F37A /* WSCategory.h */,
-				6A625B27156CF12D00D5F37A /* WSCategory.m */,
-				0469524515619BF200620B12 /* WSComment.h */,
-				0469524615619BF200620B12 /* WSComment.m */,
-				046951B61561887700620B12 /* WSError.h */,
-				046951B71561887700620B12 /* WSError.m */,
-				046951B81561887700620B12 /* WSPerm.h */,
-				046951B91561887700620B12 /* WSPerm.m */,
-				6A046335156259E700BB4E34 /* WSUser.h */,
-				6A046336156259E700BB4E34 /* WSUser.m */,
-			);
-			path = Webservices;
-			sourceTree = "<group>";
-		};
 		04A0713B1572296700C6FFB8 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -830,6 +732,7 @@
 				0411A42F156D36F3005EBF18 /* PermTableViewCell */,
 				0411A42C156D33A4005EBF18 /* PermsViewController.h */,
 				0411A42D156D33A4005EBF18 /* PermsViewController.m */,
+				6AE0E68C1578C05200F7C52B /* PermsViewController.xib */,
 				04B43C1A1560364E00F61E6A /* UINavigationBar+CustomBackground.h */,
 				04B43C1B1560364E00F61E6A /* UINavigationBar+CustomBackground.m */,
 				6A0566A11564BB660064A63B /* Constants.h */,
@@ -949,6 +852,7 @@
 		04DFAC5B155E40A300AE9FFD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6AE0E685157895B100F7C52B /* ImageIO.framework */,
 				0441C0A41572CD81003C9380 /* MobileCoreServices.framework */,
 				26642EE3156EBA6F00577978 /* CoreTelephony.framework */,
 				6AD1C8351563584200FB5CB1 /* QuartzCore.framework */,
@@ -1000,7 +904,6 @@
 			isa = PBXGroup;
 			children = (
 				26642EDD156EBA2C00577978 /* Common */,
-				046951A41561887700620B12 /* API */,
 				04B43C001560364E00F61E6A /* Libs */,
 				04B43BD01560364E00F61E6A /* Explorer */,
 				04B43BD41560364E00F61E6A /* Following */,
@@ -1486,6 +1389,7 @@
 				6AEA547215738EE9005A025B /* LogoutViewController.xib in Resources */,
 				6ADA0C591575FB3F000DA9F2 /* BoardListViewController.xib in Resources */,
 				043D4F1E157681D800D10276 /* CreateBoardViewController.xib in Resources */,
+				6AE0E68D1578C05300F7C52B /* PermsViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1536,17 +1440,6 @@
 				044B8C0C1561822400836694 /* SA_OAuthTwitterEngine.m in Sources */,
 				044B8C0D1561822400836694 /* TwitterLoginDialog.m in Sources */,
 				0469516E156186A700620B12 /* JSONKit.m in Sources */,
-				046951BA1561887700620B12 /* NetworkManager.m in Sources */,
-				046951BB1561887700620B12 /* Reachability.m in Sources */,
-				046951BC1561887700620B12 /* RemoteObject.m in Sources */,
-				046951BD1561887700620B12 /* RequestError.m in Sources */,
-				046951BE1561887700620B12 /* RequestManager.m in Sources */,
-				046951BF1561887700620B12 /* RequestResult.m in Sources */,
-				046951C01561887700620B12 /* ServerRequest.m in Sources */,
-				046951C11561887700620B12 /* PermListRequest.m in Sources */,
-				046951C21561887700620B12 /* WSError.m in Sources */,
-				046951C31561887700620B12 /* WSPerm.m in Sources */,
-				0469524715619BF200620B12 /* WSComment.m in Sources */,
 				6A04632D1562591600BB4E34 /* MKAnnotationView+WebCache.m in Sources */,
 				6A04632E1562591600BB4E34 /* SDImageCache.m in Sources */,
 				6A04632F1562591600BB4E34 /* SDWebImageDecoder.m in Sources */,
@@ -1555,7 +1448,6 @@
 				6A0463321562591600BB4E34 /* SDWebImagePrefetcher.m in Sources */,
 				6A0463331562591600BB4E34 /* UIButton+WebCache.m in Sources */,
 				6A0463341562591600BB4E34 /* UIImageView+WebCache.m in Sources */,
-				6A046337156259E700BB4E34 /* WSUser.m in Sources */,
 				6AD1DC82156C922600551787 /* CXMLDocument_CreationExtensions.m in Sources */,
 				6AD1DC83156C922600551787 /* CXMLNode_CreationExtensions.m in Sources */,
 				6AD1DC84156C922600551787 /* CXHTMLDocument.m in Sources */,
@@ -1570,13 +1462,8 @@
 				6AD1DC8D156C922600551787 /* CXMLNode_XPathExtensions.m in Sources */,
 				6AD1DC8E156C922600551787 /* CTidy.m in Sources */,
 				04B5D28115654B8C000E3E1B /* Utils.m in Sources */,
-				04CBAB4B15664C0E00BB45C8 /* NSURLConnectionFake.m in Sources */,
 				04B498471568F5E600BBF2EC /* AppData.m in Sources */,
 				04C7AE83156939DC004ED1B0 /* CreatePermViewController.m in Sources */,
-				6A625B22156CED6E00D5F37A /* CategoriesRequest.m in Sources */,
-				6A625B25156CEDF100D5F37A /* WSBoard.m in Sources */,
-				6A625B28156CF12E00D5F37A /* WSCategory.m in Sources */,
-				6A625B33156D022C00D5F37A /* BoardListRequest.m in Sources */,
 				0411A42A156D2D31005EBF18 /* CategoryViewController.m in Sources */,
 				0411A42E156D33A4005EBF18 /* PermsViewController.m in Sources */,
 				0411A434156D36F3005EBF18 /* PermCommentCell.m in Sources */,

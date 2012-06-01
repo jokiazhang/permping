@@ -43,10 +43,6 @@
     // Release any retained subviews of the main view.
 }
 
-- (void)dismiss:(id)sender {
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
 - (IBAction)logoutButtonDidTouch:(id)sender {
     [[AppData getInstance] logout];
     [self dismiss:nil];

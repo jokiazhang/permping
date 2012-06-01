@@ -39,8 +39,10 @@ static BOOL			IS_OPEN				= NO;
 	//open to write log file
 	// Get the path to the documents directory and append the databaseName
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	NSString *documentsDir = [ NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-	NSString *filename = [documentsDir stringByAppendingPathComponent:EYECON_WRITELOG_FILENAME];
+    
+    // tuan : remove warning while compiling
+	/*NSString *documentsDir = [ NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+	NSString *filename = [documentsDir stringByAppendingPathComponent:EYECON_WRITELOG_FILENAME];*/
 	
 	//close old log file if any
 	//[[EyeControlPoint getInstance] closeLoggedFile];

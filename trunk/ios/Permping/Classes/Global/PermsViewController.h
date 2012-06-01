@@ -8,11 +8,19 @@
 
 #import <UIKit/UIKit.h>
 #import "CommonViewController.h"
+#import "Taglist_NDModel.h"
 
 @interface PermsViewController : CommonViewController<UITableViewDelegate, UITableViewDataSource> {
     UITableView         *permTableview;
-    NSArray             *permsArray;
     NSMutableDictionary *permsImageHeight;
+    
+    UILabel             *noFoundLabel;
+    
+    Taglist_NDModel     *resultModel;
 }
-@property (nonatomic, retain) NSArray *permsArray;
+
+@property (nonatomic, retain) Taglist_NDModel *resultModel;
+- (void)resetData;
+- (void)finishLoadData;
+
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "ProfileViewController.h"
+#import "BoardViewController.h"
 #import "UserProfile_DataLoader.h"
 #import "UserProfileResponse.h"
 #import "BoardModel.h"
@@ -91,7 +92,7 @@
     if (self.userProfile) {
         boardTableView.hidden = NO;
         headerView.hidden = NO;
-        [avatarView setImageWithURL:[NSURL URLWithString:self.userProfile.userAvatar] placeholderImage:[UIImage imageNamed:@"user-img.png"]];
+        [avatarView setImageWithURL:[NSURL URLWithString:self.userProfile.userAvatar] usingActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
         userNameLabel.text = self.userProfile.userName;
         permsNumberLabel.text = [NSString stringWithFormat:@"perms %@ followers %@", self.userProfile.pinCount, self.userProfile.followerCount];
         [boardTableView reloadData];
@@ -129,6 +130,13 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    BoardModel *board = [self.userProfile.boards objectAtIndex:indexPath.row];
+    NSLog(@"board : %@", board.boardId);
+    
+    BoardViewController *lc_controller = [[BoardViewController alloc] initWithNibName:@"BoardViewController" bundle:nil];
+    lc_controller.board = board;
+    [self.navigationController pushViewController:lc_controller animated:YES];
+    [lc_controller release];
 }
 
 @end

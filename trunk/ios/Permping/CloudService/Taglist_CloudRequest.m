@@ -67,6 +67,8 @@
 
 - (NSData *)requestToXMLBody
 {
+    // tuan comment
+    /*
 	NSMutableString *request = [[NSMutableString alloc] init];
     
     [request appendString:@"<Request>\n"];
@@ -98,6 +100,8 @@
     }
 	 
     [request appendString:@"</Request>\n"];
+     */
+    NSString *request = [[self parameterListForGetMethod] retain];
     NSData *result = [request dataUsingEncoding:NSUTF8StringEncoding];
     [request release];
 	return result;

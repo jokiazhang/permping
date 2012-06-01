@@ -9,13 +9,11 @@
 #import "FollowingViewController.h"
 #import "JoinViewController.h"
 #import "LoginViewController.h"
-#import "Webservices.h"
 #import "AppData.h"
 #import "FollowingScreen_DataLoader.h"
 #import "PermListResponse.h"
 
 @implementation FollowingViewController
-@synthesize resultModel;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -68,8 +66,7 @@
     }
     
     [self startActivityIndicator];
-    self.resultModel.arrResults = nil;
-    self.resultModel = [[[Taglist_NDModel alloc] init] autorelease];
+    [self resetData];
     self.dataLoaderThread = [[ThreadManager getInstance] dispatchToConcurrentBackgroundNormalPriorityQueueWithTarget:self selector:@selector(loadDataForMe:thread:) dataObject:[self getMyDataLoader]];
 }
 
@@ -80,12 +77,6 @@
     }
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kSocialNetworkDidLoginNotification object:nil];
     
-}
-
- - (void)dealloc
-{
-    self.resultModel = nil;
-    [super dealloc];
 }
 
 #pragma mark - Override methods
@@ -117,17 +108,15 @@
         }
         nextId = response.nextItemId;
         arr = [response getResponsePermList];
-        
+        NSLog(@"arr count :%d", arr.count);
         if (![threadObj isCancelled]) {
             self.resultModel.arrResults = arr;
-            self.permsArray = self.resultModel.arrResults;
             self.resultModel.nextItemId = nextId;
             
             dispatch_async(dispatch_get_main_queue(), ^(void)
                            {
                                [self stopActivityIndicator];
-                               //reload table
-                               [permTableview reloadData]; 
+                               [self finishLoadData]; 
                            });
             [self downloadThumbnailForObjectList:arr];
         }

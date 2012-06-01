@@ -85,10 +85,6 @@
     [target performSelector:action withObject:board];
 }
 
-- (void)dismiss:(id)sender {
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
 - (void)setTarget:(id)in_target action:(SEL)in_action {
     [target release];
     target = [in_target retain];

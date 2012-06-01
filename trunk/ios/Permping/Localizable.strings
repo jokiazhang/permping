@@ -19,3 +19,7 @@
 "MyDiaryHeader" = "My Diary";
 
 "CreateAccountSuccess" = "Create account success!";
+
+"UploadPermSuccess" = "Upload perm success!";
+
+"NoFoundPerms" = "No found Perms";

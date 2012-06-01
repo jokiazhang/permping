@@ -20,7 +20,8 @@
         valueTextField.placeholder = @"Description of Image";
         valueTextField.autocorrectionType = UITextAutocorrectionTypeNo;
         valueTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
-        [self addSubview:valueTextField];
+        valueTextField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+        [self.contentView addSubview:valueTextField];
     }
     return self;
 }
@@ -37,6 +38,9 @@
     CGRect tr = self.textLabel.frame;
     tr.origin.x = CGRectGetMaxX(tr) + 15;
     tr.size.width = rect.size.width - tr.origin.x - 25;
+    if (tr.size.height == 0) {
+        tr.size.height = self.bounds.size.height;
+    }
     valueTextField.frame = tr;
 }
 

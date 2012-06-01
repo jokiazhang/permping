@@ -104,6 +104,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (indexPath.row == 0) {
         ExplorerViewController *controller = [[ExplorerViewController alloc] initWithNibName:@"ExplorerViewController" bundle:nil];
+        controller.navigationItem.leftBarButtonItem = [Utils barButtonnItemWithTitle:NSLocalizedString(@"globals.back", @"Back") target:self selector:@selector(dismiss:)];
         [controller setTarget:self action:@selector(selectCategory:)];
         [self.navigationController pushViewController:controller animated:YES];
         [controller release];
@@ -114,10 +115,6 @@
     self.selectedCategory = category;
     [boardInfoTableView reloadData];
     [self.navigationController popToViewController:self animated:YES];
-}
-
-- (void)dismiss:(id)sender {
-    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)createBoard {

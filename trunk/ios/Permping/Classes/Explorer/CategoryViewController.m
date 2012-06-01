@@ -131,8 +131,4 @@
     [lc_controller release];
 }
 
-- (void)dismiss:(id)sender {
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
 @end
