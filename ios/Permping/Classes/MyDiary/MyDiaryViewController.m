@@ -10,6 +10,7 @@
 #import "KalLogic.h"
 #import "KalDate.h"
 #import "KalPrivate.h"
+#import "MyPermDiaryViewController.h"
 
 @interface MyDiaryViewController ()
 @property (nonatomic, retain, readwrite) NSDate *initialDate;
@@ -113,6 +114,15 @@
     NSDate *to = [[date NSDate] cc_dateByMovingToEndOfDay];
     [self clearTable];
     [dataSource loadItemsFromDate:from toDate:to];
+    
+    MyPermDiaryViewController *controler = [[MyPermDiaryViewController alloc] initWithNibName:@"MyPermDiaryViewController" bundle:nil];
+    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+    [dateFormat setDateFormat:@"yyyy-MM-dd"];
+    NSString *theDate = [dateFormat stringFromDate:self.selectedDate];
+
+    controler.currentDate = theDate;
+    [self.navigationController pushViewController:controler animated:YES];
+    [controler release];
 }
 
 - (void)showPreviousMonth

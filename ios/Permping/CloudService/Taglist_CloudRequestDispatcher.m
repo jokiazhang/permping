@@ -57,6 +57,114 @@ static Taglist_CloudRequestDispatcher *instance = nil;
 }
  
 
+- (void)dispatchSimpleMultipartRequest:(Taglist_CloudRequest *)request response:(id<Taglist_CloudResponseProtocol>)response
+{
+    NSURL	 *URL = nil;
+    @try
+    {
+        NSString *strUrl = [request getTargetRequestURL];
+        if (strUrl == nil)
+        {
+            [Logger logError:@"Taglist_CloudRequestDispatcher - dispatchSimpleMultipartRequest: target request URL is null"];
+            NSMutableDictionary *errorDetail = [NSMutableDictionary dictionary];
+            [errorDetail setValue:@"Target request URL is nil" forKey:NSLocalizedDescriptionKey];
+            NSError *error = [NSError errorWithDomain:@"Taglists" code:100 userInfo:errorDetail];
+            [response onParsingError:error];
+			return;
+        }
+        
+        URL = [NSURL URLWithString: strUrl];
+        if (URL == nil)
+        {
+            [Logger logError:@"Taglist_CloudRequestDispatcher - dispatchSimpleMultipartRequest: could not initiate NSURL for targetURL:%@", strUrl];
+            NSMutableDictionary *errorDetail = [NSMutableDictionary dictionary];
+            [errorDetail setValue:[NSString stringWithFormat:@"Could not initiate NSURL for target %@", strUrl] forKey:NSLocalizedDescriptionKey];
+            NSError *error = [NSError errorWithDomain:@"Taglists" code:101 userInfo:errorDetail];
+            [response onParsingError:error];
+            return;
+        }
+        
+        [Logger logDebug:@"Taglist_CloudRequestDispatcher - dispatchSimpleMultipartRequest for target URL %@", strUrl];
+        NSMutableString *log = [NSMutableString string];
+        [log appendFormat:@"Taglist_CloudRequestDispatcher - dispatchSimpleMultipartRequest for target URL:%@\n", [URL absoluteString]];
+        
+        NSMutableURLRequest *URLRequest = [NSMutableURLRequest requestWithURL:URL cachePolicy: NSURLRequestReloadIgnoringCacheData timeoutInterval: TAGLIST_CLOUD_REQUEST_TIMEOUT];
+        
+        [log appendFormat:@"\tMethod : %@\n", request.method];
+        if ([request.method isEqualToString:@"POST"])
+        {
+            [URLRequest setHTTPMethod:@"POST"];
+            
+            
+            NSData *body = [request requestToXMLBody];
+                       
+            [log appendFormat:@"\tBodyMsg : %@\n", [[[NSString alloc] initWithData:body encoding:NSUTF8StringEncoding] autorelease]];
+            /* if ([Configuration applicationSupportGZIPCommunication]) {
+             [URLRequest setHTTPBody:[body gzipDeflate]];
+             [URLRequest setValue:@"gzip" forHTTPHeaderField:@"Content-Encoding"];
+             }
+             else */
+            {
+                [URLRequest setHTTPBody:body];
+            }
+        }
+        else {
+            [URLRequest setHTTPMethod:request.method];
+        }
+        
+        //set up request
+        //        NSString *headerLog = [self setupRequestHeaders:URLRequest additionalHeaders:[request getAdditionalHeaders]];
+        //        [log appendString:headerLog];
+        
+        if (request.contentType != nil) {
+            [URLRequest setValue:request.contentType forHTTPHeaderField:@"Content-Type"];
+        }
+        
+        Taglist_CloudConnectionHandler *conHandler = [[Taglist_CloudConnectionHandler alloc] init];
+        conHandler.currentRequest = request;
+        conHandler.responseDelegate = response;
+        NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:URLRequest delegate:conHandler startImmediately:YES];
+        [NSTimer scheduledTimerWithTimeInterval:CLOUD_REQUEST_TIMEOUT target:self selector:@selector(checkResponseTimeout:) userInfo:conHandler repeats:NO];
+        if(connection)
+        {
+            while(!conHandler.finishConnection)
+            {
+                [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate dateWithTimeIntervalSinceNow:CLOUD_DISPATCH_WAIT_INTERVAL]];
+            }
+            [log appendFormat:@"\tDispatchSimpleMultipartRequestrequest executing thread exit successfully for target URL: %@", strUrl];
+        }
+        else
+        {
+            [log appendFormat:@"\tDispatchSimpleMultipartRequest function could not allocate NSURLConnection for target URL: %@", strUrl];
+        }
+        [Logger logInfo:log];
+		
+        if (conHandler.responseReceiveBegin == NO) 
+        {
+            [connection cancel];
+        }
+        [connection release];
+        [conHandler release];
+    }
+    @catch (NSException * e)
+    {
+        if ([Logger isDebugEnabled])
+        {
+            NSMutableString *str = [NSMutableString string];
+            [str appendFormat:@"%@ - dispatchSimpleMultipartRequest function throws exception\n", NSStringFromClass([self class])];
+            [str appendFormat:@"\t\tname : %@. Reason : %@\n", [e name], [e reason]];
+            if ([Utility isOS4Device]) {
+                [str appendString:@"\tCallStackSymbol\n"];
+                NSArray *stackSymbol = [e callStackSymbols];
+                for (NSString *class in stackSymbol)
+                {
+                    [str appendFormat:@"\t\t%@\n", class];
+                }
+            }
+            [Logger logDebug:str];
+        }
+    }
+}
 - (void)dispatchRequest:(Taglist_CloudRequest *)request response:(id<Taglist_CloudResponseProtocol>)response
 {
     NSURL	 *URL = nil;

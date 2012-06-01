@@ -107,6 +107,22 @@ NSString *const kUserServiceCPasswordKey = @"UserServiceCPasswordKey";
     return [response autorelease];
 }
 
++ (PermListResponse*)getPermWithDate:(NSString*)date nextItemId:(NSInteger)nextId requestCount:(NSUInteger)count{
+    Taglist_CloudPagingRequest *request = [[Taglist_CloudPagingRequest alloc] init];
+    request.requestURL = [SERVER_API stringByAppendingFormat:@"/permservice/getpermwithdate/%@", date];
+    [request addRequestCount:count];    
+    if (nextId != -1) {
+        [request addNextItemId:nextId];
+    }
+    
+    PermListResponse *response = [[PermListResponse alloc] init];    
+    response.responseType = PermResponseTypeFollowing;
+    [[Taglist_CloudRequestDispatcher getInstance] dispatchRequest: request response:response];
+    [request release];
+    
+    return [response autorelease];
+}
+
 - (void)buildMultipartFormDataPostBody
 {
 #if DEBUG_FORM_DATA_REQUEST
