@@ -17,6 +17,7 @@
 + (Taglist_CloudRequestDispatcher *)getInstance;
  
 - (void)dispatchRequest:(Taglist_CloudRequest *)request response:(id<Taglist_CloudResponseProtocol>)response;
+- (void)dispatchSimpleMultipartRequest:(Taglist_CloudRequest *)request response:(id<Taglist_CloudResponseProtocol>)response;
 - (NSData *)sendSynchronizeRequestWithCloud:(Taglist_CloudRequest *)request response:(id<Taglist_CloudResponseProtocol>)response;
 - (void)displayClientUpgradeMessageAndLaunchAppStore:(NSString *)message;
 - (void)displayServerPushErrorMessage:(NSString *)message;

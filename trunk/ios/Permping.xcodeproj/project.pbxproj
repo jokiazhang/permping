@@ -155,6 +155,9 @@
 		26642EE2156EBA2C00577978 /* CommonViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26642EE0156EBA2C00577978 /* CommonViewController.xib */; };
 		26642EE4156EBA6F00577978 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26642EE3156EBA6F00577978 /* CoreTelephony.framework */; };
 		26AAAA261576AEA200BB6E9B /* CreatePermScreen_DataLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 26AAAA251576AEA200BB6E9B /* CreatePermScreen_DataLoader.m */; };
+		26AAAA2A1576C9A200BB6E9B /* MyPermDiaryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26AAAA281576C9A200BB6E9B /* MyPermDiaryViewController.m */; };
+		26AAAA2B1576C9A200BB6E9B /* MyPermDiaryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26AAAA291576C9A200BB6E9B /* MyPermDiaryViewController.xib */; };
+		26AAAA2E1576CB5400BB6E9B /* MyDiaryScreen_DataLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 26AAAA2D1576CB5300BB6E9B /* MyDiaryScreen_DataLoader.m */; };
 		6A04632D1562591600BB4E34 /* MKAnnotationView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A04631A1562591600BB4E34 /* MKAnnotationView+WebCache.m */; };
 		6A04632E1562591600BB4E34 /* SDImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A04631C1562591600BB4E34 /* SDImageCache.m */; };
 		6A04632F1562591600BB4E34 /* SDWebImageDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A0463201562591600BB4E34 /* SDWebImageDecoder.m */; };
@@ -462,6 +465,11 @@
 		26642EE3156EBA6F00577978 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		26AAAA241576AEA200BB6E9B /* CreatePermScreen_DataLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreatePermScreen_DataLoader.h; sourceTree = "<group>"; };
 		26AAAA251576AEA200BB6E9B /* CreatePermScreen_DataLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreatePermScreen_DataLoader.m; sourceTree = "<group>"; };
+		26AAAA271576C9A200BB6E9B /* MyPermDiaryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyPermDiaryViewController.h; sourceTree = "<group>"; };
+		26AAAA281576C9A200BB6E9B /* MyPermDiaryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyPermDiaryViewController.m; sourceTree = "<group>"; };
+		26AAAA291576C9A200BB6E9B /* MyPermDiaryViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyPermDiaryViewController.xib; sourceTree = "<group>"; };
+		26AAAA2C1576CB5300BB6E9B /* MyDiaryScreen_DataLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyDiaryScreen_DataLoader.h; sourceTree = "<group>"; };
+		26AAAA2D1576CB5300BB6E9B /* MyDiaryScreen_DataLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyDiaryScreen_DataLoader.m; sourceTree = "<group>"; };
 		6A0463191562591600BB4E34 /* MKAnnotationView+WebCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MKAnnotationView+WebCache.h"; sourceTree = "<group>"; };
 		6A04631A1562591600BB4E34 /* MKAnnotationView+WebCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MKAnnotationView+WebCache.m"; sourceTree = "<group>"; };
 		6A04631B1562591600BB4E34 /* SDImageCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDImageCache.h; sourceTree = "<group>"; };
@@ -773,6 +781,9 @@
 				04B43BE01560364E00F61E6A /* MyDiaryViewController.h */,
 				04B43BE11560364E00F61E6A /* MyDiaryViewController.m */,
 				04B43BE21560364E00F61E6A /* MyDiaryViewController.xib */,
+				26AAAA271576C9A200BB6E9B /* MyPermDiaryViewController.h */,
+				26AAAA281576C9A200BB6E9B /* MyPermDiaryViewController.m */,
+				26AAAA291576C9A200BB6E9B /* MyPermDiaryViewController.xib */,
 			);
 			name = MyDiary;
 			path = Permping/Classes/MyDiary;
@@ -1042,6 +1053,8 @@
 				6ADA0C381575CB3E000DA9F2 /* Login_DataLoader.m */,
 				26AAAA241576AEA200BB6E9B /* CreatePermScreen_DataLoader.h */,
 				26AAAA251576AEA200BB6E9B /* CreatePermScreen_DataLoader.m */,
+				26AAAA2C1576CB5300BB6E9B /* MyDiaryScreen_DataLoader.h */,
+				26AAAA2D1576CB5300BB6E9B /* MyDiaryScreen_DataLoader.m */,
 			);
 			path = Dataloader;
 			sourceTree = "<group>";
@@ -1520,6 +1533,8 @@
 				6ADA0C5C15760F45000DA9F2 /* UploadPermResponse.m in Sources */,
 				043D4F1D157681D800D10276 /* CreateBoardViewController.m in Sources */,
 				26AAAA261576AEA200BB6E9B /* CreatePermScreen_DataLoader.m in Sources */,
+				26AAAA2A1576C9A200BB6E9B /* MyPermDiaryViewController.m in Sources */,
+				26AAAA2E1576CB5400BB6E9B /* MyDiaryScreen_DataLoader.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
