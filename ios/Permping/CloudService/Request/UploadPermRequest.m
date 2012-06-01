@@ -76,13 +76,10 @@
 - (NSData *)requestToXMLBody
 {
     NSMutableData *mutabledata = [NSMutableData data];
-    
-    NSData *data = [[self parameterListForGetMethod] dataUsingEncoding:NSUTF8StringEncoding];
-    [mutabledata appendData:data];
-    
     //open boundary
     for (EntityModel *entity in self.params) {
-        [mutabledata appendData:[[NSString stringWithFormat:@"--%@\n", UPLOAD_MULTIPART_BOUNDARY] dataUsingEncoding:NSUTF8StringEncoding]];
+        [mutabledata appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n",UPLOAD_MULTIPART_BOUNDARY] dataUsingEncoding:NSUTF8StringEncoding]];
+//        [mutabledata appendData:[[NSString stringWithFormat:@"--%@\n", UPLOAD_MULTIPART_BOUNDARY] dataUsingEncoding:NSUTF8StringEncoding]];
         NSMutableString *mstr = [NSMutableString string];
         if (entity.filename != nil) {
             [mstr appendFormat:@"Content-Disposition: form-data; name=\"%@\"; filename=\"%@\"\n", entity.name, entity.filename];
@@ -99,59 +96,6 @@
     }
     //close boundary
     [mutabledata appendData:[[NSString stringWithFormat:@"\n--%@--\n", UPLOAD_MULTIPART_BOUNDARY] dataUsingEncoding:NSUTF8StringEncoding]];
-    
     return [NSData dataWithData:mutabledata];
 }
-
-/*
- http://stackoverflow.com/questions/7738704/sending-multipart-post-from-ios-and-reading-parameters-in-php-post
- [6/1/12 7:02:24 PM] Phong Le:   NSData *body = [[request parameterListForGetMethod] dataUsingEncoding:NSUTF8StringEncoding];
- [6/1/12 7:09:31 PM] Phong Le: [request addPartName:@"xml" contentType:@"application/xml; charset=UTF-8" transferEncode:@"8bit" body:[mstr dataUsingEncoding:NSUTF8StringEncoding] filename:nil];
- 
- if (userSetting.avatar != nil) {
- NSString *extType = [Utility getExtImageType:userSetting.avatar];
- if (extType != nil) {
- [request addPartName:@"image" contentType:[NSString stringWithFormat:@"image/%@", extType] transferEncode:@"binary" body:userSetting.avatar filename:[NSString stringWithFormat:@"avatar.%@", extType]];
- }
- }
- [6/1/12 7:09:58 PM] Phong Le: //create first part
-    NSMutableString *mstr = [NSMutableString string];
-    [mstr appendString:@"<Request>\n"];
-    [mstr appendString:@"\t<Entry>\n"];
-    [mstr appendString:@"\t\t<Person>\n"];
-    
-    if (userSetting.statement != nil && ([user.profileModel.statement caseInsensitiveCompare:userSetting.statement] != NSOrderedSame)) {
-        [mstr appendFormat:@"\t\t\t<Statement>%@</Statement>\n", [Utility predefineStringInXML:userSetting.statement]];
-    }
-    
-    if (userSetting.email != nil && ([user.profileModel.email caseInsensitiveCompare:userSetting.email] != NSOrderedSame)) {
-        [mstr appendFormat:@"\t\t\t<Email>%@</Email>\n", [Utility predefineStringInXML:userSetting.email]];
-    }
-    
-    if ([userSetting.password length] > 0) {
-        [mstr appendFormat:@"\t\t\t<Password>%@</Password>\n", [Utility predefineStringInXML:user.password]];
-        [mstr appendFormat:@"\t\t\t<NewPassword>%@</NewPassword>\n", [Utility predefineStringInXML:userSetting.password]];
-    }
-    
-    if (userSetting.avatar != nil) {
-        [mstr appendFormat:@"\t\t\t<Thumbnail>%@</Thumbnail>\n", @"avatar.png"];
-        [mstr appendFormat:@"\t\t\t<ThumbSize>%d</ThumbSize>\n", [userSetting.avatar length]];        
-    }
-    [mstr appendString:@"\t\t</Person>\n"];
-    [mstr appendString:@"\t</Entry>\n"];
-    [mstr appendString:@"</Request>\n"];
-    
-    [request addPartName:@"xml" contentType:@"application/xml; charset=UTF-8" transferEncode:@"8bit" body:[mstr dataUsingEncoding:NSUTF8StringEncoding] filename:nil];
-    
-    if (userSetting.avatar != nil) {
-        NSString *extType = [Utility getExtImageType:userSetting.avatar];
-        if (extType != nil) {
-            [request addPartName:@"image" contentType:[NSString stringWithFormat:@"image/%@", extType] transferEncode:@"binary" body:userSetting.avatar filename:[NSString stringWithFormat:@"avatar.%@", extType]];
-        }
-    }
-    
-    Taglist_UpdateSettingResponse *response = [[Taglist_UpdateSettingResponse alloc] init]; 
-    [[Taglist_CloudRequestDispatcher getInstance] dispatchRequest:request response:response];
-    [request release];
-*/
 @end

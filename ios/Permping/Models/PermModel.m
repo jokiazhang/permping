@@ -19,6 +19,8 @@
 @synthesize                    permCommentCount; 
 @synthesize                    permComments;
 @synthesize                    permUserlikeCount;
+@synthesize                    fileData;
+@synthesize                    permCategoryId ;
 - (id)init
 {
 	if (self = [super init])
@@ -40,6 +42,8 @@
     self.permCommentCount = nil; 
     self.permComments = nil;
     self.permUserlikeCount = nil;
+    self.permCategoryId = nil;
+    self.fileData = nil;
 	[super dealloc];
 }
 

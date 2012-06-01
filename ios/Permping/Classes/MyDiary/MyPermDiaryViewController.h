@@ -8,14 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import "PermsViewController.h"
-#import "Taglist_NDModel.h"
+
 
 @interface MyPermDiaryViewController : PermsViewController
 {
-    Taglist_NDModel     *resultModel;
+
     NSString            *currentDate;
 }
 @property (nonatomic, copy) NSString *currentDate;
-@property (nonatomic, retain) Taglist_NDModel *resultModel;
+
 @end
 

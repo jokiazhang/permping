@@ -136,23 +136,22 @@ NSString *const kUserServiceCPasswordKey = @"UserServiceCPasswordKey";
 #endif
 }
 
-+ (UploadPermResponse*)uploadPermWithInfo:(NSDictionary*)permInfo {
++ (UploadPermResponse*)uploadPermWithInfo:(PermModel*)permInfo {
     UploadPermRequest *request = [[UploadPermRequest alloc] init];
     request.method = @"POST";
     request.contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@", UPLOAD_MULTIPART_BOUNDARY];
     
     request.requestURL = [SERVER_API stringByAppendingFormat:@"/permservice/uploadperm"];
     
-    PermModel *perm = [permInfo objectForKey:@"perm"];
-    BoardModel *board = [permInfo objectForKey:@"board"];
-    NSData *fileData = [permInfo objectForKey:@"fileData"];
-    [request addParameter:@"uid" value:[AppData getInstance].user.userId];
-    [request addParameter:@"board" value:board.boardId];
-    [request addParameter:@"board_desc" value:perm.permDesc];
+//    PermModel *perm = [permInfo objectForKey:@"perm"];
+//    BoardModel *board = [permInfo objectForKey:@"board"];
+//    NSData *fileData = [permInfo objectForKey:@"fileData"];
     
-    NSLog(@"%@, %@, %d", [AppData getInstance].user.userId, board.boardId, fileData.length);
+    [request addPartName:@"uid" contentType:@"text/html; charset=UTF-8" transferEncode:@"8bit" body:[[AppData getInstance].user.userId dataUsingEncoding:NSUTF8StringEncoding] filename:nil];
+    [request addPartName:@"board" contentType:@"text/html; charset=UTF-8" transferEncode:@"8bit" body:[permInfo.permCategoryId dataUsingEncoding:NSUTF8StringEncoding] filename:nil];
+    [request addPartName:@"board_desc" contentType:@"text/html; charset=UTF-8" transferEncode:@"8bit" body:[permInfo.permDesc dataUsingEncoding:NSUTF8StringEncoding] filename:nil];
 
-    NSString *extType = [Utility getExtImageType:fileData];
+    NSString *extType = [Utility getExtImageType:permInfo.fileData];
     if (extType != nil) {
         // get the current date
         NSDate *date = [NSDate date];
@@ -167,21 +166,11 @@ NSString *const kUserServiceCPasswordKey = @"UserServiceCPasswordKey";
         // free up memory
         [dateFormat release];
         
-        [request addPartName:@"url" contentType:[NSString stringWithFormat:@"image/%@", extType] transferEncode:@"binary" body:fileData filename:[NSString stringWithFormat:@"perm-%@.%@",dateString, extType]];
+        [request addPartName:@"img" contentType:[NSString stringWithFormat:@"image/%@", extType] transferEncode:@"binary" body:permInfo.fileData filename:[NSString stringWithFormat:@"perm-%@.%@",dateString, extType]];
     }
     
-    //   
-    ////    [request addPartName:@"xml" contentType:@"application/xml; charset=UTF-8" transferEncode:@"8bit" body:[mstr dataUsingEncoding:NSUTF8StringEncoding] filename:nil];
-    //    
-    //    if (userSetting.avatar != nil) {
-    //        NSString *extType = [Utility getExtImageType:userSetting.avatar];
-    //        if (extType != nil) {
-    //            [request addPartName:@"image" contentType:[NSString stringWithFormat:@"image/%@", extType] transferEncode:@"binary" body:userSetting.avatar filename:[NSString stringWithFormat:@"avatar.%@", extType]];
-    //        }
-    //    }
-    //    
     UploadPermResponse *response = [[UploadPermResponse alloc] init]; 
-    [[Taglist_CloudRequestDispatcher getInstance] dispatchRequest:request response:response];
+    [[Taglist_CloudRequestDispatcher getInstance] dispatchSimpleMultipartRequest:request response:response];
     [request release];
     
     return [response autorelease];

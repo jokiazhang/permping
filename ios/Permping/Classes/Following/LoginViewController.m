@@ -134,7 +134,7 @@
 
 - (void)performLoginWithType:(NSString*)type {
     UserInfoTableViewCell *cell1 = (UserInfoTableViewCell*)[formTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
-    UserInfoTableViewCell *cell2 = (UserInfoTableViewCell*)[formTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+    UserInfoTableViewCell *cell2 = (UserInfoTableViewCell*)[formTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
     NSString *token = [[AppData getInstance] oauthToken];
     NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:type, kUserServiceTypeKey, cell2.valueTextField.text, kUserServicePasswordKey, cell1.valueTextField.text, kUserServiceEmailKey, token, kUserServiceOauthTokenKey,nil];
     [[AppData getInstance] loginWithUserInfo:userInfo];
