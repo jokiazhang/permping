@@ -13,24 +13,33 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 public class BoardDetailActivity extends Activity {
 
 	private ListView permList;
+	private TextView message;
 	Button back;
 	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.profile_permlist_layout);
-		
+				
 		Bundle extras = getIntent().getExtras();
 		Transporter transporter = (Transporter) extras.get(Constants.TRANSPORTER);
 		List<Perm> perms = transporter.getPerms();
 		String boardName = transporter.getBoardName();
 		
-		permList = (ListView) findViewById(R.id.permList);
-		BoardDetailAdapter boardDetailAdapter = new BoardDetailAdapter(this, perms, boardName);
-		permList.setAdapter(boardDetailAdapter);
+		if (perms == null || perms.size() == 0) {
+			// Display man hinh No Perms Found
+			setContentView(R.layout.profile_emptyperm_layout);
+			message = (TextView) findViewById(R.id.message);
+			message.setText("No Perms Found. Please press Back to select another board!");
+		} else {
+			setContentView(R.layout.profile_permlist_layout);
+			permList = (ListView) findViewById(R.id.permList);
+			BoardDetailAdapter boardDetailAdapter = new BoardDetailAdapter(this, perms, boardName);
+			permList.setAdapter(boardDetailAdapter);
+		}
 		
 		back = (Button) findViewById(R.id.btBack);
 		
@@ -40,6 +49,5 @@ public class BoardDetailActivity extends Activity {
 				ProfileActivityGroup.group.back();
 			}
 		});
-		
 	}
 }
