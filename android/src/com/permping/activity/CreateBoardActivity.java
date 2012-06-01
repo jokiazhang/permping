@@ -15,14 +15,12 @@ import com.permping.adapter.CategorySpinnerAdapter;
 import com.permping.controller.AuthorizeController;
 import com.permping.controller.CategoryController;
 import com.permping.model.Category;
-import com.permping.model.PermBoard;
 import com.permping.model.User;
 import com.permping.utils.API;
 import com.permping.utils.Constants;
 import com.permping.utils.XMLParser;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -32,7 +30,6 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemSelectedListener;
 

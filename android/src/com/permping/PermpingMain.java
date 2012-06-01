@@ -127,6 +127,7 @@ public class PermpingMain extends TabActivity {
 		        } else {
 		        	// Go to login screen
 					Intent i = new Intent(getApplicationContext(), LoginPermActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+					//i.putExtra("where", "mydiary");
 					getApplicationContext().startActivity(i);
 					ret = true;
 		        }

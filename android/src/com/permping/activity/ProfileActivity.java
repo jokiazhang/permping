@@ -101,7 +101,6 @@ public class ProfileActivity extends Activity {
 			BoardController boardController = new BoardController();
 			List<Perm> perms = boardController.getPermsByBoardId(board.getId());
 			
-			if (perms != null && perms.size() > 0) {
 				Transporter transporter = new Transporter();
 				transporter.setPerms(perms);
 				transporter.setBoardName(board.getName());
@@ -111,11 +110,11 @@ public class ProfileActivity extends Activity {
 				i.putExtra(Constants.TRANSPORTER, transporter);
 				View boardDetail = ProfileActivityGroup.group.getLocalActivityManager() .startActivity("BoardDetailActivity", i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
 				ProfileActivityGroup.group.replaceView(boardDetail);
-			} else {
+			/* else {
 				Toast toast = Toast.makeText(getApplicationContext(), board.getName() + " has no perms to display!", Toast.LENGTH_LONG);
 	        	toast.setGravity(Gravity.TOP | Gravity.CENTER, 0, 300);
 	        	toast.show();
-			}			
+			}	*/		
 		}
 
 		/*@Override
