@@ -120,14 +120,13 @@ public class PermpingMain extends TabActivity {
 			boolean ret = false;
 			int action = event.getAction();
 			if (action == MotionEvent.ACTION_UP) {
-				/** Load the information from Appliaction (user info) when the page is loaded. */
+				/** Load the information from Application (user info) when the page is loaded. */
 		        User user = PermUtils.isAuthenticated(getApplicationContext());
 		        if (user != null) {
 		        	ret = false;
 		        } else {
 		        	// Go to login screen
 					Intent i = new Intent(getApplicationContext(), LoginPermActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-					//i.putExtra("where", "mydiary");
 					getApplicationContext().startActivity(i);
 					ret = true;
 		        }

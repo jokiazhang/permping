@@ -65,25 +65,30 @@ public class PermAdapter extends ArrayAdapter<Perm> {
     
     private SharedPreferences prefs;
     
-
+    private int screenWidth;
+	private int screenHeight;
     
-    public PermAdapter(Context context, int textViewResourceId, ArrayList<Perm> items, Activity activity , Boolean header ) {
+    public PermAdapter(Context context, int textViewResourceId, ArrayList<Perm> items, Activity activity, int screenWidth, int screenHeight, Boolean header ) {
             super(context, textViewResourceId, items);
             this.activity = activity;
             this.header = header;
             this.items = items;
+            this.screenWidth = screenWidth;
+            this.screenHeight = screenHeight;
             facebookConnector = new FacebookConnector(Constants.FACEBOOK_APP_ID, 
             		this.activity, context, new String[] {Constants.EMAIL, Constants.PUBLISH_STREAM});
             prefs = PreferenceManager.getDefaultSharedPreferences(context);
     }
     
     
-    public PermAdapter(Context context, int textViewResourceId, ArrayList<Perm> items, Activity activity , Boolean header, User user ) {
+    public PermAdapter(Context context, int textViewResourceId, ArrayList<Perm> items, Activity activity, int screenWidth, int screenHeight, Boolean header, User user ) {
         super(context, textViewResourceId, items);
         this.activity = activity;
         this.header = header;
         this.items = items;
         this.user = user;
+        this.screenWidth = screenWidth;
+        this.screenHeight = screenHeight;
         facebookConnector = new FacebookConnector(Constants.FACEBOOK_APP_ID, 
         		this.activity, context, new String[] {Constants.EMAIL, Constants.PUBLISH_STREAM});
         prefs = PreferenceManager.getDefaultSharedPreferences(context);
@@ -191,7 +196,7 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 	            		
 	                    ImageView pv = (ImageView) v.findViewById( R.id.permImage);
 	                    UrlImageViewHelper.setUrlDrawable(pv, o.getImage().getUrl());
-	                    
+	                    PermUtils.scale(pv, screenWidth, screenHeight);
 	                    
 	                    //Perm description
 	                   TextView pd = (TextView) v.findViewById(R.id.permDesc);
