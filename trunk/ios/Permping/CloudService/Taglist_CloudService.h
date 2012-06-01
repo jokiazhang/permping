@@ -38,7 +38,7 @@ extern NSString *const kUserServiceCPasswordKey;
 + (PermListResponse*)getPermWithBoardId:(NSString*)boardId nextItemId:(NSInteger)nextId requestedCount:(NSUInteger)count;
 + (PermListResponse*)getPermWithUserId:(NSString*)userId requestCount:(NSUInteger)count nextItemId:(NSInteger)nextId;
 + (PermListResponse*)getPermWithDate:(NSString*)date nextItemId:(NSInteger)nextId requestCount:(NSUInteger)count;
-+ (UploadPermResponse*)uploadPermWithInfo:(NSDictionary*)permInfo;
++ (UploadPermResponse*)uploadPermWithInfo:(PermModel*)permInfo;
 
 // User service
 + (CreateAccountResponse*)createAccountWithUserInfo:(NSDictionary*)userInfo;

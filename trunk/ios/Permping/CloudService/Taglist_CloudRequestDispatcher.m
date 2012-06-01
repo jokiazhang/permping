@@ -204,7 +204,8 @@ static Taglist_CloudRequestDispatcher *instance = nil;
             [URLRequest setHTTPMethod:@"POST"];
             
             // tuan change
-            NSData *body = [request requestToXMLBody];
+            // NSData *body = [request requestToXMLBody];
+            NSData *body = [[request parameterListForGetMethod] dataUsingEncoding:NSUTF8StringEncoding];
             
             [log appendFormat:@"\tBodyMsg : %@\n", [[[NSString alloc] initWithData:body encoding:NSUTF8StringEncoding] autorelease]];
             /* if ([Configuration applicationSupportGZIPCommunication]) {

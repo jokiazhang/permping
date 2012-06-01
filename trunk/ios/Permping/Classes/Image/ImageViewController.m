@@ -9,6 +9,8 @@
 #import "ImageViewController.h"
 #import "CreatePermViewController.h"
 #import "CreateBoardViewController.h"
+#import "AppData.h"
+#import "LoginViewController.h"
 
 @implementation ImageViewController
 
@@ -47,6 +49,7 @@
 
 
 - (IBAction)takePhotoButtonDidTouch:(id)sender {
+     if ([[AppData getInstance] didLogin]) {
     if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
         NSArray *media = [UIImagePickerController
                           availableMediaTypesForSourceType: UIImagePickerControllerSourceTypeCamera];
@@ -82,10 +85,16 @@
         [alert show];
         [alert release];
     }
-
+     }
+     else {
+         LoginViewController *controller = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
+         [self.navigationController pushViewController:controller animated:YES];
+         [controller release];
+     }
 }
 
 - (IBAction)galleryButtonDidTouch:(id)sender {
+    if ([[AppData getInstance] didLogin]) {
     if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) {
         NSArray *media = [UIImagePickerController
                           availableMediaTypesForSourceType: UIImagePickerControllerSourceTypePhotoLibrary];
@@ -120,11 +129,23 @@
         [alert release];
     }
 }
+    else {
+        LoginViewController *controller = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
+        [self.navigationController pushViewController:controller animated:YES];
+        [controller release];
+    }
+}
 
 - (IBAction)createBoardButtonDidTouch:(id)sender {
+    if ([[AppData getInstance] didLogin]) {
     CreateBoardViewController *controller = [[CreateBoardViewController alloc] initWithNibName:@"CreateBoardViewController" bundle:nil];
     [self.navigationController pushViewController:controller animated:YES];
     [controller release];
+    }else {
+        LoginViewController *controller = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
+        [self.navigationController pushViewController:controller animated:YES];
+        [controller release];
+    }
 }
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {

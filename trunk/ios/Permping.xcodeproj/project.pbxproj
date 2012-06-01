@@ -1402,6 +1402,7 @@
 				6AEA547215738EE9005A025B /* LogoutViewController.xib in Resources */,
 				6ADA0C591575FB3F000DA9F2 /* BoardListViewController.xib in Resources */,
 				043D4F1E157681D800D10276 /* CreateBoardViewController.xib in Resources */,
+				26AAAA2B1576C9A200BB6E9B /* MyPermDiaryViewController.xib in Resources */,
 				6AE0E68D1578C05300F7C52B /* PermsViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

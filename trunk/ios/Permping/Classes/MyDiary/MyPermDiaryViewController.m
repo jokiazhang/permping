@@ -16,7 +16,7 @@
 
 @implementation MyPermDiaryViewController
 @synthesize currentDate;
-@synthesize resultModel;
+
 
 - (void)dealloc {
     self.currentDate = nil;
@@ -87,14 +87,14 @@
         
         if (![threadObj isCancelled]) {
             self.resultModel.arrResults = arr;
-            self.permsArray = self.resultModel.arrResults;
+            
             self.resultModel.nextItemId = nextId;
             
             dispatch_async(dispatch_get_main_queue(), ^(void)
                            {
                                [self stopActivityIndicator];
                                //reload table
-                               [permTableview reloadData]; 
+                               [self finishLoadData]; 
                            });
             [self downloadThumbnailForObjectList:arr];
         }

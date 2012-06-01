@@ -15,12 +15,14 @@
     NSString    *permId;
     NSString    *permDesc;
     NSString    *permCategory;
+    NSString    *permCategoryId;
     NSString    *permImage;
     NSString    *permRepinCount;
     NSString    *permLikeCount;
     NSString    *permCommentCount;
     NSString    *permUserlikeCount;
     NSMutableArray     *permComments;
+    NSData          *fileData;
     
 }
 
@@ -28,11 +30,13 @@
 @property (nonatomic, copy)     NSString                    *permId;
 @property (nonatomic, copy)     NSString                    *permDesc;
 @property (nonatomic, copy)     NSString                    *permCategory;
+@property (nonatomic, copy)     NSString                    *permCategoryId;
 @property (nonatomic, copy)     NSString                    *permImage; 
 @property (nonatomic, copy)     NSString                    *permRepinCount;
 @property (nonatomic, copy)     NSString                    *permLikeCount;
 @property (nonatomic, copy)     NSString                    *permCommentCount;
 @property (nonatomic, copy)     NSString                    *permUserlikeCount;
 @property (nonatomic, retain)   NSMutableArray                    *permComments;
+@property (nonatomic, retain)   NSData                      *fileData;
  
 @end

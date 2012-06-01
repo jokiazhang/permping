@@ -37,6 +37,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        self.currentPerm = [[PermModel alloc] init];
     }
     return self;
 }
@@ -85,11 +86,16 @@
                            //[self initializeUIControls]; 
                            
                        });
-        NSArray *keys = [NSArray arrayWithObjects:@"perm", @"board", @"fileData", nil];
-        NSArray *objects = [NSArray arrayWithObjects:self.currentPerm, self.selectedBoard, self.fileData, nil];
-        NSDictionary *dictionary = [NSDictionary dictionaryWithObjects:objects 
-                                                               forKeys:keys];
-        UploadPermResponse *response =  [(CreatePermScreen_DataLoader *)loader uploadPerm:dictionary];
+//        NSArray *keys = [NSArray arrayWithObjects:@"perm", @"board", @"fileData", nil];
+//        NSArray *objects = [NSArray arrayWithObjects:self.currentPerm, self.selectedBoard, self.fileData, nil];
+//        NSDictionary *dictionary = [NSDictionary dictionaryWithObjects:objects 
+//                                                               forKeys:keys];
+
+        self.currentPerm.fileData = self.fileData;
+        self.currentPerm.permCategoryId   = self.selectedBoard.boardId;
+        
+        
+        UploadPermResponse *response =  [(CreatePermScreen_DataLoader *)loader uploadPerm:self.currentPerm];
         NSError *error = response.responseError;
         
         if (![threadObj isCancelled]) {
@@ -197,14 +203,13 @@
 - (void)createPerm {
     if([self validateInputData])
     {
-        self.currentPerm = [[PermModel alloc] init];
-        self.currentPerm.permDesc = @"";
         [self startActivityIndicator];
         self.dataLoaderThread = [[ThreadManager getInstance] dispatchToConcurrentBackgroundNormalPriorityQueueWithTarget:self selector:@selector(uploadPermForMe:thread:) dataObject:[self getMyDataLoader]];
     }
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    self.currentPerm.permDesc = textField.text;
     [textField resignFirstResponder];
     return YES;
 }
