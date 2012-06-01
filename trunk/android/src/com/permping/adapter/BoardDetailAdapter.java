@@ -8,19 +8,24 @@ import java.util.List;
 import com.permping.R;
 import com.permping.model.Comment;
 import com.permping.model.Perm;
+import com.permping.utils.PermUtils;
 import com.permping.utils.UrlImageViewHelper;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.TextView;
+import android.widget.ImageView.ScaleType;
 
 /**
  * @author Linh Nguyen
@@ -31,11 +36,16 @@ public class BoardDetailAdapter extends BaseAdapter implements ListAdapter {
 	private Activity activity;
 	private List<Perm> perms;
 	private String boardName;
+	private int screenWidth;
+	private int screenHeight;
 	
-	public BoardDetailAdapter(Activity activity, List<Perm> perms, String boardName) {
+	public BoardDetailAdapter(Activity activity, List<Perm> perms, String boardName, 
+			int screenWidth, int screenHeight) {
 		this.activity = activity;
 		this.perms = perms;
 		this.boardName = boardName;
+		this.screenHeight = screenHeight;
+		this.screenWidth = screenWidth;
 	}
 	
 	@Override
@@ -50,8 +60,9 @@ public class BoardDetailAdapter extends BaseAdapter implements ListAdapter {
 			txtBoardName.setText(boardName);
 			
 			// The image of perm
-			ImageView permImage = (ImageView) view.findViewById(R.id.permImage);
+			final ImageView permImage = (ImageView) view.findViewById(R.id.permImage);
 			UrlImageViewHelper.setUrlDrawable(permImage, perm.getImage().getUrl());
+			PermUtils.scale(permImage, screenWidth, screenHeight);
 			
 			// Perm Description
 			TextView txtPermDescription = (TextView) view.findViewById(R.id.permDescription);
@@ -106,4 +117,6 @@ public class BoardDetailAdapter extends BaseAdapter implements ListAdapter {
 		// TODO Auto-generated method stub
 		return position;
 	}
+	
+	
 }

@@ -60,10 +60,7 @@ public class LoginPermActivity extends Activity {
         twitterLogin  = (Button) findViewById(R.id.logintw);
         login         = (Button) findViewById(R.id.loginPerm);
         
-        // Get the bundle's parameter ("where") which indicate the page it should forward to
-        Bundle extras = getIntent().getExtras();
-        final String where = (String) extras.get("where");
-        
+                
         // Login button
         login.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
@@ -76,16 +73,9 @@ public class LoginPermActivity extends Activity {
 				boolean existed = AuthorizeController.authorize(v.getContext(), nameValuePairs);
 				Intent intent;
 				if (existed) {
-					
-					/*if (where != null && "mydiary".equals(where)) {
-						Intent i = new Intent(v.getContext(), BoardDetailActivity.class);
-						View boardDetail = ProfileActivityGroup.group.getLocalActivityManager() .startActivity("BoardDetailActivity", i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
-						ProfileActivityGroup.group.replaceView(boardDetail);
-					} else {*/
-						// Forward back to Following tab
-						intent = new Intent(v.getContext(), PermpingMain.class);
-						v.getContext().startActivity(intent);
-					//}
+					// Forward back to Following tab
+					intent = new Intent(v.getContext(), PermpingMain.class);
+					v.getContext().startActivity(intent);
 				} else {
 					Toast toast = Toast.makeText(getApplicationContext(), "Authentication failed!. Please try again!", Toast.LENGTH_LONG);
 		        	toast.setGravity(Gravity.TOP | Gravity.CENTER, 0, 300);
