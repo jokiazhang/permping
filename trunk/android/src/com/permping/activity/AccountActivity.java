@@ -6,7 +6,6 @@ package com.permping.activity;
 import com.permping.PermpingApplication;
 import com.permping.PermpingMain;
 import com.permping.R;
-import com.permping.utils.PermUtils;
 
 import android.app.Activity;
 import android.content.Intent;
