@@ -172,10 +172,6 @@
     [self performLoginWithType:kUserServiceTypeNormal];
 }
 
-- (void)dismiss:(id)sender {
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
 - (void)loginDidFinish:(NSNotification*)notification {
     [self stopActivityIndicator];
     BOOL isSuccess = [(NSNumber*)notification.object boolValue];

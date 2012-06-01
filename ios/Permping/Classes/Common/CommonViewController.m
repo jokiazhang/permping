@@ -69,6 +69,10 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+- (void)dismiss:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 #pragma mark - Public methods
 - (void)startActivityIndicator
 {

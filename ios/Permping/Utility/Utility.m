@@ -91,14 +91,15 @@ static NSString *regexHtmlUnicodeInXmlInString = @"^.*&#....;";//^.*Str.*$"
  */
 + (BOOL)isProtocol:(NSString *)protocol supportItem:(MediaItem *)item
 {
-	NSArray *allRes = [item resources];
+    // tuan : remove warning while compiling
+	/*NSArray *allRes = [item resources];
 	NSString *resPro = nil;
 	for ( MediaResource *res in allRes )
 	{
 		resPro = [NSString stringWithFormat:@"%@:%@:%@:", [res protocol], [res network], [res mimeType]];
 		if ( [Utility isString:resPro isExistInString:protocol] )
 			return TRUE;
-	}
+	}*/
 	return FALSE;
 }
 

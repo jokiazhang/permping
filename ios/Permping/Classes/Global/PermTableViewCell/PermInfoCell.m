@@ -7,7 +7,7 @@
 //
 
 #import "PermInfoCell.h"
-#import "WSPerm.h"
+#import "Utility.h"
 @implementation PermInfoCell
 @synthesize commentLabel, descriptionLabel, repermButton, commentButton, likeButton, locationButton, statusLabel;
 
@@ -20,8 +20,11 @@
         
         commentLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         commentLabel.backgroundColor = [UIColor clearColor];
+        commentLabel.textColor = [Utility colorRefWithString:@"#4c566c"];
         commentLabel.numberOfLines = 0;
-        commentLabel.font  = [UIFont systemFontOfSize:15];
+        commentLabel.font  = [UIFont systemFontOfSize:16];
+        commentLabel.shadowColor = [UIColor whiteColor];
+        commentLabel.shadowOffset = CGSizeMake(0, 2);
         [myContentView addSubview:commentLabel];
         
         descriptionLabel = [[UILabel alloc] initWithFrame:CGRectZero];
@@ -86,7 +89,7 @@
 
 - (void)setCellWithPerm:(PermModel*)perm {
     self.commentLabel.text = perm.permDesc;
-    self.descriptionLabel.text = @"No desc :D";
+    self.descriptionLabel.text = @"5시간 전 bleacherreport.com에서 업로드됨";
     self.statusLabel.text = [NSString stringWithFormat:@"Likes %@ Comments %@ Repin %@", perm.permLikeCount, perm.permCommentCount, perm.permRepinCount];
 }
 

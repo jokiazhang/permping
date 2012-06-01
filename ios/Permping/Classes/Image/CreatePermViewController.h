@@ -21,4 +21,6 @@
 @property (nonatomic, retain) NSDictionary  *imageInfo;
 @property (nonatomic, retain) BoardModel    *selectedBoard;
 @property (nonatomic, retain) NSData          *fileData;
+
+- (BOOL)validateInputData;
 @end

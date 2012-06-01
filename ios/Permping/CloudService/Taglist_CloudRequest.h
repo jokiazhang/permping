@@ -37,7 +37,6 @@
 - (void)addFilterForFieldName:(NSString *)name filterOp:(NSString *)op filterValue:(NSString *)val;
 - (void)setSortingByField:(NSString *)field asc:(BOOL)asc;
 
-// tuan add
 - (NSString *)parameterListForGetMethod;
 
 @end

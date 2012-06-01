@@ -415,7 +415,7 @@
     }
     
     if (self.responseType == PermResponseTypeFollowing) {
-        [self permFromBoardOnStartElement:path name:name];
+        [self permFollowingOnStartElement:path name:name];
         return;
     }
     

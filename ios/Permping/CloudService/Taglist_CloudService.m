@@ -51,7 +51,8 @@ NSString *const kUserServiceCPasswordKey = @"UserServiceCPasswordKey";
         [request addNextItemId:nextId];
     }
     
-    PermListResponse *response = [[PermListResponse alloc] init];    
+    PermListResponse *response = [[PermListResponse alloc] init];
+    response.responseType = PermResponseTypePopular;
     [[Taglist_CloudRequestDispatcher getInstance] dispatchRequest: request response:response];
     [request release];
     
@@ -132,6 +133,8 @@ NSString *const kUserServiceCPasswordKey = @"UserServiceCPasswordKey";
     [request addParameter:@"uid" value:[AppData getInstance].user.userId];
     [request addParameter:@"board" value:board.boardId];
     [request addParameter:@"board_desc" value:perm.permDesc];
+    
+    NSLog(@"%@, %@, %d", [AppData getInstance].user.userId, board.boardId, fileData.length);
 
     NSString *extType = [Utility getExtImageType:fileData];
     if (extType != nil) {

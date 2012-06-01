@@ -27,6 +27,8 @@
 @property (nonatomic, retain) UIView                        *spinnerBackground;
 @property (nonatomic, retain) UIActivityIndicatorView       *spinner;
 
+- (void)dismiss:(id)sender;
+
 - (void)startActivityIndicator;
 - (void)startActivityIndicatorAtYPos:(float)yPos;
 - (void)stopActivityIndicator;

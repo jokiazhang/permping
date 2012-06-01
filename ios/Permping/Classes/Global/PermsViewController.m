@@ -16,13 +16,21 @@
 #import "PermModel.h"
 #import "CommentModel.h"
 
+@interface PermsViewController ()
+@property (nonatomic, retain) UITableView *permTableview;
+@property (nonatomic, retain) NSMutableDictionary *permsImageHeight;
+@property (nonatomic, retain) UILabel *noFoundLabel;
+@end
+
 @implementation PermsViewController
-@synthesize permsArray;
+@synthesize permTableview, permsImageHeight;
+@synthesize resultModel, noFoundLabel;
 
 - (void)dealloc {
-    [permTableview release];
-    [permsArray release];
-    [permsImageHeight release];
+    self.permTableview = nil;
+    self.permsImageHeight = nil;
+    self.resultModel = nil;
+    self.noFoundLabel = nil;
     [super dealloc];
 }
 
@@ -30,7 +38,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        permsImageHeight = [[NSMutableDictionary alloc] init];
+        
     }
     return self;
 }
@@ -57,7 +65,15 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    permTableview = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
+    self.noFoundLabel = [[[UILabel alloc] initWithFrame:self.view.bounds] autorelease];
+    noFoundLabel.textAlignment = UITextAlignmentCenter;
+    noFoundLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    noFoundLabel.text = NSLocalizedString(@"NoFoundPerms", @"No found Perms");
+    noFoundLabel.font = [UIFont systemFontOfSize:20];
+    noFoundLabel.hidden = YES;
+    [self.view addSubview:noFoundLabel];
+    
+    self.permTableview = [[[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain] autorelease];
     permTableview.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     permTableview.separatorStyle = UITableViewCellSeparatorStyleNone;
     permTableview.backgroundColor = [UIColor clearColor];
@@ -66,23 +82,39 @@
     [self.view addSubview:permTableview];
 }
 
-
 - (void)viewDidUnload
 {
     [super viewDidUnload];
+    self.permsImageHeight = nil;
+    self.permTableview = nil;
+    self.noFoundLabel = nil;
+}
 
-    [permTableview release]; permTableview = nil;
+- (void)resetData {
+    self.resultModel.arrResults = nil;
+    self.resultModel = [[[Taglist_NDModel alloc] init] autorelease];
+    
+    self.permsImageHeight = nil;
+    self.permsImageHeight = [[[NSMutableDictionary alloc] init] autorelease];
+}
+
+- (void)finishLoadData {
+    [self.permTableview reloadData];
+    if (self.resultModel.arrResults.count == 0) {
+        self.noFoundLabel.hidden = NO;
+    } else {
+        self.noFoundLabel.hidden = YES;
+    }
 }
 
 #pragma mark - <UITableViewDelegate + DataSource> implementation
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    NSLog(@"numberOfSectionsInTableView: %d", self.permsArray.count);
-    return [self.permsArray count];
+    return [self.resultModel.arrResults count];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    PermModel *perm = [self.permsArray objectAtIndex:section];
-    NSInteger seperator = (section==(self.permsArray.count-1))?0:1;
+    PermModel *perm = [self.resultModel.arrResults objectAtIndex:section];
+    NSInteger seperator = (section==(self.resultModel.arrResults.count-1))?0:1;
     NSInteger count = 3 + perm.permComments.count + seperator;
 
     //NSLog(@"section %d : %d, %d", section, count, perm.permComments.count);
@@ -91,7 +123,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     CGFloat h = 60.0;
-    PermModel *perm = [self.permsArray objectAtIndex:indexPath.section];
+    PermModel *perm = [self.resultModel.arrResults objectAtIndex:indexPath.section];
     if (indexPath.row == 1) {
         NSNumber *height = [permsImageHeight objectForKey:[NSString stringWithFormat:@"%d", indexPath.section]];
         if (height) {
@@ -107,7 +139,7 @@
 }
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    PermModel *perm = [self.permsArray objectAtIndex:indexPath.section];
+    PermModel *perm = [self.resultModel.arrResults objectAtIndex:indexPath.section];
     NSInteger index = indexPath.row;
     NSInteger section = indexPath.section;
     if (index == 0) {
@@ -137,7 +169,7 @@
             }
         } failure:^(NSError *error) {
             
-        }];
+        } usingActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
 
         return cell;
     } else if (index == 2) {
@@ -175,9 +207,11 @@
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     if ([cell isKindOfClass:[PermCommentCell class]]) {
         cell.textLabel.font = [UIFont systemFontOfSize:15];
-    } else if ([cell isKindOfClass:[UITableViewCell class]]) {
+    } else if ([cell isMemberOfClass:[UITableViewCell class]]) {
         UIView *v = [cell.contentView viewWithTag:333];
-        v.frame = CGRectMake(10, cell.frame.size.height/2, cell.frame.size.width-20, 2);
+        if (v) {
+            v.frame = CGRectMake(10, cell.frame.size.height/2, cell.frame.size.width-20, 2);
+        }
     }
 }
 @end

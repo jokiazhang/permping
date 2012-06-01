@@ -89,12 +89,8 @@
         NSArray *objects = [NSArray arrayWithObjects:self.currentPerm, self.selectedBoard, self.fileData, nil];
         NSDictionary *dictionary = [NSDictionary dictionaryWithObjects:objects 
                                                                forKeys:keys];
-        NSArray *arr = nil;
-        
         UploadPermResponse *response =  [(CreatePermScreen_DataLoader *)loader uploadPerm:dictionary];
-
-    
-       // arr = [response getResponsePermList];
+        NSError *error = response.responseError;
         
         if (![threadObj isCancelled]) {
             
@@ -102,7 +98,12 @@
             dispatch_async(dispatch_get_main_queue(), ^(void)
                            {
                                [self stopActivityIndicator];
-                                
+                               if (error) {
+                                   [Utils displayAlert:[error localizedDescription] delegate:nil];
+                               } else {
+                                   [Utils displayAlert:NSLocalizedString(@"UploadPermSuccess", "Upload perm success!") delegate:nil];
+                                   [self dismiss:nil];
+                               }
                            });
             
         }
@@ -136,8 +137,7 @@
             CreatePermCell *cell = (CreatePermCell*)[tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
             if (cell == nil) {
                 cell = [[[CreatePermCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:reuseIdentifier] autorelease];
-                cell.selectionStyle = UITableViewCellSelectionStyleGray;
-                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
                 cell.valueTextField.delegate = self;
             }
             return cell;
@@ -189,15 +189,13 @@
     [self.navigationController popToViewController:self animated:YES];
 }
 
-- (void)dismiss:(id)sender {
-    [self.navigationController popViewControllerAnimated:YES];
+- (BOOL)validateInputData {
+    // TODO
+    return YES;
 }
 
-
-
 - (void)createPerm {
-    
-    if(self.selectedBoard  != nil)
+    if([self validateInputData])
     {
         self.currentPerm = [[PermModel alloc] init];
         self.currentPerm.permDesc = @"";

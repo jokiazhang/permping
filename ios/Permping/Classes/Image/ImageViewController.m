@@ -128,42 +128,24 @@
 }
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
-    NSLog(@"Media Info: %@", info);
-//    NSString *mediaType = [info valueForKey:UIImagePickerControllerMediaType];
-//    
-//    if([mediaType isEqualToString:(NSString*)kUTTypeImage]) {
-//        UIImage *photoTaken = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
-//        //Save Photo to library only if it wasnt already saved i.e. its just been taken
-//        if (picker.sourceType == UIImagePickerControllerSourceTypeCamera) {
-//            UIImageWriteToSavedPhotosAlbum(photoTaken, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
-//        }
-//    }
+    [picker dismissModalViewControllerAnimated:YES];
     
     //assign the mediatype to a string 
     NSString *mediaType = [info objectForKey:UIImagePickerControllerMediaType];
     NSData *webData = nil;
-    //check the media type string so we can determine if its a video
-    if ([mediaType isEqualToString:@"public.movie"]){
-        NSLog(@"got a movie");
-        NSURL *videoURL = [info objectForKey:UIImagePickerControllerMediaURL];
-        webData = [NSData dataWithContentsOfURL:videoURL];
+    
+    if ([mediaType isEqualToString:(NSString*)kUTTypeImage]){
+        UIImage *photoTaken = [info objectForKey:UIImagePickerControllerOriginalImage];
+        webData = UIImageJPEGRepresentation(photoTaken, 0);
+        if (webData) {
+            CreatePermViewController *controller = [[CreatePermViewController alloc] initWithNibName:@"CreatePermViewController" bundle:nil];
+            controller.fileData = webData;
+            [self.navigationController pushViewController:controller animated:YES];
+            [controller release];
+        }
+    } else {
         
-        
-    
     }
-    
-    
-    [picker dismissModalViewControllerAnimated:YES];
-    
-    CreatePermViewController *controller = [[CreatePermViewController alloc] initWithNibName:@"CreatePermViewController" bundle:nil];
-    controller.fileData = webData;
-    [self.navigationController pushViewController:controller animated:YES];
-    [controller release];
-    if(webData != nil)
-    {
-        [webData release];
-    }
-    
 }
 
 - (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo {

@@ -29,7 +29,7 @@
 }
 
 - (void)setCellWithComment:(CommentModel*)in_comment{
-    [self.avatarView setImageWithURL:[NSURL URLWithString:in_comment.commentUser.userAvatar] placeholderImage:[UIImage imageNamed:@"user-img.png"]];
+    [self.avatarView setImageWithURL:[NSURL URLWithString:in_comment.commentUser.userAvatar] usingActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     self.textLabel.text = in_comment.commentUser.userName;
     self.detailTextLabel.text = in_comment.content;
 }
