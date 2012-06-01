@@ -4,9 +4,7 @@ import java.util.ArrayList;
 
 import com.permping.R;
 import com.permping.adapter.BoardAdapter;
-import com.permping.adapter.CategoryAdapter;
 import com.permping.controller.BoardController;
-import com.permping.controller.CategoryController;
 import com.permping.model.Category;
 import com.permping.model.PermBoard;
 import com.permping.utils.API;
@@ -16,7 +14,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 import android.view.View;
 
 public class BoardListActivity extends Activity {
@@ -38,6 +35,7 @@ public class BoardListActivity extends Activity {
 		boardView.setAdapter(boardAdapter);
 
 		boardView.setOnItemClickListener(new android.widget.AdapterView.OnItemClickListener() {
+			@SuppressWarnings("deprecation")
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				Intent myIntent = new Intent(view.getContext(), FollowerActivity.class);
 				PermBoard board = boards.get(position);

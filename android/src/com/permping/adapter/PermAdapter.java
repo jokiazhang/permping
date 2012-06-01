@@ -8,10 +8,8 @@ import java.util.List;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
-import com.permping.PermpingApplication;
 import com.permping.PermpingMain;
 import com.permping.R;
-import com.permping.activity.FollowerActivityGroup;
 import com.permping.activity.JoinPermActivity;
 import com.permping.activity.LoginPermActivity;
 import com.permping.activity.PrepareRequestTokenActivity;
@@ -31,11 +29,9 @@ import com.permping.utils.facebook.SessionEvents.AuthListener;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
