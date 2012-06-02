@@ -11,6 +11,7 @@ import org.apache.http.message.BasicNameValuePair;
 
 import com.permping.R;
 import com.permping.activity.BoardDetailActivity;
+import com.permping.activity.NewPermActivity;
 import com.permping.activity.ProfileActivityGroup;
 import com.permping.activity.RepermActivity;
 import com.permping.model.Comment;
@@ -119,6 +120,15 @@ public class BoardDetailAdapter extends BaseAdapter implements ListAdapter {
 			public void onClick(View v) {
 				// Get the id of perm
 				if (perm != null) {
+					
+					Intent myIntent = new Intent(view.getContext(), NewPermActivity.class);
+					myIntent.putExtra("permID", (String) perm.getId() );
+					View repermView = ProfileActivityGroup.group.getLocalActivityManager() .startActivity("BoardListActivity", myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
+					ProfileActivityGroup.group.replaceView( repermView );
+					
+					
+					
+					/*
 					String permId = perm.getId();
 					String permDesc = perm.getDescription();
 					PermBoard currentBoard = perm.getBoard();
@@ -130,6 +140,7 @@ public class BoardDetailAdapter extends BaseAdapter implements ListAdapter {
 					i.putExtra(Constants.CURRENT_BOARD, currentBoard);
 					View rePermView = ProfileActivityGroup.group.getLocalActivityManager().startActivity("RepermActivity", i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
 					ProfileActivityGroup.group.replaceView(rePermView);
+					*/
 				}
 			}
 		});

@@ -9,6 +9,7 @@ public class API {
 	public static final String boardListFromCategoryUrl = "http://newpermping.autwin.com/services/permservice/getboardswithcategoryid/"; //Add category id when make request
 	public static final String permListFromBoardUrl = "http://newpermping.autwin.com/services/permservice/getpermwithboardid/"; //Add board id when make request
 	public static final String addNewPermUrl = "http://newpermping.autwin.com/services/permservice/uploadperm";
+	//public static final String addNewPermUrl = "http://10.0.2.2/perm/testupload.php";
 	public static final String getProfileURL  = "http://newpermping.autwin.com/services/userservice/getprofile/"; //Not implemented yet on server
 	public static final String createBoardURL = "http://newpermping.autwin.com/services/permservice/createboard";
 	public static final String followingPerm = "http://newpermping.autwin.com/services/permservice/getfollowingperm/"; //Add user id when make request

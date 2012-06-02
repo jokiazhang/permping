@@ -28,8 +28,8 @@ public class PermpingMain extends TabActivity {
         // Tab for followers
         TabSpec followers = tabHost.newTabSpec("Followers");
         followers.setIndicator("Followers", getResources().getDrawable(R.drawable.icon_follower_tab));
-        //Intent followersIntent = new Intent(this, FollowerActivityGroup.class);
-        Intent followersIntent = new Intent(this, FollowerActivity.class);
+        Intent followersIntent = new Intent(this, FollowerActivityGroup.class);
+        //Intent followersIntent = new Intent(this, FollowerActivity.class);
         followers.setContent(followersIntent);
         tabHost.addTab( followers );
         
