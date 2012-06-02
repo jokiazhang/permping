@@ -129,6 +129,16 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 			final Perm perm = items.get(position);
 
 			final Button like = (Button) view.findViewById(R.id.btnLike);
+			
+			// Validate Like or Unlike
+			if (perm != null) {
+				if (perm.getPermUserLikeCount() != null && "0".equals(perm.getPermUserLikeCount())) {
+					like.setText(Constants.LIKE);
+				} else {
+					like.setText(Constants.UNLIKE);
+				}
+			}
+			
 			like.setOnClickListener(new OnClickListener() {
 				public void onClick(final View v) {
 					if (user != null) {
