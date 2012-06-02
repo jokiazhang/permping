@@ -87,8 +87,8 @@ public class Constants {
 	public static final String PERM_REPINCOUNT = "permRepinCount";
 	public static final String PERM_LIKECOUNT = "permLikeCount";
 	public static final String PERM_COMMENTCOUNT = "permCommentCount";
+	public static final String PERM_USERLIKECOUNT = "permUserLikeCount";
 	public static final String NEXT_ITEM = "nextItem";
-		
 	
 	/**
 	 * Create Board parameters

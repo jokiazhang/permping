@@ -63,6 +63,15 @@ public class BoardDetailAdapter extends BaseAdapter implements ListAdapter {
 		
 		final Perm perm = perms.get(position);
 		final Button like = (Button) view.findViewById(R.id.btLike);
+		
+		// Validate Like or Unlike
+		if (perm != null) {
+			if (perm.getPermUserLikeCount() != null && "0".equals(perm.getPermUserLikeCount())) {
+				like.setText(Constants.LIKE);
+			} else {
+				like.setText(Constants.UNLIKE);
+			}
+		}
 		like.setOnClickListener(new View.OnClickListener() {
 			
 			@Override

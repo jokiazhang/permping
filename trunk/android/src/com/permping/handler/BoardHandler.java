@@ -95,6 +95,8 @@ public class BoardHandler extends DefaultHandler {
 			perm.setPermLikeCount(buffer.toString());
 		} else if (localName != null && localName.equals(Constants.PERM_COMMENTCOUNT)) {
 			perm.setPermCommentCount(buffer.toString());
+		} else if (localName != null && localName.equals(Constants.PERM_USERLIKECOUNT)) {
+			perm.setPermUserLikeCount(buffer.toString());
 		} else if (localName != null && localName.equals(Constants.NEXT_ITEM)) {
 			perm.setNextItem(buffer.toString());
 		}

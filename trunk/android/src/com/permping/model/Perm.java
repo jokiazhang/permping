@@ -26,6 +26,7 @@ public class Perm implements Serializable{
 	private String permRepinCount = "0";
 	private String permLikeCount = "0";
 	private String permCommentCount = "0";
+	private String permUserLikeCount = "0";
 	
 	// TODO :This is not good but for now, I will do it
 	// This is for keeping the value of <nextItem> in the response when get the list of Perm
@@ -194,4 +195,22 @@ public class Perm implements Serializable{
 	public void setNextItem(String nextItem) {
 		this.nextItem = nextItem;
 	}
+
+
+	/**
+	 * @return the permUserLikeCount
+	 */
+	public String getPermUserLikeCount() {
+		return permUserLikeCount;
+	}
+
+
+	/**
+	 * @param permUserLikeCount the permUserLikeCount to set
+	 */
+	public void setPermUserLikeCount(String permUserLikeCount) {
+		this.permUserLikeCount = permUserLikeCount;
+	}
+	
+	
 }
