@@ -3,11 +3,20 @@
  */
 package com.permping.adapter;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 
 import com.permping.R;
 import com.permping.model.Comment;
 import com.permping.model.Perm;
+import com.permping.model.PermBoard;
+import com.permping.model.User;
+import com.permping.utils.API;
+import com.permping.utils.Constants;
+import com.permping.utils.HttpPermUtils;
 import com.permping.utils.PermUtils;
 import com.permping.utils.UrlImageViewHelper;
 
@@ -17,10 +26,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * @author Linh Nguyen
@@ -33,26 +44,73 @@ public class BoardDetailAdapter extends BaseAdapter implements ListAdapter {
 	private String boardName;
 	private int screenWidth;
 	private int screenHeight;
+	private User user;
 	
 	public BoardDetailAdapter(Activity activity, List<Perm> perms, String boardName, 
-			int screenWidth, int screenHeight) {
+			int screenWidth, int screenHeight, User user) {
 		this.activity = activity;
 		this.perms = perms;
 		this.boardName = boardName;
 		this.screenHeight = screenHeight;
 		this.screenWidth = screenWidth;
+		this.user = user;
 	}
 	
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		final LayoutInflater inflater = activity.getLayoutInflater();
-		View view = inflater.inflate(R.layout.profile_perm_layout, null);
+		final View view = inflater.inflate(R.layout.profile_perm_layout, null);
 		
-		Perm perm = perms.get(position);
+		final Perm perm = perms.get(position);
+		final Button like = (Button) view.findViewById(R.id.btLike);
+		like.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				if (user != null && perm != null) {
+					HttpPermUtils httpPermUtils = new HttpPermUtils();
+					List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+					nameValuePairs.add(new BasicNameValuePair("pid", String.valueOf(perm.getId())));
+					nameValuePairs.add(new BasicNameValuePair("uid", String.valueOf(user.getId()))); 
+					httpPermUtils.sendPostRequest(API.likeURL, nameValuePairs);
+					if (v instanceof Button) {
+						String label = ((Button) v).getText().toString();
+						int likeCount = Integer.parseInt(perm.getPermLikeCount());
+						if (label != null && label.equals(Constants.LIKE)) { // Like
+							// Update the count
+							likeCount++;
+	    					perm.setPermLikeCount(String.valueOf(likeCount));
+	    					// Change the text to "Unlike"
+	    					like.setText(Constants.UNLIKE);
+						} else { // Unlike
+							likeCount = likeCount - 1;
+							if (likeCount < 0) 
+								likeCount = 0;
+							perm.setPermLikeCount(String.valueOf(likeCount));
+							like.setText(Constants.LIKE);
+						}
+					}
+					String permStatus = "Like: " + perm.getPermLikeCount() + " - Repin: " + perm.getPermRepinCount() + " - Comment: " + perm.getPermCommentCount();
+		            TextView txtStatus = (TextView) view.findViewById(R.id.permStatus);
+		            txtStatus.setText(permStatus);
+				} else {
+					Toast.makeText(v.getContext(), Constants.NOT_LOGIN, Toast.LENGTH_LONG).show();
+				}
+			}
+		});
 		if (perm != null) {
 			// The Board Name
 			TextView txtBoardName = (TextView) view.findViewById(R.id.boardName);
-			txtBoardName.setText(boardName);
+			if (boardName != null) {
+				txtBoardName.setText(boardName);
+			} else {
+				PermBoard board = perm.getBoard();
+				if (board != null) {
+					txtBoardName.setText(board.getName());
+				} else {
+					txtBoardName.setText("N/A");
+				}
+			}
 			
 			// The image of perm
 			final ImageView permImage = (ImageView) view.findViewById(R.id.permImage);
@@ -67,6 +125,7 @@ public class BoardDetailAdapter extends BaseAdapter implements ListAdapter {
 			TextView txtPermInfo = (TextView) view.findViewById(R.id.permInfo);
 			txtPermInfo.setText("via " + perm.getAuthor().getName() + " on to " + boardName);
 			
+			// Status
 			String permStatus = "Like: " + perm.getPermLikeCount() + " - Repin: " + perm.getPermRepinCount() + " - Comment: " + perm.getPermCommentCount();
             TextView txtStatus = (TextView) view.findViewById(R.id.permStatus );
             txtStatus.setText(permStatus);
@@ -91,6 +150,8 @@ public class BoardDetailAdapter extends BaseAdapter implements ListAdapter {
 	               comments.addView(cm);
                 }
             }
+
+    		
 		}
 		return view;
 	}
