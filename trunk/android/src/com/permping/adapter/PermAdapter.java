@@ -68,6 +68,8 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 	private int screenWidth;
 	private int screenHeight;
 
+	
+	
 	public PermAdapter(Context context, int textViewResourceId,
 			ArrayList<Perm> items, Activity activity, int screenWidth,
 			int screenHeight, Boolean header) {
@@ -97,6 +99,14 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 				this.activity, context, new String[] { Constants.EMAIL,
 						Constants.PUBLISH_STREAM });
 		prefs = PreferenceManager.getDefaultSharedPreferences(context);
+	}
+	
+	
+	private String getActivityGroupName(){
+		//com.permping.activity.FollowerActivity
+		
+		String activityName = activity.getParent().getClass().getName().replace("com.permping.activity.", "");
+		return activityName;
 	}
 
 	@Override
@@ -190,8 +200,6 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 					}
 				}
 			});
-
-			
 			
 			reperm = (Button) view.findViewById(R.id.btnRepem );
 			reperm.setOnClickListener(new OnClickListener() {
