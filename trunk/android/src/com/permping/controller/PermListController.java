@@ -2,6 +2,7 @@ package com.permping.controller;
 
 import com.permping.model.*;
 import com.permping.utils.API;
+import com.permping.utils.Constants;
 import com.permping.utils.XMLParser;
 
 import java.util.ArrayList;
@@ -95,13 +96,14 @@ public class PermListController {
 			String permRepinCount  = getValue(permElement, "permRepinCount");
 			String permLikeCount  = getValue(permElement, "permLikeCount");
 			String permCommentCount  = getValue(permElement, "permCommentCount");
-			
+			String permUserLikeCount = getValue(permElement, Constants.PERM_USERLIKECOUNT);
 			
 			Perm perm = new Perm(permId, new PermBoard("BoardID", permBoard), permDesc, new PermImage(permImage), comments);
 			perm.setAuthor(permAuthor);
 			perm.setPermRepinCount(permRepinCount);
 			perm.setPermLikeCount(permLikeCount);
 			perm.setPermCommentCount(permCommentCount);
+			perm.setPermUserLikeCount(permUserLikeCount);
 			
 			permList.add(perm);
 			
