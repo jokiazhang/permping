@@ -37,6 +37,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -83,6 +84,7 @@ public class NewPermActivity extends Activity {
             	  dialog = ProgressDialog.show(getParent(), "Uploading","Please wait...", true);
             	  new ImageUpload( imagePath ).execute();
               }
+              getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 			}
 		});
         
