@@ -129,11 +129,14 @@ public class NewPermActivity extends Activity {
   		protected String doInBackground(Void... params) {
   			//CategoryController catController = new CategoryController();
   			 //categories = catController.getCategoryList();
-  			BoardController boardController = new BoardController();
+  			//BoardController boardController = new BoardController();
   			User user = PermUtils.isAuthenticated(getApplicationContext());
-  			if( user != null || true )
-  				boards = boardController.getBoardList("121");
-  			
+  			if( user != null)
+  				//boards = boardController.getBoardList("121");
+  				boards = (ArrayList<PermBoard>) user.getBoards();
+  			else {
+  				// User has no boards created
+  			}
   			return null;
   		}
   		
@@ -193,7 +196,7 @@ public class NewPermActivity extends Activity {
 					String fileName = new File(filePath).getName();
 					ByteArrayBody bab = new ByteArrayBody(data, fileName);
 					MultipartEntity reqEntity = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
-					reqEntity.addPart("url", bab);
+					reqEntity.addPart("img", bab);
 					//reqEntity.addPart("url", new StringBody( "http://www.allbestwallpapers.com/wallpaper/black/thumb/white_rose.jpg") );
 					reqEntity.addPart("photoCaption", new StringBody(fileName));
 					reqEntity.addPart("uid", new StringBody( user.getId() ) );

@@ -60,7 +60,7 @@ public class PermUtils {
 	        	} else { // Other resolution
 	        		
 	        	}
-	        } else { // image width < 560 pixel  
+	        } else { // image width > 560 pixel  
 	        	if (screenWidth == 320 && screenHeight == 480) {
 	        		// Set the height
 	        		imageView.setMaxHeight(downloadedImageHeight*304/downloadedImageWidth);
