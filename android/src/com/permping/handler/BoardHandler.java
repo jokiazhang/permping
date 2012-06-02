@@ -23,7 +23,6 @@ import com.permping.utils.Constants;
  */
 public class BoardHandler extends DefaultHandler {
 
-	private final Stack<String> tagsStack = new Stack<String>();
 	private StringBuffer buffer = new StringBuffer();
 	
 	private List<Perm> perms;
@@ -47,14 +46,6 @@ public class BoardHandler extends DefaultHandler {
 	@Override
 	public void endElement(String uri, String localName, String qName)
 			throws SAXException {
-		/*String tag = peekTag();
-		if (!localName.equals(tag)) {
-			throw new InternalError();
-		}
-		
-		popTag();
-		String parentTag = peekTag();*/
-		
 		if (localName != null && localName.equals(Constants.ITEM)) {
 			perms.add(perm);
 		} else if (localName != null && localName.equals(Constants.PERM_ID)) {
@@ -112,8 +103,6 @@ public class BoardHandler extends DefaultHandler {
 	@Override
 	public void startElement(String uri, String localName, String qName,
 			Attributes attributes) throws SAXException {
-		/*String parentTag = peekTag();
-		pushTag(localName);*/
 		buffer.setLength(0);
 		
 		if (localName != null && localName.equals(Constants.PERMS)) {
@@ -136,21 +125,4 @@ public class BoardHandler extends DefaultHandler {
 	public List<Perm> getPerms() {
 		return perms;
 	}
-
-	@Override
-	public void startDocument() throws SAXException {
-		//pushTag("");
-	}
-	
-	private void pushTag(String tag) {
-		tagsStack.push(tag);
-	}
-	
-	private String popTag() {
-        return tagsStack.pop();
-    }
-
-    private String peekTag() {
-        return tagsStack.peek();
-    }
 }

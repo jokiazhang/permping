@@ -6,7 +6,9 @@ import com.permping.R;
 import com.permping.adapter.BoardDetailAdapter;
 import com.permping.model.Perm;
 import com.permping.model.Transporter;
+import com.permping.model.User;
 import com.permping.utils.Constants;
+import com.permping.utils.PermUtils;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -49,8 +51,9 @@ public class BoardDetailActivity extends Activity {
 		} else {
 			setContentView(R.layout.profile_permlist_layout);
 			permList = (ListView) findViewById(R.id.permList);
+			User user = PermUtils.isAuthenticated(getApplicationContext());
 			BoardDetailAdapter boardDetailAdapter = new BoardDetailAdapter(
-					this, perms, boardName, screenHeight, screenWidth);
+					this, perms, boardName, screenHeight, screenWidth, user);
 			permList.setAdapter(boardDetailAdapter);
 		}
 

@@ -98,5 +98,11 @@ public class Constants {
 	public static final String BOARD_USER_ID = "uid";
 	public static final String BOARD_DESCRIPTION = "board_desc";
 
+	/**
+	 * Texts
+	 */
 	public static final String TRANSPORTER = "transporter";
+	public static final String LIKE = "Like";
+	public static final String UNLIKE = "Unlike";
+	public static final String NOT_LOGIN = "You are not logged in!";
 }
