@@ -10,6 +10,9 @@ import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
 import com.permping.R;
+import com.permping.activity.BoardDetailActivity;
+import com.permping.activity.ProfileActivityGroup;
+import com.permping.activity.RepermActivity;
 import com.permping.model.Comment;
 import com.permping.model.Perm;
 import com.permping.model.PermBoard;
@@ -21,6 +24,7 @@ import com.permping.utils.PermUtils;
 import com.permping.utils.UrlImageViewHelper;
 
 import android.app.Activity;
+import android.content.Intent;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -63,6 +67,7 @@ public class BoardDetailAdapter extends BaseAdapter implements ListAdapter {
 		
 		final Perm perm = perms.get(position);
 		final Button like = (Button) view.findViewById(R.id.btLike);
+		final Button rePerm = (Button) view.findViewById(R.id.btReperm);
 		
 		// Validate Like or Unlike
 		if (perm != null) {
@@ -107,6 +112,28 @@ public class BoardDetailAdapter extends BaseAdapter implements ListAdapter {
 				}
 			}
 		});
+		
+		rePerm.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// Get the id of perm
+				if (perm != null) {
+					String permId = perm.getId();
+					String permDesc = perm.getDescription();
+					PermBoard currentBoard = perm.getBoard();
+					
+					// Go to the Reperm screen
+					Intent i = new Intent(view.getContext(), RepermActivity.class);
+					i.putExtra(Constants.PERM_ID, permId);
+					i.putExtra(Constants.PERM_DESCRIPTION, permDesc);
+					i.putExtra(Constants.CURRENT_BOARD, currentBoard);
+					View rePermView = ProfileActivityGroup.group.getLocalActivityManager().startActivity("RepermActivity", i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
+					ProfileActivityGroup.group.replaceView(rePermView);
+				}
+			}
+		});
+		
 		if (perm != null) {
 			// The Board Name
 			TextView txtBoardName = (TextView) view.findViewById(R.id.boardName);

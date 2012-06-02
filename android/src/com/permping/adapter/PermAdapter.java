@@ -10,9 +10,13 @@ import org.apache.http.message.BasicNameValuePair;
 
 import com.permping.PermpingMain;
 import com.permping.R;
+import com.permping.activity.ExplorerActivityGroup;
+import com.permping.activity.FollowerActivity;
+import com.permping.activity.FollowerActivityGroup;
 import com.permping.activity.JoinPermActivity;
 import com.permping.activity.LoginPermActivity;
 import com.permping.activity.PrepareRequestTokenActivity;
+import com.permping.activity.RepermActivity;
 import com.permping.controller.AuthorizeController;
 import com.permping.model.Perm;
 import com.permping.model.Comment;
@@ -50,6 +54,8 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 	public Button join;
 	public Button login;
 	public Button like;
+	public Button reperm;
+	
 	private Activity activity;
 	private Boolean header;
 	private User user;
@@ -184,6 +190,27 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 				}
 			});
 
+			
+			
+			reperm = (Button) view.findViewById(R.id.btnRepem );
+			reperm.setOnClickListener(new OnClickListener() {
+				public void onClick(final View v) {
+					
+					Intent myIntent = new Intent(view.getContext(), RepermActivity.class);
+					View repermView = ExplorerActivityGroup.group.getLocalActivityManager() .startActivity("BoardListActivity", myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
+					FollowerActivityGroup.group.replaceView( repermView );
+					
+					
+					if (user != null) {
+						Toast.makeText(view.getContext(), Constants.NOT_LOGIN, Toast.LENGTH_LONG).show();
+					} else {
+						Toast.makeText(view.getContext(), Constants.NOT_LOGIN, Toast.LENGTH_LONG).show();
+					}
+					
+				}
+			});
+			
+			
 			if (perm != null) {
 				ImageView av = (ImageView) view.findViewById(R.id.authorAvatar);
 				UrlImageViewHelper.setUrlDrawable(av, perm.getAuthor().getAvatar()

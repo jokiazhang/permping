@@ -30,5 +30,8 @@
     <string name="bt_reperm">Reperm</string>
     <string name="bt_like">Like</string>
     <string name="bt_comment">Comment</string>
+    <string name="ok">OK</string>
+    <string name="title_reperm">RePerm</string>
+    <string name="image_description">Description of Image</string>
     
 </resources>

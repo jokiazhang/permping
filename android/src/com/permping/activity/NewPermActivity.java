@@ -84,7 +84,7 @@ public class NewPermActivity extends Activity {
             	  dialog = ProgressDialog.show(getParent(), "Uploading","Please wait...", true);
             	  new ImageUpload( imagePath ).execute();
               }
-              getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+              //getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 			}
 		});
         

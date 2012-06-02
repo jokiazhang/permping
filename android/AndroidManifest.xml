@@ -41,7 +41,8 @@
 		<activity android:name=".activity.CreateBoardActivity" />
 		<activity android:name=".activity.AccountActivity" />
 		<activity android:name=".activity.BoardDetailActivity" />
-        <activity android:name=".activity.PrepareRequestTokenActivity" android:launchMode="singleTask">>
+		<activity android:name=".activity.RepermActivity" />
+		<activity android:name=".activity.PrepareRequestTokenActivity" android:launchMode="singleTask">>
 			<intent-filter>
 				<action android:name="android.intent.action.VIEW" />
 				<category android:name="android.intent.category.DEFAULT" />
