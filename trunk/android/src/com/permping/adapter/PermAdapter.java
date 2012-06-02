@@ -15,6 +15,7 @@ import com.permping.activity.FollowerActivity;
 import com.permping.activity.FollowerActivityGroup;
 import com.permping.activity.JoinPermActivity;
 import com.permping.activity.LoginPermActivity;
+import com.permping.activity.NewPermActivity;
 import com.permping.activity.PrepareRequestTokenActivity;
 import com.permping.activity.RepermActivity;
 import com.permping.controller.AuthorizeController;
@@ -195,18 +196,14 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 			reperm = (Button) view.findViewById(R.id.btnRepem );
 			reperm.setOnClickListener(new OnClickListener() {
 				public void onClick(final View v) {
-					
-					Intent myIntent = new Intent(view.getContext(), RepermActivity.class);
-					View repermView = ExplorerActivityGroup.group.getLocalActivityManager() .startActivity("BoardListActivity", myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
-					FollowerActivityGroup.group.replaceView( repermView );
-					
-					
 					if (user != null) {
-						Toast.makeText(view.getContext(), Constants.NOT_LOGIN, Toast.LENGTH_LONG).show();
+						Intent myIntent = new Intent(view.getContext(), NewPermActivity.class);
+						myIntent.putExtra("permID", (String) perm.getId() );
+						View repermView = FollowerActivityGroup.group.getLocalActivityManager() .startActivity("BoardListActivity", myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
+						FollowerActivityGroup.group.replaceView( repermView );
 					} else {
 						Toast.makeText(view.getContext(), Constants.NOT_LOGIN, Toast.LENGTH_LONG).show();
 					}
-					
 				}
 			});
 			

@@ -51,6 +51,8 @@ public class NewPermActivity extends Activity {
 	private ProgressDialog dialog;
 	private int boardId = -1;
 	
+	private int permID = -1;
+	
 	private EditText permDesc;
 	
 	private ArrayList<Category> categories;
@@ -67,6 +69,9 @@ public class NewPermActivity extends Activity {
         Bundle extras = getIntent().getExtras();
 		if( extras != null ) {
 			this.imagePath = (String) extras.get("imagePath");
+			if( extras.get("permID") != null )
+				this.permID = Integer.parseInt( (String) extras.get("permID"));
+			
 		}
         
         final Button buttonCANCEL = (Button) findViewById(R.id.buttonCANCEL);
@@ -80,7 +85,7 @@ public class NewPermActivity extends Activity {
         final Button buttonOK = (Button) findViewById(R.id.buttonOK);
         buttonOK.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-              if(imagePath != "" ){
+              if(imagePath != "" || permID > 0  ){
             	  dialog = ProgressDialog.show(getParent(), "Uploading","Please wait...", true);
             	  new ImageUpload( imagePath ).execute();
               }
@@ -149,10 +154,12 @@ public class NewPermActivity extends Activity {
 
   		@Override
   		protected void onPostExecute(String sResponse) {
+  			
   			setSpinnerData();
   			if (dialog.isShowing()){
   				dialog.dismiss();
   			}
+  			
   		}
   	}
 	
@@ -187,20 +194,25 @@ public class NewPermActivity extends Activity {
 		        
 		        if( user!= null ){
 
-					ByteArrayOutputStream bos = new ByteArrayOutputStream();
-					Bitmap bm = BitmapFactory.decodeFile(filePath);;
-					bm.compress(CompressFormat.JPEG, 75, bos);
-					byte[] data = bos.toByteArray();
 					
 					HttpClient httpClient = new DefaultHttpClient();
 					//HttpPost postRequest = new HttpPost("http://10.0.2.2/perm/testupload.php");
 					HttpPost postRequest = new HttpPost(API.addNewPermUrl);
-					String fileName = new File(filePath).getName();
-					ByteArrayBody bab = new ByteArrayBody(data, fileName);
 					MultipartEntity reqEntity = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
-					reqEntity.addPart("img", bab);
-					//reqEntity.addPart("url", new StringBody( "http://www.allbestwallpapers.com/wallpaper/black/thumb/white_rose.jpg") );
-					reqEntity.addPart("photoCaption", new StringBody(fileName));
+					if( filePath != "" && filePath != null ){
+					
+						ByteArrayOutputStream bos = new ByteArrayOutputStream();
+						Bitmap bm = BitmapFactory.decodeFile(filePath);;
+						bm.compress(CompressFormat.JPEG, 75, bos);
+						byte[] data = bos.toByteArray();
+						
+						String fileName = new File(filePath).getName();
+						ByteArrayBody bab = new ByteArrayBody(data, fileName);
+						reqEntity.addPart("img", bab);
+						reqEntity.addPart("photoCaption", new StringBody(fileName));
+					} else if( permID > 0 ) { //Reperm
+						reqEntity.addPart("pid", new StringBody( String.valueOf(permID)));
+					}
 					reqEntity.addPart("uid", new StringBody( user.getId() ) );
 					reqEntity.addPart("board", new StringBody( String.valueOf( boardId )));
 					reqEntity.addPart("board_desc", new StringBody(permDesc.getText().toString()  ) );
