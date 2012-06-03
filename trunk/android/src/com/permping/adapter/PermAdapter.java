@@ -69,13 +69,14 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 
 	private int screenWidth;
 	private int screenHeight;
-
+	private Context context;
 	
 	
 	public PermAdapter(Context context, int textViewResourceId,
 			ArrayList<Perm> items, Activity activity, int screenWidth,
 			int screenHeight, Boolean header) {
 		super(context, textViewResourceId, items);
+		this.context = context;
 		this.activity = activity;
 		this.header = header;
 		this.items = items;
@@ -164,6 +165,7 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 			
 			like.setOnClickListener(new OnClickListener() {
 				public void onClick(final View v) {
+					user = PermUtils.isAuthenticated(context);
 					if (user != null) {
 						// final ProgressDialog dialog =
 						// ProgressDialog.show(v.getContext(),
@@ -210,6 +212,7 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 			reperm = (Button) view.findViewById(R.id.btnRepem );
 			reperm.setOnClickListener(new OnClickListener() {
 				public void onClick(final View v) {
+					user = PermUtils.isAuthenticated(context);
 					if (user != null) {
 						Intent myIntent = new Intent(view.getContext(), NewPermActivity.class);
 						myIntent.putExtra("permID", (String) perm.getId() );
@@ -260,12 +263,12 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 					Comment pcm = perm.getComments().get(i);
 					if (pcm != null && pcm.getAuthor() != null) {
 
-						if (pcm.getAuthor() != null) {
+						
 							ImageView cma = (ImageView) cm
 									.findViewById(R.id.commentAvatar);
 							UrlImageViewHelper.setUrlDrawable(cma, pcm
 									.getAuthor().getAvatar().getUrl());
-						}
+						
 
 						TextView cmt = (TextView) cm
 								.findViewById(R.id.commentContent);
