@@ -4,11 +4,17 @@
 package com.permping.activity;
 
 import com.permping.R;
+import com.permping.model.PermBoard;
+import com.permping.utils.Constants;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.AdapterView.OnItemSelectedListener;
 
 /**
  * @author Linh Nguyen
@@ -16,9 +22,50 @@ import android.view.View;
  */
 public class RepermActivity extends Activity {
 	
+	private String p_permId;
+	private String p_permDescription;
+	private PermBoard p_currentBoard;
+	
+	private int selectedBoardId = -1;
+	
+	private EditText permDescription;
+	private Spinner boardSpinner;
+	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		View contentView = LayoutInflater.from(getParent()).inflate(R.layout.reperm_layout, null);
         setContentView(contentView);
+        /*
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+        	p_permId = (String) bundle.get(Constants.PERM_ID);
+        	p_permDescription = (String) bundle.get(Constants.PERM_DESCRIPTION);
+        	p_currentBoard = (PermBoard) bundle.get(Constants.CURRENT_BOARD);
+        }
+        if (p_permDescription != null) {
+        	permDescription = (EditText) findViewById(R.id.permDescription);
+        	permDescription.setText(p_permDescription);
+        }
+        if (p_currentBoard != null) {
+        	boardSpinner = (Spinner) findViewById(R.id.boardSpinner);
+        	boardSpinner.setOnItemSelectedListener(new SpinnerSelectedItemListener());
+        }*/
+	}
+	
+	private class SpinnerSelectedItemListener implements OnItemSelectedListener {
+
+		@Override
+		public void onItemSelected(AdapterView<?> parent, View view, int pos,
+				long id) {
+			PermBoard board = (PermBoard) parent.getItemAtPosition(pos);
+			selectedBoardId = Integer.parseInt(board.getId());
+		}
+
+		@Override
+		public void onNothingSelected(AdapterView<?> parent) {
+			// TODO Auto-generated method stub
+			
+		}
+		
 	}
 }

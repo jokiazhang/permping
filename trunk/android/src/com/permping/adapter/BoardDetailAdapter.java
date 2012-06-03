@@ -123,7 +123,7 @@ public class BoardDetailAdapter extends BaseAdapter implements ListAdapter {
 					
 					Intent myIntent = new Intent(view.getContext(), NewPermActivity.class);
 					myIntent.putExtra("permID", (String) perm.getId() );
-					View repermView = ProfileActivityGroup.group.getLocalActivityManager() .startActivity("BoardListActivity", myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
+					View repermView = ProfileActivityGroup.group.getLocalActivityManager() .startActivity("RepermActivity", myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
 					ProfileActivityGroup.group.replaceView( repermView );
 					
 					
@@ -181,7 +181,7 @@ public class BoardDetailAdapter extends BaseAdapter implements ListAdapter {
             for(int i = 0; i < perm.getComments().size(); i ++){
                 View cm = inflater.inflate(R.layout.comment_item, null );
                 Comment comment = perm.getComments().get(i);
-                if(comment != null) {
+                if(comment != null && comment.getAuthor() != null) {
                    if(comment.getAuthor() != null ){
              		   ImageView cma = (ImageView) cm.findViewById(R.id.commentAvatar);
              		   UrlImageViewHelper.setUrlDrawable(cma, comment.getAuthor().getAvatar().getUrl());

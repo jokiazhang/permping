@@ -21,11 +21,16 @@ import com.permping.utils.Constants;
 import com.permping.utils.XMLParser;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethod;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -94,7 +99,9 @@ public class CreateBoardActivity extends Activity {
 	        				Toast toast = Toast.makeText(getApplicationContext(), "Board is created successfully!", Toast.LENGTH_LONG);
 	    		        	toast.setGravity(Gravity.TOP | Gravity.CENTER, 0, 300);
 	    		        	toast.show();
-	    		        	getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+	    		        	/*InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+	    		        	imm.hideSoftInputFromWindow(windowToken, flags)
+	    		        	*///getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 	    		        	ImageActivityGroup.group.back();
 	        			} else {
 	        				Toast toast = Toast.makeText(getApplicationContext(), "Create new board failed! Please try again.", Toast.LENGTH_LONG);
@@ -109,6 +116,31 @@ public class CreateBoardActivity extends Activity {
 		});
 	}
 	
+	/* (non-Javadoc)
+	 * @see android.app.Activity#dispatchTouchEvent(android.view.MotionEvent)
+	 */
+	@Override
+	public boolean dispatchTouchEvent(MotionEvent event) {
+		View view = getCurrentFocus();
+		boolean ret = super.dispatchTouchEvent(event);
+		if (view instanceof EditText) {
+			View w = getCurrentFocus();
+			int scrcoords[] = new int[2];
+			w.getLocationOnScreen(scrcoords);
+			float x = event.getRawX() + w.getLeft() - scrcoords[0];
+	        float y = event.getRawY() + w.getTop() - scrcoords[1];
+
+	        Log.d("CreateBoard", "Touch event " + event.getRawX() + "," + event.getRawY() +
+	        		" " + x + "," + y + " rect " + w.getLeft() + "," + w.getTop() + "," +
+	        		w.getRight() + "," + w.getBottom() + " coords " + scrcoords[0] + "," + scrcoords[1]);
+	        if (event.getAction() == MotionEvent.ACTION_UP && (x < w.getLeft() || x >= w.getRight() || y < w.getTop() || y > w.getBottom()) ) { 
+	            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+	            imm.hideSoftInputFromWindow(getWindow().getCurrentFocus().getWindowToken(), 0);
+	        }
+		}
+		return ret;
+	}
+
 	private void addItemsOnMainCategory(Spinner spinner, ArrayList<Category> categories) {
 		CategorySpinnerAdapter categorySpinnerAdapter = new CategorySpinnerAdapter(this, categories);
 		spinner.setAdapter(categorySpinnerAdapter);
@@ -130,7 +162,7 @@ public class CreateBoardActivity extends Activity {
 	}
 	
 	private void getUserProfileById(String userId) {
-				
+		
 	}
 }
 

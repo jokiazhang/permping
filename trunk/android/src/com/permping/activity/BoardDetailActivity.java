@@ -9,12 +9,15 @@ import com.permping.model.Transporter;
 import com.permping.model.User;
 import com.permping.utils.Constants;
 import com.permping.utils.PermUtils;
+import com.permping.utils.UrlImageViewHelper;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -48,7 +51,21 @@ public class BoardDetailActivity extends Activity {
 			setContentView(R.layout.profile_emptyperm_layout);
 			message = (TextView) findViewById(R.id.message);
 			message.setText("No Perms Found. Please press Back to select another board!");
-		} else {
+/*			
+			*//**
+			 * TODO: Just for testing the image scaling function
+			 *//*
+			// <560
+			ImageView image1 = (ImageView) findViewById(R.id.image1);
+			UrlImageViewHelper.setUrlDrawable(image1, "http://3.bp.blogspot.com/-kZJirjdmR4Q/T6HCHiu--WI/AAAAAAAADdc/75BCY1nVKSQ/s1600/android.png");
+			PermUtils.scale("1", image1, screenWidth, screenHeight);
+			
+			// >560
+			ImageView image2 = (ImageView) findViewById(R.id.image2);
+			UrlImageViewHelper.setUrlDrawable(image2, "http://www.greggibsonblog.com/blogpix/2009/03/00071.jpg");
+			PermUtils.scale(image2, screenWidth, screenHeight);
+			
+*/		} else {
 			setContentView(R.layout.profile_permlist_layout);
 			permList = (ListView) findViewById(R.id.permList);
 			User user = PermUtils.isAuthenticated(getApplicationContext());

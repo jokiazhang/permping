@@ -252,7 +252,7 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 				for (int i = 0; i < perm.getComments().size(); i++) {
 					View cm = inflater.inflate(R.layout.comment_item, null);
 					Comment pcm = perm.getComments().get(i);
-					if (pcm != null) {
+					if (pcm != null && pcm.getAuthor() != null) {
 
 						if (pcm.getAuthor() != null) {
 							ImageView cma = (ImageView) cm
