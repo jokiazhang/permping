@@ -66,13 +66,12 @@ public class PermListController {
 			ArrayList<Comment> comments = new ArrayList<Comment>();
 			for( int j = 0; j < permComments.getLength(); j ++ ){
 				Element comment = (Element) permComments.item(i);
-				String commentId = getValue(comment, "id");
-				String commentContent = getValue(comment, "content");
-				
-				Comment permComment = new Comment( commentId, commentContent );
-				
 				//Comment user
 				if( comment != null ){
+					String commentId = getValue(comment, "id");
+					String commentContent = getValue(comment, "content");
+					
+					Comment permComment = new Comment( commentId, commentContent );
 					Element commentUser = (Element) comment.getElementsByTagName("l_user").item(0);
 					String commentUserId = getValue(commentUser, "l_userId");
 					String commentUserName = getValue(commentUser, "l_userName");
@@ -85,12 +84,10 @@ public class PermListController {
 					commentAuthor.setAvatar( commentAvatar );
 					
 					permComment.setAuthor( commentAuthor );
-				}
-				
-				comments.add(permComment);
-				
+					
+					comments.add(permComment);
+				}	
 			}
-			
 			
 			//Perm Stat
 			String permRepinCount  = getValue(permElement, "permRepinCount");

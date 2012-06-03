@@ -182,10 +182,10 @@ public class BoardDetailAdapter extends BaseAdapter implements ListAdapter {
                 View cm = inflater.inflate(R.layout.comment_item, null );
                 Comment comment = perm.getComments().get(i);
                 if(comment != null && comment.getAuthor() != null) {
-                   if(comment.getAuthor() != null ){
+                   
              		   ImageView cma = (ImageView) cm.findViewById(R.id.commentAvatar);
              		   UrlImageViewHelper.setUrlDrawable(cma, comment.getAuthor().getAvatar().getUrl());
-             	   }
+             	   
 	                   
 	               TextView cmt = (TextView) cm.findViewById(R.id.commentContent);
 	               cmt.setText(comment.getContent());
