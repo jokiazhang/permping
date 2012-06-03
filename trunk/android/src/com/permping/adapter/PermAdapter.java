@@ -10,6 +10,7 @@ import org.apache.http.message.BasicNameValuePair;
 
 import com.permping.PermpingMain;
 import com.permping.R;
+import com.permping.activity.AccountActivity;
 import com.permping.activity.ExplorerActivityGroup;
 import com.permping.activity.FollowerActivity;
 import com.permping.activity.FollowerActivityGroup;
@@ -17,6 +18,7 @@ import com.permping.activity.JoinPermActivity;
 import com.permping.activity.LoginPermActivity;
 import com.permping.activity.NewPermActivity;
 import com.permping.activity.PrepareRequestTokenActivity;
+import com.permping.activity.ProfileActivityGroup;
 import com.permping.activity.RepermActivity;
 import com.permping.controller.AuthorizeController;
 import com.permping.model.Perm;
@@ -125,6 +127,10 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 					Intent i = new Intent(v.getContext(),
 							LoginPermActivity.class);
 					v.getContext().startActivity(i);
+					/*
+					Intent i = new Intent(v.getContext(), AccountActivity.class);
+					View view = ProfileActivityGroup.group.getLocalActivityManager().startActivity("AccountActivity", i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
+					ProfileActivityGroup.group.replaceView(view);*/
 				}
 			});
 

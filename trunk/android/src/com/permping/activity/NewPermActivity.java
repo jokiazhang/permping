@@ -29,6 +29,7 @@ import com.permping.utils.PermUtils;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
@@ -36,8 +37,10 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -99,6 +102,31 @@ public class NewPermActivity extends Activity {
         dialog = ProgressDialog.show(getParent(), "Loading","Please wait...", true);
         new LoadBoards().execute();
         
+	}
+	
+	/* (non-Javadoc)
+	 * @see android.app.Activity#dispatchTouchEvent(android.view.MotionEvent)
+	 */
+	@Override
+	public boolean dispatchTouchEvent(MotionEvent event) {
+		View view = getCurrentFocus();
+		boolean ret = super.dispatchTouchEvent(event);
+		if (view instanceof EditText) {
+			View w = getCurrentFocus();
+			int scrcoords[] = new int[2];
+			w.getLocationOnScreen(scrcoords);
+			float x = event.getRawX() + w.getLeft() - scrcoords[0];
+	        float y = event.getRawY() + w.getTop() - scrcoords[1];
+
+	        Log.d("CreatePerm", "Touch event " + event.getRawX() + "," + event.getRawY() +
+	        		" " + x + "," + y + " rect " + w.getLeft() + "," + w.getTop() + "," +
+	        		w.getRight() + "," + w.getBottom() + " coords " + scrcoords[0] + "," + scrcoords[1]);
+	        if (event.getAction() == MotionEvent.ACTION_UP && (x < w.getLeft() || x >= w.getRight() || y < w.getTop() || y > w.getBottom()) ) { 
+	            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+	            imm.hideSoftInputFromWindow(getWindow().getCurrentFocus().getWindowToken(), 0);
+	        }
+		}
+		return ret;
 	}
 	
 	public void setSpinnerData(  ){
