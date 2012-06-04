@@ -74,7 +74,7 @@ public class FollowerActivity extends Activity {
 	private void loadPerms() {
 		ListView permListView = (ListView) findViewById(R.id.permList);
 		User user = PermUtils.isAuthenticated(getApplicationContext());
-		PermAdapter permListAdapter = new PermAdapter(this,
+		PermAdapter permListAdapter = new PermAdapter(FollowerActivityGroup.context,
 				R.layout.perm_item_1, permListMain, this, screenWidth, screenHeight, header, user);
 		permListView.setAdapter(permListAdapter);
 	}

@@ -126,14 +126,11 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 				public void onClick(View v) {
 					Intent i = new Intent(v.getContext(),
 							LoginPermActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-					v.getContext().startActivity(i);
-					/*Intent i = new Intent(v.getContext(), LoginPermActivity.class);
-					View view = FollowerActivityGroup.group.getLocalActivityManager().startActivity("LoginActivity", i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
-					FollowerActivityGroup.group.replaceView(view);*/
+					v.getContext().startActivity(i);					
 				}
 			});
 
-			final OptionsDialog dialog = new OptionsDialog(FollowerActivityGroup.context);
+			final OptionsDialog dialog = new OptionsDialog(context);
 
 			// Show the dialog
 			join.setOnClickListener(new OnClickListener() {
@@ -162,7 +159,7 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 			
 			like.setOnClickListener(new OnClickListener() {
 				public void onClick(final View v) {
-					user = PermUtils.isAuthenticated(context);
+					user = PermUtils.isAuthenticated(v.getContext().getApplicationContext());
 					if (user != null) {
 						// final ProgressDialog dialog =
 						// ProgressDialog.show(v.getContext(),
@@ -209,7 +206,7 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 			reperm = (Button) view.findViewById(R.id.btnRepem );
 			reperm.setOnClickListener(new OnClickListener() {
 				public void onClick(final View v) {
-					user = PermUtils.isAuthenticated(context);
+					user = PermUtils.isAuthenticated(v.getContext().getApplicationContext());
 					if (user != null) {
 						Intent myIntent = new Intent(view.getContext(), NewPermActivity.class);
 						myIntent.putExtra("permID", (String) perm.getId() );
@@ -226,10 +223,10 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 				
 				@Override
 				public void onClick(View v) {
-					user = PermUtils.isAuthenticated(context);
+					user = PermUtils.isAuthenticated(v.getContext().getApplicationContext());
 					if (user != null) {
 						// Add new view to allow user to enter the comment
-						
+						LinearLayout commentInputLayout = (LinearLayout) view.findViewById(R.id.commentInput);
 					}
 				}
 			});
@@ -265,7 +262,7 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 						+ perm.getPermCommentCount();
 				TextView ps = (TextView) view.findViewById(R.id.permStat);
 				ps.setText(permStat);
-
+				
 				LinearLayout comments = (LinearLayout) view
 						.findViewById(R.id.comments);
 				for (int i = 0; i < perm.getComments().size(); i++) {
