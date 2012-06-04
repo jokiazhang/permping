@@ -165,7 +165,7 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 			
 			like.setOnClickListener(new OnClickListener() {
 				public void onClick(final View v) {
-					user = PermUtils.isAuthenticated(context);
+					//user = PermUtils.isAuthenticated(context);
 					if (user != null) {
 						// final ProgressDialog dialog =
 						// ProgressDialog.show(v.getContext(),
@@ -212,7 +212,7 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 			reperm = (Button) view.findViewById(R.id.btnRepem );
 			reperm.setOnClickListener(new OnClickListener() {
 				public void onClick(final View v) {
-					user = PermUtils.isAuthenticated(context);
+					//user = PermUtils.isAuthenticated(context);
 					if (user != null) {
 						Intent myIntent = new Intent(view.getContext(), NewPermActivity.class);
 						myIntent.putExtra("permID", (String) perm.getId() );
@@ -240,7 +240,7 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 				ImageView pv = (ImageView) view.findViewById(R.id.permImage);
 				UrlImageViewHelper.setUrlDrawable(pv, perm.getImage().getUrl());
 				//PermUtils.scale(pv, screenWidth, screenHeight);
-				PermUtils.scaleImage(pv, 500);
+				PermUtils.scaleImage(pv, screenWidth, screenHeight);
 				
 				// Perm description
 				TextView pd = (TextView) view.findViewById(R.id.permDesc);

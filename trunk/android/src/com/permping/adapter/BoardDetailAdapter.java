@@ -163,7 +163,7 @@ public class BoardDetailAdapter extends BaseAdapter implements ListAdapter {
 			final ImageView permImage = (ImageView) view.findViewById(R.id.permImage);
 			UrlImageViewHelper.setUrlDrawable(permImage, perm.getImage().getUrl());
 			//PermUtils.scale(permImage, screenWidth, screenHeight);
-			PermUtils.scaleImage(permImage, 500);
+			PermUtils.scaleImage(permImage, screenWidth, screenHeight);
 			// Perm Description
 			TextView txtPermDescription = (TextView) view.findViewById(R.id.permDescription);
 			txtPermDescription.setText(perm.getDescription());
