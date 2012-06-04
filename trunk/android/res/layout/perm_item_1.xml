@@ -61,11 +61,13 @@
     <TableRow android:paddingBottom="10dip">
             <ImageView
             android:id="@+id/permImage"
-            android:layout_width="fill_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="5dip" 
-            android:src="@drawable/icon" />
-              
+            android:src="@drawable/icon"
+            android:layout_gravity="center_vertical" />
+            
+             
     </TableRow>
     
     <TableRow >

@@ -38,10 +38,16 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Paint;
+import android.graphics.Rect;
 import android.preference.PreferenceManager;
+import android.text.TextUtils.TruncateAt;
+import android.util.DisplayMetrics;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -102,8 +108,8 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 				this.activity, context, new String[] { Constants.EMAIL,
 						Constants.PUBLISH_STREAM });
 		prefs = PreferenceManager.getDefaultSharedPreferences(context);
+		
 	}
-	
 	
 	private String getActivityGroupName(){
 		//com.permping.activity.FollowerActivity
@@ -128,10 +134,6 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 					Intent i = new Intent(v.getContext(),
 							LoginPermActivity.class);
 					v.getContext().startActivity(i);
-					/*
-					Intent i = new Intent(v.getContext(), AccountActivity.class);
-					View view = ProfileActivityGroup.group.getLocalActivityManager().startActivity("AccountActivity", i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
-					ProfileActivityGroup.group.replaceView(view);*/
 				}
 			});
 
@@ -165,7 +167,7 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 			
 			like.setOnClickListener(new OnClickListener() {
 				public void onClick(final View v) {
-					//user = PermUtils.isAuthenticated(context);
+					user = PermUtils.isAuthenticated(context);
 					if (user != null) {
 						// final ProgressDialog dialog =
 						// ProgressDialog.show(v.getContext(),
@@ -212,7 +214,7 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 			reperm = (Button) view.findViewById(R.id.btnRepem );
 			reperm.setOnClickListener(new OnClickListener() {
 				public void onClick(final View v) {
-					//user = PermUtils.isAuthenticated(context);
+					user = PermUtils.isAuthenticated(context);
 					if (user != null) {
 						Intent myIntent = new Intent(view.getContext(), NewPermActivity.class);
 						myIntent.putExtra("permID", (String) perm.getId() );
@@ -240,7 +242,7 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 				ImageView pv = (ImageView) view.findViewById(R.id.permImage);
 				UrlImageViewHelper.setUrlDrawable(pv, perm.getImage().getUrl());
 				//PermUtils.scale(pv, screenWidth, screenHeight);
-				PermUtils.scaleImage(pv, screenWidth, screenHeight);
+				//PermUtils.scaleImage(pv, screenWidth, screenHeight);
 				
 				// Perm description
 				TextView pd = (TextView) view.findViewById(R.id.permDesc);
@@ -274,21 +276,32 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 						TextView cmt = (TextView) cm
 								.findViewById(R.id.commentContent);
 						cmt.setText(pcm.getContent());
-
+						/*boolean isWrapped = PermUtils.isTextWrapped(activity, cmt.getText().toString(), cmt.getContext());
+						if (isWrapped) {
+							cmt.setMaxLines(5);
+							cmt.setSingleLine(false);
+							cmt.setEllipsize(TruncateAt.MARQUEE);
+						}*/
 						if (i == (perm.getComments().size() - 1)) {
 							View sp = (View) cm.findViewById(R.id.separator);
 							sp.setVisibility(View.INVISIBLE);
 						}
-
-						comments.addView(cm);
+						/*	EllipsizingTextView cmt = (EllipsizingTextView) cm
+									.findViewById(R.id.commentContent);
+							cmt.setText(pcm.getContent());
+							
+							if (i == (perm.getComments().size() - 1)) {
+								View sp = (View) cm.findViewById(R.id.separator);
+								sp.setVisibility(View.INVISIBLE);
+							}	*/
+							comments.addView(cm);
 					}
 				}
-
 			}
 			return view;
 		}
-
 	}
+	
 
 	/**
 	 * This listener is to handle the click action of Join button This should
