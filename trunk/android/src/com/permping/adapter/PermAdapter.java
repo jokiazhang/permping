@@ -11,15 +11,12 @@ import org.apache.http.message.BasicNameValuePair;
 import com.permping.PermpingMain;
 import com.permping.R;
 import com.permping.activity.AccountActivity;
-import com.permping.activity.ExplorerActivityGroup;
-import com.permping.activity.FollowerActivity;
 import com.permping.activity.FollowerActivityGroup;
 import com.permping.activity.JoinPermActivity;
 import com.permping.activity.LoginPermActivity;
 import com.permping.activity.NewPermActivity;
 import com.permping.activity.PrepareRequestTokenActivity;
 import com.permping.activity.ProfileActivityGroup;
-import com.permping.activity.RepermActivity;
 import com.permping.controller.AuthorizeController;
 import com.permping.model.Perm;
 import com.permping.model.Comment;
@@ -38,16 +35,10 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Paint;
-import android.graphics.Rect;
 import android.preference.PreferenceManager;
-import android.text.TextUtils.TruncateAt;
-import android.util.DisplayMetrics;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -132,8 +123,11 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 
 				public void onClick(View v) {
 					Intent i = new Intent(v.getContext(),
-							LoginPermActivity.class);
+							LoginPermActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 					v.getContext().startActivity(i);
+					/*Intent i = new Intent(v.getContext(), LoginPermActivity.class);
+					View view = FollowerActivityGroup.group.getLocalActivityManager().startActivity("LoginActivity", i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
+					FollowerActivityGroup.group.replaceView(view);*/
 				}
 			});
 
@@ -242,7 +236,7 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 				ImageView pv = (ImageView) view.findViewById(R.id.permImage);
 				UrlImageViewHelper.setUrlDrawable(pv, perm.getImage().getUrl());
 				//PermUtils.scale(pv, screenWidth, screenHeight);
-				//PermUtils.scaleImage(pv, screenWidth, screenHeight);
+				PermUtils.scaleImage(pv, screenWidth, screenHeight);
 				
 				// Perm description
 				TextView pd = (TextView) view.findViewById(R.id.permDesc);
