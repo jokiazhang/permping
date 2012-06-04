@@ -16,4 +16,5 @@ public class API {
 	public static final String permListFromCategory = "http://newpermping.autwin.com/services/permservice/getpermwithcategoryid/"; //Add category id when make request
 	public static final String likeURL = "http://newpermping.autwin.com/services/permservice/like";
 	public static final String getPermsByDate = "http://newpermping.autwin.com/services/permservice/getpermwithdate/"; // Add the date as yyyy-dd-mm
+	public static final String logoutURL = "http://newpermping.autwin.com/services/userservice/logout/";
 }
