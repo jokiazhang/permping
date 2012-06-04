@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.ImageView;
@@ -43,12 +44,12 @@ public class PermUtils {
 	 */
 	public static void scale(ImageView imageView, int screenWidth, int screenHeight) {
 		imageView.buildDrawingCache();
-		Bitmap bitmap = imageView.getDrawingCache();
+		//Bitmap bitmap = imageView.getDrawingCache();
 
-		//Drawable bitmap = imageView.getDrawable();
+		Drawable bitmap = imageView.getDrawable();
 		if (bitmap != null) {
-			int downloadedImageWidth = bitmap.getWidth();
-	    	int downloadedImageHeight= bitmap.getHeight();
+			int downloadedImageWidth = bitmap.getIntrinsicWidth();
+	    	int downloadedImageHeight= bitmap.getIntrinsicHeight();
 
 	    	int desiredWidth = 0;
 	    	int desiredHeight = 0;
@@ -113,6 +114,9 @@ public class PermUtils {
 	        		
 	        	}
 	        }
+	    	imageView.setMaxHeight(desiredHeight);
+    		// Set the width
+    		imageView.setMaxWidth(desiredWidth);
 	    	/*
 	    	ViewGroup.LayoutParams layoutParams;
 	    	if (flag != null && "1".equals(flag)) {
@@ -136,7 +140,7 @@ public class PermUtils {
 		}
 	}
 	
-	public static void scaleImage(ImageView view, int boundBoxInDp)
+	public static void scaleImage(ImageView view, int screenWidth, int screenHeight)
 	{
 	    // Get the ImageView and its bitmap
 	    Drawable drawing = view.getDrawable();
@@ -146,7 +150,17 @@ public class PermUtils {
 		    	// Get current dimensions
 			    int width = bitmap.getWidth();
 			    int height = bitmap.getHeight();
-	
+			    float boundBoxInDp = 500;
+			    if (screenWidth == 320 && screenHeight == 480) {
+			    	boundBoxInDp = 304;
+	        		
+	        	} else if (screenWidth == 480 && screenHeight == 800) {
+	        		boundBoxInDp = 456;
+	        	} else if (screenWidth == 800 && screenHeight == 1280) {
+	        		boundBoxInDp =760;
+	        	} else { // Other resolution
+	        		
+	        	}
 			    // Determine how much to scale: the dimension requiring less scaling is
 			    // closer to the its side. This way the image always stays inside your
 			    // bounding box AND either x/y axis touches it.
@@ -166,12 +180,13 @@ public class PermUtils {
 	
 			    // Apply the scaled bitmap
 			    view.setImageDrawable(result);
-	
+			   
 			    // Now change ImageView's dimensions to match the scaled image
 			    LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) view.getLayoutParams();
 			    params.width = width;
 			    params.height = height;
 			    view.setLayoutParams(params);
+			     
 		    }
 	    }
 	}
