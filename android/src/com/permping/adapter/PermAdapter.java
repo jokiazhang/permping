@@ -55,6 +55,7 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 	public Button login;
 	public Button like;
 	public Button reperm;
+	public Button comment;
 	
 	private Activity activity;
 	private Boolean header;
@@ -89,6 +90,7 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 			ArrayList<Perm> items, Activity activity, int screenWidth,
 			int screenHeight, Boolean header, User user) {
 		super(context, textViewResourceId, items);
+		this.context = context;
 		this.activity = activity;
 		this.header = header;
 		this.items = items;
@@ -131,7 +133,7 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 				}
 			});
 
-			final OptionsDialog dialog = new OptionsDialog(view.getContext());
+			final OptionsDialog dialog = new OptionsDialog(FollowerActivityGroup.context);
 
 			// Show the dialog
 			join.setOnClickListener(new OnClickListener() {
@@ -148,8 +150,7 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 
 			final Perm perm = items.get(position);
 
-			final Button like = (Button) view.findViewById(R.id.btnLike);
-			
+			like = (Button) view.findViewById(R.id.btnLike);
 			// Validate Like or Unlike
 			if (perm != null) {
 				if (perm.getPermUserLikeCount() != null && "0".equals(perm.getPermUserLikeCount())) {
@@ -220,6 +221,18 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 				}
 			});
 			
+			comment = (Button) view.findViewById(R.id.btnComment);
+			comment.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					user = PermUtils.isAuthenticated(context);
+					if (user != null) {
+						// Add new view to allow user to enter the comment
+						
+					}
+				}
+			});
 			
 			if (perm != null) {
 				ImageView av = (ImageView) view.findViewById(R.id.authorAvatar);
