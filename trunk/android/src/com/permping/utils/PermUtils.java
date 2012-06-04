@@ -171,7 +171,7 @@ public class PermUtils {
 			    // closer to the its side. This way the image always stays inside your
 			    // bounding box AND either x/y axis touches it.
 			    float xScale = ((float) boundBoxInDp) / width;
-			    float yScale = ((float) boundBoxInDp) / height;
+			    float yScale = Float.MAX_VALUE / height;
 			    float scale = (xScale <= yScale) ? xScale : yScale;
 	
 			    // Create a matrix for the scaling and add the scaling data
