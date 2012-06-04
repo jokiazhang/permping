@@ -9,7 +9,16 @@
 #import <UIKit/UIKit.h>
 #import "PermModel.h"
 
-@class WSPerm;
+@class PermInfoCell;
+
+@protocol PermInfoCellDelegate <NSObject>
+
+@optional
+- (void)likePermAtCell:(PermInfoCell*)cell;
+- (void)commentPermAtCell:(PermInfoCell*)cell;
+- (void)repermPermAtCell:(PermInfoCell*)cell;
+
+@end
 
 @interface PermInfoCell : UITableViewCell {
     UILabel     *commentLabel;
@@ -21,7 +30,12 @@
     UIButton    *locationButton;
     
     UILabel     *statusLabel;
+    
+    id<PermInfoCellDelegate> delegate;
+    PermModel   *perm;
 }
+@property (nonatomic, assign)   id<PermInfoCellDelegate> delegate;
+@property (nonatomic, retain)   PermModel *perm;
 @property (nonatomic, readonly) UILabel *commentLabel;
 @property (nonatomic, readonly) UILabel *descriptionLabel;
 

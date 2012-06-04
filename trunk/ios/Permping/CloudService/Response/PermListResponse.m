@@ -70,7 +70,7 @@
 	} 
     else if ([@"/response/perms/item/permComments/comment/content" isEqualToString:path]) 
 	{
-		NSLog(@"okokokokoko");
+		//NSLog(@"okokokokoko");
 	}
     else if ([@"/response/perms/item/permComments/comment/user" isEqualToString:path]) 
 	{
@@ -247,7 +247,7 @@
 	} 
     else if ([@"/response/followingPerms/item/permComments/comment/content" isEqualToString:path]) 
 	{
-		NSLog(@"okokokokoko");
+		//NSLog(@"okokokokoko");
 	}
     else if ([@"/response/followingPerms/item/permComments/comment/user" isEqualToString:path]) 
 	{
@@ -433,7 +433,7 @@
 	} 
     else if ([@"/response/popularPerms/item/permComments/comment/content" isEqualToString:path]) 
 	{
-		NSLog(@"okokokokoko");
+		//NSLog(@"okokokokoko");
 	}
     else if ([@"/response/popularPerms/item/permComments/comment/user" isEqualToString:path]) 
 	{

@@ -22,7 +22,7 @@
 
 @implementation AppData
 
-@synthesize user=_user, password=_password;
+@synthesize user=_user;
 @synthesize userInfo=_userInfo;
 
 // --------------------------------------------------------------------------
@@ -52,7 +52,6 @@
 	if (self != nil)
 	{
         _user               = nil;
-        _password           = nil;
 		_isLogout           = YES;
         // read the user settings.
         [self restoreState];
@@ -69,7 +68,6 @@
     [self saveState];
 	[_userInfo release];
     [_user release];
-    [_password release];
     [super dealloc];
 }
 
@@ -140,7 +138,7 @@
                        });
         UserProfileResponse *response = [(Login_DataLoader *)loader loginWithUserInfo:self.userInfo];
         NSError *error = response.responseError;
-        if (!error) {
+        if (!error || error.code == 200) {
             self.user = [response getUserProfile];
             _isLogout = NO;
         }
@@ -176,28 +174,32 @@
 #pragma mark		save / restore state
 #pragma mark	-
 
-
 - (void) restoreState
 {
     self.user = nil;
-	self.password = nil;
     
     //
     // Read the global preferences and set the app preferences 
     //
-    //NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	
-    self.password = @"";
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    if ([defaults objectForKey:@"kUserID"]) {
+        self.user = [[UserProfileModel alloc] init];
+        self.user.userId = [defaults objectForKey:@"kUserID"];
+        _isLogout = NO;
+    }
     
     return;
 	
 }
 
-
 - (void) saveState
 {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults synchronize];
+    if (self.user) {
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        [defaults setObject:self.user.userId forKey:@"kUserID"];
+        [defaults synchronize];
+    }
+    
     return;
 }
 

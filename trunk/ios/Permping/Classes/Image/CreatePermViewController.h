@@ -17,10 +17,18 @@
     BoardModel      *selectedBoard;
     PermModel       *currentPerm;
     NSData          *fileData;
+    
+    BOOL            hasChange;
+    
+    id target;
+    SEL action;
 }
 @property (nonatomic, retain) NSDictionary  *imageInfo;
 @property (nonatomic, retain) BoardModel    *selectedBoard;
 @property (nonatomic, retain) NSData          *fileData;
+@property (nonatomic, retain) PermModel     *currentPerm;
 
 - (BOOL)validateInputData;
+
+- (void)setTarget:(id)in_target action:(SEL)in_action;
 @end

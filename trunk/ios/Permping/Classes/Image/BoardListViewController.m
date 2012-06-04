@@ -16,6 +16,7 @@
 
 - (void)dealloc {
     self.boardsArray = nil;
+    [target release];
     [super dealloc];
 }
 

@@ -13,6 +13,7 @@
 #import "ImageViewController.h"
 #import "MyDiaryViewController.h"
 #import "ProfileViewController.h"
+#import "AppData.h"
 
 
 @implementation AppDelegate
@@ -34,8 +35,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    
-    
+    [[AppData getInstance] restoreState];
     // Override point for customization after application launch.
     FollowingViewController *viewController1 = [[[FollowingViewController alloc] initWithNibName:@"FollowingViewController" bundle:nil] autorelease];
     ExplorerViewController *viewController2 = [[[ExplorerViewController alloc] initWithNibName:@"ExplorerViewController" bundle:nil] autorelease];
@@ -89,6 +89,7 @@
      Save data if appropriate.
      See also applicationDidEnterBackground:.
      */
+    [[AppData getInstance] saveState];
 }
 
 /*

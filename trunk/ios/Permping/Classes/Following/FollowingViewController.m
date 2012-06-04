@@ -65,9 +65,13 @@
         permTableview.tableHeaderView = nil;
     }
     
-    [self startActivityIndicator];
-    [self resetData];
-    self.dataLoaderThread = [[ThreadManager getInstance] dispatchToConcurrentBackgroundNormalPriorityQueueWithTarget:self selector:@selector(loadDataForMe:thread:) dataObject:[self getMyDataLoader]];
+    //if (!_didPushToAnotherViewController) {
+        [self startActivityIndicator];
+        [self resetData];
+        self.dataLoaderThread = [[ThreadManager getInstance] dispatchToConcurrentBackgroundNormalPriorityQueueWithTarget:self selector:@selector(loadDataForMe:thread:) dataObject:[self getMyDataLoader]];
+        
+    //}
+    _didPushToAnotherViewController = NO;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -156,6 +160,7 @@
     LoginViewController *controller = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
     [self.navigationController pushViewController:controller animated:YES];
     [controller release];
+    _didPushToAnotherViewController = YES;
 }
 
 - (void)showJoinViewController {
@@ -165,6 +170,7 @@
         JoinViewController *controller = [[JoinViewController alloc] initWithNibName:@"JoinViewController" bundle:nil];
         [self.navigationController pushViewController:controller animated:YES];
         [controller release];
+        _didPushToAnotherViewController = YES;
     }
 }
 

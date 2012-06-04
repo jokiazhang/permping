@@ -16,8 +16,13 @@
     IBOutlet UITableView    *formTableView;
     IBOutlet UIButton       *loginButton;
     
+    id  target;
+    SEL action;
+    
     BOOL    _showingKeyBoard;
 }
+
+- (void)setTarget:(id)in_target action:(SEL)in_action;
 
 - (IBAction)facebookButtonDidTouch:(id)sender;
 

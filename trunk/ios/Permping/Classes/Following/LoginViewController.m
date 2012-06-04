@@ -111,7 +111,7 @@
     }
     if (indexPath.row == 0) {
         cell.textLabel.text = @"Email Address :";
-        cell.valueTextField.text = @"demo";
+        cell.valueTextField.text = @"demo@demo.com";
         cell.valueTextField.keyboardType = UIKeyboardTypeEmailAddress;
     } else if (indexPath.row == 1) {
         cell.textLabel.text = @"Password :";
@@ -176,8 +176,18 @@
     [self stopActivityIndicator];
     BOOL isSuccess = [(NSNumber*)notification.object boolValue];
     if (isSuccess) {
-        [self dismiss:nil];
+        if (target) {
+            [target performSelector:action withObject:self];
+        } else {
+            [self dismiss:nil];
+        }
     }
+}
+
+- (void)setTarget:(id)in_target action:(SEL)in_action {
+    [target release];
+    target = [in_target retain];
+    action = in_action;
 }
 
 @end

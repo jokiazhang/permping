@@ -141,7 +141,7 @@
     CreateBoardViewController *controller = [[CreateBoardViewController alloc] initWithNibName:@"CreateBoardViewController" bundle:nil];
     [self.navigationController pushViewController:controller animated:YES];
     [controller release];
-    }else {
+    } else {
         LoginViewController *controller = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
         [self.navigationController pushViewController:controller animated:YES];
         [controller release];

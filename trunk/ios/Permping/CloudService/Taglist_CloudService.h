@@ -13,6 +13,7 @@
 #import "CreateAccountResponse.h"
 #import "UserProfileResponse.h"
 #import "UploadPermResponse.h"
+#import "PermActionResponse.h"
 
 extern NSString *const kUserServiceTypeNormal;
 extern NSString *const kUserServiceTypeTwitter;
@@ -39,6 +40,9 @@ extern NSString *const kUserServiceCPasswordKey;
 + (PermListResponse*)getPermWithUserId:(NSString*)userId requestCount:(NSUInteger)count nextItemId:(NSInteger)nextId;
 + (PermListResponse*)getPermWithDate:(NSString*)date nextItemId:(NSInteger)nextId requestCount:(NSUInteger)count;
 + (UploadPermResponse*)uploadPermWithInfo:(PermModel*)permInfo;
++ (PermActionResponse*)likePermWithId:(NSString*)permId userId:(NSString*)userId;
++ (PermActionResponse*)commentPermWithId:(NSString*)permId userId:(NSString*)userId content:(NSString*)content;
++ (PermActionResponse*)repermWithId:(NSString*)permId userId:(NSString*)userId boardId:(NSString*)boardId description:(NSString*)desc;
 
 // User service
 + (CreateAccountResponse*)createAccountWithUserInfo:(NSDictionary*)userInfo;
