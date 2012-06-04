@@ -65,7 +65,7 @@ public class PermListController {
 			
 			ArrayList<Comment> comments = new ArrayList<Comment>();
 			for( int j = 0; j < permComments.getLength(); j ++ ){
-				Element comment = (Element) permComments.item(i);
+				Element comment = (Element) permComments.item(j);
 				//Comment user
 				if( comment != null ){
 					String commentId = getValue(comment, "id");
