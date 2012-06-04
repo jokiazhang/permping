@@ -61,7 +61,7 @@ public class BoardDetailAdapter extends BaseAdapter implements ListAdapter {
 		this.user = user;
 	}
 	
-	@Override
+	
 	public View getView(int position, View convertView, ViewGroup parent) {
 		final LayoutInflater inflater = activity.getLayoutInflater();
 		final View view = inflater.inflate(R.layout.profile_perm_layout, null);
@@ -80,7 +80,7 @@ public class BoardDetailAdapter extends BaseAdapter implements ListAdapter {
 		}
 		like.setOnClickListener(new View.OnClickListener() {
 			
-			@Override
+			
 			public void onClick(View v) {
 				if (user != null && perm != null) {
 					HttpPermUtils httpPermUtils = new HttpPermUtils();
@@ -116,7 +116,7 @@ public class BoardDetailAdapter extends BaseAdapter implements ListAdapter {
 		
 		rePerm.setOnClickListener(new View.OnClickListener() {
 			
-			@Override
+			
 			public void onClick(View v) {
 				// Get the id of perm
 				if (perm != null) {
@@ -163,7 +163,7 @@ public class BoardDetailAdapter extends BaseAdapter implements ListAdapter {
 			final ImageView permImage = (ImageView) view.findViewById(R.id.permImage);
 			UrlImageViewHelper.setUrlDrawable(permImage, perm.getImage().getUrl());
 			//PermUtils.scale(permImage, screenWidth, screenHeight);
-			
+			PermUtils.scaleImage(permImage, 500);
 			// Perm Description
 			TextView txtPermDescription = (TextView) view.findViewById(R.id.permDescription);
 			txtPermDescription.setText(perm.getDescription());
@@ -203,19 +203,19 @@ public class BoardDetailAdapter extends BaseAdapter implements ListAdapter {
 		return view;
 	}
 	
-	@Override
+	
 	public int getCount() {
 		// TODO Auto-generated method stub
 		return perms.size();
 	}
 	
-	@Override
+	
 	public Object getItem(int position) {
 		// TODO Auto-generated method stub
 		return perms.get(position);
 	}
 	
-	@Override
+	
 	public long getItemId(int position) {
 		// TODO Auto-generated method stub
 		return position;
