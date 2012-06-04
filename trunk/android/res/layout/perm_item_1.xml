@@ -138,6 +138,16 @@
                 android:paddingRight="10dp"
                 android:text="permLikeCount - Repin: permRepinCount - Comment: permCommentCount" />
     </TableRow>
+    
+    <TableRow>
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/commentInput"
+            android:orientation="vertical">
+        </LinearLayout>
+    </TableRow>
+    
     <TableRow >
         <LinearLayout 
             android:layout_width="fill_parent"
