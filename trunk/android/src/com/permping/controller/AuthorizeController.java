@@ -148,4 +148,10 @@ public class AuthorizeController {
 		}
 		return null;
 	}
+	
+	public void logout(String userId) {
+		if (userId != null && !"".equals(userId)) {
+			XMLParser parser = new XMLParser(API.logoutURL + userId);			
+		}
+	}
 }

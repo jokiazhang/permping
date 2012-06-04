@@ -6,6 +6,8 @@ package com.permping.activity;
 import com.permping.PermpingApplication;
 import com.permping.PermpingMain;
 import com.permping.R;
+import com.permping.controller.AuthorizeController;
+import com.permping.model.User;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -40,7 +42,12 @@ public class AccountActivity extends Activity {
 			public void onClick(View v) {
 				// Remove the User object in application state.
 				PermpingApplication state = (PermpingApplication) getApplicationContext();
-				state.setUser(null);
+				User user = state.getUser();
+				if (user != null) {
+					AuthorizeController authorizeController = new AuthorizeController();
+					authorizeController.logout(user.getId());
+					state.setUser(null);
+				}
 				
 				// Forward to PermpingMain screen (Followers tab)
 				Intent intent = new Intent(v.getContext(), PermpingMain.class);
