@@ -72,7 +72,7 @@
 	{
 		//NSLog(@"okokokokoko");
 	}
-    else if ([@"/response/perms/item/permComments/comment/user" isEqualToString:path]) 
+    else if ([@"/response/perms/item/permComments/comment/l_user" isEqualToString:path]) 
 	{
 		UserModel *model = [[UserModel alloc] init];
         self.currentUser = model;
@@ -107,7 +107,7 @@
         }
         [text release];
 	}
-    else if ([@"/response/perms/item/permComments/comment/user/userName" isEqualToString:path]) {
+    else if ([@"/response/perms/item/permComments/comment/l_user/l_userName" isEqualToString:path]) {
         NSString *text = [[NSString alloc] initWithData:CDATABlock encoding:NSUTF8StringEncoding];
         
         if (self.currentUser) {
@@ -155,19 +155,19 @@
             [self.permCommentList addObject:self.currentComment];
         }
     }
-    else if ([@"/response/perms/item/permComments/comment/user/userId" isEqualToString:path]) {
+    else if ([@"/response/perms/item/permComments/comment/l_user/l_userId" isEqualToString:path]) {
         if (self.currentUser)
             self.currentUser.userId = [[text copy] autorelease];
     }
-    else if ([@"/response/perms/item/permComments/comment/user/status" isEqualToString:path]) {
+    else if ([@"/response/perms/item/permComments/comment/l_user/l_status" isEqualToString:path]) {
         if (self.currentUser)
             self.currentUser.userStatus = [[text copy] autorelease];
     }
-    else if ([@"/response/perms/item/permComments/comment/user/userAvatar" isEqualToString:path]) {
+    else if ([@"/response/perms/item/permComments/comment/l_user/l_userAvatar" isEqualToString:path]) {
         if (self.currentUser)
             self.currentUser.userAvatar = [[text copy] autorelease];
     }
-    else if ([@"/response/perms/item/permComments/comment/user" isEqualToString:path]) {
+    else if ([@"/response/perms/item/permComments/comment/l_user" isEqualToString:path]) {
         if (self.currentComment)
             self.currentComment.commentUser = self.currentUser;
     }
@@ -249,7 +249,7 @@
 	{
 		//NSLog(@"okokokokoko");
 	}
-    else if ([@"/response/followingPerms/item/permComments/comment/user" isEqualToString:path]) 
+    else if ([@"/response/followingPerms/item/permComments/comment/l_user" isEqualToString:path]) 
 	{
 		UserModel *model = [[UserModel alloc] init];
         self.currentUser = model;
@@ -284,7 +284,7 @@
         }
         [text release];
 	}
-    else if ([@"/response/followingPerms/item/permComments/comment/user/userName" isEqualToString:path]) {
+    else if ([@"/response/followingPerms/item/permComments/comment/l_user/l_userName" isEqualToString:path]) {
         NSString *text = [[NSString alloc] initWithData:CDATABlock encoding:NSUTF8StringEncoding];
         
         if (self.currentUser) {
@@ -332,19 +332,19 @@
             [self.permCommentList addObject:self.currentComment];
         }
     }
-    else if ([@"/response/followingPerms/item/permComments/comment/user/userId" isEqualToString:path]) {
+    else if ([@"/response/followingPerms/item/permComments/comment/l_user/l_userId" isEqualToString:path]) {
         if (self.currentUser)
             self.currentUser.userId = [[text copy] autorelease];
     }
-    else if ([@"/response/followingPerms/item/permComments/comment/user/status" isEqualToString:path]) {
+    else if ([@"/response/followingPerms/item/permComments/comment/l_user/l_status" isEqualToString:path]) {
         if (self.currentUser)
             self.currentUser.userStatus = [[text copy] autorelease];
     }
-    else if ([@"/response/followingPerms/item/permComments/comment/user/userAvatar" isEqualToString:path]) {
+    else if ([@"/response/followingPerms/item/permComments/comment/l_user/l_userAvatar" isEqualToString:path]) {
         if (self.currentUser)
             self.currentUser.userAvatar = [[text copy] autorelease];
     }
-    else if ([@"/response/followingPerms/item/permComments/comment/user" isEqualToString:path]) {
+    else if ([@"/response/followingPerms/item/permComments/comment/l_user" isEqualToString:path]) {
         if (self.currentComment)
             self.currentComment.commentUser = self.currentUser;
     }
@@ -435,7 +435,7 @@
 	{
 		//NSLog(@"okokokokoko");
 	}
-    else if ([@"/response/popularPerms/item/permComments/comment/user" isEqualToString:path]) 
+    else if ([@"/response/popularPerms/item/permComments/comment/l_user" isEqualToString:path]) 
 	{
 		UserModel *model = [[UserModel alloc] init];
         self.currentUser = model;
@@ -482,7 +482,7 @@
         }
         [text release];
 	}
-    else if ([@"/response/popularPerms/item/permComments/comment/user/userName" isEqualToString:path]) {
+    else if ([@"/response/popularPerms/item/permComments/comment/l_user/l_userName" isEqualToString:path]) {
         NSString *text = [[NSString alloc] initWithData:CDATABlock encoding:NSUTF8StringEncoding];
         
         if (self.currentUser) {
@@ -542,19 +542,19 @@
             [self.permCommentList addObject:self.currentComment];
         }
     }
-    else if ([@"/response/popularPerms/item/permComments/comment/user/userId" isEqualToString:path]) {
+    else if ([@"/response/popularPerms/item/permComments/comment/l_user/l_userId" isEqualToString:path]) {
         if (self.currentUser)
             self.currentUser.userId = [[text copy] autorelease];
     }
-    else if ([@"/response/popularPerms/item/permComments/comment/user/status" isEqualToString:path]) {
+    else if ([@"/response/popularPerms/item/permComments/comment/l_user/l_status" isEqualToString:path]) {
         if (self.currentUser)
             self.currentUser.userStatus = [[text copy] autorelease];
     }
-    else if ([@"/response/popularPerms/item/permComments/comment/user/userAvatar" isEqualToString:path]) {
+    else if ([@"/response/popularPerms/item/permComments/comment/l_user/l_userAvatar" isEqualToString:path]) {
         if (self.currentUser)
             self.currentUser.userAvatar = [[text copy] autorelease];
     }
-    else if ([@"/response/popularPerms/item/permComments/comment/user" isEqualToString:path]) {
+    else if ([@"/response/popularPerms/item/permComments/comment/l_user" isEqualToString:path]) {
         if (self.currentComment)
             self.currentComment.commentUser = self.currentUser;
     }
