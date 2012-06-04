@@ -290,6 +290,4 @@ public class NewPermActivity extends Activity {
 			
 		}
 	}
-	
-	
 }

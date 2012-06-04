@@ -3,12 +3,17 @@
  */
 package com.permping.utils;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
+import android.graphics.Paint;
+import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.ImageView;
@@ -16,6 +21,7 @@ import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
+import android.widget.TextView;
 
 import com.permping.PermpingApplication;
 import com.permping.model.User;
@@ -189,5 +195,34 @@ public class PermUtils {
 			     
 		    }
 	    }
+	}
+	
+	/**
+	 * Check if the text should be wrapped (when the text's length
+	 * is greater than the screen's width.
+	 * @param text the text.
+	 * @return true if text will be wrapped. Else, it returns false.
+	 */
+	public static boolean isTextWrapped(Activity activity, String text, Context context) {
+		boolean isWrapped = false;
+		int textWidth = 0;
+		int deviceWidth = 0;
+		
+		// Calculate the width of text
+		TextView textView = new TextView(context);
+		textView.setVisibility(View.GONE);
+		Rect bounds = new Rect();
+		Paint textPaint = textView.getPaint();
+		textPaint.getTextBounds(text, 0, text.length(), bounds);
+		textWidth = bounds.width();
+		
+		// Calculate the width of screen
+		DisplayMetrics displaymetrics = new DisplayMetrics();
+		activity.getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
+		deviceWidth = displaymetrics.widthPixels;
+
+		isWrapped = textWidth > deviceWidth ? true : false;
+		
+		return isWrapped;
 	}
 }
