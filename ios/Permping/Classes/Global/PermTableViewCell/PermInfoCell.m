@@ -10,6 +10,7 @@
 #import "Utility.h"
 @implementation PermInfoCell
 @synthesize commentLabel, descriptionLabel, repermButton, commentButton, likeButton, locationButton, statusLabel;
+@synthesize delegate, perm;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -37,18 +38,21 @@
         [repermButton setBackgroundImage:[UIImage imageNamed:@"btn-background"] forState:UIControlStateNormal];
         [repermButton.titleLabel setFont:[UIFont systemFontOfSize:14]];
         [repermButton setTitle:@"Reperm" forState:UIControlStateNormal];
+        [repermButton addTarget:self action:@selector(repermButtonDidTouch:) forControlEvents:UIControlEventTouchUpInside];
         [myContentView addSubview:repermButton];
         
         likeButton = [[UIButton alloc] initWithFrame:CGRectZero];
         [likeButton setBackgroundImage:[UIImage imageNamed:@"btn-background"] forState:UIControlStateNormal];
         [likeButton.titleLabel setFont:[UIFont systemFontOfSize:14]];
         [likeButton setTitle:@"Like" forState:UIControlStateNormal];
+        [likeButton addTarget:self action:@selector(likePermButtonDidTouch:) forControlEvents:UIControlEventTouchUpInside];
         [myContentView addSubview:likeButton];
         
         commentButton = [[UIButton alloc] initWithFrame:CGRectZero];
         [commentButton setBackgroundImage:[UIImage imageNamed:@"btn-background"] forState:UIControlStateNormal];
         [commentButton.titleLabel setFont:[UIFont systemFontOfSize:14]];
         [commentButton setTitle:@"Comment" forState:UIControlStateNormal];
+        [commentButton addTarget:self action:@selector(commentPermButtonDidTouch:) forControlEvents:UIControlEventTouchUpInside];
         [myContentView addSubview:commentButton];
         
         locationButton = [[UIButton alloc] initWithFrame:CGRectZero];
@@ -87,10 +91,29 @@
     //NSLog(@"h: %f, %f", y+21, y+21-s.height);
 }
 
-- (void)setCellWithPerm:(PermModel*)perm {
+- (void)setCellWithPerm:(PermModel*)in_perm {
+    self.perm = in_perm;
     self.commentLabel.text = perm.permDesc;
     self.descriptionLabel.text = @"5시간 전 bleacherreport.com에서 업로드됨";
     self.statusLabel.text = [NSString stringWithFormat:@"Likes %@ Comments %@ Repin %@", perm.permLikeCount, perm.permCommentCount, perm.permRepinCount];
+}
+
+- (void)likePermButtonDidTouch:(id)sender {
+    if (delegate && [delegate respondsToSelector:@selector(likePermAtCell:)]) {
+        [delegate likePermAtCell:self];
+    }
+}
+
+- (void)commentPermButtonDidTouch:(id)sender {
+    if (delegate && [delegate respondsToSelector:@selector(commentPermAtCell:)]) {
+        [delegate commentPermAtCell:self];
+    }
+}
+
+- (void)repermButtonDidTouch:(id)sender {
+    if (delegate && [delegate respondsToSelector:@selector(repermPermAtCell:)]) {
+        [delegate repermPermAtCell:self];
+    }
 }
 
 - (void)dealloc {
@@ -101,6 +124,7 @@
     [likeButton release];
     [locationButton release];
     [statusLabel release];
+    self.perm = nil;
     [super dealloc];
 }
 @end

@@ -20,8 +20,6 @@
 
 @interface AppData : NSObject<SA_OAuthTwitterEngineDelegate, SA_OAuthTwitterControllerDelegate> {
     UserProfileModel        *_user;
-    NSString                *_password;
-    
     NSDictionary            *_userInfo;
     
     SA_OAuthTwitterEngine       *twitterEngine;
@@ -32,7 +30,6 @@
     BOOL            _isLogging;
 }
 @property (nonatomic, retain) UserProfileModel  *user;
-@property (nonatomic, retain) NSString          *password;
 
 + (AppData *)getInstance;
 

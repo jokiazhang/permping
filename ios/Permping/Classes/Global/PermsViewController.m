@@ -9,12 +9,14 @@
 #import "PermsViewController.h"
 #import "PermUserCell.h"
 #import "PermImageCell.h"
-#import "PermInfoCell.h"
 #import "PermCommentCell.h"
 #import "Utils.h"
 //phong add
-#import "PermModel.h"
 #import "CommentModel.h"
+#import "FollowingScreen_DataLoader.h"
+#import "Taglist_CloudResponse.h"
+#import "AppData.h"
+#import "CreatePermViewController.h"
 
 @interface PermsViewController ()
 @property (nonatomic, retain) UITableView *permTableview;
@@ -24,13 +26,14 @@
 
 @implementation PermsViewController
 @synthesize permTableview, permsImageHeight;
-@synthesize resultModel, noFoundLabel;
+@synthesize resultModel, noFoundLabel, selectedPerms;
 
 - (void)dealloc {
     self.permTableview = nil;
     self.permsImageHeight = nil;
     self.resultModel = nil;
     self.noFoundLabel = nil;
+    self.selectedPerms = nil;
     [super dealloc];
 }
 
@@ -61,10 +64,34 @@
 */
 
 
+- (void)initCommentToolBar {
+    if (commentToolBar) {
+        [commentToolBar release]; commentToolBar = nil;
+    }
+    CGRect r = self.view.bounds;
+    commentToolBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, r.size.height, r.size.width, 44)];
+    
+    commentTextField = [[[UITextField alloc] initWithFrame:CGRectMake(12, 7, 245, 31)] autorelease];
+    commentTextField.backgroundColor = [UIColor whiteColor];
+    commentTextField.borderStyle = UITextBorderStyleRoundedRect;
+    commentTextField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+    commentTextField.autocorrectionType = UITextAutocorrectionTypeNo;
+
+    UIBarButtonItem *content = [[UIBarButtonItem alloc] initWithCustomView:commentTextField];
+    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(doneCommentButtonDidTouch:)];
+    commentToolBar.items = [NSArray arrayWithObjects:content, doneButton, nil];
+    [content release];
+    [doneButton release];
+    
+    [self.view addSubview:commentToolBar];
+}
+
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self initCommentToolBar];
+    
     self.noFoundLabel = [[[UILabel alloc] initWithFrame:self.view.bounds] autorelease];
     noFoundLabel.textAlignment = UITextAlignmentCenter;
     noFoundLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
@@ -90,12 +117,29 @@
     self.noFoundLabel = nil;
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
+	
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+	[super viewWillDisappear:animated];
+	
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+}
+
 - (void)resetData {
     self.resultModel.arrResults = nil;
     self.resultModel = [[[Taglist_NDModel alloc] init] autorelease];
     
     self.permsImageHeight = nil;
     self.permsImageHeight = [[[NSMutableDictionary alloc] init] autorelease];
+    
+    self.selectedPerms = nil;
+    self.selectedPerms = [[[NSMutableArray alloc] init] autorelease];
 }
 
 - (void)finishLoadData {
@@ -147,6 +191,7 @@
         PermUserCell *cell = (PermUserCell*)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
         if (cell == nil) {
             cell = [[[PermUserCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] autorelease];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
 
         [cell setCellWithAvartarURLString:perm.permUser.userAvatar userName:perm.permUser.userName category:perm.permCategory];
@@ -156,6 +201,7 @@
         PermImageCell *cell = (PermImageCell*)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
         if (cell == nil) {
             cell = [[[PermImageCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] autorelease];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
         
         //NSLog(@"imageString: %@", perm.permImage);
@@ -177,6 +223,8 @@
         PermInfoCell *cell = (PermInfoCell*)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
         if (cell == nil) {
             cell = [[[PermInfoCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] autorelease];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            cell.delegate = self;
         }
         [cell setCellWithPerm:perm];
         return cell;
@@ -197,6 +245,7 @@
         PermCommentCell *cell = (PermCommentCell*)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
         if (cell == nil) {
             cell = [[[PermCommentCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] autorelease];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
         CommentModel *comment = [perm.permComments objectAtIndex:index-3];
         [cell setCellWithComment:comment];
@@ -214,4 +263,135 @@
         }
     }
 }
+
+
+# pragma marm - Perm actions
+- (void)likePermAtCell:(PermInfoCell*)cell {
+    if ([[AppData getInstance] didLogin]) {
+        [self.selectedPerms addObject:cell.perm];
+        [self startActivityIndicator];
+        self.dataLoaderThread = [[ThreadManager getInstance] dispatchToConcurrentBackgroundNormalPriorityQueueWithTarget:self selector:@selector(peformLikePermAction:thread:) dataObject:[self getMyDataLoader]];
+    } else {
+        
+    }
+    
+}
+
+- (void)commentPermAtCell:(PermInfoCell*)cell {
+    [commentTextField becomeFirstResponder];
+    [self.selectedPerms addObject:cell.perm];
+}
+
+- (void)repermPermAtCell:(PermInfoCell*)cell {
+    CreatePermViewController *controller = [[CreatePermViewController alloc] initWithNibName:@"CreatePermViewController" bundle:nil];
+    controller.currentPerm = cell.perm;
+    [controller setTarget:self action:@selector(repermDidFinish:)];
+    [self.navigationController pushViewController:controller animated:YES];
+    [controller release];
+}
+
+- (id)getDataLoaderWithPermAction {
+    FollowingScreen_DataLoader *loader = [[FollowingScreen_DataLoader alloc] init];
+    return [loader autorelease];
+}
+
+- (void)peformLikePermAction:(id)loader thread:(id<ThreadManagementProtocol>)threadObj
+{
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+    if (![threadObj isCancelled]) {
+        dispatch_async(dispatch_get_main_queue(), ^(void)
+                       {
+                           //[self initializeUIControls]; 
+                           
+                       });
+        NSString *userId = [[[AppData getInstance] user] userId];
+        PermModel *perm = [[self.selectedPerms objectAtIndex:0] retain];
+        [self.selectedPerms removeObjectAtIndex:0];
+        PermActionResponse *response = [(FollowingScreen_DataLoader *)loader likePermWithId:perm.permId userId:userId];
+        NSError *error = response.responseError;
+        if (![threadObj isCancelled]) {
+            dispatch_async(dispatch_get_main_queue(), ^(void)
+                           {
+                               [self stopActivityIndicator];
+                               if (error) {
+                                   [Utils displayAlert:[error localizedDescription] delegate:nil];
+                               } else {
+                                   
+                               }
+                           });
+        }
+        [perm release];
+    }
+    //[myLoader release];
+    [pool drain];
+}
+
+- (void)peformCommentPermAction:(id)loader thread:(id<ThreadManagementProtocol>)threadObj
+{
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+    if (![threadObj isCancelled]) {
+        dispatch_async(dispatch_get_main_queue(), ^(void)
+                       {
+                           //[self initializeUIControls]; 
+                           
+                       });
+        NSString *userId = [[[AppData getInstance] user] userId];
+        PermModel *perm = [[self.selectedPerms objectAtIndex:0] retain];
+        [self.selectedPerms removeObjectAtIndex:0];
+        PermActionResponse *response = [(FollowingScreen_DataLoader *)loader commentPermWithId:userId userId:perm.permId content:commentTextField.text];
+        NSError *error = response.responseError;
+        if (![threadObj isCancelled]) {
+            dispatch_async(dispatch_get_main_queue(), ^(void)
+                           {
+                               [self stopActivityIndicator];
+                               if (error) {
+                                   [Utils displayAlert:[error localizedDescription] delegate:nil];
+                               } else {
+                                   
+                               }
+                           });
+        }
+        [perm release];
+    }
+    //[myLoader release];
+    [pool drain];
+}
+
+- (void)doneCommentButtonDidTouch:(id)sender {
+    [commentTextField resignFirstResponder];
+    [self startActivityIndicator];
+    self.dataLoaderThread = [[ThreadManager getInstance] dispatchToConcurrentBackgroundNormalPriorityQueueWithTarget:self selector:@selector(peformCommentPermAction:thread:) dataObject:[self getMyDataLoader]];
+}
+
+#pragma mark -
+#pragma mark Notifications
+
+- (void)keyboardWillShow:(NSNotification *)notification {
+    [self.view bringSubviewToFront:commentToolBar];
+	[UIView beginAnimations:nil context:NULL];
+	[UIView setAnimationDuration:0.3];
+	
+	CGRect frame = commentToolBar.frame;
+	frame.origin.y = self.view.frame.size.height - 211.0;
+	commentToolBar.frame = frame;
+	
+	[UIView commitAnimations];
+}
+
+- (void)keyboardWillHide:(NSNotification *)notification {
+	[UIView beginAnimations:nil context:NULL];
+	[UIView setAnimationDuration:0.3];
+	
+	CGRect frame = commentToolBar.frame;
+	frame.origin.y = self.view.frame.size.height;
+	commentToolBar.frame = frame;
+	
+	[UIView commitAnimations];
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    return YES;
+}
+
 @end

@@ -23,4 +23,17 @@
 - (PermListResponse*)getPermWithUserId:(NSString*)userId nextItemId:(NSInteger)nextId requestedCount:(NSUInteger)count {
     return [Taglist_CloudService getPermWithUserId:userId requestCount:count nextItemId:nextId];
 }
+
+- (PermActionResponse*)likePermWithId:(NSString*)permId userId:(NSString*)userId {
+    return [Taglist_CloudService likePermWithId:permId userId:userId];
+}
+
+- (PermActionResponse*)commentPermWithId:(NSString*)permId userId:(NSString*)userId content:(NSString*)content {
+    return [Taglist_CloudService commentPermWithId:permId userId:userId content:content];
+}
+
+- (PermActionResponse*)repermWithId:(NSString*)permId userId:(NSString*)userId boardId:(NSString*)boardId description:(NSString*)desc {
+    return [Taglist_CloudService repermWithId:permId userId:userId boardId:boardId description:desc];
+}
+
 @end

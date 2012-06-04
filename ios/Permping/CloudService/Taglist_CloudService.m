@@ -176,6 +176,48 @@ NSString *const kUserServiceCPasswordKey = @"UserServiceCPasswordKey";
     return [response autorelease];
 }
 
++ (PermActionResponse*)likePermWithId:(NSString*)permId userId:(NSString*)userId {
+    Taglist_CloudRequest *request = [[Taglist_CloudRequest alloc] init];
+    request.requestURL = [SERVER_API stringByAppendingString:@"/permservice/like"];
+    request.method = @"POST";
+    [request addParameter:@"pid" value:permId];
+    [request addParameter:@"uid" value:userId];
+    
+    PermActionResponse *response = [[PermActionResponse alloc] init];
+    [[Taglist_CloudRequestDispatcher getInstance] dispatchRequest:request response:response];
+    [request release];
+    return [response autorelease];
+}
+
++ (PermActionResponse*)commentPermWithId:(NSString *)permId userId:(NSString *)userId content:(NSString *)content {
+    Taglist_CloudRequest *request = [[Taglist_CloudRequest alloc] init];
+    request.requestURL = [SERVER_API stringByAppendingString:@"/permservice/comment"];
+    request.method = @"POST";
+    [request addParameter:@"cmnt" value:content];
+    [request addParameter:@"pid" value:permId];
+    [request addParameter:@"uid" value:userId];
+    
+    PermActionResponse *response = [[PermActionResponse alloc] init];
+    [[Taglist_CloudRequestDispatcher getInstance] dispatchRequest:request response:response];
+    [request release];
+    return [response autorelease];
+}
+
++ (PermActionResponse*)repermWithId:(NSString*)permId userId:(NSString*)userId boardId:(NSString*)boardId description:(NSString*)desc {
+    Taglist_CloudRequest *request = [[Taglist_CloudRequest alloc] init];
+    request.requestURL = [SERVER_API stringByAppendingString:@"/permservice/reperm"];
+    request.method = @"POST";
+    [request addParameter:@"pid" value:permId];
+    [request addParameter:@"uid" value:userId];
+    [request addParameter:@"board" value:boardId];
+    [request addParameter:@"board_desc" value:desc];
+    
+    PermActionResponse *response = [[PermActionResponse alloc] init];
+    [[Taglist_CloudRequestDispatcher getInstance] dispatchRequest:request response:response];
+    [request release];
+    return [response autorelease];
+}
+
 #pragma mark	-
 #pragma mark		user services
 #pragma mark	-

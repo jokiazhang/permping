@@ -11,9 +11,10 @@
 #import "CreatePermCell.h"
 #import "Utils.h"
 #import "CreatePermScreen_DataLoader.h"
+#import "FollowingScreen_DataLoader.h"
+#import "AppData.h"
 
 @interface CreatePermViewController ()
-@property (nonatomic, retain) PermModel    *currentPerm;
 - (void)uploadPermForMe:(id)loader thread:(id<ThreadManagementProtocol>)threadObj;
 @end
 
@@ -72,8 +73,13 @@
 #pragma mark - Override methods
 - (id)getMyDataLoader
 {
-    CreatePermScreen_DataLoader *loader = [[CreatePermScreen_DataLoader alloc] init];
-    return [loader autorelease];
+    if (target ) {
+        FollowingScreen_DataLoader * loader = [[FollowingScreen_DataLoader alloc] init];
+        return [loader autorelease];
+    } else {
+        CreatePermScreen_DataLoader *loader = [[CreatePermScreen_DataLoader alloc] init];
+        return [loader autorelease];
+    }
 }
 
 - (void)uploadPermForMe:(id)loader thread:(id<ThreadManagementProtocol>)threadObj
@@ -90,29 +96,56 @@
 //        NSArray *objects = [NSArray arrayWithObjects:self.currentPerm, self.selectedBoard, self.fileData, nil];
 //        NSDictionary *dictionary = [NSDictionary dictionaryWithObjects:objects 
 //                                                               forKeys:keys];
-
-        self.currentPerm.fileData = self.fileData;
+        NSString *userId = [[[AppData getInstance] user] userId];
         self.currentPerm.permCategoryId   = self.selectedBoard.boardId;
-        
-        
-        UploadPermResponse *response =  [(CreatePermScreen_DataLoader *)loader uploadPerm:self.currentPerm];
-        NSError *error = response.responseError;
-        
-        if (![threadObj isCancelled]) {
+        if (target) {
+            PermActionResponse *response =  [(FollowingScreen_DataLoader *)loader repermWithId:self.currentPerm.permId userId:userId boardId:self.selectedBoard.boardId description:self.currentPerm.permDesc];
+            NSError *error = response.responseError;
+            if (![threadObj isCancelled]) {
+                
+                
+                dispatch_async(dispatch_get_main_queue(), ^(void)
+                               {
+                                   [self stopActivityIndicator];
+                                   if (error) {
+                                       [Utils displayAlert:[error localizedDescription] delegate:nil];
+                                       if (error.code == 200) {
+                                           [self dismiss:nil];
+                                       }
+                                   } else {
+                                       [Utils displayAlert:NSLocalizedString(@"UploadPermFailed", "Failed to upload perm. Please try again later.") delegate:nil];
+                                       [self dismiss:nil];
+                                   }
+                               });
+                
+            } 
+
+        } else {
+            self.currentPerm.fileData = self.fileData;
+            UploadPermResponse *response =  [(CreatePermScreen_DataLoader *)loader uploadPerm:self.currentPerm];
+            NSError *error = response.responseError;
             
-            
-            dispatch_async(dispatch_get_main_queue(), ^(void)
-                           {
-                               [self stopActivityIndicator];
-                               if (error) {
-                                   [Utils displayAlert:[error localizedDescription] delegate:nil];
-                               } else {
-                                   [Utils displayAlert:NSLocalizedString(@"UploadPermSuccess", "Upload perm success!") delegate:nil];
-                                   [self dismiss:nil];
-                               }
-                           });
-            
+            if (![threadObj isCancelled]) {
+                
+                
+                dispatch_async(dispatch_get_main_queue(), ^(void)
+                               {
+                                   [self stopActivityIndicator];
+                                   if (error) {
+                                       [Utils displayAlert:[error localizedDescription] delegate:nil];
+                                       if (error.code == 200) {
+                                           [self dismiss:nil];
+                                       }
+                                   } else {
+                                       [Utils displayAlert:NSLocalizedString(@"UploadPermFailed", "Failed to upload perm. Please try again later.") delegate:nil];
+                                       [self dismiss:nil];
+                                   }
+                               });
+                
+            }
         }
+        
+        
     }
     //[myLoader release];
     [pool drain];
@@ -145,6 +178,9 @@
                 cell = [[[CreatePermCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:reuseIdentifier] autorelease];
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
                 cell.valueTextField.delegate = self;
+                if (self.currentPerm.permDesc) {
+                    cell.valueTextField.text = self.currentPerm.permDesc;
+                }
             }
             return cell;
         } else if (row == 1) {
@@ -191,7 +227,10 @@
 }
 
 - (void)selectBoard:(BoardModel*)board {
-    self.selectedBoard = board; 
+    if (![board.boardId isEqualToString:self.selectedBoard.boardId]) {
+        hasChange = YES;
+        self.selectedBoard = board;
+    }
     [self.navigationController popToViewController:self animated:YES];
 }
 
@@ -209,9 +248,18 @@
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    self.currentPerm.permDesc = textField.text;
+    if (![textField.text isEqualToString:self.currentPerm.permDesc]) {
+        hasChange = YES;
+        self.currentPerm.permDesc = textField.text;
+    }
     [textField resignFirstResponder];
     return YES;
+}
+
+- (void)setTarget:(id)in_target action:(SEL)in_action {
+    [target release];
+    target = [in_target retain];
+    action = in_action;
 }
 
 @end

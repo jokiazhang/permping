@@ -19,6 +19,9 @@
     id<ThreadManagementProtocol>        dataLoaderThread;
     
     NSMutableArray                      *thumbnailDownloaders;
+    
+    // check viewWillAppear from pop or from tabbar item pressed
+    BOOL                                _didPushToAnotherViewController;
 }
 
 @property (nonatomic, retain) id                            dataLoader;

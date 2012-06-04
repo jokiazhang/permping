@@ -50,6 +50,7 @@
 		0411A493156D7D9E005EBF18 /* tab-item-profile@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0411A477156D7D9E005EBF18 /* tab-item-profile@2x.png */; };
 		0411A494156D7D9E005EBF18 /* tab-shadow.png in Resources */ = {isa = PBXBuildFile; fileRef = 0411A478156D7D9E005EBF18 /* tab-shadow.png */; };
 		0411A495156D7D9E005EBF18 /* tab-shadow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0411A479156D7D9E005EBF18 /* tab-shadow@2x.png */; };
+		0427B2E3157A4FD200EBD4DC /* PermActionResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 0427B2E2157A4FD200EBD4DC /* PermActionResponse.m */; };
 		043D4F1D157681D800D10276 /* CreateBoardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 043D4F1B157681D800D10276 /* CreateBoardViewController.m */; };
 		043D4F1E157681D800D10276 /* CreateBoardViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 043D4F1C157681D800D10276 /* CreateBoardViewController.xib */; };
 		0441C0A51572CD81003C9380 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0441C0A41572CD81003C9380 /* MobileCoreServices.framework */; };
@@ -276,6 +277,8 @@
 		0411A477156D7D9E005EBF18 /* tab-item-profile@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tab-item-profile@2x.png"; path = "Permping/Resources/Images/tab-item-profile@2x.png"; sourceTree = SOURCE_ROOT; };
 		0411A478156D7D9E005EBF18 /* tab-shadow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tab-shadow.png"; path = "Permping/Resources/Images/tab-shadow.png"; sourceTree = SOURCE_ROOT; };
 		0411A479156D7D9E005EBF18 /* tab-shadow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tab-shadow@2x.png"; path = "Permping/Resources/Images/tab-shadow@2x.png"; sourceTree = SOURCE_ROOT; };
+		0427B2E1157A4FD200EBD4DC /* PermActionResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PermActionResponse.h; path = ../../../../../../../../Users/MAC/Projects/permping_trunk/ios/Permping/CloudService/Response/PermActionResponse.h; sourceTree = "<group>"; };
+		0427B2E2157A4FD200EBD4DC /* PermActionResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PermActionResponse.m; path = ../../../../../../../../Users/MAC/Projects/permping_trunk/ios/Permping/CloudService/Response/PermActionResponse.m; sourceTree = "<group>"; };
 		043D4F1A157681D800D10276 /* CreateBoardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateBoardViewController.h; sourceTree = "<group>"; };
 		043D4F1B157681D800D10276 /* CreateBoardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateBoardViewController.m; sourceTree = "<group>"; };
 		043D4F1C157681D800D10276 /* CreateBoardViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CreateBoardViewController.xib; sourceTree = "<group>"; };
@@ -1032,6 +1035,8 @@
 				04C586071572AC66003435D9 /* UserProfileResponse.m */,
 				6ADA0C5A15760F43000DA9F2 /* UploadPermResponse.h */,
 				6ADA0C5B15760F44000DA9F2 /* UploadPermResponse.m */,
+				0427B2E1157A4FD200EBD4DC /* PermActionResponse.h */,
+				0427B2E2157A4FD200EBD4DC /* PermActionResponse.m */,
 			);
 			path = Response;
 			sourceTree = "<group>";
@@ -1536,6 +1541,7 @@
 				26AAAA261576AEA200BB6E9B /* CreatePermScreen_DataLoader.m in Sources */,
 				26AAAA2A1576C9A200BB6E9B /* MyPermDiaryViewController.m in Sources */,
 				26AAAA2E1576CB5400BB6E9B /* MyDiaryScreen_DataLoader.m in Sources */,
+				0427B2E3157A4FD200EBD4DC /* PermActionResponse.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

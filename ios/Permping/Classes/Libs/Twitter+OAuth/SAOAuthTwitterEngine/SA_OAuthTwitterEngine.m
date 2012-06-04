@@ -62,9 +62,9 @@
 
 - (SA_OAuthTwitterEngine *) initOAuthWithDelegate: (NSObject *) delegate {
     if (self = (id) [super initWithDelegate: delegate]) {
-		self.requestTokenURL = [NSURL URLWithString: @"http://twitter.com/oauth/request_token"];
-		self.accessTokenURL = [NSURL URLWithString: @"http://twitter.com/oauth/access_token"];
-		self.authorizeURL = [NSURL URLWithString: @"http://twitter.com/oauth/authorize"];
+		self.requestTokenURL = [NSURL URLWithString: @"https://twitter.com/oauth/request_token"];
+		self.accessTokenURL = [NSURL URLWithString: @"https://twitter.com/oauth/access_token"];
+		self.authorizeURL = [NSURL URLWithString: @"https://twitter.com/oauth/authorize"];
 	}
     return self;
 }
@@ -86,7 +86,7 @@
 	if (_accessToken.key && _accessToken.secret) return YES;
 	
 	//first, check for cached creds
-	NSString					*accessTokenString = [_delegate respondsToSelector: @selector(cachedTwitterOAuthDataForUsername:)] ? [(id) _delegate cachedTwitterOAuthDataForUsername: self.username] : @"";
+	NSString *accessTokenString = [_delegate respondsToSelector: @selector(cachedTwitterOAuthDataForUsername:)] ? [(id) _delegate cachedTwitterOAuthDataForUsername: self.username] : @"";
 
 	if (accessTokenString.length) {				
 		[_accessToken release];
@@ -111,6 +111,7 @@
 	return request;
 }
 
+
 //A request token is used to eventually generate an access token
 - (void) requestRequestToken {
 	[self requestURL: self.requestTokenURL token: nil onSuccess: @selector(setRequestToken:withData:) onFail: @selector(outhTicketFailed:data:)];
@@ -120,6 +121,7 @@
 - (void) requestAccessToken {
 	[self requestURL: self.accessTokenURL token: _requestToken onSuccess: @selector(setAccessToken:withData:) onFail: @selector(outhTicketFailed:data:)];
 }
+
 
 - (void) clearAccessToken {
 	if ([_delegate respondsToSelector: @selector(storeCachedTwitterOAuthData:forUsername:)]) [(id) _delegate storeCachedTwitterOAuthData: @"" forUsername: self.username];
@@ -146,7 +148,9 @@
     OAMutableURLRequest				*request = [[[OAMutableURLRequest alloc] initWithURL: url consumer: self.consumer token:token realm:nil signatureProvider: nil] autorelease];
 	if (!request) return;
 	
-	if (self.pin.length) token.pin = self.pin;
+	if (self.pin.length) {
+        token.pin = self.pin;
+    }
     [request setHTTPMethod: @"POST"];
 	
     OADataFetcher				*fetcher = [[[OADataFetcher alloc] init] autorelease];	
