@@ -29,7 +29,6 @@
 }
 
 - (void)setCellWithComment:(CommentModel*)in_comment{
-    NSLog(@"comment avatar: %@", in_comment.commentUser.userAvatar);
     [self.avatarView setImageWithURL:[NSURL URLWithString:in_comment.commentUser.userAvatar] usingActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     self.textLabel.text = in_comment.commentUser.userName;
     self.detailTextLabel.text = in_comment.content;

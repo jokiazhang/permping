@@ -24,4 +24,6 @@
 
 "UploadPermFailed" = "Failed to upload perm. Please try again later.";
 
+"LoadMorePermsNoResult" = "No more perms found";
+
 "NoFoundPerms" = "No found Perms";
