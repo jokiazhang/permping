@@ -159,7 +159,7 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 			
 			like.setOnClickListener(new OnClickListener() {
 				public void onClick(final View v) {
-					user = PermUtils.isAuthenticated(v.getContext().getApplicationContext());
+					user = PermUtils.isAuthenticated(v.getContext());
 					if (user != null) {
 						// final ProgressDialog dialog =
 						// ProgressDialog.show(v.getContext(),
@@ -206,7 +206,7 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 			reperm = (Button) view.findViewById(R.id.btnRepem );
 			reperm.setOnClickListener(new OnClickListener() {
 				public void onClick(final View v) {
-					user = PermUtils.isAuthenticated(v.getContext().getApplicationContext());
+					user = PermUtils.isAuthenticated(v.getContext());
 					if (user != null) {
 						Intent myIntent = new Intent(view.getContext(), NewPermActivity.class);
 						myIntent.putExtra("permID", (String) perm.getId() );
@@ -223,7 +223,7 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 				
 				@Override
 				public void onClick(View v) {
-					user = PermUtils.isAuthenticated(v.getContext().getApplicationContext());
+					user = PermUtils.isAuthenticated(v.getContext());
 					if (user != null) {
 						// Add new view to allow user to enter the comment
 						LinearLayout commentInputLayout = (LinearLayout) view.findViewById(R.id.commentInput);
@@ -342,7 +342,7 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 			if (v == facebookLogin) {
 				// Clear FB info to show the login again
 				try {
-					facebookConnector.getFacebook().logout(getContext());
+					facebookConnector.getFacebook().logout(context);
 				} catch (MalformedURLException me) {
 					me.printStackTrace();
 				} catch (IOException ioe) {
@@ -385,14 +385,13 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 							Intent intent;
 							if (existed) {
 								// Forward back to Following tab
-								intent = new Intent(getContext(),
-										PermpingMain.class);
-								getContext().startActivity(intent);
+								intent = new Intent(context, PermpingMain.class);
+								context.startActivity(intent);
 							} else {
 								// Forward to Create account window
-								intent = new Intent(getContext(),
+								intent = new Intent(context,
 										JoinPermActivity.class);
-								getContext().startActivity(intent);
+								context.startActivity(intent);
 							}
 						}
 
@@ -407,16 +406,16 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 				}
 
 			} else if (v == twitterLogin) {
-				Intent i = new Intent(getContext(),
+				Intent i = new Intent(context,
 						PrepareRequestTokenActivity.class);
-				getContext().startActivity(i);
+				context.startActivity(i);
 				this.dismiss();
 
 			} else { // Show Join Permping screen
 				prefs.edit().putString(Constants.LOGIN_TYPE,
 						Constants.PERMPING_LOGIN);
-				Intent i = new Intent(getContext(), JoinPermActivity.class);
-				getContext().startActivity(i);
+				Intent i = new Intent(context, JoinPermActivity.class);
+				context.startActivity(i);
 				this.dismiss();
 			}
 
