@@ -27,6 +27,7 @@
 @implementation PermsViewController
 @synthesize permTableview, permsImageHeight;
 @synthesize resultModel, noFoundLabel, selectedPerms;
+@synthesize loadMoreSpinner;
 
 - (void)dealloc {
     self.permTableview = nil;
@@ -34,6 +35,7 @@
     self.resultModel = nil;
     self.noFoundLabel = nil;
     self.selectedPerms = nil;
+    self.loadMoreSpinner = nil;
     [super dealloc];
 }
 
@@ -90,6 +92,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.loadMoreSpinner = [[[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge] autorelease];
+    self.loadMoreSpinner.backgroundColor = [UIColor grayColor];
     [self initCommentToolBar];
     
     self.noFoundLabel = [[[UILabel alloc] initWithFrame:self.view.bounds] autorelease];
@@ -153,16 +157,21 @@
 
 #pragma mark - <UITableViewDelegate + DataSource> implementation
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return [self.resultModel.arrResults count];
+    NSInteger number = [self.resultModel.arrResults count] + (self.resultModel.isFetching?1:0);
+    return number;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    PermModel *perm = [self.resultModel.arrResults objectAtIndex:section];
-    NSInteger seperator = (section==(self.resultModel.arrResults.count-1))?0:1;
-    NSInteger count = 3 + perm.permComments.count + seperator;
-
-    //NSLog(@"section %d : %d, %d", section, count, perm.permComments.count);
-    return MIN(count, 8+seperator); // max 5 comment;
+    NSInteger number = 0;
+    if (section >= [self.resultModel.arrResults count]) {
+        number = 1; 
+    } else {
+        PermModel *perm = [self.resultModel.arrResults objectAtIndex:section];
+        NSInteger seperator = (section==(self.resultModel.arrResults.count-1))?0:1;
+        NSInteger count = 3 + perm.permComments.count + seperator;
+        number = MIN(count, 8+seperator); // max 5 comment;
+    }
+    return number;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -186,69 +195,93 @@
     PermModel *perm = [self.resultModel.arrResults objectAtIndex:indexPath.section];
     NSInteger index = indexPath.row;
     NSInteger section = indexPath.section;
-    if (index == 0) {
-        static NSString *cellIdentifier = @"PermUserCell";
-        PermUserCell *cell = (PermUserCell*)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-        if (cell == nil) {
-            cell = [[[PermUserCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] autorelease];
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        }
+    if (section < [resultModel.arrResults count]) {
+        if (index == 0) {
+            static NSString *cellIdentifier = @"PermUserCell";
+            PermUserCell *cell = (PermUserCell*)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+            if (cell == nil) {
+                cell = [[[PermUserCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] autorelease];
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            }
 
-        [cell setCellWithAvartarURLString:perm.permUser.userAvatar userName:perm.permUser.userName category:perm.permCategory];
-        return cell;
-    } else if (index == 1){
-        static NSString *cellIdentifier = @"PermImageCell";
-        PermImageCell *cell = (PermImageCell*)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-        if (cell == nil) {
-            cell = [[[PermImageCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] autorelease];
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            [cell setCellWithAvartarURLString:perm.permUser.userAvatar userName:perm.permUser.userName category:perm.permCategory];
+            return cell;
+        } else if (index == 1){
+            static NSString *cellIdentifier = @"PermImageCell";
+            PermImageCell *cell = (PermImageCell*)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+            if (cell == nil) {
+                cell = [[[PermImageCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] autorelease];
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            }
+            
+            //NSLog(@"imageString: %@", perm.permImage);
+            [cell.permImageView setImageWithURL:[NSURL URLWithString:perm.permImage] success:^(UIImage *image) {
+                if (![permsImageHeight objectForKey:[NSString stringWithFormat:@"%d", section]]) {
+                    CGFloat height = [Utils sizeWithImage:image constrainedToSize:CGSizeMake(300, CGFLOAT_MAX)].height;
+                    [permsImageHeight setObject:[NSNumber numberWithFloat:height] forKey:[NSString stringWithFormat:@"%d", section]];
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [permTableview reloadData];
+                    });
+                }
+            } failure:^(NSError *error) {
+                
+            } usingActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+
+            return cell;
+        } else if (index == 2) {
+            static NSString *cellIdentifier = @"PermInfoCell";
+            PermInfoCell *cell = (PermInfoCell*)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+            if (cell == nil) {
+                cell = [[[PermInfoCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] autorelease];
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                cell.delegate = self;
+            }
+            [cell setCellWithPerm:perm];
+            return cell;
+        } else if (index == perm.permComments.count+3) {
+            static NSString *cellIdentifier = @"SeperatorCell";
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+            if (cell == nil) {
+                cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] autorelease];
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                UIView *seperator = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, 1, 1)] autorelease];
+                seperator.tag = 333;
+                seperator.backgroundColor = [UIColor colorWithWhite:0 alpha:0.1];
+                [cell.contentView addSubview:seperator];
+            }
+            return cell;
+        } else {
+            static NSString *cellIdentifier = @"PermCommentCell";
+            PermCommentCell *cell = (PermCommentCell*)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+            if (cell == nil) {
+                cell = [[[PermCommentCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] autorelease];
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            }
+            CommentModel *comment = [perm.permComments objectAtIndex:index-3];
+            [cell setCellWithComment:comment];
+            return cell;
         }
         
-        //NSLog(@"imageString: %@", perm.permImage);
-        [cell.permImageView setImageWithURL:[NSURL URLWithString:perm.permImage] success:^(UIImage *image) {
-            if (![permsImageHeight objectForKey:[NSString stringWithFormat:@"%d", section]]) {
-                CGFloat height = [Utils sizeWithImage:image constrainedToSize:CGSizeMake(300, CGFLOAT_MAX)].height;
-                [permsImageHeight setObject:[NSNumber numberWithFloat:height] forKey:[NSString stringWithFormat:@"%d", section]];
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [permTableview reloadData];
-                });
-            }
-        } failure:^(NSError *error) {
-            
-        } usingActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-
-        return cell;
-    } else if (index == 2) {
-        static NSString *cellIdentifier = @"PermInfoCell";
-        PermInfoCell *cell = (PermInfoCell*)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-        if (cell == nil) {
-            cell = [[[PermInfoCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] autorelease];
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            cell.delegate = self;
-        }
-        [cell setCellWithPerm:perm];
-        return cell;
-    } else if (index == perm.permComments.count+3) {
-        static NSString *cellIdentifier = @"SeperatorCell";
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-        if (cell == nil) {
-            cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] autorelease];
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            UIView *seperator = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, 1, 1)] autorelease];
-            seperator.tag = 333;
-            seperator.backgroundColor = [UIColor colorWithWhite:0 alpha:0.1];
-            [cell.contentView addSubview:seperator];
-        }
-        return cell;
+        /*if ([loadMoreSpinner superview]) {
+            [loadMoreSpinner stopAnimating];
+            [loadMoreSpinner removeFromSuperview];
+        }*/
     } else {
-        static NSString *cellIdentifier = @"PermCommentCell";
-        PermCommentCell *cell = (PermCommentCell*)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-        if (cell == nil) {
-            cell = [[[PermCommentCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] autorelease];
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        //show spinner
+        static NSString *cellIdentifier = @"TaglistCellSpinner";
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+        if (cell == nil) 
+        {
+            cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] autorelease];
         }
-        CommentModel *comment = [perm.permComments objectAtIndex:index-3];
-        [cell setCellWithComment:comment];
+        
+        if ([loadMoreSpinner superview] != cell) {
+            self.loadMoreSpinner.frame = CGRectMake((cell.frame.size.width - self.loadMoreSpinner.frame.size.width) / 2, (44 - self.loadMoreSpinner.frame.size.height) / 2, self.loadMoreSpinner.frame.size.width, self.loadMoreSpinner.frame.size.height);
+            [cell.contentView addSubview:self.loadMoreSpinner];
+            if (![loadMoreSpinner isAnimating]) {
+                [self.loadMoreSpinner startAnimating];
+            }
+        }
         return cell;
     }
 }
@@ -262,6 +295,27 @@
             v.frame = CGRectMake(10, cell.frame.size.height/2, cell.frame.size.width-20, 2);
         }
     }
+}
+
+#pragma mark -
+#pragma mark UIScrollView delegate
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{    
+    //check more item
+    CGPoint point = [scrollView contentOffset];
+    CGSize size = scrollView.contentSize;
+    
+    if ((size.height - point.y - 1 <= scrollView.frame.size.height) && [self.resultModel isHasMoreResult] && self.resultModel.isFetching == NO)
+        {
+            self.resultModel.isFetching = YES;
+            
+            //reload table 
+            //[permTableview performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:YES];
+            
+            //start to get more feeds
+            [self.dataLoaderThread cancel];
+            self.dataLoaderThread = [[ThreadManager getInstance] dispatchToConcurrentBackgroundNormalPriorityQueueWithTarget:self selector:@selector(loadMoreDataForMe:thread:) dataObject:[self getMyDataLoader]];
+        }
 }
 
 

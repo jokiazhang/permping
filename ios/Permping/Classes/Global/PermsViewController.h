@@ -23,9 +23,12 @@
     
     UIToolbar      *commentToolBar;
     UITextField    *commentTextField;
+    
 }
 @property (nonatomic, retain) NSMutableArray *selectedPerms;
 @property (nonatomic, retain) Taglist_NDModel *resultModel;
+
+@property (nonatomic, retain) UIActivityIndicatorView       *loadMoreSpinner;
 - (void)resetData;
 - (void)finishLoadData;
 

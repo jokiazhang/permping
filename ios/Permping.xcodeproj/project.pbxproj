@@ -117,6 +117,9 @@
 		04C7AE84156939DC004ED1B0 /* CreatePermViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04C7AE82156939DC004ED1B0 /* CreatePermViewController.xib */; };
 		04C7C35B15615572004DB98D /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 04C7C35A15615572004DB98D /* libxml2.dylib */; };
 		04C7C35D15615764004DB98D /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04C7C35C15615764004DB98D /* Twitter.framework */; };
+		04D4C0FE157D68A3005C48E5 /* AllPermCommentResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D4C0FD157D68A3005C48E5 /* AllPermCommentResponse.m */; };
+		04D4C102157D68F5005C48E5 /* AllCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D4C100157D68F5005C48E5 /* AllCommentViewController.m */; };
+		04D4C103157D68F5005C48E5 /* AllCommentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04D4C101157D68F5005C48E5 /* AllCommentViewController.xib */; };
 		04DFAC5D155E40A300AE9FFD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04DFAC5C155E40A300AE9FFD /* UIKit.framework */; };
 		04DFAC5F155E40A300AE9FFD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04DFAC5E155E40A300AE9FFD /* Foundation.framework */; };
 		04DFAC61155E40A300AE9FFD /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04DFAC60155E40A300AE9FFD /* CoreGraphics.framework */; };
@@ -392,6 +395,11 @@
 		04C7AE82156939DC004ED1B0 /* CreatePermViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CreatePermViewController.xib; sourceTree = "<group>"; };
 		04C7C35A15615572004DB98D /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		04C7C35C15615764004DB98D /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
+		04D4C0FC157D68A3005C48E5 /* AllPermCommentResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AllPermCommentResponse.h; path = ../../../../../../../../Users/MAC/Projects/permping_trunk/ios/Permping/CloudService/Response/AllPermCommentResponse.h; sourceTree = "<group>"; };
+		04D4C0FD157D68A3005C48E5 /* AllPermCommentResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AllPermCommentResponse.m; path = ../../../../../../../../Users/MAC/Projects/permping_trunk/ios/Permping/CloudService/Response/AllPermCommentResponse.m; sourceTree = "<group>"; };
+		04D4C0FF157D68F5005C48E5 /* AllCommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AllCommentViewController.h; path = ../../../../../../../../Users/MAC/Projects/permping_trunk/ios/Permping/Classes/Global/AllCommentViewController.h; sourceTree = "<group>"; };
+		04D4C100157D68F5005C48E5 /* AllCommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AllCommentViewController.m; path = ../../../../../../../../Users/MAC/Projects/permping_trunk/ios/Permping/Classes/Global/AllCommentViewController.m; sourceTree = "<group>"; };
+		04D4C101157D68F5005C48E5 /* AllCommentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AllCommentViewController.xib; path = ../../../../../../../../Users/MAC/Projects/permping_trunk/ios/Permping/Classes/Global/AllCommentViewController.xib; sourceTree = "<group>"; };
 		04DFAC58155E40A300AE9FFD /* Permping.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Permping.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04DFAC5C155E40A300AE9FFD /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		04DFAC5E155E40A300AE9FFD /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -751,6 +759,9 @@
 				04B5D28015654B8C000E3E1B /* Utils.m */,
 				04B498451568F5E500BBF2EC /* AppData.h */,
 				04B498461568F5E500BBF2EC /* AppData.m */,
+				04D4C0FF157D68F5005C48E5 /* AllCommentViewController.h */,
+				04D4C100157D68F5005C48E5 /* AllCommentViewController.m */,
+				04D4C101157D68F5005C48E5 /* AllCommentViewController.xib */,
 			);
 			name = Global;
 			path = Permping/Classes/Global;
@@ -1037,6 +1048,8 @@
 				6ADA0C5B15760F44000DA9F2 /* UploadPermResponse.m */,
 				0427B2E1157A4FD200EBD4DC /* PermActionResponse.h */,
 				0427B2E2157A4FD200EBD4DC /* PermActionResponse.m */,
+				04D4C0FC157D68A3005C48E5 /* AllPermCommentResponse.h */,
+				04D4C0FD157D68A3005C48E5 /* AllPermCommentResponse.m */,
 			);
 			path = Response;
 			sourceTree = "<group>";
@@ -1409,6 +1422,7 @@
 				043D4F1E157681D800D10276 /* CreateBoardViewController.xib in Resources */,
 				26AAAA2B1576C9A200BB6E9B /* MyPermDiaryViewController.xib in Resources */,
 				6AE0E68D1578C05300F7C52B /* PermsViewController.xib in Resources */,
+				04D4C103157D68F5005C48E5 /* AllCommentViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1542,6 +1556,8 @@
 				26AAAA2A1576C9A200BB6E9B /* MyPermDiaryViewController.m in Sources */,
 				26AAAA2E1576CB5400BB6E9B /* MyDiaryScreen_DataLoader.m in Sources */,
 				0427B2E3157A4FD200EBD4DC /* PermActionResponse.m in Sources */,
+				04D4C0FE157D68A3005C48E5 /* AllPermCommentResponse.m in Sources */,
+				04D4C102157D68F5005C48E5 /* AllCommentViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -12,6 +12,7 @@
 #import "AppData.h"
 #import "FollowingScreen_DataLoader.h"
 #import "PermListResponse.h"
+#import "Utils.h"
 
 @implementation FollowingViewController
 
@@ -112,7 +113,6 @@
         }
         nextId = response.nextItemId;
         arr = [response getResponsePermList];
-        NSLog(@"arr count :%d", arr.count);
         if (![threadObj isCancelled]) {
             self.resultModel.arrResults = arr;
             self.resultModel.nextItemId = nextId;
@@ -131,7 +131,38 @@
 
 - (void)loadMoreDataForMe:(id)loader thread:(id<ThreadManagementProtocol>)threadObj
 {
-    
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+    NSInteger nextId = self.resultModel.nextItemId;
+    PermListResponse *response = nil;
+    if ([[AppData getInstance] didLogin]) {
+        NSString *userId = [[[AppData getInstance] user] userId];
+        NSLog(@"userId: %@", userId);
+        response = [(FollowingScreen_DataLoader *)loader getPermWithUserId:userId nextItemId:nextId requestedCount:30];
+    } else {
+        response = [(FollowingScreen_DataLoader *)loader getPopularFromNextItemId:nextId requestedCount:30];
+    }
+    nextId = response.nextItemId;
+    NSArray *moreItems = [response getResponsePermList];
+
+    if (![threadObj isCancelled]) {
+        self.resultModel.arrResults = [self.resultModel.arrResults arrayByAddingObjectsFromArray:moreItems];
+
+        if([resultModel.arrResults count] == 0)
+        {
+            //show alert
+            NSString *content = NSLocalizedString(@"LoadMorePermsNoResult", @"");
+            [Utils displayAlert:content delegate:nil];
+        }
+        self.resultModel.nextItemId = nextId;
+        dispatch_async(dispatch_get_main_queue(), ^(void)
+        {
+            [permTableview reloadData]; 
+        });
+        
+        [self downloadThumbnailForObjectList:moreItems];
+    }
+    self.resultModel.isFetching = NO;
+    [pool drain];
 }
 
 - (void)thumbnailDownloadDidPartialFinishForThread:(id<ThreadManagementProtocol>)threadObj
