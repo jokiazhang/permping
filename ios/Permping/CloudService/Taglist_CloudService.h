@@ -36,6 +36,7 @@ extern NSString *const kUserServiceCPasswordKey;
 + (PermListResponse*)getPopularListWithRequestCount:(NSUInteger)count nextItemId:(NSInteger)nextId;
 + (CategoryListResponse*)getCategoryList;
 + (BoardListReponse*)getBoardListWithCategoryId:(NSString*)categoryId;
++ (PermListResponse*)getPermWithCategorydId:(NSString*)categorydId nextItemId:(NSInteger)nextId requestedCount:(NSUInteger)count;
 + (PermListResponse*)getPermWithBoardId:(NSString*)boardId nextItemId:(NSInteger)nextId requestedCount:(NSUInteger)count;
 + (PermListResponse*)getPermWithUserId:(NSString*)userId requestCount:(NSUInteger)count nextItemId:(NSInteger)nextId;
 + (PermListResponse*)getPermWithDate:(NSString*)date nextItemId:(NSInteger)nextId requestCount:(NSUInteger)count;
@@ -48,4 +49,5 @@ extern NSString *const kUserServiceCPasswordKey;
 + (CreateAccountResponse*)createAccountWithUserInfo:(NSDictionary*)userInfo;
 + (UserProfileResponse*)loginWithUserInfo:(NSDictionary*)userInfo;
 + (UserProfileResponse*)getUserProfileWithId:(NSString*)userId;
++ (Taglist_CloudResponse*)logoutWithUserId:(NSString*)userId;
 @end

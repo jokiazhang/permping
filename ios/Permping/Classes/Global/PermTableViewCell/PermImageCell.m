@@ -32,7 +32,12 @@
 - (void)layoutSubviews {
     [super layoutSubviews];
     if (permImageView.image) {
-        permImageView.frame = CGRectInset(self.bounds, 10, 0);
+        CGFloat width = permImageView.image.size.width;
+        if (width < 300) {
+            permImageView.frame = CGRectInset(self.bounds, 10 + (300-width)/2, 0);
+        } else {
+            permImageView.frame = CGRectInset(self.bounds, 10, 0);
+        }
     } else {
         permImageView.frame = CGRectZero;
     }

@@ -15,6 +15,7 @@
 #define kCreateAccountFinishNotification    @"CreateAccountFinishNotification"
 #define kLoginFinishNotification            @"kLoginFinishNotification"
 #define kSocialNetworkDidLoginNotification  @"SocialNetworkDidLoginNotification"
+#define kLogoutFinishNotification           @"LogoutFinishNotification"
 
 #define kOauthTokenTypeKey                  @"OauthTokenType"
 

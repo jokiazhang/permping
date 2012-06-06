@@ -217,7 +217,7 @@
             //NSLog(@"imageString: %@", perm.permImage);
             [cell.permImageView setImageWithURL:[NSURL URLWithString:perm.permImage] success:^(UIImage *image) {
                 if (![permsImageHeight objectForKey:[NSString stringWithFormat:@"%d", section]]) {
-                    CGFloat height = [Utils sizeWithImage:image constrainedToSize:CGSizeMake(300, CGFLOAT_MAX)].height;
+                    CGFloat height = [Utils sizeWithImage:image constrainedToSize:CGSizeMake(300, 300)].height;
                     [permsImageHeight setObject:[NSNumber numberWithFloat:height] forKey:[NSString stringWithFormat:@"%d", section]];
                     dispatch_async(dispatch_get_main_queue(), ^{
                         [permTableview reloadData];

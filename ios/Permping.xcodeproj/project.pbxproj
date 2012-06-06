@@ -171,10 +171,6 @@
 		6A0463331562591600BB4E34 /* UIButton+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A04632A1562591600BB4E34 /* UIButton+WebCache.m */; };
 		6A0463341562591600BB4E34 /* UIImageView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A04632C1562591600BB4E34 /* UIImageView+WebCache.m */; };
 		6A04633915625E8200BB4E34 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A04633815625E8100BB4E34 /* MapKit.framework */; };
-		6A625B1E156CEB5700D5F37A /* categories.xml in Resources */ = {isa = PBXBuildFile; fileRef = 6A625B1C156CEB5700D5F37A /* categories.xml */; };
-		6A625B1F156CEB5700D5F37A /* popularPerms.xml in Resources */ = {isa = PBXBuildFile; fileRef = 6A625B1D156CEB5700D5F37A /* popularPerms.xml */; };
-		6A625B2B156CF53300D5F37A /* board_530.xml in Resources */ = {isa = PBXBuildFile; fileRef = 6A625B29156CF53300D5F37A /* board_530.xml */; };
-		6A625B2C156CF53300D5F37A /* category_22.xml in Resources */ = {isa = PBXBuildFile; fileRef = 6A625B2A156CF53300D5F37A /* category_22.xml */; };
 		6AC710A315610F4200DFE074 /* TBXML.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AC7109E15610F4200DFE074 /* TBXML.m */; };
 		6AC710A415610F4200DFE074 /* TBXML+Compression.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AC710A015610F4200DFE074 /* TBXML+Compression.m */; };
 		6AC710A515610F4200DFE074 /* TBXML+HTTP.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AC710A215610F4200DFE074 /* TBXML+HTTP.m */; };
@@ -280,8 +276,8 @@
 		0411A477156D7D9E005EBF18 /* tab-item-profile@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tab-item-profile@2x.png"; path = "Permping/Resources/Images/tab-item-profile@2x.png"; sourceTree = SOURCE_ROOT; };
 		0411A478156D7D9E005EBF18 /* tab-shadow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tab-shadow.png"; path = "Permping/Resources/Images/tab-shadow.png"; sourceTree = SOURCE_ROOT; };
 		0411A479156D7D9E005EBF18 /* tab-shadow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tab-shadow@2x.png"; path = "Permping/Resources/Images/tab-shadow@2x.png"; sourceTree = SOURCE_ROOT; };
-		0427B2E1157A4FD200EBD4DC /* PermActionResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PermActionResponse.h; path = ../../../../../../../../Users/MAC/Projects/permping_trunk/ios/Permping/CloudService/Response/PermActionResponse.h; sourceTree = "<group>"; };
-		0427B2E2157A4FD200EBD4DC /* PermActionResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PermActionResponse.m; path = ../../../../../../../../Users/MAC/Projects/permping_trunk/ios/Permping/CloudService/Response/PermActionResponse.m; sourceTree = "<group>"; };
+		0427B2E1157A4FD200EBD4DC /* PermActionResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PermActionResponse.h; sourceTree = "<group>"; };
+		0427B2E2157A4FD200EBD4DC /* PermActionResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PermActionResponse.m; sourceTree = "<group>"; };
 		043D4F1A157681D800D10276 /* CreateBoardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateBoardViewController.h; sourceTree = "<group>"; };
 		043D4F1B157681D800D10276 /* CreateBoardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateBoardViewController.m; sourceTree = "<group>"; };
 		043D4F1C157681D800D10276 /* CreateBoardViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CreateBoardViewController.xib; sourceTree = "<group>"; };
@@ -395,11 +391,11 @@
 		04C7AE82156939DC004ED1B0 /* CreatePermViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CreatePermViewController.xib; sourceTree = "<group>"; };
 		04C7C35A15615572004DB98D /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		04C7C35C15615764004DB98D /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
-		04D4C0FC157D68A3005C48E5 /* AllPermCommentResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AllPermCommentResponse.h; path = ../../../../../../../../Users/MAC/Projects/permping_trunk/ios/Permping/CloudService/Response/AllPermCommentResponse.h; sourceTree = "<group>"; };
-		04D4C0FD157D68A3005C48E5 /* AllPermCommentResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AllPermCommentResponse.m; path = ../../../../../../../../Users/MAC/Projects/permping_trunk/ios/Permping/CloudService/Response/AllPermCommentResponse.m; sourceTree = "<group>"; };
-		04D4C0FF157D68F5005C48E5 /* AllCommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AllCommentViewController.h; path = ../../../../../../../../Users/MAC/Projects/permping_trunk/ios/Permping/Classes/Global/AllCommentViewController.h; sourceTree = "<group>"; };
-		04D4C100157D68F5005C48E5 /* AllCommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AllCommentViewController.m; path = ../../../../../../../../Users/MAC/Projects/permping_trunk/ios/Permping/Classes/Global/AllCommentViewController.m; sourceTree = "<group>"; };
-		04D4C101157D68F5005C48E5 /* AllCommentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AllCommentViewController.xib; path = ../../../../../../../../Users/MAC/Projects/permping_trunk/ios/Permping/Classes/Global/AllCommentViewController.xib; sourceTree = "<group>"; };
+		04D4C0FC157D68A3005C48E5 /* AllPermCommentResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AllPermCommentResponse.h; sourceTree = "<group>"; };
+		04D4C0FD157D68A3005C48E5 /* AllPermCommentResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AllPermCommentResponse.m; sourceTree = "<group>"; };
+		04D4C0FF157D68F5005C48E5 /* AllCommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AllCommentViewController.h; sourceTree = "<group>"; };
+		04D4C100157D68F5005C48E5 /* AllCommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AllCommentViewController.m; sourceTree = "<group>"; };
+		04D4C101157D68F5005C48E5 /* AllCommentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AllCommentViewController.xib; sourceTree = "<group>"; };
 		04DFAC58155E40A300AE9FFD /* Permping.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Permping.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04DFAC5C155E40A300AE9FFD /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		04DFAC5E155E40A300AE9FFD /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -503,10 +499,6 @@
 		6A04632C1562591600BB4E34 /* UIImageView+WebCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+WebCache.m"; sourceTree = "<group>"; };
 		6A04633815625E8100BB4E34 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		6A0566A11564BB660064A63B /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
-		6A625B1C156CEB5700D5F37A /* categories.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = categories.xml; sourceTree = "<group>"; };
-		6A625B1D156CEB5700D5F37A /* popularPerms.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = popularPerms.xml; sourceTree = "<group>"; };
-		6A625B29156CF53300D5F37A /* board_530.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = board_530.xml; sourceTree = "<group>"; };
-		6A625B2A156CF53300D5F37A /* category_22.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = category_22.xml; sourceTree = "<group>"; };
 		6AC7109D15610F4200DFE074 /* TBXML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TBXML.h; path = Permping/Classes/Libs/TBXML/TBXML.h; sourceTree = SOURCE_ROOT; };
 		6AC7109E15610F4200DFE074 /* TBXML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TBXML.m; path = Permping/Classes/Libs/TBXML/TBXML.m; sourceTree = SOURCE_ROOT; };
 		6AC7109F15610F4200DFE074 /* TBXML+Compression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "TBXML+Compression.h"; path = "Permping/Classes/Libs/TBXML/TBXML+Compression.h"; sourceTree = SOURCE_ROOT; };
@@ -943,7 +935,6 @@
 		04DFAC92155E446D00AE9FFD /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				6A625B1B156CEB5700D5F37A /* FakeData */,
 				04BB036015642D2100C075CD /* Icon.png */,
 				04BB036115642D2100C075CD /* Icon@2x.png */,
 				04DFAC93155E446D00AE9FFD /* Images */,
@@ -1208,18 +1199,6 @@
 			path = SDWebImage;
 			sourceTree = "<group>";
 		};
-		6A625B1B156CEB5700D5F37A /* FakeData */ = {
-			isa = PBXGroup;
-			children = (
-				6A625B29156CF53300D5F37A /* board_530.xml */,
-				6A625B2A156CF53300D5F37A /* category_22.xml */,
-				6A625B1C156CEB5700D5F37A /* categories.xml */,
-				6A625B1D156CEB5700D5F37A /* popularPerms.xml */,
-			);
-			name = FakeData;
-			path = Permping/Resources/FakeData;
-			sourceTree = SOURCE_ROOT;
-		};
 		6AD1DC64156C922600551787 /* TouchXML */ = {
 			isa = PBXGroup;
 			children = (
@@ -1382,10 +1361,6 @@
 				04BB036215642D2100C075CD /* Icon.png in Resources */,
 				04BB036315642D2100C075CD /* Icon@2x.png in Resources */,
 				04C7AE84156939DC004ED1B0 /* CreatePermViewController.xib in Resources */,
-				6A625B1E156CEB5700D5F37A /* categories.xml in Resources */,
-				6A625B1F156CEB5700D5F37A /* popularPerms.xml in Resources */,
-				6A625B2B156CF53300D5F37A /* board_530.xml in Resources */,
-				6A625B2C156CF53300D5F37A /* category_22.xml in Resources */,
 				0411A42B156D2D31005EBF18 /* CategoryViewController.xib in Resources */,
 				0411A47B156D7D9E005EBF18 /* bar-item-btn.png in Resources */,
 				0411A47C156D7D9E005EBF18 /* btn-background.png in Resources */,

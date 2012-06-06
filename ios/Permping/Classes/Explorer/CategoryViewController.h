@@ -7,16 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "CommonViewController.h"
+#import "PermsViewController.h"
 #import "CategoryModel.h"
 #import "Taglist_NDModel.h"
 
-@interface CategoryViewController : CommonViewController<UITableViewDelegate, UITableViewDataSource> {
-    IBOutlet UITableView *boardsTableView;
+@interface CategoryViewController : PermsViewController {
     CategoryModel               *category;
-    Taglist_NDModel             *resultModel;
 }
 @property (nonatomic, retain)CategoryModel      *category;
-@property (nonatomic, retain)Taglist_NDModel    *resultModel;
 
 @end
