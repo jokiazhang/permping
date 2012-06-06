@@ -44,7 +44,7 @@ public class Constants {
 	// For Twitter: use built-in OAuth.OAUTH_TOKEN and OAuth.OAUTH_TOKEN_SECRET
 	public static final String TWITTER_LOGIN  = "twitter";
 	// For Permping: use 
-	public static final String PERMPING_LOGIN = "permping";
+	public static final String PERMPING_LOGIN = "perm";
 	
 	/**
 	 * XML tags
