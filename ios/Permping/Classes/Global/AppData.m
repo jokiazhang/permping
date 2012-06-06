@@ -278,7 +278,7 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:kSocialNetworkDidLoginNotification object:nil userInfo:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:NO], @"isSuccess", nil]];
     [_post release];
 }
-
+/*
 #pragma mark	-
 #pragma mark		Twitter
 #pragma mark	-
@@ -295,7 +295,8 @@
     
     // show login diaglog
     if (saController) {
-        [saController release];        
+        [saController release];  
+        saController = nil;
     }
     SA_OAuthTwitterController *controller = [SA_OAuthTwitterController controllerToEnterCredentialsWithTwitterEngine:twitterEngine delegate:self];
     if (controller) {
@@ -381,7 +382,7 @@
 	NSLog(@"Misc Info Received: %@", miscInfo);
 }
 
-
+*/
 - (NSString*)oauthTokenType {
     NSString *oauthTokenType = [[NSUserDefaults standardUserDefaults] objectForKey:kOauthTokenTypeKey];
     if (!oauthTokenType) {
