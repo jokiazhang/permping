@@ -245,7 +245,6 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 
 				ImageView pv = (ImageView) view.findViewById(R.id.permImage);
 				UrlImageViewHelper.setUrlDrawable(pv, perm.getImage().getUrl());
-				//PermUtils.scale(pv, screenWidth, screenHeight);
 				PermUtils.scaleImage(pv, screenWidth, screenHeight);
 				
 				// Perm description
