@@ -6,6 +6,7 @@ package com.permping.utils;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Rect;
@@ -230,7 +231,12 @@ public class PermUtils {
 	
 			    // Create a new bitmap and convert it to a format understood by the ImageView
 			    Bitmap scaledBitmap = Bitmap.createBitmap(bitmap, 0, 0, width, height, matrix, true);
+			    
+			   
+			    
 			    BitmapDrawable result = new BitmapDrawable(scaledBitmap);
+			    
+			    
 			    width = scaledBitmap.getWidth();
 			    height = scaledBitmap.getHeight();
 	
@@ -242,9 +248,31 @@ public class PermUtils {
 			    params.width = width;
 			    params.height = height;
 			    view.setLayoutParams(params);
-			     
+			    
+			    unbindDrawables(view);
+			    System.gc();
+			    Runtime.getRuntime().gc();
+			    
 		    }
+		    
 	    }
+	   
+	}
+	
+	/**
+	 * 
+	 * @param view
+	 */
+	private static void unbindDrawables(View view) {
+		if (view.getBackground() != null) {
+            view.getBackground().setCallback(null);
+        }
+        if (view instanceof ViewGroup) {
+            for (int i = 0; i < ((ViewGroup) view).getChildCount(); i++) {
+                unbindDrawables(((ViewGroup) view).getChildAt(i));
+            }
+            ((ViewGroup) view).removeAllViews();
+        }
 	}
 	
 	/**
