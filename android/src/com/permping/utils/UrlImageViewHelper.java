@@ -59,8 +59,37 @@ public final class UrlImageViewHelper {
 
     private static BitmapDrawable loadDrawableFromStream(Context context, InputStream stream) {
         prepareResources(context);
+        /*Bitmap bitmap = null;
+        try {
+        	InputStream temp = stream;
+            BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inJustDecodeBounds = true;
+            BitmapFactory.decodeStream(temp, null, options);
+            temp.close();
+            
+            int scale = 1;
+            if (options.outHeight > 800 || options.outWidth > 800)
+            	scale = (int)Math.pow(2.0, (int) Math.round(Math.log(1280 / 
+        				(double) Math.max(options.outHeight, options.outWidth)) / 
+        				Math.log(0.5)));
+            
+            BitmapFactory.Options options2 = new BitmapFactory.Options();
+        	options2.inSampleSize = 4;
+        	options2.inJustDecodeBounds = false;
+        	temp = stream;
+        	bitmap = BitmapFactory.decodeStream(temp, null, options2);
+        	temp.close();
+        } catch (IOException ioe) {
+        	ioe.printStackTrace();
+        }
+        
+        if (bitmap != null)
+        	return new BitmapDrawable(mResources, bitmap);
+        else
+        	return null;
+        */
+        
         final Bitmap bitmap = BitmapFactory.decodeStream(stream);
-        //Log.i(LOGTAG, String.format("Loaded bitmap (%dx%d).", bitmap.getWidth(), bitmap.getHeight()));
         return new BitmapDrawable(mResources, bitmap);
     }
 
@@ -167,10 +196,35 @@ public final class UrlImageViewHelper {
         File file = context.getFileStreamPath(filename);
         if (file.exists()) {
             try {
+            	int IMAGE_MAX_SIZE = 700;
                 if (cacheDurationMs == CACHE_DURATION_INFINITE || System.currentTimeMillis() < file.lastModified() + cacheDurationMs) {
                     //Log.i(LOGTAG, "File Cache hit on: " + url + ". " + (System.currentTimeMillis() - file.lastModified()) + "ms old.");
                     FileInputStream  fis = context.openFileInput(filename);
-                    BitmapDrawable drawable = loadDrawableFromStream(context, fis);
+                    
+                  //Decode image size
+                    BitmapFactory.Options o = new BitmapFactory.Options();
+                    o.inJustDecodeBounds = true;
+                    BitmapFactory.decodeStream(fis, null, o);
+                    fis.close();
+                    
+                    int scale = 1;
+                    if (o.outHeight > IMAGE_MAX_SIZE || o.outWidth > IMAGE_MAX_SIZE) {
+                        scale = (int)Math.pow(2.0, (int) Math.round(Math.log(IMAGE_MAX_SIZE / (double) Math.max(o.outHeight, o.outWidth)) / Math.log(0.5)));
+                    }
+
+                  //Decode with inSampleSize
+                    BitmapFactory.Options o2 = new BitmapFactory.Options();
+                    o2.inSampleSize = scale;
+                    fis = context.openFileInput(filename);
+                    Bitmap b = BitmapFactory.decodeStream(fis, null, o2);
+                    fis.close();
+
+                    prepareResources(context);
+                    //BitmapDrawable drawable = loadDrawableFromStream(context, fis);
+                    BitmapDrawable drawable = new BitmapDrawable(mResources, b);
+                    
+                    
+                    
                     fis.close();
                     if (imageView != null)
                         imageView.setImageDrawable(drawable);

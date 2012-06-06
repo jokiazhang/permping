@@ -14,9 +14,13 @@ import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ListView;
 
 public class FollowerActivity extends Activity {
+
+	
 
 	public String url = "";
 	public Boolean header = true;
@@ -79,6 +83,28 @@ public class FollowerActivity extends Activity {
 		permListView.setAdapter(permListAdapter);
 	}
 
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onDestroy()
+	 
+	@Override
+	protected void onDestroy() {
+		
+	}
+	
+	private void unbindDrawables(View view) {
+		if (view.getBackground() != null) {
+            view.getBackground().setCallback(null);
+        }
+        if (view instanceof ViewGroup) {
+            for (int i = 0; i < ((ViewGroup) view).getChildCount(); i++) {
+                unbindDrawables(((ViewGroup) view).getChildAt(i));
+            }
+            ((ViewGroup) view).removeAllViews();
+        }
+
+	}
+*/	
+	
 	// AsyncTask task for upload file
 
 	class LoadPermList extends AsyncTask<Void, Void, String> {
@@ -105,4 +131,5 @@ public class FollowerActivity extends Activity {
 			}
 		}
 	}
+	
 }
