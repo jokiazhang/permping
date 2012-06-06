@@ -8,8 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import <Twitter/TWTweetComposeViewController.h>
-#import "SA_OAuthTwitterEngine.h"
-#import "SA_OAuthTwitterController.h"
 #import "UserProfileModel.h"
 
 #define kCreateAccountFinishNotification    @"CreateAccountFinishNotification"
@@ -19,12 +17,9 @@
 
 #define kOauthTokenTypeKey                  @"OauthTokenType"
 
-@interface AppData : NSObject<SA_OAuthTwitterEngineDelegate, SA_OAuthTwitterControllerDelegate> {
+@interface AppData : NSObject {
     UserProfileModel        *_user;
     NSDictionary            *_userInfo;
-    
-    SA_OAuthTwitterEngine       *twitterEngine;
-    SA_OAuthTwitterController   *saController;
     
     BOOL            _isLogout;
     BOOL            _isCreatingAccount;
