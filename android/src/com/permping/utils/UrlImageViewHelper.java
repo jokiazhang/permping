@@ -45,8 +45,8 @@ public final class UrlImageViewHelper {
         return total;
     }
     
-    static int IMAGE_MAX_SIZE = 100;
-
+    static int IMAGE_MAX_SIZE = 700;
+    static int SCALE_RATIO = 2;
     static Resources mResources;
     static DisplayMetrics mMetrics;
     private static void prepareResources(Context context) {
@@ -216,7 +216,8 @@ public final class UrlImageViewHelper {
 
                   //Decode with inSampleSize
                     BitmapFactory.Options o2 = new BitmapFactory.Options();
-                    o2.inSampleSize = scale;
+                    //o2.inSampleSize = scale;
+                    o2.inSampleSize = SCALE_RATIO;
                     fis = context.openFileInput(filename);
                     Bitmap b = BitmapFactory.decodeStream(fis, null, o2);
                     fis.close();
