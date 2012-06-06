@@ -35,6 +35,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.hardware.Camera.PreviewCallback;
 import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -124,6 +125,10 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 			login.setOnClickListener(new OnClickListener() {
 
 				public void onClick(View v) {
+					SharedPreferences.Editor editor = prefs.edit();
+					// Set default login type.
+					editor.putString(Constants.LOGIN_TYPE, Constants.PERMPING_LOGIN);
+					editor.commit();
 					Intent i = new Intent(v.getContext(),
 							LoginPermActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 					v.getContext().startActivity(i);					
