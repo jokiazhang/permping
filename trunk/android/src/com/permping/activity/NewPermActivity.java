@@ -227,7 +227,7 @@ public class NewPermActivity extends Activity {
 					//HttpPost postRequest = new HttpPost("http://10.0.2.2/perm/testupload.php");
 					HttpPost postRequest = new HttpPost(API.addNewPermUrl);
 					MultipartEntity reqEntity = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
-					if( filePath != "" && filePath != null ){
+					if( filePath != null && !"".equals(filePath) ){
 					
 						ByteArrayOutputStream bos = new ByteArrayOutputStream();
 						Bitmap bm = BitmapFactory.decodeFile(filePath);;
@@ -258,13 +258,13 @@ public class NewPermActivity extends Activity {
 					System.out.println("Response: " + s);
 		        }
 			} catch (Exception e) {
-				// handle exception here
+			/*	// handle exception here
 				
 				ImageActivityGroup.group.back();
 				Toast.makeText(getApplicationContext(),"Post error",Toast.LENGTH_LONG).show();
-				Log.e(e.getClass().getName(), e.getMessage());
+				Log.e(e.getClass().getName(), e.getMessage());*/
 			}
-			Toast.makeText(getApplicationContext(),"Please login first!",Toast.LENGTH_LONG).show();
+			//Toast.makeText(getApplicationContext(),"Please login first!",Toast.LENGTH_LONG).show();
 		}
 		
 		
