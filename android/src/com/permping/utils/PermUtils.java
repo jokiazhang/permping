@@ -156,22 +156,72 @@ public class PermUtils {
 		    	// Get current dimensions
 			    int width = bitmap.getWidth();
 			    int height = bitmap.getHeight();
-			    float boundBoxInDp = 500;
+			    //float boundBoxInDp = 500;
+			    float desiredWidth = 500;
+			    float desiredHeight = 500;
+			    if (width <= 560) { // image width <= 560 pixel
 			    if (screenWidth == 320 && screenHeight == 480) {
-			    	boundBoxInDp = 304;
+		        		// Set the height
+		        		//imageView.setMaxHeight((downloadedImageHeight/560)*304);
+		        		// Set the width
+		        		//imageView.setMaxWidth((downloadedImageWidth/560)*304);
+		        		
+		        		desiredWidth = ((float)width/560)*304;
+		        		desiredHeight = ((float)height/560)*304;
 	        		
 	        	} else if (screenWidth == 480 && screenHeight == 800) {
-	        		boundBoxInDp = 456;
+		        		// Set the height
+		        		//imageView.setMaxHeight((downloadedImageHeight/560)*456);
+		        		// Set the width
+		        		//imageView.setMaxWidth((downloadedImageWidth/560)*456);
+		        		
+		        		desiredWidth = ((float)width/560)*456;
+		        		desiredHeight = ((float)height/560)*456;
+		        	} else if (screenWidth == 800 && screenHeight == 1280) {
+		        		// Set the height
+		        		//imageView.setMaxHeight((downloadedImageHeight/560)*760);
+		        		// Set the width
+		        		//imageView.setMaxWidth((downloadedImageWidth/560)*760);
+
+		        		desiredWidth = ((float)width/560)*760;
+		        		desiredHeight = ((float)height/560)*760;
+		        	} else { // Other resolution
+		        		
+		        	}
+		        } else { // image width > 560 pixel  
+		        	if (screenWidth == 320 && screenHeight == 480) {
+		        		// Set the height
+		        		//imageView.setMaxHeight(downloadedImageHeight*304/downloadedImageWidth);
+		        		// Set the width
+		        		//imageView.setMaxWidth(304);
+		        		
+		        		desiredWidth = 304;
+		        		desiredHeight = (float)height*304/(float)width;
+		        	} else if (screenWidth == 480 && screenHeight == 800) {
+		        		// Set the height
+		        		//imageView.setMaxHeight(downloadedImageHeight*456/downloadedImageWidth);
+		        		// Set the width
+		        		//imageView.setMaxWidth(456);
+		        		
+		        		desiredWidth = 456;
+		        		desiredHeight = (float)height*456/(float)width;
 	        	} else if (screenWidth == 800 && screenHeight == 1280) {
-	        		boundBoxInDp =760;
+		        		// Set the height
+		        		//imageView.setMaxHeight(downloadedImageHeight*760/downloadedImageWidth);
+		        		// Set the width
+		        		//imageView.setMaxWidth(760);
+
+		        		desiredWidth = 760;
+		        		desiredHeight = (float)height*760/(float)width;
 	        	} else { // Other resolution
 	        		
 	        	}
+		        }
 			    // Determine how much to scale: the dimension requiring less scaling is
 			    // closer to the its side. This way the image always stays inside your
 			    // bounding box AND either x/y axis touches it.
-			    float xScale = ((float) boundBoxInDp) / width;
-			    float yScale = Float.MAX_VALUE / height;
+			    float xScale = ((float) desiredWidth) / width;
+			    float yScale = (float)desiredHeight / height;
 			    float scale = (xScale <= yScale) ? xScale : yScale;
 	
 			    // Create a matrix for the scaling and add the scaling data
