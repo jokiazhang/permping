@@ -91,26 +91,26 @@ public class PermpingMain extends TabActivity {
         
         // Set the event for MyDiary tab
         tabHost.getTabWidget().getChildAt(3).setOnTouchListener(new ValidateHandler());
-        /*tabHost.getTabWidget().getChildAt(3).setOnTouchListener(new View.OnTouchListener() {
-			
-        	public boolean onTouch(View v, MotionEvent event) {				
-				boolean ret = false;
-				int action = event.getAction();
-				if (action == MotionEvent.ACTION_UP) {
-					*//** Load the information from Appliaction (user info) when the page is loaded. *//*
-			        User user = PermUtils.isAuthenticated(getApplicationContext());
-			        if (user != null) {
-			        	ret = false;
-			        } else {
-			        	// Go to login screen
-						Intent i = new Intent(getApplicationContext(), LoginPermActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-						getApplicationContext().startActivity(i);
-						ret = true;
-			        }
-				}
-				return ret;
-			}
-		});*/
+        
+        // Set the event for Followers tab
+        tabHost.getTabWidget().getChildAt(0).setOnTouchListener(new FollowerHandler());
+    }
+    
+    private class FollowerHandler implements View.OnTouchListener {
+    	
+    	@Override
+		public boolean onTouch(View v, MotionEvent event) {
+    		User user = PermUtils.isAuthenticated(getApplicationContext());
+	        if (user != null) {
+	        	// Load following perms of user
+	        	v.findViewById(R.id.permList);
+	        	
+	        } else {
+	        	
+	        }
+	        
+	        return false;
+    	}
     }
     
     private class ValidateHandler implements View.OnTouchListener {
