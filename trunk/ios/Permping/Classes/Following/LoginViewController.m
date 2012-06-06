@@ -13,12 +13,13 @@
 #import "Utils.h"
 
 @implementation LoginViewController
+@synthesize hasCancel;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+        hasCancel = YES;
     }
     return self;
 }
@@ -54,7 +55,11 @@
 {
     [super viewDidLoad];
     [self addObservers];
-    self.navigationItem.leftBarButtonItem = [Utils barButtonnItemWithTitle:NSLocalizedString(@"globals.cancel", @"Cancel") target:self selector:@selector(dismiss:)];
+    if (hasCancel) {
+        self.navigationItem.leftBarButtonItem = [Utils barButtonnItemWithTitle:NSLocalizedString(@"globals.cancel", @"Cancel") target:self selector:@selector(dismiss:)];
+    } else {
+        self.navigationItem.hidesBackButton = YES;
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated {

@@ -16,6 +16,10 @@
     return [Taglist_CloudService getPopularListWithRequestCount:count nextItemId:nextItemId];
 }
 
+- (PermListResponse *)getPermWithCategorydId:(NSString*)categorydId nextItemId:(NSInteger)nextId requestedCount:(NSUInteger)count {
+    return [Taglist_CloudService getPermWithCategorydId:categorydId nextItemId:nextId requestedCount:count];
+}
+
 - (PermListResponse *)getPermWithBoardId:(NSString*)boardId nextItemId:(NSInteger)nextId requestedCount:(NSUInteger)count {
     return [Taglist_CloudService getPermWithBoardId:boardId nextItemId:nextId requestedCount:count];
 }

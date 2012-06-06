@@ -160,14 +160,48 @@
 
 - (void)loginWithUserInfo:(NSDictionary*)in_userInfo {
     if (in_userInfo == nil) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:kLoginFinishNotification object:[NSNumber numberWithBool:!_isLogout] userInfo:nil];
         return;
     }
     self.userInfo = in_userInfo;
     [[ThreadManager getInstance] dispatchToConcurrentBackgroundNormalPriorityQueueWithTarget:self selector:@selector(loadLoginDataForMe:thread:) dataObject:[self getLoginDataLoader]];
 }
 
+- (void)loadLogoutDataForMe:(id)loader thread:(id<ThreadManagementProtocol>)threadObj
+{
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+    if (![threadObj isCancelled]) {
+        dispatch_async(dispatch_get_main_queue(), ^(void)
+                       {
+                           //[self initializeUIControls]; 
+                           
+                       });
+        Taglist_CloudResponse *response = [(Login_DataLoader *)loader logoutWithUserId:self.user.userId];
+        NSError *error = response.responseError;
+        if (error.code == 200) {
+            self.user = nil;
+            _isLogout = YES;
+        }
+        
+        if (![threadObj isCancelled]) {
+            dispatch_async(dispatch_get_main_queue(), ^(void)
+                           {
+                               if (error) {
+                                   [Utils displayAlert:[error localizedDescription] delegate:nil];
+                               }
+                               [[NSNotificationCenter defaultCenter] postNotificationName:kLogoutFinishNotification object:[NSNumber numberWithBool:_isLogout] userInfo:nil];
+                           });
+        }
+    }
+    //[myLoader release];
+    [pool drain];
+}
+
 - (void)logout {
-    
+    if (!self.user) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:kLogoutFinishNotification object:[NSNumber numberWithBool:_isLogout] userInfo:nil];
+    }
+    [[ThreadManager getInstance] dispatchToConcurrentBackgroundNormalPriorityQueueWithTarget:self selector:@selector(loadLogoutDataForMe:thread:) dataObject:[self getLoginDataLoader]];
 }
 
 #pragma mark	-

@@ -11,6 +11,10 @@
 #import "UserProfile_DataLoader.h"
 #import "UserProfileResponse.h"
 #import "BoardModel.h"
+#import "AppData.h"
+#import "LoginViewController.h"
+#import "LogoutViewController.h"
+#import "Utils.h"
 
 @implementation ProfileViewController
 @synthesize userProfile;
@@ -40,6 +44,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.navigationItem.leftBarButtonItem = [Utils barButtonnItemWithTitle:NSLocalizedString(@"ProfileAccountButton", @"Account") target:self selector:@selector(accountButtonDidTouch:)];
     boardTableView.tableHeaderView = headerView;
     [self reloadData];
 }
@@ -51,9 +56,26 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
-    [self startActivityIndicator];
-    self.dataLoaderThread = [[ThreadManager getInstance] dispatchToConcurrentBackgroundNormalPriorityQueueWithTarget:self selector:@selector(loadDataForMe:thread:) dataObject:[self getMyDataLoader]];
+    if([[AppData getInstance] didLogin]) {
+        [self startActivityIndicator];
+        self.dataLoaderThread = [[ThreadManager getInstance] dispatchToConcurrentBackgroundNormalPriorityQueueWithTarget:self selector:@selector(loadDataForMe:thread:) dataObject:[self getMyDataLoader]];
+    }
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    if(![[AppData getInstance] didLogin]) {
+        LoginViewController *controller = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
+        controller.hasCancel = NO;
+        [self.navigationController pushViewController:controller animated:NO];
+        [controller release];
+    }
+}
+
+- (void)accountButtonDidTouch:(id)sender {
+    LogoutViewController *controller = [[LogoutViewController alloc] initWithNibName:@"LogoutViewController" bundle:nil];
+    //[self.navigationController pushViewController:controller animationTransition:UIViewAnimationTransitionFlipFromRight];
+    [self.navigationController pushViewController:controller animated:YES];
+    [controller release];
 }
 
 #pragma mark - Override methods

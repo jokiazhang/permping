@@ -34,7 +34,13 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.navigationItem.leftBarButtonItem = [Utils barButtonnItemWithTitle:NSLocalizedString(@"globals.cancel", @"Cancel") target:self selector:@selector(dismiss:)];
+    
+    
+    self.navigationItem.leftBarButtonItem = [Utils barButtonnItemWithTitle:NSLocalizedString(@"globals.cancel", @"Cancel") target:self selector:@selector(dismissWithFlipAnimationTransition)];
+    
+    [logoutButton setBackgroundImage:[[UIImage imageNamed:@"btn-background.png"] stretchableImageWithLeftCapWidth:20 topCapHeight:0] forState:UIControlStateNormal];
+    
+    [cancelButton setBackgroundImage:[[UIImage imageNamed:@"btn-background.png"] stretchableImageWithLeftCapWidth:20 topCapHeight:0] forState:UIControlStateNormal];
 }
 
 - (void)viewDidUnload
@@ -43,13 +49,32 @@
     // Release any retained subviews of the main view.
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kLoginFinishNotification object:nil];
+}
+
 - (IBAction)logoutButtonDidTouch:(id)sender {
+    [self startActivityIndicator];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(logoutDidFinish:) name:kLogoutFinishNotification object:nil];
     [[AppData getInstance] logout];
-    [self dismiss:nil];
 }
 
 - (IBAction)cancelButtonDidTouch:(id)sender {
+    [self dismissWithFlipAnimationTransition];
+}
+
+- (void)dismissWithFlipAnimationTransition {
+    //[self.navigationController popViewControllerAnimationTransition:UIViewAnimationTransitionFlipFromLeft];
     [self dismiss:nil];
+}
+
+- (void)logoutDidFinish:(NSNotification*)notification {
+    [self stopActivityIndicator];
+    BOOL isSuccess = [(NSNumber*)notification.object boolValue];
+    if (isSuccess) {
+        [self dismissWithFlipAnimationTransition];
+    }
 }
 
 @end

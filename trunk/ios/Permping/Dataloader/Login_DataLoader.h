@@ -13,4 +13,6 @@
 
 - (UserProfileResponse*)loginWithUserInfo:(NSDictionary*)userInfo;
 
+- (Taglist_CloudResponse*)logoutWithUserId:(NSString*)userId;
+
 @end

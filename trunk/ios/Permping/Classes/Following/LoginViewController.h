@@ -22,6 +22,8 @@
     BOOL    _showingKeyBoard;
 }
 
+@property (nonatomic, assign) BOOL hasCancel; // YES by default
+
 - (void)setTarget:(id)in_target action:(SEL)in_action;
 
 - (IBAction)facebookButtonDidTouch:(id)sender;

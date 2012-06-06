@@ -45,3 +45,21 @@
 - (void)thumbnailDownloadDidPartialFinishForThread:(id<ThreadManagementProtocol>)threadObj;
 - (void)thumbnailDownloadDidFinishForThread:(id<ThreadManagementProtocol>)threadObj;
 @end
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// UINavigationBarController + Rotation
+@interface RotateNavigationBarController : UINavigationController
+@end
+
+@interface UINavigationController (CustomAnimation)
+
+- (void)pushViewController:(UIViewController *)viewController animationTransition:(UIViewAnimationTransition)transition;
+
+- (UIViewController*)popViewControllerAnimationTransition:(UIViewAnimationTransition)transition;
+
+- (NSArray *)popToRootViewControllerAnimationTransition:(UIViewAnimationTransition)transition;
+
+
+@end

@@ -28,7 +28,7 @@
 }
 
 + (CGSize)sizeWithImage:(UIImage*)image constrainedToSize:(CGSize)constraintSize {
-    CGSize size;
+    /*CGSize size;
     CGSize imageSize = image.size;
     CGFloat hscale = constraintSize.height / imageSize.height;
     CGFloat wscale = constraintSize.width / imageSize.width;
@@ -39,7 +39,18 @@
         size.width = constraintSize.width;
         size.height = imageSize.height * wscale;
     }
-    return size;
+    return size;*/
+    
+    CGFloat width = image.size.width;
+    CGFloat height = image.size.height;
+    float desiredWidth = width;
+    float desiredHeight = height;
+    if (width > constraintSize.width) {
+        desiredWidth = constraintSize.width;
+        desiredHeight = (float)height*constraintSize.width/(float)width;
+    }
+
+    return CGSizeMake(desiredWidth, desiredHeight);
 }
 
 @end

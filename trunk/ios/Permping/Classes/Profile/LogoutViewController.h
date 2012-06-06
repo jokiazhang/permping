@@ -17,4 +17,6 @@
 - (IBAction)logoutButtonDidTouch:(id)sender;
 
 - (IBAction)cancelButtonDidTouch:(id)sender;
+
+- (void)dismissWithFlipAnimationTransition;
 @end

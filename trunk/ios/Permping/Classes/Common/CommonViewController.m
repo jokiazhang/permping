@@ -190,3 +190,49 @@
     
 }
 @end
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// UINavigationBarController + Rotation
+
+@implementation UINavigationController (CustomAnimation)
+
+- (void)pushViewController:(UIViewController *)viewController animationTransition:(UIViewAnimationTransition)transition {
+    [UIView  beginAnimations:nil context:NULL];
+    [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
+    [UIView setAnimationDuration:0.5];
+    [self pushViewController:viewController animated:NO];
+    [UIView setAnimationTransition:transition forView:self.view cache:NO];
+    [UIView commitAnimations];
+}
+
+- (UIViewController*)popViewControllerAnimationTransition:(UIViewAnimationTransition)transition {
+    [UIView  beginAnimations:nil context:NULL];
+    [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
+    [UIView setAnimationDuration:0.5];
+    [UIView setAnimationTransition:transition forView:self.view cache:NO];
+    [UIView commitAnimations];
+    
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDelay:0.375];
+    UIViewController * controller = [self popViewControllerAnimated:NO];
+    [UIView commitAnimations];
+    return controller;
+}
+
+- (NSArray *)popToRootViewControllerAnimationTransition:(UIViewAnimationTransition)transition {
+    [UIView  beginAnimations:nil context:NULL];
+    [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
+    [UIView setAnimationDuration:0.5];
+    [UIView setAnimationTransition:transition forView:self.view cache:NO];
+    [UIView commitAnimations];
+    
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDelay:0.375];
+    NSArray * controllers = [self popToRootViewControllerAnimated:NO];
+    [UIView commitAnimations];
+    return controllers;
+}
+
+@end

@@ -15,4 +15,9 @@
     return [Taglist_CloudService loginWithUserInfo:userInfo];
 }
 
+
+- (Taglist_CloudResponse*)logoutWithUserId:(NSString*)userId {
+    return [Taglist_CloudService logoutWithUserId:userId];
+}
+
 @end

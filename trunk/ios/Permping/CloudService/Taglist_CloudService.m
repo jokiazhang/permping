@@ -77,6 +77,21 @@ NSString *const kUserServiceCPasswordKey = @"UserServiceCPasswordKey";
     return [response autorelease];
 }
 
++ (PermListResponse*)getPermWithCategorydId:(NSString*)categorydId nextItemId:(NSInteger)nextId requestedCount:(NSUInteger)count {
+    Taglist_CloudPagingRequest *request = [[Taglist_CloudPagingRequest alloc] init];
+    NSLog(@"categorydId: %@", categorydId);
+    request.requestURL = [SERVER_API stringByAppendingFormat:@"/permservice/getpermwithcategoryid/%@", categorydId];
+    [request addRequestCount:count];
+    if (nextId != -1) {
+        [request addNextItemId:nextId];
+    }
+    PermListResponse *response = [[PermListResponse alloc] init];
+    response.responseType = PermResponseTypeFromBoard;
+    [[Taglist_CloudRequestDispatcher getInstance] dispatchRequest:request response:response];
+    [request release];
+    return [response autorelease];
+}
+
 + (PermListResponse *)getPermWithBoardId:(NSString*)boardId nextItemId:(NSInteger)nextId requestedCount:(NSUInteger)count { 
     Taglist_CloudPagingRequest *request = [[Taglist_CloudPagingRequest alloc] init];
     request.requestURL = [SERVER_API stringByAppendingFormat:@"/permservice/getpermwithboardid/%@", boardId];
@@ -264,6 +279,19 @@ NSString *const kUserServiceCPasswordKey = @"UserServiceCPasswordKey";
     request.requestURL = [SERVER_API stringByAppendingFormat:@"/userservice/getprofile/%@", userId];
     
     UserProfileResponse *response = [[UserProfileResponse alloc] init];    
+    [[Taglist_CloudRequestDispatcher getInstance] dispatchRequest: request response:response];
+    [request release];
+    
+    return [response autorelease];
+}
+
++ (Taglist_CloudResponse*)logoutWithUserId:(NSString*)userId {
+    ///userservice/logout/
+    
+    Taglist_CloudRequest *request = [[Taglist_CloudRequest alloc] init];
+    request.requestURL = [SERVER_API stringByAppendingFormat:@"/userservice/logout/%@", userId];
+    
+    Taglist_CloudResponse *response = [[Taglist_CloudResponse alloc] init];    
     [[Taglist_CloudRequestDispatcher getInstance] dispatchRequest: request response:response];
     [request release];
     

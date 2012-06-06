@@ -7,18 +7,14 @@
 //
 
 #import "CategoryViewController.h"
-#import "BoardViewController.h"
-#import "BoardList_DataLoader.h"
-#import "BoardListReponse.h"
-#import "BoardModel.h"
+#import "FollowingScreen_DataLoader.h"
+#import "PermListResponse.h"
 #import "Utils.h"
 
 @implementation CategoryViewController
 @synthesize category;
-@synthesize resultModel;
 - (void)dealloc {
     self.category = nil;
-    self.resultModel = nil;
     [super dealloc];
 }
 
@@ -56,15 +52,14 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self startActivityIndicator];
-    self.resultModel.arrResults = nil;
-    self.resultModel = [[[Taglist_NDModel alloc] init] autorelease];
+    [self resetData];
     self.dataLoaderThread = [[ThreadManager getInstance] dispatchToConcurrentBackgroundNormalPriorityQueueWithTarget:self selector:@selector(loadDataForMe:thread:) dataObject:[self getMyDataLoader]];
 }
 
 #pragma mark - Override methods
 - (id)getMyDataLoader
 {
-    BoardList_DataLoader *loader = [[BoardList_DataLoader alloc] init];
+    FollowingScreen_DataLoader *loader = [[FollowingScreen_DataLoader alloc] init];
     return [loader autorelease];
 }
 
@@ -79,56 +74,48 @@
                        });
         NSArray *arr = nil;
         
-        BoardListReponse *response = [(BoardList_DataLoader *)loader getBoardListWithCategoryId:self.category.categoryId];
-        arr = [response getResponseBoardList];
+        PermListResponse *response = [(FollowingScreen_DataLoader *)loader getPermWithCategorydId:self.category.categoryId nextItemId:self.resultModel.nextItemId requestedCount:30];
+        arr = [response getResponsePermList];
         
         if (![threadObj isCancelled]) {
             self.resultModel.arrResults = arr;
-            
+            self.resultModel.nextItemId = response.nextItemId;
             dispatch_async(dispatch_get_main_queue(), ^(void)
                            {
                                [self stopActivityIndicator];
                                //reload table
-                               [boardsTableView reloadData]; 
+                               [permTableview reloadData]; 
                            });
         }
     }
     [pool drain];
 }
 
-
-#pragma mark - <UITableViewDelegate + DataSource> implementation
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.resultModel.arrResults count];
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 44.0;
-}
-
-- (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString *categoryReuseIdentifier = @"categoryReuseIdentifier";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:categoryReuseIdentifier];
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:categoryReuseIdentifier];
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    }
-    BoardModel *board = [self.resultModel.arrResults objectAtIndex:indexPath.row];
-    cell.textLabel.text = board.title;
-    return cell;
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+- (void)loadMoreDataForMe:(id)loader thread:(id<ThreadManagementProtocol>)threadObj
+{
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+    NSArray *arr = nil;
     
-    BoardViewController *lc_controller = [[BoardViewController alloc] initWithNibName:@"BoardViewController" bundle:nil];
-    lc_controller.board = [self.resultModel.arrResults objectAtIndex:indexPath.row];
-    [self.navigationController pushViewController:lc_controller animated:YES];
-    [lc_controller release];
+    PermListResponse *response = [(FollowingScreen_DataLoader *)loader getPermWithCategorydId:self.category.categoryId nextItemId:self.resultModel.nextItemId requestedCount:30];
+    arr = [response getResponsePermList];
+    
+    if (![threadObj isCancelled]) {
+        self.resultModel.arrResults = arr;
+        self.resultModel.nextItemId = response.nextItemId;
+        if([resultModel.arrResults count] == 0)
+        {
+            //show alert
+            NSString *content = NSLocalizedString(@"LoadMorePermsNoResult", @"");
+            [Utils displayAlert:content delegate:nil];
+        }
+        dispatch_async(dispatch_get_main_queue(), ^(void)
+                       {
+                           [permTableview reloadData]; 
+                       });
+    }
+    self.resultModel.isFetching = NO;
+    
+    [pool drain];
 }
 
 @end
