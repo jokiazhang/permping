@@ -43,9 +43,6 @@
 	{
 		self.totalResult = [text intValue];
 	}
-    else if ([@"/Response/NextItemId" isEqualToString:path]) {
-        self.nextItemId = [text intValue];
-    }
     else if ([@"/response/nextItem" isEqualToString:path]) {
         self.nextItemId = [text intValue];
     }

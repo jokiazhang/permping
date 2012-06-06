@@ -29,6 +29,6 @@
 }
 - (void)addNextItemId:(NSUInteger)nextItemId
 {
-    [self addParameter:@"startId" value:[NSString stringWithFormat:@"%u", nextItemId]];
+    [self addParameter:@"nextItem" value:[NSString stringWithFormat:@"%u", nextItemId]];
 }
 @end

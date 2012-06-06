@@ -94,6 +94,7 @@ NSString *const kUserServiceCPasswordKey = @"UserServiceCPasswordKey";
 + (PermListResponse*)getPermWithUserId:(NSString*)userId requestCount:(NSUInteger)count nextItemId:(NSInteger)nextId {
     Taglist_CloudPagingRequest *request = [[Taglist_CloudPagingRequest alloc] init];
     request.requestURL = [SERVER_API stringByAppendingFormat:@"/permservice/getfollowingperm/%@", userId];
+    request.method = @"POST";
     [request addRequestCount:count];    
     if (nextId != -1) {
         [request addNextItemId:nextId];
