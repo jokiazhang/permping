@@ -101,7 +101,7 @@
     
     self.statusLabel.text = [NSString stringWithFormat:@"Likes %@ Comments %@ Repin %@", perm.permLikeCount, perm.permCommentCount, perm.permRepinCount];
     
-    if ([[AppData getInstance] didLogin]) {
+    /*if ([[AppData getInstance] didLogin]) {
         likeButton.enabled = YES;
         commentButton.enabled = YES;
         if ([[AppData getInstance].user.userId isEqualToString:in_perm.permUser.userId]) {
@@ -113,7 +113,7 @@
         likeButton.enabled = NO;
         commentButton.enabled = NO;
         repermButton.enabled = NO;
-    }
+    }*/
 }
 
 - (void)likePermButtonDidTouch:(id)sender {
