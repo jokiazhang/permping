@@ -17,6 +17,7 @@
 #import "Taglist_CloudResponse.h"
 #import "AppData.h"
 #import "CreatePermViewController.h"
+#import "LoginViewController.h"
 
 #define kSeperatorCellTag 333
 #define kSpinnerCellTag 123456
@@ -356,7 +357,11 @@
     }
 }
 
-
+- (void)pushLoginView {
+    LoginViewController *controller = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
+    [self.navigationController pushViewController:controller animated:YES];
+    [controller release];
+}
 
 # pragma marm - Perm actions
 - (void)likePermAtCell:(PermInfoCell*)cell {
@@ -366,6 +371,7 @@
         self.dataLoaderThread = [[ThreadManager getInstance] dispatchToConcurrentBackgroundNormalPriorityQueueWithTarget:self selector:@selector(peformLikePermAction:thread:) dataObject:[self getMyDataLoader]];
     } else {
         NSLog(@"user did not login");
+        [self pushLoginView];
     }
 }
 
@@ -373,15 +379,21 @@
     if ([[AppData getInstance] didLogin]) {
         [commentTextField becomeFirstResponder];
         [self.selectedPerms addObject:cell.perm];
+    } else {
+        [self pushLoginView];
     }
 }
 
 - (void)repermPermAtCell:(PermInfoCell*)cell {
-    CreatePermViewController *controller = [[CreatePermViewController alloc] initWithNibName:@"CreatePermViewController" bundle:nil];
-    controller.currentPerm = cell.perm;
-    [controller setTarget:self action:@selector(repermDidFinish:)];
-    [self.navigationController pushViewController:controller animated:YES];
-    [controller release];
+    if ([[AppData getInstance] didLogin]) {
+        CreatePermViewController *controller = [[CreatePermViewController alloc] initWithNibName:@"CreatePermViewController" bundle:nil];
+        controller.currentPerm = cell.perm;
+        [controller setTarget:self action:@selector(repermDidFinish:)];
+        [self.navigationController pushViewController:controller animated:YES];
+        [controller release];
+    } else {
+        [self pushLoginView];
+    }
 }
 
 - (id)getDataLoaderWithPermAction {
