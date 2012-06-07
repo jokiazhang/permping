@@ -16,9 +16,13 @@
     
     NSArray     *fieldsTitle;
     NSMutableDictionary *userInfo;
+    
+    NSString *joinType;
 }
+@property (nonatomic, retain) NSString *joinType;
 @property (nonatomic, retain) NSMutableDictionary *userInfo;
 @property (nonatomic, retain) NSArray *fieldsTitle;
+@property (nonatomic, retain) NSArray *testValues;
 - (IBAction)createAccountButtonDidTouch:(id)sender;
 
 @end

@@ -10,6 +10,8 @@
 #import "ExplorerViewController.h"
 #import "CreatePermCell.h"
 #import "Utils.h"
+#import "CreateBoard_DataLoader.h"
+#import "AppData.h"
 
 @implementation CreateBoardViewController
 @synthesize selectedCategory;
@@ -92,8 +94,10 @@
         
         if (row == 1) {
             cell.textLabel.text = @"Name :";
+            cell.valueTextField.text = @"Tuan's board 1";
         } else {
             cell.textLabel.text = @"Description :";
+            cell.valueTextField.text = @"Tuan's board 1 description";
         }
         return cell;
     }
@@ -117,8 +121,17 @@
     [self.navigationController popToViewController:self animated:YES];
 }
 
+- (BOOL)validateInputData {
+    // TODO
+    return YES;
+}
+
 - (void)createBoard {
-    
+    if([self validateInputData])
+    {
+        [self startActivityIndicator];
+        self.dataLoaderThread = [[ThreadManager getInstance] dispatchToConcurrentBackgroundNormalPriorityQueueWithTarget:self selector:@selector(createBoardForMe:thread:) dataObject:[self getMyDataLoader]];
+    }
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
@@ -126,5 +139,49 @@
     return YES;
 }
 
+#pragma mark - Override methods
+- (id)getMyDataLoader
+{
+    CreateBoard_DataLoader *loader = [[CreateBoard_DataLoader alloc] init];
+    return [loader autorelease];
+
+}
+
+- (void)createBoardForMe:(id)loader thread:(id<ThreadManagementProtocol>)threadObj
+{
+    
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+    if (![threadObj isCancelled]) {
+        dispatch_async(dispatch_get_main_queue(), ^(void)
+                       {
+                           //[self initializeUIControls]; 
+                           
+                       });
+        CreatePermCell *cell1 = (CreatePermCell*)[boardInfoTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
+        CreatePermCell *cell2 = (CreatePermCell*)[boardInfoTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:0]];
+        NSString *userId = [[[AppData getInstance] user] userId];
+        NSDictionary *boardInfo = [NSDictionary dictionaryWithObjectsAndKeys:userId, @"uid", self.selectedCategory.categoryId, @"cid", cell1.valueTextField.text, @"bname", cell2.valueTextField.text, @"board_desc", nil];
+        Taglist_CloudResponse *response =  [(CreateBoard_DataLoader *)loader createBoardWithInfo:boardInfo];
+        NSError *error = response.responseError;
+        if (![threadObj isCancelled]) {
+            dispatch_async(dispatch_get_main_queue(), ^(void)
+                           {
+                               [self stopActivityIndicator];
+                               if (error) {
+                                   [Utils displayAlert:[error localizedDescription] delegate:nil];
+                                   if (error.code == 200) {
+                                       [self dismiss:nil];
+                                   }
+                               } else {
+                                   [Utils displayAlert:NSLocalizedString(@"CreateBoardFailed", "Failed to create board. Please try again later.") delegate:nil];
+                                   [self dismiss:nil];
+                               }
+                           });
+            
+        }
+    }
+    //[myLoader release];
+    [pool drain];
+}
 
 @end

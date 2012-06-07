@@ -99,6 +99,7 @@
         UserProfileModel *user = [response getUserProfile];
         if (![threadObj isCancelled]) {
             self.userProfile = user;
+            [AppData getInstance].user = user;
             dispatch_async(dispatch_get_main_queue(), ^(void)
                            {
                                [self stopActivityIndicator];

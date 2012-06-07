@@ -29,3 +29,5 @@
 "NoFoundPerms" = "No found Perms";
 
 "ProfileAccountButton" = "Account";
+
+"CreateBoardFailed" = "Failed to create board. Please try again later.";

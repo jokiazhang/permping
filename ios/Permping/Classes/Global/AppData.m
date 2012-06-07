@@ -15,6 +15,7 @@
 #import "CreateAccount_DataLoader.h"
 #import "CreateAccountResponse.h"
 #import "Login_DataLoader.h"
+#import "SA_OAuthTwitterEngine.h"
 
 @interface AppData ()
 @property (nonatomic, retain)NSDictionary *userInfo;
@@ -68,6 +69,7 @@
     [self saveState];
 	[_userInfo release];
     [_user release];
+    [_engine release];
     [super dealloc];
 }
 
@@ -93,7 +95,7 @@
         NSError *error = response.responseError;
         if (!error) {
             self.user = [response getUserProfile];
-            //_isLogout = NO;
+            _isLogout = NO;
         }
         
         if (![threadObj isCancelled]) {
@@ -138,7 +140,7 @@
                        });
         UserProfileResponse *response = [(Login_DataLoader *)loader loginWithUserInfo:self.userInfo];
         NSError *error = response.responseError;
-        if (!error || error.code == 200) {
+        if (error && error.code == 200) {
             self.user = [response getUserProfile];
             _isLogout = NO;
         }
@@ -178,7 +180,7 @@
                        });
         Taglist_CloudResponse *response = [(Login_DataLoader *)loader logoutWithUserId:self.user.userId];
         NSError *error = response.responseError;
-        if (error.code == 200) {
+        if (error && error.code == 200) {
             self.user = nil;
             _isLogout = YES;
         }
@@ -228,7 +230,7 @@
 
 - (void) saveState
 {
-    if (self.user) {
+    if (!_isLogout && self.user.userId) {
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         [defaults setObject:self.user.userId forKey:@"kUserID"];
         [defaults synchronize];
@@ -278,135 +280,119 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:kSocialNetworkDidLoginNotification object:nil userInfo:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:NO], @"isSuccess", nil]];
     [_post release];
 }
-/*
+
 #pragma mark	-
 #pragma mark		Twitter
 #pragma mark	-
-- (BOOL)twitterLoggedIn {
-    if (!twitterEngine) {
-        twitterEngine = [[SA_OAuthTwitterEngine alloc] initOAuthWithDelegate:self];
-        twitterEngine.consumerKey = TWITTER_CONSUMER_KEY;
-        twitterEngine.consumerSecret = TWITTER_CONSUMER_SECRECT;
+- (BOOL)twitterLoggedIn:(UIViewController*)controller {
+    if (!_engine) {
+        _engine = [[SA_OAuthTwitterEngine alloc] initOAuthWithDelegate: self];
+        _engine.consumerKey = TWITTER_CONSUMER_KEY;
+        _engine.consumerSecret = TWITTER_CONSUMER_SECRECT;
     }
     
-    if ([twitterEngine isAuthorized]) {
+    if ([_engine isAuthorized]) {
         return YES;
     }
+
+    UIViewController *sacontroller = [SA_OAuthTwitterController controllerToEnterCredentialsWithTwitterEngine: _engine delegate: self];
+    sacontroller.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+    sacontroller.modalPresentationStyle = UIModalPresentationFormSheet;
     
-    // show login diaglog
-    if (saController) {
-        [saController release];  
-        saController = nil;
-    }
-    SA_OAuthTwitterController *controller = [SA_OAuthTwitterController controllerToEnterCredentialsWithTwitterEngine:twitterEngine delegate:self];
-    if (controller) {
-        saController = [controller retain];
-    }
-    [saController showLoginDialog];
+    [controller presentModalViewController: sacontroller animated: YES];
     
     return NO;
 }
 
-#pragma mark - SA_OAuthTwitterEngineDelegate
-
+#pragma mark - SA_OAuthTwitterEngineDelegatedelayedDismiss
 - (void) storeCachedTwitterOAuthData: (NSString *) data forUsername: (NSString *) username {
-	NSUserDefaults	*defaults = [NSUserDefaults standardUserDefaults];
-    NSLog(@"storeCachedTwitterOAuthData data - username: %@ - %@", data, username);
+    NSLog(@"storing twitter login: %@", username);
+    
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	[defaults setObject: data forKey: @"authData"];
     [defaults setObject: kUserServiceTypeTwitter forKey:kUserServiceTypeKey];
 	[defaults synchronize];
+    
+    NSLog(@"cached login data: %@", data);
 }
 
 - (NSString *) cachedTwitterOAuthDataForUsername: (NSString *) username {
+    NSLog(@"twitter login: %@", username);
     
 	return [[NSUserDefaults standardUserDefaults] objectForKey: @"authData"];
 }
 
-
-#pragma mark - SA_OAuthTwitterController Delegate
-
+#pragma mark SA_OAuthTwitterControllerDelegate
 - (void) OAuthTwitterController: (SA_OAuthTwitterController *) controller authenticatedWithUsername: (NSString *) username {
-    
-	NSLog(@"Authenticated with user %@", username);
+	NSLog(@"Authenicated for %@", username);
     [[NSNotificationCenter defaultCenter] postNotificationName:kSocialNetworkDidLoginNotification object:nil userInfo:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:YES], @"isSuccess", kUserServiceTypeTwitter, kUserServiceTypeKey, nil]];
 }
 
 - (void) OAuthTwitterControllerFailed: (SA_OAuthTwitterController *) controller {
+	NSLog(@"Authentication Failed!");
     [[NSNotificationCenter defaultCenter] postNotificationName:kSocialNetworkDidLoginNotification object:nil userInfo:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:NO], @"isSuccess", nil]];
-	NSLog(@"Authentication Failure");
-    
 }
 
 - (void) OAuthTwitterControllerCanceled: (SA_OAuthTwitterController *) controller {
-    
-	NSLog(@"Authentication Canceled");
+	NSLog(@"Authentication Canceled.");
+
 }
 
-
-#pragma mark - MGTwitterEngineDelegate Methods
-- (void)requestSucceeded:(NSString *)connectionIdentifier {
-    
-	NSLog(@"Request Suceeded: %@", connectionIdentifier);
-    
+#pragma mark TwitterEngineDelegate
+- (void) requestSucceeded: (NSString *) requestIdentifier {
+	NSLog(@"Request %@ succeeded", requestIdentifier);
 }
 
-- (void)requestFailed:(NSString *)connectionIdentifier withError:(NSError *)error {
-    
-    NSLog(@"Request Failed: %@. Error: %@", connectionIdentifier, [error localizedDescription]);
+- (void) requestFailed: (NSString *) requestIdentifier withError: (NSError *) error {
+	NSLog(@"Request %@ failed with error: %@", requestIdentifier, error);
     
 }
 
-
-- (void)statusesReceived:(NSArray *)statuses forRequest:(NSString *)connectionIdentifier {
-    
-	NSLog(@"Recieved Status");
-}
-
-- (void)receivedObject:(NSDictionary *)dictionary forRequest:(NSString *)connectionIdentifier {
-    
-	NSLog(@"Recieved Object: %@", dictionary);
-}
-
-- (void)directMessagesReceived:(NSArray *)messages forRequest:(NSString *)connectionIdentifier {
-    
-	NSLog(@"Direct Messages Received: %@", messages);
-}
-
-- (void)userInfoReceived:(NSArray *)userInfo forRequest:(NSString *)connectionIdentifier {
-    
-	NSLog(@"User Info Received: %@", userInfo);
-}
-
-- (void)miscInfoReceived:(NSArray *)miscInfo forRequest:(NSString *)connectionIdentifier {
-    
-	NSLog(@"Misc Info Received: %@", miscInfo);
-}
-
-*/
 - (NSString*)oauthTokenType {
-    NSString *oauthTokenType = [[NSUserDefaults standardUserDefaults] objectForKey:kOauthTokenTypeKey];
+    NSString *oauthTokenType = [[NSUserDefaults standardUserDefaults] objectForKey:kUserServiceTypeKey];
     if (!oauthTokenType) {
         oauthTokenType = kUserServiceTypeNormal;
     }
     return oauthTokenType;
-    
 }
 
 - (NSString*)oauthToken {
     NSString *oauthTokenType = [self oauthTokenType];
-    NSString *oauthToken = @"";
+    NSString *oauthToken = nil;
     if ([oauthTokenType isEqualToString:kUserServiceTypeFacebook]) {
         NSString *fbToken = [[NSUserDefaults standardUserDefaults] objectForKey:@"access_token"];
         if (fbToken) {
             oauthToken = fbToken;
         }
     } else if ([oauthTokenType isEqualToString:kUserServiceTypeTwitter]){
-        NSString *twToken = [[NSUserDefaults standardUserDefaults] objectForKey:@"authData"];
-        if (twToken) {
-            oauthToken = twToken;
+        NSString *twData = [[NSUserDefaults standardUserDefaults] objectForKey:@"authData"];
+        if (twData) {
+            NSRange begin = [twData rangeOfString:@"oauth_token="];
+            if (begin.location != NSNotFound) {
+                twData = [twData substringFromIndex:NSMaxRange(begin)];
+                NSRange end = [twData rangeOfString:@"&"];
+                oauthToken = [twData substringToIndex:end.location];
+            }
         }
     }
     return oauthToken;
+}
+
+- (NSString*)oauthTokenSecret {
+    NSString *oauthTokenType = [self oauthTokenType];
+    NSString *secrect = nil;
+    if ([oauthTokenType isEqualToString:kUserServiceTypeTwitter]){
+        NSString *twData = [[NSUserDefaults standardUserDefaults] objectForKey:@"authData"];
+        if (twData) {
+            NSRange begin = [twData rangeOfString:@"oauth_token_secret="];
+            if (begin.location != NSNotFound) {
+                twData = [twData substringFromIndex:NSMaxRange(begin)];
+                NSRange end = [twData rangeOfString:@"&"];
+                secrect = [twData substringToIndex:end.location];
+            }
+        }
+    }
+    return secrect;
 }
 
 @end

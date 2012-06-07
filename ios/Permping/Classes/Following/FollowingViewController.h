@@ -22,7 +22,10 @@
     IBOutlet UIButton   *useTwitterButton;
     IBOutlet UIButton   *joinPermpingButton;
     
+    NSString            *selectedJoinType;
+    
 }
+@property (nonatomic, retain) NSString *selectedJoinType;
 
 - (IBAction)joinButtonDidTouch:(id)sender;
 

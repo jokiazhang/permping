@@ -14,6 +14,16 @@
 
 @implementation JoinViewController
 @synthesize fieldsTitle, userInfo;
+@synthesize testValues;
+@synthesize joinType;
+
+- (void)dealloc {
+    self.joinType = nil;
+    self.userInfo = nil;
+    self.fieldsTitle = nil;
+    self.testValues = nil;
+    [super dealloc];
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -41,6 +51,9 @@
     self.navigationItem.leftBarButtonItem = [Utils barButtonnItemWithTitle:NSLocalizedString(@"globals.cancel", @"Cancel") target:self selector:@selector(dismiss:)];
     
     self.fieldsTitle = [NSArray arrayWithObjects:@"Name :", @"Username :", @"Email :", @"Password :", @"Confirm Password :", nil];
+    
+    self.testValues = [NSArray arrayWithObjects:@"aabcde", @"aabcde", @"aabcde@test.com", @"123456", @"123456", nil];
+    
 
 }
 
@@ -48,12 +61,6 @@
 {
     [super viewDidUnload];
     // Release any retained subviews of the main view.
-}
-
-- (void)dealloc
-{
-    self.userInfo = nil;
-    [super dealloc];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -99,6 +106,9 @@
         cell.valueTextField.secureTextEntry = YES;
     }
     cell.textLabel.text = [self.fieldsTitle objectAtIndex:indexPath.row];
+    if (self.testValues) {
+        cell.valueTextField.text = [self.testValues objectAtIndex:indexPath.row];
+    }
     return cell;
 }
 
@@ -139,32 +149,35 @@
         [Utils displayAlert:errorMessage delegate:nil];
         return NO;
     }
-    [self.userInfo setObject:[[AppData getInstance] oauthToken] forKey:kUserServiceOauthTokenKey];
-    [self.userInfo setObject:[[AppData getInstance] oauthTokenType] forKey:kUserServiceTypeKey];
+    
+    [self.userInfo setObject:self.joinType forKey:kUserServiceTypeKey];
+    
+    NSString *token = [[AppData getInstance] oauthToken];
+    if (token) {
+        [self.userInfo setObject:token forKey:kUserServiceOauthTokenKey];
+    }
+    NSString *secret = [[AppData getInstance] oauthTokenSecret];
+    if (secret) {
+        [self.userInfo setObject:secret forKey:kUserServiceOauthTokenSecretKey];
+    }
+    
     return YES;
 }
 
 - (IBAction)createAccountButtonDidTouch:(id)sender {
     [self startActivityIndicator];
-    
-    [self.userInfo setObject:@"abcd" forKey:kUserServiceNameKey];
-    [self.userInfo setObject:@"abcd" forKey:kUserServiceUserNameKey];
-    [self.userInfo setObject:@"abcd@test.com" forKey:kUserServiceEmailKey];
-    [self.userInfo setObject:@"123456" forKey:kUserServicePasswordKey];
-    [self.userInfo setObject:@"123456" forKey:kUserServiceCPasswordKey];
 
-    [self.userInfo setObject:[[AppData getInstance] oauthToken] forKey:kUserServiceOauthTokenKey];
-    [self.userInfo setObject:[[AppData getInstance] oauthTokenType] forKey:kUserServiceTypeKey];
-    //if ([self validateInputData]) {
+    if ([self validateInputData]) {
+        NSLog(@"self.userInfo: %@", self.userInfo);
         [[AppData getInstance] createAccountWithUserInfo:self.userInfo];
-    //}
+    }
 }
 
 - (void)createAccountDidFinish:(NSNotification*)notification {
     [self stopActivityIndicator];
     BOOL isSuccess = [(NSNumber*)notification.object boolValue];
     if (isSuccess) {
-        [self dismiss:nil];
+        [self.navigationController popToRootViewControllerAnimated:YES];
     }
 }
 
