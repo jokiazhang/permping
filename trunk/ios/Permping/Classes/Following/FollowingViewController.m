@@ -88,6 +88,7 @@
         [joinView removeFromSuperview];
     }
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kSocialNetworkDidLoginNotification object:nil];
+    [self cancelAllThreads];
     
 }
 

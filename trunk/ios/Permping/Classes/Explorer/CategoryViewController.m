@@ -56,6 +56,11 @@
     self.dataLoaderThread = [[ThreadManager getInstance] dispatchToConcurrentBackgroundNormalPriorityQueueWithTarget:self selector:@selector(loadDataForMe:thread:) dataObject:[self getMyDataLoader]];
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [self cancelAllThreads];
+}
+
 #pragma mark - Override methods
 - (id)getMyDataLoader
 {
