@@ -208,7 +208,8 @@ static NSString *kSlideAnimationId = @"KalSwitchMonths";
   
   [self swapMonthsAndSlide:direction keepOneRow:keepOneRow];
   
-  self.selectedTile = [frontMonthView firstTileOfMonth];
+    // tuan comment
+  //self.selectedTile = [frontMonthView firstTileOfMonth];
 }
 
 - (void)slideUp { [self slide:SLIDE_UP]; }

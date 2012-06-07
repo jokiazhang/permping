@@ -19,6 +19,7 @@
     id <KalDataSource> dataSource;
     NSDate *initialDate;
     NSDate *selectedDate;
+    
 }
 
 @property (nonatomic, assign) id<KalDataSource> dataSource;

@@ -203,7 +203,8 @@
 
 - (void)loginDidFinish:(NSNotification*)notification {
     [self stopActivityIndicator];
-    BOOL isSuccess = [(NSNumber*)notification.object boolValue];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kLoginFinishNotification object:nil];
+    BOOL isSuccess = [[notification.userInfo objectForKey:@"isSuccess"] boolValue];
     if (isSuccess) {
         if (target) {
             [target performSelector:action withObject:self];

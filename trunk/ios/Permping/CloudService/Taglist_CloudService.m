@@ -133,7 +133,7 @@ NSString *const kUserServiceOauthTokenSecretKey = @"UserServiceOauthTokenSecretK
     }
     
     PermListResponse *response = [[PermListResponse alloc] init];    
-    response.responseType = PermResponseTypeFollowing;
+    response.responseType = PermResponseTypeFromBoard;
     [[Taglist_CloudRequestDispatcher getInstance] dispatchRequest: request response:response];
     [request release];
     

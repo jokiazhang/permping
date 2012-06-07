@@ -46,12 +46,7 @@
 - (void)viewDidUnload
 {
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:kLoginFinishNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kLogoutFinishNotification object:nil];
 }
 
 - (IBAction)logoutButtonDidTouch:(id)sender {
@@ -71,7 +66,8 @@
 
 - (void)logoutDidFinish:(NSNotification*)notification {
     [self stopActivityIndicator];
-    BOOL isSuccess = [(NSNumber*)notification.object boolValue];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kLogoutFinishNotification object:nil];
+    BOOL isSuccess = [[notification.userInfo objectForKey:@"isSuccess"] boolValue];
     if (isSuccess) {
         [self dismissWithFlipAnimationTransition];
     }
