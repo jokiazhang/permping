@@ -36,6 +36,7 @@
     CGRect tr = self.textLabel.frame;
     tr.origin.x = CGRectGetMaxX(tr) + 15;
     tr.size.width = rect.size.width - tr.origin.x - 25;
+    tr.size.height = 21;
     valueTextField.frame = tr;
 }
 

@@ -8,6 +8,8 @@
 
 #import "PermInfoCell.h"
 #import "Utility.h"
+#import "AppData.h"
+
 @implementation PermInfoCell
 @synthesize commentLabel, descriptionLabel, repermButton, commentButton, likeButton, locationButton, statusLabel;
 @synthesize delegate, perm;
@@ -75,12 +77,11 @@
     y = 10;
     s = [commentLabel.text sizeWithFont:commentLabel.font constrainedToSize:CGSizeMake(300, CGFLOAT_MAX)];
     commentLabel.frame = CGRectMake(10, y, 300, s.height);
-    
+
     y = CGRectGetMaxY(commentLabel.frame) + 10;
     descriptionLabel.frame = CGRectMake(10, y, 300, 21);
     
     y = CGRectGetMaxY(descriptionLabel.frame) + 10;
-    
     repermButton.frame = CGRectMake(10, y, 70, 37);
     likeButton.frame = CGRectMake(95, y, 70, 37);
     commentButton.frame = CGRectMake(180, y, 100, 37);
@@ -95,7 +96,24 @@
     self.perm = in_perm;
     self.commentLabel.text = perm.permDesc;
     self.descriptionLabel.text = @"5시간 전 bleacherreport.com에서 업로드됨";
+    NSString *like = ([in_perm.permUserlikeCount intValue]==0)?@"Like":@"Unlike";
+    [likeButton setTitle:like forState:UIControlStateNormal];
+    
     self.statusLabel.text = [NSString stringWithFormat:@"Likes %@ Comments %@ Repin %@", perm.permLikeCount, perm.permCommentCount, perm.permRepinCount];
+    
+    if ([[AppData getInstance] didLogin]) {
+        likeButton.enabled = YES;
+        commentButton.enabled = YES;
+        if ([[AppData getInstance].user.userId isEqualToString:in_perm.permUser.userId]) {
+            repermButton.enabled = YES;
+        } else {
+            repermButton.enabled = NO;
+        }
+    } else {
+        likeButton.enabled = NO;
+        commentButton.enabled = NO;
+        repermButton.enabled = NO;
+    }
 }
 
 - (void)likePermButtonDidTouch:(id)sender {

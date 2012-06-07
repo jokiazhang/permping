@@ -94,10 +94,10 @@
         
         if (row == 1) {
             cell.textLabel.text = @"Name :";
-            cell.valueTextField.text = @"Tuan's board 1";
+            //cell.valueTextField.text = @"Tuan's board 1";
         } else {
             cell.textLabel.text = @"Description :";
-            cell.valueTextField.text = @"Tuan's board 1 description";
+            //cell.valueTextField.text = @"Tuan's board 1 description";
         }
         return cell;
     }

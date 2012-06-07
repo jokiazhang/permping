@@ -31,7 +31,7 @@
     UIActivityIndicatorView *ai = (UIActivityIndicatorView *)[self viewWithTag:TAG_ACTIVITY_INDICATOR];
     if (ai == nil) {
         ai = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:activityStyle];
-        ai.center = self.center;
+        ai.center = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
         ai.hidesWhenStopped = YES;
         ai.tag = TAG_ACTIVITY_INDICATOR;
         [self addSubview:ai];
@@ -76,7 +76,7 @@
     UIActivityIndicatorView *ai = (UIActivityIndicatorView *)[self viewWithTag:TAG_ACTIVITY_INDICATOR];
     if (ai == nil) {
         ai = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:activityStyle];
-        ai.center = self.center;
+        ai.center = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
         ai.hidesWhenStopped = YES;
         ai.tag = TAG_ACTIVITY_INDICATOR;
         [self addSubview:ai];

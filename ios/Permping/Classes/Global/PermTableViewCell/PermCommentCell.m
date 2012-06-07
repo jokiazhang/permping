@@ -42,7 +42,7 @@
         activity.center = CGPointMake(17, 17);
     }
     
-    self.textLabel.frame = CGRectMake (50, 5, 250, 15);
+    self.textLabel.frame = CGRectMake (50, 5, 250, 18);
     self.detailTextLabel.frame = CGRectMake(50, 25, 250, 20);
 }
 

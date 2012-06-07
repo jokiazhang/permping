@@ -20,6 +20,8 @@
     
     NSMutableArray                      *thumbnailDownloaders;
     
+    BOOL                                startedActivityIndicator;
+    
     // check viewWillAppear from pop or from tabbar item pressed
     BOOL                                _didPushToAnotherViewController;
 }

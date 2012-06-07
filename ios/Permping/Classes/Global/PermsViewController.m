@@ -81,6 +81,8 @@
     commentTextField.borderStyle = UITextBorderStyleRoundedRect;
     commentTextField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     commentTextField.autocorrectionType = UITextAutocorrectionTypeNo;
+    commentTextField.delegate = self;
+    commentTextField.text = @"";
 
     UIBarButtonItem *content = [[UIBarButtonItem alloc] initWithCustomView:commentTextField];
     UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(doneCommentButtonDidTouch:)];
@@ -191,7 +193,7 @@
                 h = [height floatValue];
             }
         } else if (indexPath.row == 2) {
-            CGSize s = [perm.permDesc sizeWithFont:[UIFont systemFontOfSize:15] constrainedToSize:CGSizeMake(300, CGFLOAT_MAX)];
+            CGSize s = [perm.permDesc sizeWithFont:[UIFont systemFontOfSize:16] constrainedToSize:CGSizeMake(300, CGFLOAT_MAX)];
             h = 120 + s.height;
         } else if (indexPath.row - 3 == perm.permComments.count) { 
             h = 10;
@@ -339,14 +341,15 @@
         [self startActivityIndicator];
         self.dataLoaderThread = [[ThreadManager getInstance] dispatchToConcurrentBackgroundNormalPriorityQueueWithTarget:self selector:@selector(peformLikePermAction:thread:) dataObject:[self getMyDataLoader]];
     } else {
-        
+        NSLog(@"user did not login");
     }
-    
 }
 
 - (void)commentPermAtCell:(PermInfoCell*)cell {
-    [commentTextField becomeFirstResponder];
-    [self.selectedPerms addObject:cell.perm];
+    if ([[AppData getInstance] didLogin]) {
+        [commentTextField becomeFirstResponder];
+        [self.selectedPerms addObject:cell.perm];
+    }
 }
 
 - (void)repermPermAtCell:(PermInfoCell*)cell {
@@ -373,6 +376,7 @@
                        });
         NSString *userId = [[[AppData getInstance] user] userId];
         PermModel *perm = [[self.selectedPerms objectAtIndex:0] retain];
+        NSInteger permIndex = [self.resultModel.arrResults indexOfObjectIdenticalTo:perm];
         [self.selectedPerms removeObjectAtIndex:0];
         PermActionResponse *response = [(FollowingScreen_DataLoader *)loader likePermWithId:perm.permId userId:userId];
         NSError *error = response.responseError;
@@ -383,6 +387,18 @@
                                if (error) {
                                    [Utils displayAlert:[error localizedDescription] delegate:nil];
                                } else {
+                                   if (permIndex < [self.resultModel.arrResults count]) {
+                                       PermModel *perm = [self.resultModel.arrResults objectAtIndex:permIndex];
+                                       perm.permLikeCount = response.totalLikes;
+                                       if ([response.status isEqualToString:@"1"]) { // did like
+                                           perm.permUserlikeCount = @"1";
+                                       } else { // did unlike
+                                           perm.permUserlikeCount = @"0";
+                                       }
+                                       [permTableview beginUpdates];
+                                       [permTableview reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:2 inSection:permIndex]] withRowAnimation:UITableViewRowAnimationFade];
+                                       [permTableview endUpdates];
+                                   }
                                    
                                }
                            });
@@ -425,9 +441,14 @@
 }
 
 - (void)doneCommentButtonDidTouch:(id)sender {
-    [commentTextField resignFirstResponder];
-    [self startActivityIndicator];
-    self.dataLoaderThread = [[ThreadManager getInstance] dispatchToConcurrentBackgroundNormalPriorityQueueWithTarget:self selector:@selector(peformCommentPermAction:thread:) dataObject:[self getMyDataLoader]];
+    if (![commentTextField.text isEqualToString:@""]) {
+        [commentTextField resignFirstResponder];
+        [self startActivityIndicator];
+        self.dataLoaderThread = [[ThreadManager getInstance] dispatchToConcurrentBackgroundNormalPriorityQueueWithTarget:self selector:@selector(peformCommentPermAction:thread:) dataObject:[self getMyDataLoader]];
+    } else {
+        [Utils displayAlert:@"Please input your comment" delegate:nil];
+    }
+    
 }
 
 #pragma mark -
