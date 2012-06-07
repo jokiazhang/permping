@@ -90,7 +90,7 @@
                                [self stopActivityIndicator];
                                [self finishLoadData];
                            });
-            [self downloadThumbnailForObjectList:arr];
+            //[self downloadThumbnailForObjectList:arr];
         }
     }
     //[myLoader release];

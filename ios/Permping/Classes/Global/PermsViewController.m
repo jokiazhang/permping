@@ -145,6 +145,10 @@
 }
 
 - (void)resetData {
+    if ([loadMoreSpinner superview]) {
+        [loadMoreSpinner removeFromSuperview];
+    }
+    
     self.resultModel.arrResults = nil;
     self.resultModel = [[[Taglist_NDModel alloc] init] autorelease];
     
@@ -207,6 +211,11 @@
     NSInteger index = indexPath.row;
     NSInteger section = indexPath.section;
     if (section < [resultModel.arrResults count]) {
+        if ([loadMoreSpinner superview]) {
+            [loadMoreSpinner stopAnimating];
+            [loadMoreSpinner removeFromSuperview];
+        }
+        
         PermModel *perm = [self.resultModel.arrResults objectAtIndex:indexPath.section];
         if (index == 0) {
             static NSString *cellIdentifier = @"PermUserCell";
@@ -229,8 +238,10 @@
             //NSLog(@"imageString: %@", perm.permImage);
             [cell.permImageView setImageWithURL:[NSURL URLWithString:perm.permImage] success:^(UIImage *image) {
                 if (![permsImageHeight objectForKey:[NSString stringWithFormat:@"%d", section]]) {
+                    
                     CGFloat height = [Utils sizeWithImage:image constrainedToSize:CGSizeMake(300, 300)].height;
                     [permsImageHeight setObject:[NSNumber numberWithFloat:height] forKey:[NSString stringWithFormat:@"%d", section]];
+                    NSLog(@"height: %f", height);
                     dispatch_async(dispatch_get_main_queue(), ^{
                         [permTableview reloadData];
                     });
@@ -273,11 +284,6 @@
             [cell setCellWithComment:comment];
             return cell;
         }
-        
-        /*if ([loadMoreSpinner superview]) {
-            [loadMoreSpinner stopAnimating];
-            [loadMoreSpinner removeFromSuperview];
-        }*/
     } else {
         //show spinner
         static NSString *cellIdentifier = @"TaglistCellSpinner";
@@ -287,7 +293,7 @@
             cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] autorelease];
         }
         
-        if (![loadMoreSpinner superview]) {
+        if ([loadMoreSpinner superview] != cell) {
             [cell.contentView addSubview:self.loadMoreSpinner];
             if (![loadMoreSpinner isAnimating]) {
                 [self.loadMoreSpinner startAnimating];
@@ -314,7 +320,7 @@
 
 #pragma mark -
 #pragma mark UIScrollView delegate
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+/*- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {    
     //check more item
     CGPoint point = [scrollView contentOffset];
@@ -331,7 +337,26 @@
             [self.dataLoaderThread cancel];
             self.dataLoaderThread = [[ThreadManager getInstance] dispatchToConcurrentBackgroundNormalPriorityQueueWithTarget:self selector:@selector(loadMoreDataForMe:thread:) dataObject:[self getMyDataLoader]];
         }
+}*/
+
+- (void)scrollViewDidScroll: (UIScrollView*)scroll {
+    // UITableView only moves in one direction, y axis
+    NSInteger currentOffset = scroll.contentOffset.y;
+    NSInteger maximumOffset = scroll.contentSize.height - scroll.frame.size.height;
+    
+    // Change 10.0 to adjust the distance from bottom
+    if (maximumOffset - currentOffset <= 10.0  && [self.resultModel isHasMoreResult] && self.resultModel.isFetching == NO) {
+        self.resultModel.isFetching = YES;
+        
+        //reload table 
+        [permTableview performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:YES];
+        
+        //start to get more feeds
+        [self.dataLoaderThread cancel];
+        self.dataLoaderThread = [[ThreadManager getInstance] dispatchToConcurrentBackgroundNormalPriorityQueueWithTarget:self selector:@selector(loadMoreDataForMe:thread:) dataObject:[self getMyDataLoader]];
+    }
 }
+
 
 
 # pragma marm - Perm actions

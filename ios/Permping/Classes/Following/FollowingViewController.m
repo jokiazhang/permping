@@ -130,7 +130,7 @@
                                [self stopActivityIndicator];
                                [self finishLoadData]; 
                            });
-            [self downloadThumbnailForObjectList:arr];
+            //[self downloadThumbnailForObjectList:arr];
         }
     }
     //[myLoader release];
@@ -167,7 +167,7 @@
             [permTableview reloadData]; 
         });
         
-        [self downloadThumbnailForObjectList:moreItems];
+        //[self downloadThumbnailForObjectList:moreItems];
     }
     self.resultModel.isFetching = NO;
     [pool drain];
