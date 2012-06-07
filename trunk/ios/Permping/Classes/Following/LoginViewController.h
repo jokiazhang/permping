@@ -19,9 +19,11 @@
     id  target;
     SEL action;
     
+    NSString                *loginType;
+    
     BOOL    _showingKeyBoard;
 }
-
+@property (nonatomic, retain) NSString *loginType;
 @property (nonatomic, assign) BOOL hasCancel; // YES by default
 
 - (void)setTarget:(id)in_target action:(SEL)in_action;
@@ -31,5 +33,7 @@
 - (IBAction)twitterButtonDidTouch:(id)sender;
 
 - (IBAction)loginButtonDidTouch:(id)sender;
+
+- (void)removeObservers;
 
 @end

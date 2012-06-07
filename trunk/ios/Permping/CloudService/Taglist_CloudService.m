@@ -21,7 +21,7 @@
 
 NSString *const kUserServiceTypeNormal = @"perm";
 NSString *const kUserServiceTypeTwitter = @"twitter";
-NSString *const kUserServiceTypeFacebook = @"Facebook";
+NSString *const kUserServiceTypeFacebook = @"facebook";
 
 NSString *const kUserServiceTypeKey = @"UserServiceTypeKey";
 NSString *const kUserServiceOauthTokenKey = @"UserServiceOauthTokenKey";
@@ -30,6 +30,7 @@ NSString *const kUserServiceUserNameKey = @"UserServiceUserNameKey";
 NSString *const kUserServiceEmailKey = @"UserServiceEmailKey";
 NSString *const kUserServicePasswordKey = @"UserServicePasswordKey";
 NSString *const kUserServiceCPasswordKey = @"UserServiceCPasswordKey";
+NSString *const kUserServiceOauthTokenSecretKey = @"UserServiceOauthTokenSecretKey";
 
 @implementation Taglist_CloudService
 
@@ -234,6 +235,21 @@ NSString *const kUserServiceCPasswordKey = @"UserServiceCPasswordKey";
     return [response autorelease];
 }
 
++ (Taglist_CloudResponse*)createBoardWithInfo:(NSDictionary*)boardInfo {
+    Taglist_CloudRequest *request = [[Taglist_CloudRequest alloc] init];
+    request.requestURL = [SERVER_API stringByAppendingString:@"/permservice/createboard"];
+    request.method = @"POST";
+    NSLog(@"boardInfo: %@", boardInfo);
+    [request addParameter:@"bname" value:[boardInfo valueForKey:@"bname"]];
+    [request addParameter:@"cid" value:[boardInfo valueForKey:@"cid"]];
+    [request addParameter:@"uid" value:[boardInfo valueForKey:@"uid"]];
+    [request addParameter:@"board_desc" value:[boardInfo valueForKey:@"board_desc"]];
+    PermActionResponse *response = [[PermActionResponse alloc] init];
+    [[Taglist_CloudRequestDispatcher getInstance] dispatchRequest:request response:response];
+    [request release];
+    return [response autorelease];
+}
+
 #pragma mark	-
 #pragma mark		user services
 #pragma mark	-
@@ -244,6 +260,7 @@ NSString *const kUserServiceCPasswordKey = @"UserServiceCPasswordKey";
     request.method = @"POST";
     [request addParameter:@"type" value:[userInfo valueForKey:kUserServiceTypeKey]];
     [request addParameter:@"oauth_token" value:[userInfo valueForKey:kUserServiceOauthTokenKey]];
+    [request addParameter:@"oauth_token_secret" value:kUserServiceOauthTokenSecretKey];
     [request addParameter:@"name" value:[userInfo valueForKey:kUserServiceNameKey]];
     [request addParameter:@"username" value:[userInfo valueForKey:kUserServiceUserNameKey]];
     [request addParameter:@"email" value:[userInfo valueForKey:kUserServiceEmailKey]];
@@ -263,6 +280,7 @@ NSString *const kUserServiceCPasswordKey = @"UserServiceCPasswordKey";
     request.method = @"POST";
     [request addParameter:@"type" value:[userInfo valueForKey:kUserServiceTypeKey]];
     [request addParameter:@"oauth_token" value:[userInfo valueForKey:kUserServiceOauthTokenKey]];
+    [request addParameter:@"oauth_token_secret" value:kUserServiceOauthTokenSecretKey];
     [request addParameter:@"email" value:[userInfo valueForKey:kUserServiceEmailKey]];
     [request addParameter:@"password" value:[userInfo valueForKey:kUserServicePasswordKey]];
     

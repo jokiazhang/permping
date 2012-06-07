@@ -18,6 +18,9 @@
 #import "AppData.h"
 #import "CreatePermViewController.h"
 
+#define kSeperatorCellTag 333
+#define kSpinnerCellTag 123456
+
 @interface PermsViewController ()
 @property (nonatomic, retain) UITableView *permTableview;
 @property (nonatomic, retain) NSMutableDictionary *permsImageHeight;
@@ -94,6 +97,7 @@
     [super viewDidLoad];
     self.loadMoreSpinner = [[[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge] autorelease];
     self.loadMoreSpinner.backgroundColor = [UIColor grayColor];
+    self.loadMoreSpinner.tag = kSpinnerCellTag;
     [self initCommentToolBar];
     
     self.noFoundLabel = [[[UILabel alloc] initWithFrame:self.view.bounds] autorelease];
@@ -123,7 +127,10 @@
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
-	
+	if ([loadMoreSpinner superview]) {
+        [loadMoreSpinner removeFromSuperview];
+    }
+    
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
 }
@@ -176,26 +183,29 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     CGFloat h = 60.0;
-    PermModel *perm = [self.resultModel.arrResults objectAtIndex:indexPath.section];
-    if (indexPath.row == 1) {
-        NSNumber *height = [permsImageHeight objectForKey:[NSString stringWithFormat:@"%d", indexPath.section]];
-        if (height) {
-            h = [height floatValue];
+    if (indexPath.section < [resultModel.arrResults count]) {
+        PermModel *perm = [self.resultModel.arrResults objectAtIndex:indexPath.section];
+        if (indexPath.row == 1) {
+            NSNumber *height = [permsImageHeight objectForKey:[NSString stringWithFormat:@"%d", indexPath.section]];
+            if (height) {
+                h = [height floatValue];
+            }
+        } else if (indexPath.row == 2) {
+            CGSize s = [perm.permDesc sizeWithFont:[UIFont systemFontOfSize:15] constrainedToSize:CGSizeMake(300, CGFLOAT_MAX)];
+            h = 120 + s.height;
+        } else if (indexPath.row - 3 == perm.permComments.count) { 
+            h = 10;
         }
-    } else if (indexPath.row == 2) {
-        CGSize s = [perm.permDesc sizeWithFont:[UIFont systemFontOfSize:15] constrainedToSize:CGSizeMake(300, CGFLOAT_MAX)];
-        h = 120 + s.height;
-    } else if (indexPath.row - 3 == perm.permComments.count) { 
-        h = 10;
-    }
+    }    
     return h;
 }
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    PermModel *perm = [self.resultModel.arrResults objectAtIndex:indexPath.section];
+    
     NSInteger index = indexPath.row;
     NSInteger section = indexPath.section;
     if (section < [resultModel.arrResults count]) {
+        PermModel *perm = [self.resultModel.arrResults objectAtIndex:indexPath.section];
         if (index == 0) {
             static NSString *cellIdentifier = @"PermUserCell";
             PermUserCell *cell = (PermUserCell*)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
@@ -245,7 +255,7 @@
                 cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] autorelease];
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
                 UIView *seperator = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, 1, 1)] autorelease];
-                seperator.tag = 333;
+                seperator.tag = kSeperatorCellTag;
                 seperator.backgroundColor = [UIColor colorWithWhite:0 alpha:0.1];
                 [cell.contentView addSubview:seperator];
             }
@@ -275,8 +285,7 @@
             cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] autorelease];
         }
         
-        if ([loadMoreSpinner superview] != cell) {
-            self.loadMoreSpinner.frame = CGRectMake((cell.frame.size.width - self.loadMoreSpinner.frame.size.width) / 2, (44 - self.loadMoreSpinner.frame.size.height) / 2, self.loadMoreSpinner.frame.size.width, self.loadMoreSpinner.frame.size.height);
+        if (![loadMoreSpinner superview]) {
             [cell.contentView addSubview:self.loadMoreSpinner];
             if (![loadMoreSpinner isAnimating]) {
                 [self.loadMoreSpinner startAnimating];
@@ -290,9 +299,13 @@
     if ([cell isKindOfClass:[PermCommentCell class]]) {
         cell.textLabel.font = [UIFont systemFontOfSize:15];
     } else if ([cell isMemberOfClass:[UITableViewCell class]]) {
-        UIView *v = [cell.contentView viewWithTag:333];
+        UIView *v = [cell.contentView viewWithTag:kSeperatorCellTag];
         if (v) {
             v.frame = CGRectMake(10, cell.frame.size.height/2, cell.frame.size.width-20, 2);
+        }
+        v = [cell.contentView viewWithTag:kSpinnerCellTag];
+        if (v) {
+            self.loadMoreSpinner.frame = CGRectMake((cell.frame.size.width - self.loadMoreSpinner.frame.size.width) / 2, (44 - self.loadMoreSpinner.frame.size.height) / 2, self.loadMoreSpinner.frame.size.width, self.loadMoreSpinner.frame.size.height);
         }
     }
 }

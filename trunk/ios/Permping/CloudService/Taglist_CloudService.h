@@ -26,6 +26,7 @@ extern NSString *const kUserServiceUserNameKey;
 extern NSString *const kUserServiceEmailKey;
 extern NSString *const kUserServicePasswordKey;
 extern NSString *const kUserServiceCPasswordKey;
+extern NSString *const kUserServiceOauthTokenSecretKey;
 
 @interface Taglist_CloudService : NSObject 
 {
@@ -44,6 +45,7 @@ extern NSString *const kUserServiceCPasswordKey;
 + (PermActionResponse*)likePermWithId:(NSString*)permId userId:(NSString*)userId;
 + (PermActionResponse*)commentPermWithId:(NSString*)permId userId:(NSString*)userId content:(NSString*)content;
 + (PermActionResponse*)repermWithId:(NSString*)permId userId:(NSString*)userId boardId:(NSString*)boardId description:(NSString*)desc;
++ (Taglist_CloudResponse*)createBoardWithInfo:(NSDictionary*)boardInfo;
 
 // User service
 + (CreateAccountResponse*)createAccountWithUserInfo:(NSDictionary*)userInfo;

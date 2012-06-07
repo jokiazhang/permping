@@ -11,9 +11,17 @@
 #import "Taglist_CloudService.h"
 #import "AppData.h"
 #import "Utils.h"
+#import "JoinViewController.h"
 
 @implementation LoginViewController
-@synthesize hasCancel;
+@synthesize hasCancel, loginType;
+
+- (void)dealloc {
+    [self removeObservers];
+    self.loginType = nil;
+    [target release];
+    [super dealloc];
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -62,8 +70,8 @@
     }
 }
 
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
+- (void)viewDidUnload {
+    [super viewDidUnload];
     [self removeObservers];
 }
 
@@ -138,10 +146,29 @@
 }
 
 - (void)performLoginWithType:(NSString*)type {
+    [self startActivityIndicator];
+    self.loginType = type;
     UserInfoTableViewCell *cell1 = (UserInfoTableViewCell*)[formTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
     UserInfoTableViewCell *cell2 = (UserInfoTableViewCell*)[formTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
-    NSString *token = [[AppData getInstance] oauthToken];
-    NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:type, kUserServiceTypeKey, cell2.valueTextField.text, kUserServicePasswordKey, cell1.valueTextField.text, kUserServiceEmailKey, token, kUserServiceOauthTokenKey,nil];
+    
+    NSMutableDictionary *userInfo = [NSMutableDictionary dictionaryWithObjectsAndKeys:type, kUserServiceTypeKey, nil];
+    if ([type isEqualToString:kUserServiceTypeNormal]) {
+        [userInfo setObject:cell2.valueTextField.text forKey:kUserServicePasswordKey];
+        [userInfo setObject:cell1.valueTextField.text forKey:kUserServiceEmailKey];
+    } else {
+        NSString *token = [[AppData getInstance] oauthToken];
+        if (token) {
+            [userInfo setObject:token forKey:kUserServiceOauthTokenKey];
+        }
+        if ([type isEqualToString:kUserServiceTypeTwitter]) {
+            NSString *secret = [[AppData getInstance] oauthTokenSecret];
+            if (secret) {
+                [userInfo setObject:secret forKey:kUserServiceOauthTokenSecretKey];
+            }
+        }
+    }
+        
+    NSLog(@"loginWithUserInfo: %@", userInfo);
     [[AppData getInstance] loginWithUserInfo:userInfo];
 }
 
@@ -151,8 +178,6 @@
     if (isSuccess) {
         NSString *type = [notification.userInfo objectForKey:kUserServiceTypeKey];
         [self performLoginWithType:type];
-    } else {
-        [self stopActivityIndicator];
     }
 }
 
@@ -165,7 +190,7 @@
 }
 
 - (IBAction)twitterButtonDidTouch:(id)sender {
-    if ([[AppData getInstance] twitterLoggedIn]) {
+    if ([[AppData getInstance] twitterLoggedIn:self]) {
         [self performLoginWithType:kUserServiceTypeTwitter];
     } else {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(socialNetworkLoginDidFinish:) name:kSocialNetworkDidLoginNotification object:nil];
@@ -173,7 +198,6 @@
 }
 
 - (IBAction)loginButtonDidTouch:(id)sender {
-    [self startActivityIndicator];
     [self performLoginWithType:kUserServiceTypeNormal];
 }
 
@@ -185,6 +209,14 @@
             [target performSelector:action withObject:self];
         } else {
             [self dismiss:nil];
+        }
+    } else {
+        if ([self.loginType isEqualToString:kUserServiceTypeFacebook] ||
+            [self.loginType isEqualToString:kUserServiceTypeTwitter]) {
+            JoinViewController *controller = [[JoinViewController alloc] initWithNibName:@"JoinViewController" bundle:nil];
+            controller.joinType = self.loginType;
+            [self.navigationController pushViewController:controller animated:YES];
+            [controller release];
         }
     }
 }

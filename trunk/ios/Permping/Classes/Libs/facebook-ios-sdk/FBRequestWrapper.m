@@ -34,7 +34,7 @@ static FBRequestWrapper *defaultWrapper = nil;
 	if (isLoggedIn) {
         [self getFacebookName];
 		[[NSUserDefaults standardUserDefaults] setObject:facebook.accessToken forKey:@"access_token"];
-        [[NSUserDefaults standardUserDefaults] setObject:kUserServiceTypeFacebook forKey:kOauthTokenTypeKey];
+        [[NSUserDefaults standardUserDefaults] setObject:kUserServiceTypeFacebook forKey:kUserServiceTypeKey];
 		[[NSUserDefaults standardUserDefaults] setObject:facebook.expirationDate forKey:@"exp_date"];
 		[[NSUserDefaults standardUserDefaults] synchronize];
 	}
@@ -110,7 +110,7 @@ static FBRequestWrapper *defaultWrapper = nil;
 - (void)fbDidLogin {
 	isLoggedIn = YES;
 	[[NSUserDefaults standardUserDefaults] setObject:facebook.accessToken forKey:@"access_token"];
-    [[NSUserDefaults standardUserDefaults] setObject:kUserServiceTypeFacebook forKey:kOauthTokenTypeKey];
+    [[NSUserDefaults standardUserDefaults] setObject:kUserServiceTypeFacebook forKey:kUserServiceTypeKey];
 	[[NSUserDefaults standardUserDefaults] setObject:facebook.expirationDate forKey:@"exp_date"];
 	[[NSUserDefaults standardUserDefaults] synchronize];
 }

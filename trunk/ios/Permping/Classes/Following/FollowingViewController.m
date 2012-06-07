@@ -9,12 +9,19 @@
 #import "FollowingViewController.h"
 #import "JoinViewController.h"
 #import "LoginViewController.h"
+#import "Taglist_CloudService.h"
 #import "AppData.h"
 #import "FollowingScreen_DataLoader.h"
 #import "PermListResponse.h"
 #import "Utils.h"
 
 @implementation FollowingViewController
+@synthesize selectedJoinType;
+
+- (void)dealloc {
+    self.selectedJoinType = nil;
+    [super dealloc];
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -194,14 +201,23 @@
     _didPushToAnotherViewController = YES;
 }
 
-- (void)showJoinViewController {
+- (void)showJoinViewController:(NSString*)type {
     if ([joinView superview]) {
         [joinView removeFromSuperview];
-        [[NSNotificationCenter defaultCenter] removeObserver:self name:kSocialNetworkDidLoginNotification object:nil];
-        JoinViewController *controller = [[JoinViewController alloc] initWithNibName:@"JoinViewController" bundle:nil];
-        [self.navigationController pushViewController:controller animated:YES];
-        [controller release];
-        _didPushToAnotherViewController = YES;
+    }
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kSocialNetworkDidLoginNotification object:nil];
+    JoinViewController *controller = [[JoinViewController alloc] initWithNibName:@"JoinViewController" bundle:nil];
+    controller.joinType = type;
+    [self.navigationController pushViewController:controller animated:YES];
+    [controller release];
+    _didPushToAnotherViewController = YES;
+}
+
+- (void)handleSocialNetworkDidLogin:(NSNotification*)notification {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kSocialNetworkDidLoginNotification object:nil];
+    BOOL isSuccess = [[notification.userInfo objectForKey:@"isSuccess"] boolValue];
+    if (isSuccess) {
+        [self showJoinViewController:self.selectedJoinType];
     }
 }
 
@@ -210,19 +226,21 @@
     if (button.tag == 0) {
         [joinView removeFromSuperview];
     } else if (button.tag == 1) { // facebook
+        self.selectedJoinType = kUserServiceTypeFacebook;
         if ([[AppData getInstance] fbLoggedIn]) {
-            [self showJoinViewController];
+            [self showJoinViewController:kUserServiceTypeFacebook];
         } else {
-            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showJoinViewController) name:kSocialNetworkDidLoginNotification object:nil];
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleSocialNetworkDidLogin:) name:kSocialNetworkDidLoginNotification object:nil];
         }
     } else if (button.tag == 2) { // twitter
-        if ([[AppData getInstance] twitterLoggedIn]) {
-            [self showJoinViewController];
+        self.selectedJoinType = kUserServiceTypeTwitter;
+        if ([[AppData getInstance] twitterLoggedIn:self]) {
+            [self showJoinViewController:kUserServiceTypeTwitter];
         } else {
-            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showJoinViewController) name:kSocialNetworkDidLoginNotification object:nil];
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleSocialNetworkDidLogin:) name:kSocialNetworkDidLoginNotification object:nil];
         }
     } else {
-        [self showJoinViewController];
+        [self showJoinViewController:kUserServiceTypeNormal];
     }
 }
 
