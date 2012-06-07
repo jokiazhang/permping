@@ -26,6 +26,12 @@
 - (void)layoutSubviews {
     [super layoutSubviews];
     avatarView.frame = CGRectMake(10, 5, 34, 34);
+    
+    UIView *activity = [avatarView viewWithTag:TAG_ACTIVITY_INDICATOR];
+    if (activity) {
+        activity.center = CGPointMake(17, 17);
+    }
+    
     CGFloat maxW = 250;
     [self.textLabel sizeToFit];
     [self.detailTextLabel sizeToFit];

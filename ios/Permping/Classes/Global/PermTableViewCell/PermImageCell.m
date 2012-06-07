@@ -19,6 +19,7 @@
         
         UIView *myContentView = self.contentView;
         permImageView = [[UIImageView alloc] initWithFrame:CGRectZero];
+        permImageView.backgroundColor = [UIColor clearColor];
         [myContentView addSubview:permImageView];
     }
     return self;
@@ -31,6 +32,7 @@
 
 - (void)layoutSubviews {
     [super layoutSubviews];
+    permImageView.frame = self.bounds;
     if (permImageView.image) {
         CGFloat width = permImageView.image.size.width;
         if (width < 300) {
@@ -39,7 +41,10 @@
             permImageView.frame = CGRectInset(self.bounds, 10, 0);
         }
     } else {
-        permImageView.frame = CGRectZero;
+        UIView *activity = [permImageView viewWithTag:TAG_ACTIVITY_INDICATOR];
+        if (activity) {
+            activity.center = permImageView.center;
+        }
     }
 }
 
