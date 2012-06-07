@@ -36,7 +36,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
     self.navigationItem.leftBarButtonItem = [Utils barButtonnItemWithTitle:NSLocalizedString(@"globals.back", @"Back") target:self selector:@selector(dismiss:)];
 }
 
@@ -49,7 +48,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
+    [self resetData];
     [self startActivityIndicator];
     self.resultModel.arrResults = nil;
     self.resultModel = [[[Taglist_NDModel alloc] init] autorelease];
@@ -96,7 +95,7 @@
                                //reload table
                                [self finishLoadData]; 
                            });
-            [self downloadThumbnailForObjectList:arr];
+            //[self downloadThumbnailForObjectList:arr];
         }
     }
     //[myLoader release];
