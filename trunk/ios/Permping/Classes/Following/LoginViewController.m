@@ -121,6 +121,7 @@
         cell = [[UserInfoTableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:reuserIdentifier];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.valueTextField.delegate = self;
+        cell.valueTextField.text = @"";
     }
     if (indexPath.row == 0) {
         cell.textLabel.text = @"Email Address :";
@@ -197,8 +198,28 @@
     }
 }
 
+- (BOOL)validateInputData {
+    NSString *errorMessage = nil;
+    
+    UserInfoTableViewCell *cell1 = (UserInfoTableViewCell*)[formTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+    UserInfoTableViewCell *cell2 = (UserInfoTableViewCell*)[formTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
+    if ([cell1.valueTextField.text isEqualToString:@""] ||
+         [cell2.valueTextField.text isEqualToString:@""]) {
+        errorMessage = @"Please input required fields";
+    }
+    
+    if (errorMessage) {
+        [Utils displayAlert:errorMessage delegate:nil];
+        return NO;
+    }
+    return YES;
+}
+
+
 - (IBAction)loginButtonDidTouch:(id)sender {
-    [self performLoginWithType:kUserServiceTypeNormal];
+    if ([self validateInputData]) {
+        [self performLoginWithType:kUserServiceTypeNormal];
+    }
 }
 
 - (void)loginDidFinish:(NSNotification*)notification {

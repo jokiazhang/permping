@@ -28,7 +28,7 @@
 -(void) setImageWithURL:(NSURL *)url usingActivityIndicatorStyle : (UIActivityIndicatorViewStyle) activityStyle
 {
 
-    /*UIActivityIndicatorView *ai = (UIActivityIndicatorView *)[self viewWithTag:TAG_ACTIVITY_INDICATOR];
+    UIActivityIndicatorView *ai = (UIActivityIndicatorView *)[self viewWithTag:TAG_ACTIVITY_INDICATOR];
     if (ai == nil) {
         ai = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:activityStyle];
         ai.center = self.center;
@@ -37,7 +37,7 @@
         [self addSubview:ai];
     }
     
-    [ai startAnimating];*/
+    [ai startAnimating];
     [self setImageWithURL:url placeholderImage:nil];
 }
 
@@ -73,7 +73,7 @@
 }
 
 - (void)setImageWithURL:(NSURL *)url success:(void (^)(UIImage *image))success failure:(void (^)(NSError *error))failure usingActivityIndicatorStyle : (UIActivityIndicatorViewStyle) activityStyle {
-    /*UIActivityIndicatorView *ai = (UIActivityIndicatorView *)[self viewWithTag:TAG_ACTIVITY_INDICATOR];
+    UIActivityIndicatorView *ai = (UIActivityIndicatorView *)[self viewWithTag:TAG_ACTIVITY_INDICATOR];
     if (ai == nil) {
         ai = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:activityStyle];
         ai.center = self.center;
@@ -82,7 +82,7 @@
         [self addSubview:ai];
     }
     
-    [ai startAnimating];*/
+    [ai startAnimating];
     
     [self setImageWithURL:url placeholderImage:nil success:success failure:failure];
 }

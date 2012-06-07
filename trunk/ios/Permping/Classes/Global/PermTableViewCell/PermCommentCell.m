@@ -37,6 +37,11 @@
 - (void)layoutSubviews {
     [super layoutSubviews];
     avatarView.frame = CGRectMake(10, 5, 34, 34);
+    UIView *activity = [avatarView viewWithTag:TAG_ACTIVITY_INDICATOR];
+    if (activity) {
+        activity.center = CGPointMake(17, 17);
+    }
+    
     self.textLabel.frame = CGRectMake (50, 5, 250, 15);
     self.detailTextLabel.frame = CGRectMake(50, 25, 250, 20);
 }
