@@ -22,7 +22,6 @@
     
     IBOutlet UITableView *boardTableView;
 }
-@property (nonatomic, retain) UserProfileModel *userProfile;
 
 - (void)reloadData;
 @end

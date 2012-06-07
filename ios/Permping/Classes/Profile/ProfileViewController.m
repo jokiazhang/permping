@@ -17,10 +17,8 @@
 #import "Utils.h"
 
 @implementation ProfileViewController
-@synthesize userProfile;
 
 - (void) dealloc {
-    self.userProfile = nil;
     [super dealloc];
 }
 
@@ -94,17 +92,18 @@
                            //[self initializeUIControls]; 
                            
                        });
-        
-        UserProfileResponse *response = [(UserProfile_DataLoader *)loader getUserProfileWithId:@"121"];
-        UserProfileModel *user = [response getUserProfile];
-        if (![threadObj isCancelled]) {
-            self.userProfile = user;
-            [AppData getInstance].user = user;
-            dispatch_async(dispatch_get_main_queue(), ^(void)
-                           {
-                               [self stopActivityIndicator];
-                               [self reloadData];
-                           });
+        NSString *userId = [[[AppData getInstance] user] userId];
+        if (userId) {
+            UserProfileResponse *response = [(UserProfile_DataLoader *)loader getUserProfileWithId:@"121"];
+            UserProfileModel *user = [response getUserProfile];
+            if (![threadObj isCancelled]) {
+                [AppData getInstance].user = user;
+                dispatch_async(dispatch_get_main_queue(), ^(void)
+                               {
+                                   [self stopActivityIndicator];
+                                   [self reloadData];
+                               });
+            }
         }
     }
     //[myLoader release];
@@ -112,12 +111,13 @@
 }
 
 - (void)reloadData {
-    if (self.userProfile) {
+    if ([[AppData getInstance] didLogin]) {
+        UserProfileModel *user = [[AppData getInstance] user];
         boardTableView.hidden = NO;
         headerView.hidden = NO;
-        [avatarView setImageWithURL:[NSURL URLWithString:self.userProfile.userAvatar] usingActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-        userNameLabel.text = self.userProfile.userName;
-        permsNumberLabel.text = [NSString stringWithFormat:@"perms %@ followers %@", self.userProfile.pinCount, self.userProfile.followerCount];
+        [avatarView setImageWithURL:[NSURL URLWithString:user.userAvatar] usingActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        userNameLabel.text = user.userName;
+        permsNumberLabel.text = [NSString stringWithFormat:@"perms %@ followers %@", user.pinCount, user.followerCount];
         [boardTableView reloadData];
     } else {
         boardTableView.hidden = YES;
@@ -131,7 +131,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.userProfile.boards count];
+    return [[[AppData getInstance] user].boards count];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -145,7 +145,7 @@
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:reuseIdentifier] autorelease];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
-    BoardModel *board = [self.userProfile.boards objectAtIndex:indexPath.row];
+    BoardModel *board = [[[AppData getInstance] user].boards objectAtIndex:indexPath.row];
     cell.textLabel.text = board.title;
     cell.detailTextLabel.text = [NSString stringWithFormat:@"perms %@ followers %@", board.pinCount, board.followers];
     return cell;
@@ -153,7 +153,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
-    BoardModel *board = [self.userProfile.boards objectAtIndex:indexPath.row];
+    BoardModel *board = [[[AppData getInstance] user].boards objectAtIndex:indexPath.row];
     NSLog(@"board : %@", board.boardId);
     
     BoardViewController *lc_controller = [[BoardViewController alloc] initWithNibName:@"BoardViewController" bundle:nil];
