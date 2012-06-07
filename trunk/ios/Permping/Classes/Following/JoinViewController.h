@@ -18,6 +18,8 @@
     NSMutableDictionary *userInfo;
     
     NSString *joinType;
+    BOOL _showingKeyBoard;
+    NSInteger _currentTextFieldTag;
 }
 @property (nonatomic, retain) NSString *joinType;
 @property (nonatomic, retain) NSMutableDictionary *userInfo;

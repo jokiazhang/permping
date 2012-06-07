@@ -107,7 +107,7 @@
                                    [Utils displayAlert:[error localizedDescription] delegate:nil];
                                }
                                
-                               [[NSNotificationCenter defaultCenter] postNotificationName:kCreateAccountFinishNotification object:[NSNumber numberWithBool:(error==nil)] userInfo:nil];
+                               [[NSNotificationCenter defaultCenter] postNotificationName:kCreateAccountFinishNotification object:self userInfo:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:!_isLogout], @"isSuccess", nil]];
                            });
         }
     }
@@ -118,7 +118,7 @@
 
 - (void)createAccountWithUserInfo:(NSDictionary*)in_userInfo {
     if (in_userInfo == nil) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:kCreateAccountFinishNotification object:[NSNumber numberWithBool:_isLogout] userInfo:nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:kCreateAccountFinishNotification object:self userInfo:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:!_isLogout], @"isSuccess", nil]];
         return;
     }
     self.userInfo = in_userInfo;
