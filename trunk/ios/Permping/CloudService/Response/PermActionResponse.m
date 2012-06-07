@@ -60,4 +60,13 @@
 }
 
 
+/* like
+ <response>
+ <like>
+ <totallikes>4</totallikes>
+ <status>1</status>
+ </like>
+ </response>
+ */
+
 @end

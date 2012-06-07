@@ -76,6 +76,9 @@
 #pragma mark - Public methods
 - (void)startActivityIndicator
 {
+    if (startedActivityIndicator) {
+        return;
+    }
     UIActivityIndicatorView *spinView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
     spinView.hidesWhenStopped = YES;
     CGRect  thisFrame = self.view.frame;
@@ -98,10 +101,14 @@
     [spinView startAnimating];
     self.spinner = spinView;
     [spinView release];
+    startedActivityIndicator = YES;
 }
 
 - (void)startActivityIndicatorAtYPos:(float)yPos
 {
+    if (startedActivityIndicator) {
+        return;
+    }
     UIActivityIndicatorView *spinView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
     spinView.hidesWhenStopped = YES;
     CGRect  thisFrame = self.view.frame;
@@ -124,10 +131,12 @@
     [spinView startAnimating];
     self.spinner = spinView;
     [spinView release];
+    startedActivityIndicator = YES;
 }
 
 - (void)stopActivityIndicator
 {
+    startedActivityIndicator = NO;
     [self.spinnerBackground removeFromSuperview];
     self.spinnerBackground = nil;
     [self.spinner stopAnimating];

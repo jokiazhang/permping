@@ -216,7 +216,7 @@ NSString *const kUserServiceOauthTokenSecretKey = @"UserServiceOauthTokenSecretK
     [request addParameter:@"cmnt" value:content];
     [request addParameter:@"pid" value:permId];
     [request addParameter:@"uid" value:userId];
-    
+    NSLog(@"--- %@, %@, %@", content, permId, userId);
     PermActionResponse *response = [[PermActionResponse alloc] init];
     [[Taglist_CloudRequestDispatcher getInstance] dispatchRequest:request response:response];
     [request release];
