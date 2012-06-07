@@ -18,6 +18,7 @@
 @synthesize joinType;
 
 - (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kCreateAccountFinishNotification object:nil];
     self.joinType = nil;
     self.userInfo = nil;
     self.fieldsTitle = nil;
@@ -60,6 +61,7 @@
 - (void)viewDidUnload
 {
     [super viewDidUnload];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kCreateAccountFinishNotification object:nil];
     // Release any retained subviews of the main view.
 }
 
@@ -72,7 +74,7 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:kCreateAccountFinishNotification object:nil];
+    
 }
 
 #pragma mark - <UITableViewDelegate + DataSource> implementation
@@ -175,7 +177,8 @@
 
 - (void)createAccountDidFinish:(NSNotification*)notification {
     [self stopActivityIndicator];
-    BOOL isSuccess = [(NSNumber*)notification.object boolValue];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kCreateAccountFinishNotification object:nil];
+    BOOL isSuccess = [[notification.userInfo objectForKey:@"isSuccess"] boolValue];
     if (isSuccess) {
         [self.navigationController popToRootViewControllerAnimated:YES];
     }

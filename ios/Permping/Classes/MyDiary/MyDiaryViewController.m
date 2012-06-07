@@ -68,7 +68,6 @@
     kalView = [[[KalView alloc] initWithFrame:r delegate:self logic:logic] autorelease];
     kalView.tableView.hidden = YES;
     [self.view addSubview:kalView];
-    [kalView selectDate:[KalDate dateFromNSDate:self.initialDate]];
     [self reloadData];
 }
 

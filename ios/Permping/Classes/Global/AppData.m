@@ -93,8 +93,9 @@
                        });
         CreateAccountResponse *response = [(CreateAccount_DataLoader *)loader createAccountWithUserInfo:self.userInfo];
         NSError *error = response.responseError;
-        if (!error) {
-            self.user = [response getUserProfile];
+        UserProfileModel *lc_user = [response getUserProfile];
+        if (lc_user && lc_user.userId) {
+            self.user = lc_user;
             _isLogout = NO;
         }
         
@@ -105,6 +106,7 @@
                                if (error) {
                                    [Utils displayAlert:[error localizedDescription] delegate:nil];
                                }
+                               
                                [[NSNotificationCenter defaultCenter] postNotificationName:kCreateAccountFinishNotification object:[NSNumber numberWithBool:(error==nil)] userInfo:nil];
                            });
         }
@@ -140,8 +142,9 @@
                        });
         UserProfileResponse *response = [(Login_DataLoader *)loader loginWithUserInfo:self.userInfo];
         NSError *error = response.responseError;
-        if (error && error.code == 200) {
-            self.user = [response getUserProfile];
+        UserProfileModel *lc_user = [response getUserProfile];
+        if ((error && error.code == 200) || (lc_user && lc_user.userId)) {
+            self.user = lc_user;
             _isLogout = NO;
         }
         
@@ -152,7 +155,7 @@
                                if (error) {
                                    [Utils displayAlert:[error localizedDescription] delegate:nil];
                                }
-                               [[NSNotificationCenter defaultCenter] postNotificationName:kLoginFinishNotification object:[NSNumber numberWithBool:!_isLogout] userInfo:nil];
+                               [[NSNotificationCenter defaultCenter] postNotificationName:kLoginFinishNotification object:self userInfo:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:!_isLogout], @"isSuccess", nil]];
                            });
         }
     }
@@ -162,7 +165,7 @@
 
 - (void)loginWithUserInfo:(NSDictionary*)in_userInfo {
     if (in_userInfo == nil) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:kLoginFinishNotification object:[NSNumber numberWithBool:!_isLogout] userInfo:nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:kLoginFinishNotification object:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:!_isLogout], @"isSuccess", nil] userInfo:nil];
         return;
     }
     self.userInfo = in_userInfo;
@@ -191,7 +194,7 @@
                                if (error) {
                                    [Utils displayAlert:[error localizedDescription] delegate:nil];
                                }
-                               [[NSNotificationCenter defaultCenter] postNotificationName:kLogoutFinishNotification object:[NSNumber numberWithBool:_isLogout] userInfo:nil];
+                               [[NSNotificationCenter defaultCenter] postNotificationName:kLogoutFinishNotification object:self userInfo:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:_isLogout], @"isSuccess", nil]];
                            });
         }
     }
@@ -201,8 +204,16 @@
 
 - (void)logout {
     if (!self.user) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:kLogoutFinishNotification object:[NSNumber numberWithBool:_isLogout] userInfo:nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:kLogoutFinishNotification object:self userInfo:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:_isLogout], @"isSuccess", nil]];
     }
+    
+    // logout facebook
+    [[FBRequestWrapper defaultManager] FBLogout];
+    
+    // logout twitter
+    [_engine endUserSession];
+    
+    
     [[ThreadManager getInstance] dispatchToConcurrentBackgroundNormalPriorityQueueWithTarget:self selector:@selector(loadLogoutDataForMe:thread:) dataObject:[self getLoginDataLoader]];
 }
 
@@ -307,10 +318,13 @@
 #pragma mark - SA_OAuthTwitterEngineDelegatedelayedDismiss
 - (void) storeCachedTwitterOAuthData: (NSString *) data forUsername: (NSString *) username {
     NSLog(@"storing twitter login: %@", username);
-    
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	[defaults setObject: data forKey: @"authData"];
-    [defaults setObject: kUserServiceTypeTwitter forKey:kUserServiceTypeKey];
+    
+    if (!username  || [username isEqualToString:@""]) {
+        [defaults removeObjectForKey:kUserServiceTypeKey];
+    }
+    
 	[defaults synchronize];
     
     NSLog(@"cached login data: %@", data);
