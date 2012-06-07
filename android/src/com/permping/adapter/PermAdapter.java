@@ -57,7 +57,7 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 	public Button like;
 	public Button reperm;
 	public Button comment;
-	
+
 	private Activity activity;
 	private Boolean header;
 	private User user;
@@ -69,8 +69,7 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 	private int screenWidth;
 	private int screenHeight;
 	private Context context;
-	
-	
+
 	public PermAdapter(Context context, int textViewResourceId,
 			ArrayList<Perm> items, Activity activity, int screenWidth,
 			int screenHeight, Boolean header) {
@@ -102,13 +101,14 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 				this.activity, context, new String[] { Constants.EMAIL,
 						Constants.PUBLISH_STREAM });
 		prefs = PreferenceManager.getDefaultSharedPreferences(context);
-		
+
 	}
-	
-	private String getActivityGroupName(){
-		//com.permping.activity.FollowerActivity
-		
-		String activityName = activity.getParent().getClass().getName().replace("com.permping.activity.", "");
+
+	private String getActivityGroupName() {
+		// com.permping.activity.FollowerActivity
+
+		String activityName = activity.getParent().getClass().getName()
+				.replace("com.permping.activity.", "");
 		return activityName;
 	}
 
@@ -127,11 +127,13 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 				public void onClick(View v) {
 					SharedPreferences.Editor editor = prefs.edit();
 					// Set default login type.
-					editor.putString(Constants.LOGIN_TYPE, Constants.PERMPING_LOGIN);
+					editor.putString(Constants.LOGIN_TYPE,
+							Constants.PERMPING_LOGIN);
 					editor.commit();
 					Intent i = new Intent(v.getContext(),
-							LoginPermActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-					v.getContext().startActivity(i);					
+							LoginPermActivity.class)
+							.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+					v.getContext().startActivity(i);
 				}
 			});
 
@@ -155,13 +157,14 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 			like = (Button) view.findViewById(R.id.btnLike);
 			// Validate Like or Unlike
 			if (perm != null) {
-				if (perm.getPermUserLikeCount() != null && "0".equals(perm.getPermUserLikeCount())) {
+				if (perm.getPermUserLikeCount() != null
+						&& "0".equals(perm.getPermUserLikeCount())) {
 					like.setText(Constants.LIKE);
 				} else {
 					like.setText(Constants.UNLIKE);
 				}
 			}
-			
+
 			like.setOnClickListener(new OnClickListener() {
 				public void onClick(final View v) {
 					user = PermUtils.isAuthenticated(v.getContext());
@@ -199,7 +202,8 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 						String permStatus = "Like: " + perm.getPermLikeCount()
 								+ " - Repin: " + perm.getPermRepinCount()
 								+ " - Comment: " + perm.getPermCommentCount();
-						TextView txtStatus = (TextView) view.findViewById(R.id.permStat);
+						TextView txtStatus = (TextView) view
+								.findViewById(R.id.permStat);
 						txtStatus.setText(permStatus);
 					} else {
 						Toast.makeText(view.getContext(), Constants.NOT_LOGIN,
@@ -207,39 +211,47 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 					}
 				}
 			});
-			
-			reperm = (Button) view.findViewById(R.id.btnRepem );
+
+			reperm = (Button) view.findViewById(R.id.btnRepem);
 			reperm.setOnClickListener(new OnClickListener() {
 				public void onClick(final View v) {
 					user = PermUtils.isAuthenticated(v.getContext());
 					if (user != null) {
-						Intent myIntent = new Intent(view.getContext(), NewPermActivity.class);
-						myIntent.putExtra("permID", (String) perm.getId() );
-						View repermView = FollowerActivityGroup.group.getLocalActivityManager() .startActivity("BoardListActivity", myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
-						FollowerActivityGroup.group.replaceView( repermView );
+						Intent myIntent = new Intent(view.getContext(),
+								NewPermActivity.class);
+						myIntent.putExtra("permID", (String) perm.getId());
+						View repermView = FollowerActivityGroup.group
+								.getLocalActivityManager()
+								.startActivity(
+										"BoardListActivity",
+										myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
+								.getDecorView();
+						FollowerActivityGroup.group.replaceView(repermView);
 					} else {
-						Toast.makeText(view.getContext(), Constants.NOT_LOGIN, Toast.LENGTH_LONG).show();
+						Toast.makeText(view.getContext(), Constants.NOT_LOGIN,
+								Toast.LENGTH_LONG).show();
 					}
 				}
 			});
-			
+
 			comment = (Button) view.findViewById(R.id.btnComment);
 			comment.setOnClickListener(new OnClickListener() {
-				
+
 				@Override
 				public void onClick(View v) {
 					user = PermUtils.isAuthenticated(v.getContext());
 					if (user != null) {
 						// Add new view to allow user to enter the comment
-						LinearLayout commentInputLayout = (LinearLayout) view.findViewById(R.id.commentInput);
+						LinearLayout commentInputLayout = (LinearLayout) view
+								.findViewById(R.id.commentInput);
 					}
 				}
 			});
-			
+
 			if (perm != null) {
 				ImageView av = (ImageView) view.findViewById(R.id.authorAvatar);
-				UrlImageViewHelper.setUrlDrawable(av, perm.getAuthor().getAvatar()
-						.getUrl());
+				UrlImageViewHelper.setUrlDrawable(av, perm.getAuthor()
+						.getAvatar().getUrl());
 
 				TextView an = (TextView) view.findViewById(R.id.authorName);
 				an.setText(perm.getAuthor().getName());
@@ -251,22 +263,22 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 				ImageView pv = (ImageView) view.findViewById(R.id.permImage);
 				UrlImageViewHelper.setUrlDrawable(pv, perm.getImage().getUrl());
 				PermUtils.scaleImage(pv, screenWidth, screenHeight);
-				
+
 				// Perm description
 				TextView pd = (TextView) view.findViewById(R.id.permDesc);
 				pd.setText(perm.getDescription());
 
-				String permInfo = "via " + perm.getAuthor().getName() + " on to "
-						+ perm.getBoard().getName();
+				String permInfo = "via " + perm.getAuthor().getName()
+						+ " on to " + perm.getBoard().getName();
 				TextView pi = (TextView) view.findViewById(R.id.permInfo);
 				pi.setText(permInfo);
 
 				String permStat = "Like: " + perm.getPermLikeCount()
-						+ " - Repin: " + perm.getPermRepinCount() + " - Comment: "
-						+ perm.getPermCommentCount();
+						+ " - Repin: " + perm.getPermRepinCount()
+						+ " - Comment: " + perm.getPermCommentCount();
 				TextView ps = (TextView) view.findViewById(R.id.permStat);
 				ps.setText(permStat);
-				
+
 				LinearLayout comments = (LinearLayout) view
 						.findViewById(R.id.comments);
 				for (int i = 0; i < perm.getComments().size(); i++) {
@@ -274,42 +286,45 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 					Comment pcm = perm.getComments().get(i);
 					if (pcm != null && pcm.getAuthor() != null) {
 
-						
-							ImageView cma = (ImageView) cm
-									.findViewById(R.id.commentAvatar);
-							UrlImageViewHelper.setUrlDrawable(cma, pcm
-									.getAuthor().getAvatar().getUrl());
-						
+						ImageView cma = (ImageView) cm
+								.findViewById(R.id.commentAvatar);
+						UrlImageViewHelper.setUrlDrawable(cma, pcm.getAuthor()
+								.getAvatar().getUrl());
+
+						TextView authorName = (TextView) cm
+								.findViewById(R.id.commentAuthor);
+						authorName.setText(pcm.getAuthor().getName());
 
 						TextView cmt = (TextView) cm
 								.findViewById(R.id.commentContent);
 						cmt.setText(pcm.getContent());
-						/*boolean isWrapped = PermUtils.isTextWrapped(activity, cmt.getText().toString(), cmt.getContext());
-						if (isWrapped) {
-							cmt.setMaxLines(5);
-							cmt.setSingleLine(false);
-							cmt.setEllipsize(TruncateAt.MARQUEE);
-						}*/
+						/*
+						 * boolean isWrapped = PermUtils.isTextWrapped(activity,
+						 * cmt.getText().toString(), cmt.getContext()); if
+						 * (isWrapped) { cmt.setMaxLines(5);
+						 * cmt.setSingleLine(false);
+						 * cmt.setEllipsize(TruncateAt.MARQUEE); }
+						 */
 						if (i == (perm.getComments().size() - 1)) {
 							View sp = (View) cm.findViewById(R.id.separator);
 							sp.setVisibility(View.INVISIBLE);
 						}
-						/*	EllipsizingTextView cmt = (EllipsizingTextView) cm
-									.findViewById(R.id.commentContent);
-							cmt.setText(pcm.getContent());
-							
-							if (i == (perm.getComments().size() - 1)) {
-								View sp = (View) cm.findViewById(R.id.separator);
-								sp.setVisibility(View.INVISIBLE);
-							}	*/
-							comments.addView(cm);
+						/*
+						 * EllipsizingTextView cmt = (EllipsizingTextView) cm
+						 * .findViewById(R.id.commentContent);
+						 * cmt.setText(pcm.getContent());
+						 * 
+						 * if (i == (perm.getComments().size() - 1)) { View sp =
+						 * (View) cm.findViewById(R.id.separator);
+						 * sp.setVisibility(View.INVISIBLE); }
+						 */
+						comments.addView(cm);
 					}
 				}
 			}
 			return view;
 		}
 	}
-	
 
 	/**
 	 * This listener is to handle the click action of Join button This should

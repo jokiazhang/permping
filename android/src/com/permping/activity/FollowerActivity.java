@@ -126,7 +126,8 @@ public class FollowerActivity extends Activity {
 		@Override
 		protected void onPostExecute(String sResponse) {
 			loadPerms();
-			if (dialog.isShowing()) {
+			
+			if (dialog != null && dialog.isShowing()) {
 				dialog.dismiss();
 			}
 		}

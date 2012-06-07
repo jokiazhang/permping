@@ -5,13 +5,28 @@
         android:layout_height="fill_parent"
         android:stretchColumns="1">
     <TableRow >
-
-        <ImageView
+		<LinearLayout android:paddingLeft="5dp"
+		    android:orientation="horizontal"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content">
+			<ImageView
             android:id="@+id/commentAvatar"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:paddingTop="5dp"
             />
+        <TextView
+                android:id="@+id/commentAuthor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="5dp"
+            	android:textStyle="bold"
+                android:gravity="center_vertical"
+                android:text=""
+                
+                android:textColor="#696969" />    
+		</LinearLayout>
         
            <TextView
                 android:layout_width="fill_parent"
@@ -19,7 +34,7 @@
                 android:paddingLeft="10dp"
                 android:paddingRight="5dp"
                 android:layout_span="2"
-                android:text="Comment"
+                
                 android:textColor="#000000"/>
         
 	</TableRow>
