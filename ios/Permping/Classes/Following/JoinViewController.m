@@ -48,21 +48,25 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+    //[[NSNotificationCenter defaultCenter] addObserver:self
+    //                                         selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     self.navigationItem.leftBarButtonItem = [Utils barButtonnItemWithTitle:NSLocalizedString(@"globals.cancel", @"Cancel") target:self selector:@selector(dismiss:)];
     
-    self.fieldsTitle = [NSArray arrayWithObjects:@"Name :", @"Username :", @"Email :", @"Password :", @"Confirm Password :", nil];
+    self.fieldsTitle = [NSArray arrayWithObjects:@"Name :", @"Email :", @"Password :", @"Confirm Password :", nil];
     
-    self.testValues = [NSArray arrayWithObjects:@"aabcde", @"aabcde", @"aabcde@test.com", @"123456", @"123456", nil];
-    
-
+    //self.testValues = [NSArray arrayWithObjects:@"aabcde", @"aabcde@test.com", @"123456", @"123456", nil];
 }
 
 - (void)viewDidUnload
 {
     [super viewDidUnload];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kCreateAccountFinishNotification object:nil];
-    // Release any retained subviews of the main view.
+    //[[NSNotificationCenter defaultCenter] removeObserver:self
+    //                                                name:@"UIKeyboardWillShowNotification" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:@"UIKeyboardWillHideNotification" object:nil];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -101,10 +105,11 @@
         cell = [[UserInfoTableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:reuserIdentifier];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.valueTextField.delegate = self;
+        cell.valueTextField.text = @"";
         // note : cell must not be reused
-        cell.valueTextField.tag = indexPath.row;
     }
-    if (indexPath.row == 3 || indexPath.row == 4) {
+    cell.valueTextField.tag = indexPath.row;
+    if (indexPath.row == 2 || indexPath.row == 3) {
         cell.valueTextField.secureTextEntry = YES;
     }
     cell.textLabel.text = [self.fieldsTitle objectAtIndex:indexPath.row];
@@ -120,9 +125,37 @@
 }
 
 #pragma mark - TextFieldDelegate
+- (void)updateInterface {
+    CGRect r = self.view.frame;
+    if (_showingKeyBoard && _currentTextFieldTag==3) {
+        r.origin.y = -30;
+    } else {
+        r.origin.y = 0;
+    }
+    [UIView animateWithDuration:0.2 animations:^{
+        self.view.frame = r;
+    }];
+}
+
+/*- (void)keyboardWillShow:(NSNotification*)notification {
+    _showingKeyBoard = YES;
+    [self updateInterface];
+}*/
+
+- (void)keyboardWillHide:(NSNotification*)notification {
+    _showingKeyBoard = NO;
+    [self updateInterface];
+}
+
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
     return YES;
+}
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+    _currentTextFieldTag = textField.tag;
+    _showingKeyBoard = YES;
+    [self updateInterface];
 }
 
 - (BOOL)validateInputData {
@@ -137,12 +170,10 @@
         if (i == 0) {
             [self.userInfo setObject:cell.valueTextField.text forKey:kUserServiceNameKey];
         } else if (i == 1) {
-            [self.userInfo setObject:cell.valueTextField.text forKey:kUserServiceUserNameKey];
-        } else if (i == 2) {
             [self.userInfo setObject:cell.valueTextField.text forKey:kUserServiceEmailKey];
-        } else if (i == 3) {
+        } else if (i == 2) {
             [self.userInfo setObject:cell.valueTextField.text forKey:kUserServicePasswordKey];
-        } else if (i == 4) {
+        } else if (i == 3) {
             [self.userInfo setObject:cell.valueTextField.text forKey:kUserServiceCPasswordKey];
         }
     }
@@ -167,9 +198,8 @@
 }
 
 - (IBAction)createAccountButtonDidTouch:(id)sender {
-    [self startActivityIndicator];
-
     if ([self validateInputData]) {
+        [self startActivityIndicator];
         NSLog(@"self.userInfo: %@", self.userInfo);
         [[AppData getInstance] createAccountWithUserInfo:self.userInfo];
     }
@@ -178,6 +208,7 @@
 - (void)createAccountDidFinish:(NSNotification*)notification {
     [self stopActivityIndicator];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kCreateAccountFinishNotification object:nil];
+    NSLog(@"aaa : %@", notification.userInfo);
     BOOL isSuccess = [[notification.userInfo objectForKey:@"isSuccess"] boolValue];
     if (isSuccess) {
         [self.navigationController popToRootViewControllerAnimated:YES];

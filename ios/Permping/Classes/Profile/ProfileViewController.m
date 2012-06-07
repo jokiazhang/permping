@@ -93,8 +93,9 @@
                            
                        });
         NSString *userId = [[[AppData getInstance] user] userId];
+        NSLog(@"profile userid: %@", userId);
         if (userId) {
-            UserProfileResponse *response = [(UserProfile_DataLoader *)loader getUserProfileWithId:@"121"];
+            UserProfileResponse *response = [(UserProfile_DataLoader *)loader getUserProfileWithId:userId];
             UserProfileModel *user = [response getUserProfile];
             if (![threadObj isCancelled]) {
                 [AppData getInstance].user = user;
