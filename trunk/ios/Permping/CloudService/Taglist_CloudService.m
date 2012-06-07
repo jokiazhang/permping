@@ -43,7 +43,7 @@ NSString *const kUserServiceOauthTokenSecretKey = @"UserServiceOauthTokenSecretK
 {
     Taglist_CloudPagingRequest *request = [[Taglist_CloudPagingRequest alloc] init];
     request.requestURL = [SERVER_API stringByAppendingString:@"/permservice/getpupolarperm"];
-    
+     request.method = @"POST";
 //    [NSString stringWithFormat:@"%@/api/social/activities/@me/@all", [Taglist_CloudService getTaglistHTTPURLBase]];
     
     [request addRequestCount:count];    
@@ -82,6 +82,7 @@ NSString *const kUserServiceOauthTokenSecretKey = @"UserServiceOauthTokenSecretK
     Taglist_CloudPagingRequest *request = [[Taglist_CloudPagingRequest alloc] init];
     NSLog(@"categorydId: %@", categorydId);
     request.requestURL = [SERVER_API stringByAppendingFormat:@"/permservice/getpermwithcategoryid/%@", categorydId];
+    request.method = @"POST";
     [request addRequestCount:count];
     if (nextId != -1) {
         [request addNextItemId:nextId];
@@ -96,6 +97,7 @@ NSString *const kUserServiceOauthTokenSecretKey = @"UserServiceOauthTokenSecretK
 + (PermListResponse *)getPermWithBoardId:(NSString*)boardId nextItemId:(NSInteger)nextId requestedCount:(NSUInteger)count { 
     Taglist_CloudPagingRequest *request = [[Taglist_CloudPagingRequest alloc] init];
     request.requestURL = [SERVER_API stringByAppendingFormat:@"/permservice/getpermwithboardid/%@", boardId];
+    request.method = @"POST";
     [request addRequestCount:count];
     if (nextId != -1) {
         [request addNextItemId:nextId];
@@ -127,6 +129,7 @@ NSString *const kUserServiceOauthTokenSecretKey = @"UserServiceOauthTokenSecretK
 + (PermListResponse*)getPermWithDate:(NSString*)date nextItemId:(NSInteger)nextId requestCount:(NSUInteger)count{
     Taglist_CloudPagingRequest *request = [[Taglist_CloudPagingRequest alloc] init];
     request.requestURL = [SERVER_API stringByAppendingFormat:@"/permservice/getpermwithdate/%@", date];
+    request.method = @"POST";
     [request addRequestCount:count];    
     if (nextId != -1) {
         [request addNextItemId:nextId];
