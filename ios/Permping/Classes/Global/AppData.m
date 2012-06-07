@@ -229,22 +229,33 @@
     // Read the global preferences and set the app preferences 
     //
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    if ([defaults objectForKey:@"kUserID"]) {
-        self.user = [[UserProfileModel alloc] init];
-        self.user.userId = [defaults objectForKey:@"kUserID"];
+    if ([defaults objectForKey:@"kCurrentUser"]) {
+        NSDictionary *userDict = [defaults objectForKey:@"kCurrentUser"];
+        self.user = [[[UserProfileModel alloc] init] autorelease];
+        self.user.userId = [userDict objectForKey:@"kUserID"];
+        self.user.userName = [userDict objectForKey:@"kUserName"];
+        self.user.userAvatar = [userDict objectForKey:@"kUserAvatar"];
+        self.user.pinCount = [userDict valueForKey:@"kPins"];
+        self.user.followerCount = [userDict valueForKey:@"kFollowers"];
         _isLogout = NO;
     }
     
     return;
-	
 }
 
 - (void) saveState
 {
     if (!_isLogout && self.user.userId) {
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        [defaults setObject:self.user.userId forKey:@"kUserID"];
+        NSMutableDictionary *userDict = [[NSMutableDictionary alloc] initWithCapacity:5];
+        [userDict setObject:self.user.userId forKey:@"kUserID"];
+        [userDict setObject:self.user.userName forKey:@"kUserName"];
+        [userDict setObject:self.user.userAvatar forKey:@"kUserAvatar"];
+        [userDict setObject:self.user.pinCount forKey:@"kPins"];
+        [userDict setObject:self.user.followerCount forKey:@"kFollowers"];
+        [defaults setObject:userDict forKey:@"kCurrentUser"];
         [defaults synchronize];
+        [userDict release];
     }
     
     return;

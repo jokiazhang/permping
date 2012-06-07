@@ -241,7 +241,6 @@
                     
                     CGFloat height = [Utils sizeWithImage:image constrainedToSize:CGSizeMake(300, 300)].height;
                     [permsImageHeight setObject:[NSNumber numberWithFloat:height] forKey:[NSString stringWithFormat:@"%d", section]];
-                    NSLog(@"height: %f", height);
                     dispatch_async(dispatch_get_main_queue(), ^{
                         [permTableview reloadData];
                     });
