@@ -104,7 +104,33 @@
 
 - (void)loadMoreDataForMe:(id)loader thread:(id<ThreadManagementProtocol>)threadObj
 {
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+    NSInteger nextId = self.resultModel.nextItemId;
     
+    
+     PermListResponse *response = [(MyDiaryScreen_DataLoader *)loader getPermWithDate:self.currentDate  nextItemId:nextId requestedCount:30];
+    nextId = response.nextItemId;
+    NSArray *moreItems = [response getResponsePermList];
+    
+    if (![threadObj isCancelled]) {
+        self.resultModel.arrResults = [self.resultModel.arrResults arrayByAddingObjectsFromArray:moreItems];
+        
+        if([resultModel.arrResults count] == 0)
+        {
+            //show alert
+            NSString *content = NSLocalizedString(@"LoadMorePermsNoResult", @"");
+            [Utils displayAlert:content delegate:nil];
+        }
+        self.resultModel.nextItemId = nextId;
+        dispatch_async(dispatch_get_main_queue(), ^(void)
+                       {
+                           [permTableview reloadData]; 
+                       });
+        
+        //[self downloadThumbnailForObjectList:moreItems];
+    }
+    self.resultModel.isFetching = NO;    
+    [pool drain];
 }
 
 - (void)dismiss:(id)sender {
