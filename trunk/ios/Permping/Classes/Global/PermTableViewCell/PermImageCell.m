@@ -7,6 +7,7 @@
 //
 
 #import "PermImageCell.h"
+#import "Utils.h"
 
 @implementation PermImageCell
 @synthesize permImageView;
@@ -34,11 +35,19 @@
     [super layoutSubviews];
     permImageView.frame = self.bounds;
     if (permImageView.image) {
-        CGFloat width = permImageView.image.size.width;
-        if (width < 300) {
-            permImageView.frame = CGRectInset(self.bounds, 10 + (300-width)/2, 0);
+//        CGFloat width = permImageView.image.size.width;
+//        if (width < 300) {
+//            permImageView.frame = CGRectInset(self.bounds, 10 + (300-width)/2, 0);
+//        } else {
+//            permImageView.frame = CGRectInset(self.bounds, 10, 0);
+//        }
+        
+        CGSize desiredSize = [Utils sizeWithImage:permImageView.image constrainedToSize:CGSizeMake(304, 304)];
+        CGFloat width = desiredSize.width;//permImageView.image.size.width;
+        if (width < 304) {
+            permImageView.frame = CGRectInset(self.bounds, 8 + (304-width)/2, 0);
         } else {
-            permImageView.frame = CGRectInset(self.bounds, 10, 0);
+            permImageView.frame = CGRectInset(self.bounds, 8, 0);
         }
     } else {
         UIView *activity = [permImageView viewWithTag:TAG_ACTIVITY_INDICATOR];
