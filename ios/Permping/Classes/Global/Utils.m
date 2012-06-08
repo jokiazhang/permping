@@ -43,13 +43,22 @@
     
     CGFloat width = image.size.width;
     CGFloat height = image.size.height;
-    float desiredWidth = width;
+//    float desiredWidth = width;
+//    float desiredHeight = height;
+//    if (width > constraintSize.width) {
+//        desiredWidth = constraintSize.width;
+//        desiredHeight = (float)height*constraintSize.width/(float)width;
+//    }
+    float desiredWidth = 304;
     float desiredHeight = height;
-    if (width > constraintSize.width) {
-        desiredWidth = constraintSize.width;
-        desiredHeight = (float)height*constraintSize.width/(float)width;
+    if(width < 560)
+    {
+        desiredWidth = width/560 * 304;
+        desiredHeight = height/560 *304;
     }
-
+    else {
+        desiredHeight = height/width *304;
+    }
     return CGSizeMake(desiredWidth, desiredHeight);
 }
 
