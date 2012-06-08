@@ -457,7 +457,7 @@
         NSString *userId = [[[AppData getInstance] user] userId];
         PermModel *perm = [[self.selectedPerms objectAtIndex:0] retain];
         [self.selectedPerms removeObjectAtIndex:0];
-        PermActionResponse *response = [(FollowingScreen_DataLoader *)loader commentPermWithId:userId userId:perm.permId content:commentTextField.text];
+        PermActionResponse *response = [(FollowingScreen_DataLoader *)loader commentPermWithId:perm.permId userId:userId content:commentTextField.text];
         NSError *error = response.responseError;
         if (![threadObj isCancelled]) {
             dispatch_async(dispatch_get_main_queue(), ^(void)
