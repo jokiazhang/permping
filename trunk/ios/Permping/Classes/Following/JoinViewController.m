@@ -195,7 +195,7 @@
     }
     NSString *verifier = [[AppData getInstance] oauthVerifier];
     if (verifier) {
-        [userInfo setObject:verifier forKey:kUserServiceOauthVerifierKey];
+        [self.userInfo setObject:verifier forKey:kUserServiceOauthVerifierKey];
     }
     
     return YES;

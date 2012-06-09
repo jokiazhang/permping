@@ -224,6 +224,7 @@
             if (cell == nil) {
                 cell = [[[PermUserCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] autorelease];
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                [cell.profileButton addTarget:self action:@selector(gotoUserProfile:) forControlEvents:UIControlEventTouchUpInside];
             }
 
             [cell setCellWithAvartarURLString:perm.permUser.userAvatar userName:perm.permUser.userName category:perm.permCategory];
@@ -364,6 +365,9 @@
 }
 
 # pragma marm - Perm actions
+- (void)gotoUserProfile:(id)sender {
+    NSLog(@"--- gotoUserProfile");
+}
 - (void)likePermAtCell:(PermInfoCell*)cell {
     if ([[AppData getInstance] didLogin]) {
         [self.selectedPerms addObject:cell.perm];
