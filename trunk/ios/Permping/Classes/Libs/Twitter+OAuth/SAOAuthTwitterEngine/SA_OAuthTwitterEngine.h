@@ -31,6 +31,7 @@
 
 
 	NSString	*_pin;
+    NSString    *_verifier;
 
 @private
 	OAConsumer	*_consumer;
@@ -56,6 +57,7 @@
 - (void) clearAccessToken;
 
 @property (nonatomic, readwrite, retain)  NSString	*pin;
+@property (nonatomic, readwrite, retain)  NSString	*verifier;
 @property (nonatomic, readonly) NSURLRequest *authorizeURLRequest;
 @property (nonatomic, readonly) OAConsumer *consumer;
 

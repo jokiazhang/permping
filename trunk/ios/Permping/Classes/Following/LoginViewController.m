@@ -148,6 +148,8 @@
 
 - (void)performLoginWithType:(NSString*)type {
     [self startActivityIndicator];
+    [[NSUserDefaults standardUserDefaults] setObject:type forKey:kUserServiceTypeKey];
+    [[NSUserDefaults standardUserDefaults] synchronize];
     self.loginType = type;
     UserInfoTableViewCell *cell1 = (UserInfoTableViewCell*)[formTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
     UserInfoTableViewCell *cell2 = (UserInfoTableViewCell*)[formTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
@@ -165,6 +167,10 @@
             NSString *secret = [[AppData getInstance] oauthTokenSecret];
             if (secret) {
                 [userInfo setObject:secret forKey:kUserServiceOauthTokenSecretKey];
+            }
+            NSString *verifier = [[AppData getInstance] oauthVerifier];
+            if (verifier) {
+                [userInfo setObject:verifier forKey:kUserServiceOauthVerifierKey];
             }
         }
     }

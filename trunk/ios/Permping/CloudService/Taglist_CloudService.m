@@ -31,6 +31,7 @@ NSString *const kUserServiceEmailKey = @"UserServiceEmailKey";
 NSString *const kUserServicePasswordKey = @"UserServicePasswordKey";
 NSString *const kUserServiceCPasswordKey = @"UserServiceCPasswordKey";
 NSString *const kUserServiceOauthTokenSecretKey = @"UserServiceOauthTokenSecretKey";
+NSString *const kUserServiceOauthVerifierKey = @"UserServiceOauthVerifierKey";
 
 @implementation Taglist_CloudService
 
@@ -286,6 +287,7 @@ NSString *const kUserServiceOauthTokenSecretKey = @"UserServiceOauthTokenSecretK
     [request addParameter:@"oauth_token_secret" value:kUserServiceOauthTokenSecretKey];
     [request addParameter:@"email" value:[userInfo valueForKey:kUserServiceEmailKey]];
     [request addParameter:@"password" value:[userInfo valueForKey:kUserServicePasswordKey]];
+    [request addParameter:@"oauth_verifier" value:[userInfo valueForKey:kUserServiceOauthVerifierKey]];
     
     UserProfileResponse *response = [[UserProfileResponse alloc] init];    
     [[Taglist_CloudRequestDispatcher getInstance] dispatchRequest: request response:response];

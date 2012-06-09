@@ -193,6 +193,10 @@
     if (secret) {
         [self.userInfo setObject:secret forKey:kUserServiceOauthTokenSecretKey];
     }
+    NSString *verifier = [[AppData getInstance] oauthVerifier];
+    if (verifier) {
+        [userInfo setObject:verifier forKey:kUserServiceOauthVerifierKey];
+    }
     
     return YES;
 }
@@ -200,7 +204,6 @@
 - (IBAction)createAccountButtonDidTouch:(id)sender {
     if ([self validateInputData]) {
         [self startActivityIndicator];
-        NSLog(@"self.userInfo: %@", self.userInfo);
         [[AppData getInstance] createAccountWithUserInfo:self.userInfo];
     }
 }
@@ -208,7 +211,6 @@
 - (void)createAccountDidFinish:(NSNotification*)notification {
     [self stopActivityIndicator];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kCreateAccountFinishNotification object:nil];
-    NSLog(@"aaa : %@", notification.userInfo);
     BOOL isSuccess = [[notification.userInfo objectForKey:@"isSuccess"] boolValue];
     if (isSuccess) {
         [self.navigationController popToRootViewControllerAnimated:YES];

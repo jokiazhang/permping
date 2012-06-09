@@ -97,6 +97,7 @@
         if (lc_user && lc_user.userId) {
             self.user = lc_user;
             _isLogout = NO;
+            [self saveState];
         }
         
         if (![threadObj isCancelled]) {
@@ -146,6 +147,7 @@
         if ((error && error.code == 200) || (lc_user && lc_user.userId)) {
             self.user = lc_user;
             _isLogout = NO;
+            [self saveState];
         }
         
         if (![threadObj isCancelled]) {
@@ -186,6 +188,8 @@
         if (error && error.code == 200) {
             self.user = nil;
             _isLogout = YES;
+            [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"kUserID"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
         }
         
         if (![threadObj isCancelled]) {
@@ -381,6 +385,21 @@
     return oauthTokenType;
 }
 
+- (NSDictionary*)twDataInfo {
+    NSString *twData = [[NSUserDefaults standardUserDefaults] objectForKey:@"authData"];
+    if (twData) {
+        NSArray *components = [twData componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"=&"]];
+        NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+        for (NSInteger i=0; i<components.count-1; i+=2) {
+            NSString *key = [components objectAtIndex:i];
+            NSString *value = [components objectAtIndex:i+1];
+            [dict setObject:value forKey:key];
+        }
+        return [dict autorelease];
+    }
+    return nil;
+}
+
 - (NSString*)oauthToken {
     NSString *oauthTokenType = [self oauthTokenType];
     NSString *oauthToken = nil;
@@ -390,15 +409,7 @@
             oauthToken = fbToken;
         }
     } else if ([oauthTokenType isEqualToString:kUserServiceTypeTwitter]){
-        NSString *twData = [[NSUserDefaults standardUserDefaults] objectForKey:@"authData"];
-        if (twData) {
-            NSRange begin = [twData rangeOfString:@"oauth_token="];
-            if (begin.location != NSNotFound) {
-                twData = [twData substringFromIndex:NSMaxRange(begin)];
-                NSRange end = [twData rangeOfString:@"&"];
-                oauthToken = [twData substringToIndex:end.location];
-            }
-        }
+        oauthToken = [[self twDataInfo] valueForKey:@"oauth_token"];
     }
     return oauthToken;
 }
@@ -407,17 +418,16 @@
     NSString *oauthTokenType = [self oauthTokenType];
     NSString *secrect = nil;
     if ([oauthTokenType isEqualToString:kUserServiceTypeTwitter]){
-        NSString *twData = [[NSUserDefaults standardUserDefaults] objectForKey:@"authData"];
-        if (twData) {
-            NSRange begin = [twData rangeOfString:@"oauth_token_secret="];
-            if (begin.location != NSNotFound) {
-                twData = [twData substringFromIndex:NSMaxRange(begin)];
-                NSRange end = [twData rangeOfString:@"&"];
-                secrect = [twData substringToIndex:end.location];
-            }
-        }
+        secrect = [[self twDataInfo] valueForKey:@"oauth_token_secret"];
     }
     return secrect;
 }
 
+- (NSString*)oauthVerifier {
+    NSString *oauthTokenType = [self oauthTokenType];
+    if ([oauthTokenType isEqualToString:kUserServiceTypeTwitter]){
+        return [[self twDataInfo] valueForKey:@"oauth_token_secret"];
+    }
+    return nil;
+}
 @end
