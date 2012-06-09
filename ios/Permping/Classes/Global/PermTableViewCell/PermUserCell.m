@@ -9,7 +9,7 @@
 #import "PermUserCell.h"
 
 @implementation PermUserCell
-@synthesize avatarView;
+@synthesize avatarView, profileButton;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -19,6 +19,10 @@
         UIView *myContentView = self.contentView;
         avatarView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 5, 34, 34)];
         [myContentView addSubview:avatarView];
+        
+        profileButton = [[UIButton alloc] initWithFrame:CGRectZero];
+        profileButton.backgroundColor = [UIColor clearColor];
+        [myContentView addSubview:profileButton];
     }
     return self;
 }
@@ -26,6 +30,7 @@
 - (void)layoutSubviews {
     [super layoutSubviews];
     avatarView.frame = CGRectMake(10, 5, 34, 34);
+    profileButton.frame = CGRectMake(0, 0, self.bounds.size.height, self.bounds.size.height);
     
     UIView *activity = [avatarView viewWithTag:TAG_ACTIVITY_INDICATOR];
     if (activity) {
@@ -59,6 +64,7 @@
 }
 
 - (void)dealloc {
+    [profileButton release];
     [avatarView release];
     [super dealloc];
 }
