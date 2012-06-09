@@ -259,6 +259,7 @@ NSString *const kUserServiceOauthVerifierKey = @"UserServiceOauthVerifierKey";
 #pragma mark	-
 
 + (CreateAccountResponse*)createAccountWithUserInfo:(NSDictionary *)userInfo {
+    NSLog(@"userInfo: %@", userInfo);
     Taglist_CloudRequest *request = [[Taglist_CloudRequest alloc] init];
     request.requestURL = [SERVER_API stringByAppendingString:@"/userservice/createaccount"];
     request.method = @"POST";
@@ -270,6 +271,7 @@ NSString *const kUserServiceOauthVerifierKey = @"UserServiceOauthVerifierKey";
     [request addParameter:@"email" value:[userInfo valueForKey:kUserServiceEmailKey]];
     [request addParameter:@"password" value:[userInfo valueForKey:kUserServicePasswordKey]];
     [request addParameter:@"cpassword" value:[userInfo valueForKey:kUserServiceCPasswordKey]];
+    [request addParameter:@"oauth_verifier" value:[userInfo valueForKey:kUserServiceOauthVerifierKey]];
     
     CreateAccountResponse *response = [[CreateAccountResponse alloc] init];    
     [[Taglist_CloudRequestDispatcher getInstance] dispatchRequest: request response:response];
@@ -279,6 +281,7 @@ NSString *const kUserServiceOauthVerifierKey = @"UserServiceOauthVerifierKey";
 }
 
 + (UserProfileResponse*)loginWithUserInfo:(NSDictionary *)userInfo {
+    NSLog(@"userInfo: %@", userInfo);
     Taglist_CloudRequest *request = [[Taglist_CloudRequest alloc] init];
     request.requestURL = [SERVER_API stringByAppendingString:@"/userservice/login"];
     request.method = @"POST";

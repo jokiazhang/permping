@@ -426,7 +426,7 @@
 - (NSString*)oauthVerifier {
     NSString *oauthTokenType = [self oauthTokenType];
     if ([oauthTokenType isEqualToString:kUserServiceTypeTwitter]){
-        return [[self twDataInfo] valueForKey:@"oauth_token_secret"];
+        return [[self twDataInfo] valueForKey:@"oauth_verifier"];
     }
     return nil;
 }
