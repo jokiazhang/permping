@@ -120,7 +120,6 @@
 		04C7AE83156939DC004ED1B0 /* CreatePermViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C7AE81156939DC004ED1B0 /* CreatePermViewController.m */; };
 		04C7AE84156939DC004ED1B0 /* CreatePermViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04C7AE82156939DC004ED1B0 /* CreatePermViewController.xib */; };
 		04C7C35B15615572004DB98D /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 04C7C35A15615572004DB98D /* libxml2.dylib */; };
-		04C7C35D15615764004DB98D /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04C7C35C15615764004DB98D /* Twitter.framework */; };
 		04D4C0FE157D68A3005C48E5 /* AllPermCommentResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D4C0FD157D68A3005C48E5 /* AllPermCommentResponse.m */; };
 		04D4C102157D68F5005C48E5 /* AllCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D4C100157D68F5005C48E5 /* AllCommentViewController.m */; };
 		04D4C103157D68F5005C48E5 /* AllCommentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04D4C101157D68F5005C48E5 /* AllCommentViewController.xib */; };
@@ -586,7 +585,6 @@
 				26642EE4156EBA6F00577978 /* CoreTelephony.framework in Frameworks */,
 				6AD1C8361563584200FB5CB1 /* QuartzCore.framework in Frameworks */,
 				6A04633915625E8200BB4E34 /* MapKit.framework in Frameworks */,
-				04C7C35D15615764004DB98D /* Twitter.framework in Frameworks */,
 				04C7C35B15615572004DB98D /* libxml2.dylib in Frameworks */,
 				04AA8EEB156049ED00B5E956 /* SystemConfiguration.framework in Frameworks */,
 				04AA8E8A1560336300B5E956 /* libz.dylib in Frameworks */,
