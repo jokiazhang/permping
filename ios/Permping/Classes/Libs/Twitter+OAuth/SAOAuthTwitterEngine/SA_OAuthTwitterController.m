@@ -26,6 +26,7 @@ static NSString* const kGGTwitterLoadingBackgroundImage = @"twitter_load.png";
 - (id) initWithEngine: (SA_OAuthTwitterEngine *) engine andOrientation:(UIInterfaceOrientation)theOrientation;
 //- (void) performInjection;
 - (NSString *) locateAuthPinInWebView: (UIWebView *) webView;
+- (NSString *) getAuthVerifierInWebView: (UIWebView *)webView;
 
 - (void) showPinCopyPrompt;
 - (void) gotPin: (NSString *) pin;
@@ -123,7 +124,6 @@ static NSString* const kGGTwitterLoadingBackgroundImage = @"twitter_load.png";
 }
 
 - (void) gotPin: (NSString *) pin {
-    NSLog(@"gotPin: %@", pin);
 	_engine.pin = pin;
 	[_engine requestAccessToken];
 	
@@ -248,6 +248,10 @@ static NSString* const kGGTwitterLoadingBackgroundImage = @"twitter_load.png";
         //  This is to bypass the pin requirement 
         //  in case the call back URL is set in Twitter settings
         //*****************************************************     
+        NSString *verifier = [self getAuthVerifierInWebView:webView];
+        if (verifier.length) {
+            _engine.verifier = verifier;
+        }
         [_engine requestAccessToken];
         if (_engine.username && [_delegate respondsToSelector: @selector(OAuthTwitterController:authenticatedWithUsername:)])
         {
@@ -292,6 +296,8 @@ Ugly. I apologize for its inelegance. Bleah.
 
 - (NSString *) locateAuthPinInWebView: (UIWebView *) webView {
 	// Look for either 'oauth-pin' or 'oauth_pin' in the raw HTML
+    // NSString *doc = [webView stringByEvaluatingJavaScriptFromString:@"document.body.innerHTML"];
+    // NSLog(@"doc: %@", doc);
 	NSString			*js = @"var d = document.getElementById('oauth-pin'); if (d == null) d = document.getElementById('oauth_pin'); if (d) d = d.innerHTML; d;";
 	NSString			*pin = [[webView stringByEvaluatingJavaScriptFromString: js] stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
 	
@@ -329,6 +335,25 @@ Ugly. I apologize for its inelegance. Bleah.
 	return _pinCopyPromptBar;
 }
 
+- (NSString *) getAuthVerifierInWebView: (UIWebView *)webView {
+    [webView stringByEvaluatingJavaScriptFromString:@"var script = document.createElement('script');"
+     "script.type = 'text/javascript';" 
+     "script.text = \"function getdata() { "
+     "var data = '';"
+     "var as = document.getElementsByTagName('a');"
+     "for (var i=0; i<as.length; i++) {"
+     "var href = as[i].href;"
+     "  if (href.indexOf('oauth_verifier') > 0) {"
+     "      var mySplitResult = href.split('oauth_verifier=');"
+     "      return mySplitResult[1];"
+     "  } "
+     "}"
+     "return data;"
+     "}\";" 
+     "document.getElementsByTagName('head')[0].appendChild(script);"];
+    NSString *verifier = [webView stringByEvaluatingJavaScriptFromString:@"getdata();"];  
+    return verifier;
+}
 
 
 //removed since Twitter changed the page format

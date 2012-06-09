@@ -41,8 +41,10 @@
 
 @synthesize pin = _pin, requestTokenURL = _requestTokenURL, accessTokenURL = _accessTokenURL, authorizeURL = _authorizeURL;
 @synthesize consumerSecret = _consumerSecret, consumerKey = _consumerKey;
+@synthesize verifier=_verifier;
 
 - (void) dealloc {
+    self.verifier = nil;
 	self.pin = nil;
 	self.authorizeURL = nil;
 	self.requestTokenURL = nil;
@@ -196,7 +198,9 @@
 	if (!dataString) return;
 
 	if (self.pin.length && [dataString rangeOfString: @"oauth_verifier"].location == NSNotFound) dataString = [dataString stringByAppendingFormat: @"&oauth_verifier=%@", self.pin];
-	
+    
+	if (self.verifier.length && [dataString rangeOfString: @"oauth_verifier"].location == NSNotFound) dataString = [dataString stringByAppendingFormat: @"&oauth_verifier=%@", self.verifier];
+    
 	NSString				*username = [self extractUsernameFromHTTPBody:dataString];
 
 	if (username.length > 0) {

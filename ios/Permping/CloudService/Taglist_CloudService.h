@@ -27,6 +27,7 @@ extern NSString *const kUserServiceEmailKey;
 extern NSString *const kUserServicePasswordKey;
 extern NSString *const kUserServiceCPasswordKey;
 extern NSString *const kUserServiceOauthTokenSecretKey;
+extern NSString *const kUserServiceOauthVerifierKey;
 
 @interface Taglist_CloudService : NSObject 
 {

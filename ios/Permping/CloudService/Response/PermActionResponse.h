@@ -8,11 +8,27 @@
 
 #import <Foundation/Foundation.h>
 #import "Taglist_CloudResponse.h"
+#import "UserModel.h"
+#import "CommentModel.h"
 
 @interface PermActionResponse : Taglist_CloudResponse {
-    NSString        *totalLikes;
     NSString        *status;
+    
+    // like
+    NSString        *totalLikes;
+    
+    // comment
+    NSString        *totalComment;
+    NSString        *commentId;
+    NSString        *permId;
+    UserModel       *currentUser;
+    CommentModel    *currentComment;
 }
 @property (nonatomic, retain, readonly) NSString *totalLikes;
 @property (nonatomic, retain, readonly) NSString *status;
+
+@property (nonatomic, retain, readonly) NSString *totalComment;
+@property (nonatomic, retain, readonly) NSString *commentId;
+@property (nonatomic, retain, readonly) NSString *permId;
+@property (nonatomic, retain, readonly) CommentModel *currentComment;
 @end

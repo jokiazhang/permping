@@ -52,4 +52,6 @@
 
 - (NSString*)oauthTokenSecret;
 
+- (NSString*)oauthVerifier;
+
 @end

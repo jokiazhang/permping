@@ -456,6 +456,7 @@
                        });
         NSString *userId = [[[AppData getInstance] user] userId];
         PermModel *perm = [[self.selectedPerms objectAtIndex:0] retain];
+        NSInteger permIndex = [self.resultModel.arrResults indexOfObjectIdenticalTo:perm];
         [self.selectedPerms removeObjectAtIndex:0];
         PermActionResponse *response = [(FollowingScreen_DataLoader *)loader commentPermWithId:perm.permId userId:userId content:commentTextField.text];
         NSError *error = response.responseError;
@@ -466,7 +467,21 @@
                                if (error) {
                                    [Utils displayAlert:[error localizedDescription] delegate:nil];
                                } else {
-                                   
+                                   if ([response.status isEqualToString:@"success"]) {
+                                       if (permIndex < [self.resultModel.arrResults count]) {
+                                           PermModel *perm = [self.resultModel.arrResults objectAtIndex:permIndex];
+                                           perm.permCommentCount = response.totalComment;
+                                           [perm.permComments addObject:response.currentComment];
+                                           //NSInteger count = [perm.permCommentCount intValue];
+                                           [permTableview beginUpdates];
+                                           /*[permTableview reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:2 inSection:permIndex]] withRowAnimation:UITableViewRowAnimationFade];
+                                           if (count < 6) {
+                                               [permTableview insertRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:count inSection:permIndex]] withRowAnimation:UITableViewRowAnimationFade];
+                                           }*/
+                                           [permTableview reloadSections:[NSIndexSet indexSetWithIndex:permIndex] withRowAnimation:UITableViewRowAnimationFade];
+                                           [permTableview endUpdates];
+                                       }
+                                   }
                                }
                            });
         }

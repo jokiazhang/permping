@@ -207,6 +207,9 @@
         [joinView removeFromSuperview];
     }
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kSocialNetworkDidLoginNotification object:nil];
+    
+    [[NSUserDefaults standardUserDefaults] setObject:type forKey:kUserServiceTypeKey];
+    [[NSUserDefaults standardUserDefaults] synchronize];
     JoinViewController *controller = [[JoinViewController alloc] initWithNibName:@"JoinViewController" bundle:nil];
     controller.joinType = type;
     [self.navigationController pushViewController:controller animated:YES];
