@@ -15,8 +15,8 @@
 #define SERVER_API   @"http://newpermping.autwin.com/services"
 #define SERVER_REQUEST_TIMEOUT_DEFAULT 30
 
-#define TWITTER_CONSUMER_KEY        @"XL030SY0ABiJNVBq4grQ"
-#define TWITTER_CONSUMER_SECRECT    @"ttNPLjqLnjOkmjyZK5IsjvHU1iW0zC2hSSHigV1EU"
+#define TWITTER_CONSUMER_KEY        @"uMtOaN3CLE7dvvVSR1giLA"
+#define TWITTER_CONSUMER_SECRECT    @"erVQyuoDUu3cwOG48cgUm5V14puqN3JbjSP4v4NE"
 
 #define FB_APP_ID           @"272022539557655"
 #define FB_APP_SECRET       @"9d0b54305b11a48b7ca724cdd607cd60"
