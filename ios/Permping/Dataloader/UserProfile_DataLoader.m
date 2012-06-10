@@ -11,8 +11,12 @@
 
 @implementation UserProfile_DataLoader
 
-- (UserProfileResponse*)getUserProfileWithId:(NSString*)userId {
-    return [Taglist_CloudService getUserProfileWithId:userId];
+- (UserProfileResponse*)getUserProfileWithId:(NSString*)userId loggedinId:(NSString*)loggedinId  {
+    return [Taglist_CloudService getUserProfileWithId:userId loggedinId:loggedinId];
+}
+
+- (FollowResponse*)followUserId:(NSString *)userId followerId:(NSString *)followerId {
+    return [Taglist_CloudService followUserId:userId followerId:followerId];
 }
 
 @end

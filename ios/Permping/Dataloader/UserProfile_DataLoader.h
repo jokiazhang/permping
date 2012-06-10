@@ -8,9 +8,12 @@
 
 #import <Foundation/Foundation.h>
 #import "UserProfileResponse.h"
+#import "FollowResponse.h"
 
 @interface UserProfile_DataLoader : NSObject
 
-- (UserProfileResponse*)getUserProfileWithId:(NSString*)userId;
+- (UserProfileResponse*)getUserProfileWithId:(NSString*)userId loggedinId:(NSString*)loggedinId;
+
+- (FollowResponse*)followUserId:(NSString*)userId followerId:(NSString*)followerId;
 
 @end

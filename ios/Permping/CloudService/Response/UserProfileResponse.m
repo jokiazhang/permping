@@ -18,6 +18,7 @@
 @synthesize boardList;
 @synthesize currentBoard;
 @synthesize currentUser;
+@synthesize followed;
 
 - (void)dealloc {
     self.boardList = nil;
@@ -112,6 +113,10 @@
     } else if ([@"/response/user/followerCount" isEqualToString:path]) {
         if (self.currentUser) {
             self.currentUser.followerCount = [[text copy] autorelease];
+        }
+    } else if ([@"/response/user/userfollowcount" isEqualToString:path]) {
+        if ([text intValue] > 0) {
+            followed = YES;
         }
     } else if ([@"/response/user/pinCount" isEqualToString:path]) {
         if (self.currentUser) {

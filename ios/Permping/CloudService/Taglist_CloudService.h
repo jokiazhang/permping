@@ -14,6 +14,7 @@
 #import "UserProfileResponse.h"
 #import "UploadPermResponse.h"
 #import "PermActionResponse.h"
+#import "FollowResponse.h"
 
 extern NSString *const kUserServiceTypeNormal;
 extern NSString *const kUserServiceTypeTwitter;
@@ -51,6 +52,7 @@ extern NSString *const kUserServiceOauthVerifierKey;
 // User service
 + (CreateAccountResponse*)createAccountWithUserInfo:(NSDictionary*)userInfo;
 + (UserProfileResponse*)loginWithUserInfo:(NSDictionary*)userInfo;
-+ (UserProfileResponse*)getUserProfileWithId:(NSString*)userId;
++ (UserProfileResponse*)getUserProfileWithId:(NSString*)userId loggedinId:(NSString*)loggedinId;
 + (Taglist_CloudResponse*)logoutWithUserId:(NSString*)userId;
++ (FollowResponse*)followUserId:(NSString*)userId followerId:(NSString*)followerId;
 @end

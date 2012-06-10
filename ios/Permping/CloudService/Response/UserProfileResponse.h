@@ -15,7 +15,8 @@
     NSMutableArray          *boardList;
     BoardModel              *currentBoard;
     UserProfileModel        *currentUser;
+    BOOL                    followed;
 }
-
+@property (nonatomic, readonly, getter = isFollowed) BOOL followed;
 - (UserProfileModel*)getUserProfile;
 @end

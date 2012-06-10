@@ -147,6 +147,8 @@
 }
 
 - (void)performLoginWithType:(NSString*)type {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginDidFinish:) name:kLoginFinishNotification object:nil];
+
     [self startActivityIndicator];
     [[NSUserDefaults standardUserDefaults] setObject:type forKey:kUserServiceTypeKey];
     [[NSUserDefaults standardUserDefaults] synchronize];

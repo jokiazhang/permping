@@ -71,8 +71,6 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    //add notification
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(createAccountDidFinish:) name:kCreateAccountFinishNotification object:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -203,6 +201,8 @@
 
 - (IBAction)createAccountButtonDidTouch:(id)sender {
     if ([self validateInputData]) {
+        //add notification
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(createAccountDidFinish:) name:kCreateAccountFinishNotification object:nil];
         [self startActivityIndicator];
         [[AppData getInstance] createAccountWithUserInfo:self.userInfo];
     }

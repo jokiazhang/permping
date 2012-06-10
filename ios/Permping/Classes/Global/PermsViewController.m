@@ -18,6 +18,7 @@
 #import "AppData.h"
 #import "CreatePermViewController.h"
 #import "LoginViewController.h"
+#import "ProfileViewController.h"
 
 #define kSeperatorCellTag 333
 #define kSpinnerCellTag 123456
@@ -224,10 +225,9 @@
             if (cell == nil) {
                 cell = [[[PermUserCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] autorelease];
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
-                [cell.profileButton addTarget:self action:@selector(gotoUserProfile:) forControlEvents:UIControlEventTouchUpInside];
+                cell.delegate = self;
             }
-
-            [cell setCellWithAvartarURLString:perm.permUser.userAvatar userName:perm.permUser.userName category:perm.permCategory];
+            [cell setCellWithUserId:perm.permUser.userId avartarURLString:perm.permUser.userAvatar userName:perm.permUser.userName category:perm.permCategory];
             return cell;
         } else if (index == 1){
             static NSString *cellIdentifier = @"PermImageCell";
@@ -364,9 +364,14 @@
     [controller release];
 }
 
-# pragma marm - Perm actions
-- (void)gotoUserProfile:(id)sender {
-    NSLog(@"--- gotoUserProfile");
+#pragma mark -
+#pragma mark PermCellDelegate
+#pragma mark - 
+- (void)viewUserProfileWithId:(NSString *)userId {
+    ProfileViewController *controller = [[ProfileViewController alloc] initWithNibName:@"ProfileViewController" bundle:nil];
+    controller.userId = userId;
+    [self.navigationController pushViewController:controller animated:YES];
+    [controller release];
 }
 - (void)likePermAtCell:(PermInfoCell*)cell {
     if ([[AppData getInstance] didLogin]) {

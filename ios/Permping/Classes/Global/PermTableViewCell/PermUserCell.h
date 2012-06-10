@@ -7,13 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PermCellDelegate.h"
 
 @interface PermUserCell : UITableViewCell {
+    id<PermCellDelegate>   delegate;
     UIImageView *avatarView;
     UIButton    *profileButton;
+    NSString    *userId;
 }
-@property (nonatomic, readonly)UIImageView  *avatarView;
-@property (nonatomic, readonly)UIButton     *profileButton;
+@property (nonatomic, assign) id<PermCellDelegate>  delegate;
+@property (nonatomic, readonly) UIImageView     *avatarView;
+@property (nonatomic, retain) NSString *userId;
 
-- (void)setCellWithAvartarURLString:(NSString*)urlString userName:(NSString*)userName category:(NSString*)category;
+- (void)setCellWithUserId:(NSString*)in_userId avartarURLString:(NSString*)urlString userName:(NSString*)userName category:(NSString*)category;
+
 @end
