@@ -11,6 +11,7 @@ import org.apache.http.message.BasicNameValuePair;
 import com.permping.PermpingMain;
 import com.permping.R;
 import com.permping.activity.AccountActivity;
+import com.permping.activity.FollowerActivity;
 import com.permping.activity.FollowerActivityGroup;
 import com.permping.activity.JoinPermActivity;
 import com.permping.activity.LoginPermActivity;
@@ -70,6 +71,15 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 	private int screenHeight;
 	private Context context;
 
+	public int count = 30;
+	
+
+	private int nextItems = -1;
+/*	
+	PermAdapter(ArrayList<Perm> perms) {
+		super(PermAdapter.getContext(), new SpecialAdapter(perms), R.layout.pending);
+	}
+	*/
 	public PermAdapter(Context context, int textViewResourceId,
 			ArrayList<Perm> items, Activity activity, int screenWidth,
 			int screenHeight, Boolean header) {
@@ -249,6 +259,10 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 			});
 
 			if (perm != null) {
+				// Set the nextItems no.
+				if (perm.getNextItem() != null)
+					nextItems = Integer.parseInt(perm.getNextItem());
+				
 				ImageView av = (ImageView) view.findViewById(R.id.authorAvatar);
 				UrlImageViewHelper.setUrlDrawable(av, perm.getAuthor()
 						.getAvatar().getUrl());
@@ -442,4 +456,68 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 
 		}
 	}
+/*	
+	class SpecialAdapter extends ArrayAdapter<Perm> {
+		SpecialAdapter(ArrayList<Perm> perms) {
+			super(PermAdapter.getContext(), R.layout.perm_item_special,
+					android.R.id.text1, perms);
+		}
+		
+		 
+		@Override
+		public View getView(int position, View convertView, ViewGroup parent) {
+			// TODO Auto-generated method stub
+			View row = super.getView(position, convertView, parent);
+			return row;
+		}
+	}*/
+	
+	/**
+	 * @return the count
+	 */
+	public int getCount() {
+		return count;
+	}
+
+	/**
+	 * @param count the count to set
+	 */
+	public void setCount(int count) {
+		this.count = count;
+	}
+	
+
+	/**
+	 * @return the nextItems
+	 */
+	public int getNextItems() {
+		return nextItems;
+	}
+
+	/**
+	 * @param nextItems the nextItems to set
+	 */
+	public void setNextItems(int nextItems) {
+		this.nextItems = nextItems;
+	}
+
+	/* (non-Javadoc)
+	 * @see android.widget.ArrayAdapter#getItem(int)
+	 */
+	@Override
+	public Perm getItem(int position) {
+		// TODO Auto-generated method stub
+		return super.getItem(position);
+	}
+
+	/* (non-Javadoc)
+	 * @see android.widget.ArrayAdapter#getItemId(int)
+	 */
+	@Override
+	public long getItemId(int position) {
+		// TODO Auto-generated method stub
+		return super.getItemId(position);
+	}
+	
+	
 }
