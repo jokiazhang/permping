@@ -15,6 +15,7 @@ import com.permping.PermpingMain;
 import com.permping.R;
 import com.permping.controller.AuthorizeController;
 import com.permping.utils.Constants;
+import com.permping.utils.PermUtils;
 import com.permping.utils.facebook.FacebookConnector;
 import com.permping.utils.facebook.SessionEvents;
 import com.permping.utils.facebook.SessionEvents.AuthListener;
@@ -74,8 +75,12 @@ public class LoginPermActivity extends Activity {
 				Intent intent;
 				if (existed) {
 					// Forward back to Following tab
+					PermUtils.clearViewHistory();
+					finish();
+					/*
 					intent = new Intent(v.getContext(), PermpingMain.class);
 					v.getContext().startActivity(intent);
+					*/
 				} else {
 					Toast toast = Toast.makeText(getApplicationContext(), "Authentication failed!. Please try again!", Toast.LENGTH_LONG);
 		        	toast.setGravity(Gravity.TOP | Gravity.CENTER, 0, 300);
@@ -125,8 +130,12 @@ public class LoginPermActivity extends Activity {
 							Intent intent;
 							if (existed) {
 								// Forward back to Following tab
+								PermUtils.clearViewHistory();
+								finish();
+								/*
 								intent = new Intent(getApplicationContext(), PermpingMain.class);
 								getApplicationContext().startActivity(intent);
+								*/
 							} else {
 								// Forward to Create account window
 								intent = new Intent(getApplicationContext(), JoinPermActivity.class);

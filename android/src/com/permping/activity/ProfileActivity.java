@@ -52,7 +52,15 @@ public class ProfileActivity extends Activity {
         followings = (TextView) findViewById(R.id.followings);
         account = (Button) findViewById(R.id.btAccount);
         
-        /** Load the information from Application (user info) when the page is loaded. */
+       
+    }
+    
+    
+    
+    public void onResume(){
+    	super.onResume();
+    	
+    	 /** Load the information from Application (user info) when the page is loaded. */
         User user = PermUtils.isAuthenticated(getApplicationContext());
         if (user != null) {
         	// The author name
@@ -92,6 +100,11 @@ public class ProfileActivity extends Activity {
 			getApplicationContext().startActivity(i);
         }        
     }
+    
+    
+    
+    
+    
     
     private class BoardClickListener implements OnItemClickListener {
 

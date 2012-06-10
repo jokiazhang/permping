@@ -29,6 +29,13 @@ public class TabGroupActivity extends ActivityGroup {
 		
 
 	}
+	
+	public void clearHistory(){
+		//this.history.clear();
+		for( int i = 1; i < history.size(); i++ ){
+			history.remove(i);
+		}
+	}
 
 	public void replaceView(View v) {
 		// Adds the old one to history

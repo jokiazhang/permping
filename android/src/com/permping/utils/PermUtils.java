@@ -25,6 +25,11 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.permping.PermpingApplication;
+import com.permping.activity.ExplorerActivityGroup;
+import com.permping.activity.FollowerActivityGroup;
+import com.permping.activity.ImageActivityGroup;
+import com.permping.activity.MyDiaryActivityGroup;
+import com.permping.activity.ProfileActivityGroup;
 import com.permping.model.User;
 
 /**
@@ -41,6 +46,14 @@ public class PermUtils {
 		}
 
 		return null;
+	}
+	
+	public static void clearViewHistory(){
+		ExplorerActivityGroup.group.clearHistory();
+		FollowerActivityGroup.group.clearHistory();
+		ImageActivityGroup.group.clearHistory();
+		ProfileActivityGroup.group.clearHistory();
+		MyDiaryActivityGroup.group.clearHistory();
 	}
 
 	/**
