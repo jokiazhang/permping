@@ -104,6 +104,11 @@ public class NewPermActivity extends Activity {
         
 	}
 	
+	
+	public void onBackPressed(){
+		super.onBackPressed();
+	}
+	
 	/* (non-Javadoc)
 	 * @see android.app.Activity#dispatchTouchEvent(android.view.MotionEvent)
 	 */

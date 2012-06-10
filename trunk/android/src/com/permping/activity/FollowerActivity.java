@@ -38,6 +38,13 @@ public class FollowerActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.followers_layout);
 
+	
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		
 		// Get the screen's size.
 		DisplayMetrics metrics = new DisplayMetrics();
 		getWindowManager().getDefaultDisplay().getMetrics(metrics);
@@ -68,11 +75,6 @@ public class FollowerActivity extends Activity {
 		dialog = ProgressDialog.show(getParent(), "Loading", "Please wait...",
 				true);
 		new LoadPermList().execute();
-	}
-
-	@Override
-	protected void onResume() {
-		super.onResume();
 	}
 
 	private void loadPerms() {
