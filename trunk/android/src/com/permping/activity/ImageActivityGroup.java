@@ -28,7 +28,7 @@ private int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 1224;
 	
 	//Gallery process
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
-	    //if (resultCode == RESULT_OK) {
+	    if (resultCode == RESULT_OK) {
 	        if (requestCode == SELECT_PICTURE || requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE ) {
 	        	String selectedImagePath = "";
 	        	if( data == null  ) {
@@ -51,7 +51,7 @@ private int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 1224;
 				//dialog = ProgressDialog.show(this, "Uploading","Please wait...", true);
 				//new ImageUpload( selectedImagePath ).execute();
 	        }
-	    //}
+	    }
 	    
 	    ImageActivityGroup.imagePath = "";
 	}
