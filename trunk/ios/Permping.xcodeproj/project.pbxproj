@@ -54,6 +54,7 @@
 		043D4F1D157681D800D10276 /* CreateBoardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 043D4F1B157681D800D10276 /* CreateBoardViewController.m */; };
 		043D4F1E157681D800D10276 /* CreateBoardViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 043D4F1C157681D800D10276 /* CreateBoardViewController.xib */; };
 		0441C0A51572CD81003C9380 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0441C0A41572CD81003C9380 /* MobileCoreServices.framework */; };
+		0443414F1585310900CC8747 /* FollowResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 0443414E1585310900CC8747 /* FollowResponse.m */; };
 		0469516D156186A700620B12 /* CHANGELOG.md in Resources */ = {isa = PBXBuildFile; fileRef = 04695169156186A700620B12 /* CHANGELOG.md */; };
 		0469516E156186A700620B12 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 0469516B156186A700620B12 /* JSONKit.m */; };
 		0469516F156186A700620B12 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 0469516C156186A700620B12 /* README.md */; };
@@ -285,6 +286,9 @@
 		043D4F1B157681D800D10276 /* CreateBoardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateBoardViewController.m; sourceTree = "<group>"; };
 		043D4F1C157681D800D10276 /* CreateBoardViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CreateBoardViewController.xib; sourceTree = "<group>"; };
 		0441C0A41572CD81003C9380 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		0443414C15850F3400CC8747 /* PermCellDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PermCellDelegate.h; path = ../../../../../../../../../Users/MAC/Projects/permping_trunk/ios/Permping/Classes/Global/PermTableViewCell/PermCellDelegate.h; sourceTree = "<group>"; };
+		0443414D1585310800CC8747 /* FollowResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FollowResponse.h; path = ../../../../../../../../Users/MAC/Projects/permping_trunk/ios/Permping/CloudService/Response/FollowResponse.h; sourceTree = "<group>"; };
+		0443414E1585310900CC8747 /* FollowResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FollowResponse.m; path = ../../../../../../../../Users/MAC/Projects/permping_trunk/ios/Permping/CloudService/Response/FollowResponse.m; sourceTree = "<group>"; };
 		04695169156186A700620B12 /* CHANGELOG.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CHANGELOG.md; sourceTree = "<group>"; };
 		0469516A156186A700620B12 /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
 		0469516B156186A700620B12 /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
@@ -601,6 +605,7 @@
 		0411A42F156D36F3005EBF18 /* PermTableViewCell */ = {
 			isa = PBXGroup;
 			children = (
+				0443414C15850F3400CC8747 /* PermCellDelegate.h */,
 				0411A430156D36F3005EBF18 /* PermCommentCell.h */,
 				0411A431156D36F3005EBF18 /* PermCommentCell.m */,
 				0411A436156D3A5D005EBF18 /* PermUserCell.h */,
@@ -1081,6 +1086,8 @@
 				0427B2E2157A4FD200EBD4DC /* PermActionResponse.m */,
 				04D4C0FC157D68A3005C48E5 /* AllPermCommentResponse.h */,
 				04D4C0FD157D68A3005C48E5 /* AllPermCommentResponse.m */,
+				0443414D1585310800CC8747 /* FollowResponse.h */,
+				0443414E1585310900CC8747 /* FollowResponse.m */,
 			);
 			path = Response;
 			sourceTree = "<group>";
@@ -1549,6 +1556,7 @@
 				047AE8BE157FADF20050AF46 /* SA_OAuthTwitterController.m in Sources */,
 				047AE8BF157FADF20050AF46 /* SA_OAuthTwitterEngine.m in Sources */,
 				047AE8CD157FEA600050AF46 /* CreateBoard_DataLoader.m in Sources */,
+				0443414F1585310900CC8747 /* FollowResponse.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -9,7 +9,7 @@
 #import "PermUserCell.h"
 
 @implementation PermUserCell
-@synthesize avatarView, profileButton;
+@synthesize delegate, avatarView, userId;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -22,6 +22,7 @@
         
         profileButton = [[UIButton alloc] initWithFrame:CGRectZero];
         profileButton.backgroundColor = [UIColor clearColor];
+        [profileButton addTarget:self action:@selector(profileButtonDidTouch:) forControlEvents:UIControlEventTouchUpInside];
         [myContentView addSubview:profileButton];
     }
     return self;
@@ -57,15 +58,23 @@
     self.detailTextLabel.frame = dr;
 }
 
-- (void)setCellWithAvartarURLString:(NSString *)urlString userName:(NSString *)userName category:(NSString *)category {
+- (void)setCellWithUserId:(NSString*)in_userId avartarURLString:(NSString*)urlString userName:(NSString*)userName category:(NSString*)category {
     [avatarView setImageWithURL:[NSURL URLWithString:urlString] usingActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     self.textLabel.text = userName;
     self.detailTextLabel.text = category;
+    self.userId = in_userId;
+}
+
+- (void)profileButtonDidTouch:(id)sender {
+    if(delegate && [delegate respondsToSelector:@selector(viewUserProfileWithId:)]) {
+        [delegate viewUserProfileWithId:self.userId];
+    }
 }
 
 - (void)dealloc {
     [profileButton release];
     [avatarView release];
+    self.userId = nil;
     [super dealloc];
 }
 

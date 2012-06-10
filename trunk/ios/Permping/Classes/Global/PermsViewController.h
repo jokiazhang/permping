@@ -11,8 +11,9 @@
 #import "Taglist_NDModel.h"
 #import "PermModel.h"
 #import "PermInfoCell.h"
+#import "PermCellDelegate.h"
 
-@interface PermsViewController : CommonViewController<UITableViewDelegate, UITableViewDataSource, PermInfoCellDelegate, UITextFieldDelegate> {
+@interface PermsViewController : CommonViewController<UITableViewDelegate, UITableViewDataSource, PermCellDelegate, UITextFieldDelegate> {
     UITableView         *permTableview;
     NSMutableDictionary *permsImageHeight;
     

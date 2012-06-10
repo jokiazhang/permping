@@ -300,9 +300,11 @@ NSString *const kUserServiceOauthVerifierKey = @"UserServiceOauthVerifierKey";
 }
 
 
-+ (UserProfileResponse*)getUserProfileWithId:(NSString*)userId {
++ (UserProfileResponse*)getUserProfileWithId:(NSString*)userId loggedinId:(NSString*)loggedinId {
     Taglist_CloudRequest *request = [[Taglist_CloudRequest alloc] init];
     request.requestURL = [SERVER_API stringByAppendingFormat:@"/userservice/getprofile/%@", userId];
+    request.method = @"POST";
+    [request addParameter:@"loggedinuid" value:loggedinId];
     
     UserProfileResponse *response = [[UserProfileResponse alloc] init];    
     [[Taglist_CloudRequestDispatcher getInstance] dispatchRequest: request response:response];
@@ -318,6 +320,20 @@ NSString *const kUserServiceOauthVerifierKey = @"UserServiceOauthVerifierKey";
     request.requestURL = [SERVER_API stringByAppendingFormat:@"/userservice/logout/%@", userId];
     
     Taglist_CloudResponse *response = [[Taglist_CloudResponse alloc] init];    
+    [[Taglist_CloudRequestDispatcher getInstance] dispatchRequest: request response:response];
+    [request release];
+    
+    return [response autorelease];
+}
+
++ (FollowResponse*)followUserId:(NSString*)userId followerId:(NSString*)followerId {
+    Taglist_CloudRequest *request = [[Taglist_CloudRequest alloc] init];
+    request.requestURL = [SERVER_API stringByAppendingString:@"/userservice/followuser"];
+    request.method = @"POST";
+    [request addParameter:@"fuid" value:followerId];
+    [request addParameter:@"tuid" value:userId];
+    
+    FollowResponse *response = [[FollowResponse alloc] init];    
     [[Taglist_CloudRequestDispatcher getInstance] dispatchRequest: request response:response];
     [request release];
     

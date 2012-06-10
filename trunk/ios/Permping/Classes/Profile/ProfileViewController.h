@@ -11,7 +11,6 @@
 #import "UserProfileModel.h"
 
 @interface ProfileViewController : CommonViewController<UITableViewDelegate, UITableViewDataSource> {
-    UserProfileModel *userProfile;
     
     IBOutlet UIView         *headerView;
     IBOutlet UIImageView    *avatarView;
@@ -19,9 +18,14 @@
     IBOutlet UILabel        *permsNumberLabel;
     IBOutlet UIButton       *followButton;
     
-    
     IBOutlet UITableView *boardTableView;
+    
+    BOOL                    isFollowed;
 }
+@property (nonatomic, retain)UserProfileModel *userProfile;
+@property (nonatomic, retain)NSString *userId;
 
 - (void)reloadData;
+
+- (IBAction)followButtonDidTouch:(id)sender;
 @end
