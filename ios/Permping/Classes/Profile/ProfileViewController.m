@@ -119,7 +119,7 @@
         
         NSLog(@"get profile userid: %@", uid);
         if (uid) {
-            UserProfileResponse *response = [(UserProfile_DataLoader *)loader getUserProfileWithId:userId loggedinId:loggedinId];
+            UserProfileResponse *response = [(UserProfile_DataLoader *)loader getUserProfileWithId:uid loggedinId:loggedinId];
             if (![threadObj isCancelled]) {
                 self.userProfile = [response getUserProfile];
                 isFollowed = response.isFollowed;
