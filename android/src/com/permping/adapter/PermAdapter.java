@@ -71,7 +71,7 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 	private int screenHeight;
 	private Context context;
 
-	public int count = 30;
+	public int count = 15;
 	
 
 	private int nextItems = -1;
@@ -123,7 +123,8 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 	}
 
 	@Override
-	public View getView(int position, final View convertView, ViewGroup parent) {
+	public View getView(int position, View convertView, ViewGroup parent) {
+		//ViewHolder holder;
 		if (position == 0 && this.header == true) {
 			LayoutInflater inflater = (LayoutInflater) this.getContext()
 					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -258,20 +259,41 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 				}
 			});
 
+			/*if (convertView == null) {
+				convertView = inflater.inflate(R.layout.perm_item_1, null);
+				holder = new ViewHolder();
+				holder.avatar = (ImageView) convertView.findViewById(R.id.authorAvatar);
+				holder.authorName = (TextView) convertView.findViewById(R.id.authorName);
+				holder.boardName = (TextView) convertView.findViewById(R.id.boardName);
+				holder.permImage = (ImageView) convertView.findViewById(R.id.permImage);
+				holder.permDesc = (TextView) convertView.findViewById(R.id.permDesc);
+				holder.permInfo = (TextView) convertView.findViewById(R.id.permInfo);
+				holder.permStat = (TextView) convertView.findViewById(R.id.permStat);
+				holder.comments = (LinearLayout) convertView.findViewById(R.id.comments);
+				convertView.setTag(holder);
+			} else {
+				holder = (ViewHolder) convertView.getTag();
+			}*/
+			
 			if (perm != null) {
+				
 				// Set the nextItems no.
 				if (perm.getNextItem() != null)
 					nextItems = Integer.parseInt(perm.getNextItem());
+				else
+					nextItems = -1;
 				
 				ImageView av = (ImageView) view.findViewById(R.id.authorAvatar);
 				UrlImageViewHelper.setUrlDrawable(av, perm.getAuthor()
 						.getAvatar().getUrl());
 
 				TextView an = (TextView) view.findViewById(R.id.authorName);
+				//holder.authorName.setText(perm.getAuthor().getName());
 				an.setText(perm.getAuthor().getName());
 
 				// Board name
 				TextView bn = (TextView) view.findViewById(R.id.boardName);
+				//holder.boardName.setText(perm.getBoard().getName());
 				bn.setText(perm.getBoard().getName());
 
 				ImageView pv = (ImageView) view.findViewById(R.id.permImage);
@@ -280,17 +302,21 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 
 				// Perm description
 				TextView pd = (TextView) view.findViewById(R.id.permDesc);
+				//holder.permDesc.setText(perm.getDescription());
 				pd.setText(perm.getDescription());
 
 				String permInfo = "via " + perm.getAuthor().getName()
 						+ " on to " + perm.getBoard().getName();
 				TextView pi = (TextView) view.findViewById(R.id.permInfo);
+				//holder.permInfo.setText(permInfo);
 				pi.setText(permInfo);
 
 				String permStat = "Like: " + perm.getPermLikeCount()
 						+ " - Repin: " + perm.getPermRepinCount()
 						+ " - Comment: " + perm.getPermCommentCount();
 				TextView ps = (TextView) view.findViewById(R.id.permStat);
+				//holder.permStat.setText(permStat);
+				//holder.permStat.setText(permStat);
 				ps.setText(permStat);
 
 				LinearLayout comments = (LinearLayout) view
@@ -336,6 +362,7 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 					}
 				}
 			}
+			//return convertView;
 			return view;
 		}
 	}
@@ -478,13 +505,6 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 	public int getCount() {
 		return count;
 	}
-
-	/**
-	 * @param count the count to set
-	 */
-	public void setCount(int count) {
-		this.count = count;
-	}
 	
 
 	/**
@@ -518,6 +538,16 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 		// TODO Auto-generated method stub
 		return super.getItemId(position);
 	}
-	
-	
+	/*
+	static class ViewHolder {
+		ImageView avatar;
+		TextView authorName;
+		TextView boardName;
+		ImageView permImage;
+		TextView permDesc;
+		TextView permInfo;
+		TextView permStat;
+		LinearLayout comments;
+	}*/
 }
+

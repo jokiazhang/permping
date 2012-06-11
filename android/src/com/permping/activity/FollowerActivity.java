@@ -1,6 +1,7 @@
 package com.permping.activity;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.apache.http.NameValuePair;
@@ -40,6 +41,8 @@ public class FollowerActivity extends Activity {
 	int nextItem = -1;
 
 	private ProgressDialog dialog;
+	
+	PermAdapter permListAdapter;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -70,7 +73,7 @@ public class FollowerActivity extends Activity {
 			this.url = API.followingPerm + String.valueOf(user.getId());
 			this.header = false;
 		}
-		ListView permListView = (ListView) findViewById(R.id.permList);
+		//ListView permListView = (ListView) findViewById(R.id.permList);
 		/*
 		 * PermListController permListController = new PermListController( );
 		 * 
@@ -89,9 +92,10 @@ public class FollowerActivity extends Activity {
 	private void loadPerms() {
 		ListView permListView = (ListView) findViewById(R.id.permList);
 		User user = PermUtils.isAuthenticated(getApplicationContext());
-		final PermAdapter permListAdapter = new PermAdapter(FollowerActivityGroup.context,
+		this.permListAdapter = new PermAdapter(FollowerActivityGroup.context,
 				R.layout.perm_item_1, permListMain, this, screenWidth, screenHeight, header, user);
 		permListView.setAdapter(permListAdapter);
+		permListView.setSelection(1);
 		
 		permListView.setOnScrollListener(new OnScrollListener() {
 			
@@ -102,10 +106,14 @@ public class FollowerActivity extends Activity {
 			public void onScroll(AbsListView view, int firstVisibleItem,
 					int visibleItemCount, int totalItemCount) {
 				// TODO Auto-generated method stub
+				
+				/*boolean loadMore = nextItem == -1 ?
+						firstVisibleItem + visibleItemCount >= totalItemCount :
+							firstVisibleItem + visibleItemCount >= permListMain.size() - nextItem;*/
 				boolean loadMore = firstVisibleItem + visibleItemCount >= totalItemCount;
 				if (loadMore) {
-					permListAdapter.count += visibleItemCount;
 					nextItem = permListAdapter.getNextItems();
+					permListAdapter.count += visibleItemCount;					
 					dialog = ProgressDialog.show(getParent(), "Loading more", "Please wait...",
 							true);
 					new LoadPermList().execute();
@@ -154,10 +162,13 @@ public class FollowerActivity extends Activity {
 				permList = permListController.getPermList(url);
 			}
 			//ArrayList<Perm> permList = permListController.getPermList(url);
-			if (permListMain != null)
+			/*if (permListMain != null)
 				permListMain.addAll(permList);
 			else
-				permListMain = permList;
+				permListMain = permList;*/
+			
+			permListMain = permList;
+						
 			return null;
 		}
 
@@ -169,7 +180,7 @@ public class FollowerActivity extends Activity {
 		@Override
 		protected void onPostExecute(String sResponse) {
 			loadPerms();
-			
+			//permListMain.size();
 			if (dialog != null && dialog.isShowing()) {
 				dialog.dismiss();
 			}
