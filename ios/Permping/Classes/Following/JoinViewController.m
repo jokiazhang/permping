@@ -166,13 +166,13 @@
             break;
         }
         if (i == 0) {
-            [self.userInfo setObject:cell.valueTextField.text forKey:kUserServiceNameKey];
+            [self.userInfo setObject:[cell.valueTextField.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] forKey:kUserServiceNameKey];
         } else if (i == 1) {
-            [self.userInfo setObject:cell.valueTextField.text forKey:kUserServiceEmailKey];
+            [self.userInfo setObject:[cell.valueTextField.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] forKey:kUserServiceEmailKey];
         } else if (i == 2) {
-            [self.userInfo setObject:cell.valueTextField.text forKey:kUserServicePasswordKey];
+            [self.userInfo setObject:[cell.valueTextField.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] forKey:kUserServicePasswordKey];
         } else if (i == 3) {
-            [self.userInfo setObject:cell.valueTextField.text forKey:kUserServiceCPasswordKey];
+            [self.userInfo setObject:[cell.valueTextField.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] forKey:kUserServiceCPasswordKey];
         }
     }
     

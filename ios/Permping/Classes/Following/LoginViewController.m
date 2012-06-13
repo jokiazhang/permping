@@ -158,8 +158,8 @@
     
     NSMutableDictionary *userInfo = [NSMutableDictionary dictionaryWithObjectsAndKeys:type, kUserServiceTypeKey, nil];
     if ([type isEqualToString:kUserServiceTypeNormal]) {
-        [userInfo setObject:cell2.valueTextField.text forKey:kUserServicePasswordKey];
-        [userInfo setObject:cell1.valueTextField.text forKey:kUserServiceEmailKey];
+        [userInfo setObject:[cell2.valueTextField.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] forKey:kUserServicePasswordKey];
+        [userInfo setObject:[cell1.valueTextField.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] forKey:kUserServiceEmailKey];
     } else {
         NSString *token = [[AppData getInstance] oauthToken];
         if (token) {
