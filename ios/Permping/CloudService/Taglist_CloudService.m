@@ -144,6 +144,20 @@ NSString *const kUserServiceOauthVerifierKey = @"UserServiceOauthVerifierKey";
     return [response autorelease];
 }
 
++ (PermListResponse*)getPermWithMonth:(NSString*)month forUserId:(NSString*)userId {
+    Taglist_CloudPagingRequest *request = [[Taglist_CloudPagingRequest alloc] init];
+    request.requestURL = [SERVER_API stringByAppendingFormat:@"/permservice/getthirdpermswithmonth/%@", month];
+    request.method = @"POST";
+    [request addParameter:@"uid" value:userId];
+    
+    PermListResponse *response = [[PermListResponse alloc] init];    
+    response.responseType = PermResponseTypeFromBoard;
+    [[Taglist_CloudRequestDispatcher getInstance] dispatchRequest: request response:response];
+    [request release];
+    
+    return [response autorelease];
+}
+
 - (void)buildMultipartFormDataPostBody
 {
 #if DEBUG_FORM_DATA_REQUEST

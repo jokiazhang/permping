@@ -15,4 +15,8 @@
 {
     return [Taglist_CloudService getPermWithDate:date nextItemId:nextItemId requestCount:count];
 }
+
+- (PermListResponse*)getPermWithMonth:(NSString*)month forUserId:(NSString*)userId {
+    return [Taglist_CloudService getPermWithMonth:month forUserId:userId];
+}
 @end

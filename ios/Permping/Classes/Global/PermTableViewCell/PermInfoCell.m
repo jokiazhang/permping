@@ -83,8 +83,8 @@
     
     y = CGRectGetMaxY(descriptionLabel.frame) + 10;
     repermButton.frame = CGRectMake(10, y, 70, 37);
-    likeButton.frame = CGRectMake(95, y, 70, 37);
-    commentButton.frame = CGRectMake(180, y, 100, 37);
+    commentButton.frame = CGRectMake(95, y, 100, 37);
+    likeButton.frame = CGRectMake(210, y, 70, 37);
     
     y = CGRectGetMaxY(repermButton.frame) + 10;
     statusLabel.frame = CGRectMake(10, y, 300, 21);
@@ -100,6 +100,12 @@
     [likeButton setTitle:like forState:UIControlStateNormal];
     
     self.statusLabel.text = [NSString stringWithFormat:@"Likes %@ Comments %@ Repin %@", perm.permLikeCount, perm.permCommentCount, perm.permRepinCount];
+    
+    if ([[AppData getInstance] didLogin] && [[AppData getInstance].user.userId isEqualToString:in_perm.permUser.userId]) {
+        likeButton.hidden = YES;
+    } else {
+        likeButton.hidden = NO;
+    }
     
     /*if ([[AppData getInstance] didLogin]) {
         likeButton.enabled = YES;
