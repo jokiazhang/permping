@@ -7,6 +7,7 @@ import java.util.List;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
+import com.permping.PermpingApplication;
 import com.permping.R;
 import com.permping.controller.PermListController;
 import com.permping.model.Perm;
@@ -60,7 +61,15 @@ public class FollowerActivity extends Activity {
 		// Get the screen's size.
 		DisplayMetrics metrics = new DisplayMetrics();
 		getWindowManager().getDefaultDisplay().getMetrics(metrics);
-
+		
+		
+		//Set to application
+		PermpingApplication state = (PermpingApplication) this.getApplication();
+		if (state != null) {
+			state.setDisplayMetrics(metrics);
+		}
+		
+		
 		screenHeight = metrics.heightPixels;
 		screenWidth = metrics.widthPixels;
 

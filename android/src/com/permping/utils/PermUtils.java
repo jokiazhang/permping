@@ -48,6 +48,8 @@ public class PermUtils {
 		return null;
 	}
 	
+
+	
 	public static void clearViewHistory(){
 		ExplorerActivityGroup.group.clearHistory();
 		FollowerActivityGroup.group.clearHistory();
@@ -56,6 +58,26 @@ public class PermUtils {
 		MyDiaryActivityGroup.group.clearHistory();
 	}
 
+	
+	
+	/**
+	 * calculate image size
+	 */
+	public static void calculateImageSize( Context context ){
+		PermpingApplication state = (PermpingApplication) context;
+		if( state != null )
+		{
+			DisplayMetrics metrics = state.getDisplayMetrics();
+			int screenWidth = metrics.widthPixels;
+			int screenHeight = metrics.heightPixels;
+			
+			
+			
+		}
+		//return null;
+	}
+	
+	
 	/**
 	 * Scale the ImageView based on the screen's resolution
 	 * 

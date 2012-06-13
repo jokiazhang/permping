@@ -7,6 +7,7 @@ import com.permping.model.User;
 
 import android.app.Application;
 import android.content.Context;
+import android.util.DisplayMetrics;
 
 /**
  * @author Linh Nguyen
@@ -23,6 +24,21 @@ public class PermpingApplication extends Application {
 	 * The current login type 
 	 */
 	private String loginType;
+	
+	
+	/*
+	 * Current screen info
+	 */
+	
+	private DisplayMetrics metrics;
+	
+	public void setDisplayMetrics( DisplayMetrics metrics ){
+		this.metrics = metrics;
+	}
+	
+	public DisplayMetrics getDisplayMetrics(){
+		return this.metrics;
+	}
 	
 	/**
 	 * @return the user
