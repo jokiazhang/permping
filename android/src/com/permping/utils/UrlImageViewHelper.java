@@ -196,51 +196,7 @@ public final class UrlImageViewHelper {
         final String filename = getFilenameForUrl(url);
 
         File file = context.getFileStreamPath(filename);
-        if (file.exists()) {
-            try {
-            	
-                if (cacheDurationMs == CACHE_DURATION_INFINITE || System.currentTimeMillis() < file.lastModified() + cacheDurationMs) {
-                    //Log.i(LOGTAG, "File Cache hit on: " + url + ". " + (System.currentTimeMillis() - file.lastModified()) + "ms old.");
-                    FileInputStream  fis = context.openFileInput(filename);
-                    
-                  //Decode image size
-                    BitmapFactory.Options o = new BitmapFactory.Options();
-                    o.inJustDecodeBounds = true;
-                    BitmapFactory.decodeStream(fis, null, o);
-                    fis.close();
-                    
-                    int scale = 1;
-                    if (o.outHeight > IMAGE_MAX_SIZE || o.outWidth > IMAGE_MAX_SIZE) {
-                        scale = (int)Math.pow(2.0, (int) Math.round(Math.log(IMAGE_MAX_SIZE / (double) Math.max(o.outHeight, o.outWidth)) / Math.log(0.5)));
-                    }
-
-                  //Decode with inSampleSize
-                    BitmapFactory.Options o2 = new BitmapFactory.Options();
-                    //o2.inSampleSize = scale;
-                    o2.inSampleSize = SCALE_RATIO;
-                    fis = context.openFileInput(filename);
-                    Bitmap b = BitmapFactory.decodeStream(fis, null, o2);
-                    fis.close();
-
-                    prepareResources(context);
-                    //BitmapDrawable drawable = loadDrawableFromStream(context, fis);
-                    BitmapDrawable drawable = new BitmapDrawable(mResources, b);
-                    
-                    
-                    
-                    fis.close();
-                    if (imageView != null)
-                        imageView.setImageDrawable(drawable);
-                    cache.put(url, drawable);
-                    return;
-                }
-                else {
-                    //Log.i(LOGTAG, "File cache has expired. Refreshing.");
-                }
-            }
-            catch (Exception ex) {
-            }
-        }
+       
 
         // null it while it is downloading
         if (imageView != null)
@@ -316,13 +272,9 @@ public final class UrlImageViewHelper {
                       prepareResources(context);
                       //BitmapDrawable drawable = loadDrawableFromStream(context, fis);
                       BitmapDrawable drawable = new BitmapDrawable(mResources, b);
-
+                      Drawable dr = scaleDrawable( drawable, 100, 100 );
                     
-                    
-                    
-                    
-                    
-                      return drawable;
+                      return dr;
                  //   return loadDrawableFromStream(context, fis);
                 }
                 catch (Exception ex) {
@@ -356,6 +308,17 @@ public final class UrlImageViewHelper {
             }
         };
         downloader.execute();
+    }
+    
+    
+    public static Drawable scaleDrawable( Drawable drawable , int width, int height ){
+         Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
+         Bitmap scaledBitmap = Bitmap.createScaledBitmap(bitmap, (int) 100,     (int) 100, true);
+         bitmap.recycle();
+         bitmap = scaledBitmap;
+         System.gc();
+         Drawable dr = new BitmapDrawable( bitmap );
+         return dr;
     }
 
     private static Hashtable<ImageView, String> mPendingViews = new Hashtable<ImageView, String>();

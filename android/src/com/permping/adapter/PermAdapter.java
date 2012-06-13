@@ -25,6 +25,7 @@ import com.permping.model.User;
 import com.permping.utils.API;
 import com.permping.utils.Constants;
 import com.permping.utils.HttpPermUtils;
+import com.permping.utils.ImageUtil;
 import com.permping.utils.PermUtils;
 import com.permping.utils.UrlImageViewHelper;
 import com.permping.utils.facebook.FacebookConnector;
@@ -297,8 +298,9 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 				bn.setText(perm.getBoard().getName());
 
 				ImageView pv = (ImageView) view.findViewById(R.id.permImage);
+				//ImageUtil.imageViewFromURL( pv , perm.getImage().getUrl() );
 				UrlImageViewHelper.setUrlDrawable(pv, perm.getImage().getUrl());
-				PermUtils.scaleImage(pv, screenWidth, screenHeight);
+				//PermUtils.scaleImage(pv, screenWidth, screenHeight);
 
 				// Perm description
 				TextView pd = (TextView) view.findViewById(R.id.permDesc);

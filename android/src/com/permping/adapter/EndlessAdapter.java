@@ -160,12 +160,14 @@ abstract public class EndlessAdapter extends AdapterWrapper {
 	}
 
 	private <T> void executeAsyncTask(AsyncTask<T, ?, ?> task, T... params) {
-		if (!isSerialized
-				&& (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)) {
+		
+		/*if (!isSerialized && (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)) {
 			task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, params);
 		} else {
 			task.execute(params);
 		}
+		*/
+		task.execute(params);
 	}
 
 	/**
