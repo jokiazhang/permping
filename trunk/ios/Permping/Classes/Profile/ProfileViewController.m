@@ -75,6 +75,7 @@
     if(!self.userId && ![[AppData getInstance] didLogin]) {
         LoginViewController *controller = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
         controller.hasCancel = NO;
+        //[self.navigationController presentModalViewController:controller animated:YES];
         [self.navigationController pushViewController:controller animated:NO];
         [controller release];
     }
@@ -182,7 +183,12 @@
         [boardTableView reloadData];
     } else {
         boardTableView.hidden = YES;
+        [boardTableView reloadData];
+        
         headerView.hidden = YES;
+        avatarView.image = nil;
+        userNameLabel.text = @"";
+        permsNumberLabel.text = @"";
     }
 }
 
