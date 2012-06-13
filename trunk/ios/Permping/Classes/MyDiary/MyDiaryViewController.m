@@ -11,15 +11,17 @@
 #import "KalDate.h"
 #import "KalPrivate.h"
 #import "MyPermDiaryViewController.h"
+#import "MyDiaryScreen_DataLoader.h"
 
 @interface MyDiaryViewController ()
 @property (nonatomic, retain, readwrite) NSDate *initialDate;
 @property (nonatomic, retain, readwrite) NSDate *selectedDate;
+@property (nonatomic, retain, readwrite) NSDateFormatter *dateFormat;
 - (KalView*)calendarView;
 @end
 
 @implementation MyDiaryViewController
-@synthesize dataSource, initialDate, selectedDate;
+@synthesize dataSource, initialDate, selectedDate, dateFormat, resultModel;
 
 
 - (void)dealloc
@@ -29,6 +31,8 @@
     [initialDate release];
     [selectedDate release];
     [logic release];
+    [dateFormat release];
+    self.resultModel = nil;
     [super dealloc];
 }
 
@@ -57,6 +61,14 @@
     // Release any cached data, images, etc that aren't in use.
 }
 
+- (NSDateFormatter*)dateFormat {
+    if (dateFormat == nil) {
+        dateFormat = [[NSDateFormatter alloc] init];
+        [dateFormat setDateFormat:@"yyyy-MM-dd"];
+    }
+    return dateFormat;
+}
+
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad
@@ -76,6 +88,14 @@
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self startActivityIndicator];
+    self.resultModel.arrResults = nil;
+    self.resultModel = [[[Taglist_NDModel alloc] init] autorelease];
+    self.dataLoaderThread = [[ThreadManager getInstance] dispatchToConcurrentBackgroundNormalPriorityQueueWithTarget:self selector:@selector(loadDataForMe:thread:) dataObject:[self getMyDataLoader]];
 }
 
 - (KalView*)calendarView { return kalView; }
@@ -115,9 +135,7 @@
     [dataSource loadItemsFromDate:from toDate:to];
     
     MyPermDiaryViewController *controler = [[MyPermDiaryViewController alloc] initWithNibName:@"MyPermDiaryViewController" bundle:nil];
-    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-    [dateFormat setDateFormat:@"yyyy-MM-dd"];
-    NSString *theDate = [dateFormat stringFromDate:self.selectedDate];
+    NSString *theDate = [self.dateFormat stringFromDate:self.selectedDate];
 
     controler.currentDate = theDate;
     [self.navigationController pushViewController:controler animated:YES];
@@ -172,6 +190,5 @@
 {
     return [self.calendarView.selectedDate NSDate];
 }
-
 
 @end

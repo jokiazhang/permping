@@ -12,4 +12,6 @@
 
 - (PermListResponse *)getPermWithDate:(NSString *)date nextItemId:(NSInteger)nextItemId requestedCount:(NSUInteger)count;
 
+- (PermListResponse*)getPermWithMonth:(NSString*)month forUserId:(NSString*)userId;
+
 @end

@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "CommonViewController.h"
 #import "Kal.h"
+#import "Taglist_NDModel.h"
 
 @class KalLogic, KalDate;
 
@@ -19,9 +20,12 @@
     id <KalDataSource> dataSource;
     NSDate *initialDate;
     NSDate *selectedDate;
+    NSDateFormatter *dateFormat;
+    
+    Taglist_NDModel     *resultModel;
     
 }
-
+@property (nonatomic, retain) Taglist_NDModel *resultModel;
 @property (nonatomic, assign) id<KalDataSource> dataSource;
 @property (nonatomic, retain, readonly) NSDate *selectedDate;
 

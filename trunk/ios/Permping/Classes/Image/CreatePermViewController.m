@@ -9,6 +9,7 @@
 #import "CreatePermViewController.h"
 #import "BoardListViewController.h"
 #import "CreatePermCell.h"
+#import "SwitchingTableCell.h"
 #import "Utils.h"
 #import "CreatePermScreen_DataLoader.h"
 #import "FollowingScreen_DataLoader.h"
@@ -67,6 +68,7 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    self.selectedBoard =  [[[[AppData getInstance] user] boards] objectAtIndex:0];
     [permTableView reloadData];
 }
 
@@ -158,8 +160,6 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (section == 0)
-        return 2;
     return 3;
 }
 
@@ -194,22 +194,40 @@
             }
             if (self.selectedBoard) cell.detailTextLabel.text = self.selectedBoard.title;
             return cell;
+        } else {
+            static NSString *reuseIdentifier = @"placeReuseIdentifier";
+            SwitchingTableCell *cell = (SwitchingTableCell*)[tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
+            if (cell == nil) {
+                cell = [[SwitchingTableCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:reuseIdentifier];
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                cell.textLabel.text = @"Place";
+            }
+            return cell;
         }
     } else {
         static NSString *reuseIdentifier = @"shareReuseIdentifier";
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
+        SwitchingTableCell *cell = (SwitchingTableCell*)[tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
         if (cell == nil) {
-            cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:reuseIdentifier] autorelease];
-            cell.selectionStyle = UITableViewCellSelectionStyleGray;
-            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-            
+            cell = [[[SwitchingTableCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:reuseIdentifier] autorelease];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            [cell.switching addTarget:self action:@selector(switchDidChangeValue:) forControlEvents:UIControlEventValueChanged];
         }
+        cell.switching.tag = indexPath.row;
         if (row == 0) {
             cell.textLabel.text = @"Facebook";
+            if ([[NSUserDefaults standardUserDefaults] boolForKey:@"ShareFacebook"]) {
+                [cell.switching setOn:YES];
+            }
         } else if (row == 1) {
             cell.textLabel.text = @"Twitter";
+            if ([[NSUserDefaults standardUserDefaults] boolForKey:@"ShareTwitter"]) {
+                [cell.switching setOn:YES];
+            }
         } else {
             cell.textLabel.text = @"Kakao Talk";
+            if ([[NSUserDefaults standardUserDefaults] boolForKey:@"ShareKakao"]) {
+                [cell.switching setOn:YES];
+            }
         }
         return cell;
     }
@@ -235,7 +253,11 @@
 }
 
 - (BOOL)validateInputData {
-    // TODO
+    CreatePermCell *cell = (CreatePermCell*)[permTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+    if (cell.valueTextField.text.length == 0) {
+        [Utils displayAlert:@"Please input description for perm." delegate:nil];
+        return NO;
+    }
     return YES;
 }
 
@@ -254,6 +276,19 @@
     }
     [textField resignFirstResponder];
     return YES;
+}
+
+- (void)switchDidChangeValue:(id)sender {
+    UISwitch *switching = (UISwitch*)sender;
+    NSString *text = @"";
+    if (switching.tag == 0) {
+        text = @"ShareFacebook";
+    } else if (switching.tag == 1) {
+        text = @"ShareTwitter";
+    } else {
+        text = @"ShareKakao";
+    }
+    [[NSUserDefaults standardUserDefaults] setBool:switching.isOn forKey:text];
 }
 
 - (void)setTarget:(id)in_target action:(SEL)in_action {

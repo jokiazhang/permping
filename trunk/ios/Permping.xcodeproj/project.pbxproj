@@ -202,6 +202,7 @@
 		6AEA545715736190005A025B /* ErrorModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AEA545615736190005A025B /* ErrorModel.m */; };
 		6AEA547115738EE9005A025B /* LogoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AEA546F15738EE8005A025B /* LogoutViewController.m */; };
 		6AEA547215738EE9005A025B /* LogoutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6AEA547015738EE8005A025B /* LogoutViewController.xib */; };
+		6AEC334A1588B3AA00EB15FC /* SwitchingTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AEC33491588B3AA00EB15FC /* SwitchingTableCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -576,6 +577,8 @@
 		6AEA546E15738EE8005A025B /* LogoutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogoutViewController.h; sourceTree = "<group>"; };
 		6AEA546F15738EE8005A025B /* LogoutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogoutViewController.m; sourceTree = "<group>"; };
 		6AEA547015738EE8005A025B /* LogoutViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LogoutViewController.xib; sourceTree = "<group>"; };
+		6AEC33481588B3AA00EB15FC /* SwitchingTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwitchingTableCell.h; sourceTree = "<group>"; };
+		6AEC33491588B3AA00EB15FC /* SwitchingTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SwitchingTableCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -821,6 +824,8 @@
 				043D4F1A157681D800D10276 /* CreateBoardViewController.h */,
 				043D4F1B157681D800D10276 /* CreateBoardViewController.m */,
 				043D4F1C157681D800D10276 /* CreateBoardViewController.xib */,
+				6AEC33481588B3AA00EB15FC /* SwitchingTableCell.h */,
+				6AEC33491588B3AA00EB15FC /* SwitchingTableCell.m */,
 			);
 			name = Image;
 			path = Permping/Classes/Image;
@@ -1557,6 +1562,7 @@
 				047AE8BF157FADF20050AF46 /* SA_OAuthTwitterEngine.m in Sources */,
 				047AE8CD157FEA600050AF46 /* CreateBoard_DataLoader.m in Sources */,
 				0443414F1585310900CC8747 /* FollowResponse.m in Sources */,
+				6AEC334A1588B3AA00EB15FC /* SwitchingTableCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
