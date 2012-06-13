@@ -51,10 +51,10 @@
 //    }
     float desiredWidth = 304;
     float desiredHeight = height;
-    if(width < 560)
+    if(width < 500)
     {
-        desiredWidth = width/560 * 304;
-        desiredHeight = height/560 *304;
+        desiredWidth = width/500 * 304;
+        desiredHeight = height/500 *304;
     }
     else {
         desiredHeight = height/width *304;
