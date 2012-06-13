@@ -17,6 +17,8 @@ import org.apache.http.client.params.HttpClientParams;
 import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpParams;
 
+import com.permping.PermpingApplication;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.AssetManager;
@@ -28,7 +30,10 @@ import android.graphics.drawable.Drawable;
 import android.net.http.AndroidHttpClient;
 import android.os.AsyncTask;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 public final class UrlImageViewHelper {
     
@@ -104,44 +109,23 @@ public final class UrlImageViewHelper {
     public static final int CACHE_DURATION_SIX_DAYS = CACHE_DURATION_ONE_DAY * 6;
     public static final int CACHE_DURATION_ONE_WEEK = CACHE_DURATION_ONE_DAY * 7;
 
-    public static void setUrlDrawable(final ImageView imageView, final String url, int defaultResource) {
-        setUrlDrawable(imageView.getContext(), imageView, url, defaultResource, CACHE_DURATION_THREE_DAYS);
-    }
-
     public static void setUrlDrawable(final ImageView imageView, final String url) {
-        setUrlDrawable(imageView.getContext(), imageView, url, null, CACHE_DURATION_THREE_DAYS);
+        setUrlDrawable(imageView.getContext(), imageView, url, null, CACHE_DURATION_THREE_DAYS, 0, 0 , false );
+    }
+    
+    public static void setUrlDrawable(final ImageView imageView, final String url, boolean scaleView) {
+        setUrlDrawable(imageView.getContext(), imageView, url, null, CACHE_DURATION_THREE_DAYS, 0, 0 , scaleView );
     }
 
-    public static void loadUrlDrawable(final Context context, final String url) {
-        setUrlDrawable(context, null, url, null, CACHE_DURATION_THREE_DAYS);
+    public static void setUrlDrawable(final ImageView imageView, final String url, int width, int height ) {
+        setUrlDrawable(imageView.getContext(), imageView, url, null, CACHE_DURATION_THREE_DAYS, width, height, false  );
+    }
+    
+    public static void loadUrlDrawable(final Context context, final String url, int width, int height) {
+        setUrlDrawable(context, null, url, null, CACHE_DURATION_THREE_DAYS,  width,  height , false );
     }
 
-    public static void setUrlDrawable(final ImageView imageView, final String url, Drawable defaultDrawable) {
-        setUrlDrawable(imageView.getContext(), imageView, url, defaultDrawable, CACHE_DURATION_THREE_DAYS);
-    }
-
-    public static void setUrlDrawable(final ImageView imageView, final String url, int defaultResource, long cacheDurationMs) {
-        setUrlDrawable(imageView.getContext(), imageView, url, defaultResource, cacheDurationMs);
-    }
-
-    public static void loadUrlDrawable(final Context context, final String url, long cacheDurationMs) {
-        setUrlDrawable(context, null, url, null, cacheDurationMs);
-    }
-
-    public static void setUrlDrawable(final ImageView imageView, final String url, Drawable defaultDrawable, long cacheDurationMs) {
-        setUrlDrawable(imageView.getContext(), imageView, url, defaultDrawable, cacheDurationMs);
-    }
-
-    private static void setUrlDrawable(final Context context, final ImageView imageView, final String url, int defaultResource, long cacheDurationMs) {
-        Drawable d = null;
-        if (defaultResource != 0)
-            d = imageView.getResources().getDrawable(defaultResource);
-        setUrlDrawable(context, imageView, url, d, cacheDurationMs);
-    }
-
-    private static boolean isNullOrEmpty(CharSequence s) {
-        return (s == null || s.equals("") || s.equals("null") || s.equals("NULL"));
-    }
+   
 
     private static boolean mHasCleaned = false;
 
@@ -171,8 +155,14 @@ public final class UrlImageViewHelper {
             e.printStackTrace();
         }
     }
-
-    private static void setUrlDrawable(final Context context, final ImageView imageView, final String url, final Drawable defaultDrawable, long cacheDurationMs) {
+    
+    
+    private static boolean isNullOrEmpty(CharSequence s) {
+        return (s == null || s.equals("") || s.equals("null") || s.equals("NULL"));
+    }
+    
+    
+    private static void setUrlDrawable(final Context context, final ImageView imageView, final String url, final Drawable defaultDrawable, long cacheDurationMs, final int width, final int height, final boolean scaleView) {
         cleanup(context);
         // disassociate this ImageView from any pending downloads
         if (imageView != null)
@@ -227,6 +217,10 @@ public final class UrlImageViewHelper {
         mPendingDownloads.put(url, downloads);
 
         AsyncTask<Void, Void, Drawable> downloader = new AsyncTask<Void, Void, Drawable>() {
+        	
+        	private int oiw = 0;
+        	private int oih = 0;
+        	
             @Override
             protected Drawable doInBackground(Void... params) {
                 AndroidHttpClient client = AndroidHttpClient.newInstance(context.getPackageName());
@@ -257,6 +251,9 @@ public final class UrlImageViewHelper {
                       BitmapFactory.decodeStream(fis, null, o);
                       fis.close();
                       
+                      oiw = o.outWidth;
+                      oih = o.outHeight;
+                      
                       int scale = 1;
                       if (o.outHeight > IMAGE_MAX_SIZE || o.outWidth > IMAGE_MAX_SIZE) {
                           scale = (int)Math.pow(2.0, (int) Math.round(Math.log(IMAGE_MAX_SIZE / (double) Math.max(o.outHeight, o.outWidth)) / Math.log(0.5)));
@@ -272,13 +269,16 @@ public final class UrlImageViewHelper {
                       prepareResources(context);
                       //BitmapDrawable drawable = loadDrawableFromStream(context, fis);
                       BitmapDrawable drawable = new BitmapDrawable(mResources, b);
-                      Drawable dr = scaleDrawable( drawable, 100, 100 );
-                    
-                      return dr;
-                 //   return loadDrawableFromStream(context, fis);
+                      
+                      if( width > 0 && height > 0 )
+                      {
+	                      Drawable dr = scaleDrawable( drawable, width, height );
+	                      return dr;
+                      }
+                      return drawable;
                 }
                 catch (Exception ex) {
-//                    Log.e(LOGTAG, "Exception during Image download of " + url, ex);
+                    Log.e("PERMPING_IMAGE", "Exception during Image download of " + url, ex);
                     return null;
                 }
                 finally {
@@ -302,6 +302,63 @@ public final class UrlImageViewHelper {
                     if (result != null) {
                         final Drawable newImage = result;
                         final ImageView imageView = iv;
+                        
+                        if( scaleView == true )
+                        {
+                        	
+                        	PermpingApplication state = (PermpingApplication) context.getApplicationContext();
+                        	DisplayMetrics metrics = state.getDisplayMetrics();
+                        	
+                        	//Calculate with & height //This should be in a function 
+                        	int marginLeft = 0;
+                        	int marginRight = 0;
+                        	
+                        	int imgWidth = 0;
+                        	int imgHeight = 0;
+                        	
+                        	if( metrics.widthPixels <= 320 ) { //320 x 480
+                        		marginLeft = 8;
+                        		marginRight = 8;
+                        		if( oiw < 560 ){
+	                        		imgWidth = ( ( oiw / 560 ) * 304 );
+	                        		imgHeight = (( oih / 560 ) * 304 );
+                        		} else {
+                        			imgWidth = 304;
+                        			imgHeight = ( oih * 304 ) / oiw ;
+                        		}
+                        	}
+                        	else if( metrics.widthPixels <= 480 ){ //480 x 800 
+                        		marginLeft = 12;
+                        		marginRight = 12;
+                        		if( oiw < 560 ) {
+                        			imgWidth = ( ( oiw / 560 ) * 456 );
+                        			imgHeight = (( oih / 560 ) * 456 );
+                        		} else {
+                        			imgWidth = 456;
+                        			imgHeight = ( oih * 456 ) / oiw ;
+                        		}
+                        		
+                        	} else if( metrics.widthPixels <= 800 ){ //800 x 1280
+                        		marginLeft = 20;
+                        		marginRight = 20;
+                        		
+                        		if( oiw < 560 ){
+                        			imgWidth = ( ( oiw / 560 ) * 760 );
+                        			imgHeight = (( oih / 560 ) * 760 );
+                        		} else {
+                        			imgWidth = 760;
+                        			imgHeight = ( oih * 760 ) / oiw ;
+                        		}
+                        	}
+                        	
+                        	
+	                        LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) imageView.getLayoutParams();
+	        				layoutParams.width = imgWidth;
+	        				layoutParams.height = imgHeight;
+	        				layoutParams.setMargins(marginLeft, 10, marginRight, 10);
+	        				imageView.setLayoutParams(layoutParams);
+                        }
+                        
                         imageView.setImageDrawable(newImage);
                     }
                 }
@@ -313,7 +370,7 @@ public final class UrlImageViewHelper {
     
     public static Drawable scaleDrawable( Drawable drawable , int width, int height ){
          Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
-         Bitmap scaledBitmap = Bitmap.createScaledBitmap(bitmap, (int) 100,     (int) 100, true);
+         Bitmap scaledBitmap = Bitmap.createScaledBitmap(bitmap, width,     height, true);
          bitmap.recycle();
          bitmap = scaledBitmap;
          System.gc();

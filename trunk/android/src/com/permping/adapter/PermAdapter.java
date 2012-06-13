@@ -46,6 +46,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.view.View.OnClickListener;
@@ -299,7 +300,13 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 
 				ImageView pv = (ImageView) view.findViewById(R.id.permImage);
 				//ImageUtil.imageViewFromURL( pv , perm.getImage().getUrl() );
-				UrlImageViewHelper.setUrlDrawable(pv, perm.getImage().getUrl());
+				/*
+				 LinearLayout.LayoutParams layoutParams = (LayoutParams) pv.getLayoutParams();
+ 				layoutParams.width = 350;
+ 				pv.setLayoutParams(layoutParams);
+ 				*/
+				UrlImageViewHelper.setUrlDrawable(pv, perm.getImage().getUrl() , true );
+				
 				//PermUtils.scaleImage(pv, screenWidth, screenHeight);
 
 				// Perm description
