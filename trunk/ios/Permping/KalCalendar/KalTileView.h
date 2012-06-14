@@ -36,4 +36,8 @@ typedef char KalTileType;
 - (BOOL)isToday;
 - (BOOL)belongsToAdjacentMonth;
 
+// Tuan added
+@property (nonatomic, copy) NSArray *imageViews;
+
+- (void)setImageUrlStrings:(NSArray*)urlStrings;
 @end
