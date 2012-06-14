@@ -405,6 +405,14 @@
     }
 }
 
+- (void)findLocationForPermAtCell:(PermInfoCell *)cell {
+    NSString *latlong = @"-56.568545,1.256281";
+    NSString *url = [NSString stringWithFormat: @"http://maps.google.com/maps?ll=%@",
+                     [latlong stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
+
+}
+
 - (id)getDataLoaderWithPermAction {
     FollowingScreen_DataLoader *loader = [[FollowingScreen_DataLoader alloc] init];
     return [loader autorelease];

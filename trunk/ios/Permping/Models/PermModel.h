@@ -24,6 +24,9 @@
     NSMutableArray     *permComments;
     NSData          *fileData;
     
+    NSString    *latitude;
+    NSString    *longitude;
+    
 }
 
 @property (nonatomic, retain)   UserModel                   *permUser;
@@ -36,7 +39,9 @@
 @property (nonatomic, copy)     NSString                    *permLikeCount;
 @property (nonatomic, copy)     NSString                    *permCommentCount;
 @property (nonatomic, copy)     NSString                    *permUserlikeCount;
-@property (nonatomic, retain)   NSMutableArray                    *permComments;
+@property (nonatomic, retain)   NSMutableArray              *permComments;
 @property (nonatomic, retain)   NSData                      *fileData;
+@property (nonatomic, copy)     NSString                    *latitude;
+@property (nonatomic, copy)     NSString                    *longitude;
  
 @end
