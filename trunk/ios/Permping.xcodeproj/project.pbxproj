@@ -175,6 +175,7 @@
 		6A0463331562591600BB4E34 /* UIButton+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A04632A1562591600BB4E34 /* UIButton+WebCache.m */; };
 		6A0463341562591600BB4E34 /* UIImageView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A04632C1562591600BB4E34 /* UIImageView+WebCache.m */; };
 		6A04633915625E8200BB4E34 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A04633815625E8100BB4E34 /* MapKit.framework */; };
+		6A0492D41589C1E3009BB0C4 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A0492D31589C1E3009BB0C4 /* CoreLocation.framework */; };
 		6AC710A315610F4200DFE074 /* TBXML.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AC7109E15610F4200DFE074 /* TBXML.m */; };
 		6AC710A415610F4200DFE074 /* TBXML+Compression.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AC710A015610F4200DFE074 /* TBXML+Compression.m */; };
 		6AC710A515610F4200DFE074 /* TBXML+HTTP.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AC710A215610F4200DFE074 /* TBXML+HTTP.m */; };
@@ -511,6 +512,7 @@
 		6A04632B1562591600BB4E34 /* UIImageView+WebCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+WebCache.h"; sourceTree = "<group>"; };
 		6A04632C1562591600BB4E34 /* UIImageView+WebCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+WebCache.m"; sourceTree = "<group>"; };
 		6A04633815625E8100BB4E34 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		6A0492D31589C1E3009BB0C4 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		6A0566A11564BB660064A63B /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		6A700A5D1583499700F7A84C /* NSMutableURLRequest+Parameters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableURLRequest+Parameters.h"; sourceTree = "<group>"; };
 		6A700A5E1583499700F7A84C /* NSString+URLEncoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+URLEncoding.h"; sourceTree = "<group>"; };
@@ -586,6 +588,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6A0492D41589C1E3009BB0C4 /* CoreLocation.framework in Frameworks */,
 				6AE0E686157895B200F7C52B /* ImageIO.framework in Frameworks */,
 				0441C0A51572CD81003C9380 /* MobileCoreServices.framework in Frameworks */,
 				04A0715115722D7800C6FFB8 /* libKal.a in Frameworks */,
@@ -901,6 +904,7 @@
 		04DFAC4D155E40A300AE9FFD = {
 			isa = PBXGroup;
 			children = (
+				6A0492D31589C1E3009BB0C4 /* CoreLocation.framework */,
 				04DFAC62155E40A300AE9FFD /* Permping */,
 				04DFAC92155E446D00AE9FFD /* Resources */,
 				04DFAC5B155E40A300AE9FFD /* Frameworks */,

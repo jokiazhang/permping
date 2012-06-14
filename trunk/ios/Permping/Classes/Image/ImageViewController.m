@@ -95,41 +95,29 @@
 
 - (IBAction)galleryButtonDidTouch:(id)sender {
     if ([[AppData getInstance] didLogin]) {
-    if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) {
-        NSArray *media = [UIImagePickerController
-                          availableMediaTypesForSourceType: UIImagePickerControllerSourceTypePhotoLibrary];
-        
-        if ([media containsObject:(NSString*)kUTTypeImage] == YES) {
-            UIImagePickerController *picker = [[UIImagePickerController alloc] init];
-            picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-            [picker setMediaTypes:[NSArray arrayWithObject:(NSString *)kUTTypeImage]];
+        if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) {
+            NSArray *media = [UIImagePickerController
+                              availableMediaTypesForSourceType: UIImagePickerControllerSourceTypePhotoLibrary];
             
-            picker.delegate = self;
-            [self presentModalViewController:picker animated:YES];
-            [picker release];
-        }
-        else {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Unsupported!"
-                                                            message:@"Gallery does not support photo capturing."
+            if ([media containsObject:(NSString*)kUTTypeImage] == YES) {
+                UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+                picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+                [picker setMediaTypes:[NSArray arrayWithObject:(NSString *)kUTTypeImage]];
+                
+                picker.delegate = self;
+                [self presentModalViewController:picker animated:YES];
+                [picker release];
+            }
+        } else {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Unavailable!"
+                                                            message:@"This device does not have a gallery."
                                                            delegate:nil
                                                   cancelButtonTitle:@"OK"
                                                   otherButtonTitles:nil];
             [alert show];
             [alert release];
         }
-        
-    }
-    else {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Unavailable!"
-                                                        message:@"This device does not have a gallery."
-                                                       delegate:nil
-                                              cancelButtonTitle:@"OK"
-                                              otherButtonTitles:nil];
-        [alert show];
-        [alert release];
-    }
-}
-    else {
+    } else {
         LoginViewController *controller = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
         [self.navigationController pushViewController:controller animated:YES];
         [controller release];

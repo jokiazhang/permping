@@ -179,14 +179,16 @@ NSString *const kUserServiceOauthVerifierKey = @"UserServiceOauthVerifierKey";
     request.requestURL = [SERVER_API stringByAppendingFormat:@"/permservice/uploadperm"];
     
     PermModel *perm = [permInfo objectForKey:@"perm"];
-    NSString *share = [permInfo valueForKey:@"share"];
-//    BoardModel *board = [permInfo objectForKey:@"board"];
-//    NSData *fileData = [permInfo objectForKey:@"fileData"];
-    
     [request addPartName:@"uid" contentType:@"text/html; charset=UTF-8" transferEncode:@"8bit" body:[[AppData getInstance].user.userId dataUsingEncoding:NSUTF8StringEncoding] filename:nil];
     [request addPartName:@"board" contentType:@"text/html; charset=UTF-8" transferEncode:@"8bit" body:[perm.permCategoryId dataUsingEncoding:NSUTF8StringEncoding] filename:nil];
     [request addPartName:@"board_desc" contentType:@"text/html; charset=UTF-8" transferEncode:@"8bit" body:[perm.permDesc dataUsingEncoding:NSUTF8StringEncoding] filename:nil];
+    
+    NSString *share = [permInfo valueForKey:@"share"];
     [request addParameter:@"type" value:share];
+    
+    NSString *geo = [permInfo valueForKey:@"geo"];
+    [request addParameter:@"geo" value:geo];
+    
     NSString *extType = [Utility getExtImageType:perm.fileData];
     if (extType != nil) {
         // get the current date
