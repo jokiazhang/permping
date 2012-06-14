@@ -59,6 +59,7 @@
         
         locationButton = [[UIButton alloc] initWithFrame:CGRectZero];
         [locationButton setImage:[UIImage imageNamed:@"location-btn"] forState:UIControlStateNormal];
+        [locationButton addTarget:self action:@selector(locationButtonDidTouch:) forControlEvents:UIControlEventTouchUpInside];
         [myContentView addSubview:locationButton];
         
         statusLabel = [[UILabel alloc] initWithFrame:CGRectZero];
@@ -85,6 +86,7 @@
     repermButton.frame = CGRectMake(10, y, 70, 37);
     commentButton.frame = CGRectMake(95, y, 100, 37);
     likeButton.frame = CGRectMake(210, y, 70, 37);
+    locationButton.frame = CGRectMake(290, y, 20, 37);
     
     y = CGRectGetMaxY(repermButton.frame) + 10;
     statusLabel.frame = CGRectMake(10, y, 300, 21);
@@ -107,19 +109,11 @@
         likeButton.hidden = NO;
     }
     
-    /*if ([[AppData getInstance] didLogin]) {
-        likeButton.enabled = YES;
-        commentButton.enabled = YES;
-        if ([[AppData getInstance].user.userId isEqualToString:in_perm.permUser.userId]) {
-            repermButton.enabled = YES;
-        } else {
-            repermButton.enabled = NO;
-        }
+    if (in_perm.latitude && in_perm.longitude) {
+        locationButton.hidden = NO;
     } else {
-        likeButton.enabled = NO;
-        commentButton.enabled = NO;
-        repermButton.enabled = NO;
-    }*/
+        locationButton.hidden = NO;
+    }
 }
 
 - (void)likePermButtonDidTouch:(id)sender {
@@ -137,6 +131,12 @@
 - (void)repermButtonDidTouch:(id)sender {
     if (delegate && [delegate respondsToSelector:@selector(repermPermAtCell:)]) {
         [delegate repermPermAtCell:self];
+    }
+}
+
+- (void)locationButtonDidTouch:(id)sender {
+    if (delegate && [delegate respondsToSelector:@selector(findLocationForPermAtCell:)]) {
+        [delegate findLocationForPermAtCell:self];
     }
 }
 

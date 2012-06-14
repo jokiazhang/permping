@@ -14,6 +14,7 @@
 #import "CreatePermScreen_DataLoader.h"
 #import "FollowingScreen_DataLoader.h"
 #import "AppData.h"
+#import "Taglist_CloudService.h"
 
 @interface CreatePermViewController ()
 - (void)uploadPermForMe:(id)loader thread:(id<ThreadManagementProtocol>)threadObj;
@@ -59,6 +60,7 @@
     [super viewDidLoad];
     self.navigationItem.leftBarButtonItem = [Utils barButtonnItemWithTitle:NSLocalizedString(@"globals.cancel", @"Cancel") target:self selector:@selector(dismiss:)];
     self.navigationItem.rightBarButtonItem = [Utils barButtonnItemWithTitle:NSLocalizedString(@"globals.ok", @"OK") target:self selector:@selector(createPerm)];
+    self.selectedBoard =  [[[[AppData getInstance] user] boards] objectAtIndex:0];
 }
 
 - (void)viewDidUnload
@@ -68,7 +70,6 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    self.selectedBoard =  [[[[AppData getInstance] user] boards] objectAtIndex:0];
     [permTableView reloadData];
 }
 
@@ -82,6 +83,27 @@
         CreatePermScreen_DataLoader *loader = [[CreatePermScreen_DataLoader alloc] init];
         return [loader autorelease];
     }
+}
+
+- (NSDictionary*)permInfo {
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+    [dict setObject:self.currentPerm forKey:@"perm"];
+    
+    BOOL shareFacebook = [[NSUserDefaults standardUserDefaults] boolForKey:@"ShareFacebook"];
+    BOOL shareTwitter = [[NSUserDefaults standardUserDefaults] boolForKey:@"ShareTwitter"];
+    NSString *shareType = nil;
+    if (shareFacebook && shareTwitter) {
+        shareType = @"all";
+    } else if (shareFacebook) {
+        shareType = @"facebook";
+    } else if (shareTwitter) {
+        shareType = @"twitter";
+    }
+    if (shareType) {
+        [dict setObject:shareType forKey:@"share"];
+    }
+    NSLog(@"shareType : %@", shareType);
+    return [dict autorelease];
 }
 
 - (void)uploadPermForMe:(id)loader thread:(id<ThreadManagementProtocol>)threadObj
@@ -124,7 +146,7 @@
 
         } else {
             self.currentPerm.fileData = self.fileData;
-            UploadPermResponse *response =  [(CreatePermScreen_DataLoader *)loader uploadPerm:self.currentPerm];
+            UploadPermResponse *response =  [(CreatePermScreen_DataLoader *)loader uploadPerm:[self permInfo]];
             NSError *error = response.responseError;
             
             if (![threadObj isCancelled]) {
@@ -201,6 +223,7 @@
                 cell = [[SwitchingTableCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:reuseIdentifier];
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
                 cell.textLabel.text = @"Place";
+                cell.switching.tag = 0;
             }
             return cell;
         }
@@ -212,7 +235,7 @@
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             [cell.switching addTarget:self action:@selector(switchDidChangeValue:) forControlEvents:UIControlEventValueChanged];
         }
-        cell.switching.tag = indexPath.row;
+        cell.switching.tag = indexPath.row+1;
         if (row == 0) {
             cell.textLabel.text = @"Facebook";
             if ([[NSUserDefaults standardUserDefaults] boolForKey:@"ShareFacebook"]) {
@@ -246,7 +269,6 @@
 
 - (void)selectBoard:(BoardModel*)board {
     if (![board.boardId isEqualToString:self.selectedBoard.boardId]) {
-        hasChange = YES;
         self.selectedBoard = board;
     }
     [self.navigationController popToViewController:self animated:YES];
@@ -271,24 +293,54 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     if (![textField.text isEqualToString:self.currentPerm.permDesc]) {
-        hasChange = YES;
         self.currentPerm.permDesc = textField.text;
     }
     [textField resignFirstResponder];
     return YES;
 }
 
-- (void)switchDidChangeValue:(id)sender {
-    UISwitch *switching = (UISwitch*)sender;
-    NSString *text = @"";
-    if (switching.tag == 0) {
-        text = @"ShareFacebook";
-    } else if (switching.tag == 1) {
-        text = @"ShareTwitter";
-    } else {
-        text = @"ShareKakao";
+- (void)socialNetworkLoginDidFinish:(NSNotification*)notification {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kSocialNetworkDidLoginNotification object:nil];
+    BOOL isSuccess = [[notification.userInfo objectForKey:@"isSuccess"] boolValue];
+    if (isSuccess) {
+        NSString *type = [notification.userInfo objectForKey:kUserServiceTypeKey];
+        if ([type isEqualToString:kUserServiceTypeFacebook]) {
+            [[NSUserDefaults standardUserDefaults] setBool:isSuccess forKey:@"ShareFacebook"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+        } else if ([type isEqualToString:kUserServiceTypeTwitter]) {
+            [[NSUserDefaults standardUserDefaults] setBool:isSuccess forKey:@"ShareTwitter"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+        }
     }
-    [[NSUserDefaults standardUserDefaults] setBool:switching.isOn forKey:text];
+    [currentSwitch setOn:isSuccess];
+}
+
+
+- (void)switchDidChangeValue:(id)sender {
+    currentSwitch = (UISwitch*)sender;
+    BOOL isOn = currentSwitch.isOn;
+    if (currentSwitch.tag == 0) {
+        geoEnable = currentSwitch.isOn;
+    } else {
+        NSString *key = @"";
+        if (currentSwitch.tag == 1) {
+            key = @"ShareFacebook";
+            if (isOn && ![[AppData getInstance] fbLoggedIn]) {
+                [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(socialNetworkLoginDidFinish:) name:kSocialNetworkDidLoginNotification object:nil];
+                return;
+            }
+        } else if (currentSwitch.tag == 2) {
+            key = @"ShareTwitter";
+            if (isOn && ![[AppData getInstance] twitterLoggedIn:self]) {
+                [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(socialNetworkLoginDidFinish:) name:kSocialNetworkDidLoginNotification object:nil];
+                return;
+            }
+        } else {
+            key = @"ShareKakao";
+        }
+        [[NSUserDefaults standardUserDefaults] setBool:isOn forKey:key];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
 }
 
 - (void)setTarget:(id)in_target action:(SEL)in_action {

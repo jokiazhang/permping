@@ -21,6 +21,8 @@
 @synthesize                    permUserlikeCount;
 @synthesize                    fileData;
 @synthesize                    permCategoryId ;
+@synthesize                    latitude;
+@synthesize                    longitude;
 - (id)init
 {
 	if (self = [super init])
@@ -44,6 +46,8 @@
     self.permUserlikeCount = nil;
     self.permCategoryId = nil;
     self.fileData = nil;
+    self.latitude = nil;
+    self.longitude = nil;
 	[super dealloc];
 }
 

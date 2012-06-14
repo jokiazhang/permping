@@ -44,7 +44,7 @@ extern NSString *const kUserServiceOauthVerifierKey;
 + (PermListResponse*)getPermWithUserId:(NSString*)userId requestCount:(NSUInteger)count nextItemId:(NSInteger)nextId;
 + (PermListResponse*)getPermWithDate:(NSString*)date nextItemId:(NSInteger)nextId requestCount:(NSUInteger)count;
 + (PermListResponse*)getPermWithMonth:(NSString*)month forUserId:(NSString*)userId;
-+ (UploadPermResponse*)uploadPermWithInfo:(PermModel*)permInfo;
++ (UploadPermResponse*)uploadPermWithInfo:(NSDictionary*)permInfo;
 + (PermActionResponse*)likePermWithId:(NSString*)permId userId:(NSString*)userId;
 + (PermActionResponse*)commentPermWithId:(NSString*)permId userId:(NSString*)userId content:(NSString*)content;
 + (PermActionResponse*)repermWithId:(NSString*)permId userId:(NSString*)userId boardId:(NSString*)boardId description:(NSString*)desc;

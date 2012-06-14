@@ -11,7 +11,7 @@
 
 @implementation CreatePermScreen_DataLoader
 
-- (UploadPermResponse *)uploadPerm:(PermModel *)permInfo
+- (UploadPermResponse *)uploadPerm:(NSDictionary *)permInfo
 {
     return [Taglist_CloudService uploadPermWithInfo:permInfo];
 }

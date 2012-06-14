@@ -18,7 +18,9 @@
     PermModel       *currentPerm;
     NSData          *fileData;
     
-    BOOL            hasChange;
+    BOOL            geoEnable;
+    
+    UISwitch        *currentSwitch;
     
     id target;
     SEL action;

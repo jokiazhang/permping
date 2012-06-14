@@ -198,6 +198,14 @@
         if (self.currentPerm)
             self.currentPerm.permUserlikeCount = [[text copy] autorelease];
     }
+    else if ([@"/response/perms/item/lat" isEqualToString:path]) {
+        if (self.currentPerm)
+            self.currentPerm.latitude = [[text copy] autorelease];
+    }
+    else if ([@"/response/perms/item/long" isEqualToString:path]) {
+        if (self.currentPerm)
+            self.currentPerm.longitude = [[text copy] autorelease];
+    }
     else if ([@"/response/perms/item/user/userId" isEqualToString:path]) {
         if (self.currentUser)
             self.currentUser.userId = [[text copy] autorelease];
@@ -377,6 +385,14 @@
     else if ([@"/response/followingPerms/item/permUserLikeCount" isEqualToString:path]) {
         if (self.currentPerm)
             self.currentPerm.permUserlikeCount = [[text copy] autorelease];
+    }
+    else if ([@"/response/followingPerms/item/lat" isEqualToString:path]) {
+        if (self.currentPerm)
+            self.currentPerm.latitude = [[text copy] autorelease];
+    }
+    else if ([@"/response/followingPerms/item/long" isEqualToString:path]) {
+        if (self.currentPerm)
+            self.currentPerm.longitude = [[text copy] autorelease];
     }
     else if ([@"/response/followingPerms/item/user/userId" isEqualToString:path]) {
         if (self.currentUser)
@@ -590,6 +606,14 @@
     else if ([@"/response/popularPerms/item/permUserLikeCount" isEqualToString:path]) {
         if (self.currentPerm)
             self.currentPerm.permUserlikeCount = [[text copy] autorelease];
+    }
+    else if ([@"/response/popularPerms/item/lat" isEqualToString:path]) {
+        if (self.currentPerm)
+            self.currentPerm.latitude = [[text copy] autorelease];
+    }
+    else if ([@"/response/popularPerms/item/long" isEqualToString:path]) {
+        if (self.currentPerm)
+            self.currentPerm.longitude = [[text copy] autorelease];
     }
     else if ([@"/response/popularPerms/item/user/userId" isEqualToString:path]) {
         if (self.currentUser)

@@ -8,9 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import "UploadPermResponse.h"
-#import "PermModel.h"
 
 @interface CreatePermScreen_DataLoader : NSObject
 
-- (UploadPermResponse *)uploadPerm:(PermModel *)permInfo;
+- (UploadPermResponse *)uploadPerm:(NSDictionary *)permInfo;
 @end
