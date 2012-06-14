@@ -26,8 +26,11 @@
 @synthesize imageInfo, selectedBoard;
 @synthesize currentPerm;
 @synthesize fileData;
+@synthesize locationManager, bestEffortAtLocation;
 
 - (void)dealloc {
+    self.locationManager = nil;
+    self.bestEffortAtLocation = nil;
     self.imageInfo = nil;
     self.selectedBoard = nil;
     self.currentPerm = nil;
@@ -102,7 +105,12 @@
     if (shareType) {
         [dict setObject:shareType forKey:@"share"];
     }
-    NSLog(@"shareType : %@", shareType);
+    
+    if (geoEnable && self.bestEffortAtLocation) {
+        NSString *string = [NSString stringWithFormat:@"%f, %f", bestEffortAtLocation.coordinate.latitude,bestEffortAtLocation.coordinate.longitude];
+        [dict setObject:string forKey:@"geo"];
+    }
+    
     return [dict autorelease];
 }
 
@@ -224,6 +232,7 @@
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
                 cell.textLabel.text = @"Place";
                 cell.switching.tag = 0;
+                [cell.switching addTarget:self action:@selector(switchDidChangeValue:) forControlEvents:UIControlEventValueChanged];
             }
             return cell;
         }
@@ -321,6 +330,9 @@
     BOOL isOn = currentSwitch.isOn;
     if (currentSwitch.tag == 0) {
         geoEnable = currentSwitch.isOn;
+        if (geoEnable) {
+            [self setupLocationManager];
+        }
     } else {
         NSString *key = @"";
         if (currentSwitch.tag == 1) {
@@ -349,4 +361,36 @@
     action = in_action;
 }
 
+#pragma mark -
+#pragma mark Location Manager
+#pragma mark -
+- (void)stopUpdatingLocation {
+    [locationManager stopUpdatingLocation];
+    locationManager.delegate = nil;
+}
+
+- (void)setupLocationManager {
+    self.locationManager = [[[CLLocationManager alloc] init] autorelease];
+    locationManager.delegate = self;
+    locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters;
+    [locationManager startUpdatingLocation];
+}
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {
+    NSTimeInterval locationAge = -[newLocation.timestamp timeIntervalSinceNow];
+    if (locationAge > 5.0) return;
+    if (newLocation.horizontalAccuracy < 0) return;
+    if (bestEffortAtLocation == nil || bestEffortAtLocation.horizontalAccuracy > newLocation.horizontalAccuracy) {
+        self.bestEffortAtLocation = newLocation;
+        if (newLocation.horizontalAccuracy <= locationManager.desiredAccuracy) {
+            [self stopUpdatingLocation];
+        }
+    }    
+}
+
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
+    if ([error code] != kCLErrorLocationUnknown) {
+        [self stopUpdatingLocation];
+    }
+}
 @end
