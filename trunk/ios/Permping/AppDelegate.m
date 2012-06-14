@@ -45,12 +45,26 @@
     self.tabBarController = [[[UITabBarController alloc] init] autorelease];
     self.tabBarController.viewControllers = [NSArray arrayWithObjects:[self navigationControllerWithRootController:viewController1], [self navigationControllerWithRootController:viewController2], [self navigationControllerWithRootController:viewController3], [self navigationControllerWithRootController:viewController4], [self navigationControllerWithRootController:viewController5], nil];
     self.tabBarController.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"default-background.png"]];
+    self.tabBarController.delegate = self;
     
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
     self.window.rootViewController = self.tabBarController;
     [self.window makeKeyAndVisible];
     return YES;
 }
+
+- (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController 
+{
+    if ([tabBarController selectedIndex] == 4) {
+        if (( [[tabBarController viewControllers] objectAtIndex:4] == viewController) &&
+            ![[AppData getInstance] didLogin]) {
+            return NO;
+        }
+    }
+    
+    return YES;
+}
+
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {

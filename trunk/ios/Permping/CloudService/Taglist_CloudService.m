@@ -81,15 +81,22 @@ NSString *const kUserServiceOauthVerifierKey = @"UserServiceOauthVerifierKey";
 
 + (PermListResponse*)getPermWithCategorydId:(NSString*)categorydId nextItemId:(NSInteger)nextId requestedCount:(NSUInteger)count {
     Taglist_CloudPagingRequest *request = [[Taglist_CloudPagingRequest alloc] init];
-    NSLog(@"categorydId: %@", categorydId);
-    request.requestURL = [SERVER_API stringByAppendingFormat:@"/permservice/getpermwithcategoryid/%@", categorydId];
+    PermResponseType type = PermResponseTypeFromBoard;
+    if (categorydId) {
+        request.requestURL = [SERVER_API stringByAppendingFormat:@"/permservice/getpermwithcategoryid/%@", categorydId];
+        type = PermResponseTypeFromBoard;
+    } else {
+        request.requestURL = [SERVER_API stringByAppendingFormat:@"/permservice/getnewperm"];
+        type = PermResponseTypeAllCategory;
+    }
+    
     request.method = @"POST";
     [request addRequestCount:count];
     if (nextId != -1) {
         [request addNextItemId:nextId];
     }
     PermListResponse *response = [[PermListResponse alloc] init];
-    response.responseType = PermResponseTypeFromBoard;
+    response.responseType = type;
     [[Taglist_CloudRequestDispatcher getInstance] dispatchRequest:request response:response];
     [request release];
     return [response autorelease];
@@ -149,6 +156,7 @@ NSString *const kUserServiceOauthVerifierKey = @"UserServiceOauthVerifierKey";
     request.requestURL = [SERVER_API stringByAppendingFormat:@"/permservice/getthirdpermswithmonth/%@", month];
     request.method = @"POST";
     [request addParameter:@"uid" value:userId];
+    NSLog(@"month: %@", month);
     
     PermListResponse *response = [[PermListResponse alloc] init];    
     response.responseType = PermResponseTypeFromBoard;
@@ -172,6 +180,7 @@ NSString *const kUserServiceOauthVerifierKey = @"UserServiceOauthVerifierKey";
 }
 
 + (UploadPermResponse*)uploadPermWithInfo:(NSDictionary*)permInfo {
+    NSLog(@"permInfo: %@", permInfo);
     UploadPermRequest *request = [[UploadPermRequest alloc] init];
     request.method = @"POST";
     request.contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@", UPLOAD_MULTIPART_BOUNDARY];
@@ -184,10 +193,27 @@ NSString *const kUserServiceOauthVerifierKey = @"UserServiceOauthVerifierKey";
     [request addPartName:@"board_desc" contentType:@"text/html; charset=UTF-8" transferEncode:@"8bit" body:[perm.permDesc dataUsingEncoding:NSUTF8StringEncoding] filename:nil];
     
     NSString *share = [permInfo valueForKey:@"share"];
-    [request addParameter:@"type" value:share];
+    if(share) {
+        [request addPartName:@"type" contentType:@"text/html; charset=UTF-8" transferEncode:@"8bit" body:[share dataUsingEncoding:NSUTF8StringEncoding] filename:nil];
+        if ([share isEqualToString:@"twitter"]) {
+            [request addPartName:@"tw_oauth_token" contentType:@"text/html; charset=UTF-8" transferEncode:@"8bit" body:[[permInfo objectForKey:@"tw_oauth_token"] dataUsingEncoding:NSUTF8StringEncoding] filename:nil];
+            [request addPartName:@"tw_oauth_token_secret" contentType:@"text/html; charset=UTF-8" transferEncode:@"8bit" body:[[permInfo objectForKey:@"tw_oauth_token_secret"] dataUsingEncoding:NSUTF8StringEncoding] filename:nil];
+            
+        } else if ([share isEqualToString:@"facebook"]) {
+            [request addPartName:@"fb_oauth_token" contentType:@"text/html; charset=UTF-8" transferEncode:@"8bit" body:[[permInfo objectForKey:@"fb_oauth_token"] dataUsingEncoding:NSUTF8StringEncoding] filename:nil];
+            
+        } else if ([share isEqualToString:@"all"]) {
+            [request addPartName:@"fb_oauth_token" contentType:@"text/html; charset=UTF-8" transferEncode:@"8bit" body:[[permInfo objectForKey:@"fb_oauth_token"] dataUsingEncoding:NSUTF8StringEncoding] filename:nil];
+            [request addPartName:@"tw_oauth_token" contentType:@"text/html; charset=UTF-8" transferEncode:@"8bit" body:[[permInfo objectForKey:@"tw_oauth_token"] dataUsingEncoding:NSUTF8StringEncoding] filename:nil];
+            [request addPartName:@"tw_oauth_token_secret" contentType:@"text/html; charset=UTF-8" transferEncode:@"8bit" body:[[permInfo objectForKey:@"tw_oauth_token_secret"] dataUsingEncoding:NSUTF8StringEncoding] filename:nil];
+        }
+    }
     
-    NSString *geo = [permInfo valueForKey:@"geo"];
-    [request addParameter:@"geo" value:geo];
+    NSString *lat = [permInfo valueForKey:@"lat"];
+    [request addPartName:@"lat" contentType:@"text/html; charset=UTF-8" transferEncode:@"8bit" body:[lat dataUsingEncoding:NSUTF8StringEncoding] filename:nil];
+    
+    NSString *longi = [permInfo valueForKey:@"long"];
+    [request addPartName:@"long" contentType:@"text/html; charset=UTF-8" transferEncode:@"8bit" body:[longi dataUsingEncoding:NSUTF8StringEncoding] filename:nil];
     
     NSString *extType = [Utility getExtImageType:perm.fileData];
     if (extType != nil) {

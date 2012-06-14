@@ -101,7 +101,11 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.resultModel.arrResults count];
+    NSInteger count = [self.resultModel.arrResults count];
+    if (!target && count > 0) {
+        count++;
+    }
+    return count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -115,18 +119,28 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:categoryReuseIdentifier];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
-    CategoryModel *category = [self.resultModel.arrResults objectAtIndex:indexPath.row];
-    cell.textLabel.text = category.title;
+    if (indexPath.row == 0) {
+        cell.textLabel.text = @"All Category";
+    } else {
+        CategoryModel *category = [self.resultModel.arrResults objectAtIndex:indexPath.row-1];
+        cell.textLabel.text = category.title;
+    }
+    
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     
-    CategoryModel *category = [self.resultModel.arrResults objectAtIndex:indexPath.row];;
+    
     if(target) {
+        CategoryModel *category = [self.resultModel.arrResults objectAtIndex:indexPath.row];
         [target performSelector:action withObject:category];
     } else {
+        CategoryModel *category = nil;
+        if (indexPath.row > 0) {
+            category = [self.resultModel.arrResults objectAtIndex:indexPath.row-1];
+        }
         CategoryViewController *lc_controller = [[CategoryViewController alloc] initWithNibName:@"CategoryViewController" bundle:nil];
         lc_controller.category = category;
         [self.navigationController pushViewController:lc_controller animated:YES];

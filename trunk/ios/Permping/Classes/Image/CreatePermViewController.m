@@ -97,18 +97,45 @@
     NSString *shareType = nil;
     if (shareFacebook && shareTwitter) {
         shareType = @"all";
+        NSString *fbtoken = [[AppData getInstance] oauthTokenForType:kUserServiceTypeFacebook];
+        if (fbtoken) {
+            [dict setObject:fbtoken forKey:@"fb_oauth_token"];
+        }
+        NSString *twtoken = [[AppData getInstance] oauthTokenForType:kUserServiceTypeTwitter];
+        if (twtoken) {
+            [dict setObject:twtoken forKey:@"tw_oauth_token"];
+        }
+        NSString *twsecret = [[AppData getInstance] oauthTokenSecret];
+        if (twsecret) {
+            [dict setObject:twsecret forKey:@"tw_oauth_token_secret"];
+        }
     } else if (shareFacebook) {
         shareType = @"facebook";
+        NSString *fbtoken = [[NSUserDefaults standardUserDefaults] objectForKey:@"access_token"];
+        if (fbtoken) {
+            [dict setObject:fbtoken forKey:@"fb_oauth_token"];
+        }
     } else if (shareTwitter) {
         shareType = @"twitter";
+        NSString *twtoken = [[AppData getInstance] oauthTokenForType:kUserServiceTypeTwitter];
+        if (twtoken) {
+            [dict setObject:twtoken forKey:@"tw_oauth_token"];
+        }
+        NSString *twsecret = [[AppData getInstance] oauthTokenSecret];
+        if (twsecret) {
+            [dict setObject:twsecret forKey:@"tw_oauth_token_secret"];
+        }
     }
+    
     if (shareType) {
         [dict setObject:shareType forKey:@"share"];
     }
     
     if (geoEnable && self.bestEffortAtLocation) {
-        NSString *string = [NSString stringWithFormat:@"%f, %f", bestEffortAtLocation.coordinate.latitude,bestEffortAtLocation.coordinate.longitude];
-        [dict setObject:string forKey:@"geo"];
+        NSString *lat = [NSString stringWithFormat:@"%f", bestEffortAtLocation.coordinate.latitude];
+        NSString *longi = [NSString stringWithFormat:@"%f", bestEffortAtLocation.coordinate.longitude];
+        [dict setObject:lat forKey:@"lat"];
+        [dict setObject:longi forKey:@"long"];
     }
     
     return [dict autorelease];

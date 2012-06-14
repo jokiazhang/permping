@@ -63,6 +63,9 @@
 
 - (void)addPartName:(NSString *)name contentType:(NSString *)content_Type transferEncode:(NSString *)transferEncode body:(NSData *)body filename:(NSString *)filename
 {
+    if (!body || !name) {
+        return;
+    }
     EntityModel *entity = [[EntityModel alloc] init];
     entity.name = name;
     entity.contentType = content_Type;

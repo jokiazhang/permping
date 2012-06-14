@@ -54,4 +54,6 @@
 
 - (NSString*)oauthVerifier;
 
+- (NSString*)oauthTokenForType:(NSString*)oauthTokenType;
+
 @end
