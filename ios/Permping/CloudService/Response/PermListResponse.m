@@ -52,7 +52,9 @@
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////
-// Temp
+#pragma mark -
+#pragma mark Board's perms "/response/perms/item"
+#pragma mark -
 
 - (void) permFromBoardOnStartElement:(NSString *)path name:(NSString *)name
 {
@@ -198,11 +200,11 @@
         if (self.currentPerm)
             self.currentPerm.permUserlikeCount = [[text copy] autorelease];
     }
-    else if ([@"/response/perms/item/lat" isEqualToString:path]) {
+    else if ([@"/response/perms/item/permLat" isEqualToString:path]) {
         if (self.currentPerm)
             self.currentPerm.latitude = [[text copy] autorelease];
     }
-    else if ([@"/response/perms/item/long" isEqualToString:path]) {
+    else if ([@"/response/perms/item/permLong" isEqualToString:path]) {
         if (self.currentPerm)
             self.currentPerm.longitude = [[text copy] autorelease];
     }
@@ -240,7 +242,9 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////
-// Following
+#pragma mark -
+#pragma mark Following perms "/response/followingPerms/item"
+#pragma mark -
 
 - (void) permFollowingOnStartElement:(NSString *)path name:(NSString *)name
 {
@@ -386,11 +390,11 @@
         if (self.currentPerm)
             self.currentPerm.permUserlikeCount = [[text copy] autorelease];
     }
-    else if ([@"/response/followingPerms/item/lat" isEqualToString:path]) {
+    else if ([@"/response/followingPerms/item/permLat" isEqualToString:path]) {
         if (self.currentPerm)
             self.currentPerm.latitude = [[text copy] autorelease];
     }
-    else if ([@"/response/followingPerms/item/long" isEqualToString:path]) {
+    else if ([@"/response/followingPerms/item/permLong" isEqualToString:path]) {
         if (self.currentPerm)
             self.currentPerm.longitude = [[text copy] autorelease];
     }
@@ -423,9 +427,200 @@
     }
    	return;
 }
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+#pragma mark -
+#pragma mark All category perms "/response/newPerms/item"
+#pragma mark -
+
+- (void) permAllCategoryOnStartElement:(NSString *)path name:(NSString *)name
+{
+    if ([@"/response/newPerms/item" isEqualToString:path]) 
+	{
+		PermModel *model = [[PermModel alloc] init];
+        self.currentPerm = model;
+        [model release];
+	}
+    else if ([@"/response/newPerms/item/permComments/comment" isEqualToString:path]) 
+	{
+		CommentModel *model = [[CommentModel alloc] init];
+        self.currentComment = model;
+        [model release];
+	} 
+    else if ([@"/response/newPerms/item/permComments/comment/content" isEqualToString:path]) 
+	{
+		//NSLog(@"okokokokoko");
+	}
+    else if ([@"/response/newPerms/item/permComments/comment/l_user" isEqualToString:path]) 
+	{
+		UserModel *model = [[UserModel alloc] init];
+        self.currentUser = model;
+        [model release];
+	}
+    else if ([@"/response/newPerms/item/user" isEqualToString:path]) 
+	{
+		UserModel *model = [[UserModel alloc] init];
+        self.currentUser = model;
+        [model release];
+	}
+	return;
+}
+
+- (void)permAllCategoryFoundCDATA:(NSData *)CDATABlock onPath:(NSString *)path
+{
+    if ([@"/response/newPerms/item/permDesc" isEqualToString:path]) 
+	{
+        NSString *text = [[NSString alloc] initWithData:CDATABlock encoding:NSUTF8StringEncoding];
+        
+        if (self.currentPerm) {
+            self.currentPerm.permDesc = [[text copy] autorelease];
+        }
+        [text release];
+	}
+    else if ([@"/response/newPerms/item/permCategory" isEqualToString:path]) 
+	{
+        NSString *text = [[NSString alloc] initWithData:CDATABlock encoding:NSUTF8StringEncoding];
+        
+        if (self.currentPerm) {
+            self.currentPerm.permCategory = [[text copy] autorelease];
+        }
+        [text release];
+	}
+    else if ([@"/response/newPerms/item/permComments/comment/l_user/l_userName" isEqualToString:path]) {
+        NSString *text = [[NSString alloc] initWithData:CDATABlock encoding:NSUTF8StringEncoding];
+        
+        if (self.currentUser) {
+            self.currentUser.userName = [[text copy] autorelease];
+        }
+        [text release];
+    }
+    else if ([@"/response/newPerms/item/permComments/comment/content" isEqualToString:path]) {
+        NSString *text = [[NSString alloc] initWithData:CDATABlock encoding:NSUTF8StringEncoding];
+        
+        if (self.currentComment) {
+            self.currentComment.content = [[text copy] autorelease];
+        }
+        [text release];
+    }
+    else if ([@"/response/newPerms/item/user/userName" isEqualToString:path]) {
+        NSString *text = [[NSString alloc] initWithData:CDATABlock encoding:NSUTF8StringEncoding];
+        
+        if (self.currentUser) {
+            self.currentUser.userName = [[text copy] autorelease];
+        }
+        [text release];
+    }
+}
+
+- (void)permAllCategoryOnEndElement:(NSString *)path name:(NSString *)name text:(NSString *)text
+{       
+	if ([@"/response/newPerms/item/permId" isEqualToString:path]) 
+	{
+        if (self.currentPerm)
+            self.currentPerm.permId = [[text copy] autorelease];
+	}
+    else if ([@"/response/newPerms/item/permImage" isEqualToString:path]) {
+        if (self.currentPerm)
+            self.currentPerm.permImage = [[text copy] autorelease];
+    }
+    else if ([@"/response/newPerms/item/permComments/comment" isEqualToString:path])
+    {
+        if (self.currentComment) {
+            if (!self.permCommentList) {
+                NSMutableArray *array= [[NSMutableArray alloc] init];
+                self.permCommentList = array;
+                [array release];
+            }
+            [self.permCommentList addObject:self.currentComment];
+        }
+    }
+    else if ([@"/response/newPerms/item/permComments/comment/l_user/l_userId" isEqualToString:path]) {
+        if (self.currentUser)
+            self.currentUser.userId = [[text copy] autorelease];
+    }
+    else if ([@"/response/newPerms/item/permComments/comment/l_user/l_status" isEqualToString:path]) {
+        if (self.currentUser)
+            self.currentUser.userStatus = [[text copy] autorelease];
+    }
+    else if ([@"/response/newPerms/item/permComments/comment/l_user/l_userAvatar" isEqualToString:path]) {
+        if (self.currentUser)
+            self.currentUser.userAvatar = [[text copy] autorelease];
+    }
+    else if ([@"/response/newPerms/item/permComments/comment/l_user" isEqualToString:path]) {
+        if (self.currentComment)
+            self.currentComment.commentUser = self.currentUser;
+    }
+    else if ([@"/response/newPerms/item/permComments" isEqualToString:path]) {
+        if (self.currentPerm) {
+            if (!self.permCommentList) {
+                NSMutableArray *array= [[NSMutableArray alloc] init];
+                self.permCommentList = array;
+                [array release];
+            }
+            self.currentPerm.permComments = self.permCommentList;
+            self.permCommentList = nil;
+        }
+    }
+    else if ([@"/response/newPerms/item/permRepinCount" isEqualToString:path]) {
+        if (self.currentPerm)
+            self.currentPerm.permRepinCount = [[text copy] autorelease];
+    }
+    else if ([@"/response/newPerms/item/permLikeCount" isEqualToString:path]) {
+        if (self.currentPerm)
+            self.currentPerm.permLikeCount = [[text copy] autorelease];
+    }
+    else if ([@"/response/newPerms/item/permCommentCount" isEqualToString:path]) {
+        if (self.currentPerm)
+            self.currentPerm.permCommentCount = [[text copy] autorelease];
+    }
+    else if ([@"/response/newPerms/item/permUserLikeCount" isEqualToString:path]) {
+        if (self.currentPerm)
+            self.currentPerm.permUserlikeCount = [[text copy] autorelease];
+    }
+    else if ([@"/response/newPerms/item/permLat" isEqualToString:path]) {
+        if (self.currentPerm)
+            self.currentPerm.latitude = [[text copy] autorelease];
+    }
+    else if ([@"/response/newPerms/item/permLong" isEqualToString:path]) {
+        if (self.currentPerm)
+            self.currentPerm.longitude = [[text copy] autorelease];
+    }
+    else if ([@"/response/newPerms/item/user/userId" isEqualToString:path]) {
+        if (self.currentUser)
+            self.currentUser.userId = [[text copy] autorelease];
+    }
+    else if ([@"/response/newPerms/item/user/status" isEqualToString:path]) {
+        if (self.currentUser)
+            self.currentUser.userStatus = [[text copy] autorelease];
+    }
+    else if ([@"/response/newPerms/item/user/userAvatar" isEqualToString:path]) {
+        if (self.currentUser)
+            self.currentUser.userAvatar = [[text copy] autorelease];
+    }
+    else if ([@"/response/newPerms/item/user" isEqualToString:path]) {
+        if (self.currentPerm)
+            self.currentPerm.permUser = self.currentUser;
+    }
+    else if ([@"/response/newPerms/item" isEqualToString:path])
+    {
+        if (self.currentPerm) {
+            if (!self.permList) {
+                NSMutableArray *array= [[NSMutableArray alloc] init];
+                self.permList = array;
+                [array release];
+            }
+            [self.permList addObject:self.currentPerm];
+        }
+    }
+   	return;
+}
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////
+#pragma mark -
+#pragma mark Popular perms "/response/popularPerms/item"
+#pragma mark -
 
 - (void) onStartElement:(NSString *)path name:(NSString *)name
 {
@@ -438,6 +633,11 @@
     
     if (self.responseType == PermResponseTypeFollowing) {
         [self permFollowingOnStartElement:path name:name];
+        return;
+    }
+    
+    if (self.responseType == PermResponseTypeAllCategory) {
+        [self permAllCategoryOnStartElement:path name:name];
         return;
     }
     
@@ -483,6 +683,11 @@
     
     if (self.responseType == PermResponseTypeFollowing) {
         [self permFollowingFoundCDATA:CDATABlock onPath:path];
+        return;
+    }
+    
+    if (self.responseType == PermResponseTypeAllCategory) {
+        [self permAllCategoryFoundCDATA:CDATABlock onPath:path];
         return;
     }
     
@@ -541,6 +746,11 @@
     
     if (self.responseType == PermResponseTypeFollowing) {
         [self permFollowingOnEndElement:path name:name text:text];
+        return;
+    }
+    
+    if (self.responseType == PermResponseTypeAllCategory) {
+        [self permAllCategoryOnEndElement:path name:name text:text];
         return;
     }
     
@@ -607,11 +817,11 @@
         if (self.currentPerm)
             self.currentPerm.permUserlikeCount = [[text copy] autorelease];
     }
-    else if ([@"/response/popularPerms/item/lat" isEqualToString:path]) {
+    else if ([@"/response/popularPerms/item/permLat" isEqualToString:path]) {
         if (self.currentPerm)
             self.currentPerm.latitude = [[text copy] autorelease];
     }
-    else if ([@"/response/popularPerms/item/long" isEqualToString:path]) {
+    else if ([@"/response/popularPerms/item/permLong" isEqualToString:path]) {
         if (self.currentPerm)
             self.currentPerm.longitude = [[text copy] autorelease];
     }

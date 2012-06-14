@@ -401,7 +401,10 @@
 }
 
 - (NSString*)oauthToken {
-    NSString *oauthTokenType = [self oauthTokenType];
+    return [self oauthTokenForType:[self oauthTokenType]];
+}
+
+- (NSString*)oauthTokenForType:(NSString*)oauthTokenType {
     NSString *oauthToken = nil;
     if ([oauthTokenType isEqualToString:kUserServiceTypeFacebook]) {
         NSString *fbToken = [[NSUserDefaults standardUserDefaults] objectForKey:@"access_token"];
@@ -415,12 +418,7 @@
 }
 
 - (NSString*)oauthTokenSecret {
-    NSString *oauthTokenType = [self oauthTokenType];
-    NSString *secrect = nil;
-    if ([oauthTokenType isEqualToString:kUserServiceTypeTwitter]){
-        secrect = [[self twDataInfo] valueForKey:@"oauth_token_secret"];
-    }
-    return secrect;
+    return [[self twDataInfo] valueForKey:@"oauth_token_secret"];
 }
 
 - (NSString*)oauthVerifier {

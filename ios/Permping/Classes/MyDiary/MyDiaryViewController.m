@@ -12,6 +12,7 @@
 #import "KalPrivate.h"
 #import "MyPermDiaryViewController.h"
 #import "MyDiaryScreen_DataLoader.h"
+#import "AppData.h"
 
 @interface MyDiaryViewController ()
 @property (nonatomic, retain, readwrite) NSDate *initialDate;
@@ -90,12 +91,19 @@
     // e.g. self.myOutlet = nil;
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
+- (void)loadNewData {
+    [self cancelAllThreads];
     [self startActivityIndicator];
     self.resultModel.arrResults = nil;
     self.resultModel = [[[Taglist_NDModel alloc] init] autorelease];
     self.dataLoaderThread = [[ThreadManager getInstance] dispatchToConcurrentBackgroundNormalPriorityQueueWithTarget:self selector:@selector(loadDataForMe:thread:) dataObject:[self getMyDataLoader]];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    if ([[AppData getInstance] didLogin]) {
+        [self loadNewData];
+    }
 }
 
 - (KalView*)calendarView { return kalView; }
@@ -148,6 +156,7 @@
     [logic retreatToPreviousMonth];
     [[self calendarView] slideDown];
     [self reloadData];
+    [self loadNewData];
 }
 
 - (void)showFollowingMonth
@@ -156,6 +165,7 @@
     [logic advanceToFollowingMonth];
     [[self calendarView] slideUp];
     [self reloadData];
+    [self loadNewData];
 }
 
 // -----------------------------------------
@@ -189,6 +199,49 @@
 - (NSDate *)selectedDate
 {
     return [self.calendarView.selectedDate NSDate];
+}
+
+- (NSString *)currentMonth {
+    NSString *month = [self.dateFormat stringFromDate:logic.baseDate];
+    return [[month retain] autorelease];
+}
+
+#pragma mark - Override methods
+- (id)getMyDataLoader
+{
+    MyDiaryScreen_DataLoader *loader = [[MyDiaryScreen_DataLoader alloc] init];
+    return [loader autorelease];
+}
+
+- (void)loadDataForMe:(id)loader thread:(id<ThreadManagementProtocol>)threadObj
+{
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+    if (![threadObj isCancelled]) {
+        dispatch_async(dispatch_get_main_queue(), ^(void)
+                       {
+                           //[self initializeUIControls]; 
+                           
+                       });
+        NSArray *arr = nil;
+        NSString *userId = [[[AppData getInstance] user] userId];
+        PermListResponse *response = [(MyDiaryScreen_DataLoader *)loader getPermWithMonth:[self currentMonth] forUserId:userId];
+
+        arr = [response getResponsePermList];
+        
+        if (![threadObj isCancelled]) {
+            self.resultModel.arrResults = arr;
+            
+            dispatch_async(dispatch_get_main_queue(), ^(void)
+                           {
+                               [self stopActivityIndicator];
+                               //reload table
+                               // [self finishLoadData]; 
+                           });
+            //[self downloadThumbnailForObjectList:arr];
+        }
+    }
+    //[myLoader release];
+    [pool drain];
 }
 
 @end

@@ -31,4 +31,6 @@
 
 - (void)reloadData;
 - (void)showAndSelectDate:(NSDate *)date;
+
+- (NSString *)currentMonth;
 @end

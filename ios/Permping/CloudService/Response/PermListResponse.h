@@ -15,7 +15,8 @@
 typedef enum {
     PermResponseTypePopular = 0,
     PermResponseTypeFromBoard,
-    PermResponseTypeFollowing
+    PermResponseTypeFollowing,
+    PermResponseTypeAllCategory
 }PermResponseType;
 
 @interface PermListResponse : Taglist_CloudPagingResponse
