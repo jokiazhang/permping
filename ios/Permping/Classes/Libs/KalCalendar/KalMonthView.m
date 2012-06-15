@@ -109,7 +109,12 @@ extern const CGSize kTileSize;
     return dateFormat;
 }
 
-- (void)updateImages:(NSArray*)images {    
+- (void)updateImages:(NSArray*)images { 
+    // reset image
+    for (KalTileView *v in self.subviews) {
+        [v resetImages];
+    }
+    
     for (PermModel *perm in images) {
         NSDate *date = [self.dateFormat dateFromString:perm.permDate];
         if (date) {
