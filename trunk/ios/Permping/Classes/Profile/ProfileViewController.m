@@ -68,11 +68,18 @@
     if([[AppData getInstance] didLogin] || self.userId) {
         [self startActivityIndicator];
         self.dataLoaderThread = [[ThreadManager getInstance] dispatchToConcurrentBackgroundNormalPriorityQueueWithTarget:self selector:@selector(loadDataForMe:thread:) dataObject:[self getMyDataLoader]];
+    } else {
+        LoginViewController *controller = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
+        controller.hasCancel = NO;
+        //[self.navigationController presentModalViewController:controller animated:YES];
+        [self.navigationController pushViewController:controller animated:NO];
+        [controller release];
     }
 }
 
 - (void)viewDidAppear:(BOOL)animated {
-    if(!self.userId && ![[AppData getInstance] didLogin]) {
+    [super viewDidAppear:animated];
+    if (![[AppData getInstance] didLogin] && !self.userId) {
         LoginViewController *controller = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
         controller.hasCancel = NO;
         //[self.navigationController presentModalViewController:controller animated:YES];

@@ -125,11 +125,11 @@
     }
     if (indexPath.row == 0) {
         cell.textLabel.text = @"Email Address :";
-        //cell.valueTextField.text = @"demo@demo.com";
+        cell.valueTextField.text = @"demo@demo.com";
         cell.valueTextField.keyboardType = UIKeyboardTypeEmailAddress;
     } else if (indexPath.row == 1) {
         cell.textLabel.text = @"Password :";
-        //cell.valueTextField.text = @"demo";
+        cell.valueTextField.text = @"demo";
         cell.valueTextField.secureTextEntry = YES;
     }
     

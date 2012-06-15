@@ -46,12 +46,10 @@
 - (void)viewDidUnload
 {
     [super viewDidUnload];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:kLogoutFinishNotification object:nil];
 }
 
 - (IBAction)logoutButtonDidTouch:(id)sender {
     [self startActivityIndicator];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(logoutDidFinish:) name:kLogoutFinishNotification object:nil];
     [[AppData getInstance] logout];
 }
 
@@ -66,7 +64,6 @@
 
 - (void)logoutDidFinish:(NSNotification*)notification {
     [self stopActivityIndicator];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:kLogoutFinishNotification object:nil];
     BOOL isSuccess = [[notification.userInfo objectForKey:@"isSuccess"] boolValue];
     if (isSuccess) {
         [self dismissWithFlipAnimationTransition];

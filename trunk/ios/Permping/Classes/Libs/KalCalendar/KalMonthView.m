@@ -112,7 +112,10 @@ extern const CGSize kTileSize;
 - (void)updateImages:(NSArray*)images { 
     // reset image
     for (KalTileView *v in self.subviews) {
-        [v resetImages];
+        if (v.images.count > 0) {
+            [v resetImages];
+            [v setNeedsDisplay];
+        }
     }
     
     for (PermModel *perm in images) {
@@ -122,6 +125,7 @@ extern const CGSize kTileSize;
             [tile addImageUrlString:perm.permImage];
         }
     }
+    
 }
 
 - (void)dealloc {
