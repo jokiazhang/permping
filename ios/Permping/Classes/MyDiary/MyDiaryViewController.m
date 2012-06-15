@@ -104,6 +104,8 @@
     [super viewWillAppear:animated];
     if ([[AppData getInstance] didLogin]) {
         [self loadNewData];
+    } else {
+        [kalView updateImagesForCurrentMonth:nil];
     }
 }
 
@@ -249,5 +251,15 @@
     //[myLoader release];
     [pool drain];
 }
+
+- (void)logoutDidFinish:(NSNotification*)notification {
+    if (self == [self.navigationController topViewController]) {
+        BOOL isSuccess = [[notification.userInfo objectForKey:@"isSuccess"] boolValue];
+        if (isSuccess) {
+            [kalView updateImagesForCurrentMonth:nil];
+        }
+    }
+}
+
 
 @end

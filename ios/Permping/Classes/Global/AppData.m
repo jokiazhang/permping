@@ -174,6 +174,23 @@
     [[ThreadManager getInstance] dispatchToConcurrentBackgroundNormalPriorityQueueWithTarget:self selector:@selector(loadLoginDataForMe:thread:) dataObject:[self getLoginDataLoader]];
 }
 
+
+- (void)cleanupLoggedInData {
+    NSUserDefaults *userdefaults = [NSUserDefaults standardUserDefaults];
+    [userdefaults removeObjectForKey:@"authData"];
+    [userdefaults removeObjectForKey:@"exp_date"];
+    [userdefaults removeObjectForKey:@"access_token"];
+    [userdefaults removeObjectForKey:@"FacebookLoggedInUserName"];
+    [userdefaults removeObjectForKey:@"UserServiceTypeKey"];
+    [userdefaults removeObjectForKey:@"kCurrentUser"];
+    
+    [userdefaults setBool:NO forKey:@"ShareFacebook"];
+    [userdefaults setBool:NO forKey:@"ShareTwitter"];
+    
+    [userdefaults synchronize];
+}
+
+
 - (void)loadLogoutDataForMe:(id)loader thread:(id<ThreadManagementProtocol>)threadObj
 {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
@@ -188,8 +205,7 @@
         if (error && error.code == 200) {
             self.user = nil;
             _isLogout = YES;
-            [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"kUserID"];
-            [[NSUserDefaults standardUserDefaults] synchronize];
+            [self cleanupLoggedInData];
         }
         
         if (![threadObj isCancelled]) {
@@ -210,13 +226,6 @@
     if (!self.user) {
         [[NSNotificationCenter defaultCenter] postNotificationName:kLogoutFinishNotification object:self userInfo:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:_isLogout], @"isSuccess", nil]];
     }
-    
-    // logout facebook
-    [[FBRequestWrapper defaultManager] FBLogout];
-    
-    // logout twitter
-    [_engine endUserSession];
-    
     
     [[ThreadManager getInstance] dispatchToConcurrentBackgroundNormalPriorityQueueWithTarget:self selector:@selector(loadLogoutDataForMe:thread:) dataObject:[self getLoginDataLoader]];
 }

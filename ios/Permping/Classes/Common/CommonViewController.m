@@ -7,6 +7,7 @@
 //
 
 #import "CommonViewController.h"
+#import "AppData.h"
 
 #define SPINNER_BACKGROUND_WIDTH    100
 #define SPINNER_BACKGROUND_HEIGHT   60
@@ -33,6 +34,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(logoutDidFinish:) name:kLogoutFinishNotification object:nil];
+    
     UINavigationBar *bar = [self.navigationController navigationBar];
     float version = [[[UIDevice currentDevice] systemVersion] floatValue];
     if (version >= 5.0)
@@ -52,11 +55,12 @@
 - (void)viewDidUnload
 {
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kLogoutFinishNotification object:nil];
+    [self cancelAllThreads];
 }
 
 - (void)dealloc {
-    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kLogoutFinishNotification object:nil];
     self.dataLoader = nil;
     self.dataLoaderThread = nil;
     self.thumbnailDownloaders = nil;    
@@ -198,6 +202,18 @@
 {
     
 }
+
+- (void)logoutDidFinish:(NSNotification*)notification {
+    // Need check
+    BOOL isSuccess = [[notification.userInfo objectForKey:@"isSuccess"] boolValue];
+    if (isSuccess) {
+        if (self == [self.navigationController topViewController]) {
+            [self cancelAllThreads];
+            [self.navigationController popToRootViewControllerAnimated:NO];
+        }
+    }
+}
+
 @end
 
 

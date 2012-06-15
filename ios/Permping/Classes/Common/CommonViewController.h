@@ -46,6 +46,8 @@
 - (void)performDownloadThumbnailForObjectList:(NSArray *)objectList thread:(id<ThreadManagementProtocol>)threadObj;
 - (void)thumbnailDownloadDidPartialFinishForThread:(id<ThreadManagementProtocol>)threadObj;
 - (void)thumbnailDownloadDidFinishForThread:(id<ThreadManagementProtocol>)threadObj;
+
+- (void)logoutDidFinish:(NSNotification*)notification;
 @end
 
 
