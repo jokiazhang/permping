@@ -63,6 +63,9 @@
 - (void)slideUp;
 - (void)jumpToSelectedMonth;    // change months without animation (i.e. when directly switching to "Today")
 
+// Tuan added
+- (void)updateImagesForCurrentMonth:(NSArray*)images;
+
 @end
 
 #pragma mark -

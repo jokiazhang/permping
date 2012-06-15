@@ -10,9 +10,8 @@
 #define Permping_Constants_h
 #import <Foundation/Foundation.h>
 
-//#define USE_FAKE_CONNECTION
-
-#define SERVER_API   @"http://newpermping.autwin.com/services"
+//#define SERVER_API   @"http://newpermping.autwin.com/services"
+#define SERVER_API   @"http://newpermping.appo.vn/services"
 #define SERVER_REQUEST_TIMEOUT_DEFAULT 30
 
 #define TWITTER_CONSUMER_KEY        @"uMtOaN3CLE7dvvVSR1giLA"

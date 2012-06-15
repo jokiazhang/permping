@@ -156,7 +156,6 @@ NSString *const kUserServiceOauthVerifierKey = @"UserServiceOauthVerifierKey";
     request.requestURL = [SERVER_API stringByAppendingFormat:@"/permservice/getthirdpermswithmonth/%@", month];
     request.method = @"POST";
     [request addParameter:@"uid" value:userId];
-    NSLog(@"month: %@", month);
     
     PermListResponse *response = [[PermListResponse alloc] init];    
     response.responseType = PermResponseTypeFromBoard;

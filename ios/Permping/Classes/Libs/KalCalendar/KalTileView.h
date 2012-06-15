@@ -14,7 +14,7 @@ typedef char KalTileType;
 
 @class KalDate;
 
-@interface KalTileView : UIView
+@interface KalTileView : UIView <SDWebImageManagerDelegate>
 {
   KalDate *date;
   CGPoint origin;
@@ -24,6 +24,10 @@ typedef char KalTileType;
     unsigned int marked : 1;
     unsigned int type : 2;
   } flags;
+    
+    
+    // Tuan added
+    NSUInteger _requestedCount;
 }
 
 @property (nonatomic, retain) KalDate *date;
@@ -37,7 +41,10 @@ typedef char KalTileType;
 - (BOOL)belongsToAdjacentMonth;
 
 // Tuan added
-@property (nonatomic, copy) NSArray *imageViews;
+@property (nonatomic, retain) NSMutableArray *images;
+@property (nonatomic, retain) NSArray *imageUrls;
 
-- (void)setImageUrlStrings:(NSArray*)urlStrings;
+- (void)addImageUrlString:(NSString*)urlString;
+
+- (void)resetImages;
 @end

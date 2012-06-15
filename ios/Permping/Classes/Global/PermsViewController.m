@@ -406,7 +406,7 @@
 }
 
 - (void)findLocationForPermAtCell:(PermInfoCell *)cell {
-    NSString *latlong = @"-56.568545,1.256281";
+    NSString *latlong = [NSString stringWithFormat:@"%@,%@", cell.perm.latitude, cell.perm.longitude];
     NSString *url = [NSString stringWithFormat: @"http://maps.google.com/maps?ll=%@",
                      [latlong stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];

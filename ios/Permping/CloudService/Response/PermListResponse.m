@@ -146,6 +146,10 @@
         if (self.currentPerm)
             self.currentPerm.permImage = [[text copy] autorelease];
     }
+    else if ([@"/response/perms/item/permDate" isEqualToString:path]) {
+        if (self.currentPerm)
+            self.currentPerm.permDate = [[text copy] autorelease];
+    }
     else if ([@"/response/perms/item/permComments/comment" isEqualToString:path])
     {
         if (self.currentComment) {
@@ -336,6 +340,10 @@
         if (self.currentPerm)
             self.currentPerm.permImage = [[text copy] autorelease];
     }
+    else if ([@"/response/followingPerms/item/permDate" isEqualToString:path]) {
+        if (self.currentPerm)
+            self.currentPerm.permDate = [[text copy] autorelease];
+    }
     else if ([@"/response/followingPerms/item/permComments/comment" isEqualToString:path])
     {
         if (self.currentComment) {
@@ -522,6 +530,10 @@
     else if ([@"/response/newPerms/item/permImage" isEqualToString:path]) {
         if (self.currentPerm)
             self.currentPerm.permImage = [[text copy] autorelease];
+    }
+    else if ([@"/response/newPerms/item/permDate" isEqualToString:path]) {
+        if (self.currentPerm)
+            self.currentPerm.permDate = [[text copy] autorelease];
     }
     else if ([@"/response/newPerms/item/permComments/comment" isEqualToString:path])
     {
@@ -762,6 +774,10 @@
     else if ([@"/response/popularPerms/item/permImage" isEqualToString:path]) {
         if (self.currentPerm)
             self.currentPerm.permImage = [[text copy] autorelease];
+    }
+    else if ([@"/response/popularPerms/item/permDate" isEqualToString:path]) {
+        if (self.currentPerm)
+            self.currentPerm.permDate = [[text copy] autorelease];
     }
     else if ([@"/response/popularPerms/item/permComments/comment" isEqualToString:path])
     {

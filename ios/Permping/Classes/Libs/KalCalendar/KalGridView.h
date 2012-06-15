@@ -42,4 +42,7 @@
 - (void)slideDown;
 - (void)jumpToSelectedMonth;    // see comment on KalView
 
+// Tuan add
+- (void)updateImagesForCurrentMonth:(NSArray*)images;
+
 @end

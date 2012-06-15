@@ -10,6 +10,8 @@
 #import "KalDate.h"
 #import "KalPrivate.h"
 
+#import "PermModel.h"
+
 extern const CGSize kTileSize;
 
 @implementation KalMonthView
@@ -95,6 +97,31 @@ extern const CGSize kTileSize;
 {
   for (KalTileView *tile in self.subviews)
     tile.marked = [dates containsObject:tile.date];
+}
+
+// Tuan added
+
+- (NSDateFormatter*)dateFormat {
+    if (dateFormat == nil) {
+        dateFormat = [[NSDateFormatter alloc] init];
+        [dateFormat setDateFormat:@"yyyy-MM-dd hh:mm:ss"];
+    }
+    return dateFormat;
+}
+
+- (void)updateImages:(NSArray*)images {    
+    for (PermModel *perm in images) {
+        NSDate *date = [self.dateFormat dateFromString:perm.permDate];
+        if (date) {
+            KalTileView *tile = [self tileForDate:[KalDate dateFromNSDate:date]];
+            [tile addImageUrlString:perm.permImage];
+        }
+    }
+}
+
+- (void)dealloc {
+    [dateFormat release];
+    [super dealloc];
 }
 
 @end
