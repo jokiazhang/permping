@@ -10,6 +10,7 @@
 @interface KalMonthView : UIView
 {
   NSUInteger numWeeks;
+    NSDateFormatter *dateFormat;
 }
 
 @property (nonatomic) NSUInteger numWeeks;
@@ -19,5 +20,9 @@
 - (KalTileView *)firstTileOfMonth;
 - (KalTileView *)tileForDate:(KalDate *)date;
 - (void)markTilesForDates:(NSArray *)dates;
+
+// Tuan added
+@property (nonatomic, readonly) NSDateFormatter *dateFormat;
+- (void)updateImages:(NSArray*)images;
 
 @end

@@ -215,6 +215,10 @@ static const CGFloat kMonthLabelHeight = 17.f;
 
 - (KalDate *)selectedDate { return gridView.selectedDate; }
 
+- (void)updateImagesForCurrentMonth:(NSArray*)images {
+    [gridView updateImagesForCurrentMonth:images];
+}
+
 - (void)dealloc
 {
   [logic removeObserver:self forKeyPath:@"selectedMonthNameAndYear"];

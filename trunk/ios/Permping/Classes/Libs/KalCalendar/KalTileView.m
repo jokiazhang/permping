@@ -12,7 +12,7 @@ extern const CGSize kTileSize;
 @implementation KalTileView
 
 @synthesize date;
-@synthesize imageViews;
+@synthesize images, imageUrls;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -105,6 +105,8 @@ extern const CGSize kTileSize;
   flags.highlighted = NO;
   flags.selected = NO;
   flags.marked = NO;
+    
+    [self resetImages];
 }
 
 - (void)setDate:(KalDate *)aDate
@@ -194,38 +196,39 @@ extern const CGSize kTileSize;
 
 - (BOOL)belongsToAdjacentMonth { return flags.type == KalTileTypeAdjacent; }
 
+//////////////////////////////////////////////////////////////////////////////////////////////////
 // Tuan added
-- (UIImageView*)imageViewWithFrame:(CGRect)frame {
-    UIImageView *imgView = [[[UIImageView alloc] initWithFrame:frame] autorelease];
-    [self addSubview:imgView];
-    return imgView;
+//////////////////////////////////////////////////////////////////////////////////////////////////
+
+- (void)addImageUrlString:(NSString*)urlString {
+    [[SDWebImageManager sharedManager] downloadWithURL:[NSURL URLWithString:urlString] delegate:self options:SDWebImageLowPriority];
 }
 
-- (NSArray*)imageViews {
-    if (imageViews == nil) {
-        NSMutableArray *temp = [[NSMutableArray alloc] init];
-        [temp addObject:[self imageViewWithFrame:CGRectMake(24, 1, 20, 20)]];
-        [temp addObject:[self imageViewWithFrame:CGRectMake(1, 23, 20, 20)]];
-        [temp addObject:[self imageViewWithFrame:CGRectMake(24, 23, 20, 20)]];
-        imageViews = temp;
-    }
-    return imageViews;
+- (void)resetImages {
+    self.images = nil;
+    self.images = [NSMutableArray array];
+    _requestedCount = 0;
+    [[SDWebImageManager sharedManager] cancelForDelegate:self];
 }
 
-- (void)setImageUrlStrings:(NSArray*)urlStrings {
-    for (UIImageView *v in self.imageViews) {
-        [v setImage:nil];
-    }
-    NSInteger count = MIN(urlStrings.count, 3);
-    for (NSInteger i; i<count; i++) {
-        UIImageView *v = [self.imageViews objectAtIndex:i];
-        [v setImage:[UIImage imageNamed:@"Kal.bundle/kal_right_arrow.png"]];
-    }
+#pragma mark SDWebImagePrefetcher (SDWebImageManagerDelegate)
+
+- (void)webImageManager:(SDWebImageManager *)imageManager didFinishWithImage:(UIImage *)image
+{
+    [self.images addObject:image];
+    
+    [self setNeedsDisplay];
+}
+
+- (void)webImageManager:(SDWebImageManager *)imageManager didFailWithError:(NSError *)error
+{
+
 }
 
 - (void)drawRect:(CGRect)rect
 {
     CGContextRef ctx = UIGraphicsGetCurrentContext();
+    CGContextSaveGState (ctx); 
     CGFloat fontSize = 12.f;
     UIFont *font = [UIFont boldSystemFontOfSize:fontSize];
     UIColor *shadowColor = nil;
@@ -269,8 +272,8 @@ extern const CGSize kTileSize;
     NSString *dayText = [NSString stringWithFormat:@"%lu", (unsigned long)n];
     const char *day = [dayText cStringUsingEncoding:NSUTF8StringEncoding];
     CGFloat textX, textY;
-    textX = 5.f;
-    textY = 25.f;
+    textX = 4.f;
+    textY = 28.f;
     if (shadowColor) {
         [shadowColor setFill];
         CGContextShowTextAtPoint(ctx, textX, textY, day, n >= 10 ? 2 : 1);
@@ -283,11 +286,28 @@ extern const CGSize kTileSize;
         [[UIColor colorWithWhite:0.25f alpha:0.3f] setFill];
         CGContextFillRect(ctx, CGRectMake(0.f, 0.f, kTileSize.width, kTileSize.height));
     }
+    
+    CGContextRestoreGState(ctx);
+    
+    NSInteger count = self.images.count;
+    for (NSInteger i = 0; i < count; i++) {
+        CGRect r;
+        if (i == 0) {
+            r = CGRectMake(25, 4, 15, 15);
+        } else if (i == 1) {
+            r = CGRectMake(3, 25, 15, 15);
+        } else {
+            r = CGRectMake(25, 25, 15, 15);
+        }
+        UIImage *image = [self.images objectAtIndex:i];
+        [image drawInRect:r];
+    }
 }
 
 - (void)dealloc
 {
-    self.imageViews = nil;
+    self.imageUrls = nil;
+    self.images = nil;
   [date release];
   [super dealloc];
 }

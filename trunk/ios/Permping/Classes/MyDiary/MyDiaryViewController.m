@@ -10,6 +10,7 @@
 #import "KalLogic.h"
 #import "KalDate.h"
 #import "KalPrivate.h"
+#import "KalView.h"
 #import "MyPermDiaryViewController.h"
 #import "MyDiaryScreen_DataLoader.h"
 #import "AppData.h"
@@ -175,7 +176,8 @@
 {
     NSArray *markedDates = [theDataSource markedDatesFrom:logic.fromDate to:logic.toDate];
     NSMutableArray *dates = [[markedDates mutableCopy] autorelease];
-    for (int i=0; i<[dates count]; i++)
+    NSInteger count = dates.count;
+    for (int i=0; i<count; i++)
         [dates replaceObjectAtIndex:i withObject:[KalDate dateFromNSDate:[dates objectAtIndex:i]]];
     
     [[self calendarView] markTilesForDates:dates];
@@ -204,6 +206,10 @@
 - (NSString *)currentMonth {
     NSString *month = [self.dateFormat stringFromDate:logic.baseDate];
     return [[month retain] autorelease];
+}
+
+- (void)finishLoadData {
+    [kalView updateImagesForCurrentMonth:self.resultModel.arrResults];
 }
 
 #pragma mark - Override methods
@@ -235,7 +241,7 @@
                            {
                                [self stopActivityIndicator];
                                //reload table
-                               // [self finishLoadData]; 
+                               [self finishLoadData]; 
                            });
             //[self downloadThumbnailForObjectList:arr];
         }

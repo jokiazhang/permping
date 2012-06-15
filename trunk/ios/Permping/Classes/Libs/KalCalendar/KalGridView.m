@@ -247,6 +247,10 @@ static NSString *kSlideAnimationId = @"KalSwitchMonths";
 
 #pragma mark -
 
+- (void)updateImagesForCurrentMonth:(NSArray*)images {
+    [frontMonthView updateImages:images];
+}
+
 - (void)dealloc
 {
   [selectedTile release];

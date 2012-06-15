@@ -23,6 +23,7 @@
 @synthesize                    permCategoryId ;
 @synthesize                    latitude;
 @synthesize                    longitude;
+@synthesize                    permDate;
 - (id)init
 {
 	if (self = [super init])
@@ -48,6 +49,7 @@
     self.fileData = nil;
     self.latitude = nil;
     self.longitude = nil;
+    self.permDate = nil;
 	[super dealloc];
 }
 
