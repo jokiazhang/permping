@@ -230,10 +230,11 @@ public class NewPermActivity extends Activity {
 					
 					HttpClient httpClient = new DefaultHttpClient();
 					//HttpPost postRequest = new HttpPost("http://10.0.2.2/perm/testupload.php");
-					HttpPost postRequest = new HttpPost(API.addNewPermUrl);
+					HttpPost postRequest = null;
 					MultipartEntity reqEntity = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
 					if( filePath != null && !"".equals(filePath) ){
-					
+						postRequest = new HttpPost(API.addNewPermUrl);
+						
 						ByteArrayOutputStream bos = new ByteArrayOutputStream();
 						Bitmap bm = BitmapFactory.decodeFile(filePath);;
 						bm.compress(CompressFormat.JPEG, 75, bos);
@@ -244,6 +245,8 @@ public class NewPermActivity extends Activity {
 						reqEntity.addPart("img", bab);
 						reqEntity.addPart("photoCaption", new StringBody(fileName));
 					} else if( permID > 0 ) { //Reperm
+						postRequest = new HttpPost( API.repermUrl );
+						
 						reqEntity.addPart("pid", new StringBody( String.valueOf(permID)));
 					}
 					reqEntity.addPart("uid", new StringBody( user.getId() ) );
