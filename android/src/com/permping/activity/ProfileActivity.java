@@ -53,14 +53,9 @@ public class ProfileActivity extends Activity {
         account = (Button) findViewById(R.id.btAccount);
         
        
-    }
-    
-    
-    
-    public void onResume(){
-    	super.onResume();
-    	
-    	 /** Load the information from Application (user info) when the page is loaded. */
+        
+        
+        /** Load the information from Application (user info) when the page is loaded. */
         User user = PermUtils.isAuthenticated(getApplicationContext());
         if (user != null) {
         	// The author name
@@ -98,7 +93,15 @@ public class ProfileActivity extends Activity {
         } else {
         	Intent i = new Intent(getApplicationContext(), LoginPermActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			getApplicationContext().startActivity(i);
-        }        
+        }     
+    }
+    
+    
+    
+    public void onResume(){
+    	super.onResume();
+    	
+    	   
     }
     
     
