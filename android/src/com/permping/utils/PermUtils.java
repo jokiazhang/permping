@@ -39,7 +39,7 @@ import com.permping.model.User;
 public class PermUtils {
 
 	public static User isAuthenticated(Context context) {
-		PermpingApplication state = (PermpingApplication) context;
+		PermpingApplication state = (PermpingApplication) context.getApplicationContext();
 		if (state != null) {
 			User user = state.getUser();
 			return user;
