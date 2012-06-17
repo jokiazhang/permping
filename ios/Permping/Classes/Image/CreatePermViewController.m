@@ -15,6 +15,7 @@
 #import "FollowingScreen_DataLoader.h"
 #import "AppData.h"
 #import "Taglist_CloudService.h"
+#import "KakaoLinkCenter.h"
 
 @interface CreatePermViewController ()
 - (void)uploadPermForMe:(id)loader thread:(id<ThreadManagementProtocol>)threadObj;
@@ -376,6 +377,16 @@
             }
         } else {
             key = @"ShareKakao";
+            BOOL canOpen = [[KakaoLinkCenter defaultCenter] canOpenKakaoLink];
+            if (canOpen) {
+                /*var msg = "Kakao Talk Demo";
+                var url = "http://www.webactually.co.kr/kakao/kakao.html";
+                var appid = "webactually"; // 아무거나 uniq한 것으로 적어주세요.
+                var appver = "2.0"; // 아무 버전이나 적어주세요.
+                var appname = "웹액츄얼리코리아"; // 아무거나 적어주세요.*/
+                NSString *url = @"http://www.webactually.co.kr/kakao/kakao.html";
+                [[KakaoLinkCenter defaultCenter] openKakaoLinkWithURL:url appVersion:@"2.0" appBundleID:@"webactually" appName:@"Permping" message:@"Kakao Talk Demo"];
+            }
         }
         [[NSUserDefaults standardUserDefaults] setBool:isOn forKey:key];
         [[NSUserDefaults standardUserDefaults] synchronize];
