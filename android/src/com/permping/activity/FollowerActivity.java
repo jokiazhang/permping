@@ -36,8 +36,8 @@ public class FollowerActivity extends Activity {
 
 	private ArrayList<Perm> permListMain;
 
-	int screenWidth;
-	int screenHeight;
+	public static int screenWidth;
+	public static int screenHeight;
 	
 	int nextItem = -1;
 

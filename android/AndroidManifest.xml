@@ -50,6 +50,8 @@
 				<data android:scheme="perm" android:host="twitter" />
 			</intent-filter>
 		</activity>
-		
+		<activity android:name=".activity.GoogleMapActivity" >
+		</activity>
+		<uses-library android:name="com.google.android.maps" />
     </application>
 </manifest>
