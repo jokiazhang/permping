@@ -21,6 +21,7 @@ public class ProfileActivityGroup extends TabGroupActivity {
 	}
 	
 	public void onResume(){
+		super.onResume();
 		View view = getLocalActivityManager().startActivity( "ProfileActivity", new Intent(this, ProfileActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
 		replaceView(view);
 	}

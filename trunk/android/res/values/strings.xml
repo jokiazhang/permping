@@ -33,5 +33,6 @@
     <string name="ok">OK</string>
     <string name="title_reperm">RePerm</string>
     <string name="image_description">Description of Image</string>
+    <string name="comment_title">Comment</string>
     
 </resources>

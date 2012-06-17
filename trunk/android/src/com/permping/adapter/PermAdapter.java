@@ -5,9 +5,11 @@ import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.http.HttpEntity;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
+import com.permping.PermpingApplication;
 import com.permping.PermpingMain;
 import com.permping.R;
 import com.permping.activity.AccountActivity;
@@ -35,11 +37,14 @@ import com.permping.utils.facebook.SessionEvents.AuthListener;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.hardware.Camera.PreviewCallback;
-import android.os.Bundle;
+
+import android.os.Bundle;import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -47,6 +52,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
@@ -257,9 +263,13 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 				public void onClick(View v) {
 					user = PermUtils.isAuthenticated(v.getContext());
 					if (user != null) {
-						// Add new view to allow user to enter the comment
-						LinearLayout commentInputLayout = (LinearLayout) view
-								.findViewById(R.id.commentInput);
+						
+						PermpingApplication state = (PermpingApplication)v.getContext().getApplicationContext();
+						
+						CommentDialog commentDialog = new CommentDialog( v.getContext(), perm , state.getUser() );
+						commentDialog.show();
+					} else {
+						Toast.makeText(view.getContext(), Constants.NOT_LOGIN, Toast.LENGTH_LONG).show();
 					}
 				}
 			});
@@ -397,6 +407,86 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 			return view;
 		}
 	}
+	
+	
+	class CommentDialog extends Dialog implements android.view.View.OnClickListener{
+		
+		Perm perm  = null;
+		User user = null;
+		
+		Button btnOK = null;
+		EditText txtComment = null;
+		
+		private ProgressDialog dialog;
+		
+		public CommentDialog(Context context, Perm perm, User user) {
+			super(context);
+			setContentView( R.layout.comment_dialog );
+			this.setTitle( R.string.comment_title );
+			
+			this.perm = perm;
+			this.user = user;
+			
+			btnOK = (Button) findViewById( R.id.btnOK );
+			btnOK.setOnClickListener(this);
+			
+			txtComment = ( EditText ) findViewById( R.id.commentEditText );
+			
+			
+		}
+
+		@Override
+		public void onClick(View v) {
+			if( v == btnOK )
+			{
+				
+				
+				final String cmText = txtComment.getText().toString();
+				
+				AsyncTask<Void, Void, String> comment = new AsyncTask<Void, Void, String >(){
+
+					@Override
+					protected String doInBackground(Void... arg0) {
+						
+						HttpPermUtils util = new HttpPermUtils();
+						List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+						nameValuePairs.add(new BasicNameValuePair("cmnt", cmText ) );
+						nameValuePairs.add(new BasicNameValuePair("pid", perm.getId() ) );
+						nameValuePairs.add(new BasicNameValuePair("uid", user.getId() ) );
+						String response  = util.sendPostRequest(API.commentUrl, nameValuePairs);
+						
+						return response;
+					}
+					
+					
+					@Override
+			  		protected void onProgressUpdate(Void... unsued) {
+
+			  		}
+
+			  		@Override
+			  		protected void onPostExecute(String sResponse) {
+			  			if (dialog.isShowing()){
+			  				dialog.dismiss();
+			  				Toast.makeText(context,"Added comment!",Toast.LENGTH_LONG).show();
+			  			}
+			  		}
+					
+				};
+				
+				if( !cmText.isEmpty() ){
+					this.dismiss();
+					dialog = ProgressDialog.show(context, "Uploading","Please wait...", true);
+					comment.execute();
+				}
+				else{
+					Toast.makeText(txtComment.getContext().getApplicationContext(),"Don't leave text blank!",Toast.LENGTH_LONG).show();
+				}
+				
+			}
+		}
+		
+	}
 
 	/**
 	 * This listener is to handle the click action of Join button This should
@@ -416,6 +506,11 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 		private Button joinPermping;
 
 		// PermpingApplication state;
+		
+		
+		
+		
+		
 
 		public OptionsDialog(Context context) {
 			super(context);
