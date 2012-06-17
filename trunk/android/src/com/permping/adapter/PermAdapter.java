@@ -13,6 +13,7 @@ import com.permping.R;
 import com.permping.activity.AccountActivity;
 import com.permping.activity.FollowerActivity;
 import com.permping.activity.FollowerActivityGroup;
+import com.permping.activity.GoogleMapActivity;
 import com.permping.activity.JoinPermActivity;
 import com.permping.activity.LoginPermActivity;
 import com.permping.activity.NewPermActivity;
@@ -38,7 +39,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.hardware.Camera.PreviewCallback;
+import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -260,7 +263,26 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 					}
 				}
 			});
+			ImageView gotoMap = (ImageView)view.findViewById(R.id.btnLocation);
+			gotoMap.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
 
+					Intent googleMap = new Intent(context,
+							GoogleMapActivity.class);
+					Bundle bundle = new Bundle();
+					bundle.putFloat("lat", perm.getLat());
+					bundle.putFloat("lon", perm.getLon());
+					bundle.putString("thumbnail", perm.getImage().getUrl());
+					googleMap.putExtra("locationData", bundle);
+					Log.d("AA+++++============","========="+perm.getImage().getUrl());
+					View view = FollowerActivityGroup.group.getLocalActivityManager().startActivity( "GoogleMapActivity"+perm.getId(), googleMap).getDecorView();
+					FollowerActivityGroup.group.replaceView(view);
+
+				}
+			});
 			/*if (convertView == null) {
 				convertView = inflater.inflate(R.layout.perm_item_1, null);
 				holder = new ViewHolder();

@@ -1,5 +1,8 @@
 package com.permping.activity;
 
+import java.io.IOException;
+import java.net.URL;
+import java.net.UnknownHostException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -10,16 +13,32 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+import org.w3c.dom.Document;
+
+import com.custom.WebImageView;
+import com.permping.PermpingMain;
 import com.permping.R;
+import com.permping.TabGroupActivity;
+import com.permping.controller.AuthorizeController;
 import com.permping.controller.MyDiaryController;
 import com.permping.model.Perm;
 import com.permping.model.Transporter;
+import com.permping.utils.API;
 import com.permping.utils.Constants;
+import com.permping.utils.XMLParser;
+import com.permping.utils.facebook.sdk.Util;
 
+import android.R.xml;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.database.CursorJoiner.Result;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.util.Log;
@@ -31,6 +50,7 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class MyDiaryActivity extends Activity implements View.OnClickListener {
@@ -38,7 +58,6 @@ public class MyDiaryActivity extends Activity implements View.OnClickListener {
 	private static final String TAG = "MyDiaryActivity";
 
 	//private ImageView calendarToJournalButton;
-	private Button selectedDayMonthYearButton;
 	private Button currentMonth;
 	private ImageView prevMonth;
 	private ImageView nextMonth;
@@ -46,21 +65,21 @@ public class MyDiaryActivity extends Activity implements View.OnClickListener {
 	private GridCellAdapter adapter;
 	private Calendar calendar;
 	private int month, year;
+	private HashMap<String, String> months = new HashMap<String, String>();
 	private final DateFormat dateFormatter = new DateFormat();
 	private static final String dateTemplate = "MMMM yyyy";
-
+	private List<String> imageList = new ArrayList<String>();
+	private List<String> serviceList = new ArrayList<String>();
+	private HashMap<String, List<WebImageView>> thumbListById = new HashMap<String, List<WebImageView>>();
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.mydiary_layout);
 		calendar = Calendar.getInstance(Locale.getDefault());
 		month = calendar.get(Calendar.MONTH) + 1;
 		year = calendar.get(Calendar.YEAR);
+		initMonths();
 		Log.d(TAG, "Calendar Instance:= " + "Month: " + month + " " + "Year: "
 				+ year);
-
-		selectedDayMonthYearButton = (Button) this
-				.findViewById(R.id.selectedDayMonthYear);
-		selectedDayMonthYearButton.setText("Selected: ");
 
 		prevMonth = (ImageView) this.findViewById(R.id.prevMonth);
 		prevMonth.setOnClickListener(this);
@@ -74,13 +93,65 @@ public class MyDiaryActivity extends Activity implements View.OnClickListener {
 
 		calendarView = (GridView) this.findViewById(R.id.calendar);
 
+
 		// Initialised
 		adapter = new GridCellAdapter(getApplicationContext(),
 				R.id.calendar_day_gridcell, month, year);
 		adapter.notifyDataSetChanged();
 		calendarView.setAdapter(adapter);
-	}
 
+	}
+	private void initMonths() {
+		// TODO Auto-generated method stub
+		months.put("January", "01");
+		months.put("February", "02");
+		months.put("March", "03");
+		months.put("April", "04");
+		months.put("May", "05");
+		months.put("June", "06");
+		months.put("July", "07");
+		months.put("August", "08");
+		months.put("September", "09");
+		months.put("October", "10");
+		months.put("November", "11");
+		months.put("December", "12");
+		
+	}
+	private void updateThumbnails(WebImageView thumb1, String url){
+		synchronized (this) {
+			if(thumb1 != null){
+				thumb1.setImageUrl(url);
+				thumb1.loadImage();
+			}
+		}
+		
+	}
+	 private class DownloadFilesTask extends AsyncTask<URL, Integer, Long> {
+	     protected Long doInBackground(URL... urls) {
+	         int count = urls.length;
+	         long totalSize = 0;
+
+	         return totalSize;
+	     }
+
+	     protected void onProgressUpdate(Integer... progress) {
+
+	     }
+
+	     protected void onPostExecute(Long result) {
+	        
+	     }
+	 }
+	 
+	private List<String> getThumbnail(String url, String uid, String id){
+		List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(8);
+		nameValuePairs.add(new BasicNameValuePair("uid", uid));
+		XMLParser xmlParser = new XMLParser();
+		Document doc = xmlParser.getResponseFromURL(url, nameValuePairs);//+"2012-06-15"
+		imageList = xmlParser.getNoteListFromDoc(doc);
+		return imageList;
+
+	}
 	/**
 	 * 
 	 * @param month
@@ -327,19 +398,6 @@ public class MyDiaryActivity extends Activity implements View.OnClickListener {
 		 */
 		private HashMap findNumberOfEventsPerMonth(int year, int month) {
 			HashMap map = new HashMap<String, Integer>();
-			// DateFormat dateFormatter2 = new DateFormat();
-			//
-			// String day = dateFormatter2.format("dd", dateCreated).toString();
-			//
-			// if (map.containsKey(day))
-			// {
-			// Integer val = (Integer) map.get(day) + 1;
-			// map.put(day, val);
-			// }
-			// else
-			// {
-			// map.put(day, 1);
-			// }
 			return map;
 		}
 
@@ -375,15 +433,18 @@ public class MyDiaryActivity extends Activity implements View.OnClickListener {
 							.findViewById(R.id.num_events_per_day);
 					Integer numEvents = (Integer) eventsPerMonthMap.get(theday);
 					num_events_per_day.setText(numEvents.toString());
+					RelativeLayout layout = (RelativeLayout)row.findViewById(R.id.layout);
+					layout.setBackgroundResource(R.drawable.date_bg_selected);
 				}
 			}
 
 			// Set the Day GridCell
 			gridcell.setText(theday);
 			gridcell.setTag(theday + "-" + themonth + "-" + theyear);
-			Log.d(tag, "Setting GridCell " + theday + "-" + themonth + "-"
-					+ theyear);
-
+			if(theday.length() <2)
+				theday = "0"+theday;
+			String date = theyear+"-"+MyDiaryActivity.this.months.get(themonth)+"-"+theday;
+			Log.d(tag, "Setting GridCell " +date);
 			if (day_color[1].equals("GREY")) {
 				gridcell.setTextColor(Color.LTGRAY);
 			}
@@ -394,13 +455,31 @@ public class MyDiaryActivity extends Activity implements View.OnClickListener {
 				gridcell.setTextColor(getResources().getColor(
 						R.color.static_text_color));
 			}
+			
+			row.setId(Integer.valueOf(theday+MyDiaryActivity.this.months.get(themonth)));
+			// thumbs
+			WebImageView thumb1;
+			WebImageView thumb2; 
+			WebImageView thumb3;
+			thumb1 = (WebImageView)row.findViewById(R.id.thumbnail1);
+			thumb2 = (WebImageView)row.findViewById(R.id.thumbnail2);
+			thumb3 = (WebImageView)row.findViewById(R.id.thumbnail3);
+			List<WebImageView> thumbList = new ArrayList<WebImageView>();
+			thumbList.add(thumb1);
+			thumbList.add(thumb2);
+			thumbList.add(thumb3);
+			String []paras = {API.getPermsByDate+date, PermpingMain.UID ,String.valueOf(row.getId())};
+			new getData().execute(paras);
+			thumbListById.put(String.valueOf(row.getId()), thumbList);
+			serviceList.add(String.valueOf(row.getId()));
 			return row;
 		}
+
 
 		@Override
 		public void onClick(View view) {
 			String date_month_year = (String) view.getTag();
-			selectedDayMonthYearButton.setText("Selected: " + date_month_year);
+//			selectedDayMonthYearButton.setText("Selected: " + date_month_year);
 
 			try {
 				Date parsedDate = dateFormatter.parse(date_month_year);
@@ -420,8 +499,10 @@ public class MyDiaryActivity extends Activity implements View.OnClickListener {
 					// Go to Perm detail screen
 					Intent i = new Intent(view.getContext(), BoardDetailActivity.class);
 					i.putExtra(Constants.TRANSPORTER, transporter);
-					View boardDetail = MyDiaryActivityGroup.group.getLocalActivityManager() .startActivity("MyDiaryDetailActivity", i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
-					MyDiaryActivityGroup.group.replaceView(boardDetail);
+//					View boardDetail = MyDiaryActivityGroup.group.getLocalActivityManager() .startActivity("MyDiaryDetailActivity", i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
+//					MyDiaryActivityGroup.group.replaceView(boardDetail);
+					startActivity(i);
+
 				}
 			} catch (ParseException e) {
 				e.printStackTrace();
@@ -480,5 +561,42 @@ public class MyDiaryActivity extends Activity implements View.OnClickListener {
 			
 			return ret;
 		}
+	}
+
+	public class getData extends AsyncTask<String, String, List<String>>{
+
+		
+        @Override
+        protected List<String> doInBackground(String... msg) {
+            // TODO Auto-generated method stub
+        	
+            List<String> result = getThumbnail( msg[0], msg[1],msg[2]);
+            result.add(msg[2]);
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(List<String> imageList) {
+            // TODO Auto-generated method stub
+            super.onPostExecute(imageList);
+            Log.d("","===========sucessss======="+imageList.size());
+            if(imageList != null){
+            	String id = null;
+            	if(imageList.size() > 1)
+            		id = imageList.get(imageList.size()-1);
+          		int max;
+          		if(imageList.size() > 4)
+          			max = 3;
+          		else{
+          			max = imageList.size()-1;
+          			for(int i=0;i<max;i++){
+          				Log.d("===Update",id+">>>========"+imageList.get(i));
+          				updateThumbnails(thumbListById.get(id).get(i), imageList.get(i));
+          			}
+          		}
+            }
+           
+          
+        }
 	}
 }

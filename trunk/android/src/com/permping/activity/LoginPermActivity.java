@@ -11,15 +11,6 @@ import java.util.List;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
-import com.permping.PermpingMain;
-import com.permping.R;
-import com.permping.controller.AuthorizeController;
-import com.permping.utils.Constants;
-import com.permping.utils.PermUtils;
-import com.permping.utils.facebook.FacebookConnector;
-import com.permping.utils.facebook.SessionEvents;
-import com.permping.utils.facebook.SessionEvents.AuthListener;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -30,6 +21,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.permping.PermpingMain;
+import com.permping.R;
+import com.permping.controller.AuthorizeController;
+import com.permping.interfaces.Login_delegate;
+import com.permping.utils.Constants;
+import com.permping.utils.PermUtils;
+import com.permping.utils.facebook.FacebookConnector;
+import com.permping.utils.facebook.SessionEvents;
+import com.permping.utils.facebook.SessionEvents.AuthListener;
 
 /**
  * @author Linh Nguyen
@@ -44,17 +45,19 @@ public class LoginPermActivity extends Activity {
 	Button facebookLogin;
 	Button twitterLogin;
 	Button login;
-	
+	private PermpingMain login_delegate;
 	SharedPreferences prefs;
 	private FacebookConnector facebookConnector;
-	
+//	public LoginPermActivity(Login_delegate loginDelegate){
+//		login_delegate = loginDelegate;
+//	}
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
         setContentView(R.layout.permping_login);
         
         prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        
+        login_delegate = new PermpingMain();
         email         = (EditText) findViewById(R.id.permEmail);
         password      = (EditText) findViewById(R.id.permPassword);
         facebookLogin = (Button) findViewById(R.id.loginfb);
@@ -77,6 +80,8 @@ public class LoginPermActivity extends Activity {
 					// Forward back to Following tab
 					PermUtils.clearViewHistory();
 					finish();
+					login_delegate.on_success();
+					
 					/*
 					intent = new Intent(v.getContext(), PermpingMain.class);
 					v.getContext().startActivity(intent);
@@ -132,6 +137,8 @@ public class LoginPermActivity extends Activity {
 								// Forward back to Following tab
 								PermUtils.clearViewHistory();
 								finish();
+								login_delegate.on_success();
+								
 								/*
 								intent = new Intent(getApplicationContext(), PermpingMain.class);
 								getApplicationContext().startActivity(intent);

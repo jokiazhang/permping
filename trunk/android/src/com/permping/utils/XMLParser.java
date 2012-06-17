@@ -23,6 +23,9 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 import org.xml.sax.Attributes;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -404,7 +407,7 @@ public class XMLParser {
 	 * @param url
 	 * @return
 	 */
-	private Document getResponseFromURL(String url, List<NameValuePair> nameValuePairs) {
+	public Document getResponseFromURL(String url, List<NameValuePair> nameValuePairs) {
 		HttpPermUtils httpPermUtils = new HttpPermUtils();
 		String response = httpPermUtils.sendPostRequest(url, nameValuePairs);
 		if (response != null) {
@@ -506,7 +509,38 @@ public class XMLParser {
 			return null;
 		}
 	}
+	public List<String> getNoteListFromDoc(Document doc){
+		try {
+			List<String> thumbList= new ArrayList<String>();
+			doc.getDocumentElement().normalize();
+			
+			NodeList nodeList = doc.getElementsByTagName("item");
 
+			/** Assign textview array lenght by arraylist size */
+			int length = nodeList.getLength();
+
+			for (int i = 0; i < length; i++) {
+
+				Node node = nodeList.item(i);
+				Element fstElmnt = (Element) node;
+				NodeList nameList = fstElmnt.getElementsByTagName("permImage");
+				Element nameElement = null;
+				if(nameList != null){
+					nameElement= (Element) nameList.item(0);
+					nameList = nameElement.getChildNodes();
+					String link = ((Node) nameList.item(0)).getNodeValue();
+					if(link!= null)
+						thumbList.add(link);
+				}
+
+			}
+			return thumbList;
+		} catch (Exception e) {
+			// TODO: handle exception
+			return null;
+		}
+		
+	}
 	/*public boolean isCreatedAccount() {
 		// TODO: Should check the response
 		return true;

@@ -101,6 +101,8 @@ public class PermListController {
 			String permRepinCount  = getValue(permElement, "permRepinCount");
 			String permLikeCount  = getValue(permElement, "permLikeCount");
 			String permCommentCount  = getValue(permElement, "permCommentCount");
+			String lat = getValue(permElement, "permLat");
+			String lon = getValue(permElement, "permLong");
 			String permUserLikeCount = getValue(permElement, Constants.PERM_USERLIKECOUNT);
 			
 			Perm perm = new Perm(permId, new PermBoard("BoardID", permBoard), permDesc, new PermImage(permImage), comments);
@@ -109,7 +111,8 @@ public class PermListController {
 			perm.setPermLikeCount(permLikeCount);
 			perm.setPermCommentCount(permCommentCount);
 			perm.setPermUserLikeCount(permUserLikeCount);
-			
+			perm.setLat(Float.valueOf(lat).floatValue());
+			perm.setLon(Float.valueOf(lon).floatValue());
 			perm.setNextItem(nextItem);
 			
 			permList.add(perm);
@@ -156,7 +159,7 @@ public class PermListController {
 			String permDesc = getValue(permElement, "permDesc");
 			String permBoard = getValue(permElement, "permCategory");
 			String permImage = getValue(permElement, "permImage");
-			
+
 			//User 
 			Element permUser = (Element) permElement.getElementsByTagName("user").item(0);
 			String userId  = getValue(permUser, "userId");
@@ -204,6 +207,8 @@ public class PermListController {
 			String permRepinCount  = getValue(permElement, "permRepinCount");
 			String permLikeCount  = getValue(permElement, "permLikeCount");
 			String permCommentCount  = getValue(permElement, "permCommentCount");
+			String lat = getValue(permElement, "permLat");
+			String lon = getValue(permElement, "permLong");
 			String permUserLikeCount = getValue(permElement, Constants.PERM_USERLIKECOUNT);
 			
 			Perm perm = new Perm(permId, new PermBoard("BoardID", permBoard), permDesc, new PermImage(permImage), comments);
@@ -212,7 +217,8 @@ public class PermListController {
 			perm.setPermLikeCount(permLikeCount);
 			perm.setPermCommentCount(permCommentCount);
 			perm.setPermUserLikeCount(permUserLikeCount);
-			
+			perm.setLat(Float.valueOf(lat).floatValue());
+			perm.setLon(Float.valueOf(lon).floatValue());
 			perm.setNextItem(nextItem);
 			
 			permList.add(perm);

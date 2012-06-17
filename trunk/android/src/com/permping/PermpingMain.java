@@ -1,10 +1,5 @@
 package com.permping;
 
-import com.permping.R;
-import com.permping.activity.*;
-import com.permping.model.User;
-import com.permping.utils.PermUtils;
-
 import android.app.TabActivity;
 import android.content.Intent;
 import android.graphics.Color;
@@ -14,8 +9,20 @@ import android.view.View;
 import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
 
-public class PermpingMain extends TabActivity {
+import com.permping.activity.ExplorerActivityGroup;
+import com.permping.activity.FollowerActivityGroup;
+import com.permping.activity.ImageActivityGroup;
+import com.permping.activity.LoginPermActivity;
+import com.permping.activity.MyDiaryActivityGroup;
+import com.permping.activity.ProfileActivityGroup;
+import com.permping.model.User;
+import com.permping.utils.PermUtils;
+
+public class PermpingMain extends TabActivity  {
     /** Called when the activity is first created. */
+	private static int TAB_DIARY = 3;
+	private int tab_tyle;
+	public static String UID = "121";
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -123,15 +130,37 @@ public class PermpingMain extends TabActivity {
 				/** Load the information from Application (user info) when the page is loaded. */
 		        User user = PermUtils.isAuthenticated(getApplicationContext());
 		        if (user != null) {
+		        	UID = user.getId();
+		        	getTabHost().setCurrentTab(3);
 		        	ret = false;
 		        } else {
 		        	// Go to login screen
+		        	tab_tyle = 3;
 					Intent i = new Intent(getApplicationContext(), LoginPermActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-					getApplicationContext().startActivity(i);
+					getApplicationContext().startActivity(i);	        	
 					ret = true;
 		        }
 			}
 			return ret;
 		}
+
     }
+	private void gotoDiaryTab(User user) {
+		// TODO Auto-generated method stub
+		Intent googleMap = new Intent(PermpingMain.this,
+				MyDiaryActivityGroup.class);
+		Bundle bundle = new Bundle();
+		bundle.putString("uid",user.getId());
+		googleMap.putExtra("diaryData", bundle);
+		View view = MyDiaryActivityGroup.group.getLocalActivityManager().startActivity( "GoogleMapActivity"+user.getId(), googleMap).getDecorView();
+		MyDiaryActivityGroup.group.replaceView(view);
+	}
+	public void on_success() {
+		// TODO Auto-generated method stub
+//		getTabHost().setCurrentTab(3);
+	}
+	public void on_error() {
+		// TODO Auto-generated method stub
+		
+	}
 }

@@ -27,7 +27,8 @@ public class Perm implements Serializable{
 	private String permLikeCount = "0";
 	private String permCommentCount = "0";
 	private String permUserLikeCount = "0";
-	
+	private float lat;
+	private float lon;
 	// TODO :This is not good but for now, I will do it
 	// This is for keeping the value of <nextItem> in the response when get the list of Perm
 	private String nextItem;
@@ -212,5 +213,19 @@ public class Perm implements Serializable{
 		this.permUserLikeCount = permUserLikeCount;
 	}
 	
-	
+
+	public void setLat(float value) {
+		// TODO Auto-generated method stub
+		this.lat = value;
+	}
+	public void setLon(float value) {
+		// TODO Auto-generated method stub
+		this.lon = value;
+	}
+	public float getLat(){
+		return this.lat;
+	}
+	public float getLon(){
+		return this.lon;
+	}
 }
