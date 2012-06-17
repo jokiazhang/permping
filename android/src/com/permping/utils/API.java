@@ -29,6 +29,7 @@ public class API {
 	public static final String permListFromBoardUrl = "http://newpermping.appo.vn/services/permservice/getpermwithboardid/"; //Add board id when make request
 	public static final String addNewPermUrl = "http://newpermping.appo.vn/services/permservice/uploadperm";
 	public static final String repermUrl = "http://newpermping.appo.vn/services/permservice/reperm";
+	public static final String commentUrl = "http://newpermping.appo.vn/services/permservice/comment";
 	//public static final String addNewPermUrl = "http://10.0.2.2/perm/testupload.php";
 	public static final String getProfileURL  = "http://newpermping.appo.vn/services/userservice/getprofile/"; //Not implemented yet on server
 	public static final String createBoardURL = "http://newpermping.appo.vn/services/permservice/createboard";
