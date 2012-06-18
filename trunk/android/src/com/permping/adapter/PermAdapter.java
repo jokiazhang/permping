@@ -6,60 +6,54 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import org.apache.http.HttpEntity;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
+
+import android.app.Activity;
+import android.app.Dialog;
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.ImageView.ScaleType;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.permping.PermpingApplication;
 import com.permping.PermpingMain;
 import com.permping.R;
-import com.permping.activity.AccountActivity;
-import com.permping.activity.FollowerActivity;
 import com.permping.activity.FollowerActivityGroup;
 import com.permping.activity.GoogleMapActivity;
 import com.permping.activity.JoinPermActivity;
 import com.permping.activity.LoginPermActivity;
 import com.permping.activity.NewPermActivity;
 import com.permping.activity.PrepareRequestTokenActivity;
-import com.permping.activity.ProfileActivityGroup;
 import com.permping.controller.AuthorizeController;
-import com.permping.model.Perm;
 import com.permping.model.Comment;
+import com.permping.model.Perm;
 import com.permping.model.User;
 import com.permping.utils.API;
 import com.permping.utils.Constants;
 import com.permping.utils.HttpPermUtils;
-import com.permping.utils.ImageUtil;
 import com.permping.utils.PermUtils;
 import com.permping.utils.UrlImageViewHelper;
 import com.permping.utils.facebook.FacebookConnector;
 import com.permping.utils.facebook.SessionEvents;
 import com.permping.utils.facebook.SessionEvents.AuthListener;
-
-import android.app.Activity;
-import android.app.Dialog;
-import android.app.ProgressDialog;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.hardware.Camera.PreviewCallback;
-
-import android.os.Bundle;import android.os.AsyncTask;
-import android.preference.PreferenceManager;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.LinearLayout.LayoutParams;
-import android.widget.TextView;
-import android.widget.Toast;
-import android.view.View.OnClickListener;
 
 public class PermAdapter extends ArrayAdapter<Perm> {
 
@@ -170,7 +164,7 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 				}
 			});
 			return view;
-		} else {			
+		} else if(items != null && !items.isEmpty()){			
 			final Perm perm = items.get(position);
 			String viewId = perm.getId();
 			convertView = viewList.get(viewId);
@@ -338,17 +332,22 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 					//holder.boardName.setText(perm.getBoard().getName());
 					bn.setText(perm.getBoard().getName());
 	
-					ImageView pv = (ImageView) view.findViewById(R.id.permImage);
-					//ImageUtil.imageViewFromURL( pv , perm.getImage().getUrl() );
+					ImageView imageView = (ImageView) view.findViewById(R.id.permImage);
+					//thien
+//					if(perm.getImage() != null){
+//						if(perm.getImage().getUrl() != null)
+//							new getData(perm.getImage().getUrl()).execute(imageView);
+//					}
+					//endthien
 					/*
 					 LinearLayout.LayoutParams layoutParams = (LayoutParams) pv.getLayoutParams();
 	 				layoutParams.width = 350;
 	 				pv.setLayoutParams(layoutParams);
 	 				*/
-					UrlImageViewHelper.setUrlDrawable(pv, perm.getImage().getUrl() , true );
-					
+				
+					UrlImageViewHelper.setUrlDrawable(imageView, perm.getImage().getUrl() , true ); 
 					//PermUtils.scaleImage(pv, screenWidth, screenHeight);
-	
+					
 					// Perm description
 					TextView pd = (TextView) view.findViewById(R.id.permDesc);
 					//holder.permDesc.setText(perm.getDescription());
@@ -412,15 +411,53 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 					}
 				}
 				//return convertView;
+				viewList.put(perm.getId(), view);
 				return view;
+			}
 		}
-		
-			
-
+		else{
+			return null;
 		}
 	}
 	
 	
+	private void loadImage(ImageView imageView, String url) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public class getData extends AsyncTask< ImageView  , String, Bitmap>{
+
+		String imageUrl;
+		ImageView imageView;
+		public getData(String imageLink) {
+			// TODO Auto-generated constructor stub
+			super();
+			imageUrl = imageLink;
+		}
+
+		@Override
+		protected Bitmap doInBackground(ImageView... params) {
+			// TODO Auto-generated method stub
+			Bitmap bm = null;
+			imageView = params[0];
+			Log.d("a","==========>"+imageUrl);
+			bm = PermUtils.scaleBitmap(imageUrl);
+			return bm;
+		}
+        @Override
+        protected void onPostExecute(Bitmap bitmap) {
+            // TODO Auto-generated method stub
+            super.onPostExecute(bitmap);   
+//            Drawable bm =  imageView.getDrawable();
+//            if( bm != null)
+//            	((BitmapDrawable)imageView.getDrawable()).getBitmap().recycle();
+            imageView.setScaleType(ScaleType.FIT_XY);
+            imageView.setImageBitmap(bitmap);
+        }
+
+	}
+
 	class CommentDialog extends Dialog implements android.view.View.OnClickListener{
 		
 		Perm perm  = null;
