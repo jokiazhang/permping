@@ -295,6 +295,11 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 	
 					}
 				});
+				if(perm.getLon() ==0 && perm.getLat() == 0){
+					gotoMap.setVisibility(View.GONE);
+				}else{
+					gotoMap.setVisibility(View.VISIBLE);
+				}
 				/*if (convertView == null) {
 					convertView = inflater.inflate(R.layout.perm_item_1, null);
 					holder = new ViewHolder();
