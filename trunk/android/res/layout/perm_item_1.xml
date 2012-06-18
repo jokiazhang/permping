@@ -58,17 +58,20 @@
 
     </TableRow>
     
-    <TableRow android:paddingBottom="10dip" android:paddingTop="10dip" >
+    <TableRow
+        android:id="@+id/permImageParent"
+        android:layout_width="100dip"
+        android:layout_height="100dip"
+        android:paddingBottom="10dip" android:paddingTop="10dip" >
             <ImageView
             android:id="@+id/permImage"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_marginRight="5dip" 
             android:scaleType="fitCenter"
             android:src="@drawable/icon"
             android:layout_gravity="center_vertical" />
-            
-             
+                        
     </TableRow>
     
     <TableRow >
