@@ -39,21 +39,24 @@
         repermButton = [[UIButton alloc] initWithFrame:CGRectZero];
         [repermButton setBackgroundImage:[UIImage imageNamed:@"btn-background"] forState:UIControlStateNormal];
         [repermButton.titleLabel setFont:[UIFont systemFontOfSize:14]];
-        [repermButton setTitle:@"Reperm" forState:UIControlStateNormal];
+        [repermButton setTitle:NSLocalizedString(@"Reperm", @"Reperm") forState:UIControlStateNormal];
+        [repermButton setTitleColor:BUTTON_TITLE_COLOR forState:UIControlStateNormal];
         [repermButton addTarget:self action:@selector(repermButtonDidTouch:) forControlEvents:UIControlEventTouchUpInside];
         [myContentView addSubview:repermButton];
         
         likeButton = [[UIButton alloc] initWithFrame:CGRectZero];
         [likeButton setBackgroundImage:[UIImage imageNamed:@"btn-background"] forState:UIControlStateNormal];
         [likeButton.titleLabel setFont:[UIFont systemFontOfSize:14]];
-        [likeButton setTitle:@"Like" forState:UIControlStateNormal];
+        [likeButton setTitle:NSLocalizedString(@"Like", @"Like") forState:UIControlStateNormal];
+        [likeButton setTitleColor:BUTTON_TITLE_COLOR forState:UIControlStateNormal];
         [likeButton addTarget:self action:@selector(likePermButtonDidTouch:) forControlEvents:UIControlEventTouchUpInside];
         [myContentView addSubview:likeButton];
         
         commentButton = [[UIButton alloc] initWithFrame:CGRectZero];
         [commentButton setBackgroundImage:[UIImage imageNamed:@"btn-background"] forState:UIControlStateNormal];
         [commentButton.titleLabel setFont:[UIFont systemFontOfSize:14]];
-        [commentButton setTitle:@"Comment" forState:UIControlStateNormal];
+        [commentButton setTitle:NSLocalizedString(@"Comment", @"Comment") forState:UIControlStateNormal];
+        [commentButton setTitleColor:BUTTON_TITLE_COLOR forState:UIControlStateNormal];
         [commentButton addTarget:self action:@selector(commentPermButtonDidTouch:) forControlEvents:UIControlEventTouchUpInside];
         [myContentView addSubview:commentButton];
         

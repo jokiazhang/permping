@@ -8,6 +8,7 @@
 
 #import "UINavigationBar+CustomBackground.h"
 #import <QuartzCore/QuartzCore.h>
+#import "Utility.h"
 
 @implementation UINavigationBar (CustomImage)
 

@@ -77,7 +77,7 @@
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             cell.selectionStyle = UITableViewCellSelectionStyleGray;
         }
-        cell.textLabel.text = @"Category :";
+        cell.textLabel.text = [NSString stringWithFormat:@"%@ :", NSLocalizedString(@"Category", nil)];
         if (self.selectedCategory) {
             cell.detailTextLabel.text = self.selectedCategory.title;
         }
@@ -93,11 +93,9 @@
         }
         
         if (row == 1) {
-            cell.textLabel.text = @"Name :";
-            //cell.valueTextField.text = @"Tuan's board 1";
+            cell.textLabel.text = [NSString stringWithFormat:@"%@ :", NSLocalizedString(@"Name", nil)];
         } else {
-            cell.textLabel.text = @"Description :";
-            //cell.valueTextField.text = @"Tuan's board 1 description";
+            cell.textLabel.text = [NSString stringWithFormat:@"%@ :", NSLocalizedString(@"Description", nil)];
         }
         return cell;
     }
@@ -173,7 +171,7 @@
                                        [self dismiss:nil];
                                    }
                                } else {
-                                   [Utils displayAlert:NSLocalizedString(@"CreateBoardFailed", "Failed to create board. Please try again later.") delegate:nil];
+                                   [Utils displayAlert:NSLocalizedString(@"CreateBoardFailed", @"Failed to create board. Please try again later.") delegate:nil];
                                    [self dismiss:nil];
                                }
                            });

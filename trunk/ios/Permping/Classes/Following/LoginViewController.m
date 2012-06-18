@@ -62,6 +62,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [loginButton setBackgroundImage:[[UIImage imageNamed:@"btn-background"] stretchableImageWithLeftCapWidth:20 topCapHeight:30] forState:UIControlStateNormal];
+    [loginButton setTitle:NSLocalizedString(@"globals.login", @"Login") forState:UIControlStateNormal];
+    headerLabel.text = NSLocalizedString(@"LoginHeader", nil);
+    
     [self addObservers];
     if (hasCancel) {
         self.navigationItem.leftBarButtonItem = [Utils barButtonnItemWithTitle:NSLocalizedString(@"globals.cancel", @"Cancel") target:self selector:@selector(dismiss:)];
@@ -124,12 +128,12 @@
         cell.valueTextField.text = @"";
     }
     if (indexPath.row == 0) {
-        cell.textLabel.text = @"Email Address :";
-        cell.valueTextField.text = @"demo@demo.com";
+        cell.textLabel.text = [NSString stringWithFormat:@"%@ :", NSLocalizedString(@"EmailAddress", nil)];
+        //cell.valueTextField.text = @"demo@demo.com";
         cell.valueTextField.keyboardType = UIKeyboardTypeEmailAddress;
     } else if (indexPath.row == 1) {
-        cell.textLabel.text = @"Password :";
-        cell.valueTextField.text = @"demo";
+        cell.textLabel.text = [NSString stringWithFormat:@"%@ :", NSLocalizedString(@"Password", nil)];
+        //cell.valueTextField.text = @"demo";
         cell.valueTextField.secureTextEntry = YES;
     }
     

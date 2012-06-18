@@ -38,7 +38,7 @@
 					<object class="IBUIButton" id="505559840">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{25, 70}, {270, 60}}</string>
+						<string key="NSFrame">{{25, 70}, {272, 59}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="549382524"/>
@@ -72,6 +72,10 @@
 							<string key="NSClassName">NSImage</string>
 							<string key="NSResourceName">img-take-photo.png</string>
 						</object>
+						<object class="NSCustomResource" key="IBUINormalBackgroundImage" id="135011055">
+							<string key="NSClassName">NSImage</string>
+							<string key="NSResourceName">btn-imgtab-bkg.png</string>
+						</object>
 						<object class="IBUIFontDescription" key="IBUIFontDescription" id="5503889">
 							<int key="type">1</int>
 							<double key="pointSize">20</double>
@@ -85,7 +89,7 @@
 					<object class="IBUIButton" id="549382524">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{25, 160}, {270, 60}}</string>
+						<string key="NSFrame">{{25, 160}, {272, 59}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="405234480"/>
@@ -110,13 +114,14 @@
 							<string key="NSClassName">NSImage</string>
 							<string key="NSResourceName">img-gallery.png</string>
 						</object>
+						<reference key="IBUINormalBackgroundImage" ref="135011055"/>
 						<reference key="IBUIFontDescription" ref="5503889"/>
 						<reference key="IBUIFont" ref="394020712"/>
 					</object>
 					<object class="IBUIButton" id="405234480">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{25, 250}, {270, 60}}</string>
+						<string key="NSFrame">{{25, 250}, {272, 59}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView"/>
@@ -124,7 +129,6 @@
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
-						<int key="IBUIButtonType">1</int>
 						<double key="IBUITitleEdgeInsets.top">0.0</double>
 						<double key="IBUITitleEdgeInsets.bottom">0.0</double>
 						<double key="IBUITitleEdgeInsets.left">20</double>
@@ -141,6 +145,7 @@
 							<string key="NSClassName">NSImage</string>
 							<string key="NSResourceName">img-create-board.png</string>
 						</object>
+						<reference key="IBUINormalBackgroundImage" ref="135011055"/>
 						<reference key="IBUIFontDescription" ref="5503889"/>
 						<reference key="IBUIFont" ref="394020712"/>
 					</object>
@@ -350,6 +355,7 @@
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
+			<string key="btn-imgtab-bkg.png">{554, 118}</string>
 			<string key="img-create-board.png">{50, 46}</string>
 			<string key="img-gallery.png">{50, 46}</string>
 			<string key="img-take-photo.png">{50, 43}</string>

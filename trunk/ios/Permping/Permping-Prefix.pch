@@ -13,3 +13,5 @@
     #import <Foundation/Foundation.h>
     #import "UIImageView+WebCache.h"
 #endif
+
+#define BUTTON_TITLE_COLOR [UIColor darkGrayColor]
