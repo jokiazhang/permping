@@ -16,7 +16,7 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         valueTextField = [[UITextField alloc] init];
-        valueTextField.placeholder = @"Required";
+        valueTextField.placeholder = NSLocalizedString(@"globals.required", nil);
         valueTextField.autocorrectionType = UITextAutocorrectionTypeNo;
         valueTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
         [self addSubview:valueTextField];

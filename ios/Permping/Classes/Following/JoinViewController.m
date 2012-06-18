@@ -54,7 +54,16 @@
                                              selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     self.navigationItem.leftBarButtonItem = [Utils barButtonnItemWithTitle:NSLocalizedString(@"globals.cancel", @"Cancel") target:self selector:@selector(dismiss:)];
     
-    self.fieldsTitle = [NSArray arrayWithObjects:@"Name :", @"Email :", @"Password :", @"Confirm Password :", nil];
+    headerLabel.text = NSLocalizedString(@"JoinViewHeader", nil);
+    
+    [createAccountButton setBackgroundImage:[[UIImage imageNamed:@"btn-background"] stretchableImageWithLeftCapWidth:20 topCapHeight:30] forState:UIControlStateNormal];
+    [createAccountButton setTitle:NSLocalizedString(@"JoinViewCreateAccount", nil) forState:UIControlStateNormal];
+    
+    self.fieldsTitle = [NSArray arrayWithObjects:
+                        [NSString stringWithFormat:@"%@ :", NSLocalizedString(@"JoinViewName", nil)], 
+                        [NSString stringWithFormat:@"%@ :", NSLocalizedString(@"JoinViewEmail", nil)], 
+                        [NSString stringWithFormat:@"%@ :", NSLocalizedString(@"JoinViewPassword", nil)], 
+                        [NSString stringWithFormat:@"%@ :", NSLocalizedString(@"JoinViewConfirmPassword", nil)], nil];
     
     //self.testValues = [NSArray arrayWithObjects:@"aabcde", @"aabcde@test.com", @"123456", @"123456", nil];
 }

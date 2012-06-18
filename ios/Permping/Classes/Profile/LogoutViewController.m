@@ -38,9 +38,11 @@
     
     self.navigationItem.leftBarButtonItem = [Utils barButtonnItemWithTitle:NSLocalizedString(@"globals.cancel", @"Cancel") target:self selector:@selector(dismissWithFlipAnimationTransition)];
     
-    [logoutButton setBackgroundImage:[[UIImage imageNamed:@"btn-background.png"] stretchableImageWithLeftCapWidth:20 topCapHeight:0] forState:UIControlStateNormal];
+    [logoutButton setBackgroundImage:[[UIImage imageNamed:@"btn-background.png"] stretchableImageWithLeftCapWidth:20 topCapHeight:30] forState:UIControlStateNormal];
+    [logoutButton setTitle:NSLocalizedString(@"Logout", nil) forState:UIControlStateNormal];
     
-    [cancelButton setBackgroundImage:[[UIImage imageNamed:@"btn-background.png"] stretchableImageWithLeftCapWidth:20 topCapHeight:0] forState:UIControlStateNormal];
+    [cancelButton setBackgroundImage:[[UIImage imageNamed:@"btn-background.png"] stretchableImageWithLeftCapWidth:20 topCapHeight:30] forState:UIControlStateNormal];
+    [cancelButton setTitle:NSLocalizedString(@"globals.cancel", nil) forState:UIControlStateNormal];
 }
 
 - (void)viewDidUnload

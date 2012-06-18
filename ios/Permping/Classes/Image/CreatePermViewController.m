@@ -173,7 +173,7 @@
                                            [self dismiss:nil];
                                        }
                                    } else {
-                                       [Utils displayAlert:NSLocalizedString(@"UploadPermFailed", "Failed to upload perm. Please try again later.") delegate:nil];
+                                       [Utils displayAlert:NSLocalizedString(@"UploadPermFailed", @"Failed to upload perm. Please try again later.") delegate:nil];
                                        [self dismiss:nil];
                                    }
                                });
@@ -192,12 +192,13 @@
                                {
                                    [self stopActivityIndicator];
                                    if (error) {
-                                       [Utils displayAlert:[error localizedDescription] delegate:nil];
+                                       [Utils displayAlert:[error localizedDescription] delegate:self];
                                        if (error.code == 200) {
-                                           [self dismiss:nil];
+                                           uploadSuccess = YES;
+                                           //[self dismiss:nil];
                                        }
                                    } else {
-                                       [Utils displayAlert:NSLocalizedString(@"UploadPermFailed", "Failed to upload perm. Please try again later.") delegate:nil];
+                                       [Utils displayAlert:NSLocalizedString(@"UploadPermFailed", @"Failed to upload perm. Please try again later.") delegate:nil];
                                        [self dismiss:nil];
                                    }
                                });
@@ -211,6 +212,15 @@
     [pool drain];
 }
 
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (uploadSuccess) {
+        NSString *message = [NSString stringWithFormat:@"pindetails/%@", permId];
+        NSArray *array = [NSArray arrayWithObjects:@"os", @"iphone", @"devicetype", @"phone", @"installurl", @"www.apple.com", @"executeurl", @"www.apple.com",nil];
+        NSString *url = @"www.apple.com";
+        [[KakaoLinkCenter defaultCenter] openKakaoAppLinkWithMessage:message URL:url appBundleID:@"webactully" appVersion:@"2.0" appName:@"Permping App" metaInfoArray:array];
+        [self dismiss:nil];
+    }
+}
 
 #pragma mark - <UITableViewDelegate + DataSource> implementation
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -248,7 +258,7 @@
                 cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:reuseIdentifier] autorelease];
                 cell.selectionStyle = UITableViewCellSelectionStyleGray;
                 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                cell.textLabel.text = @"Board :";
+                cell.textLabel.text = [NSString stringWithFormat:@"%@ :", NSLocalizedString(@"Board", nil)];
             }
             if (self.selectedBoard) cell.detailTextLabel.text = self.selectedBoard.title;
             return cell;
@@ -258,7 +268,7 @@
             if (cell == nil) {
                 cell = [[SwitchingTableCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:reuseIdentifier];
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
-                cell.textLabel.text = @"Place";
+                cell.textLabel.text = NSLocalizedString(@"Place", nil);
                 cell.switching.tag = 0;
                 [cell.switching addTarget:self action:@selector(switchDidChangeValue:) forControlEvents:UIControlEventValueChanged];
             }
@@ -274,17 +284,17 @@
         }
         cell.switching.tag = indexPath.row+1;
         if (row == 0) {
-            cell.textLabel.text = @"Facebook";
+            cell.textLabel.text = NSLocalizedString(@"Facebook", nil);
             if ([[NSUserDefaults standardUserDefaults] boolForKey:@"ShareFacebook"]) {
                 [cell.switching setOn:YES];
             }
         } else if (row == 1) {
-            cell.textLabel.text = @"Twitter";
+            cell.textLabel.text = NSLocalizedString(@"Twitter", nil);
             if ([[NSUserDefaults standardUserDefaults] boolForKey:@"ShareTwitter"]) {
                 [cell.switching setOn:YES];
             }
         } else {
-            cell.textLabel.text = @"Kakao Talk";
+            cell.textLabel.text = NSLocalizedString(@"KakaoTalk", nil);
             if ([[NSUserDefaults standardUserDefaults] boolForKey:@"ShareKakao"]) {
                 [cell.switching setOn:YES];
             }
@@ -366,26 +376,24 @@
         if (currentSwitch.tag == 1) {
             key = @"ShareFacebook";
             if (isOn && ![[AppData getInstance] fbLoggedIn]) {
+                [currentSwitch setOn:NO];
                 [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(socialNetworkLoginDidFinish:) name:kSocialNetworkDidLoginNotification object:nil];
                 return;
             }
         } else if (currentSwitch.tag == 2) {
             key = @"ShareTwitter";
             if (isOn && ![[AppData getInstance] twitterLoggedIn:self]) {
+                [currentSwitch setOn:NO];
                 [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(socialNetworkLoginDidFinish:) name:kSocialNetworkDidLoginNotification object:nil];
                 return;
             }
         } else {
             key = @"ShareKakao";
-            BOOL canOpen = [[KakaoLinkCenter defaultCenter] canOpenKakaoLink];
-            if (canOpen) {
-                /*var msg = "Kakao Talk Demo";
-                var url = "http://www.webactually.co.kr/kakao/kakao.html";
-                var appid = "webactually"; // 아무거나 uniq한 것으로 적어주세요.
-                var appver = "2.0"; // 아무 버전이나 적어주세요.
-                var appname = "웹액츄얼리코리아"; // 아무거나 적어주세요.*/
-                NSString *url = @"http://www.webactually.co.kr/kakao/kakao.html";
-                [[KakaoLinkCenter defaultCenter] openKakaoLinkWithURL:url appVersion:@"2.0" appBundleID:@"webactually" appName:@"Permping" message:@"Kakao Talk Demo"];
+            if (isOn) {
+                BOOL canOpen = [[KakaoLinkCenter defaultCenter] canOpenKakaoLink];
+                if (!canOpen) {
+                    [currentSwitch setOn:NO];
+                }
             }
         }
         [[NSUserDefaults standardUserDefaults] setBool:isOn forKey:key];

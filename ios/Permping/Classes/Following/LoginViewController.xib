@@ -156,7 +156,7 @@
 					<object class="IBUIButton" id="414252651">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">288</int>
-						<string key="NSFrame">{{75, 294}, {170, 37}}</string>
+						<string key="NSFrame">{{75, 280}, {170, 37}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView"/>
@@ -166,7 +166,10 @@
 						<int key="IBUIContentVerticalAlignment">0</int>
 						<string key="IBUINormalTitle">Login</string>
 						<reference key="IBUIHighlightedTitleColor" ref="579132585"/>
-						<reference key="IBUINormalTitleColor" ref="579132585"/>
+						<object class="NSColor" key="IBUINormalTitleColor">
+							<int key="NSColorSpace">3</int>
+							<bytes key="NSWhite">MC4zMzMzMzMzMzMzAA</bytes>
+						</object>
 						<reference key="IBUINormalTitleShadowColor" ref="1056305686"/>
 						<object class="NSCustomResource" key="IBUINormalBackgroundImage">
 							<string key="NSClassName">NSImage</string>
@@ -441,7 +444,7 @@
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
-			<string key="btn-background.png">{206, 85}</string>
+			<string key="btn-background.png">{154, 67}</string>
 			<string key="login-facebook-btn.png">{60, 60}</string>
 			<string key="login-twitter-btn.png">{60, 60}</string>
 		</dictionary>

@@ -14,7 +14,7 @@
 #import "MyDiaryViewController.h"
 #import "ProfileViewController.h"
 #import "AppData.h"
-
+#import "Utility.h"
 
 @implementation AppDelegate
 
@@ -44,7 +44,7 @@
     ProfileViewController *viewController5 = [[[ProfileViewController alloc] initWithNibName:@"ProfileViewController" bundle:nil] autorelease];
     self.tabBarController = [[[UITabBarController alloc] init] autorelease];
     self.tabBarController.viewControllers = [NSArray arrayWithObjects:[self navigationControllerWithRootController:viewController1], [self navigationControllerWithRootController:viewController2], [self navigationControllerWithRootController:viewController3], [self navigationControllerWithRootController:viewController4], [self navigationControllerWithRootController:viewController5], nil];
-    self.tabBarController.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"default-background.png"]];
+    self.tabBarController.view.backgroundColor = [Utility colorRefWithString:@"#f2f2f2"];// [UIColor colorWithPatternImage:[UIImage imageNamed:@"default-background.png"]];
     self.tabBarController.delegate = self;
     
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];

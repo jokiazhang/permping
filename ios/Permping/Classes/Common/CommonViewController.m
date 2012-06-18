@@ -8,6 +8,7 @@
 
 #import "CommonViewController.h"
 #import "AppData.h"
+#import "Utility.h"
 
 #define SPINNER_BACKGROUND_WIDTH    100
 #define SPINNER_BACKGROUND_HEIGHT   60
@@ -42,7 +43,7 @@
     {
         [bar setBackgroundImage:[UIImage imageNamed:@"nav-bar-background.png"] forBarMetrics:UIBarMetricsDefault];
     }
-    self.navigationItem.title = @"Permping";
+    self.navigationItem.title = @"PERMPING";
     self.view.backgroundColor = [UIColor clearColor];
     
     

@@ -37,7 +37,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+    [takePhotoButton setTitle:NSLocalizedString(@"TakePhoto", nil) forState:UIControlStateNormal];
+    [galleryButton setTitle:NSLocalizedString(@"Gallery", nil) forState:UIControlStateNormal];
+    [createBoardButton setTitle:NSLocalizedString(@"CreateBoard", nil) forState:UIControlStateNormal];
 }
 
 - (void)viewDidUnload

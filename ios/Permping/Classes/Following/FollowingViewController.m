@@ -46,11 +46,13 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [useFacebookButton setBackgroundImage:[[UIImage imageNamed:@"btn-background.png"] stretchableImageWithLeftCapWidth:20 topCapHeight:0] forState:UIControlStateNormal];
+    [joinButton setTitle:NSLocalizedString(@"globals.join", @"Join") forState:UIControlStateNormal];
+    [loginButton setTitle:NSLocalizedString(@"globals.login", @"Login") forState:UIControlStateNormal];
+    [useFacebookButton setBackgroundImage:[[UIImage imageNamed:@"btn-background.png"] stretchableImageWithLeftCapWidth:20 topCapHeight:30] forState:UIControlStateNormal];
     
-    [useTwitterButton setBackgroundImage:[[UIImage imageNamed:@"btn-background.png"] stretchableImageWithLeftCapWidth:20 topCapHeight:0] forState:UIControlStateNormal];
+    [useTwitterButton setBackgroundImage:[[UIImage imageNamed:@"btn-background.png"] stretchableImageWithLeftCapWidth:20 topCapHeight:30] forState:UIControlStateNormal];
     
-    [joinPermpingButton setBackgroundImage:[[UIImage imageNamed:@"btn-background.png"] stretchableImageWithLeftCapWidth:20 topCapHeight:0] forState:UIControlStateNormal];
+    [joinPermpingButton setBackgroundImage:[[UIImage imageNamed:@"btn-background.png"] stretchableImageWithLeftCapWidth:20 topCapHeight:30] forState:UIControlStateNormal];
 
     [joinViewContainer.layer setCornerRadius:10.0f];
     [joinViewContainer.layer setBorderColor:[UIColor lightGrayColor].CGColor];

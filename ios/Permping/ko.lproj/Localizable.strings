@@ -1,0 +1,77 @@
+/* Globals values */
+"globals.cancel" = "취소";
+"globals.ok" = "확인";
+"globals.back" = "이전";
+"globals.join" = "회원 등록";
+"globals.login" = "로그인";
+"globals.required" = "입력하세요";
+
+/* Tab items */
+"FollowingTabTitle" = "Followers";
+"ExplorerTabTitle" = "Explorer";
+"ImageTabTitle" = "Image";
+"MyDiaryTabTitle" = "My Diary";
+"ProfileTabTitle" = "Profile";
+
+/***************************************************************************************/
+/* Webservices                                                                         */
+/***************************************************************************************/
+"RequestResult.error_occured" = "An error occured";
+"RequestResult.ok_button" = "OK";
+
+"CreateAccountSuccess" = "Create account success!";
+
+"UploadPermSuccess" = "Upload perm success!";
+
+"UploadPermFailed" = "Failed to upload perm. Please try again later.";
+
+"LoadMorePermsNoResult" = "No more perms found";
+
+"NoFoundPerms" = "No found Perms";
+
+"CreateBoardFailed" = "Failed to create board. Please try again later.";
+
+/* PermView */
+"Like" = "좋아요";
+"Reperm" = "펌하기";
+"Comment" = "댓글";
+"Unlike" = "취소";
+
+/* Login */
+"LoginHeader" = "펌핑 이미지 SNS 로그인 하기";
+"EmailAddress" = "이메일";
+"Password" = "비밀번호";
+
+/* Join */
+"JoinViewHeader" = "펌핑 가입하기";
+"JoinViewName" = "이름";
+"JoinViewEmail" = "이메일";
+"JoinViewPassword" = "비밀번호";
+"JoinViewConfirmPassword" = "재확인";
+"JoinViewCreateAccount" = "계정 만들기";
+
+/* Image */
+"TakePhoto" = "카메라 촬영";
+"Gallery" = "앨범에서 선택";
+"CreateBoard" = "보드 만들기";
+"DescriptionOfImage" = "당신의 이야기를 담아 주세요";
+"Board" = "보드";
+"Place" = "위치";
+"Facebook" = "페이스북";
+"Twitter" = "트위터";
+"KakaoTalk" = "카카오톡";
+"Category" = "카테고리";
+"Name" = "보드 이름";
+"Description" = "보드 설명";
+
+
+/* My Diary */
+"MyDiaryHeader" = "My Diary";
+
+/* Profile */
+"Logout" = "로그 아웃";
+"Account" = "계정";
+"Perms" = "펌";
+"Followers" = "팔로우";
+"Follow" = "팔로우";
+"Unfollow" = "언팔로우";

@@ -17,7 +17,7 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         valueTextField = [[UITextField alloc] init];
-        valueTextField.placeholder = @"Description of Image";
+        valueTextField.placeholder = NSLocalizedString(@"DescriptionOfImage", nil);
         valueTextField.autocorrectionType = UITextAutocorrectionTypeNo;
         valueTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
         valueTextField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;

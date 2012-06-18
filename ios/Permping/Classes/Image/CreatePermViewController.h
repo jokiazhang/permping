@@ -12,7 +12,7 @@
 #import "PermModel.h"
 #import "CommonViewController.h"
 
-@interface CreatePermViewController : CommonViewController <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, CLLocationManagerDelegate> {
+@interface CreatePermViewController : CommonViewController <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, CLLocationManagerDelegate, UIAlertViewDelegate> {
     CLLocationManager   *locationManager;
     CLLocation          *bestEffortAtLocation;
     IBOutlet UITableView *permTableView;
@@ -22,6 +22,8 @@
     NSData          *fileData;
     
     BOOL            geoEnable;
+    BOOL            uploadSuccess;
+    NSString        *permId;
     
     UISwitch        *currentSwitch;
     

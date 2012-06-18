@@ -51,7 +51,7 @@
     if (self.userId) {
         self.navigationItem.leftBarButtonItem = [Utils barButtonnItemWithTitle:NSLocalizedString(@"globals.back", @"Back") target:self selector:@selector(dismiss:)];
     } else {
-        self.navigationItem.leftBarButtonItem = [Utils barButtonnItemWithTitle:NSLocalizedString(@"ProfileAccountButton", @"Account") target:self selector:@selector(accountButtonDidTouch:)];
+        self.navigationItem.leftBarButtonItem = [Utils barButtonnItemWithTitle:NSLocalizedString(@"Account", @"Account") target:self selector:@selector(accountButtonDidTouch:)];
     }
     boardTableView.tableHeaderView = headerView;
     [self reloadData];
@@ -185,8 +185,8 @@
         headerView.hidden = NO;
         [avatarView setImageWithURL:[NSURL URLWithString:self.userProfile.userAvatar] usingActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
         userNameLabel.text = self.userProfile.userName;
-        permsNumberLabel.text = [NSString stringWithFormat:@"perms %@ followers %@", self.userProfile.pinCount, self.userProfile.followerCount];
-        [followButton setTitle:isFollowed?@"Unfollow":@"Follow" forState:UIControlStateNormal];
+        permsNumberLabel.text = [NSString stringWithFormat:@"%@ %@ %@ %@", NSLocalizedString(@"Perms", nil), self.userProfile.pinCount, NSLocalizedString(@"Followers", nil), self.userProfile.followerCount];
+        [followButton setTitle:isFollowed?NSLocalizedString(@"Unfollow", nil):NSLocalizedString(@"Follow", nil) forState:UIControlStateNormal];
         [boardTableView reloadData];
     } else {
         boardTableView.hidden = YES;
@@ -221,7 +221,8 @@
     }
     BoardModel *board = [self.userProfile.boards objectAtIndex:indexPath.row];
     cell.textLabel.text = board.title;
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"perms %@ followers %@", board.pinCount, board.followers];
+    
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ %@ %@ %@", NSLocalizedString(@"Perms", nil), board.pinCount, NSLocalizedString(@"Followers", nil), board.followers];
     return cell;
 }
 

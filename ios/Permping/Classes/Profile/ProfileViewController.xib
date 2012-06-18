@@ -44,7 +44,6 @@
 						<string key="NSFrame">{{10, 0}, {300, 460}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<object class="NSColor" key="IBUIBackgroundColor" id="476720841">
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MCAwAA</bytes>
@@ -158,17 +157,19 @@
 						<string key="NSFrame">{{235, 15}, {80, 37}}</string>
 						<reference key="NSSuperview" ref="36849079"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
 						<string key="IBUINormalTitle">Follow</string>
-						<object class="NSColor" key="IBUIHighlightedTitleColor" id="242635091">
+						<object class="NSColor" key="IBUIHighlightedTitleColor">
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MQA</bytes>
 						</object>
-						<reference key="IBUINormalTitleColor" ref="242635091"/>
+						<object class="NSColor" key="IBUINormalTitleColor">
+							<int key="NSColorSpace">3</int>
+							<bytes key="NSWhite">MC4zMzMzMzMzMzMzAA</bytes>
+						</object>
 						<object class="NSColor" key="IBUINormalTitleShadowColor">
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MC41AA</bytes>
@@ -435,7 +436,7 @@
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<object class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
 			<string key="NS.key.0">btn-background.png</string>
-			<string key="NS.object.0">{206, 85}</string>
+			<string key="NS.object.0">{154, 67}</string>
 		</object>
 		<string key="IBCocoaTouchPluginVersion">933</string>
 	</data>
