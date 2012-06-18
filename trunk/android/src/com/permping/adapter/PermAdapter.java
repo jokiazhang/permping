@@ -3,6 +3,7 @@ package com.permping.adapter;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.http.HttpEntity;
@@ -81,7 +82,7 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 	private int screenWidth;
 	private int screenHeight;
 	private Context context;
-
+	private HashMap<String, View> viewList = new HashMap<String, View>();
 	public int count = 15;
 	
 
@@ -169,242 +170,253 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 				}
 			});
 			return view;
-		} else {
-			LayoutInflater inflater = (LayoutInflater) this.getContext()
-					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			final View view = inflater.inflate(R.layout.perm_item_1, null);
-
+		} else {			
 			final Perm perm = items.get(position);
-
-			like = (Button) view.findViewById(R.id.btnLike);
-			// Validate Like or Unlike
-			if (perm != null) {
-				if (perm.getPermUserLikeCount() != null
-						&& "0".equals(perm.getPermUserLikeCount())) {
-					like.setText(Constants.LIKE);
-				} else {
-					like.setText(Constants.UNLIKE);
-				}
-			}
-
-			like.setOnClickListener(new OnClickListener() {
-				public void onClick(final View v) {
-					user = PermUtils.isAuthenticated(v.getContext());
-					if (user != null) {
-						// final ProgressDialog dialog =
-						// ProgressDialog.show(v.getContext(),
-						// "Loading","Please wait...", true);
-
-						HttpPermUtils util = new HttpPermUtils();
-						List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
-						nameValuePairs.add(new BasicNameValuePair("pid", String
-								.valueOf(perm.getId())));
-						nameValuePairs.add(new BasicNameValuePair("uid", String
-								.valueOf(user.getId())));
-						util.sendPostRequest(API.likeURL, nameValuePairs);
-
-						if (v instanceof Button) {
-							String label = ((Button) v).getText().toString();
-							int likeCount = Integer.parseInt(perm
-									.getPermLikeCount());
-							if (label != null && label.equals(Constants.LIKE)) { // Like
-								// Update the count
-								likeCount++;
-								perm.setPermLikeCount(String.valueOf(likeCount));
-								// Change the text to "Unlike"
-								like.setText(Constants.UNLIKE);
-							} else { // Unlike
-								likeCount = likeCount - 1;
-								if (likeCount < 0)
-									likeCount = 0;
-								perm.setPermLikeCount(String.valueOf(likeCount));
-								like.setText(Constants.LIKE);
-							}
-						}
-						String permStatus = "Like: " + perm.getPermLikeCount()
-								+ " - Repin: " + perm.getPermRepinCount()
-								+ " - Comment: " + perm.getPermCommentCount();
-						TextView txtStatus = (TextView) view
-								.findViewById(R.id.permStat);
-						txtStatus.setText(permStatus);
-					} else {
-						Toast.makeText(view.getContext(), Constants.NOT_LOGIN,
-								Toast.LENGTH_LONG).show();
-					}
-				}
-			});
-
-			reperm = (Button) view.findViewById(R.id.btnRepem);
-			reperm.setOnClickListener(new OnClickListener() {
-				public void onClick(final View v) {
-					user = PermUtils.isAuthenticated(v.getContext());
-					if (user != null) {
-						Intent myIntent = new Intent(view.getContext(),
-								NewPermActivity.class);
-						myIntent.putExtra("permID", (String) perm.getId());
-						View repermView = FollowerActivityGroup.group
-								.getLocalActivityManager()
-								.startActivity(
-										"BoardListActivity",
-										myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
-								.getDecorView();
-						FollowerActivityGroup.group.replaceView(repermView);
-					} else {
-						Toast.makeText(view.getContext(), Constants.NOT_LOGIN,
-								Toast.LENGTH_LONG).show();
-					}
-				}
-			});
-
-			comment = (Button) view.findViewById(R.id.btnComment);
-			comment.setOnClickListener(new OnClickListener() {
-
-				@Override
-				public void onClick(View v) {
-					user = PermUtils.isAuthenticated(v.getContext());
-					if (user != null) {
-						
-						PermpingApplication state = (PermpingApplication)v.getContext().getApplicationContext();
-						
-						CommentDialog commentDialog = new CommentDialog( v.getContext(), perm , state.getUser() );
-						commentDialog.show();
-					} else {
-						Toast.makeText(view.getContext(), Constants.NOT_LOGIN, Toast.LENGTH_LONG).show();
-					}
-				}
-			});
-			ImageView gotoMap = (ImageView)view.findViewById(R.id.btnLocation);
-			gotoMap.setOnClickListener(new OnClickListener() {
-				
-				@Override
-				public void onClick(View v) {
-					// TODO Auto-generated method stub
-
-					Intent googleMap = new Intent(context,
-							GoogleMapActivity.class);
-					Bundle bundle = new Bundle();
-					bundle.putFloat("lat", perm.getLat());
-					bundle.putFloat("lon", perm.getLon());
-					bundle.putString("thumbnail", perm.getImage().getUrl());
-					googleMap.putExtra("locationData", bundle);
-					Log.d("AA+++++============","========="+perm.getImage().getUrl());
-					View view = FollowerActivityGroup.group.getLocalActivityManager().startActivity( "GoogleMapActivity"+perm.getId(), googleMap).getDecorView();
-					FollowerActivityGroup.group.replaceView(view);
-
-				}
-			});
-			/*if (convertView == null) {
-				convertView = inflater.inflate(R.layout.perm_item_1, null);
-				holder = new ViewHolder();
-				holder.avatar = (ImageView) convertView.findViewById(R.id.authorAvatar);
-				holder.authorName = (TextView) convertView.findViewById(R.id.authorName);
-				holder.boardName = (TextView) convertView.findViewById(R.id.boardName);
-				holder.permImage = (ImageView) convertView.findViewById(R.id.permImage);
-				holder.permDesc = (TextView) convertView.findViewById(R.id.permDesc);
-				holder.permInfo = (TextView) convertView.findViewById(R.id.permInfo);
-				holder.permStat = (TextView) convertView.findViewById(R.id.permStat);
-				holder.comments = (LinearLayout) convertView.findViewById(R.id.comments);
-				convertView.setTag(holder);
-			} else {
-				holder = (ViewHolder) convertView.getTag();
-			}*/
+			String viewId = perm.getId();
+			convertView = viewList.get(viewId);
 			
-			if (perm != null) {
-				
-				// Set the nextItems no.
-				if (perm.getNextItem() != null)
-					nextItems = Integer.parseInt(perm.getNextItem());
-				else
-					nextItems = -1;
-				
-				ImageView av = (ImageView) view.findViewById(R.id.authorAvatar);
-				UrlImageViewHelper.setUrlDrawable(av, perm.getAuthor()
-						.getAvatar().getUrl());
-
-				TextView an = (TextView) view.findViewById(R.id.authorName);
-				//holder.authorName.setText(perm.getAuthor().getName());
-				an.setText(perm.getAuthor().getName());
-
-				// Board name
-				TextView bn = (TextView) view.findViewById(R.id.boardName);
-				//holder.boardName.setText(perm.getBoard().getName());
-				bn.setText(perm.getBoard().getName());
-
-				ImageView pv = (ImageView) view.findViewById(R.id.permImage);
-				//ImageUtil.imageViewFromURL( pv , perm.getImage().getUrl() );
-				/*
-				 LinearLayout.LayoutParams layoutParams = (LayoutParams) pv.getLayoutParams();
- 				layoutParams.width = 350;
- 				pv.setLayoutParams(layoutParams);
- 				*/
-				UrlImageViewHelper.setUrlDrawable(pv, perm.getImage().getUrl() , true );
-				
-				//PermUtils.scaleImage(pv, screenWidth, screenHeight);
-
-				// Perm description
-				TextView pd = (TextView) view.findViewById(R.id.permDesc);
-				//holder.permDesc.setText(perm.getDescription());
-				pd.setText(perm.getDescription());
-
-				String permInfo = "via " + perm.getAuthor().getName()
-						+ " on to " + perm.getBoard().getName();
-				TextView pi = (TextView) view.findViewById(R.id.permInfo);
-				//holder.permInfo.setText(permInfo);
-				pi.setText(permInfo);
-
-				String permStat = "Like: " + perm.getPermLikeCount()
-						+ " - Repin: " + perm.getPermRepinCount()
-						+ " - Comment: " + perm.getPermCommentCount();
-				TextView ps = (TextView) view.findViewById(R.id.permStat);
-				//holder.permStat.setText(permStat);
-				//holder.permStat.setText(permStat);
-				ps.setText(permStat);
-
-				LinearLayout comments = (LinearLayout) view
-						.findViewById(R.id.comments);
-				for (int i = 0; i < perm.getComments().size(); i++) {
-					View cm = inflater.inflate(R.layout.comment_item, null);
-					Comment pcm = perm.getComments().get(i);
-					if (pcm != null && pcm.getAuthor() != null) {
-
-						ImageView cma = (ImageView) cm
-								.findViewById(R.id.commentAvatar);
-						UrlImageViewHelper.setUrlDrawable(cma, pcm.getAuthor()
-								.getAvatar().getUrl());
-
-						TextView authorName = (TextView) cm
-								.findViewById(R.id.commentAuthor);
-						authorName.setText(pcm.getAuthor().getName());
-
-						TextView cmt = (TextView) cm
-								.findViewById(R.id.commentContent);
-						cmt.setText(pcm.getContent());
-						/*
-						 * boolean isWrapped = PermUtils.isTextWrapped(activity,
-						 * cmt.getText().toString(), cmt.getContext()); if
-						 * (isWrapped) { cmt.setMaxLines(5);
-						 * cmt.setSingleLine(false);
-						 * cmt.setEllipsize(TruncateAt.MARQUEE); }
-						 */
-						if (i == (perm.getComments().size() - 1)) {
-							View sp = (View) cm.findViewById(R.id.separator);
-							sp.setVisibility(View.INVISIBLE);
-						}
-						/*
-						 * EllipsizingTextView cmt = (EllipsizingTextView) cm
-						 * .findViewById(R.id.commentContent);
-						 * cmt.setText(pcm.getContent());
-						 * 
-						 * if (i == (perm.getComments().size() - 1)) { View sp =
-						 * (View) cm.findViewById(R.id.separator);
-						 * sp.setVisibility(View.INVISIBLE); }
-						 */
-						comments.addView(cm);
+			if (convertView != null){
+				return convertView;
+			}else{
+				LayoutInflater inflater = (LayoutInflater) this.getContext()
+						.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+				final View view = inflater.inflate(R.layout.perm_item_1, null);
+	
+	
+	
+				like = (Button) view.findViewById(R.id.btnLike);
+				// Validate Like or Unlike
+				if (perm != null) {
+					if (perm.getPermUserLikeCount() != null
+							&& "0".equals(perm.getPermUserLikeCount())) {
+						like.setText(Constants.LIKE);
+					} else {
+						like.setText(Constants.UNLIKE);
 					}
 				}
-			}
-			//return convertView;
-			return view;
+	
+				like.setOnClickListener(new OnClickListener() {
+					public void onClick(final View v) {
+						user = PermUtils.isAuthenticated(v.getContext());
+						if (user != null) {
+							// final ProgressDialog dialog =
+							// ProgressDialog.show(v.getContext(),
+							// "Loading","Please wait...", true);
+	
+							HttpPermUtils util = new HttpPermUtils();
+							List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+							nameValuePairs.add(new BasicNameValuePair("pid", String
+									.valueOf(perm.getId())));
+							nameValuePairs.add(new BasicNameValuePair("uid", String
+									.valueOf(user.getId())));
+							util.sendPostRequest(API.likeURL, nameValuePairs);
+	
+							if (v instanceof Button) {
+								String label = ((Button) v).getText().toString();
+								int likeCount = Integer.parseInt(perm
+										.getPermLikeCount());
+								if (label != null && label.equals(Constants.LIKE)) { // Like
+									// Update the count
+									likeCount++;
+									perm.setPermLikeCount(String.valueOf(likeCount));
+									// Change the text to "Unlike"
+									like.setText(Constants.UNLIKE);
+								} else { // Unlike
+									likeCount = likeCount - 1;
+									if (likeCount < 0)
+										likeCount = 0;
+									perm.setPermLikeCount(String.valueOf(likeCount));
+									like.setText(Constants.LIKE);
+								}
+							}
+							String permStatus = "Like: " + perm.getPermLikeCount()
+									+ " - Repin: " + perm.getPermRepinCount()
+									+ " - Comment: " + perm.getPermCommentCount();
+							TextView txtStatus = (TextView) view
+									.findViewById(R.id.permStat);
+							txtStatus.setText(permStatus);
+						} else {
+							Toast.makeText(view.getContext(), Constants.NOT_LOGIN,
+									Toast.LENGTH_LONG).show();
+						}
+					}
+				});
+	
+				reperm = (Button) view.findViewById(R.id.btnRepem);
+				reperm.setOnClickListener(new OnClickListener() {
+					public void onClick(final View v) {
+						user = PermUtils.isAuthenticated(v.getContext());
+						if (user != null) {
+							Intent myIntent = new Intent(view.getContext(),
+									NewPermActivity.class);
+							myIntent.putExtra("permID", (String) perm.getId());
+							View repermView = FollowerActivityGroup.group
+									.getLocalActivityManager()
+									.startActivity(
+											"BoardListActivity",
+											myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
+									.getDecorView();
+							FollowerActivityGroup.group.replaceView(repermView);
+						} else {
+							Toast.makeText(view.getContext(), Constants.NOT_LOGIN,
+									Toast.LENGTH_LONG).show();
+						}
+					}
+				});
+	
+				comment = (Button) view.findViewById(R.id.btnComment);
+				comment.setOnClickListener(new OnClickListener() {
+	
+					@Override
+					public void onClick(View v) {
+						user = PermUtils.isAuthenticated(v.getContext());
+						if (user != null) {
+							
+							PermpingApplication state = (PermpingApplication)v.getContext().getApplicationContext();
+							
+							CommentDialog commentDialog = new CommentDialog( v.getContext(), perm , state.getUser() );
+							commentDialog.show();
+						} else {
+							Toast.makeText(view.getContext(), Constants.NOT_LOGIN, Toast.LENGTH_LONG).show();
+						}
+					}
+				});
+				ImageView gotoMap = (ImageView)view.findViewById(R.id.btnLocation);
+				gotoMap.setOnClickListener(new OnClickListener() {
+					
+					@Override
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+	
+						Intent googleMap = new Intent(context,
+								GoogleMapActivity.class);
+						Bundle bundle = new Bundle();
+						bundle.putFloat("lat", perm.getLat());
+						bundle.putFloat("lon", perm.getLon());
+						bundle.putString("thumbnail", perm.getImage().getUrl());
+						googleMap.putExtra("locationData", bundle);
+						Log.d("AA+++++============","========="+perm.getImage().getUrl());
+						View view = FollowerActivityGroup.group.getLocalActivityManager().startActivity( "GoogleMapActivity"+perm.getId(), googleMap).getDecorView();
+						FollowerActivityGroup.group.replaceView(view);
+	
+					}
+				});
+				/*if (convertView == null) {
+					convertView = inflater.inflate(R.layout.perm_item_1, null);
+					holder = new ViewHolder();
+					holder.avatar = (ImageView) convertView.findViewById(R.id.authorAvatar);
+					holder.authorName = (TextView) convertView.findViewById(R.id.authorName);
+					holder.boardName = (TextView) convertView.findViewById(R.id.boardName);
+					holder.permImage = (ImageView) convertView.findViewById(R.id.permImage);
+					holder.permDesc = (TextView) convertView.findViewById(R.id.permDesc);
+					holder.permInfo = (TextView) convertView.findViewById(R.id.permInfo);
+					holder.permStat = (TextView) convertView.findViewById(R.id.permStat);
+					holder.comments = (LinearLayout) convertView.findViewById(R.id.comments);
+					convertView.setTag(holder);
+				} else {
+					holder = (ViewHolder) convertView.getTag();
+				}*/
+				
+				if (perm != null) {
+					
+					// Set the nextItems no.
+					if (perm.getNextItem() != null)
+						nextItems = Integer.parseInt(perm.getNextItem());
+					else
+						nextItems = -1;
+					
+					ImageView av = (ImageView) view.findViewById(R.id.authorAvatar);
+					UrlImageViewHelper.setUrlDrawable(av, perm.getAuthor()
+							.getAvatar().getUrl());
+	
+					TextView an = (TextView) view.findViewById(R.id.authorName);
+					//holder.authorName.setText(perm.getAuthor().getName());
+					an.setText(perm.getAuthor().getName());
+	
+					// Board name
+					TextView bn = (TextView) view.findViewById(R.id.boardName);
+					//holder.boardName.setText(perm.getBoard().getName());
+					bn.setText(perm.getBoard().getName());
+	
+					ImageView pv = (ImageView) view.findViewById(R.id.permImage);
+					//ImageUtil.imageViewFromURL( pv , perm.getImage().getUrl() );
+					/*
+					 LinearLayout.LayoutParams layoutParams = (LayoutParams) pv.getLayoutParams();
+	 				layoutParams.width = 350;
+	 				pv.setLayoutParams(layoutParams);
+	 				*/
+					UrlImageViewHelper.setUrlDrawable(pv, perm.getImage().getUrl() , true );
+					
+					//PermUtils.scaleImage(pv, screenWidth, screenHeight);
+	
+					// Perm description
+					TextView pd = (TextView) view.findViewById(R.id.permDesc);
+					//holder.permDesc.setText(perm.getDescription());
+					pd.setText(perm.getDescription());
+	
+					String permInfo = "via " + perm.getAuthor().getName()
+							+ " on to " + perm.getBoard().getName();
+					TextView pi = (TextView) view.findViewById(R.id.permInfo);
+					//holder.permInfo.setText(permInfo);
+					pi.setText(permInfo);
+	
+					String permStat = "Like: " + perm.getPermLikeCount()
+							+ " - Repin: " + perm.getPermRepinCount()
+							+ " - Comment: " + perm.getPermCommentCount();
+					TextView ps = (TextView) view.findViewById(R.id.permStat);
+					//holder.permStat.setText(permStat);
+					//holder.permStat.setText(permStat);
+					ps.setText(permStat);
+	
+					LinearLayout comments = (LinearLayout) view
+							.findViewById(R.id.comments);
+					for (int i = 0; i < perm.getComments().size(); i++) {
+						View cm = inflater.inflate(R.layout.comment_item, null);
+						Comment pcm = perm.getComments().get(i);
+						if (pcm != null && pcm.getAuthor() != null) {
+	
+							ImageView cma = (ImageView) cm
+									.findViewById(R.id.commentAvatar);
+							UrlImageViewHelper.setUrlDrawable(cma, pcm.getAuthor()
+									.getAvatar().getUrl());
+	
+							TextView authorName = (TextView) cm
+									.findViewById(R.id.commentAuthor);
+							authorName.setText(pcm.getAuthor().getName());
+	
+							TextView cmt = (TextView) cm
+									.findViewById(R.id.commentContent);
+							cmt.setText(pcm.getContent());
+							/*
+							 * boolean isWrapped = PermUtils.isTextWrapped(activity,
+							 * cmt.getText().toString(), cmt.getContext()); if
+							 * (isWrapped) { cmt.setMaxLines(5);
+							 * cmt.setSingleLine(false);
+							 * cmt.setEllipsize(TruncateAt.MARQUEE); }
+							 */
+							if (i == (perm.getComments().size() - 1)) {
+								View sp = (View) cm.findViewById(R.id.separator);
+								sp.setVisibility(View.INVISIBLE);
+							}
+							/*
+							 * EllipsizingTextView cmt = (EllipsizingTextView) cm
+							 * .findViewById(R.id.commentContent);
+							 * cmt.setText(pcm.getContent());
+							 * 
+							 * if (i == (perm.getComments().size() - 1)) { View sp =
+							 * (View) cm.findViewById(R.id.separator);
+							 * sp.setVisibility(View.INVISIBLE); }
+							 */
+							comments.addView(cm);
+						}
+					}
+				}
+				//return convertView;
+				return view;
+		}
+		
+			
+
 		}
 	}
 	
