@@ -334,10 +334,10 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 	
 					ImageView imageView = (ImageView) view.findViewById(R.id.permImage);
 					//thien
-					if(perm.getImage() != null){
-						if(perm.getImage().getUrl() != null)
-							new getData(perm.getImage().getUrl()).execute(imageView);
-					}
+//					if(perm.getImage() != null){
+//						if(perm.getImage().getUrl() != null)
+//							new getData(perm.getImage().getUrl()).execute(imageView);
+//					}
 					//endthien
 					/*
 					 LinearLayout.LayoutParams layoutParams = (LayoutParams) pv.getLayoutParams();
@@ -345,7 +345,7 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 	 				pv.setLayoutParams(layoutParams);
 	 				*/
 				
-//					UrlImageViewHelper.setUrlDrawable(imageView, perm.getImage().getUrl() , true ); 
+					UrlImageViewHelper.setUrlDrawable(imageView, perm.getImage().getUrl() , true ); 
 					//PermUtils.scaleImage(pv, screenWidth, screenHeight);
 					
 					// Perm description
