@@ -321,8 +321,8 @@ public final class UrlImageViewHelper {
                         		marginLeft = 8;
                         		marginRight = 8;
                         		if( oiw < 560 ){
-	                        		imgWidth = ( ( oiw / 560 ) * 304 );
-	                        		imgHeight = (( oih / 560 ) * 304 );
+	                        		imgWidth = (  oiw * 304/ 560   );
+	                        		imgHeight = ( oih * 304/ 560  );
                         		} else {
                         			imgWidth = 304;
                         			imgHeight = ( oih * 304 ) / oiw ;
@@ -332,8 +332,8 @@ public final class UrlImageViewHelper {
                         		marginLeft = 12;
                         		marginRight = 12;
                         		if( oiw < 560 ) {
-                        			imgWidth = ( ( oiw / 560 ) * 456 );
-                        			imgHeight = (( oih / 560 ) * 456 );
+                        			imgWidth = (  oiw  * 456/ 560 );
+                        			imgHeight = ( oih * 456/ 560   );
                         		} else {
                         			imgWidth = 456;
                         			imgHeight = ( oih * 456 ) / oiw ;
@@ -344,8 +344,8 @@ public final class UrlImageViewHelper {
                         		marginRight = 20;
                         		
                         		if( oiw < 560 ){
-                        			imgWidth = ( ( oiw / 560 ) * 760 );
-                        			imgHeight = (( oih / 560 ) * 760 );
+                        			imgWidth = (  oiw * 760/ 560   );
+                        			imgHeight = ( oih * 760/ 560 );
                         		} else {
                         			imgWidth = 760;
                         			imgHeight = ( oih * 760 ) / oiw ;
