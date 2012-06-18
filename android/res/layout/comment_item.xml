@@ -11,8 +11,8 @@
 		    android:layout_height="wrap_content">
 			<ImageView
             android:id="@+id/commentAvatar"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:paddingTop="5dp"
             />
         </LinearLayout>
