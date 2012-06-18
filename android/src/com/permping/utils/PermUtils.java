@@ -258,46 +258,53 @@ public class PermUtils {
 		return inputStream;
 	}
 
-	public static Bitmap scaleBitmap( Bitmap bitmp){
+	public static Bitmap scaleBitmap( String url){
 		Bitmap bm = null;
-		int height = bitmp.getHeight();
-		int width = bitmp.getWidth();
-		int deviceSizeHeight = FollowerActivity.screenHeight;
-		int deviceSizeWidth = FollowerActivity.screenWidth;
-		int imgWidth = 0, imgHeight = 0;
-		if( deviceSizeWidth <= 320 ) { //320 x 480
-//			marginLeft = 8;
-//			marginRight = 8;
-			if( width < 560 ){
-				imgWidth = ( ( width / 560 ) * 304 );
-				imgHeight = (( height / 560 ) * 304 );
-			} else {
-				imgWidth = 304;
-				imgHeight = ( height * 304 ) / width;
+		BitmapFactory.Options bmOptions;
+		bmOptions = new BitmapFactory.Options();
+		bmOptions.inSampleSize = 1;
+		bmOptions.inJustDecodeBounds = false;
+		Bitmap bitmp = LoadImage(url, bmOptions);
+		if(bitmp != null){
+			int height = bitmp.getHeight();
+			int width = bitmp.getWidth();
+			int deviceSizeHeight = FollowerActivity.screenHeight;
+			int deviceSizeWidth = FollowerActivity.screenWidth;
+			int imgWidth = 0, imgHeight = 0;
+			if( deviceSizeWidth <= 320 ) { //320 x 480
+//				marginLeft = 8;
+//				marginRight = 8;
+				if( width < 560 ){
+					imgWidth = (  width *304/ 560 );
+					imgHeight = ( height *304 / 560 );
+				} else {
+					imgWidth = 304;
+					imgHeight = ( height * 304 ) / width;
+				}
 			}
-		}
-		else if( deviceSizeWidth <= 480 ){ //480 x 800 
-//			marginLeft = 12;
-//			marginRight = 12;
-			if( width < 560 ) {
-				imgWidth = ( ( width / 560 ) * 456 );
-				imgHeight = (( height / 560 ) * 456 );
-			} else {
-				imgWidth = 456;
-				imgHeight = ( height * 456 ) / width;
-			 }			
-		} else if( deviceSizeWidth <= 800 ){ //800 x 1280
-				//marginLeft = 20;
-				//marginRight = 20;
-			if( width < 560 ){
-				imgWidth = ( ( width / 560 ) * 760 );
-				imgHeight = (( height / 560 ) * 760 );
-			} else {
-				imgWidth = 760;
-				imgHeight = ( height * 760 ) / width ;
+			else if( deviceSizeWidth <= 480 ){ //480 x 800 
+//				marginLeft = 12;
+//				marginRight = 12;
+				if( width < 560 ) {
+					imgWidth =  ( width  * 456/ 560  );
+					imgHeight = ( height  * 456 / 560 );
+				} else {
+					imgWidth = 456;
+					imgHeight = ( height * 456 ) / width;
+				 }			
+			} else if( deviceSizeWidth <= 800 ){ //800 x 1280
+					//marginLeft = 20;
+					//marginRight = 20;
+				if( width < 560 ){
+					imgWidth = ( width  * 760/ 560  );
+					imgHeight = ( height  * 760/ 560  );
+				} else {
+					imgWidth = 760;
+					imgHeight = ( height * 760 ) / width ;
+				}
 			}
+			bm = Bitmap.createScaledBitmap(bitmp, imgWidth, imgHeight, false);
 		}
-		bm = Bitmap.createScaledBitmap(bitmp, imgWidth, 100, false);
 		return bm;
 	}
 }

@@ -16,6 +16,8 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
+
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -157,7 +159,7 @@ public class XMLParser {
 		// String xml = API.xmlSample;
 		if (xml != null) {
 			this.xml = xml;
-			return this.XMLfromString(xml);
+			return XMLfromString(xml);
 		}
 		return null;
 
@@ -174,7 +176,8 @@ public class XMLParser {
 
 			InputSource is = new InputSource();
 			is.setCharacterStream(new StringReader(xml));
-			doc = db.parse(is);
+			if(is != null)
+				doc = db.parse(is);
 
 		} catch (ParserConfigurationException e) {
 			System.out.println("XML parse error: " + e.getMessage());
