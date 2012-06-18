@@ -256,7 +256,8 @@ public final class UrlImageViewHelper {
                       
                       int scale = 1;
                       if (o.outHeight > IMAGE_MAX_SIZE || o.outWidth > IMAGE_MAX_SIZE) {
-                          scale = (int)Math.pow(2.0, (int) Math.round(Math.log(IMAGE_MAX_SIZE / (double) Math.max(o.outHeight, o.outWidth)) / Math.log(0.5)));
+                    	  scale = 2;
+//                    	  scale = (int)Math.pow(2.0, (int) Math.round(Math.log(IMAGE_MAX_SIZE / (double) Math.max(o.outHeight, o.outWidth)) / Math.log(0.5)));
                       }
 
                     //Decode with inSampleSize
