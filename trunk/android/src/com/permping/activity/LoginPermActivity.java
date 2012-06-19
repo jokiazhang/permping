@@ -78,9 +78,10 @@ public class LoginPermActivity extends Activity {
 				Intent intent;
 				if (existed) {
 					// Forward back to Following tab
-					PermUtils.clearViewHistory();
+//					PermUtils.clearViewHistory();
+					FollowerActivity.isLogin = true;
 					finish();
-					login_delegate.on_success();
+//					login_delegate.on_success();
 					
 					/*
 					intent = new Intent(v.getContext(), PermpingMain.class);
@@ -135,14 +136,11 @@ public class LoginPermActivity extends Activity {
 							Intent intent;
 							if (existed) {
 								// Forward back to Following tab
-								PermUtils.clearViewHistory();
+//								PermUtils.clearViewHistory();
+								FollowerActivity.isLogin = true;
 								finish();
-								login_delegate.on_success();
-								
-								/*
-								intent = new Intent(getApplicationContext(), PermpingMain.class);
-								getApplicationContext().startActivity(intent);
-								*/
+//								login_delegate.on_success();
+
 							} else {
 								// Forward to Create account window
 								intent = new Intent(getApplicationContext(), JoinPermActivity.class);

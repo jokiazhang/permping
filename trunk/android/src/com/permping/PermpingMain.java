@@ -20,15 +20,14 @@ import com.permping.utils.PermUtils;
 
 public class PermpingMain extends TabActivity  {
     /** Called when the activity is first created. */
-	private static int TAB_DIARY = 3;
-	private int tab_tyle;
 	public static String UID = "121";
+	private static TabHost tabHost;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         
-        TabHost tabHost = getTabHost();
+        tabHost = getTabHost();
         //tabHost.setBackgroundResource(R.drawable.tabs_background);
         tabHost.getTabWidget().setBackgroundResource( R.drawable.tabs_background );
         
@@ -135,9 +134,9 @@ public class PermpingMain extends TabActivity  {
 		        	ret = false;
 		        } else {
 		        	// Go to login screen
-		        	tab_tyle = 3;
+		        	
 					Intent i = new Intent(getApplicationContext(), LoginPermActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-					getApplicationContext().startActivity(i);	        	
+					getApplicationContext().startActivity(i);	
 					ret = true;
 		        }
 			}
@@ -145,15 +144,9 @@ public class PermpingMain extends TabActivity  {
 		}
 
     }
-	private void gotoDiaryTab(User user) {
+	public static void gotoDiaryTab(String UID) {
 		// TODO Auto-generated method stub
-		Intent googleMap = new Intent(PermpingMain.this,
-				MyDiaryActivityGroup.class);
-		Bundle bundle = new Bundle();
-		bundle.putString("uid",user.getId());
-		googleMap.putExtra("diaryData", bundle);
-		View view = MyDiaryActivityGroup.group.getLocalActivityManager().startActivity( "GoogleMapActivity"+user.getId(), googleMap).getDecorView();
-		MyDiaryActivityGroup.group.replaceView(view);
+		tabHost.setCurrentTab(3);
 	}
 	public void on_success() {
 		// TODO Auto-generated method stub
