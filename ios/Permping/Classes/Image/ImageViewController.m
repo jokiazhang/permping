@@ -154,14 +154,6 @@
             [self.navigationController pushViewController:controller animated:YES];
             [controller release];
         }
-//        
-//        
-//        NSData* jpegData = UIImageJPEGRepresentation (photoTaken,0.5);
-//        EXFJpeg* jpegScanner = [[EXFJpeg alloc] init];
-//        [jpegScanner scanImageData: jpegData];
-//        EXFMetaData* exifData = jpegScanner.exifMetaData;
-//        EXFTag* latitudeDef = [exifData tagDefinition: [NSNumber numberWithInt:EXIF_GPSLatitude]];
-//        EXFTag* longitudeDef = [exifData tagDefinition: [NSNumber numberWithInt:EXIF_GPSLongitude]];
     } else {
         
     }

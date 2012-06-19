@@ -27,6 +27,7 @@
     if (self) {
         self.title = NSLocalizedString(@"ExplorerTabTitle", @"Explorer");
         self.tabBarItem.image = [UIImage imageNamed:@"tab-item-explorer"];
+        hasAllCategory = YES;
     }
     return self;
 }
@@ -102,7 +103,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     NSInteger count = [self.resultModel.arrResults count];
-    if (!target && count > 0) {
+    if (hasAllCategory && count > 0) {
         count++;
     }
     return count;
@@ -119,10 +120,15 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:categoryReuseIdentifier];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
-    if (indexPath.row == 0) {
-        cell.textLabel.text = @"All Category";
+    if (hasAllCategory) {
+        if (indexPath.row == 0) {
+            cell.textLabel.text = @"All Category";
+        } else {
+            CategoryModel *category = [self.resultModel.arrResults objectAtIndex:indexPath.row-1];
+            cell.textLabel.text = category.title;
+        }
     } else {
-        CategoryModel *category = [self.resultModel.arrResults objectAtIndex:indexPath.row-1];
+        CategoryModel *category = [self.resultModel.arrResults objectAtIndex:indexPath.row];
         cell.textLabel.text = category.title;
     }
     
@@ -152,6 +158,7 @@
     [target release];
     target = [in_target retain];
     action = in_action;
+    hasAllCategory = NO;
 }
 
 @end

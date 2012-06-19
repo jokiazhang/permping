@@ -18,16 +18,14 @@
     KalView *kalView;
     KalLogic *logic;
     id <KalDataSource> dataSource;
-    NSDate *initialDate;
-    NSDate *selectedDate;
     NSDateFormatter *dateFormat;
+    KalDate *selectedDate;
     
     Taglist_NDModel     *resultModel;
     
 }
 @property (nonatomic, retain) Taglist_NDModel *resultModel;
 @property (nonatomic, assign) id<KalDataSource> dataSource;
-@property (nonatomic, retain, readonly) NSDate *selectedDate;
 
 - (void)reloadData;
 - (void)showAndSelectDate:(NSDate *)date;

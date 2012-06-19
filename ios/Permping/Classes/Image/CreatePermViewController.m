@@ -18,6 +18,7 @@
 #import "KakaoLinkCenter.h"
 
 @interface CreatePermViewController ()
+@property (nonatomic, retain) NSString *permId;
 - (void)uploadPermForMe:(id)loader thread:(id<ThreadManagementProtocol>)threadObj;
 @end
 
@@ -28,6 +29,7 @@
 @synthesize currentPerm;
 @synthesize fileData;
 @synthesize locationManager, bestEffortAtLocation;
+@synthesize permId;
 
 - (void)dealloc {
     self.locationManager = nil;
@@ -36,6 +38,7 @@
     self.selectedBoard = nil;
     self.currentPerm = nil;
     self.fileData = nil;
+    self.permId = nil;
     [super dealloc];
 }
 
@@ -160,6 +163,7 @@
         self.currentPerm.permCategoryId   = self.selectedBoard.boardId;
         if (target) {
             PermActionResponse *response =  [(FollowingScreen_DataLoader *)loader repermWithId:self.currentPerm.permId userId:userId boardId:self.selectedBoard.boardId description:self.currentPerm.permDesc];
+            self.permId = self.currentPerm.permId;
             NSError *error = response.responseError;
             if (![threadObj isCancelled]) {
                 
@@ -168,9 +172,10 @@
                                {
                                    [self stopActivityIndicator];
                                    if (error) {
-                                       [Utils displayAlert:[error localizedDescription] delegate:nil];
+                                       [Utils displayAlert:[error localizedDescription] delegate:self];
                                        if (error.code == 200) {
-                                           [self dismiss:nil];
+                                           uploadSuccess = YES;
+                                           //[self dismiss:nil];
                                        }
                                    } else {
                                        [Utils displayAlert:NSLocalizedString(@"UploadPermFailed", @"Failed to upload perm. Please try again later.") delegate:nil];
@@ -184,9 +189,8 @@
             self.currentPerm.fileData = self.fileData;
             UploadPermResponse *response =  [(CreatePermScreen_DataLoader *)loader uploadPerm:[self permInfo]];
             NSError *error = response.responseError;
-            
+            self.permId = response.permId;
             if (![threadObj isCancelled]) {
-                
                 
                 dispatch_async(dispatch_get_main_queue(), ^(void)
                                {
@@ -214,7 +218,7 @@
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (uploadSuccess) {
-        NSString *message = [NSString stringWithFormat:@"pindetails/%@", permId];
+        NSString *message = [NSString stringWithFormat:@"pindetails/%@", self.permId];
         NSArray *array = [NSArray arrayWithObjects:@"os", @"iphone", @"devicetype", @"phone", @"installurl", @"www.apple.com", @"executeurl", @"www.apple.com",nil];
         NSString *url = @"www.apple.com";
         [[KakaoLinkCenter defaultCenter] openKakaoAppLinkWithMessage:message URL:url appBundleID:@"webactully" appVersion:@"2.0" appName:@"Permping App" metaInfoArray:array];
@@ -393,6 +397,7 @@
                 BOOL canOpen = [[KakaoLinkCenter defaultCenter] canOpenKakaoLink];
                 if (!canOpen) {
                     [currentSwitch setOn:NO];
+                    [Utils displayAlert:@"Please install the Kakao Talk app." delegate:nil];
                 }
             }
         }

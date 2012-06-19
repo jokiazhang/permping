@@ -109,6 +109,15 @@
         }
         [text release];
 	}
+    else if ([@"/response/perms/item/permDateMessage" isEqualToString:path]) 
+	{
+        NSString *text = [[NSString alloc] initWithData:CDATABlock encoding:NSUTF8StringEncoding];
+        
+        if (self.currentPerm) {
+            self.currentPerm.permDateMessage = [[text copy] autorelease];
+        }
+        [text release];
+	}
     else if ([@"/response/perms/item/permComments/comment/l_user/l_userName" isEqualToString:path]) {
         NSString *text = [[NSString alloc] initWithData:CDATABlock encoding:NSUTF8StringEncoding];
         
@@ -303,6 +312,15 @@
         }
         [text release];
 	}
+    else if ([@"/response/followingPerms/item/permDateMessage" isEqualToString:path]) 
+	{
+        NSString *text = [[NSString alloc] initWithData:CDATABlock encoding:NSUTF8StringEncoding];
+        
+        if (self.currentPerm) {
+            self.currentPerm.permDateMessage = [[text copy] autorelease];
+        }
+        [text release];
+	}
     else if ([@"/response/followingPerms/item/permComments/comment/l_user/l_userName" isEqualToString:path]) {
         NSString *text = [[NSString alloc] initWithData:CDATABlock encoding:NSUTF8StringEncoding];
         
@@ -491,6 +509,15 @@
         
         if (self.currentPerm) {
             self.currentPerm.permCategory = [[text copy] autorelease];
+        }
+        [text release];
+	}
+    else if ([@"/response/newPerms/item/permDateMessage" isEqualToString:path]) 
+	{
+        NSString *text = [[NSString alloc] initWithData:CDATABlock encoding:NSUTF8StringEncoding];
+        
+        if (self.currentPerm) {
+            self.currentPerm.permDateMessage = [[text copy] autorelease];
         }
         [text release];
 	}
@@ -718,6 +745,15 @@
         
         if (self.currentPerm) {
             self.currentPerm.permCategory = [[text copy] autorelease];
+        }
+        [text release];
+	}
+    else if ([@"/response/popularPerms/item/permDateMessage" isEqualToString:path]) 
+	{
+        NSString *text = [[NSString alloc] initWithData:CDATABlock encoding:NSUTF8StringEncoding];
+        
+        if (self.currentPerm) {
+            self.currentPerm.permDateMessage = [[text copy] autorelease];
         }
         [text release];
 	}

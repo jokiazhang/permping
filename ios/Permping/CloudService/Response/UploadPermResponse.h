@@ -10,7 +10,8 @@
 #import "Taglist_CloudResponse.h"
 
 @interface UploadPermResponse : Taglist_CloudResponse {
-    
+    NSString *permId;
 }
+@property (nonatomic, copy) NSString *permId;
 
 @end
