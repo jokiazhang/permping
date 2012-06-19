@@ -263,7 +263,7 @@ public class PermUtils {
 			Bitmap bm = null;
 			BitmapFactory.Options bmOptions;
 			bmOptions = new BitmapFactory.Options();
-			bmOptions.inSampleSize = 6;
+			bmOptions.inSampleSize = 1;
 			bmOptions.inJustDecodeBounds = false;
 			Bitmap bitmp = LoadImage(url, bmOptions);
 			if(bitmp != null){
@@ -304,7 +304,7 @@ public class PermUtils {
 						imgHeight = ( height * 760 ) / width ;
 					}
 				}
-				bm = Bitmap.createScaledBitmap(bitmp, imgWidth*6, imgHeight*6, false);
+//				bm = Bitmap.createScaledBitmap(bitmp, imgWidth*6, imgHeight*6, false);
 			}
 			return bm;
 		} catch (Exception e) {
