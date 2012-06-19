@@ -8,6 +8,7 @@ import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
 import com.permping.PermpingApplication;
+import com.permping.PermpingMain;
 import com.permping.R;
 import com.permping.controller.PermListController;
 import com.permping.model.Perm;
@@ -21,6 +22,7 @@ import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
@@ -38,7 +40,7 @@ public class FollowerActivity extends Activity {
 
 	public static int screenWidth;
 	public static int screenHeight;
-	
+	public static boolean isLogin = false;
 	int nextItem = -1;
 
 	private ProgressDialog dialog;
@@ -82,17 +84,6 @@ public class FollowerActivity extends Activity {
 			this.url = API.followingPerm + String.valueOf(user.getId());
 			this.header = false;
 		}
-		//ListView permListView = (ListView) findViewById(R.id.permList);
-		/*
-		 * PermListController permListController = new PermListController( );
-		 * 
-		 * ArrayList<Perm> permList = permListController.getPermList( url );
-		 * 
-		 * PermAdapter permListAdapter = new PermAdapter(FollowerActivity.this,
-		 * R.layout.perm_item_1, permList, FollowerActivity.this, header);
-		 * permListView.setAdapter(permListAdapter);
-		 */
-
 		dialog = ProgressDialog.show(getParent(), "Loading", "Please wait...",
 				true);
 		new LoadPermList().execute();
@@ -101,36 +92,48 @@ public class FollowerActivity extends Activity {
 	private void loadPerms() {
 		ListView permListView = (ListView) findViewById(R.id.permList);
 		User user = PermUtils.isAuthenticated(getApplicationContext());
-		this.permListAdapter = new PermAdapter(FollowerActivityGroup.context,
-				R.layout.perm_item_1, permListMain, this, screenWidth, screenHeight, header, user);
-		permListView.setAdapter(permListAdapter);
-		permListView.setSelection(1);
-		
-		permListView.setOnScrollListener(new OnScrollListener() {
+		if(permListMain != null && !permListMain.isEmpty()){
+			this.permListAdapter = new PermAdapter(FollowerActivityGroup.context,
+					R.layout.perm_item_1, permListMain, this, screenWidth, screenHeight, header, user);
+			permListView.setAdapter(permListAdapter);
+			permListView.setSelection(0);
 			
-			public void onScrollStateChanged(AbsListView view, int scrollState) {
+			permListView.setOnScrollListener(new OnScrollListener() {
 				
-			}
-			
-			public void onScroll(AbsListView view, int firstVisibleItem,
-					int visibleItemCount, int totalItemCount) {
-				// TODO Auto-generated method stub
-				
-				/*boolean loadMore = nextItem == -1 ?
-						firstVisibleItem + visibleItemCount >= totalItemCount :
-							firstVisibleItem + visibleItemCount >= permListMain.size() - nextItem;*/
-				boolean loadMore = firstVisibleItem + visibleItemCount >= totalItemCount;
-				if (loadMore) {
-					nextItem = permListAdapter.getNextItems();
-					permListAdapter.count += visibleItemCount;					
-					dialog = ProgressDialog.show(getParent(), "Loading more", "Please wait...",
-							true);
-					new LoadPermList().execute();
+				public void onScrollStateChanged(AbsListView view, int scrollState) {
 					
-					permListAdapter.notifyDataSetChanged();
 				}
+				
+				public void onScroll(AbsListView view, int firstVisibleItem,
+						int visibleItemCount, int totalItemCount) {
+					// TODO Auto-generated method stub
+					
+					boolean loadMore = firstVisibleItem + visibleItemCount >= totalItemCount;
+					if (loadMore && permListAdapter != null) {
+						nextItem = permListAdapter.getNextItems();
+						permListAdapter.count += visibleItemCount;					
+						dialog = ProgressDialog.show(getParent(), "Loading more", "Please wait...",
+								true);
+						new LoadPermList().execute();
+						
+						permListAdapter.notifyDataSetChanged();
+					}
+				}
+			});
+		}else{
+//			permListAdapter = null;
+//			permListView.setAdapter(permListAdapter);
+//			permListView.invalidate();
+			User user2 = PermUtils.isAuthenticated(getApplicationContext());
+			if(user2 != null){
+				String id = user2.getId();
+				if(id != null)
+					PermpingMain.gotoDiaryTab(id);
 			}
-		});
+
+			
+		}
+
 	}
 
 	/* (non-Javadoc)

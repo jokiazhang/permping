@@ -36,7 +36,9 @@ public class PermListController {
 			permList.add(new Perm());
 		}
 		XMLParser parser = new XMLParser( url , true );
-		Document doc = parser.getDoc();
+		Document doc = null;
+		if(parser != null)
+			doc = parser.getDoc();
 		NodeList responseNodeList = doc.getElementsByTagName("response"); // TODO: actually, only 1 response in the list.
 		String nextItem = "-1";
 		for (int i = 0; i < responseNodeList.getLength(); i++) {
@@ -139,7 +141,7 @@ public class PermListController {
 		
 		if( url == "" ) {
 			url = API.popularPermsURL;
-			permList.add(new Perm());
+//			permList.add(new Perm());
 		}
 		XMLParser parser = new XMLParser(url, nameValuePairs);
 		Document doc = parser.getDoc();

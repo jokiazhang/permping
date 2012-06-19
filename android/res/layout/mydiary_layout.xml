@@ -62,7 +62,8 @@
 		android:numColumns="7"
 		android:paddingTop="0dip"
 		android:layout_width="fill_parent"
-		android:layout_height="wrap_content">
+		android:layout_height="wrap_content"
+		android:background="#d5d4d8">
 	</GridView>
 
 </LinearLayout>

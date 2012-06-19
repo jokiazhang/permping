@@ -101,6 +101,10 @@ public class MyDiaryActivity extends Activity implements View.OnClickListener {
 		calendarView.setAdapter(adapter);
 
 	}
+//	@Override
+//	public void onResume(){
+//		Log.d("resume:","resume=======>");
+//	}
 	private void initMonths() {
 		// TODO Auto-generated method stub
 		months.put("January", "01");
