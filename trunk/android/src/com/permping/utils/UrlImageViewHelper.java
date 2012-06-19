@@ -32,6 +32,7 @@ import android.os.AsyncTask;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.widget.ImageView;
+import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
@@ -47,10 +48,11 @@ public final class UrlImageViewHelper {
             output.write(stuff, 0, read);
             total += read;
         }
+        Log.d("aaaa","=========>"+total);
         return total;
     }
     
-    static int IMAGE_MAX_SIZE = 700;
+    static int IMAGE_MAX_SIZE = 60000;//1200000/4;//60000;//1200000;
     static int SCALE_RATIO = 2;
     static Resources mResources;
     static DisplayMetrics mMetrics;
@@ -243,7 +245,7 @@ public final class UrlImageViewHelper {
                     fos.close();
                     is.close();
                     FileInputStream  fis = context.openFileInput(filename);
-
+                    int fileSize = (int)fis.getChannel().size();
                                    
                     //Decode image size
                       BitmapFactory.Options o = new BitmapFactory.Options();
@@ -253,13 +255,21 @@ public final class UrlImageViewHelper {
                       
                       oiw = o.outWidth;
                       oih = o.outHeight;
-                      
+                      Runtime.getRuntime().gc();
                       int scale = 1;
-                      if (o.outHeight > IMAGE_MAX_SIZE || o.outWidth > IMAGE_MAX_SIZE) {
-                    	  scale = 2;
-                    	  int scale2 = (int)Math.pow(2.0, (int) Math.round(Math.log(IMAGE_MAX_SIZE / (double) Math.max(o.outHeight, o.outWidth)) / Math.log(0.5)));
-                      }
-
+//                      scale = (int)Math.max(oiw/IMAGE_MAX_SIZE, oih/IMAGE_MAX_SIZE)+1;
+//                      if (o.outHeight > IMAGE_MAX_SIZE || o.outWidth > IMAGE_MAX_SIZE) {
+////                    	  scale = 2;
+//                    	  int scale2 = (int)Math.pow(2.0, (int) Math.round(Math.log(IMAGE_MAX_SIZE / (double) Math.max(o.outHeight, o.outWidth)) / Math.log(0.5)));
+//                      }
+//                      while (o.outWidth * o.outHeight / Math.pow(scale, 2) > IMAGE_MAX_SIZE) {
+//                          scale+= 1;
+//                      }
+                      do{
+                    	  scale++;
+                      }while(fileSize / Math.pow(2, scale) > IMAGE_MAX_SIZE);
+                      
+                      Log.d("aaaa","=========>Scale=: "+scale);
                     //Decode with inSampleSize
                       BitmapFactory.Options o2 = new BitmapFactory.Options();
                       o2.inSampleSize = scale;
@@ -359,6 +369,7 @@ public final class UrlImageViewHelper {
 	        				layoutParams.setMargins(marginLeft, 10, marginRight, 10);
 	        				imageView.setLayoutParams(layoutParams);
                         }
+                        
                         
                         imageView.setImageDrawable(newImage);
                     }
