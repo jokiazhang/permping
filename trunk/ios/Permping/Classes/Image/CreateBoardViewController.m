@@ -147,7 +147,6 @@
 
 - (void)createBoardForMe:(id)loader thread:(id<ThreadManagementProtocol>)threadObj
 {
-    
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     if (![threadObj isCancelled]) {
         dispatch_async(dispatch_get_main_queue(), ^(void)

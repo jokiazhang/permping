@@ -16,24 +16,21 @@
 #import "AppData.h"
 
 @interface MyDiaryViewController ()
-@property (nonatomic, retain, readwrite) NSDate *initialDate;
-@property (nonatomic, retain, readwrite) NSDate *selectedDate;
+@property (nonatomic, retain, readwrite) KalDate *selectedDate;
 @property (nonatomic, retain, readwrite) NSDateFormatter *dateFormat;
 - (KalView*)calendarView;
 @end
 
 @implementation MyDiaryViewController
-@synthesize dataSource, initialDate, selectedDate, dateFormat, resultModel;
-
+@synthesize dataSource, selectedDate, dateFormat, resultModel;
 
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationSignificantTimeChangeNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:KalDataSourceChangedNotification object:nil];
-    [initialDate release];
-    [selectedDate release];
     [logic release];
     [dateFormat release];
+    [selectedDate release];
     self.resultModel = nil;
     [super dealloc];
 }
@@ -47,8 +44,6 @@
         
         NSDate *date = [NSDate date];
         logic = [[KalLogic alloc] initForDate:date];
-        self.initialDate = date;
-        self.selectedDate = date;
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(significantTimeChangeOccurred) name:UIApplicationSignificantTimeChangeNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadData) name:KalDataSourceChangedNotification object:nil];
     }
@@ -57,7 +52,6 @@
 
 - (void)didReceiveMemoryWarning
 {
-    self.initialDate = self.selectedDate;
     [super didReceiveMemoryWarning];
     
     // Release any cached data, images, etc that aren't in use.
@@ -137,20 +131,27 @@
 // -----------------------------------------
 #pragma mark KalViewDelegate protocol
 
-- (void)didSelectDate:(KalDate *)date
-{
-    self.selectedDate = [date NSDate];
-    NSDate *from = [[date NSDate] cc_dateByMovingToBeginningOfDay];
-    NSDate *to = [[date NSDate] cc_dateByMovingToEndOfDay];
+- (void)showPermsForSelectedDate:(KalDate*)kDate {
+    [kalView selectDate:nil];
+    NSDate *date = [kDate NSDate];
+    NSDate *from = [date cc_dateByMovingToBeginningOfDay];
+    NSDate *to = [date cc_dateByMovingToEndOfDay];
     [self clearTable];
     [dataSource loadItemsFromDate:from toDate:to];
     
     MyPermDiaryViewController *controler = [[MyPermDiaryViewController alloc] initWithNibName:@"MyPermDiaryViewController" bundle:nil];
-    NSString *theDate = [self.dateFormat stringFromDate:self.selectedDate];
-
+    NSString *theDate = [self.dateFormat stringFromDate:date];
+    
     controler.currentDate = theDate;
     [self.navigationController pushViewController:controler animated:YES];
     [controler release];
+}
+
+- (void)didSelectDate:(KalDate *)date
+{
+    if (!date) return;
+    [self performSelector:@selector(showPermsForSelectedDate:) withObject:date afterDelay:0.2];
+    //[kalView selectDate:nil];
 }
 
 - (void)showPreviousMonth

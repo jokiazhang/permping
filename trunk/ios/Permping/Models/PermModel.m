@@ -24,6 +24,7 @@
 @synthesize                    latitude;
 @synthesize                    longitude;
 @synthesize                    permDate;
+@synthesize                    permDateMessage;
 - (id)init
 {
 	if (self = [super init])
@@ -50,6 +51,7 @@
     self.latitude = nil;
     self.longitude = nil;
     self.permDate = nil;
+    self.permDateMessage = nil;
 	[super dealloc];
 }
 

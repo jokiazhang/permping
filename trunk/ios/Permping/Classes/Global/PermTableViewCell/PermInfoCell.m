@@ -100,7 +100,7 @@
 - (void)setCellWithPerm:(PermModel*)in_perm {
     self.perm = in_perm;
     self.commentLabel.text = perm.permDesc;
-    self.descriptionLabel.text = @"5시간 전 bleacherreport.com에서 업로드됨";
+    self.descriptionLabel.text = perm.permDateMessage;
     NSString *like = ([in_perm.permUserlikeCount intValue]==0)?@"Like":@"Unlike";
     [likeButton setTitle:like forState:UIControlStateNormal];
     

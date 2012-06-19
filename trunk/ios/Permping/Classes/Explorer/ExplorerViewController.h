@@ -13,6 +13,7 @@
 @interface ExplorerViewController : CommonViewController <UITableViewDelegate, UITableViewDataSource> {
     IBOutlet UITableView        *categoriesTableView;
     Taglist_NDModel             *resultModel;
+    BOOL                        hasAllCategory;
     
     id  target;
     SEL action;
