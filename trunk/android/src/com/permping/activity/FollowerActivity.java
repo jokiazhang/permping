@@ -121,16 +121,18 @@ public class FollowerActivity extends Activity {
 				}
 			});
 		}else{
-//			permListAdapter = null;
-//			permListView.setAdapter(permListAdapter);
-//			permListView.invalidate();
-			User user2 = PermUtils.isAuthenticated(getApplicationContext());
-			if(user2 != null){
-				String id = user2.getId();
-				if(id != null)
-					PermpingMain.gotoDiaryTab(id);
+			if(isLogin){
+				permListAdapter = null;
+				permListView.setAdapter(permListAdapter);
+				permListView.invalidate();
+				User user2 = PermUtils.isAuthenticated(getApplicationContext());
+				if(user2 != null){
+					String id = user2.getId();
+					if(id != null)
+						PermpingMain.gotoDiaryTab(id);
+				}
+				isLogin = false;
 			}
-
 			
 		}
 
