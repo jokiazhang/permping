@@ -203,7 +203,7 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 									.valueOf(perm.getId())));
 							nameValuePairs.add(new BasicNameValuePair("uid", String
 									.valueOf(user.getId())));
-							util.sendPostRequest(API.likeURL, nameValuePairs);
+							util.sendRequest(API.likeURL, nameValuePairs, false);
 	
 							if (v instanceof Button) {
 								String label = ((Button) v).getText().toString();
@@ -507,7 +507,7 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 						nameValuePairs.add(new BasicNameValuePair("cmnt", cmText ) );
 						nameValuePairs.add(new BasicNameValuePair("pid", perm.getId() ) );
 						nameValuePairs.add(new BasicNameValuePair("uid", user.getId() ) );
-						String response  = util.sendPostRequest(API.commentUrl, nameValuePairs);
+						String response  = util.sendRequest(API.commentUrl, nameValuePairs, false);
 						
 						return response;
 					}

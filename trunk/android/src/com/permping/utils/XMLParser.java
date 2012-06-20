@@ -375,7 +375,7 @@ public class XMLParser implements HttpAccess {
 		this.type= Type;
 		this.delegate = delegate;
 		HttpPermUtils httpPermUtils = new HttpPermUtils(XMLParser.this);
-		String response = httpPermUtils.sendPostRequest(url, nameValuePairs);
+		String response = httpPermUtils.sendRequest(url, nameValuePairs,false);
 		if (response != null) {
 			this.response = response;
 			return parseResponse(response);
@@ -386,7 +386,7 @@ public class XMLParser implements HttpAccess {
 		this.type= Type;
 		this.delegate = delegate;
 		HttpPermUtils httpPermUtils = new HttpPermUtils(XMLParser.this);
-		String response = httpPermUtils.sendPostRequest(url, nameValuePairs,id);
+		String response = httpPermUtils.sendRequest(url, nameValuePairs,id, false);
 		if (response != null) {
 			this.response = response;
 			return parseResponse(response);
@@ -400,7 +400,7 @@ public class XMLParser implements HttpAccess {
 	 */
 	public Document getResponseFromURL(Login_delegate delegate, String url, List<NameValuePair> nameValuePairs) {
 		HttpPermUtils httpPermUtils = new HttpPermUtils(XMLParser.this);
-		httpPermUtils.sendPostRequest( url, nameValuePairs);
+		httpPermUtils.sendRequest( url, nameValuePairs, false);
 		return null;
 	}
 
@@ -411,11 +411,11 @@ public class XMLParser implements HttpAccess {
 	 */
 	private Document getResponseFromURL(String url) {
 		HttpPermUtils httpPermUtils = new HttpPermUtils();
-		String response = httpPermUtils.sendGetRequest(url);
-		if (response != null) {
-			this.response = response;
-			return parseResponse(response);
-		}
+		String response = httpPermUtils.sendRequest(url, null, true);
+//		if (response != null) {
+//			this.response = response;
+//			return parseResponse(response);
+//		}
 		return null;
 	}
 	

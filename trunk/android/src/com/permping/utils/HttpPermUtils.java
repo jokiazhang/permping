@@ -46,60 +46,68 @@ public class HttpPermUtils {
 	 * @param url the url
 	 * @return the response as string
 	 */
-	public String sendPostRequest(String url, List<NameValuePair> nameValuePairs) {
-		 new sendRequestTask(nameValuePairs, null).execute(url);
+	public String sendRequest(String url, List<NameValuePair> nameValuePairs, boolean isGet) {
+		 new sendRequestTask(nameValuePairs, null, isGet).execute(url);
 		 return null;
 	}
-	public String sendPostRequest(String url, List<NameValuePair> nameValuePairs, String id) {
-		 new sendRequestTask(nameValuePairs, id).execute(url);
+	public String sendRequest(String url, List<NameValuePair> nameValuePairs, String id, boolean isGet) {
+		 new sendRequestTask(nameValuePairs, id, isGet).execute(url);
 		 return null;
 	}
 	class sendRequestTask extends AsyncTask<String, Void, String> {
-
+		
 	    private Exception exception;
 	    private List<NameValuePair> nameValuePairs;
 	    private String myDiaryThumbId;
-	    public sendRequestTask(List<NameValuePair> nameValuePairs, String id) {
+	    private boolean isGet;
+	    public sendRequestTask(List<NameValuePair> nameValuePairs, String id, boolean isGet) {
 			// TODO Auto-generated constructor stub
 	    	this.nameValuePairs = nameValuePairs;
 	    	this.myDiaryThumbId = id;
+	    	this.isGet = isGet;
 		}
 
 		protected String doInBackground(String... urls) {
-			String url = null;
-			String result=null;
-			if(urls != null)
-				 url = urls[0];
-			HttpPost postRequest = new HttpPost(url);
-			try {			
-				if (nameValuePairs != null) {
-					postRequest.setEntity(new UrlEncodedFormEntity(nameValuePairs, HTTP.UTF_8));
-				}
-				HttpResponse postResponse = client.execute(postRequest);
-				int statusCode = postResponse.getStatusLine().getStatusCode();
-				if (statusCode != HttpStatus.SC_OK) {
-					Log.w(getClass().getSimpleName(), "ERROR: " + statusCode + " for URL: " + url); 
-		            result = null;			
-				}else{
-					HttpEntity postResponseEntity = postResponse.getEntity();
-					if (postResponseEntity != null)
-						result =  EntityUtils.toString(postResponseEntity);
-				}
-				if (result != null && !result.isEmpty() && httpAccess != null) {				
-					httpAccess.onSeccess(result, this.myDiaryThumbId);
-				}else if(httpAccess != null){
-					httpAccess.onError();
-				}
-				Log.d("==>","THIen.....==========>"+url);
-			} catch (IOException ioe) {
-//				postRequest.abort();
-				Log.w(getClass().getSimpleName(), "thien====>ERROR for URL " + url, ioe);
-				httpAccess.onError();
+			if(isGet){
+				sendGetRequest(urls[0]);
 				return null;
-			}
+			}else{
+				String url = null;
+				String result=null;
+				if(urls != null)
+					 url = urls[0];
+				HttpPost postRequest = new HttpPost(url);
+				try {			
+					if (nameValuePairs != null) {
+						postRequest.setEntity(new UrlEncodedFormEntity(nameValuePairs, HTTP.UTF_8));
+					}
+					HttpResponse postResponse = client.execute(postRequest);
+					int statusCode = postResponse.getStatusLine().getStatusCode();
+					if (statusCode != HttpStatus.SC_OK) {
+						Log.w(getClass().getSimpleName(), "ERROR: " + statusCode + " for URL: " + url); 
+			            result = null;			
+					}else{
+						HttpEntity postResponseEntity = postResponse.getEntity();
+						if (postResponseEntity != null)
+							result =  EntityUtils.toString(postResponseEntity);
+					}
+					if (result != null && !result.isEmpty() && httpAccess != null) {				
+						httpAccess.onSeccess(result, this.myDiaryThumbId);
+					}else if(httpAccess != null){
+						httpAccess.onError();
+					}
+					Log.d("==>","THIen.....==========>"+url);
+				} catch (IOException ioe) {
+//					postRequest.abort();
+					Log.w(getClass().getSimpleName(), "thien====>ERROR for URL " + url, ioe);
+					httpAccess.onError();
+					return null;
+				}
 
-			return result;
-	    }
+				return result;
+
+			}
+		}
 
 	    protected void onPostExecute(String result) {
 	        // TODO: check this.exception 
