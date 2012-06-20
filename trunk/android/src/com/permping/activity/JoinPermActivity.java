@@ -14,6 +14,7 @@ import org.apache.http.message.BasicNameValuePair;
 import com.permping.PermpingApplication;
 import com.permping.PermpingMain;
 import com.permping.R;
+import com.permping.interfaces.JoinPerm_Delegate;
 import com.permping.model.User;
 import com.permping.utils.API;
 import com.permping.utils.Constants;
@@ -26,15 +27,17 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 /**
  * @author Linh Nguyen
  * This activity supports to create new Perming account.
  */
-public class JoinPermActivity extends Activity implements TextWatcher {
+public class JoinPermActivity extends Activity implements TextWatcher, JoinPerm_Delegate {
 	Button createAccount;
 	EditText name;
 	EditText nickName;
@@ -92,15 +95,9 @@ public class JoinPermActivity extends Activity implements TextWatcher {
 					nameValuePairs.add(new BasicNameValuePair("cpassword", confirmPassword.getText().toString()));
 				}
 				
-				XMLParser parser = new XMLParser(API.createAccountURL, nameValuePairs);
+				XMLParser parser = new XMLParser(XMLParser.JOIN_PERM, JoinPermActivity.this, API.createAccountURL, nameValuePairs);
 				User user = parser.getUser();
-				if (user != null) {
-					// Store the user object to PermpingApplication
-					PermpingApplication state = (PermpingApplication) getApplicationContext();
-					state.setUser(user);
-				} else {
 
-				}
 				Intent i = new Intent(v.getContext(), PermpingMain.class);
 				v.getContext().startActivity(i);
 			}
@@ -132,5 +129,29 @@ public class JoinPermActivity extends Activity implements TextWatcher {
 	public void onTextChanged(CharSequence s, int start, int before, int count) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public void onSuccess(User user) {
+		// TODO Auto-generated method stub
+		if (user != null) {
+			// Store the user object to PermpingApplication
+			PermpingApplication state = (PermpingApplication) getApplicationContext();
+			state.setUser(user);
+		} else {
+			Toast toast = Toast.makeText(getApplicationContext(), "Joined perm failed! Please try again.", Toast.LENGTH_LONG);
+	    	toast.setGravity(Gravity.TOP | Gravity.CENTER, 0, 300);
+	    	toast.show();
+
+		}
+	}
+
+	@Override
+	public void onError() {
+		// TODO Auto-generated method stub
+		Toast toast = Toast.makeText(getApplicationContext(), "Joined perm failed! Please try again.", Toast.LENGTH_LONG);
+    	toast.setGravity(Gravity.TOP | Gravity.CENTER, 0, 300);
+    	toast.show();
+
 	}
 }

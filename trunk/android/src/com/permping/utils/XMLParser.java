@@ -1,12 +1,9 @@
 package com.permping.utils;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.StringReader;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,8 +12,6 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
-
-
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -34,28 +29,38 @@ import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.DefaultHandler;
 
+import twitter4j.internal.org.json.XML;
+
 import android.app.Activity;
-import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
 import com.permping.PermpingApplication;
-import com.permping.activity.FollowerActivity;
-import com.permping.controller.PermListController;
 import com.permping.handler.BoardHandler;
 import com.permping.handler.UserHandler;
+import com.permping.interfaces.Create_Board_delegate;
+import com.permping.interfaces.HttpAccess;
+import com.permping.interfaces.JoinPerm_Delegate;
+import com.permping.interfaces.Login_delegate;
+import com.permping.interfaces.MyDiary_Delegate;
+import com.permping.interfaces.PermList_Delegate;
 import com.permping.model.Perm;
 import com.permping.model.PermBoard;
 import com.permping.model.PermImage;
 import com.permping.model.User;
 
-public class XMLParser {
+public class XMLParser implements HttpAccess {
 
 	// private String TAG = "XML_PARSER";
-
+	public final static int LOGIN = 0;
+    public final static int MYDIARY  = 1;
+    public final static int CREATE_BOARD = 2;
+    public final static int JOIN_PERM = 3;
+    public final static int PERMLIST = 4;
 	private Document doc = null;
 	private String xml = "<empty></empty>";
-	
+	public int type;
 	public XMLParser(){
 		
 	}
@@ -63,27 +68,7 @@ public class XMLParser {
 	public XMLParser(String document, Boolean DownloadFirst) {
 		this.setDoc(this.parseXMLFromUrl(document, DownloadFirst));
 	}
-/*
-	private Document parseXMLFromUrl(String url) {
-		try {
-			URL uri = new URL(url);
-			URLConnection ucon = uri.openConnection();
-			ucon.connect();
-			InputStream is = uri.openStream();
-			DocumentBuilder builder = DocumentBuilderFactory.newInstance()
-					.newDocumentBuilder();
-			return builder.parse(is);
 
-		} catch (IOException e) {
-			return null;
-		} catch (ParserConfigurationException e) {
-			return null;
-		} catch (SAXException e) {
-			return null;
-		}
-
-	}
-*/
 	public String getXML(String url) {
 		String line = null;
 
@@ -360,63 +345,62 @@ public class XMLParser {
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 /** Linh added to work with User Profile. Should re-work */
 
-	private String response;
-
+	public String response;
+	public Login_delegate loginDelegate;
+	public MyDiary_Delegate myDiaryDelegate;
+	public Object delegate;
+	public Context context;
 	/**
 	 * Initialize the parser with the url and params
 	 * @param url
 	 */
-	public XMLParser(String url, List<NameValuePair> nameValuePairs) {
-		setDoc(getResponseFromURL(url, nameValuePairs));
+	public XMLParser(Context context, int type, Login_delegate delegate, String url, List<NameValuePair> nameValuePairs) {
+		this.context = context;
+		this.type = type;
+		this.loginDelegate = delegate;
+		getResponseFromURL(delegate, url, nameValuePairs);
 	}
 	
 	public XMLParser(String url) {
 		setDoc(getResponseFromURL(url));
 	}
 
-	/**
-	 * Get the response from URL, the result will be stored in the "response" variable.
-	 * @param url
-	 * @return
-	 */
-	public Document getResponseFromURL(String url, List<NameValuePair> nameValuePairs) {
-		HttpPermUtils httpPermUtils = new HttpPermUtils();
+	public XMLParser(int type, Object delegate, String url, List<NameValuePair> nameValuePairs) {
+		this.type = type;
+		getResponseFromURL(type, delegate, url, nameValuePairs);
+	}
+	public Document getResponseFromURL(int Type, Object delegate, String url, List<NameValuePair> nameValuePairs) {
+		this.type= Type;
+		this.delegate = delegate;
+		HttpPermUtils httpPermUtils = new HttpPermUtils(XMLParser.this);
 		String response = httpPermUtils.sendPostRequest(url, nameValuePairs);
 		if (response != null) {
 			this.response = response;
 			return parseResponse(response);
 		}
+		return null;
+	}
+	public Document getResponseFromURL(int Type, Object delegate, String url, List<NameValuePair> nameValuePairs, String id) {
+		this.type= Type;
+		this.delegate = delegate;
+		HttpPermUtils httpPermUtils = new HttpPermUtils(XMLParser.this);
+		String response = httpPermUtils.sendPostRequest(url, nameValuePairs,id);
+		if (response != null) {
+			this.response = response;
+			return parseResponse(response);
+		}
+		return null;
+	}
+	/**
+	 * Get the response from URL, the result will be stored in the "response" variable.
+	 * @param url
+	 * @return
+	 */
+	public Document getResponseFromURL(Login_delegate delegate, String url, List<NameValuePair> nameValuePairs) {
+		HttpPermUtils httpPermUtils = new HttpPermUtils(XMLParser.this);
+		httpPermUtils.sendPostRequest( url, nameValuePairs);
 		return null;
 	}
 
@@ -440,7 +424,7 @@ public class XMLParser {
 	 * @param response the response.
 	 * @return the Document object.
 	 */
-	private Document parseResponse(String response) {
+	public Document parseResponse(String response) {
 		Document doc = null;
 		try {
 			DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory
@@ -548,4 +532,110 @@ public class XMLParser {
 		// TODO: Should check the response
 		return true;
 	}*/
+
+
+	@Override
+	public void onError() {
+		// TODO Auto-generated method stub
+		Log.d("", "ERror====>");
+	}
+
+	@Override
+	public void onSeccess(String result, String id) {
+		// TODO Auto-generated method stub
+		String response = result;
+		if (response != null) {
+			this.response = response;
+			Document doc =  parseResponse(response);
+			if(doc != null)
+				setDoc(doc);
+			switch (type) {
+			case XMLParser.LOGIN:
+				exeLoginTask();
+				break;
+			case XMLParser.MYDIARY:
+				exeMyDiary(doc, id);
+				break;
+			case XMLParser.CREATE_BOARD:
+				exeCreateBoard(doc);
+				break;
+			case XMLParser.JOIN_PERM:
+				exeJoinPerm(doc);
+				break;
+			case XMLParser.PERMLIST:
+				exePermList(doc);
+				break;
+			default:
+				break;
+			}
+			
+		}else{
+			switch (type) {
+			case XMLParser.LOGIN:
+				loginDelegate.on_error();
+				break;
+			case XMLParser.MYDIARY:
+				Log.d("delegate====:", "delegate ======>:");
+				MyDiary_Delegate myDialyDelegate = (MyDiary_Delegate)delegate;
+				myDialyDelegate.onError();
+				break;
+			case XMLParser.CREATE_BOARD:
+				Create_Board_delegate createBoardDelegate = (Create_Board_delegate)delegate;
+				createBoardDelegate.onError();
+				break;
+			case XMLParser.JOIN_PERM:
+				JoinPerm_Delegate joinPerm_Delegate = (JoinPerm_Delegate)delegate;
+				joinPerm_Delegate.onError();
+				break;
+			case XMLParser.PERMLIST:
+				PermList_Delegate permList_Delegate = (PermList_Delegate)delegate;
+				permList_Delegate.onError();
+				break;
+			default:
+				break;
+			}
+		}
+	}
+
+	private void exePermList(Document doc) {
+		// TODO Auto-generated method stub
+		PermList_Delegate permList_Delegate = (PermList_Delegate)delegate;
+		permList_Delegate.onSuccess(doc);
+	}
+
+	private void exeJoinPerm(Document doc2) {
+		// TODO Auto-generated method stub
+		User user = getUser();
+		JoinPerm_Delegate joinPerm_Delegate = (JoinPerm_Delegate)delegate;
+		joinPerm_Delegate.onSuccess(user);
+	}
+
+	private void exeCreateBoard(Document doc) {
+		// TODO Auto-generated method stub
+		Create_Board_delegate createBoardDelegate = (Create_Board_delegate)delegate;
+		createBoardDelegate.onSucess(doc);
+	}
+
+	private void exeMyDiary(Document doc, String id) {
+		// TODO Auto-generated method stub
+		MyDiary_Delegate myDiary_Delegate = (MyDiary_Delegate)delegate;
+		List<String> thumbList = new ArrayList<String>();
+		if(doc != null)
+			thumbList = getNoteListFromDoc(doc);
+		if(myDiary_Delegate != null)
+			myDiary_Delegate.onSuccess(thumbList, id);
+	}
+
+	private void exeLoginTask() {
+		// TODO Auto-generated method stub
+		User user = getUser();
+		if (user != null) {
+			// Store the user object to PermpingApplication
+			PermpingApplication state = (PermpingApplication) context.getApplicationContext();
+			state.setUser(user);
+			loginDelegate.on_success();
+		} else {
+			loginDelegate.on_error();
+		}
+	}
 }
