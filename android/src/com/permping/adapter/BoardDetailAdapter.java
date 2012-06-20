@@ -85,7 +85,7 @@ public class BoardDetailAdapter extends BaseAdapter implements ListAdapter {
 					List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
 					nameValuePairs.add(new BasicNameValuePair("pid", String.valueOf(perm.getId())));
 					nameValuePairs.add(new BasicNameValuePair("uid", String.valueOf(user.getId()))); 
-					httpPermUtils.sendPostRequest(API.likeURL, nameValuePairs);
+					httpPermUtils.sendRequest(API.likeURL, nameValuePairs, false);
 					if (v instanceof Button) {
 						String label = ((Button) v).getText().toString();
 						int likeCount = Integer.parseInt(perm.getPermLikeCount());
