@@ -1,5 +1,6 @@
 package com.permping.controller;
 
+import com.permping.interfaces.PermList_Delegate;
 import com.permping.model.*;
 import com.permping.utils.API;
 import com.permping.utils.Constants;
@@ -14,7 +15,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-public class PermListController {
+public class PermListController implements PermList_Delegate {
 
 	/**
 	 * Constructor
@@ -143,7 +144,7 @@ public class PermListController {
 			url = API.popularPermsURL;
 //			permList.add(new Perm());
 		}
-		XMLParser parser = new XMLParser(url, nameValuePairs);
+		XMLParser parser = new XMLParser(XMLParser.PERMLIST, PermListController.this, url, nameValuePairs);
 		Document doc = parser.getDoc();
 		NodeList responseNodeList = doc.getElementsByTagName("response"); // TODO: actually, only 1 response in the list.
 		String nextItem = "-1";
@@ -244,5 +245,17 @@ public class PermListController {
 			}
 		}
 		return "";
+	}
+
+	@Override
+	public void onSuccess(Document doc) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onError() {
+		// TODO Auto-generated method stub
+		
 	}
 }

@@ -23,6 +23,7 @@ import com.permping.R;
 import com.permping.TabGroupActivity;
 import com.permping.controller.AuthorizeController;
 import com.permping.controller.MyDiaryController;
+import com.permping.interfaces.MyDiary_Delegate;
 import com.permping.model.Perm;
 import com.permping.model.Transporter;
 import com.permping.utils.API;
@@ -53,7 +54,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-public class MyDiaryActivity extends Activity implements View.OnClickListener {
+public class MyDiaryActivity extends Activity implements View.OnClickListener , MyDiary_Delegate {
 
 	private static final String TAG = "MyDiaryActivity";
 
@@ -70,6 +71,7 @@ public class MyDiaryActivity extends Activity implements View.OnClickListener {
 	private static final String dateTemplate = "MMMM yyyy";
 	private List<String> imageList = new ArrayList<String>();
 	private List<String> serviceList = new ArrayList<String>();
+	private List<String> idList = new ArrayList<String>();
 	private HashMap<String, List<WebImageView>> thumbListById = new HashMap<String, List<WebImageView>>();
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -148,12 +150,12 @@ public class MyDiaryActivity extends Activity implements View.OnClickListener {
 	 }
 	 
 	private List<String> getThumbnail(String url, String uid, String id){
+		Log.d(id+"====>", ">>>======>>>"+uid);
 		List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(8);
 		nameValuePairs.add(new BasicNameValuePair("uid", uid));
 		XMLParser xmlParser = new XMLParser();
-		Document doc = xmlParser.getResponseFromURL(url, nameValuePairs);//+"2012-06-15"
-		imageList = xmlParser.getNoteListFromDoc(doc);
-		return imageList;
+		xmlParser.getResponseFromURL(XMLParser.MYDIARY, MyDiaryActivity.this, url, nameValuePairs,id);//+"2012-06-15"
+		return null;
 
 	}
 	/**
@@ -445,6 +447,7 @@ public class MyDiaryActivity extends Activity implements View.OnClickListener {
 			// Set the Day GridCell
 			gridcell.setText(theday);
 			gridcell.setTag(theday + "-" + themonth + "-" + theyear);
+			
 			if(theday.length() <2)
 				theday = "0"+theday;
 			String date = theyear+"-"+MyDiaryActivity.this.months.get(themonth)+"-"+theday;
@@ -458,6 +461,7 @@ public class MyDiaryActivity extends Activity implements View.OnClickListener {
 			if (day_color[1].equals("BLUE")) {
 				gridcell.setTextColor(getResources().getColor(
 						R.color.static_text_color));
+				gridcell.setBackgroundDrawable(getResources().getDrawable(R.drawable.date_bg_selected));
 			}
 			
 			row.setId(Integer.valueOf(theday+MyDiaryActivity.this.months.get(themonth)));
@@ -475,6 +479,7 @@ public class MyDiaryActivity extends Activity implements View.OnClickListener {
 			String []paras = {API.getPermsByDate+date, PermpingMain.UID ,String.valueOf(row.getId())};
 			new getData().execute(paras);
 			thumbListById.put(String.valueOf(row.getId()), thumbList);
+			idList.add(String.valueOf(row.getId()));
 			serviceList.add(String.valueOf(row.getId()));
 			return row;
 		}
@@ -503,8 +508,6 @@ public class MyDiaryActivity extends Activity implements View.OnClickListener {
 					// Go to Perm detail screen
 					Intent i = new Intent(view.getContext(), BoardDetailActivity.class);
 					i.putExtra(Constants.TRANSPORTER, transporter);
-//					View boardDetail = MyDiaryActivityGroup.group.getLocalActivityManager() .startActivity("MyDiaryDetailActivity", i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
-//					MyDiaryActivityGroup.group.replaceView(boardDetail);
 					startActivity(i);
 
 				}
@@ -566,7 +569,7 @@ public class MyDiaryActivity extends Activity implements View.OnClickListener {
 			return ret;
 		}
 	}
-
+	
 	public class getData extends AsyncTask<String, String, List<String>>{
 
 		
@@ -575,32 +578,65 @@ public class MyDiaryActivity extends Activity implements View.OnClickListener {
             // TODO Auto-generated method stub
         	
             List<String> result = getThumbnail( msg[0], msg[1],msg[2]);
-            result.add(msg[2]);
             return result;
         }
 
         @Override
         protected void onPostExecute(List<String> imageList) {
             // TODO Auto-generated method stub
-            super.onPostExecute(imageList);
-            Log.d("","===========sucessss======="+imageList.size());
-            if(imageList != null){
-            	String id = null;
-            	if(imageList.size() > 1)
-            		id = imageList.get(imageList.size()-1);
-          		int max;
-          		if(imageList.size() > 4)
-          			max = 3;
-          		else{
-          			max = imageList.size()-1;
-          			for(int i=0;i<max;i++){
-          				Log.d("===Update",id+">>>========"+imageList.get(i));
-          				updateThumbnails(thumbListById.get(id).get(i), imageList.get(i));
-          			}
-          		}
-            }
-           
-          
         }
+	}
+	public class showData extends AsyncTask<String, String, String>{
+		WebImageView thumb;
+		public showData( WebImageView thumb) {
+			// TODO Auto-generated constructor stub
+			this.thumb = thumb;
+		}
+        @Override
+        protected String doInBackground(String... msg) {
+            // TODO Auto-generated method stub
+        	String url = msg[0];
+            return url;
+        }
+
+        @Override
+        protected void onPostExecute(String url) {
+            // TODO Auto-generated method stub
+            Log.d("====>", ">>>======>>>");
+			if(thumb != null){
+				thumb.setImageUrl(url);
+				thumb.loadImage();
+			}
+               
+        }
+	}
+	@Override
+	public void onError() {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void onSuccess(List<String> thumbList, String id) {
+		// TODO Auto-generated method stub
+		List<String> imageList = new ArrayList<String>();
+		imageList = thumbList;
+        if(imageList != null){
+        	if(id != null){
+
+              		int max;
+              		if(imageList.size() > 3){
+              			max = 3;
+              		}
+              		else{
+              			max = imageList.size();
+              		}
+
+          			for(int i=0;i< max;i++){
+          				Log.d("===Update",id+">>>========"+imageList.get(i));
+          				new showData(thumbListById.get(id).get(i)).execute(imageList.get(i));
+          			}
+        	}		
+        }
+
 	}
 }

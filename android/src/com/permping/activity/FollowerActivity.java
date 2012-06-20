@@ -60,33 +60,43 @@ public class FollowerActivity extends Activity {
 	protected void onResume() {
 		super.onResume();
 		
-		// Get the screen's size.
-		DisplayMetrics metrics = new DisplayMetrics();
-		getWindowManager().getDefaultDisplay().getMetrics(metrics);
-		
-		
-		//Set to application
-		PermpingApplication state = (PermpingApplication) this.getApplication();
-		if (state != null) {
-			state.setDisplayMetrics(metrics);
-		}
-		
-		
-		screenHeight = metrics.heightPixels;
-		screenWidth = metrics.widthPixels;
+		if(isLogin){
+			User user2 = PermUtils.isAuthenticated(getApplicationContext());
+			if(user2 != null){
+				String id = user2.getId();
+				if(id != null)
+					PermpingMain.gotoDiaryTab(id);
+			}
+			isLogin = false;
+		}else {
+			// Get the screen's size.
+			DisplayMetrics metrics = new DisplayMetrics();
+			getWindowManager().getDefaultDisplay().getMetrics(metrics);
+			
+			
+			//Set to application
+			PermpingApplication state = (PermpingApplication) this.getApplication();
+			if (state != null) {
+				state.setDisplayMetrics(metrics);
+			}
+			
+			
+			screenHeight = metrics.heightPixels;
+			screenWidth = metrics.widthPixels;
 
-		User user = PermUtils.isAuthenticated(getApplicationContext());
-		Bundle extras = getIntent().getExtras();
-		if (extras != null) {
-			this.url = (String) extras.get("categoryURL");
-			this.header = false;
-		} else if (user != null) {
-			this.url = API.followingPerm + String.valueOf(user.getId());
-			this.header = false;
+			User user = PermUtils.isAuthenticated(getApplicationContext());
+			Bundle extras = getIntent().getExtras();
+			if (extras != null) {
+				this.url = (String) extras.get("categoryURL");
+				this.header = false;
+			} else if (user != null) {
+				this.url = API.followingPerm + String.valueOf(user.getId());
+				this.header = false;
+			}
+			dialog = ProgressDialog.show(getParent(), "Loading", "Please wait...",
+					true);
+			new LoadPermList().execute();
 		}
-		dialog = ProgressDialog.show(getParent(), "Loading", "Please wait...",
-				true);
-		new LoadPermList().execute();
 	}
 
 	private void loadPerms() {
@@ -121,18 +131,7 @@ public class FollowerActivity extends Activity {
 				}
 			});
 		}else{
-			if(isLogin){
-				permListAdapter = null;
-				permListView.setAdapter(permListAdapter);
-				permListView.invalidate();
-				User user2 = PermUtils.isAuthenticated(getApplicationContext());
-				if(user2 != null){
-					String id = user2.getId();
-					if(id != null)
-						PermpingMain.gotoDiaryTab(id);
-				}
-				isLogin = false;
-			}
+			
 			
 		}
 

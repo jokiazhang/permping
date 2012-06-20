@@ -8,12 +8,14 @@ import java.util.List;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
+import org.w3c.dom.Document;
 
 import com.permping.PermpingApplication;
 import com.permping.R;
 import com.permping.adapter.CategorySpinnerAdapter;
 import com.permping.controller.AuthorizeController;
 import com.permping.controller.CategoryController;
+import com.permping.interfaces.Create_Board_delegate;
 import com.permping.model.Category;
 import com.permping.model.User;
 import com.permping.utils.API;
@@ -42,14 +44,16 @@ import android.widget.AdapterView.OnItemSelectedListener;
  * @author Linh Nguyen
  *
  */
-public class CreateBoardActivity extends Activity {
+public class CreateBoardActivity extends Activity implements Create_Board_delegate {
 
 	private Spinner mainCategory;
 	private EditText boardName;
 	private EditText boardDescription;
 	private Button createBoard;
 	private int categoryId = -1;
-	
+	List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(4);
+	PermpingApplication state = (PermpingApplication) getApplicationContext();
+	User user = null; 
 	/**
 	 * Initialize the View
 	 */
@@ -60,7 +64,8 @@ public class CreateBoardActivity extends Activity {
 		
 		View contentView = LayoutInflater.from(getParent()).inflate(R.layout.createboard_layout, null);
         setContentView(contentView);
-		
+		if(state != null)
+			user = state.getUser();
 		CategoryController catController = new CategoryController();
 		final ArrayList<Category> categories = catController.getCategoryList();
 		
@@ -76,10 +81,8 @@ public class CreateBoardActivity extends Activity {
 		createBoard.setOnClickListener(new View.OnClickListener() {
 			
 			public void onClick(View v) {
-	        	List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(4);
-	        	PermpingApplication state = (PermpingApplication) getApplicationContext();
 	        	if (state != null) {
-	        		User user = state.getUser();
+
 	        		if (user != null) {
 	        			nameValuePairs.add(new BasicNameValuePair(Constants.BOARD_NAME, 
 	        					boardName.getText().toString()));
@@ -90,26 +93,7 @@ public class CreateBoardActivity extends Activity {
 	        			nameValuePairs.add(new BasicNameValuePair(Constants.BOARD_DESCRIPTION, 
 	        					boardDescription.getText().toString()));
 	        			
-	        			XMLParser parser = new XMLParser(API.createBoardURL, nameValuePairs);
-	        			if (parser.getDoc() != null) {
-	        				AuthorizeController authorizeController = new AuthorizeController();
-	        				User updated = authorizeController.getUserProfileById(user.getId());
-	        				if (updated != null)
-	        					state.setUser(updated);
-	        				Toast toast = Toast.makeText(getApplicationContext(), "Board is created successfully!", Toast.LENGTH_LONG);
-	    		        	toast.setGravity(Gravity.TOP | Gravity.CENTER, 0, 300);
-	    		        	toast.show();
-	    		        	/*InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-	    		        	imm.hideSoftInputFromWindow(windowToken, flags)
-	    		        	*///getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-	    		        	ImageActivityGroup.group.back();
-	        			} else {
-	        				Toast toast = Toast.makeText(getApplicationContext(), "Create new board failed! Please try again.", Toast.LENGTH_LONG);
-	    		        	toast.setGravity(Gravity.TOP | Gravity.CENTER, 0, 300);
-	    		        	toast.show();
-	    		        	boardName.setText("");
-	    		        	boardDescription.setText("");
-	        			}
+	        			XMLParser parser = new XMLParser(XMLParser.CREATE_BOARD, CreateBoardActivity.this, API.createBoardURL, nameValuePairs);
 	        		}
 	        	}
 			}
@@ -163,6 +147,40 @@ public class CreateBoardActivity extends Activity {
 	
 	private void getUserProfileById(String userId) {
 		
+	}
+
+	@Override
+	public void onSucess(Document doc) {
+		// TODO Auto-generated method stub
+		if (doc != null) {
+			AuthorizeController authorizeController = new AuthorizeController();
+			User updated = authorizeController.getUserProfileById(user.getId());
+			if (updated != null)
+				state.setUser(updated);
+			Toast toast = Toast.makeText(getApplicationContext(), "Board is created successfully!", Toast.LENGTH_LONG);
+        	toast.setGravity(Gravity.TOP | Gravity.CENTER, 0, 300);
+        	toast.show();
+        	/*InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        	imm.hideSoftInputFromWindow(windowToken, flags)
+        	*///getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+        	ImageActivityGroup.group.back();
+		} else {
+			Toast toast = Toast.makeText(getApplicationContext(), "Create new board failed! Please try again.", Toast.LENGTH_LONG);
+        	toast.setGravity(Gravity.TOP | Gravity.CENTER, 0, 300);
+        	toast.show();
+        	boardName.setText("");
+        	boardDescription.setText("");
+		}
+	}
+
+	@Override
+	public void onError() {
+		// TODO Auto-generated method stub
+		Toast toast = Toast.makeText(getApplicationContext(), "Create new board failed! Please try again.", Toast.LENGTH_LONG);
+    	toast.setGravity(Gravity.TOP | Gravity.CENTER, 0, 300);
+    	toast.show();
+    	boardName.setText("");
+    	boardDescription.setText("");
 	}
 }
 

@@ -38,7 +38,7 @@ import com.permping.utils.facebook.SessionEvents.AuthListener;
  * by user-name and password. Also, it can communicate 
  * to FB and Twitter to do authentication as well
  */
-public class LoginPermActivity extends Activity {
+public class LoginPermActivity extends Activity implements Login_delegate {
 	
 	EditText email;
 	EditText password;
@@ -73,25 +73,19 @@ public class LoginPermActivity extends Activity {
 				nameValuePairs.add(new BasicNameValuePair("oauth_token", ""));
 				nameValuePairs.add(new BasicNameValuePair("email", email.getText().toString()));
 				nameValuePairs.add(new BasicNameValuePair("password", password.getText().toString()));
-				
-				boolean existed = AuthorizeController.authorize(v.getContext(), nameValuePairs);
-				Intent intent;
-				if (existed) {
-					// Forward back to Following tab
-//					PermUtils.clearViewHistory();
-					FollowerActivity.isLogin = true;
-					finish();
-//					login_delegate.on_success();
-					
-					/*
-					intent = new Intent(v.getContext(), PermpingMain.class);
-					v.getContext().startActivity(intent);
-					*/
-				} else {
-					Toast toast = Toast.makeText(getApplicationContext(), "Authentication failed!. Please try again!", Toast.LENGTH_LONG);
-		        	toast.setGravity(Gravity.TOP | Gravity.CENTER, 0, 300);
-		        	toast.show();
-				}
+				AuthorizeController authorizeController = new AuthorizeController(LoginPermActivity.this);
+				authorizeController.authorize(v.getContext(), nameValuePairs);
+//				if (existed) {
+//					// Forward back to Following tab
+////					PermUtils.clearViewHistory();
+//					FollowerActivity.isLogin = true;
+//					finish();
+//
+//				} else {
+//					Toast toast = Toast.makeText(getApplicationContext(), "Authentication failed!. Please try again!", Toast.LENGTH_LONG);
+//		        	toast.setGravity(Gravity.TOP | Gravity.CENTER, 0, 300);
+//		        	toast.show();
+//				}
 			}			
 		});
         
@@ -169,4 +163,17 @@ public class LoginPermActivity extends Activity {
 			}
 		});
 	}
+@Override
+public void on_success() {
+	// TODO Auto-generated method stub
+	FollowerActivity.isLogin = true;
+	finish();
+}
+@Override
+public void on_error() {
+	// TODO Auto-generated method stub
+	Toast toast = Toast.makeText(getApplicationContext(), "Authentication failed!. Please try again!", Toast.LENGTH_LONG);
+	toast.setGravity(Gravity.TOP | Gravity.CENTER, 0, 300);
+	toast.show();
+}
 }

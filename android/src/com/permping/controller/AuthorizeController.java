@@ -11,6 +11,7 @@ import org.apache.http.NameValuePair;
 import android.content.Context;
 
 import com.permping.PermpingApplication;
+import com.permping.interfaces.Login_delegate;
 import com.permping.model.User;
 import com.permping.utils.API;
 import com.permping.utils.XMLParser;
@@ -24,24 +25,18 @@ public class AuthorizeController {
 	public AuthorizeController() {
 		
 	}
-	
+	public static Login_delegate loginDelegate;
+	public AuthorizeController(Login_delegate loginPermDelegate) {
+		// TODO Auto-generated constructor stub
+		loginDelegate = loginPermDelegate;
+	}
+
 	public static boolean authorize(Context context, List<NameValuePair> nameValuePairs) {
 		// Send to server to check if the account is created
 		// If existed => back to Home page (Popular screen)
 		// If not existed => go to Create Account screen.
 		boolean ret = false;
-		XMLParser parser = new XMLParser(API.authorizeURL, nameValuePairs);
-		User user = parser.getUser();
-		if (user != null) {
-			// Store the user object to PermpingApplication
-			PermpingApplication state = (PermpingApplication) context.getApplicationContext();
-			state.setUser(user);
-			ret = true;
-		} else {
-			ret = false;
-		}
-		
-		
+		XMLParser parser = new XMLParser( context,XMLParser.LOGIN, loginDelegate,API.authorizeURL, nameValuePairs);		
 		return ret;
 		// 1. Send POST request to server
 		
