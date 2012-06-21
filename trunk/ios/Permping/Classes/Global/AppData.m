@@ -214,6 +214,18 @@
                                if (error) {
                                    [Utils displayAlert:[error localizedDescription] delegate:nil];
                                }
+                               
+                               if ([_engine isAuthorized]) {
+                                   [_engine clearAccessToken];
+                               }
+                               
+                               BOOL loggedIn = [[FBRequestWrapper defaultManager] isLoggedIn];
+                               
+                               // if the user is not currently logged in begin the session
+                               if (loggedIn) {
+                                   [[FBRequestWrapper defaultManager] FBLogout];
+                               } 
+                               
                                [[NSNotificationCenter defaultCenter] postNotificationName:kLogoutFinishNotification object:self userInfo:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:_isLogout], @"isSuccess", nil]];
                            });
         }
