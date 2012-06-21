@@ -6,36 +6,64 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
+import android.os.AsyncTask;
+
 import com.permping.model.Category;
 import com.permping.utils.API;
 import com.permping.utils.XMLParser;
 
 public class CategoryController {
-
+	public static ArrayList<Category> categories = new ArrayList<Category>();
 	public CategoryController() {
 		
 	}
 	
 	public ArrayList<Category> getCategoryList(){
 		
-		ArrayList<Category> categories = new ArrayList<Category>();
-		
-		XMLParser parser = new XMLParser( API.categoryListURL, true );
-		Document doc  = parser.getDoc();
-		NodeList categoryList = doc.getElementsByTagName("item");
-		
-		for( int i = 0; i < categoryList.getLength(); i ++ ){
-			Element categoryElement = (Element) categoryList.item(i);
+
+		try {
+			new getCategoryTask().execute(null);
+			Thread.sleep(3000);
 			
-			String categoryId = categoryElement.getElementsByTagName("id").item(0).getFirstChild().getNodeValue();
-			String categoryName = categoryElement.getElementsByTagName("title").item(0).getFirstChild().getNodeValue();
 			
-			Category cat = new Category( categoryId, categoryName );
-			categories.add(cat);
-			String a = categoryElement.getNodeName();
-			String b = a;
+		} catch (Exception e) {
+			// TODO: handle exception
+			return null;
 		}
-		
 		return categories;
+	}
+	class getCategoryTask extends AsyncTask<String, String, String>{
+
+		@Override
+		protected String doInBackground(String... params) {
+			// TODO Auto-generated method stub
+			try {
+				
+				XMLParser parser = new XMLParser( API.categoryListURL, true );
+				Document doc  = parser.getDoc();
+				NodeList categoryList = doc.getElementsByTagName("item");
+				
+				for( int i = 0; i < categoryList.getLength(); i ++ ){
+					Element categoryElement = (Element) categoryList.item(i);
+					
+					String categoryId = categoryElement.getElementsByTagName("id").item(0).getFirstChild().getNodeValue();
+					String categoryName = categoryElement.getElementsByTagName("title").item(0).getFirstChild().getNodeValue();
+					
+					Category cat = new Category( categoryId, categoryName );
+					categories.add(cat);
+					String a = categoryElement.getNodeName();
+					String b = a;
+				}
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+			return null;
+		}
+	    protected void onPostExecute(Document result) {
+	        // TODO: check this.exception 
+	        // TODO: do something with the feed
+	    	notifyAll();
+
+	    }
 	}
 }

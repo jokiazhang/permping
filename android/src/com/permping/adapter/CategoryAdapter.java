@@ -54,21 +54,23 @@ public class CategoryAdapter extends ArrayAdapter<Category> {
 			LayoutInflater vi = (LayoutInflater) this.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			v = vi.inflate(this.textViewResourceId, null);
 		}
-		
-		if( position == 0 ){
-			v.findViewById(R.id.categoryItemLayout).setBackgroundResource( R.drawable.explorer_item_bg_first );
+		if(items != null){
+			if( position == 0 ){
+				v.findViewById(R.id.categoryItemLayout).setBackgroundResource( R.drawable.explorer_item_bg_first );
+				
+			} else if( position == ( items.size() - 1 ) ) {
+				v.findViewById(R.id.categoryItemLayout).setBackgroundResource( R.drawable.explorer_item_bg_end );
+			} else {
+				v.findViewById(R.id.categoryItemLayout).setBackgroundResource( R.drawable.explorer_item_bg );
+			}
 			
-		} else if( position == ( items.size() - 1 ) ) {
-			v.findViewById(R.id.categoryItemLayout).setBackgroundResource( R.drawable.explorer_item_bg_end );
-		} else {
-			v.findViewById(R.id.categoryItemLayout).setBackgroundResource( R.drawable.explorer_item_bg );
-		}
-		
-		
-		Category o = items.get(position);
-		if (o != null) {
-			TextView an = (TextView) v.findViewById(R.id.categoryName);
-			an.setText(o.getName());
+			
+			Category o = items.get(position);
+			if (o != null) {
+				TextView an = (TextView) v.findViewById(R.id.categoryName);
+				an.setText(o.getName());
+			}
+			
 		}
 		
 		return v;
