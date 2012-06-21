@@ -22,6 +22,7 @@ import org.w3c.dom.Document;
 
 import com.permping.interfaces.HttpAccess;
 
+import android.R.bool;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -91,16 +92,12 @@ public class HttpPermUtils {
 						if (postResponseEntity != null)
 							result =  EntityUtils.toString(postResponseEntity);
 					}
-					if (result != null && !result.isEmpty() && httpAccess != null) {				
-						httpAccess.onSeccess(result, this.myDiaryThumbId);
-					}else if(httpAccess != null){
-						httpAccess.onError();
-					}
-					Log.d("==>","THIen.....==========>"+url);
+
 				} catch (IOException ioe) {
-//					postRequest.abort();
+					postRequest.abort();
 					Log.w(getClass().getSimpleName(), "thien====>ERROR for URL " + url, ioe);
 					httpAccess.onError();
+					result = null;
 					return null;
 				}
 
@@ -112,6 +109,12 @@ public class HttpPermUtils {
 	    protected void onPostExecute(String result) {
 	        // TODO: check this.exception 
 	        // TODO: do something with the feed
+			if (result != null && !result.isEmpty() && httpAccess != null) {				
+				httpAccess.onSeccess(result, this.myDiaryThumbId);
+			}else if(httpAccess != null){
+				httpAccess.onError();
+			}
+	    		
 
 	    }
 	 }

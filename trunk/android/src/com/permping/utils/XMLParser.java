@@ -364,7 +364,7 @@ public class XMLParser implements HttpAccess {
 	}
 	
 	public XMLParser(String url) {
-		setDoc(getResponseFromURL(url));
+		getResponseFromURL(url);
 	}
 
 	public XMLParser(int type, Object delegate, String url, List<NameValuePair> nameValuePairs) {
@@ -425,24 +425,37 @@ public class XMLParser implements HttpAccess {
 	 * @return the Document object.
 	 */
 	public Document parseResponse(String response) {
-		Document doc = null;
-		try {
-			DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory
-					.newInstance();
-			DocumentBuilder documentBuilder = documentBuilderFactory
-					.newDocumentBuilder();
-			InputSource is = new InputSource();
-			is.setCharacterStream(new StringReader(response));
-			doc = documentBuilder.parse(is);
-		} catch (ParserConfigurationException e) {
-			e.printStackTrace();
-		} catch (SAXException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 
+		new ParseResponseTask().execute(response);
 		return doc;
+	}
+	class ParseResponseTask extends AsyncTask <String , String, Document >{
+		
+		public ParseResponseTask(){
+			
+		}
+		protected Document doInBackground(String... urls) {
+			try {
+				String respond = urls[0];
+				DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory
+						.newInstance();
+				DocumentBuilder documentBuilder = documentBuilderFactory
+						.newDocumentBuilder();
+				InputSource is = new InputSource();
+				is.setCharacterStream(new StringReader(respond));
+				doc = documentBuilder.parse(is);
+				return doc;
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+			return null;
+		}
+	    protected void onPostExecute(Document result) {
+	        // TODO: check this.exception 
+	        // TODO: do something with the feed
+	    	setDoc(result);
+
+	    }
 	}
 
 	/**
@@ -633,9 +646,14 @@ public class XMLParser implements HttpAccess {
 			// Store the user object to PermpingApplication
 			PermpingApplication state = (PermpingApplication) context.getApplicationContext();
 			state.setUser(user);
-			loginDelegate.on_success();
+			synchronized (this) {
+				loginDelegate.on_success();
+			}
 		} else {
-			loginDelegate.on_error();
+			synchronized (this) {
+				loginDelegate.on_error();
+			}
+			
 		}
 	}
 }

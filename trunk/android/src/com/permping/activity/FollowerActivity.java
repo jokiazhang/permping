@@ -166,20 +166,18 @@ public class FollowerActivity extends Activity {
 		@Override
 		protected String doInBackground(Void... params) {
 			PermListController permListController = new PermListController();
-			ArrayList<Perm> permList;
-			if (nextItem != -1) {
-				List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
-				nameValuePairs.add(new BasicNameValuePair("nextItem", String.valueOf(nextItem)));
-				permList = permListController.getPermList(url, nameValuePairs);
-			} else {
-				permList = permListController.getPermList(url);
-			}
-			//ArrayList<Perm> permList = permListController.getPermList(url);
-			/*if (permListMain != null)
-				permListMain.addAll(permList);
-			else
-				permListMain = permList;*/
-			
+			ArrayList<Perm> permList = null;
+			try {				
+				if (nextItem != -1) {
+					List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+					nameValuePairs.add(new BasicNameValuePair("nextItem", String.valueOf(nextItem)));
+					permList = permListController.getPermList(url, nameValuePairs);
+				} else {
+					permList = permListController.getPermList(url);
+				}
+			} catch (Exception e) {
+				// TODO: handle exception
+			}			
 			permListMain = permList;
 						
 			return null;
