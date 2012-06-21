@@ -9,8 +9,13 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 
+import twitter4j.http.AccessToken;
+
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
@@ -18,16 +23,15 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewGroup.LayoutParams;
 import android.widget.ImageView;
-import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
-import android.widget.TableLayout;
-import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.permping.PermpingApplication;
@@ -36,8 +40,13 @@ import com.permping.activity.FollowerActivity;
 import com.permping.activity.FollowerActivityGroup;
 import com.permping.activity.ImageActivityGroup;
 import com.permping.activity.MyDiaryActivityGroup;
+import com.permping.activity.NewPermActivity;
 import com.permping.activity.ProfileActivityGroup;
 import com.permping.model.User;
+import com.permping.utils.facebook.sdk.DialogError;
+import com.permping.utils.facebook.sdk.Facebook;
+import com.permping.utils.facebook.sdk.Facebook.DialogListener;
+import com.permping.utils.facebook.sdk.FacebookError;
 
 /**
  * @author Linh Nguyen
@@ -46,7 +55,8 @@ import com.permping.model.User;
 public class PermUtils {
 
 	public static User isAuthenticated(Context context) {
-		PermpingApplication state = (PermpingApplication) context.getApplicationContext();
+		PermpingApplication state = (PermpingApplication) context
+				.getApplicationContext();
 		if (state != null) {
 			User user = state.getUser();
 			return user;
@@ -54,10 +64,8 @@ public class PermUtils {
 
 		return null;
 	}
-	
 
-	
-	public static void clearViewHistory(){
+	public static void clearViewHistory() {
 		ExplorerActivityGroup.group.clearHistory();
 		FollowerActivityGroup.group.clearHistory();
 		ImageActivityGroup.group.clearHistory();
@@ -65,26 +73,20 @@ public class PermUtils {
 		MyDiaryActivityGroup.group.clearHistory();
 	}
 
-	
-	
 	/**
 	 * calculate image size
 	 */
-	public static void calculateImageSize( Context context ){
+	public static void calculateImageSize(Context context) {
 		PermpingApplication state = (PermpingApplication) context;
-		if( state != null )
-		{
+		if (state != null) {
 			DisplayMetrics metrics = state.getDisplayMetrics();
 			int screenWidth = metrics.widthPixels;
 			int screenHeight = metrics.heightPixels;
-			
-			
-			
+
 		}
-		//return null;
+		// return null;
 	}
-	
-	
+
 	/**
 	 * Scale the ImageView based on the screen's resolution
 	 * 
@@ -226,6 +228,7 @@ public class PermUtils {
 
 		return isWrapped;
 	}
+
 	public static Bitmap LoadImage(String URL, BitmapFactory.Options options) {
 		Bitmap bitmap = null;
 		InputStream in = null;
@@ -258,7 +261,7 @@ public class PermUtils {
 		return inputStream;
 	}
 
-	public static Bitmap scaleBitmap( String url){
+	public static Bitmap scaleBitmap(String url) {
 		try {
 			Bitmap bm = null;
 			BitmapFactory.Options bmOptions;
@@ -266,51 +269,120 @@ public class PermUtils {
 			bmOptions.inSampleSize = 1;
 			bmOptions.inJustDecodeBounds = false;
 			Bitmap bitmp = LoadImage(url, bmOptions);
-			if(bitmp != null){
+			if (bitmp != null) {
 				int height = bitmp.getHeight();
 				int width = bitmp.getWidth();
 				int deviceSizeHeight = FollowerActivity.screenHeight;
 				int deviceSizeWidth = FollowerActivity.screenWidth;
 				int imgWidth = 0, imgHeight = 0;
-				if( deviceSizeWidth <= 320 ) { //320 x 480
-//					marginLeft = 8;
-//					marginRight = 8;
-					if( width < 560 ){
-						imgWidth = (  width *304/ 560 );
-						imgHeight = ( height *304 / 560 );
+				if (deviceSizeWidth <= 320) { // 320 x 480
+					// marginLeft = 8;
+					// marginRight = 8;
+					if (width < 560) {
+						imgWidth = (width * 304 / 560);
+						imgHeight = (height * 304 / 560);
 					} else {
 						imgWidth = 304;
-						imgHeight = ( height * 304 ) / width;
+						imgHeight = (height * 304) / width;
 					}
-				}
-				else if( deviceSizeWidth <= 480 ){ //480 x 800 
-//					marginLeft = 12;
-//					marginRight = 12;
-					if( width < 560 ) {
-						imgWidth =  ( width  * 456/ 560  );
-						imgHeight = ( height  * 456 / 560 );
+				} else if (deviceSizeWidth <= 480) { // 480 x 800
+					// marginLeft = 12;
+					// marginRight = 12;
+					if (width < 560) {
+						imgWidth = (width * 456 / 560);
+						imgHeight = (height * 456 / 560);
 					} else {
 						imgWidth = 456;
-						imgHeight = ( height * 456 ) / width;
-					 }			
-				} else if( deviceSizeWidth <= 800 ){ //800 x 1280
-						//marginLeft = 20;
-						//marginRight = 20;
-					if( width < 560 ){
-						imgWidth = ( width  * 760/ 560  );
-						imgHeight = ( height  * 760/ 560  );
+						imgHeight = (height * 456) / width;
+					}
+				} else if (deviceSizeWidth <= 800) { // 800 x 1280
+					// marginLeft = 20;
+					// marginRight = 20;
+					if (width < 560) {
+						imgWidth = (width * 760 / 560);
+						imgHeight = (height * 760 / 560);
 					} else {
 						imgWidth = 760;
-						imgHeight = ( height * 760 ) / width ;
+						imgHeight = (height * 760) / width;
 					}
 				}
-//				bm = Bitmap.createScaledBitmap(bitmp, imgWidth*6, imgHeight*6, false);
+				// bm = Bitmap.createScaledBitmap(bitmp, imgWidth*6,
+				// imgHeight*6, false);
 			}
 			return bm;
 		} catch (Exception e) {
 			// TODO: handle exception
 			return null;
 		}
-		
+
+	}
+
+	// Login facebook get token
+	public String integateLoginFacebook(final Activity activity, final Handler handleFbLogin) {
+		final SharedPreferences prefs;
+	    final String APP_ID = "164668790213609";
+	    Facebook mFacebook;
+	    String token = null;
+		mFacebook = new Facebook(APP_ID);
+		mFacebook.authorize(activity, new String[] { "email", "status_update",
+				"user_birthday" }, new DialogListener() {
+			@Override
+			public void onComplete(Bundle values) {
+				Log.d("", "=====>"+values.toString());
+				saveFacebookToken("", "", activity);
+				saveFacebookToken("oauth_token", "a", activity);
+				 Message message = handleFbLogin.obtainMessage(NewPermActivity.LOGIN_FACEBOOK, "");
+				 handleFbLogin.sendMessage(message);
+			}
+
+			@Override
+			public void onFacebookError(FacebookError error) {
+			}
+
+			@Override
+			public void onError(DialogError e) {
+			}
+
+			@Override
+			public void onCancel() {
+				// cancel press or back press
+			
+			}
+		});
+		return getFacebookToken(activity);
+	}
+
+	public void saveFacebookToken(String key, String value, Activity activity) {
+		SharedPreferences sharedPreferences = activity
+				.getPreferences(activity.MODE_PRIVATE);
+		SharedPreferences.Editor editor = sharedPreferences.edit();
+		editor.putString("oauth_token", value);
+		editor.commit();
+	}
+
+	public String getFacebookToken(Activity activity) {
+		SharedPreferences sharedPreferences = activity
+				.getPreferences(activity.MODE_PRIVATE);
+		return sharedPreferences.getString("oauth_token", "");
+	}
+	public boolean saveTwitterAccess(String key, AccessToken value, Activity activity) {
+		Editor editor = activity.getSharedPreferences("TWITTER",
+				Context.MODE_PRIVATE).edit();
+		if(value.getToken() != null)
+			editor.putString("twitter_key", value.getToken());
+		if(value.getTokenSecret() != null)
+			editor.putString("twitter_secret", value.getTokenSecret());
+		return editor.commit();
+	}
+
+	public AccessToken getTwitterAccess(Activity activity) {
+		SharedPreferences savedSession = activity.getSharedPreferences(
+				"TWITTER", Context.MODE_PRIVATE);
+		String key = savedSession.getString("twitter_key", "");
+		String secret = savedSession.getString("twitter_secret", "");
+		if (key == "" || secret == "") {
+			return null;
+		}
+		return new AccessToken(key, secret);
 	}
 }
