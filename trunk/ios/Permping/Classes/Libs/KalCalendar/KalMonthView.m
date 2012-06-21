@@ -83,7 +83,8 @@ extern const CGSize kTileSize;
       break;
     }
   }
-  NSAssert1(tile != nil, @"Failed to find corresponding tile for date %@", date);
+  // Tuan comment
+  //NSAssert1(tile != nil, @"Failed to find corresponding tile for date %@", date);
   
   return tile;
 }
@@ -104,7 +105,7 @@ extern const CGSize kTileSize;
 - (NSDateFormatter*)dateFormat {
     if (dateFormat == nil) {
         dateFormat = [[NSDateFormatter alloc] init];
-        [dateFormat setDateFormat:@"yyyy-MM-dd hh:mm:ss"];
+        [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     }
     return dateFormat;
 }
