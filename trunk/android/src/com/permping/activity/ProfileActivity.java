@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.permping.PermpingApplication;
+import com.permping.PermpingMain;
 import com.permping.R;
 import com.permping.adapter.BoardAdapter;
 import com.permping.controller.BoardController;
@@ -96,8 +97,9 @@ public class ProfileActivity extends Activity {
 			});
             
         } else {
-        	Intent i = new Intent(getApplicationContext(), LoginPermActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-			getApplicationContext().startActivity(i);
+//        	Intent i = new Intent(getApplicationContext(), LoginPermActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//			getApplicationContext().startActivity(i);
+        	PermpingMain.showLogin();
         }        
     }
     

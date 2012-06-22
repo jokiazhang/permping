@@ -1,6 +1,7 @@
 package com.permping;
 
 import android.app.TabActivity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -9,10 +10,12 @@ import android.view.View;
 import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
 
+import com.permping.activity.BoardDetailActivity;
 import com.permping.activity.ExplorerActivityGroup;
 import com.permping.activity.FollowerActivityGroup;
 import com.permping.activity.ImageActivityGroup;
 import com.permping.activity.LoginPermActivity;
+import com.permping.activity.MyDiaryActivity;
 import com.permping.activity.MyDiaryActivityGroup;
 import com.permping.activity.ProfileActivityGroup;
 import com.permping.model.User;
@@ -22,12 +25,14 @@ public class PermpingMain extends TabActivity  {
     /** Called when the activity is first created. */
 	public static String UID = "121";
 	private static TabHost tabHost;
+	public static Context context;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         
         tabHost = getTabHost();
+        context = PermpingMain.this;
         //tabHost.setBackgroundResource(R.drawable.tabs_background);
         tabHost.getTabWidget().setBackgroundResource( R.drawable.tabs_background );
         
@@ -134,15 +139,38 @@ public class PermpingMain extends TabActivity  {
 		        	ret = false;
 		        } else {
 		        	// Go to login screen
+		        	showLogin();
 		        	
-					Intent i = new Intent(getApplicationContext(), LoginPermActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-					getApplicationContext().startActivity(i);	
+//					Intent i = new Intent(getApplicationContext(), LoginPermActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//					getApplicationContext().startActivity(i);	
+		            
+
 					ret = true;
 		        }
 			}
 			return ret;
 		}
 
+    }
+    public static void showLogin(){
+    	Intent myIntent = new Intent(context, LoginPermActivity.class);
+    	int currentTab = tabHost.getCurrentTab();
+    	if( currentTab == 0){
+			View boardListView = FollowerActivityGroup.group.getLocalActivityManager() .startActivity("detail", myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
+			FollowerActivityGroup.group.replaceView(boardListView);
+    	}else if(currentTab == 1){
+			View boardListView = ExplorerActivityGroup.group.getLocalActivityManager() .startActivity("detail", myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
+			ExplorerActivityGroup.group.replaceView(boardListView);
+    	}else if(currentTab == 2){
+			View boardListView = ImageActivityGroup.group.getLocalActivityManager() .startActivity("detail", myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
+			ImageActivityGroup.group.replaceView(boardListView);
+    	}else if(currentTab == 3){
+			View boardListView = MyDiaryActivityGroup.group.getLocalActivityManager() .startActivity("detail", myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
+			MyDiaryActivityGroup.group.replaceView(boardListView);
+    	}else if(currentTab == 4){
+			View boardListView = ProfileActivityGroup.group.getLocalActivityManager() .startActivity("detail", myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
+			FollowerActivityGroup.group.replaceView(boardListView);
+    	}
     }
 	public static void gotoDiaryTab(String UID) {
 		// TODO Auto-generated method stub
