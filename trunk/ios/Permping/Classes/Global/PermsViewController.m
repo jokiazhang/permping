@@ -20,6 +20,7 @@
 #import "LoginViewController.h"
 #import "ProfileViewController.h"
 #import "PermUrlViewController.h"
+#import "MapKitViewController.h"
 
 #define kSeperatorCellTag 333
 #define kSpinnerCellTag 123456
@@ -411,11 +412,10 @@
 }
 
 - (void)findLocationForPermAtCell:(PermInfoCell *)cell {
-    NSString *latlong = [NSString stringWithFormat:@"%@,%@", cell.perm.latitude, cell.perm.longitude];
-    NSString *url = [NSString stringWithFormat: @"http://maps.google.com/maps?ll=%@",
-                     [latlong stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
-
+    MapKitViewController *controller = [[MapKitViewController alloc] initWithNibName:@"MapKitViewController" bundle:nil];
+    controller.selectedPerm = cell.perm;
+    [self.navigationController pushViewController:controller animated:YES];
+    [controller release];
 }
 
 - (void)openPermUrl:(NSString*)urlString {

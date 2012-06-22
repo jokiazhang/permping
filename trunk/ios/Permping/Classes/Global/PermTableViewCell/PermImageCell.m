@@ -63,7 +63,7 @@
             permImageView.frame = CGRectInset(self.bounds, 8, 0);
         }
         
-        if (self.permUrl) {
+        if (self.permUrl.length>0) {
             openPermUrlButton.hidden = NO;
             openPermUrlButton.frame = permImageView.frame;
         }
@@ -77,7 +77,7 @@
 
 - (void)setCellPermUrl:(NSString *)in_permUrl {
     self.permUrl = in_permUrl;
-    if (permImageView.image && in_permUrl) {
+    if (permImageView.image && in_permUrl.length>0) {
         openPermUrlButton.hidden = NO;
     } else {
         openPermUrlButton.hidden = YES;

@@ -7,6 +7,7 @@
 //
 
 #import "SwitchingTableCell.h"
+#import "Utility.h"
 
 @implementation SwitchingTableCell
 @synthesize switching;
@@ -20,7 +21,13 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        switching = [[UISwitch alloc] initWithFrame:CGRectMake(210, 8, 80, 27)];
+        CGRect r;
+        if ([Utility isiOS5]) {
+            r = CGRectMake(210, 8, 80, 27);
+        } else {
+            r = CGRectMake(195, 8, 80, 27);
+        }
+        switching = [[UISwitch alloc] initWithFrame:r];
         [self.contentView addSubview:switching];
     }
     return self;

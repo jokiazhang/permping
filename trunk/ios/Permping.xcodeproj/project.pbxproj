@@ -52,6 +52,9 @@
 		0411A493156D7D9E005EBF18 /* tab-item-profile@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0411A477156D7D9E005EBF18 /* tab-item-profile@2x.png */; };
 		0411A494156D7D9E005EBF18 /* tab-shadow.png in Resources */ = {isa = PBXBuildFile; fileRef = 0411A478156D7D9E005EBF18 /* tab-shadow.png */; };
 		0411A495156D7D9E005EBF18 /* tab-shadow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0411A479156D7D9E005EBF18 /* tab-shadow@2x.png */; };
+		041848AF1594860400277730 /* MapKitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 041848AD1594860400277730 /* MapKitViewController.m */; };
+		041848B01594860400277730 /* MapKitViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 041848AE1594860400277730 /* MapKitViewController.xib */; };
+		041848B8159487BB00277730 /* MapKitAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 041848B7159487BB00277730 /* MapKitAnnotation.m */; };
 		0427B2E3157A4FD200EBD4DC /* PermActionResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 0427B2E2157A4FD200EBD4DC /* PermActionResponse.m */; };
 		043D4F1D157681D800D10276 /* CreateBoardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 043D4F1B157681D800D10276 /* CreateBoardViewController.m */; };
 		043D4F1E157681D800D10276 /* CreateBoardViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 043D4F1C157681D800D10276 /* CreateBoardViewController.xib */; };
@@ -281,6 +284,11 @@
 		0411A477156D7D9E005EBF18 /* tab-item-profile@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tab-item-profile@2x.png"; path = "Permping/Resources/Images/tab-item-profile@2x.png"; sourceTree = SOURCE_ROOT; };
 		0411A478156D7D9E005EBF18 /* tab-shadow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tab-shadow.png"; path = "Permping/Resources/Images/tab-shadow.png"; sourceTree = SOURCE_ROOT; };
 		0411A479156D7D9E005EBF18 /* tab-shadow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tab-shadow@2x.png"; path = "Permping/Resources/Images/tab-shadow@2x.png"; sourceTree = SOURCE_ROOT; };
+		041848AC1594860400277730 /* MapKitViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapKitViewController.h; sourceTree = "<group>"; };
+		041848AD1594860400277730 /* MapKitViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapKitViewController.m; sourceTree = "<group>"; };
+		041848AE1594860400277730 /* MapKitViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MapKitViewController.xib; sourceTree = "<group>"; };
+		041848B6159487BB00277730 /* MapKitAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapKitAnnotation.h; sourceTree = "<group>"; };
+		041848B7159487BB00277730 /* MapKitAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapKitAnnotation.m; sourceTree = "<group>"; };
 		0427B2E1157A4FD200EBD4DC /* PermActionResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PermActionResponse.h; sourceTree = "<group>"; };
 		0427B2E2157A4FD200EBD4DC /* PermActionResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PermActionResponse.m; sourceTree = "<group>"; };
 		043D4F1A157681D800D10276 /* CreateBoardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateBoardViewController.h; sourceTree = "<group>"; };
@@ -825,6 +833,11 @@
 				04D4C0FF157D68F5005C48E5 /* AllCommentViewController.h */,
 				04D4C100157D68F5005C48E5 /* AllCommentViewController.m */,
 				04D4C101157D68F5005C48E5 /* AllCommentViewController.xib */,
+				041848AC1594860400277730 /* MapKitViewController.h */,
+				041848AD1594860400277730 /* MapKitViewController.m */,
+				041848AE1594860400277730 /* MapKitViewController.xib */,
+				041848B6159487BB00277730 /* MapKitAnnotation.h */,
+				041848B7159487BB00277730 /* MapKitAnnotation.m */,
 			);
 			name = Global;
 			path = Permping/Classes/Global;
@@ -1465,6 +1478,7 @@
 				6AF30A23158B1C1C00684DC2 /* Kal.bundle in Resources */,
 				040B3F53158FA6D4003975D9 /* btn-imgtab-bkg.png in Resources */,
 				04B3652A15949E770071FF54 /* PermUrlViewController.xib in Resources */,
+				041848B01594860400277730 /* MapKitViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1615,6 +1629,8 @@
 				6AF30A1C158AE73500684DC2 /* UIViewAdditions.m in Sources */,
 				04693DA2158D74DE007A6946 /* KakaoLinkCenter.m in Sources */,
 				04B3652915949E770071FF54 /* PermUrlViewController.m in Sources */,
+				041848AF1594860400277730 /* MapKitViewController.m in Sources */,
+				041848B8159487BB00277730 /* MapKitAnnotation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
