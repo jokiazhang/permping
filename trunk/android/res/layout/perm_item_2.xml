@@ -29,7 +29,7 @@
                     android:layout_width="80dp"
                     android:layout_height="30dp"
                     android:background="@drawable/button_bg"
-                    android:text="Join"
+                    android:text="@string/bt_join"
                     android:textColor="#FFFFFF" />
             </LinearLayout>
 
@@ -45,7 +45,7 @@
                     android:layout_width="80dp"
                     android:layout_height="30dp"
                     android:background="@drawable/button_bg"
-                    android:text="Login"
+                    android:text="@string/bt_login"
                     android:textColor="#FFFFFF" />
             </LinearLayout>
         </TableRow>
