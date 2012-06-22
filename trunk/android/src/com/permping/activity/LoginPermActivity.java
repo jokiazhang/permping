@@ -47,6 +47,7 @@ public class LoginPermActivity extends Activity implements Login_delegate {
 	Button facebookLogin;
 	Button twitterLogin;
 	Button login;
+	private ProgressDialog loadingDialog;
 	private PermpingMain login_delegate;
 	SharedPreferences prefs;
 	private FacebookConnector facebookConnector;
@@ -72,9 +73,7 @@ public class LoginPermActivity extends Activity implements Login_delegate {
         // Login button
         login.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-//				dialog = ProgressDialog.show(LoginPermActivity.this, "Progressing.", "Please wait...",
-//						true)
-				showDialog("Progress", "Please wait");
+				showLoadingDialog("Progress", "Please wait");
 				List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(8);
 				nameValuePairs.add(new BasicNameValuePair("type", prefs.getString(Constants.LOGIN_TYPE, "")));
 				nameValuePairs.add(new BasicNameValuePair("oauth_token", ""));
@@ -161,24 +160,12 @@ public class LoginPermActivity extends Activity implements Login_delegate {
 			}
 		});
 	}
-private void showDialog(String title, String message) {
-	// TODO Auto-generated method stub
-	dialog = new ProgressDialog(LoginPermActivity.this);
-	dialog.setTitle(title);
-	dialog.setMessage(message);
-}	
-private void hideDialog(){
-	if(dialog != null){
-		if( dialog.isShowing()){
-			dialog.dismiss();
-		}
-	}
-}
+
 @Override
 public void on_success() {
 	// TODO Auto-generated method stub
 	FollowerActivity.isLogin = true;
-	hideDialog();
+	dismissLoadingDialog();
 	PermpingMain.back();
 	sendBroadcast("", "");
 }
@@ -197,5 +184,17 @@ public void on_error() {
 	Toast toast = Toast.makeText(getApplicationContext(), "Authentication failed!. Please try again!", Toast.LENGTH_LONG);
 	toast.setGravity(Gravity.TOP | Gravity.CENTER, 0, 300);
 	toast.show();
+}
+private void showLoadingDialog(String title, String msg) {
+	loadingDialog = new ProgressDialog(getParent());
+	loadingDialog.setMessage(msg);
+	loadingDialog.setTitle(title);
+	loadingDialog.setCancelable(false);
+	loadingDialog.show();
+}
+
+private void dismissLoadingDialog() {
+	if (loadingDialog != null && loadingDialog.isShowing())
+		loadingDialog.dismiss();
 }
 }
