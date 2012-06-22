@@ -11,8 +11,8 @@
 #import <Foundation/Foundation.h>
 
 //#define SERVER_API   @"http://newpermping.autwin.com/services"
-//#define SERVER_API   @"http://newpermping.appo.vn/services"
-#define SERVER_API   @"http://permping.com/services"
+#define SERVER_API   @"http://newpermping.appo.vn/services"
+//#define SERVER_API   @"http://permping.com/services"
 
 #define SERVER_REQUEST_TIMEOUT_DEFAULT 30
 
@@ -21,6 +21,8 @@
 
 #define FB_APP_ID           @"272022539557655"
 #define FB_APP_SECRET       @"9d0b54305b11a48b7ca724cdd607cd60"
+
+#define LAUNCH_APP_URL             @"permping://"
 
 
 #endif

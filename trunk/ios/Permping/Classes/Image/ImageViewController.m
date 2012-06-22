@@ -11,6 +11,7 @@
 #import "CreateBoardViewController.h"
 #import "AppData.h"
 #import "LoginViewController.h"
+#import "Utils.h"
 
 @implementation ImageViewController
 
@@ -147,7 +148,8 @@
     
     if ([mediaType isEqualToString:(NSString*)kUTTypeImage]){
         UIImage *photoTaken = [info objectForKey:UIImagePickerControllerOriginalImage];
-        webData = UIImageJPEGRepresentation(photoTaken, 0);
+        UIImage *modifiedImage = [Utils scaleAndRotateImage:photoTaken maxWidth:1024];
+        webData = UIImageJPEGRepresentation(modifiedImage, 0);
         if (webData) {
             CreatePermViewController *controller = [[CreatePermViewController alloc] initWithNibName:@"CreatePermViewController" bundle:nil];
             controller.fileData = webData;

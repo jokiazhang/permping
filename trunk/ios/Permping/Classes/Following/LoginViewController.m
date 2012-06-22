@@ -129,11 +129,13 @@
     }
     if (indexPath.row == 0) {
         cell.textLabel.text = [NSString stringWithFormat:@"%@ :", NSLocalizedString(@"EmailAddress", nil)];
-        //cell.valueTextField.text = @"demo@demo.com";
+        cell.valueTextField.text = @"demo@demo.com";
+        //cell.valueTextField.text = @"phonghunter@yahoo.com";
         cell.valueTextField.keyboardType = UIKeyboardTypeEmailAddress;
     } else if (indexPath.row == 1) {
         cell.textLabel.text = [NSString stringWithFormat:@"%@ :", NSLocalizedString(@"Password", nil)];
-        //cell.valueTextField.text = @"demo";
+        cell.valueTextField.text = @"demo";
+        //cell.valueTextField.text = @"5104100";
         cell.valueTextField.secureTextEntry = YES;
     }
     

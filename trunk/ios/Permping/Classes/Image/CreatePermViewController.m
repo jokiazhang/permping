@@ -216,12 +216,19 @@
     [pool drain];
 }
 
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
     if (uploadSuccess) {
-        NSString *message = [NSString stringWithFormat:@"pindetails/%@", self.permId];
-        NSArray *array = [NSArray arrayWithObjects:@"os", @"iphone", @"devicetype", @"phone", @"installurl", @"www.apple.com", @"executeurl", @"www.apple.com",nil];
-        NSString *url = @"www.apple.com";
-        [[KakaoLinkCenter defaultCenter] openKakaoAppLinkWithMessage:message URL:url appBundleID:@"webactully" appVersion:@"2.0" appName:@"Permping App" metaInfoArray:array];
+        BOOL shareKakao = [[NSUserDefaults standardUserDefaults] boolForKey:@"ShareKakao"];
+        if (shareKakao) {
+            // Note: 
+            // Url to open permping again : @"permping://"
+            // This is registered in Permping-Info.plist , key : URL Types
+            
+            NSString *message = [NSString stringWithFormat:@"pindetails/%@", self.permId];
+            NSArray *array = [NSArray arrayWithObjects:@"os", @"iphone", @"devicetype", @"phone", @"installurl", @"www.apple.com", @"executeurl", @"www.apple.com",nil];
+            NSString *url = @"www.apple.com & www.google.com";
+            [[KakaoLinkCenter defaultCenter] openKakaoAppLinkWithMessage:message URL:url appBundleID:@"webactully" appVersion:@"2.0" appName:@"Permping App" metaInfoArray:array];
+        }
         [self dismiss:nil];
     }
 }
@@ -232,7 +239,10 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 3;
+    if (section == 0) {
+        return 3;
+    }
+    return 2;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -292,12 +302,12 @@
             if ([[NSUserDefaults standardUserDefaults] boolForKey:@"ShareFacebook"]) {
                 [cell.switching setOn:YES];
             }
-        } else if (row == 1) {
+        }/* else if (row == 1) {
             cell.textLabel.text = NSLocalizedString(@"Twitter", nil);
             if ([[NSUserDefaults standardUserDefaults] boolForKey:@"ShareTwitter"]) {
                 [cell.switching setOn:YES];
             }
-        } else {
+        } */else {
             cell.textLabel.text = NSLocalizedString(@"KakaoTalk", nil);
             if ([[NSUserDefaults standardUserDefaults] boolForKey:@"ShareKakao"]) {
                 [cell.switching setOn:YES];
@@ -329,6 +339,11 @@
     CreatePermCell *cell = (CreatePermCell*)[permTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
     if (cell.valueTextField.text.length == 0) {
         [Utils displayAlert:@"Please input description for perm." delegate:nil];
+        return NO;
+    }
+    UITableViewCell *cell2 = [permTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]]; 
+    if (cell2.detailTextLabel.text.length == 0) {
+        [Utils displayAlert:@"Please select board." delegate:nil];
         return NO;
     }
     return YES;
@@ -384,14 +399,14 @@
                 [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(socialNetworkLoginDidFinish:) name:kSocialNetworkDidLoginNotification object:nil];
                 return;
             }
-        } else if (currentSwitch.tag == 2) {
+        }/* else if (currentSwitch.tag == 2) {
             key = @"ShareTwitter";
             if (isOn && ![[AppData getInstance] twitterLoggedIn:self]) {
                 [currentSwitch setOn:NO];
                 [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(socialNetworkLoginDidFinish:) name:kSocialNetworkDidLoginNotification object:nil];
                 return;
             }
-        } else {
+        } */else {
             key = @"ShareKakao";
             if (isOn) {
                 BOOL canOpen = [[KakaoLinkCenter defaultCenter] canOpenKakaoLink];
