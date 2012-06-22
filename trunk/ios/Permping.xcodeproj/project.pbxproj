@@ -96,6 +96,8 @@
 		04AA8E6315600B8800B5E956 /* UserInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04AA8E6215600B8800B5E956 /* UserInfoTableViewCell.m */; };
 		04AA8E8A1560336300B5E956 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 04AA8E891560336300B5E956 /* libz.dylib */; };
 		04AA8EEB156049ED00B5E956 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04AA8EEA156049ED00B5E956 /* SystemConfiguration.framework */; };
+		04B3652915949E770071FF54 /* PermUrlViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B3652715949E770071FF54 /* PermUrlViewController.m */; };
+		04B3652A15949E770071FF54 /* PermUrlViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04B3652815949E770071FF54 /* PermUrlViewController.xib */; };
 		04B43BE71560364E00F61E6A /* ExplorerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B43BD21560364E00F61E6A /* ExplorerViewController.m */; };
 		04B43BE81560364E00F61E6A /* ExplorerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04B43BD31560364E00F61E6A /* ExplorerViewController.xib */; };
 		04B43BE91560364E00F61E6A /* FollowingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B43BD61560364E00F61E6A /* FollowingViewController.m */; };
@@ -361,6 +363,9 @@
 		04AA8E6215600B8800B5E956 /* UserInfoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoTableViewCell.m; sourceTree = "<group>"; };
 		04AA8E891560336300B5E956 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		04AA8EEA156049ED00B5E956 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		04B3652615949E770071FF54 /* PermUrlViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PermUrlViewController.h; sourceTree = "<group>"; };
+		04B3652715949E770071FF54 /* PermUrlViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PermUrlViewController.m; sourceTree = "<group>"; };
+		04B3652815949E770071FF54 /* PermUrlViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PermUrlViewController.xib; sourceTree = "<group>"; };
 		04B43BD11560364E00F61E6A /* ExplorerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExplorerViewController.h; sourceTree = "<group>"; };
 		04B43BD21560364E00F61E6A /* ExplorerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExplorerViewController.m; sourceTree = "<group>"; };
 		04B43BD31560364E00F61E6A /* ExplorerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ExplorerViewController.xib; sourceTree = "<group>"; };
@@ -807,6 +812,9 @@
 				0411A42C156D33A4005EBF18 /* PermsViewController.h */,
 				0411A42D156D33A4005EBF18 /* PermsViewController.m */,
 				6AE0E68C1578C05200F7C52B /* PermsViewController.xib */,
+				04B3652615949E770071FF54 /* PermUrlViewController.h */,
+				04B3652715949E770071FF54 /* PermUrlViewController.m */,
+				04B3652815949E770071FF54 /* PermUrlViewController.xib */,
 				04B43C1A1560364E00F61E6A /* UINavigationBar+CustomBackground.h */,
 				04B43C1B1560364E00F61E6A /* UINavigationBar+CustomBackground.m */,
 				6A0566A11564BB660064A63B /* Constants.h */,
@@ -1456,6 +1464,7 @@
 				047AE8C0157FADF20050AF46 /* twitter_load.png in Resources */,
 				6AF30A23158B1C1C00684DC2 /* Kal.bundle in Resources */,
 				040B3F53158FA6D4003975D9 /* btn-imgtab-bkg.png in Resources */,
+				04B3652A15949E770071FF54 /* PermUrlViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1605,6 +1614,7 @@
 				6AF30A1B158AE73500684DC2 /* NSDateAdditions.m in Sources */,
 				6AF30A1C158AE73500684DC2 /* UIViewAdditions.m in Sources */,
 				04693DA2158D74DE007A6946 /* KakaoLinkCenter.m in Sources */,
+				04B3652915949E770071FF54 /* PermUrlViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

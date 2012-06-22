@@ -25,6 +25,7 @@
 @synthesize                    longitude;
 @synthesize                    permDate;
 @synthesize                    permDateMessage;
+@synthesize                    permUrl;
 - (id)init
 {
 	if (self = [super init])
@@ -52,6 +53,7 @@
     self.longitude = nil;
     self.permDate = nil;
     self.permDateMessage = nil;
+    self.permUrl = nil;
 	[super dealloc];
 }
 

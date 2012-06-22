@@ -7,9 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PermCellDelegate.h"
 
 @interface PermImageCell : UITableViewCell {
+    id<PermCellDelegate>   delegate;
     UIImageView *permImageView;
+    UIButton    *openPermUrlButton;
+    NSString *permUrl;
 }
+@property (nonatomic, assign) id<PermCellDelegate> delegate;
 @property (nonatomic, readonly) UIImageView *permImageView;
+
+- (void)setCellPermUrl:(NSString*)permUrl;
 @end

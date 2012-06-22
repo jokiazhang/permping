@@ -9,8 +9,13 @@
 #import "PermImageCell.h"
 #import "Utils.h"
 
+@interface PermImageCell()
+@property (nonatomic, retain) NSString *permUrl;
+@end
+
 @implementation PermImageCell
-@synthesize permImageView;
+@synthesize delegate;
+@synthesize permImageView, permUrl;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -22,11 +27,19 @@
         permImageView = [[UIImageView alloc] initWithFrame:CGRectZero];
         permImageView.backgroundColor = [UIColor clearColor];
         [myContentView addSubview:permImageView];
+        
+        openPermUrlButton = [[UIButton alloc] initWithFrame:CGRectZero];
+        openPermUrlButton.hidden = YES;
+        openPermUrlButton.backgroundColor = [UIColor clearColor];
+        [openPermUrlButton addTarget:self action:@selector(openPermUrlButtonDidTouch:) forControlEvents:UIControlEventTouchUpInside];
+        [myContentView addSubview:openPermUrlButton];
     }
     return self;
 }
 
 - (void)dealloc {
+    self.permUrl = nil;
+    [openPermUrlButton release];
     [permImageView release];
     [super dealloc];
 }
@@ -49,6 +62,11 @@
         } else {
             permImageView.frame = CGRectInset(self.bounds, 8, 0);
         }
+        
+        if (self.permUrl) {
+            openPermUrlButton.hidden = NO;
+            openPermUrlButton.frame = permImageView.frame;
+        }
     } else {
         UIView *activity = [permImageView viewWithTag:TAG_ACTIVITY_INDICATOR];
         if (activity) {
@@ -57,9 +75,26 @@
     }
 }
 
+- (void)setCellPermUrl:(NSString *)in_permUrl {
+    self.permUrl = in_permUrl;
+    if (permImageView.image && in_permUrl) {
+        openPermUrlButton.hidden = NO;
+    } else {
+        openPermUrlButton.hidden = YES;
+    }
+    
+}
+
 - (void)prepareForReuse {
     [super prepareForReuse];
     permImageView.image = nil;
+    [self setPermUrl:nil];
+}
+
+- (void)openPermUrlButtonDidTouch:(id)sender {
+    if (delegate && [delegate respondsToSelector:@selector(openPermUrl:)]) {
+        [delegate openPermUrl:permUrl];
+    }
 }
 
 @end

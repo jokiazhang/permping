@@ -19,6 +19,7 @@
 #import "CreatePermViewController.h"
 #import "LoginViewController.h"
 #import "ProfileViewController.h"
+#import "PermUrlViewController.h"
 
 #define kSeperatorCellTag 333
 #define kSpinnerCellTag 123456
@@ -235,8 +236,9 @@
             if (cell == nil) {
                 cell = [[[PermImageCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] autorelease];
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                cell.delegate = self;
             }
-            
+            [cell setCellPermUrl:perm.permUrl];
             //NSLog(@"imageString: %@", perm.permImage);
             [cell.permImageView setImageWithURL:[NSURL URLWithString:perm.permImage] success:^(UIImage *image) {
                 if (![permsImageHeight objectForKey:[NSString stringWithFormat:@"%d", section]]) {
@@ -369,7 +371,7 @@
 
 #pragma mark -
 #pragma mark PermCellDelegate
-#pragma mark - 
+#pragma mark -
 - (void)viewUserProfileWithId:(NSString *)userId {
     ProfileViewController *controller = [[ProfileViewController alloc] initWithNibName:@"ProfileViewController" bundle:nil];
     controller.userId = userId;
@@ -414,6 +416,15 @@
                      [latlong stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
 
+}
+
+- (void)openPermUrl:(NSString*)urlString {
+    if (urlString) {
+        PermUrlViewController *controller = [[PermUrlViewController alloc] initWithNibName:@"PermUrlViewController" bundle:nil];
+        controller.urlString = urlString;
+        [self.navigationController pushViewController:controller animated:YES];
+        [controller release];
+    }
 }
 
 - (id)getDataLoaderWithPermAction {

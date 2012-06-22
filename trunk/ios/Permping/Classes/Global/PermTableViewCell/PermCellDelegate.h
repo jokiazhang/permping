@@ -17,6 +17,7 @@
 - (void)commentPermAtCell:(PermInfoCell*)cell;
 - (void)repermPermAtCell:(PermInfoCell*)cell;
 - (void)findLocationForPermAtCell:(PermInfoCell*)cell;
+- (void)openPermUrl:(NSString*)urlString;
 
 - (void)viewUserProfileWithId:(NSString*)userId;
 @end
