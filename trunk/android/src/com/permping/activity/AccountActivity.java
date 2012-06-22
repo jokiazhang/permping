@@ -35,7 +35,7 @@ public class AccountActivity extends Activity {
 		
 		logout = (Button) findViewById(R.id.btLogout);
 		cancel = (Button) findViewById(R.id.btCancel);
-		back = (Button) findViewById(R.id.btBack);
+//thien		back = (Button) findViewById(R.id.btBack); 
 		
 		logout.setOnClickListener(new View.OnClickListener() {
 			
