@@ -28,6 +28,7 @@
     NSString    *longitude;
     NSString    *permDate;
     NSString    *permDateMessage;
+    NSString    *permUrl;
 }
 
 @property (nonatomic, retain)   UserModel                   *permUser;
@@ -46,5 +47,6 @@
 @property (nonatomic, copy)     NSString                    *longitude;
 @property (nonatomic, copy)     NSString                    *permDate;
 @property (nonatomic, copy)     NSString                    *permDateMessage;
+@property (nonatomic, copy)     NSString                    *permUrl;
  
 @end
