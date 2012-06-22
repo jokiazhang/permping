@@ -1,38 +1,38 @@
 package com.permping.activity;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
+import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.util.DisplayMetrics;
+import android.widget.AbsListView;
+import android.widget.AbsListView.OnScrollListener;
+import android.widget.ListView;
+
 import com.permping.PermpingApplication;
 import com.permping.PermpingMain;
 import com.permping.R;
+import com.permping.adapter.PermAdapter;
 import com.permping.controller.PermListController;
 import com.permping.model.Perm;
 import com.permping.model.User;
 import com.permping.utils.API;
 import com.permping.utils.PermUtils;
-import com.permping.adapter.*;
-
-import android.app.Activity;
-import android.app.ProgressDialog;
-import android.os.AsyncTask;
-import android.os.Bundle;
-import android.util.DisplayMetrics;
-import android.util.Log;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AbsListView;
-import android.widget.AbsListView.OnScrollListener;
-import android.widget.ListView;
 
 public class FollowerActivity extends Activity {
 
 	
-
+	public static final String DOWNLOAD_COMPLETED = "DOWNLOAD_COMPLETED";
 	public String url = "";
 	public Boolean header = true;
 
@@ -46,13 +46,23 @@ public class FollowerActivity extends Activity {
 	private ProgressDialog dialog;
 	
 	PermAdapter permListAdapter;
+	private BroadcastReceiver receiver = new BroadcastReceiver() {
 
+		@Override
+		public void onReceive(Context context, Intent intent) {
+
+			if (intent.getAction().equals(DOWNLOAD_COMPLETED)) {
+				exeFollowerActivity();
+			} 
+		}
+	};
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.followers_layout);
-
+		IntentFilter intentFilter = new IntentFilter(DOWNLOAD_COMPLETED);
+		registerReceiver(receiver, intentFilter);
 	
 	}
 
@@ -60,7 +70,7 @@ public class FollowerActivity extends Activity {
 	protected void onResume() {
 		super.onResume();
 		
-		if(isLogin){
+		if(isLogin && PermpingMain.getCurrentTab() == 3){
 			User user2 = PermUtils.isAuthenticated(getApplicationContext());
 			if(user2 != null){
 				String id = user2.getId();
@@ -68,35 +78,40 @@ public class FollowerActivity extends Activity {
 					PermpingMain.gotoDiaryTab(id);
 			}
 			isLogin = false;
-		}else {
+		}else if(PermpingMain.getCurrentTab() == 0){
 			// Get the screen's size.
-			DisplayMetrics metrics = new DisplayMetrics();
-			getWindowManager().getDefaultDisplay().getMetrics(metrics);
-			
-			
-			//Set to application
-			PermpingApplication state = (PermpingApplication) this.getApplication();
-			if (state != null) {
-				state.setDisplayMetrics(metrics);
-			}
-			
-			
-			screenHeight = metrics.heightPixels;
-			screenWidth = metrics.widthPixels;
-
-			User user = PermUtils.isAuthenticated(getApplicationContext());
-			Bundle extras = getIntent().getExtras();
-			if (extras != null) {
-				this.url = (String) extras.get("categoryURL");
-				this.header = false;
-			} else if (user != null) {
-				this.url = API.followingPerm + String.valueOf(user.getId());
-				this.header = false;
-			}
-			dialog = ProgressDialog.show(getParent(), "Loading", "Please wait...",
-					true);
-			new LoadPermList().execute();
+			exeFollowerActivity();
 		}
+	}
+
+	private void exeFollowerActivity() {
+		// TODO Auto-generated method stub
+		DisplayMetrics metrics = new DisplayMetrics();
+		getWindowManager().getDefaultDisplay().getMetrics(metrics);
+		
+		
+		//Set to application
+		PermpingApplication state = (PermpingApplication) this.getApplication();
+		if (state != null) {
+			state.setDisplayMetrics(metrics);
+		}
+		
+		
+		screenHeight = metrics.heightPixels;
+		screenWidth = metrics.widthPixels;
+
+		User user = PermUtils.isAuthenticated(getApplicationContext());
+		Bundle extras = getIntent().getExtras();
+		if (extras != null) {
+			this.url = (String) extras.get("categoryURL");
+			this.header = false;
+		} else if (user != null) {
+			this.url = API.followingPerm + String.valueOf(user.getId());
+			this.header = false;
+		}
+		dialog = ProgressDialog.show(getParent(), "Loading", "Please wait...",
+				true);
+		new LoadPermList().execute();
 	}
 
 	private void loadPerms() {
@@ -137,27 +152,6 @@ public class FollowerActivity extends Activity {
 
 	}
 
-	/* (non-Javadoc)
-	 * @see android.app.Activity#onDestroy()
-	 
-	@Override
-	protected void onDestroy() {
-		
-	}
-	
-	private void unbindDrawables(View view) {
-		if (view.getBackground() != null) {
-            view.getBackground().setCallback(null);
-        }
-        if (view instanceof ViewGroup) {
-            for (int i = 0; i < ((ViewGroup) view).getChildCount(); i++) {
-                unbindDrawables(((ViewGroup) view).getChildAt(i));
-            }
-            ((ViewGroup) view).removeAllViews();
-        }
-
-	}
-*/	
 	
 	// AsyncTask task for upload file
 
