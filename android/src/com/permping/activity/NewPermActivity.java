@@ -92,7 +92,7 @@ public class NewPermActivity extends Activity implements OnClickListener {
 	private LocationManager mlocManager;
 	private LocationListener mlocListener;
 	private ArrayList<Category> categories;
-
+	private String permId;
 	private ArrayList<PermBoard> boards;
 
 	public Handler handleFbLogin = new Handler() {
@@ -352,7 +352,7 @@ public class NewPermActivity extends Activity implements OnClickListener {
 					String readFile = EntityUtils.toString(entry);
 
 					boolean uploadStatus = parseXmlFile(readFile);
-					if( uploadStatus ){
+					if( uploadStatus && btnShareKakao.isChecked()){
 						gotoKakao();
 					}else{
 
@@ -427,15 +427,13 @@ public class NewPermActivity extends Activity implements OnClickListener {
 			if (dialog.isShowing()) {
 				dialog.dismiss();
 				ImageActivityGroup.group.back();
-//				PermpingApplication state = (PermpingApplication) getApplicationContext();
-//				User user = state.getUser();
-//				if (user != null)
-//					Toast.makeText(getApplicationContext(),
-//							"Uploaded new perm!", Toast.LENGTH_LONG).show();
-//				else
-//					Toast.makeText(getApplicationContext(),
-//							"You are not logged in! Please log in first.",
-//							Toast.LENGTH_LONG).show();
+				if(btnShareKakao.isChecked()){
+					Toast.makeText(getApplicationContext(),
+							"Uploaded new perm and shared to Kakao app!", Toast.LENGTH_LONG).show();
+				}else{
+					Toast.makeText(getApplicationContext(),
+							"Uploaded new perm!", Toast.LENGTH_LONG).show();
+				}
 			}
 
 		}
@@ -488,7 +486,10 @@ public class NewPermActivity extends Activity implements OnClickListener {
 
 	private void shareKakao() {
 		// TODO Auto-generated method stub
-
+		if(btnShareKakao.isChecked())
+			btnShareFacebook.setChecked(false);
+		else
+			btnShareKakao.setChecked(true);
 	}
 
 	private void shareTwitter() {
@@ -498,7 +499,16 @@ public class NewPermActivity extends Activity implements OnClickListener {
 
 	private void shareFb() {
 		// TODO Auto-generated method stub
-
+		facebookToken = permUtils.getFacebookToken(NewPermActivity.this);
+		if( btnShareFacebook.isChecked()){
+			btnShareFacebook.setChecked(false);
+			permUtils.logOutFacebook(NewPermActivity.this);
+		
+		}else{
+			if (facebookToken == null || facebookToken.isEmpty()) {
+				permUtils.integateLoginFacebook(NewPermActivity.this, handleFbLogin);
+			}
+		}
 	}
 
 	private void uploadPerm() {
@@ -554,20 +564,20 @@ public class NewPermActivity extends Activity implements OnClickListener {
 	public void gotoKakao() throws Exception{
 		
 		try {
-			String strMessage = "카카오링크를 사용하여 메세지를 전달해 보세요."; 
+			String strMessage = "pindetails/"+ permId;//"카카오링크를 사용하여 메세지를 전달해 보세요."; 
 			String strURL = "http://link.kakao.com";
 			String strAppId = "com.kakao.android.image";
 			String strAppVer = "2.0";
-			String strAppName = "[카카오톡]";
+			String strAppName = "[Permping]";//"[카카오톡]";
 			String strInstallUrl = "market://details?id=com.kakao.talk"; 
 			ArrayList<Map<String, String>> arrMetaInfo = new ArrayList<Map<String, String>>();
-			// If application is support Android platform.
+		
 			Map<String, String> metaInfoAndroid = new Hashtable<String, String>(
 					1);
 			metaInfoAndroid.put("os", "android");
 			metaInfoAndroid.put("devicetype", "phone");
 			metaInfoAndroid.put("installurl", strInstallUrl);
-			metaInfoAndroid.put("executeurl", "example://example");
+			metaInfoAndroid.put("executeurl", "android.com");
 			arrMetaInfo.add(metaInfoAndroid);
 			KakaoLink link = new KakaoLink(NewPermActivity.this, strURL, strAppId, strAppVer,strMessage, strAppName, arrMetaInfo, "UTF-8");
 
