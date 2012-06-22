@@ -476,11 +476,12 @@ public class NewPermActivity extends Activity implements OnClickListener {
 	private void locationChange() {
 		// TODO Auto-generated method stub
 		if (btnLocation.isChecked()) {
-			mlocManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0,
-					0, mlocListener);
-		} else {
 			lat = 0;
 			lon = 0;
+
+		} else {
+			mlocManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0,
+					0, mlocListener);
 		}
 	}
 

@@ -169,7 +169,22 @@ public class PermpingMain extends TabActivity  {
 			MyDiaryActivityGroup.group.replaceView(boardListView);
     	}else if(currentTab == 4){
 			View boardListView = ProfileActivityGroup.group.getLocalActivityManager() .startActivity("detail", myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
-			FollowerActivityGroup.group.replaceView(boardListView);
+			ProfileActivityGroup.group.replaceView(boardListView);
+    	}
+    }
+    public static void back(){
+    	
+    	int currentTab = tabHost.getCurrentTab();
+    	if( currentTab == 0){
+			FollowerActivityGroup.group.back();
+    	}else if(currentTab == 1){
+			ExplorerActivityGroup.group.back();
+    	}else if(currentTab == 2){
+			ImageActivityGroup.group.back();
+    	}else if(currentTab == 3){
+			MyDiaryActivityGroup.group.back();
+    	}else if(currentTab == 4){
+			ProfileActivityGroup.group.back();
     	}
     }
 	public static void gotoDiaryTab(String UID) {
