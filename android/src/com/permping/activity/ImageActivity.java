@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import com.permping.PermpingMain;
 import com.permping.R;
 import com.permping.model.User;
 import com.permping.utils.PermUtils;
@@ -56,8 +57,9 @@ public class ImageActivity extends Activity {
 					//getParent().startActivityForResult(Intent.createChooser(intent, "Select Picture"), CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
 				} else {
 					// Go to login screen
-					Intent i = new Intent(v.getContext(), LoginPermActivity.class);
-					v.getContext().startActivity(i);
+//					Intent i = new Intent(v.getContext(), LoginPermActivity.class);
+//					v.getContext().startActivity(i);
+					PermpingMain.showLogin();
 				}
 			}
 		});
@@ -76,8 +78,9 @@ public class ImageActivity extends Activity {
 	                getParent().startActivityForResult(Intent.createChooser(intent, "Select Picture"), SELECT_PICTURE);
 				} else {
 					// Go to login screen
-					Intent i = new Intent(v.getContext(), LoginPermActivity.class);
-					v.getContext().startActivity(i);
+//					Intent i = new Intent(v.getContext(), LoginPermActivity.class);
+//					v.getContext().startActivity(i);
+					PermpingMain.showLogin();
 				}
                 
 			}
@@ -94,8 +97,9 @@ public class ImageActivity extends Activity {
 					ImageActivityGroup.group.replaceView(view);
 				} else {
 					// Go to login screen
-					Intent i = new Intent(v.getContext(), LoginPermActivity.class);
-					v.getContext().startActivity(i);
+//					Intent i = new Intent(v.getContext(), LoginPermActivity.class);
+//					v.getContext().startActivity(i);
+					PermpingMain.showLogin();
 				}
 				
 			}
