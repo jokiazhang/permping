@@ -62,19 +62,18 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="30dp"
+        android:orientation="vertical"
         android:background="@drawable/explorer_item_bg_first">
-    <EditText
+	<EditText
         android:id="@+id/permEmail"
         android:layout_width="315dp"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="@string/hint_email"
         android:background="#00000000"
-        style="@style/edit_text" >
-        <requestFocus />
-    </EditText>
-	</LinearLayout>
+        android:hint="@string/hint_email"
+        android:imeOptions="actionNext"
+        android:singleLine="true"/>	</LinearLayout>
 	
      <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -84,15 +83,19 @@
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:layout_marginTop="-3dp"
+        android:orientation="vertical"
         android:background="@drawable/explorer_item_bg_end">
-    <EditText
+   	 <EditText
         android:id="@+id/permPassword"
         android:layout_width="315dp"
         android:layout_height="wrap_content"
         android:ems="10"
         android:background="#00000000"
         android:inputType="textPassword" 
-        android:hint="@string/hint_password"/>
+        android:hint="@string/hint_password"
+        android:imeOptions="actionDone"
+		android:singleLine="true"
+	/>
 	</LinearLayout>
      <View
     android:layout_width="fill_parent"

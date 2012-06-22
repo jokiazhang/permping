@@ -19,8 +19,10 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.Gravity;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.permping.PermpingMain;
@@ -64,7 +66,8 @@ public class LoginPermActivity extends Activity implements Login_delegate {
         facebookLogin = (Button) findViewById(R.id.loginfb);
         twitterLogin  = (Button) findViewById(R.id.logintw);
         login         = (Button) findViewById(R.id.loginPerm);
-        
+         
+
                 
         // Login button
         login.setOnClickListener(new View.OnClickListener() {

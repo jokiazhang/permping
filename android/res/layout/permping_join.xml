@@ -37,7 +37,9 @@
                 android:id="@+id/acccountName"
                 style="@style/edit_text"
                 android:background="#00000000"
-                android:hint="@string/required" />
+                android:hint="@string/required" 
+                android:imeOptions="actionNext"
+        		android:singleLine="true"/>
         </TableRow>
 
         <!-- <TableRow android:background="@drawable/explorer_item_bg" >
@@ -79,7 +81,10 @@
                 android:id="@+id/acccountEmail"
                 style="@style/edit_text"
                 android:background="#00000000"
-                android:hint="@string/required" />
+                android:hint="@string/required" 
+                android:imeOptions="actionNext"
+        		android:singleLine="true"/>
+                
         </TableRow>
 
         <TableRow android:background="@drawable/explorer_item_bg" >
@@ -87,7 +92,10 @@
             <TextView
                 style="@style/label"
                 android:padding="3dip"
-                android:text="@string/acc_password" />
+                android:text="@string/acc_password" 
+                android:imeOptions="actionNext"
+        		android:singleLine="true"/>
+                
 
             <EditText
                 android:id="@+id/acccountPassword"
@@ -109,7 +117,10 @@
                 android:hint="@string/required"
                 android:background="#00000000"
                 style="@style/edit_text"
-                android:inputType="textPassword" />
+                android:inputType="textPassword" 
+                android:imeOptions="actionDone"
+        		android:singleLine="true"
+               />
         </TableRow>
 
         <TableRow>
