@@ -54,6 +54,7 @@ public class PermListController implements PermList_Delegate {
 			Element permElement = (Element ) permNodeList.item(i);
 			String permId = getValue(permElement, "permId");
 			String permDesc = getValue(permElement, "permDesc");
+			String permDateMessage = getValue(permElement, "permDateMessage");
 			String permBoard = getValue(permElement, "permCategory");
 			String permImage = getValue(permElement, "permImage");
 			
@@ -108,7 +109,7 @@ public class PermListController implements PermList_Delegate {
 			String lon = getValue(permElement, "permLong");
 			String permUserLikeCount = getValue(permElement, Constants.PERM_USERLIKECOUNT);
 			
-			Perm perm = new Perm(permId, new PermBoard("BoardID", permBoard), permDesc, new PermImage(permImage), comments);
+			Perm perm = new Perm(permId, new PermBoard("BoardID", permBoard), permDesc, permDateMessage, new PermImage(permImage), comments);
 			perm.setAuthor(permAuthor);
 			perm.setPermRepinCount(permRepinCount);
 			perm.setPermLikeCount(permLikeCount);
@@ -160,6 +161,7 @@ public class PermListController implements PermList_Delegate {
 			Element permElement = (Element ) permNodeList.item(i);
 			String permId = getValue(permElement, "permId");
 			String permDesc = getValue(permElement, "permDesc");
+			String permDateMessage = getValue(permElement, "permDateMessage");
 			String permBoard = getValue(permElement, "permCategory");
 			String permImage = getValue(permElement, "permImage");
 
@@ -214,7 +216,7 @@ public class PermListController implements PermList_Delegate {
 			String lon = getValue(permElement, "permLong");
 			String permUserLikeCount = getValue(permElement, Constants.PERM_USERLIKECOUNT);
 			
-			Perm perm = new Perm(permId, new PermBoard("BoardID", permBoard), permDesc, new PermImage(permImage), comments);
+			Perm perm = new Perm(permId, new PermBoard("BoardID", permBoard), permDesc, permDateMessage, new PermImage(permImage), comments);
 			perm.setAuthor(permAuthor);
 			perm.setPermRepinCount(permRepinCount);
 			perm.setPermLikeCount(permLikeCount);

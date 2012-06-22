@@ -17,6 +17,7 @@ public class Perm implements Serializable{
 	private String id;
 	private String name;
 	private String description;
+	private String permDateMessage;
 	private PermImage image;
 	private List<Comment> comments;
 	private User author;
@@ -47,20 +48,28 @@ public class Perm implements Serializable{
 		this.setId(id);
 	}
 	
-	public Perm( String id, String name, String description, PermImage image ){
+	public Perm( String id, String name, String description, String permDateMessage, PermImage image ){
 		this.setId(id);
 		this.setName(name);
 		this.setDescription(description);
 		this.setImage(image);
+		this.setPermDateMessage(permDateMessage);
 	}
 	
 	
-	public Perm( String id, PermBoard board, String description, PermImage image , ArrayList<Comment> comments){
+	private void setPermDateMessage( String permDateMessage) {
+		// TODO Auto-generated method stub
+		this.permDateMessage = permDateMessage;
+	}
+
+
+	public Perm( String id, PermBoard board, String description, String permDateMessage, PermImage image , ArrayList<Comment> comments){
 		this.setId(id);
 		this.setBoard(board);
 		this.setDescription(description);
 		this.setImage(image);
 		this.setComments( comments );
+		this.setPermDateMessage(permDateMessage);
 	}
 	
 	
@@ -100,7 +109,9 @@ public class Perm implements Serializable{
 	public String getDescription() {
 		return description;
 	}
-
+	public String getPermDatemessage() {
+		return permDateMessage;
+	}	
 	public void setDescription(String description) {
 		this.description = description;
 	}
