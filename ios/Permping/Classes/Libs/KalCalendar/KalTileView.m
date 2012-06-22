@@ -288,16 +288,19 @@ extern const CGSize kTileSize;
     }
     
     CGContextRestoreGState(ctx);
-    
+    // size : 44,42
     NSInteger count = self.images.count;
     for (NSInteger i = 0; i < count; i++) {
         CGRect r;
         if (i == 0) {
-            r = CGRectMake(25, 4, 15, 15);
+            //r = CGRectMake(25, 4, 15, 15);
+            r = CGRectMake(22, 2, 22, 21);
         } else if (i == 1) {
-            r = CGRectMake(3, 25, 15, 15);
+            //r = CGRectMake(3, 25, 15, 15);
+            r = CGRectMake(0, 23, 22, 21);
         } else {
-            r = CGRectMake(25, 25, 15, 15);
+            //r = CGRectMake(25, 25, 15, 15);
+            r = CGRectMake(22, 23, 22, 21);
         }
         UIImage *image = [self.images objectAtIndex:i];
         [image drawInRect:r];

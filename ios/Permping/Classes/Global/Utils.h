@@ -18,4 +18,6 @@
 
 + (CGSize)sizeWithImage:(UIImage*)image constrainedToSize:(CGSize)constrainedSize;
 
++ (UIImage *)scaleAndRotateImage:(UIImage *)image maxWidth:(NSInteger)maxWidth;
+
 @end

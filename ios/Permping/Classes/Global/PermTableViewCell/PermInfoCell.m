@@ -112,10 +112,10 @@
         likeButton.hidden = NO;
     }
     
-    if (in_perm.latitude && in_perm.longitude) {
+    if (in_perm.latitude && in_perm.longitude && [in_perm.latitude floatValue]>0 && [in_perm.longitude floatValue]>0) {
         locationButton.hidden = NO;
     } else {
-        locationButton.hidden = NO;
+        locationButton.hidden = YES;
     }
 }
 

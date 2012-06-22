@@ -66,14 +66,22 @@
     [super viewWillAppear:animated];
     followButton.hidden = ((self.userId==nil) || ![[AppData getInstance] didLogin]);
     if([[AppData getInstance] didLogin] || self.userId) {
+        if (!self.userId) {
+            self.navigationItem.leftBarButtonItem = [Utils barButtonnItemWithTitle:NSLocalizedString(@"Account", @"Account") target:self selector:@selector(accountButtonDidTouch:)];
+        }
         [self startActivityIndicator];
         self.dataLoaderThread = [[ThreadManager getInstance] dispatchToConcurrentBackgroundNormalPriorityQueueWithTarget:self selector:@selector(loadDataForMe:thread:) dataObject:[self getMyDataLoader]];
     } else {
-        LoginViewController *controller = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
-        controller.hasCancel = NO;
-        //[self.navigationController presentModalViewController:controller animated:YES];
-        [self.navigationController pushViewController:controller animated:NO];
-        [controller release];
+        if (!self.userId) {
+            [self reloadData];
+            self.navigationItem.leftBarButtonItem = nil;
+        }
+
+//        LoginViewController *controller = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
+//        controller.hasCancel = NO;
+//        //[self.navigationController presentModalViewController:controller animated:YES];
+//        [self.navigationController pushViewController:controller animated:NO];
+//        [controller release];
     }
 }
 

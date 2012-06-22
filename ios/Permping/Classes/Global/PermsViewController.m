@@ -341,6 +341,9 @@
 }*/
 
 - (void)scrollViewDidScroll: (UIScrollView*)scroll {
+    if (0 == self.resultModel.arrResults.count) {
+        return;
+    }
     // UITableView only moves in one direction, y axis
     NSInteger currentOffset = scroll.contentOffset.y;
     NSInteger maximumOffset = scroll.contentSize.height - scroll.frame.size.height;

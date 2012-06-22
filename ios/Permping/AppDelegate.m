@@ -53,6 +53,17 @@
     return YES;
 }
 
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
+{   
+    NSLog(@"url: %@", url);
+    if (!url) {
+        return NO;
+    }
+    
+    return YES;
+}
+
+
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController 
 {
     if ([tabBarController selectedIndex] == 4) {
