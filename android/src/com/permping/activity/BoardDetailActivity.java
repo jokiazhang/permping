@@ -34,11 +34,16 @@ public class BoardDetailActivity extends Activity {
 		super.onCreate(savedInstanceState);
 
 		Bundle extras = getIntent().getExtras();
-		Transporter transporter = (Transporter) extras
+		Transporter transporter =null;
+		if(extras != null)
+			transporter = (Transporter) extras
 				.get(Constants.TRANSPORTER);
-		List<Perm> perms = transporter.getPerms();
-		String boardName = transporter.getBoardName();
-
+		List<Perm> perms = null;
+		String boardName = null;
+		if(transporter != null){
+			perms = transporter.getPerms();
+			boardName = transporter.getBoardName();
+		}
 		// Get the screen's size.
 		DisplayMetrics metrics = new DisplayMetrics();
 		getWindowManager().getDefaultDisplay().getMetrics(metrics);
@@ -74,14 +79,14 @@ public class BoardDetailActivity extends Activity {
 			permList.setAdapter(boardDetailAdapter);
 		}
 
-		back = (Button) findViewById(R.id.btBack);
-
-		back.setOnClickListener(new View.OnClickListener() {
-
-			public void onClick(View v) {
-				ProfileActivityGroup.group.back();
-			}
-		});
+//		thien back = (Button) findViewById(R.id.btBack);
+//
+//		back.setOnClickListener(new View.OnClickListener() {
+//
+//			public void onClick(View v) {
+//				ProfileActivityGroup.group.back();
+//			}
+//		});
 	}
 
 	/**

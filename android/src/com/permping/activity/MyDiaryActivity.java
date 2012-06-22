@@ -506,10 +506,10 @@ public class MyDiaryActivity extends Activity implements View.OnClickListener , 
 					transporter.setPerms(perms);
 					
 					// Go to Perm detail screen
-					Intent i = new Intent(view.getContext(), BoardDetailActivity.class);
-					i.putExtra(Constants.TRANSPORTER, transporter);
-					startActivity(i);
 
+		            Intent myIntent = new Intent(MyDiaryActivity.this, BoardDetailActivity.class);
+					View boardListView = MyDiaryActivityGroup.group.getLocalActivityManager() .startActivity("detail", myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
+					MyDiaryActivityGroup.group.replaceView(boardListView);
 				}
 			} catch (ParseException e) {
 				e.printStackTrace();
