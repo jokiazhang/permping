@@ -139,12 +139,8 @@ public class PermpingMain extends TabActivity  {
 		        	ret = false;
 		        } else {
 		        	// Go to login screen
+		        	gotoDiaryTab(null);
 		        	showLogin();
-		        	
-//					Intent i = new Intent(getApplicationContext(), LoginPermActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//					getApplicationContext().startActivity(i);	
-		            
-
 					ret = true;
 		        }
 			}
@@ -190,6 +186,12 @@ public class PermpingMain extends TabActivity  {
 	public static void gotoDiaryTab(String UID) {
 		// TODO Auto-generated method stub
 		tabHost.setCurrentTab(3);
+	}
+	public static void gotoTab(int tab, Object data){
+		tabHost.setCurrentTab(tab);
+	}
+	public static int getCurrentTab(){
+		return tabHost.getCurrentTab(); 
 	}
 	public void on_success() {
 		// TODO Auto-generated method stub

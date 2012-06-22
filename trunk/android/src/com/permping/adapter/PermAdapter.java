@@ -39,7 +39,6 @@ import com.permping.R;
 import com.permping.activity.FollowerActivityGroup;
 import com.permping.activity.GoogleMapActivity;
 import com.permping.activity.JoinPermActivity;
-import com.permping.activity.LoginPermActivity;
 import com.permping.activity.NewPermActivity;
 import com.permping.activity.PrepareRequestTokenActivity;
 import com.permping.controller.AuthorizeController;
@@ -147,10 +146,7 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 					editor.putString(Constants.LOGIN_TYPE,
 							Constants.PERMPING_LOGIN);
 					editor.commit();
-					Intent i = new Intent(v.getContext(),
-							LoginPermActivity.class)
-							.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-					v.getContext().startActivity(i);
+					PermpingMain.showLogin();
 				}
 			});
 
@@ -164,7 +160,7 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 				}
 			});
 			return view;
-		} else if(items != null && !items.isEmpty()){			
+		} else if(items != null && !items.isEmpty() && position < items.size()){			
 			final Perm perm = items.get(position);
 			String viewId = perm.getId();
 			convertView = viewList.get(viewId);
@@ -381,6 +377,14 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 	
 							ImageView cma = (ImageView) cm
 									.findViewById(R.id.commentAvatar);
+							cma.setOnClickListener(new OnClickListener() {
+								
+								@Override
+								public void onClick(View v) {
+									// TODO Auto-generated method stub
+									
+								}
+							});
 							UrlImageViewHelper.setUrlDrawable(cma, pcm.getAuthor()
 									.getAvatar().getUrl());
 	
@@ -729,5 +733,6 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 		TextView permStat;
 		LinearLayout comments;
 	}*/
+
 }
 

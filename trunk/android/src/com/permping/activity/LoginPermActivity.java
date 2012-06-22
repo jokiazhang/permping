@@ -28,7 +28,6 @@ import com.permping.R;
 import com.permping.controller.AuthorizeController;
 import com.permping.interfaces.Login_delegate;
 import com.permping.utils.Constants;
-import com.permping.utils.PermUtils;
 import com.permping.utils.facebook.FacebookConnector;
 import com.permping.utils.facebook.SessionEvents;
 import com.permping.utils.facebook.SessionEvents.AuthListener;
@@ -178,6 +177,14 @@ public void on_success() {
 	FollowerActivity.isLogin = true;
 	hideDialog();
 	PermpingMain.back();
+	sendBroadcast("", "");
+}
+private void sendBroadcast(String issueId, String storyId) {
+    Intent new_intent = new Intent();
+    new_intent.putExtra("issueId", issueId);
+    new_intent.putExtra("storyId", storyId);
+    new_intent.setAction(FollowerActivity.DOWNLOAD_COMPLETED);
+    sendBroadcast(new_intent);
 }
 @Override
 public void on_error() {

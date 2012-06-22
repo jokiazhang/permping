@@ -5,8 +5,8 @@
     android:layout_height="48dip"
     android:background="@drawable/calendar_button_selector"
     android:orientation="vertical"
-    android:paddingLeft="2dip" 
-    android:paddingTop="4dip">
+    android:paddingLeft="5dip" 
+    android:paddingTop="2dip">
 
 
 
