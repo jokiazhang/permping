@@ -8,7 +8,14 @@
     <include
         android:layout_width="fill_parent"
         layout="@layout/title_bar" />
-
+	<Button 
+	    android:id="@+id/btnAllCategory"
+	    android:layout_width="match_parent"
+        android:layout_height="40dip"
+        android:background="@drawable/explorer_item_bg_alone"
+        android:text="@string/addnew"
+        android:layout_margin="15dip"
+	    />
     <ListView
         android:id="@+id/categories"
         android:layout_width="match_parent"

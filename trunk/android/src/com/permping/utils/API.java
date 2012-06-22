@@ -38,4 +38,6 @@ public class API {
 	public static final String likeURL = "http://newpermping.appo.vn/services/permservice/like";
 	public static final String getPermsByDate = "http://newpermping.appo.vn/services/permservice/getpermwithdate/"; // Add the date as yyyy-dd-mm
 	public static final String logoutURL = "http://newpermping.appo.vn/services/userservice/logout/";
+	public static final String getNewPerm = "http://newpermping.appo.vn/services/permservice/getnewperm";
+	
 }

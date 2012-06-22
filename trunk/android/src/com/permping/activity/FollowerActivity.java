@@ -81,6 +81,8 @@ public class FollowerActivity extends Activity {
 		}else if(PermpingMain.getCurrentTab() == 0){
 			// Get the screen's size.
 			exeFollowerActivity();
+		}else if(PermpingMain.getCurrentTab() == 1){
+			exeFollowerActivity();
 		}
 	}
 
@@ -102,7 +104,10 @@ public class FollowerActivity extends Activity {
 
 		User user = PermUtils.isAuthenticated(getApplicationContext());
 		Bundle extras = getIntent().getExtras();
-		if (extras != null) {
+		if(extras != null && extras.containsKey("allcategory")){
+			this.url = API.getNewPerm;
+			this.header = false;
+		}else if (extras != null) {
 			this.url = (String) extras.get("categoryURL");
 			this.header = false;
 		} else if (user != null) {
