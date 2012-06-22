@@ -70,8 +70,9 @@ public class LoginPermActivity extends Activity implements Login_delegate {
         // Login button
         login.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				dialog = ProgressDialog.show(LoginPermActivity.this, "Progressing.", "Please wait...",
-						true);
+//				dialog = ProgressDialog.show(LoginPermActivity.this, "Progressing.", "Please wait...",
+//						true)
+				showDialog("Progress", "Please wait");
 				List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(8);
 				nameValuePairs.add(new BasicNameValuePair("type", prefs.getString(Constants.LOGIN_TYPE, "")));
 				nameValuePairs.add(new BasicNameValuePair("oauth_token", ""));
@@ -80,7 +81,8 @@ public class LoginPermActivity extends Activity implements Login_delegate {
 				AuthorizeController authorizeController = new AuthorizeController(LoginPermActivity.this);
 				authorizeController.authorize(v.getContext(), nameValuePairs);
 
-			}			
+			}
+		
 		});
         
         // 
@@ -157,13 +159,25 @@ public class LoginPermActivity extends Activity implements Login_delegate {
 			}
 		});
 	}
+private void showDialog(String title, String message) {
+	// TODO Auto-generated method stub
+	dialog = new ProgressDialog(LoginPermActivity.this);
+	dialog.setTitle(title);
+	dialog.setMessage(message);
+}	
+private void hideDialog(){
+	if(dialog != null){
+		if( dialog.isShowing()){
+			dialog.dismiss();
+		}
+	}
+}
 @Override
 public void on_success() {
 	// TODO Auto-generated method stub
 	FollowerActivity.isLogin = true;
-	if(dialog != null && dialog.isShowing())
-		dialog.dismiss();
-	finish();
+	hideDialog();
+	PermpingMain.back();
 }
 @Override
 public void on_error() {
