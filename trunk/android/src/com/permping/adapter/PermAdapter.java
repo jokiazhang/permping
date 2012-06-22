@@ -425,6 +425,7 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 					}
 					//return convertView;
 					viewList.put(perm.getId(), view);
+					Log.d("aaa", "================"+view);
 					return view;
 				}
 			}
@@ -434,6 +435,7 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 			
 		} catch (Exception e) {
 			// TODO: handle exception
+			Log.d("aaa", "=========asdfsfsd======="+e.toString());
 			return null;
 		}
 	}
