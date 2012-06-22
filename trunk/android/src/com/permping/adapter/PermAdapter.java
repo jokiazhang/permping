@@ -371,17 +371,17 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 								.findViewById(R.id.comments);
 						for (int i = 0; i < perm.getComments().size(); i++) {
 							View cm = inflater.inflate(R.layout.comment_item, null);
-							Comment pcm = perm.getComments().get(i);
+							final Comment pcm = perm.getComments().get(i);
 							if (pcm != null && pcm.getAuthor() != null) {
 		
 								ImageView cma = (ImageView) cm
 										.findViewById(R.id.commentAvatar);
-								cma.setOnClickListener(new OnClickListener() {
+								cma.setOnClickListener(new View.OnClickListener() {
 									
 									@Override
 									public void onClick(View v) {
 										// TODO Auto-generated method stub
-										
+										PermpingMain.gotoTab(4, pcm);
 									}
 								});
 								UrlImageViewHelper.setUrlDrawable(cma, pcm.getAuthor()
