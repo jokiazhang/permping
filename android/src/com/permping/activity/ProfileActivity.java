@@ -9,6 +9,7 @@ import com.permping.R;
 import com.permping.adapter.BoardAdapter;
 import com.permping.controller.BoardController;
 import com.permping.model.Category;
+import com.permping.model.Comment;
 import com.permping.model.Perm;
 import com.permping.model.PermBoard;
 import com.permping.model.PermImage;
@@ -21,7 +22,9 @@ import com.permping.utils.UrlImageViewHelper;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -40,7 +43,8 @@ public class ProfileActivity extends Activity {
 	TextView friends;
 	TextView followings;
 	Button account;
-	
+	public static Comment commentData = null;
+	public static boolean isUserProfile = true;
 	//private int selectedBoardId = -1;
 	
     public void onCreate(Bundle savedInstanceState) {
@@ -55,59 +59,77 @@ public class ProfileActivity extends Activity {
         
        
     }
-    
-    
-    
     public void onResume(){
     	super.onResume();
     	
     	 /** Load the information from Application (user info) when the page is loaded. */
-        User user = PermUtils.isAuthenticated(getApplicationContext());
-        if (user != null) {
-        	// The author name
-        	String name = user.getName();
-            authorName.setText(name);
-            
-            // The author avatar
-        	PermImage avatar = user.getAvatar();
-            UrlImageViewHelper.setUrlDrawable(authorAvatar, avatar.getUrl());
-            
-            // The number of friends
-            friends.setText(String.valueOf(user.getFriends()) + " followers ");
-            
-            // The number of followings
-            followings.setText(String.valueOf(user.getFollowings() + " followings"));
-            
-            // Build the list of user's boards
-            ListView userBoards = (ListView) findViewById(R.id.userBoards);
-            ArrayList<PermBoard> boards = (ArrayList<PermBoard>) user.getBoards();
-            BoardAdapter boardAdapter = new BoardAdapter(this,R.layout.board_item, boards);
-            userBoards.setAdapter(boardAdapter);
-            userBoards.setOnItemClickListener(new BoardClickListener());
-            
-            // Account button process
-            account.setOnClickListener(new View.OnClickListener() {
-				
-				public void onClick(View v) {
-					// Go to the Create Board screen.
-					Intent i = new Intent(v.getContext(), AccountActivity.class);
-					View view = ProfileActivityGroup.group.getLocalActivityManager().startActivity("AccountActivity", i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
-					ProfileActivityGroup.group.replaceView(view);
-				}
-			});
-            
-        } else {
-//        	Intent i = new Intent(getApplicationContext(), LoginPermActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//			getApplicationContext().startActivity(i);
-        	PermpingMain.showLogin();
-        }        
+    	execGetUserProfile();
     }
-    
-    
-    
-    
-    
-    
+    public void execGetUserProfile(){
+    	Log.d("===", commentData.getId()+"========<<<<<<<========="+isUserProfile);
+    	if(isUserProfile){
+    		exeGet();
+    	}else{
+//    		new getUserProfile().execute(commentData.getId());
+    	}
+    }
+    class getUserProfile extends AsyncTask<String, String, String>{
+    	
+		@Override
+		protected String doInBackground(String... params) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+		protected void onPostExecute(String result) {
+			
+		}
+    }
+    public void exeGet(){
+    	try {
+    	    User user = PermUtils.isAuthenticated(getApplicationContext());
+            if (user != null) {
+            	// The author name
+            	String name = user.getName();
+                authorName.setText(name);
+                
+                // The author avatar
+            	PermImage avatar = user.getAvatar();
+                UrlImageViewHelper.setUrlDrawable(authorAvatar, avatar.getUrl());
+                
+                // The number of friends
+                friends.setText(String.valueOf(user.getFriends()) + " followers ");
+                
+                // The number of followings
+                followings.setText(String.valueOf(user.getFollowings() + " followings"));
+                
+                // Build the list of user's boards
+                ListView userBoards = (ListView) findViewById(R.id.userBoards);
+                ArrayList<PermBoard> boards = (ArrayList<PermBoard>) user.getBoards();
+                BoardAdapter boardAdapter = new BoardAdapter(ProfileActivity.this,R.layout.board_item, boards);
+                userBoards.setAdapter(boardAdapter);
+                userBoards.setOnItemClickListener(new BoardClickListener());
+                
+                // Account button process
+                account.setOnClickListener(new View.OnClickListener() {
+    				
+    				public void onClick(View v) {
+    					// Go to the Create Board screen.
+    					Intent i = new Intent(v.getContext(), AccountActivity.class);
+    					View view = ProfileActivityGroup.group.getLocalActivityManager().startActivity("AccountActivity", i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
+    					ProfileActivityGroup.group.replaceView(view);
+    				}
+    			});
+                
+            } else {
+            	PermpingMain.showLogin();
+            }        
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+    }
+
+  
     private class BoardClickListener implements OnItemClickListener {
 
 		public void onItemClick(AdapterView<?> parent, View view, int pos,

@@ -17,7 +17,9 @@ import com.permping.activity.ImageActivityGroup;
 import com.permping.activity.LoginPermActivity;
 import com.permping.activity.MyDiaryActivity;
 import com.permping.activity.MyDiaryActivityGroup;
+import com.permping.activity.ProfileActivity;
 import com.permping.activity.ProfileActivityGroup;
+import com.permping.model.Comment;
 import com.permping.model.User;
 import com.permping.utils.PermUtils;
 
@@ -189,6 +191,12 @@ public class PermpingMain extends TabActivity  {
 	}
 	public static void gotoTab(int tab, Object data){
 		tabHost.setCurrentTab(tab);
+		if(tab == 4){
+			ProfileActivity.commentData = ( Comment)data;
+			ProfileActivity.isUserProfile = false;
+			ProfileActivity profileActivity = new ProfileActivity();
+			profileActivity.execGetUserProfile();
+		}
 	}
 	public static int getCurrentTab(){
 		return tabHost.getCurrentTab(); 
