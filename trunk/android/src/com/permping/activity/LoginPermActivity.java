@@ -12,6 +12,7 @@ import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -48,6 +49,7 @@ public class LoginPermActivity extends Activity implements Login_delegate {
 	private PermpingMain login_delegate;
 	SharedPreferences prefs;
 	private FacebookConnector facebookConnector;
+	ProgressDialog dialog;
 //	public LoginPermActivity(Login_delegate loginDelegate){
 //		login_delegate = loginDelegate;
 //	}
@@ -68,6 +70,8 @@ public class LoginPermActivity extends Activity implements Login_delegate {
         // Login button
         login.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
+				dialog = ProgressDialog.show(LoginPermActivity.this, "Progressing.", "Please wait...",
+						true);
 				List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(8);
 				nameValuePairs.add(new BasicNameValuePair("type", prefs.getString(Constants.LOGIN_TYPE, "")));
 				nameValuePairs.add(new BasicNameValuePair("oauth_token", ""));
@@ -75,17 +79,7 @@ public class LoginPermActivity extends Activity implements Login_delegate {
 				nameValuePairs.add(new BasicNameValuePair("password", password.getText().toString()));
 				AuthorizeController authorizeController = new AuthorizeController(LoginPermActivity.this);
 				authorizeController.authorize(v.getContext(), nameValuePairs);
-//				if (existed) {
-//					// Forward back to Following tab
-////					PermUtils.clearViewHistory();
-//					FollowerActivity.isLogin = true;
-//					finish();
-//
-//				} else {
-//					Toast toast = Toast.makeText(getApplicationContext(), "Authentication failed!. Please try again!", Toast.LENGTH_LONG);
-//		        	toast.setGravity(Gravity.TOP | Gravity.CENTER, 0, 300);
-//		        	toast.show();
-//				}
+
 			}			
 		});
         
@@ -167,11 +161,15 @@ public class LoginPermActivity extends Activity implements Login_delegate {
 public void on_success() {
 	// TODO Auto-generated method stub
 	FollowerActivity.isLogin = true;
+	if(dialog != null && dialog.isShowing())
+		dialog.dismiss();
 	finish();
 }
 @Override
 public void on_error() {
 	// TODO Auto-generated method stub
+	if(dialog != null && dialog.isShowing())
+		dialog.dismiss();
 	Toast toast = Toast.makeText(getApplicationContext(), "Authentication failed!. Please try again!", Toast.LENGTH_LONG);
 	toast.setGravity(Gravity.TOP | Gravity.CENTER, 0, 300);
 	toast.show();

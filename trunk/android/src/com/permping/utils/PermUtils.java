@@ -320,10 +320,9 @@ public class PermUtils {
 	// Login facebook get token
 	public String integateLoginFacebook(final Activity activity, final Handler handleFbLogin) {
 		final SharedPreferences prefs;
-	    final String APP_ID = "164668790213609";
 	    Facebook mFacebook;
 	    String token = null;
-		mFacebook = new Facebook(APP_ID);
+		mFacebook = new Facebook(Constants.FACEBOOK_APP_ID);
 		mFacebook.authorize(activity, new String[] { "email", "status_update",
 				"user_birthday" }, new DialogListener() {
 			@Override
@@ -384,5 +383,20 @@ public class PermUtils {
 			return null;
 		}
 		return new AccessToken(key, secret);
+	}
+	public boolean logOutFacebook(Activity activity){
+		String result = "";
+		try {
+			Facebook mFacebook = new Facebook(Constants.FACEBOOK_APP_ID);
+			result = mFacebook.logout(activity.getApplicationContext());
+			if(result.equals("true"))
+				return true;
+			else 
+				return false;
+		} catch (Exception e) {
+			// TODO: handle exception
+			return false;
+		}
+		
 	}
 }
