@@ -17,7 +17,7 @@
                     android:id="@+id/categoryName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Login and start Permping"
+                    android:text="@string/login_text"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="#000000" />
 	     
@@ -71,7 +71,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:background="#00000000"
-        android:hint="@string/hint_email"
+        android:hint="@string/email_address"
         android:imeOptions="actionNext"
         android:singleLine="true"/>	</LinearLayout>
 	
@@ -89,10 +89,9 @@
         android:id="@+id/permPassword"
         android:layout_width="315dp"
         android:layout_height="wrap_content"
-        android:ems="10"
         android:background="#00000000"
         android:inputType="textPassword" 
-        android:hint="@string/hint_password"
+        android:hint="@string/password"
         android:imeOptions="actionDone"
 		android:singleLine="true"
 	/>
@@ -117,8 +116,9 @@
             android:layout_height="40dp"
             android:text="@string/bt_login"
             android:layout_gravity="center"
-        android:textColor="#FFFFFF"
-            android:background="@drawable/button_bg" android:gravity="center"/>
+        	android:textColor="#000000"
+        	android:textStyle="bold"
+            android:background="@drawable/button_bg_new" android:gravity="center"/>
 
         <!-- <Button
             android:id="@+id/cancelPerm"

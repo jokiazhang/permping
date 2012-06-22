@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Permping</string>
-    <string name="bt_join">Join</string>
-    <string name="bt_login">Login</string>
+    <string name="bt_join">회원 등록</string>
+    <string name="bt_login">로그인</string>
+    <string name="bt_unlike">취소</string>
     <string name="bt_facebook">Login with Facebook</string>
     <string name="bt_twitter">Login with Twitter</string>
     <string name="bt_join_permping">Join Permping</string>
@@ -12,7 +13,6 @@
     <string name="bt_cancel">Cancel</string>
     <string name="screen_login">Permping.com/Login</string>
     <string name="acc_name">Name</string>
-    <string name="required">Required</string>
     <string name="acc_email">Email</string>
     <string name="acc_password">Password</string>
     <string name="acc_confirm_password">Confirm Password</string>
@@ -27,13 +27,19 @@
     <string name="bt_create_board">Create Board</string>
     <string name="logout">Logout</string>
     <string name="cancel">Cancel</string>
-    <string name="bt_reperm">Reperm</string>
-    <string name="bt_like">Like</string>
-    <string name="bt_comment">Comment</string>
+    <string name="bt_reperm">펌하기</string>
+    <string name="bt_like">좋아요</string>
+    <string name="bt_comment">댓글</string>
     <string name="ok">OK</string>
     <string name="title_reperm">RePerm</string>
     <string name="image_description">Description of Image</string>
     <string name="comment_title">Comment</string>
     <string name="addnew">All category</string>
+    
+    <string name="login_text">펌핑 이미지 SNS 로그인 하기</string>
+    <string name="email_address">이메일</string>
+    <string name="password">비밀번호</string>
+    <string name="required">입력하세요</string>
+    <string name="login">로그인</string>
     
 </resources>
