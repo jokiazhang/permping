@@ -43,6 +43,7 @@
                 android:layout_marginRight="20dp"
                 android:textColor="#FFFFFF" />
         </TableRow>
+
     </TableLayout>
 
 </LinearLayout>

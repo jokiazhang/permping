@@ -190,13 +190,12 @@ public class PermpingMain extends TabActivity  {
 		tabHost.setCurrentTab(3);
 	}
 	public static void gotoTab(int tab, Object data){
-		tabHost.setCurrentTab(tab);
+		
 		if(tab == 4){
 			ProfileActivity.commentData = ( Comment)data;
 			ProfileActivity.isUserProfile = false;
-			ProfileActivity profileActivity = new ProfileActivity();
-			profileActivity.execGetUserProfile();
 		}
+		tabHost.setCurrentTab(tab);
 	}
 	public static int getCurrentTab(){
 		return tabHost.getCurrentTab(); 
