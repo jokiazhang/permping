@@ -101,6 +101,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    // Bug black corner on iOS 4
+    permTableview.backgroundColor = [UIColor clearColor];
+    
+    
     self.loadMoreSpinner = [[[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge] autorelease];
     self.loadMoreSpinner.backgroundColor = [UIColor grayColor];
     self.loadMoreSpinner.tag = kSpinnerCellTag;
@@ -134,6 +138,7 @@
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
 	if ([loadMoreSpinner superview]) {
+        [loadMoreSpinner stopAnimating];
         [loadMoreSpinner removeFromSuperview];
     }
     
@@ -150,6 +155,7 @@
 
 - (void)resetData {
     if ([loadMoreSpinner superview]) {
+        [loadMoreSpinner stopAnimating];
         [loadMoreSpinner removeFromSuperview];
     }
     
@@ -161,6 +167,8 @@
     
     self.selectedPerms = nil;
     self.selectedPerms = [[[NSMutableArray alloc] init] autorelease];
+    
+    [self.permTableview reloadData];
 }
 
 - (void)finishLoadData {

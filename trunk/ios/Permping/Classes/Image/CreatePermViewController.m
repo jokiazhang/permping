@@ -65,6 +65,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    // Bug black corner on iOS 4
+    permTableView.backgroundColor = [UIColor clearColor];
+    
     self.navigationItem.leftBarButtonItem = [Utils barButtonnItemWithTitle:NSLocalizedString(@"globals.cancel", @"Cancel") target:self selector:@selector(dismiss:)];
     self.navigationItem.rightBarButtonItem = [Utils barButtonnItemWithTitle:NSLocalizedString(@"globals.ok", @"OK") target:self selector:@selector(createPerm)];
     self.selectedBoard =  [[[[AppData getInstance] user] boards] objectAtIndex:0];
