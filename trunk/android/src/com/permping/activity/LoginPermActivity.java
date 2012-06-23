@@ -189,7 +189,7 @@ private void showLoadingDialog(String title, String msg) {
 	loadingDialog = new ProgressDialog(getParent());
 	loadingDialog.setMessage(msg);
 	loadingDialog.setTitle(title);
-	loadingDialog.setCancelable(false);
+	loadingDialog.setCancelable(true);
 	loadingDialog.show();
 }
 
