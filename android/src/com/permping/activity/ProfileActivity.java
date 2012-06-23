@@ -135,6 +135,7 @@ public class ProfileActivity extends Activity {
     	super.onResume();
     	
     	 /** Load the information from Application (user info) when the page is loaded. */
+    	isUserProfile = true;
     	execGetUserProfile();
     }
     public void execGetUserProfile(){
@@ -495,7 +496,7 @@ public class ProfileActivity extends Activity {
 		loadingDialog = new ProgressDialog(getParent());
 		loadingDialog.setMessage(msg);
 		loadingDialog.setTitle(title);
-		loadingDialog.setCancelable(false);
+		loadingDialog.setCancelable(true );
 		this.loadingDialog.show();
 	}
 
