@@ -76,7 +76,6 @@ public class ProfileActivity extends Activity {
 	private TextView followings;
 	private Button btnAccount;
 	public User user;
-	private ProgressDialog dialog;
 	public static Comment commentData = null;
 	public static boolean isUserProfile = true;
 	public static int userfollowcount;
@@ -96,10 +95,7 @@ public class ProfileActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.profile_layout);
-		dialog = ProgressDialog.show(getParent(), "Loading",
-				"Please wait...", true);
-		dialog.setTitle("Loading");
-		dialog.setMessage("Please wait...");
+        showLoadingDialog("Loading", "Please wait...");
         authorAvatar = (ImageView) findViewById(R.id.authorAvatar);
         authorName = (TextView) findViewById(R.id.authorName);
         friends = (TextView) findViewById(R.id.friends);
@@ -135,7 +131,7 @@ public class ProfileActivity extends Activity {
     	super.onResume();
     	
     	 /** Load the information from Application (user info) when the page is loaded. */
-    	isUserProfile = true;
+
     	execGetUserProfile();
     }
     public void execGetUserProfile(){
@@ -151,8 +147,7 @@ public class ProfileActivity extends Activity {
     		if(commentData != null){
     			if(commentData.getAuthor() != null)
     				if(commentData.getAuthor().getId() != null){
-    		    		if(dialog != null)
-    		    			dialog.show();
+//    		    		showLoadingDialog("Loading", "Please wait");
     		    			new getUserProfile(API.getProfileURL+commentData.getAuthor().getId()).execute(null);
     					
     				}
@@ -267,17 +262,17 @@ public class ProfileActivity extends Activity {
 
 		@Override
 		protected void onPostExecute(ArrayList<PermBoard> boards) {
-			dismissLoadingDialog();
 			if(ProfileActivity.userfollowcount <= 0)
 				btnAccount.setText("Follow");
 			else
 				btnAccount.setText("UnFollow");
-			
-			if (dialog.isShowing()) {
-				dialog.dismiss();
-				ImageActivityGroup.group.back();
-				PermpingMain.showLogin();
+			if(loadingDialog != null)
+			if(loadingDialog.isShowing()){
+				dismissLoadingDialog();
+				PermpingMain.showLogin();				
 			}
+
+			
 			if(boards != null){
 				Log.d("tttttt","OOOOOOO=======>>>>>"+boards);
 	    		user = PermUtils.isAuthenticated(getApplicationContext());
