@@ -81,7 +81,7 @@
     commentToolBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, r.size.height, r.size.width, 44)];
     
     commentTextField = [[[UITextField alloc] initWithFrame:CGRectMake(12, 7, 245, 31)] autorelease];
-    commentTextField.backgroundColor = [UIColor whiteColor];
+    //commentTextField.backgroundColor = [UIColor whiteColor];
     commentTextField.borderStyle = UITextBorderStyleRoundedRect;
     commentTextField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     commentTextField.autocorrectionType = UITextAutocorrectionTypeNo;

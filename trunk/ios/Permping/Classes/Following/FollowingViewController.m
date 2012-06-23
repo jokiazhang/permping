@@ -49,10 +49,13 @@
     [joinButton setTitle:NSLocalizedString(@"globals.join", @"Join") forState:UIControlStateNormal];
     [loginButton setTitle:NSLocalizedString(@"globals.login", @"Login") forState:UIControlStateNormal];
     [useFacebookButton setBackgroundImage:[[UIImage imageNamed:@"btn-background.png"] stretchableImageWithLeftCapWidth:20 topCapHeight:30] forState:UIControlStateNormal];
+    [useFacebookButton setBackgroundImage:[[UIImage imageNamed:@"btn-background-pressed.png"] stretchableImageWithLeftCapWidth:20 topCapHeight:30] forState:UIControlStateHighlighted];
     
     [useTwitterButton setBackgroundImage:[[UIImage imageNamed:@"btn-background.png"] stretchableImageWithLeftCapWidth:20 topCapHeight:30] forState:UIControlStateNormal];
+    [useTwitterButton setBackgroundImage:[[UIImage imageNamed:@"btn-background-pressed.png"] stretchableImageWithLeftCapWidth:20 topCapHeight:30] forState:UIControlStateHighlighted];
     
     [joinPermpingButton setBackgroundImage:[[UIImage imageNamed:@"btn-background.png"] stretchableImageWithLeftCapWidth:20 topCapHeight:30] forState:UIControlStateNormal];
+    [joinPermpingButton setBackgroundImage:[[UIImage imageNamed:@"btn-background-pressed.png"] stretchableImageWithLeftCapWidth:20 topCapHeight:30] forState:UIControlStateHighlighted];
 
     [joinViewContainer.layer setCornerRadius:10.0f];
     [joinViewContainer.layer setBorderColor:[UIColor lightGrayColor].CGColor];
