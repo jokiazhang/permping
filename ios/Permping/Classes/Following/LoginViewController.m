@@ -66,6 +66,7 @@
     formTableView.backgroundColor = [UIColor clearColor];
     
     [loginButton setBackgroundImage:[[UIImage imageNamed:@"btn-background"] stretchableImageWithLeftCapWidth:20 topCapHeight:30] forState:UIControlStateNormal];
+    [loginButton setBackgroundImage:[[UIImage imageNamed:@"btn-background-pressed"] stretchableImageWithLeftCapWidth:20 topCapHeight:30] forState:UIControlStateHighlighted];
     [loginButton setTitle:NSLocalizedString(@"globals.login", @"Login") forState:UIControlStateNormal];
     headerLabel.text = NSLocalizedString(@"LoginHeader", nil);
     

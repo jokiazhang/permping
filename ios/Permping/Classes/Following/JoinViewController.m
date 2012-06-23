@@ -60,6 +60,7 @@
     headerLabel.text = NSLocalizedString(@"JoinViewHeader", nil);
     
     [createAccountButton setBackgroundImage:[[UIImage imageNamed:@"btn-background"] stretchableImageWithLeftCapWidth:20 topCapHeight:30] forState:UIControlStateNormal];
+    [createAccountButton setBackgroundImage:[[UIImage imageNamed:@"btn-background-pressed"] stretchableImageWithLeftCapWidth:20 topCapHeight:30] forState:UIControlStateHighlighted];
     [createAccountButton setTitle:NSLocalizedString(@"JoinViewCreateAccount", nil) forState:UIControlStateNormal];
     
     self.fieldsTitle = [NSArray arrayWithObjects:

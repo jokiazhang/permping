@@ -126,6 +126,7 @@
 		04C7AE83156939DC004ED1B0 /* CreatePermViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C7AE81156939DC004ED1B0 /* CreatePermViewController.m */; };
 		04C7AE84156939DC004ED1B0 /* CreatePermViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04C7AE82156939DC004ED1B0 /* CreatePermViewController.xib */; };
 		04C7C35B15615572004DB98D /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 04C7C35A15615572004DB98D /* libxml2.dylib */; };
+		04D1129615959F1600607A02 /* btn-background-pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 04D1129515959F1600607A02 /* btn-background-pressed.png */; };
 		04D4C0FE157D68A3005C48E5 /* AllPermCommentResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D4C0FD157D68A3005C48E5 /* AllPermCommentResponse.m */; };
 		04D4C102157D68F5005C48E5 /* AllCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D4C100157D68F5005C48E5 /* AllCommentViewController.m */; };
 		04D4C103157D68F5005C48E5 /* AllCommentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04D4C101157D68F5005C48E5 /* AllCommentViewController.xib */; };
@@ -414,6 +415,7 @@
 		04C7AE82156939DC004ED1B0 /* CreatePermViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CreatePermViewController.xib; sourceTree = "<group>"; };
 		04C7C35A15615572004DB98D /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		04C7C35C15615764004DB98D /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
+		04D1129515959F1600607A02 /* btn-background-pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "btn-background-pressed.png"; path = "Permping/Resources/Images/btn-background-pressed.png"; sourceTree = SOURCE_ROOT; };
 		04D4C0FC157D68A3005C48E5 /* AllPermCommentResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AllPermCommentResponse.h; sourceTree = "<group>"; };
 		04D4C0FD157D68A3005C48E5 /* AllPermCommentResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AllPermCommentResponse.m; sourceTree = "<group>"; };
 		04D4C0FF157D68F5005C48E5 /* AllCommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AllCommentViewController.h; sourceTree = "<group>"; };
@@ -1034,6 +1036,7 @@
 				040B3F52158FA6D4003975D9 /* btn-imgtab-bkg.png */,
 				0411A45F156D7D9E005EBF18 /* bar-item-btn.png */,
 				0411A460156D7D9E005EBF18 /* btn-background.png */,
+				04D1129515959F1600607A02 /* btn-background-pressed.png */,
 				0411A461156D7D9E005EBF18 /* close.png */,
 				0411A462156D7D9E005EBF18 /* default-background.png */,
 				0411A463156D7D9E005EBF18 /* default-background@2x.png */,
@@ -1479,6 +1482,7 @@
 				040B3F53158FA6D4003975D9 /* btn-imgtab-bkg.png in Resources */,
 				04B3652A15949E770071FF54 /* PermUrlViewController.xib in Resources */,
 				041848B01594860400277730 /* MapKitViewController.xib in Resources */,
+				04D1129615959F1600607A02 /* btn-background-pressed.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
