@@ -29,6 +29,7 @@
 @property (nonatomic, retain) id                            dataLoader;
 @property (nonatomic, retain) id<ThreadManagementProtocol>  dataLoaderThread;
 @property (nonatomic, retain) NSMutableArray                *thumbnailDownloaders;
+@property (nonatomic, retain) UIView                        *spinnerModalBackground;
 @property (nonatomic, retain) UIView                        *spinnerBackground;
 @property (nonatomic, retain) UIActivityIndicatorView       *spinner;
 

@@ -47,6 +47,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    // Bug black corner on iOS 4
+    boardTableView.backgroundColor = [UIColor clearColor];
     
     if (self.userId) {
         self.navigationItem.leftBarButtonItem = [Utils barButtonnItemWithTitle:NSLocalizedString(@"globals.back", @"Back") target:self selector:@selector(dismiss:)];

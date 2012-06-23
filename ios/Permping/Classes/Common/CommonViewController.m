@@ -19,7 +19,7 @@
 #define THUMBNAIL_DOWNLOAD_ALERT_COUNT      1
 
 @implementation CommonViewController
-@synthesize spinner, spinnerBackground;
+@synthesize spinner, spinnerBackground, spinnerModalBackground;
 @synthesize dataLoader, dataLoaderThread;
 @synthesize thumbnailDownloaders;
 
@@ -84,6 +84,12 @@
     if (startedActivityIndicator) {
         return;
     }
+    // Tuan add: Ensures that UI elements behind the loadingview are disabled.
+    UIView *backgroundView = [[UIView alloc] initWithFrame:self.view.bounds];
+    backgroundView.backgroundColor = [UIColor clearColor];
+    self.spinnerModalBackground = backgroundView;
+    [backgroundView release];
+    
     UIActivityIndicatorView *spinView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
     spinView.hidesWhenStopped = YES;
     CGRect  thisFrame = self.view.frame;
@@ -101,6 +107,7 @@
     
     spinView.frame = CGRectMake((thisFrame.size.width - SPINNER_VIEW_WIDTH)/2, (thisFrame.size.height - SPINNER_VIEW_HEIGHT)/2 - 80, SPINNER_VIEW_WIDTH, SPINNER_VIEW_HEIGHT);
     spinView.hidesWhenStopped = YES;
+    [self.view addSubview:spinnerModalBackground];
     [self.view addSubview:spinnerBackground];
     [self.view addSubview:spinView];
     [spinView startAnimating];
@@ -114,6 +121,12 @@
     if (startedActivityIndicator) {
         return;
     }
+    // Tuan add: Ensures that UI elements behind the loadingview are disabled.
+    UIView *backgroundView = [[UIView alloc] initWithFrame:self.view.bounds];
+    backgroundView.backgroundColor = [UIColor clearColor];
+    self.spinnerModalBackground = backgroundView;
+    [backgroundView release];
+    
     UIActivityIndicatorView *spinView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
     spinView.hidesWhenStopped = YES;
     CGRect  thisFrame = self.view.frame;
@@ -131,6 +144,7 @@
     
     spinView.frame = CGRectMake((thisFrame.size.width - SPINNER_VIEW_WIDTH)/2, yPos - SPINNER_VIEW_HEIGHT/2, SPINNER_VIEW_WIDTH, SPINNER_VIEW_HEIGHT);
     spinView.hidesWhenStopped = YES;
+    [self.view addSubview:spinnerModalBackground];
     [self.view addSubview:spinnerBackground];
     [self.view addSubview:spinView];
     [spinView startAnimating];
@@ -147,6 +161,8 @@
     [self.spinner stopAnimating];
     [self.spinner removeFromSuperview];
     self.spinner = nil;
+    [self.spinnerModalBackground removeFromSuperview];
+    self.spinnerModalBackground = nil;
 }
 
 - (id)getMyDataLoader

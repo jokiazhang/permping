@@ -44,6 +44,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    // Bug black corner on iOS 4
+    categoriesTableView.backgroundColor = [UIColor clearColor];
 }
 
 - (void)viewDidUnload
@@ -57,6 +59,7 @@
     [self startActivityIndicator];
     self.resultModel.arrResults = nil;
     self.resultModel = [[[Taglist_NDModel alloc] init] autorelease];
+    [categoriesTableView reloadData];
     self.dataLoaderThread = [[ThreadManager getInstance] dispatchToConcurrentBackgroundNormalPriorityQueueWithTarget:self selector:@selector(loadDataForMe:thread:) dataObject:[self getMyDataLoader]];
 }
 

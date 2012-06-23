@@ -48,6 +48,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    // Bug black corner on iOS 4
+    infoTableView.backgroundColor = [UIColor clearColor];
+    
     //[[NSNotificationCenter defaultCenter] addObserver:self
     //                                         selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self

@@ -44,6 +44,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    // Bug black corner on iOS 4
+    boardListTableView.backgroundColor = [UIColor clearColor];
+    
+    
     self.navigationItem.leftBarButtonItem = [Utils barButtonnItemWithTitle:NSLocalizedString(@"globals.back", @"Back") target:self selector:@selector(dismiss:)];
     if ([[AppData getInstance] didLogin]) {
         NSMutableArray * boards = [[[AppData getInstance] user] boards];
