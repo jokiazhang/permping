@@ -176,14 +176,14 @@ public final class UrlImageViewHelper {
             return;
         }
 
-        final UrlImageCache cache = UrlImageCache.getInstance();
-        Drawable d = cache.get(url);
-        if (d != null) {
-            //Log.i(LOGTAG, "Cache hit on: " + url);
-            if (imageView != null)
-                imageView.setImageDrawable(d);
-            return;
-        }
+//        final UrlImageCache cache = UrlImageCache.getInstance();
+//        Drawable d = cache.get(url);
+//        if (d != null) {
+//            //Log.i(LOGTAG, "Cache hit on: " + url);
+//            if (imageView != null)
+//                imageView.setImageDrawable(d);
+//            return;
+//        }
 
         final String filename = getFilenameForUrl(url);
 
@@ -301,7 +301,7 @@ public final class UrlImageViewHelper {
                 if (result == null)
                     result = defaultDrawable;
                 mPendingDownloads.remove(url);
-                cache.put(url, result);
+//                cache.put(url, result);
                 for (ImageView iv: downloads) {
                     // validate the url it is waiting for
                     String pendingUrl = mPendingViews.get(iv);
