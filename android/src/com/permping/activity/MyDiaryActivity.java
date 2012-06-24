@@ -43,6 +43,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -441,6 +442,7 @@ public class MyDiaryActivity extends Activity implements View.OnClickListener , 
 					num_events_per_day.setText(numEvents.toString());
 					RelativeLayout layout = (RelativeLayout)row.findViewById(R.id.layout);
 					layout.setBackgroundResource(R.drawable.date_bg_selected);
+					num_events_per_day.setGravity(Gravity.LEFT|Gravity.TOP);
 				}
 			}
 
@@ -591,6 +593,7 @@ public class MyDiaryActivity extends Activity implements View.OnClickListener , 
 		public showData( WebImageView thumb) {
 			// TODO Auto-generated constructor stub
 			this.thumb = thumb;
+			this.thumb.setVisibility(View.VISIBLE);
 		}
         @Override
         protected String doInBackground(String... msg) {
