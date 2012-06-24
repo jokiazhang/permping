@@ -51,7 +51,6 @@ public class LoginPermActivity extends Activity implements Login_delegate {
 	private PermpingMain login_delegate;
 	SharedPreferences prefs;
 	private FacebookConnector facebookConnector;
-	ProgressDialog dialog;
 //	public LoginPermActivity(Login_delegate loginDelegate){
 //		login_delegate = loginDelegate;
 //	}
@@ -179,8 +178,7 @@ private void sendBroadcast(String issueId, String storyId) {
 @Override
 public void on_error() {
 	// TODO Auto-generated method stub
-	if(dialog != null && dialog.isShowing())
-		dialog.dismiss();
+	dismissLoadingDialog();
 	Toast toast = Toast.makeText(getApplicationContext(), "Authentication failed!. Please try again!", Toast.LENGTH_LONG);
 	toast.setGravity(Gravity.TOP | Gravity.CENTER, 0, 300);
 	toast.show();

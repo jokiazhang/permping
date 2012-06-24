@@ -426,8 +426,22 @@ public class XMLParser implements HttpAccess {
 	 */
 	public Document parseResponse(String response) {
 
-		new ParseResponseTask().execute(response);
-		return doc;
+//		new ParseResponseTask().execute(response);
+		try {
+			DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory
+					.newInstance();
+			DocumentBuilder documentBuilder = documentBuilderFactory
+					.newDocumentBuilder();
+			InputSource is = new InputSource();
+			is.setCharacterStream(new StringReader(response));
+			doc = documentBuilder.parse(is);
+			return doc;
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			return null;
+		}
+		
 	}
 	class ParseResponseTask extends AsyncTask <String , String, Document >{
 		
