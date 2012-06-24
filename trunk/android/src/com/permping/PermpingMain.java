@@ -22,6 +22,7 @@ import com.permping.activity.ProfileActivityGroup;
 import com.permping.model.Comment;
 import com.permping.model.User;
 import com.permping.utils.PermUtils;
+import com.permping.view.ImageDetail;
 
 public class PermpingMain extends TabActivity  {
     /** Called when the activity is first created. */
@@ -194,8 +195,13 @@ public class PermpingMain extends TabActivity  {
 		if(tab == 4){
 			ProfileActivity.commentData = ( Comment)data;
 			ProfileActivity.isUserProfile = false;
+			tabHost.setCurrentTab(tab);
+		}else if(tab == 5){
+			Intent imageDetail = new Intent(context, ImageDetail.class);
+			imageDetail.putExtra("url", (String) data);
+			context.startActivity(imageDetail);
 		}
-		tabHost.setCurrentTab(tab);
+		
 	}
 	public static int getCurrentTab(){
 		return tabHost.getCurrentTab(); 
