@@ -14,6 +14,8 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.util.DisplayMetrics;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
@@ -29,7 +31,7 @@ import com.permping.model.User;
 import com.permping.utils.API;
 import com.permping.utils.PermUtils;
 
-public class FollowerActivity extends Activity {
+public class FollowerActivity extends FragmentActivity {
 
 	
 	public static final String DOWNLOAD_COMPLETED = "DOWNLOAD_COMPLETED";
@@ -41,8 +43,9 @@ public class FollowerActivity extends Activity {
 	public static int screenWidth;
 	public static int screenHeight;
 	public static boolean isLogin = false;
+	public static boolean isRefesh = true;
 	int nextItem = -1;
-
+//	FragmentManager t = ggetSupportFragmentManager();
 	private ProgressDialog dialog;
 	
 	PermAdapter permListAdapter;
@@ -63,7 +66,7 @@ public class FollowerActivity extends Activity {
 		setContentView(R.layout.followers_layout);
 		IntentFilter intentFilter = new IntentFilter(DOWNLOAD_COMPLETED);
 		registerReceiver(receiver, intentFilter);
-	
+		
 	}
 
 	@Override
@@ -78,11 +81,13 @@ public class FollowerActivity extends Activity {
 					PermpingMain.gotoDiaryTab(id);
 			}
 			isLogin = false;
-		}else if(PermpingMain.getCurrentTab() == 0){
+		}else if(PermpingMain.getCurrentTab() == 0 && isRefesh){
 			// Get the screen's size.
 			exeFollowerActivity();
 		}else if(PermpingMain.getCurrentTab() == 1){
 			exeFollowerActivity();
+		} else if(!isRefesh){
+			isRefesh = true;
 		}
 	}
 
@@ -124,7 +129,7 @@ public class FollowerActivity extends Activity {
 		User user = PermUtils.isAuthenticated(getApplicationContext());
 		if(permListMain != null && !permListMain.isEmpty()){
 			this.permListAdapter = new PermAdapter(FollowerActivityGroup.context,
-					R.layout.perm_item_1, permListMain, this, screenWidth, screenHeight, header, user);
+					getSupportFragmentManager(),R.layout.perm_item_1, permListMain, this, screenWidth, screenHeight, header, user);
 			permListView.setAdapter(permListAdapter);
 			permListView.setSelection(0);
 			

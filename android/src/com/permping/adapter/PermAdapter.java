@@ -19,6 +19,7 @@ import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -53,6 +54,7 @@ import com.permping.utils.UrlImageViewHelper;
 import com.permping.utils.facebook.FacebookConnector;
 import com.permping.utils.facebook.SessionEvents;
 import com.permping.utils.facebook.SessionEvents.AuthListener;
+import com.permping.view.ImageDetail;
 
 public class PermAdapter extends ArrayAdapter<Perm> {
 
@@ -78,7 +80,7 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 	private HashMap<String, View> viewList = new HashMap<String, View>();
 	public int count = 15;
 	
-
+	private FragmentManager fragmentManager;
 	private int nextItems = -1;
 /*	
 	PermAdapter(ArrayList<Perm> perms) {
@@ -101,11 +103,12 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 		prefs = PreferenceManager.getDefaultSharedPreferences(context);
 	}
 
-	public PermAdapter(Context context, int textViewResourceId,
+	public PermAdapter(Context context,FragmentManager fragmentManager, int textViewResourceId,
 			ArrayList<Perm> items, Activity activity, int screenWidth,
 			int screenHeight, Boolean header, User user) {
 		super(context, textViewResourceId, items);
 		this.context = context;
+		this.fragmentManager = fragmentManager;
 		this.activity = activity;
 		this.header = header;
 		this.items = items;
@@ -328,6 +331,19 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 								bn.setText(perm.getBoard().getName());
 		
 						ImageView imageView = (ImageView) view.findViewById(R.id.permImage);
+						imageView.setOnClickListener(new View.OnClickListener() {
+							
+							@Override
+							public void onClick(View arg0) {
+								// TODO Auto-generated method stub
+//								Intent imageDetail = new Intent(context, ImageDetail.class);
+//								imageDetail.putExtra("url", perm.getImage().getUrl());
+//								activity.startActivity(imageDetail);
+								PermpingMain.gotoTab(5, perm.getImage().getUrl());
+//								ImageDetail detailImage = new ImageDetail(perm.getImage().getUrl());
+//								if(fragmentManager != null)detailImage.show(fragmentManager, "sendEmailFrag");
+							}
+						});
 						//thien
 //						if(perm.getImage() != null){
 //							if(perm.getImage().getUrl() != null)
