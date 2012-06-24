@@ -25,7 +25,8 @@
             android:id="@+id/thumbnail1"
             android:layout_width="20dip"
             android:layout_height="20dip"
-            android:background="@android:color/transparent" />
+            android:background="@android:color/transparent" 
+            android:visibility="gone"/>
 
     </LinearLayout>
 
@@ -43,13 +44,15 @@
             android:id="@+id/thumbnail2"
             android:layout_width="20dip"
             android:layout_height="20dip"
-            android:background="@android:color/transparent" />
+            android:background="@android:color/transparent" 
+            android:visibility="gone"/>
 
         <com.custom.WebImageView
             android:id="@+id/thumbnail3"
             android:layout_width="20dip"
             android:layout_height="20dip"
-            android:background="@android:color/transparent" >
+            android:background="@android:color/transparent" 
+            android:visibility="gone">
         </com.custom.WebImageView>
     </LinearLayout>
     <Button
