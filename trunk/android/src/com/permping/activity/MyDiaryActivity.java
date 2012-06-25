@@ -209,7 +209,7 @@ public class MyDiaryActivity extends Activity implements View.OnClickListener , 
 
 	// ///////////////////////////////////////////////////////////////////////////////////////
 	// Inner Class
-	public class GridCellAdapter extends BaseAdapter implements OnClickListener {
+	public class GridCellAdapter extends BaseAdapter  {
 		private static final String tag = "GridCellAdapter";
 		private final Context _context;
 
@@ -425,7 +425,7 @@ public class MyDiaryActivity extends Activity implements View.OnClickListener , 
 
 			// Get a reference to the Day gridcell
 			gridcell = (Button) row.findViewById(R.id.calendar_day_gridcell);
-			gridcell.setOnClickListener(this);
+//			gridcell.setOnClickListener(this);
 
 			// ACCOUNT FOR SPACING
 
@@ -483,12 +483,19 @@ public class MyDiaryActivity extends Activity implements View.OnClickListener , 
 			thumbListById.put(String.valueOf(row.getId()), thumbList);
 			idList.add(String.valueOf(row.getId()));
 			serviceList.add(String.valueOf(row.getId()));
+			row.setOnClickListener(new View.OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					onClicked(v);
+				}
+			});
 			return row;
 		}
 
 
-		@Override
-		public void onClick(View view) {
+		public void onClicked(View view) {
 			String date_month_year = (String) view.getTag();
 //			selectedDayMonthYearButton.setText("Selected: " + date_month_year);
 

@@ -8,14 +8,16 @@ import org.w3c.dom.NodeList;
 
 import android.os.AsyncTask;
 
+import com.permping.interfaces.get_category_delegate;
 import com.permping.model.Category;
 import com.permping.utils.API;
 import com.permping.utils.XMLParser;
 
 public class CategoryController {
 	public static ArrayList<Category> categories = new ArrayList<Category>();
-	public CategoryController() {
-		
+	public  get_category_delegate categoryDelegate;
+	public CategoryController(get_category_delegate delegate) {
+		this.categoryDelegate = delegate;
 	}
 	
 	public ArrayList<Category> getCategoryList(){
@@ -23,9 +25,6 @@ public class CategoryController {
 
 		try {
 			new getCategoryTask().execute(null);
-			Thread.sleep(3000);
-			
-			
 		} catch (Exception e) {
 			// TODO: handle exception
 			return null;
@@ -54,16 +53,17 @@ public class CategoryController {
 					String a = categoryElement.getNodeName();
 					String b = a;
 				}
+				return null;
 			} catch (Exception e) {
 				// TODO: handle exception
+				return null;
 			}
-			return null;
 		}
-	    protected void onPostExecute(Document result) {
+	    protected void onPostExecute(String result) {
 	        // TODO: check this.exception 
 	        // TODO: do something with the feed
-	    	notifyAll();
-
+	    	categoryDelegate.onCompletedGetCategory(categories);
+	    	
 	    }
 	}
 }

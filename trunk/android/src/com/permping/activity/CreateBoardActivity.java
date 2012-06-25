@@ -16,6 +16,7 @@ import com.permping.adapter.CategorySpinnerAdapter;
 import com.permping.controller.AuthorizeController;
 import com.permping.controller.CategoryController;
 import com.permping.interfaces.Create_Board_delegate;
+import com.permping.interfaces.get_category_delegate;
 import com.permping.model.Category;
 import com.permping.model.User;
 import com.permping.utils.API;
@@ -44,7 +45,7 @@ import android.widget.AdapterView.OnItemSelectedListener;
  * @author Linh Nguyen
  *
  */
-public class CreateBoardActivity extends Activity implements Create_Board_delegate {
+public class CreateBoardActivity extends Activity implements Create_Board_delegate, get_category_delegate {
 
 	private Spinner mainCategory;
 	private EditText boardName;
@@ -66,12 +67,12 @@ public class CreateBoardActivity extends Activity implements Create_Board_delega
         setContentView(contentView);
 		if(state != null)
 			user = state.getUser();
-		CategoryController catController = new CategoryController();
+		CategoryController catController = new CategoryController(CreateBoardActivity.this);
 		final ArrayList<Category> categories = catController.getCategoryList();
 		
 		// Build the category spinner
 		mainCategory = (Spinner) findViewById(R.id.categorySpinner);
-		addItemsOnMainCategory(mainCategory, categories);
+//		addItemsOnMainCategory(mainCategory, categories);
 		mainCategory.setOnItemSelectedListener(new CategorySpinnerSelectedListener());		
 		
 		boardName = (EditText) findViewById(R.id.boardName);
@@ -181,6 +182,13 @@ public class CreateBoardActivity extends Activity implements Create_Board_delega
     	toast.show();
     	boardName.setText("");
     	boardDescription.setText("");
+	}
+
+
+	@Override
+	public void onCompletedGetCategory(ArrayList<Category> categories) {
+		// TODO Auto-generated method stub
+		addItemsOnMainCategory(mainCategory, categories);
 	}
 }
 
