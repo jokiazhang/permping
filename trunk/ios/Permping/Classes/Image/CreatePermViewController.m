@@ -308,9 +308,6 @@
             cell = [[[SwitchingTableCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:reuseIdentifier] autorelease];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             [cell.switching addTarget:self action:@selector(switchDidChangeValue:) forControlEvents:UIControlEventValueChanged];
-            if (target) {
-                cell.switching.enabled = NO;
-            }
         }
         cell.switching.tag = indexPath.row+1;
         if (row == 0) {
@@ -324,6 +321,9 @@
                 [cell.switching setOn:YES];
             }
         } */else {
+            if (target) {
+                cell.switching.enabled = NO;
+            }
             cell.textLabel.text = NSLocalizedString(@"KakaoTalk", nil);
             if ([[NSUserDefaults standardUserDefaults] boolForKey:@"ShareKakao"]) {
                 [cell.switching setOn:YES];
