@@ -80,6 +80,7 @@ public class ProfileActivity extends Activity {
 	public static boolean isUserProfile = true;
 	public static int userfollowcount;
 	public ProgressDialog loadingDialog;
+	public Context context;
 	//private int selectedBoardId = -1;
 	private BroadcastReceiver receiver = new BroadcastReceiver() {
 
@@ -103,6 +104,7 @@ public class ProfileActivity extends Activity {
         btnAccount = (Button) findViewById(R.id.btAccount);
 		IntentFilter intentFilter = new IntentFilter(FollowerActivity.DOWNLOAD_COMPLETED);
 		registerReceiver(receiver, intentFilter);
+		context = ProfileActivity.this;
 		btnAccount.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
@@ -111,13 +113,15 @@ public class ProfileActivity extends Activity {
 				String buttonType = btnAccount.getText().toString();
 				if(buttonType.equals("Logout")){
 					showLoadingDialog("Pregressing", "Please wait...");
-					new exeFollow(API.logoutURL).execute(null);
+					new exeFollow(API.logoutURL, false, true).execute(null);
 				}else if(buttonType.equals("Follow")){
 					showLoadingDialog("Pregressing", "Please wait...");
-					new exeFollow(API.follow).execute(null);
+					new exeFollow(API.follow, true, false).execute(null);
 				}else if(buttonType.equals("UnFollow")){
 					showLoadingDialog("Pregressing", "Please wait...");
-					new exeFollow(API.follow).execute(null);
+					new exeFollow(API.follow, false, false).execute(null);
+				}else if(buttonType.equals("Login")){
+					PermpingMain.showLogin();
 				}
 			}
 		});
@@ -138,15 +142,16 @@ public class ProfileActivity extends Activity {
     public void execGetUserProfile(){
 
     	if(isUserProfile){
-    		btnAccount.setText("Logout");
+    		
     		user = PermUtils.isAuthenticated(getApplicationContext());
     		if(user != null){
+    			btnAccount.setText("Logout");
     			ArrayList<PermBoard> boards = (ArrayList<PermBoard>) user.getBoards();
             	BoardAdapter boardAdapter = new BoardAdapter(ProfileActivity.this,R.layout.board_item, boards);
             	exeGet(boardAdapter);
             	btnAccount.setVisibility(View.VISIBLE);
     		}else{
-//    			btnAccount.setVisibility(View.GONE);
+    			btnAccount.setText("Login");
     			PermpingMain.showLogin();
     		}
     		dismissLoadingDialog();
@@ -198,15 +203,20 @@ public class ProfileActivity extends Activity {
 		private String filePath = "";
 		public  String title = "";
 		public boolean isSuccess =false;
-		public exeFollow(String filePath) {
+		public boolean isFollow;
+		public boolean isLogout;
+		public exeFollow(String filePath, boolean isFollow, boolean isLogout) {
 			this.filePath = filePath;
+			this.isFollow = isFollow;
+			this.isLogout = isLogout;
 		}
 		
 		@Override
 		protected Boolean doInBackground(String... arg0) {
 			// TODO Auto-generated method stub
 			try {
-				isSuccess = (Boolean)executeMultipartPost( filePath, true, false);
+
+				isSuccess = (Boolean)executeMultipartPost( filePath, isFollow, isLogout);
 				return isSuccess;
 				
 			} catch (Exception e) {
@@ -225,8 +235,12 @@ public class ProfileActivity extends Activity {
 		protected void onPostExecute(Boolean result) {
 			dismissLoadingDialog();
 			if(result != null){
-				if(result.booleanValue() && btnAccount.getText().equals("Logout"))
-					btnAccount.setVisibility(View.VISIBLE);
+				if(result.booleanValue() && btnAccount.getText().equals("Logout")){
+					PermpingApplication state = (PermpingApplication)context.getApplicationContext();
+					state.setUser(null);
+					PermpingMain.back();
+					btnAccount.setText("Login");
+				}
 				else if(result.booleanValue() && btnAccount.getText().equals("Follow"))
 					btnAccount.setText("UnFollow");
 				else if(result.booleanValue() && btnAccount.getText().equals("UnFollow"))
@@ -305,33 +319,32 @@ public class ProfileActivity extends Activity {
 						HttpMultipartMode.BROWSER_COMPATIBLE);
 				if (filePath != null && !"".equals(filePath)) {
 					postRequest = new HttpPost(filePath);
+					if(isFollow){
+						reqEntity.addPart("fuid", new StringBody(user.getId()));
+						reqEntity.addPart("tuid", new StringBody(commentData.getAuthor().getId()));
+						postRequest.setEntity(reqEntity);
+					}else{
+						if(isLogout){
+							filePath = filePath+user.getId();
+						}else{
+							reqEntity.addPart("loggedinuid", new StringBody(user.getId()));
+							postRequest.setEntity(reqEntity);
+						}
 
-					ByteArrayOutputStream bos = new ByteArrayOutputStream();
-					Bitmap bm = BitmapFactory.decodeFile(filePath);
-					;
+					}
+								
+					HttpResponse response = httpClient.execute(postRequest);
+					HttpEntity entry = response.getEntity();
+					String readFile = EntityUtils.toString(entry);
+					if(isFollow){
+						boards = parseXmlFollowFile(readFile);
+					}else if(isLogout){
+						boards = parseXmlFollowFile(readFile);
+					}else{
+						boards = parseXmlFile(readFile);
+					}
 				} 
-				if(isFollow){
-					reqEntity.addPart("fuid", new StringBody(user.getId()));
-					reqEntity.addPart("tuid", new StringBody(commentData.getAuthor().getId()));
-					postRequest.setEntity(reqEntity);
-				}else if(isLogout){
-					filePath = filePath+user.getId();
-				}else{
-					reqEntity.addPart("loggedinuid", new StringBody(user.getId()));
-					postRequest.setEntity(reqEntity);
-				}
-				
-				
-				HttpResponse response = httpClient.execute(postRequest);
-				HttpEntity entry = response.getEntity();
-				String readFile = EntityUtils.toString(entry);
-				if(isFollow){
-					boards = parseXmlFollowFile(readFile);
-				}else if(isLogout){
-					boards = parseXmlFollowFile(readFile);
-				}else{
-					boards = parseXmlFile(readFile);
-				}
+
 				
 			}
 		} catch (Exception e) {
@@ -354,7 +367,7 @@ public class ProfileActivity extends Activity {
 				doc = db.parse(is);
 			doc.getDocumentElement().normalize();
 
-			NodeList nodeList = doc.getElementsByTagName("response");
+			NodeList nodeList = doc.getElementsByTagName("respond");
 
 			/** Assign textview array lenght by arraylist size */
 			int length = nodeList.getLength();
@@ -364,14 +377,14 @@ public class ProfileActivity extends Activity {
 				Node node = nodeList.item(i);
 				Element fstElmnt = (Element) node;
 				NodeList nameList = fstElmnt
-						.getElementsByTagName("status");
+						.getElementsByTagName("errorcode");
 				Element nameElement = null;
 				if (nameList != null) {
 					nameElement = (Element) nameList.item(0);
 					nameList = nameElement.getChildNodes();
 					String status = ((Node) nameList.item(0))
 							.getNodeValue();
-					if (Integer.valueOf(status) != 0)
+					if (Integer.valueOf(status) == 200)
 						return true;
 				}
 			
