@@ -61,17 +61,22 @@ public class XMLParser implements HttpAccess {
 	private Document doc = null;
 	private String xml = "<empty></empty>";
 	public int type;
+	HttpPermUtils httpPermUtils;
 	public XMLParser(){
-		
+		if(httpPermUtils  == null)
+			httpPermUtils = new HttpPermUtils();
 	}
 
 	public XMLParser(String document, Boolean DownloadFirst) {
 		this.setDoc(this.parseXMLFromUrl(document, DownloadFirst));
+		if(httpPermUtils  == null)
+			httpPermUtils = new HttpPermUtils();
 	}
 
 	public String getXML(String url) {
 		String line = null;
-
+		if(httpPermUtils  == null)
+			httpPermUtils = new HttpPermUtils();
 		try {
 
 			DefaultHttpClient httpClient = new DefaultHttpClient();
@@ -364,23 +369,32 @@ public class XMLParser implements HttpAccess {
 	}
 	
 	public XMLParser(String url) {
+		if(httpPermUtils  == null)
+			httpPermUtils = new HttpPermUtils();
 		getResponseFromURL(url);
 	}
 
 	public XMLParser(int type, Object delegate, String url, List<NameValuePair> nameValuePairs) {
+		if(httpPermUtils  == null)
+			httpPermUtils = new HttpPermUtils();
 		this.type = type;
 		getResponseFromURL(type, delegate, url, nameValuePairs);
 	}
 	public Document getResponseFromURL(int Type, Object delegate, String url, List<NameValuePair> nameValuePairs) {
-		this.type= Type;
-		this.delegate = delegate;
-		HttpPermUtils httpPermUtils = new HttpPermUtils(XMLParser.this);
-		String response = httpPermUtils.sendRequest(url, nameValuePairs,false);
-		if (response != null) {
-			this.response = response;
-			return parseResponse(response);
+		try {
+			this.type= Type;
+			if(delegate != null)
+				this.delegate = delegate;		
+			String response = httpPermUtils.sendAsynRequest(url, nameValuePairs,false);
+			if (response != null) {
+				this.response = response;
+				return parseResponse(response);
+			}
+			return null;
+		} catch (Exception e) {
+			// TODO: handle exception
+			return null;
 		}
-		return null;
 	}
 	public Document getResponseFromURL(int Type, Object delegate, String url, List<NameValuePair> nameValuePairs, String id) {
 		this.type= Type;

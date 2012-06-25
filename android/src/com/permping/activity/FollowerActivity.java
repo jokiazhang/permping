@@ -165,10 +165,11 @@ public class FollowerActivity extends FragmentActivity {
 	
 	// AsyncTask task for upload file
 
-	class LoadPermList extends AsyncTask<Void, Void, String> {
+	class LoadPermList extends AsyncTask<ArrayList<Perm>, Void, ArrayList<Perm>> {
 
 		@Override
-		protected String doInBackground(Void... params) {
+		protected ArrayList<Perm> doInBackground(ArrayList<Perm>... params) {
+			// TODO Auto-generated method stub
 			PermListController permListController = new PermListController();
 			ArrayList<Perm> permList = null;
 			try {				
@@ -184,7 +185,7 @@ public class FollowerActivity extends FragmentActivity {
 			}			
 			permListMain = permList;
 						
-			return null;
+			return permListMain;
 		}
 
 		@Override
@@ -193,13 +194,14 @@ public class FollowerActivity extends FragmentActivity {
 		}
 
 		@Override
-		protected void onPostExecute(String sResponse) {
+		protected void onPostExecute(ArrayList< Perm> sResponse) {
 			loadPerms();
 			//permListMain.size();
 			if (dialog != null && dialog.isShowing()) {
 				dialog.dismiss();
 			}
 		}
+
 	}
 	
 }
