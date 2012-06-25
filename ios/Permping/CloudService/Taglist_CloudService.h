@@ -40,7 +40,7 @@ extern NSString *const kUserServiceOauthVerifierKey;
 + (CategoryListResponse*)getCategoryList;
 + (BoardListReponse*)getBoardListWithCategoryId:(NSString*)categoryId;
 + (PermListResponse*)getPermWithCategorydId:(NSString*)categorydId nextItemId:(NSInteger)nextId requestedCount:(NSUInteger)count;
-+ (PermListResponse*)getPermWithBoardId:(NSString*)boardId nextItemId:(NSInteger)nextId requestedCount:(NSUInteger)count;
++ (PermListResponse*)getPermWithBoardId:(NSString*)boardId userId:(NSString*)userId nextItemId:(NSInteger)nextId requestedCount:(NSUInteger)count;
 + (PermListResponse*)getPermWithUserId:(NSString*)userId requestCount:(NSUInteger)count nextItemId:(NSInteger)nextId;
 + (PermListResponse*)getPermWithDate:(NSString*)date nextItemId:(NSInteger)nextId requestCount:(NSUInteger)count;
 + (PermListResponse*)getPermWithMonth:(NSString*)month forUserId:(NSString*)userId;

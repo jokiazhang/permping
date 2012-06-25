@@ -12,10 +12,11 @@
 #import "Utils.h"
 
 @implementation BoardViewController
-@synthesize board;
+@synthesize board, userId;
 
 - (void)dealloc {
     self.board = nil;
+    self.userId = nil;
     [super dealloc];
 }
 
@@ -77,7 +78,7 @@
         NSInteger    nextId = -1;
         NSArray *arr = nil;
         NSLog(@"getPermWithBoardId : %@", self.board.boardId);
-        PermListResponse *response = [(FollowingScreen_DataLoader *)loader getPermWithBoardId:self.board.boardId nextItemId:nextId requestedCount:30];
+        PermListResponse *response = [(FollowingScreen_DataLoader *)loader getPermWithBoardId:self.board.boardId userId:self.userId nextItemId:nextId requestedCount:30];
         nextId = response.nextItemId;
         arr = [response getResponsePermList];
         
@@ -102,7 +103,7 @@
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     NSInteger nextId = self.resultModel.nextItemId;
 
-   PermListResponse *response = [(FollowingScreen_DataLoader *)loader getPermWithBoardId:self.board.boardId nextItemId:nextId requestedCount:30];
+    PermListResponse *response = [(FollowingScreen_DataLoader *)loader getPermWithBoardId:self.board.boardId userId:self.userId nextItemId:nextId requestedCount:30];
     nextId = response.nextItemId;
     NSArray *moreItems = [response getResponsePermList];
     
