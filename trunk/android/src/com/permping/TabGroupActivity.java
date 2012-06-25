@@ -43,7 +43,13 @@ public class TabGroupActivity extends ActivityGroup {
 		// Changes this Groups View to the new View.
 		setContentView(v);
 	}
-
+	public void overrideView(View v) {
+		// Adds the old one to history
+		history.add(v);
+		setContentView(v);
+		if(history.size() >= 2)
+			history.remove(history.size()- 2);
+	}
 	public void back() {
 		if (history.size() > 0) {
 			if (history.size() == 1)

@@ -81,7 +81,7 @@ public class PermpingMain extends TabActivity  {
         	tabHost.getTabWidget().getChildAt(i).setBackgroundColor(  Color.TRANSPARENT );
         
         // Set the event for Profile tab
-        tabHost.getTabWidget().getChildAt(4).setOnTouchListener(new ProfileHandler());
+//        tabHost.getTabWidget().getChildAt(4).setOnTouchListener(new ProfileHandler());
         /*tabHost.getTabWidget().getChildAt(4).setOnTouchListener(new View.OnTouchListener() {
 			
 			public boolean onTouch(View v, MotionEvent event) {				
@@ -202,7 +202,11 @@ public class PermpingMain extends TabActivity  {
     	}else if(currentTab == 3){
 			MyDiaryActivityGroup.group.back();
     	}else if(currentTab == 4){
+
+    		View view = ProfileActivityGroup.group.getLocalActivityManager().startActivity( "ProfileActivity", new Intent(context, ProfileActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
 			ProfileActivityGroup.group.back();
+    		ProfileActivityGroup.group.overrideView(view);
+
     	}
     }
 	public static void gotoDiaryTab(String UID) {
