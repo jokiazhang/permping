@@ -195,7 +195,7 @@
         headerView.hidden = NO;
         [avatarView setImageWithURL:[NSURL URLWithString:self.userProfile.userAvatar] usingActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
         userNameLabel.text = self.userProfile.userName;
-        permsNumberLabel.text = [NSString stringWithFormat:@"%@ %@ %@ %@", NSLocalizedString(@"Perms", nil), self.userProfile.pinCount, NSLocalizedString(@"Followers", nil), self.userProfile.followerCount];
+        permsNumberLabel.text = [NSString stringWithFormat:@"%@ %@ %@ %@", self.userProfile.followerCount, NSLocalizedString(@"Followers", nil), self.userProfile.followingCount, NSLocalizedString(@"Followings", nil)];
         [followButton setTitle:isFollowed?NSLocalizedString(@"Unfollow", nil):NSLocalizedString(@"Follow", nil) forState:UIControlStateNormal];
         [boardTableView reloadData];
     } else {

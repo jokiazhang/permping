@@ -8,6 +8,7 @@
 
 #import "PermImageCell.h"
 #import "Utils.h"
+#import "Utility.h"
 
 @interface PermImageCell()
 @property (nonatomic, retain) NSString *permUrl;
@@ -25,7 +26,7 @@
         
         UIView *myContentView = self.contentView;
         permImageView = [[UIImageView alloc] initWithFrame:CGRectZero];
-        permImageView.backgroundColor = [UIColor clearColor];
+        permImageView.backgroundColor = [Utility colorRefWithString:@"#e8eae4"];//[UIColor clearColor];
         [myContentView addSubview:permImageView];
         
         openPermUrlButton = [[UIButton alloc] initWithFrame:CGRectZero];
@@ -46,7 +47,7 @@
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    permImageView.frame = self.bounds;
+    permImageView.frame = CGRectInset(self.bounds, 8, 0);
     if (permImageView.image) {
 //        CGFloat width = permImageView.image.size.width;
 //        if (width < 300) {
@@ -59,8 +60,6 @@
         CGFloat width = desiredSize.width;//permImageView.image.size.width;
         if (width < 304) {
             permImageView.frame = CGRectInset(self.bounds, 8 + (304-width)/2, 0);
-        } else {
-            permImageView.frame = CGRectInset(self.bounds, 8, 0);
         }
         
         if (self.permUrl.length>0) {

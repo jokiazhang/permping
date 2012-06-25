@@ -288,6 +288,9 @@
                 cell.textLabel.text = NSLocalizedString(@"Place", nil);
                 cell.switching.tag = 0;
                 [cell.switching addTarget:self action:@selector(switchDidChangeValue:) forControlEvents:UIControlEventValueChanged];
+                if (target) {
+                    cell.switching.enabled = NO;
+                }
             }
             return cell;
         }
@@ -298,6 +301,9 @@
             cell = [[[SwitchingTableCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:reuseIdentifier] autorelease];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             [cell.switching addTarget:self action:@selector(switchDidChangeValue:) forControlEvents:UIControlEventValueChanged];
+            if (target) {
+                cell.switching.enabled = NO;
+            }
         }
         cell.switching.tag = indexPath.row+1;
         if (row == 0) {
