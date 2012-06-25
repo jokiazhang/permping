@@ -137,6 +137,12 @@
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
+    CGFloat currentOffset = permTableview.contentOffset.y;
+    if (currentOffset <= 0)
+        self.navigationController.navigationBarHidden = NO;
+    else 
+        self.navigationController.navigationBarHidden = YES;
+    
 	if ([loadMoreSpinner superview]) {
         [loadMoreSpinner stopAnimating];
         [loadMoreSpinner removeFromSuperview];
@@ -169,6 +175,7 @@
     self.selectedPerms = [[[NSMutableArray alloc] init] autorelease];
     
     [self.permTableview reloadData];
+    self.navigationController.navigationBarHidden = NO;
 }
 
 - (void)finishLoadData {
