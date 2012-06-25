@@ -12,6 +12,8 @@
 
 @interface BoardViewController : PermsViewController {
     BoardModel          *board;
+    NSString            *userId;
 }
 @property (nonatomic, retain) BoardModel *board;
+@property (nonatomic, retain) NSString *userId;
 @end

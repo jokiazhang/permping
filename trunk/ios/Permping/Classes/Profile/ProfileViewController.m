@@ -239,10 +239,11 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     BoardModel *board = [self.userProfile.boards objectAtIndex:indexPath.row];
-    NSLog(@"board : %@", board.boardId);
+    NSLog(@"board,userid : %@, %@", board.boardId, self.userId);
     
     BoardViewController *lc_controller = [[BoardViewController alloc] initWithNibName:@"BoardViewController" bundle:nil];
     lc_controller.board = board;
+    lc_controller.userId = self.userProfile.userId;
     [self.navigationController pushViewController:lc_controller animated:YES];
     [lc_controller release];
 }

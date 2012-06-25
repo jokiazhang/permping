@@ -102,10 +102,11 @@ NSString *const kUserServiceOauthVerifierKey = @"UserServiceOauthVerifierKey";
     return [response autorelease];
 }
 
-+ (PermListResponse *)getPermWithBoardId:(NSString*)boardId nextItemId:(NSInteger)nextId requestedCount:(NSUInteger)count { 
++ (PermListResponse*)getPermWithBoardId:(NSString*)boardId userId:(NSString*)userId nextItemId:(NSInteger)nextId requestedCount:(NSUInteger)count { 
     Taglist_CloudPagingRequest *request = [[Taglist_CloudPagingRequest alloc] init];
     request.requestURL = [SERVER_API stringByAppendingFormat:@"/permservice/getpermwithboardid/%@", boardId];
     request.method = @"POST";
+    [request addParameter:@"uid" value:userId];
     [request addRequestCount:count];
     if (nextId != -1) {
         [request addNextItemId:nextId];
