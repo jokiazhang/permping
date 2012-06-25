@@ -10,6 +10,8 @@
 
 #define kApplicationDidBecomeActiveNotification @"ApplicationDidBecomeActive"
 
+#define kApplicationHandleOpenURLNotification @"ApplicationHandleOpenURLNotification"
+
 @interface AppDelegate : UIResponder <UIApplicationDelegate, UITabBarControllerDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
