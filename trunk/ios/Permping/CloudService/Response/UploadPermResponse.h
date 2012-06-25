@@ -11,7 +11,11 @@
 
 @interface UploadPermResponse : Taglist_CloudResponse {
     NSString *permId;
+    NSString *permIphoneLink;
+    NSString *permAndroidLink;
 }
 @property (nonatomic, copy) NSString *permId;
+@property (nonatomic, copy) NSString *permIphoneLink;
+@property (nonatomic, copy) NSString *permAndroidLink;
 
 @end

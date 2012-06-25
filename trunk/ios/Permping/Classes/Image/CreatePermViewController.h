@@ -24,6 +24,8 @@
     BOOL            geoEnable;
     BOOL            uploadSuccess;
     NSString        *permId;
+    NSString        *permIphoneLink;
+    NSString        *permAndroidLink;
     
     UISwitch        *currentSwitch;
     

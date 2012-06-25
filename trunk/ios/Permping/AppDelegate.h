@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+#define kApplicationDidBecomeActiveNotification @"ApplicationDidBecomeActive"
+
 @interface AppDelegate : UIResponder <UIApplicationDelegate, UITabBarControllerDelegate>
 
 @property (strong, nonatomic) UIWindow *window;

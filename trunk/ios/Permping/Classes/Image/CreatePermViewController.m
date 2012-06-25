@@ -19,6 +19,8 @@
 
 @interface CreatePermViewController ()
 @property (nonatomic, retain) NSString *permId;
+@property (nonatomic, retain) NSString *permAndroidLink;
+@property (nonatomic, retain) NSString *permIphoneLink;
 - (void)uploadPermForMe:(id)loader thread:(id<ThreadManagementProtocol>)threadObj;
 @end
 
@@ -29,7 +31,7 @@
 @synthesize currentPerm;
 @synthesize fileData;
 @synthesize locationManager, bestEffortAtLocation;
-@synthesize permId;
+@synthesize permId, permAndroidLink, permIphoneLink;
 
 - (void)dealloc {
     self.locationManager = nil;
@@ -39,6 +41,8 @@
     self.currentPerm = nil;
     self.fileData = nil;
     self.permId = nil;
+    self.permAndroidLink = nil;
+    self.permIphoneLink = nil;
     [super dealloc];
 }
 
@@ -71,6 +75,10 @@
     self.navigationItem.leftBarButtonItem = [Utils barButtonnItemWithTitle:NSLocalizedString(@"globals.cancel", @"Cancel") target:self selector:@selector(dismiss:)];
     self.navigationItem.rightBarButtonItem = [Utils barButtonnItemWithTitle:NSLocalizedString(@"globals.ok", @"OK") target:self selector:@selector(createPerm)];
     self.selectedBoard =  [[[[AppData getInstance] user] boards] objectAtIndex:0];
+    
+    CLLocationManager *manager = [[CLLocationManager alloc] init];
+    if (manager.locationServicesEnabled == NO) {
+    }
 }
 
 - (void)viewDidUnload
@@ -175,7 +183,7 @@
                                {
                                    [self stopActivityIndicator];
                                    if (error) {
-                                       [Utils displayAlert:[error localizedDescription] delegate:self];
+                                       [Utils displayAlert:[error localizedDescription] delegate:nil];
                                        if (error.code == 200) {
                                            uploadSuccess = YES;
                                            //[self dismiss:nil];
@@ -193,6 +201,8 @@
             UploadPermResponse *response =  [(CreatePermScreen_DataLoader *)loader uploadPerm:[self permInfo]];
             NSError *error = response.responseError;
             self.permId = response.permId;
+            self.permIphoneLink = response.permIphoneLink;
+            self.permAndroidLink = response.permAndroidLink;
             if (![threadObj isCancelled]) {
                 
                 dispatch_async(dispatch_get_main_queue(), ^(void)
@@ -228,8 +238,8 @@
             // This is registered in Permping-Info.plist , key : URL Types
             
             NSString *message = [NSString stringWithFormat:@"pindetails/%@", self.permId];
-            NSArray *array = [NSArray arrayWithObjects:@"os", @"iphone", @"devicetype", @"phone", @"installurl", @"www.apple.com", @"executeurl", @"www.apple.com",nil];
-            NSString *url = @"www.apple.com & www.google.com";
+            NSArray *array = [NSArray arrayWithObjects:@"os", @"iphone", @"devicetype", @"phone", @"installurl", @"www.apple.com", @"executeurl", @"permping://",nil];
+            NSString *url = [NSString stringWithFormat:@"%@ & %@", self.permIphoneLink, self.permAndroidLink];
             [[KakaoLinkCenter defaultCenter] openKakaoAppLinkWithMessage:message URL:url appBundleID:@"webactully" appVersion:@"2.0" appName:@"Permping App" metaInfoArray:array];
         }
         [self dismiss:nil];
@@ -349,6 +359,8 @@
     if (cell.valueTextField.text.length == 0) {
         [Utils displayAlert:@"Please input description for perm." delegate:nil];
         return NO;
+    } else {
+        self.currentPerm.permDesc = cell.valueTextField.text;
     }
     UITableViewCell *cell2 = [permTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]]; 
     if (cell2.detailTextLabel.text.length == 0) {
