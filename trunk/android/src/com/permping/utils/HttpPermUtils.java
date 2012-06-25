@@ -47,6 +47,40 @@ public class HttpPermUtils {
 	 * @param url the url
 	 * @return the response as string
 	 */
+	public String sendAsynRequest(String url, List<NameValuePair> nameValuePairs, boolean isGet) {
+//		 new sendRequestTask(nameValuePairs, null, isGet).execute(url);
+			if(isGet){
+				sendGetRequest(url);
+				return null;
+			}else{
+				String result=null;
+				HttpPost postRequest = new HttpPost(url);
+				try {			
+					if (nameValuePairs != null) {
+						postRequest.setEntity(new UrlEncodedFormEntity(nameValuePairs, HTTP.UTF_8));
+					}
+					HttpResponse postResponse = client.execute(postRequest);
+					int statusCode = postResponse.getStatusLine().getStatusCode();
+					if (statusCode != HttpStatus.SC_OK) {
+						Log.w(getClass().getSimpleName(), "ERROR: " + statusCode + " for URL: " + url); 
+			            result = null;
+			            return null;
+					}else{
+						HttpEntity postResponseEntity = postResponse.getEntity();
+						if (postResponseEntity != null)
+							result =  EntityUtils.toString(postResponseEntity);
+					}
+
+				} catch (IOException ioe) {
+					postRequest.abort();
+					Log.w(getClass().getSimpleName(), "thien====>ERROR for URL " + url, ioe);
+					httpAccess.onError();
+					result = null;
+					return null;
+				}
+				return result;
+			}
+	}
 	public String sendRequest(String url, List<NameValuePair> nameValuePairs, boolean isGet) {
 		 new sendRequestTask(nameValuePairs, null, isGet).execute(url);
 		 return null;
@@ -54,6 +88,9 @@ public class HttpPermUtils {
 	public String sendRequest(String url, List<NameValuePair> nameValuePairs, String id, boolean isGet) {
 		 new sendRequestTask(nameValuePairs, id, isGet).execute(url);
 		 return null;
+	}
+	public void execSendAsynRequest(){
+		
 	}
 	class sendRequestTask extends AsyncTask<String, Void, String> {
 		
