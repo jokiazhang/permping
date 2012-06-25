@@ -17,6 +17,7 @@
 #import "Taglist_CloudService.h"
 #import "KakaoLinkCenter.h"
 #import "AppDelegate.h"
+#import "Constants.h"
 
 @interface CreatePermViewController ()
 @property (nonatomic, retain) NSString *permId;
@@ -236,7 +237,8 @@
             // This is registered in Permping-Info.plist , key : URL Types
             
             NSString *message = [NSString stringWithFormat:@"pindetails/%@", self.permId];
-            NSArray *array = [NSArray arrayWithObjects:@"os", @"iphone", @"devicetype", @"phone", @"installurl", @"www.apple.com", @"executeurl", @"permping://",nil];
+            NSString *executeUrl = [LAUNCH_APP_URL stringByAppendingFormat:@"pindetails/%@", self.permId]; 
+            NSArray *array = [NSArray arrayWithObjects:@"os", @"iphone", @"devicetype", @"phone", @"installurl", ITUNE_URL, @"executeurl", executeUrl,nil];
             NSString *url = [NSString stringWithFormat:@"%@ & %@", self.permIphoneLink, self.permAndroidLink];
             [[KakaoLinkCenter defaultCenter] openKakaoAppLinkWithMessage:message URL:url appBundleID:@"webactully" appVersion:@"2.0" appName:@"Permping App" metaInfoArray:array];
         }

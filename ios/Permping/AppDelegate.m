@@ -15,6 +15,7 @@
 #import "ProfileViewController.h"
 #import "AppData.h"
 #import "Utility.h"
+#import "Constants.h"
 
 @implementation AppDelegate
 
@@ -58,6 +59,22 @@
     NSLog(@"url: %@", url);
     if (!url) {
         return NO;
+    }
+    NSString *urlString = [url absoluteString];
+    if ([urlString hasPrefix:LAUNCH_APP_URL]) {
+        NSRange range = [urlString rangeOfString:LAUNCH_APP_URL];
+        NSString *strParameters = [urlString substringFromIndex:range.location+range.length];
+        NSArray *params = [strParameters componentsSeparatedByString:@"/"];
+        if ([params count] > 0) {
+            NSMutableDictionary *openInfo = [[NSMutableDictionary alloc] init];
+            for (NSInteger i=0; i<[params count]-1; i+=2) {
+                NSString *key = [params objectAtIndex:i];
+                NSString *value = [params objectAtIndex:i+1];
+                [openInfo setValue:value forKey:key];
+            }
+            [[NSNotificationCenter defaultCenter] postNotificationName:kApplicationHandleOpenURLNotification object:self userInfo:openInfo];
+            [openInfo release];
+        }
     }
     
     return YES;

@@ -24,6 +24,7 @@
 
 #define LAUNCH_APP_URL             @"permping://"
 
+#define ITUNE_URL                  @"http://itunes.apple.com/us/app/permping/id539426126?ls=1&mt=8"
 
 #endif
 
