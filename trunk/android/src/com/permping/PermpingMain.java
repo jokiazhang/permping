@@ -81,7 +81,7 @@ public class PermpingMain extends TabActivity  {
         	tabHost.getTabWidget().getChildAt(i).setBackgroundColor(  Color.TRANSPARENT );
         
         // Set the event for Profile tab
-        tabHost.getTabWidget().getChildAt(4).setOnTouchListener(new ValidateHandler());
+        tabHost.getTabWidget().getChildAt(4).setOnTouchListener(new ProfileHandler());
         /*tabHost.getTabWidget().getChildAt(4).setOnTouchListener(new View.OnTouchListener() {
 			
 			public boolean onTouch(View v, MotionEvent event) {				
@@ -109,7 +109,25 @@ public class PermpingMain extends TabActivity  {
         // Set the event for Followers tab
         tabHost.getTabWidget().getChildAt(0).setOnTouchListener(new FollowerHandler());
     }
-    
+    private class ProfileHandler implements View.OnTouchListener {
+    	boolean ret = false;
+    	@Override
+		public boolean onTouch(View v, MotionEvent event) {
+	        User user = PermUtils.isAuthenticated(getApplicationContext());
+	        if (user != null) {
+	        	UID = user.getId();
+	        	getTabHost().setCurrentTab(4);
+	        	ret = false;
+	        } else {
+	        	// Go to login screen
+	        	getTabHost().setCurrentTab(4);
+	        	showLogin();
+				ret = true;
+	        }
+	        
+	        return ret;
+    	}
+    }
     private class FollowerHandler implements View.OnTouchListener {
     	
     	@Override
@@ -138,7 +156,8 @@ public class PermpingMain extends TabActivity  {
 		        User user = PermUtils.isAuthenticated(getApplicationContext());
 		        if (user != null) {
 		        	UID = user.getId();
-		        	getTabHost().setCurrentTab(3);
+		        	tabHost.setCurrentTab(4);
+		        	gotoDiaryTab(null);
 		        	ret = false;
 		        } else {
 		        	// Go to login screen

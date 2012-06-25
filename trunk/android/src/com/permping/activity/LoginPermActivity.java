@@ -19,6 +19,8 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.Gravity;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
@@ -72,15 +74,16 @@ public class LoginPermActivity extends Activity implements Login_delegate {
         // Login button
         login.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				showLoadingDialog("Progress", "Please wait");
-				List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(8);
-				nameValuePairs.add(new BasicNameValuePair("type", prefs.getString(Constants.LOGIN_TYPE, "")));
-				nameValuePairs.add(new BasicNameValuePair("oauth_token", ""));
-				nameValuePairs.add(new BasicNameValuePair("email", email.getText().toString()));
-				nameValuePairs.add(new BasicNameValuePair("password", password.getText().toString()));
-				AuthorizeController authorizeController = new AuthorizeController(LoginPermActivity.this);
-				authorizeController.authorize(v.getContext(), nameValuePairs);
-
+				if(checkInputData()){
+					showLoadingDialog("Progress", "Please wait");
+					List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(8);
+					nameValuePairs.add(new BasicNameValuePair("type", prefs.getString(Constants.LOGIN_TYPE, "")));
+					nameValuePairs.add(new BasicNameValuePair("oauth_token", ""));
+					nameValuePairs.add(new BasicNameValuePair("email", email.getText().toString()));
+					nameValuePairs.add(new BasicNameValuePair("password", password.getText().toString()));
+					AuthorizeController authorizeController = new AuthorizeController(LoginPermActivity.this);
+					authorizeController.authorize(v.getContext(), nameValuePairs);
+				}
 			}
 		
 		});
@@ -159,14 +162,36 @@ public class LoginPermActivity extends Activity implements Login_delegate {
 			}
 		});
 	}
-
+    public boolean checkInputData()
+    {
+        Animation shake = AnimationUtils.loadAnimation(this, R.anim.shake);
+        String user = email.getText().toString();
+        String pass = password.getText().toString();
+        if (user.length() == 0)
+        {
+        	email.setFocusable(true);
+        	email.startAnimation(shake);
+        	email.requestFocus();
+        	return false;
+        } else if (pass.length() == 0)
+        {
+        	password.setFocusable(true);
+        	password.startAnimation(shake);
+        	password.requestFocus();
+        	return false;
+        } else
+        {
+        	return true;
+        }
+    }
 @Override
 public void on_success() {
 	// TODO Auto-generated method stub
 	FollowerActivity.isLogin = true;
 	dismissLoadingDialog();
 	PermpingMain.back();
-	sendBroadcast("", "");
+	if(PermpingMain.getCurrentTab() == 0)
+		sendBroadcast("", "");
 }
 private void sendBroadcast(String issueId, String storyId) {
     Intent new_intent = new Intent();
