@@ -25,8 +25,14 @@
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         
         UIView *myContentView = self.contentView;
+        
+        permImageViewBackground = [[UIView alloc] initWithFrame:CGRectZero];
+        permImageViewBackground.backgroundColor = [Utility colorRefWithString:@"#e8eae4"];
+        [myContentView addSubview:permImageViewBackground];
+        
+        
         permImageView = [[UIImageView alloc] initWithFrame:CGRectZero];
-        permImageView.backgroundColor = [Utility colorRefWithString:@"#e8eae4"];//[UIColor clearColor];
+        permImageView.backgroundColor = [UIColor clearColor];
         [myContentView addSubview:permImageView];
         
         openPermUrlButton = [[UIButton alloc] initWithFrame:CGRectZero];
@@ -42,11 +48,13 @@
     self.permUrl = nil;
     [openPermUrlButton release];
     [permImageView release];
+    [permImageViewBackground release];
     [super dealloc];
 }
 
 - (void)layoutSubviews {
     [super layoutSubviews];
+    permImageViewBackground.frame = CGRectInset(self.bounds, 8, 0);
     permImageView.frame = CGRectInset(self.bounds, 8, 0);
     if (permImageView.image) {
 //        CGFloat width = permImageView.image.size.width;

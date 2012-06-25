@@ -12,6 +12,7 @@
 @interface PermImageCell : UITableViewCell {
     id<PermCellDelegate>   delegate;
     UIImageView *permImageView;
+    UIView      *permImageViewBackground;
     UIButton    *openPermUrlButton;
     NSString *permUrl;
 }
