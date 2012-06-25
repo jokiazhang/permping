@@ -58,6 +58,11 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:windowSoftInputMode="adjustPan|stateVisible">
 		</activity>
+		<activity android:name=".view.ImageDetail"
+		   	android:noHistory="true"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:windowSoftInputMode="adjustPan|stateVisible"></activity>
 		<uses-library android:name="com.google.android.maps" />
 		
     </application>
