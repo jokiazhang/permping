@@ -238,7 +238,7 @@
             
             NSString *message = [NSString stringWithFormat:@"pindetails/%@", self.permId];
             NSString *executeUrl = [LAUNCH_APP_URL stringByAppendingFormat:@"pindetails/%@", self.permId]; 
-            NSArray *array = [NSArray arrayWithObjects:@"os", @"iphone", @"devicetype", @"phone", @"installurl", ITUNE_URL, @"executeurl", executeUrl,nil];
+            NSArray *array = [NSArray arrayWithObjects:@"os", @"iphone", @"devicetype", @"phone", @"installurl", self.permIphoneLink, @"executeurl", executeUrl,nil];
             NSString *url = [NSString stringWithFormat:@"%@ & %@", self.permIphoneLink, self.permAndroidLink];
             [[KakaoLinkCenter defaultCenter] openKakaoAppLinkWithMessage:message URL:url appBundleID:@"webactully" appVersion:@"2.0" appName:@"Permping App" metaInfoArray:array];
         }
