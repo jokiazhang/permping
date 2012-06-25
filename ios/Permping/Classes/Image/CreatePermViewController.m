@@ -16,6 +16,7 @@
 #import "AppData.h"
 #import "Taglist_CloudService.h"
 #import "KakaoLinkCenter.h"
+#import "AppDelegate.h"
 
 @interface CreatePermViewController ()
 @property (nonatomic, retain) NSString *permId;
@@ -75,10 +76,6 @@
     self.navigationItem.leftBarButtonItem = [Utils barButtonnItemWithTitle:NSLocalizedString(@"globals.cancel", @"Cancel") target:self selector:@selector(dismiss:)];
     self.navigationItem.rightBarButtonItem = [Utils barButtonnItemWithTitle:NSLocalizedString(@"globals.ok", @"OK") target:self selector:@selector(createPerm)];
     self.selectedBoard =  [[[[AppData getInstance] user] boards] objectAtIndex:0];
-    
-    CLLocationManager *manager = [[CLLocationManager alloc] init];
-    if (manager.locationServicesEnabled == NO) {
-    }
 }
 
 - (void)viewDidUnload
@@ -402,15 +399,39 @@
     [currentSwitch setOn:isSuccess];
 }
 
+- (void)handleApplicationDidBecomeActive:(NSNotification*)notification {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kApplicationDidBecomeActiveNotification object:nil];
+    if ([CLLocationManager locationServicesEnabled] == YES && [CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorized) {
+    } else {
+        geoEnable = NO;
+        SwitchingTableCell *cell = (SwitchingTableCell*)[permTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:0]];
+        [cell.switching setOn:NO];
+    }
+}
 
 - (void)switchDidChangeValue:(id)sender {
     currentSwitch = (UISwitch*)sender;
     BOOL isOn = currentSwitch.isOn;
     if (currentSwitch.tag == 0) {
-        geoEnable = currentSwitch.isOn;
-        if (geoEnable) {
-            [self setupLocationManager];
+        if (currentSwitch.isOn) {
+            if ([CLLocationManager locationServicesEnabled] == NO) {
+                [currentSwitch setOn:NO];
+                [Utils displayAlert:@"You currently have all location services for this device disabled." delegate:nil];
+            } else if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusRestricted ||
+                       [CLLocationManager authorizationStatus] == kCLAuthorizationStatusDenied){
+                [currentSwitch setOn:NO];
+                [Utils displayAlert:@"This application is not authorized to use location services." delegate:nil];
+            } else {
+                if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusNotDetermined) {
+                    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleApplicationDidBecomeActive:) name:kApplicationDidBecomeActiveNotification object:nil];
+                }
+            }
+            geoEnable = currentSwitch.isOn;
+            if (geoEnable) {
+                [self setupLocationManager];
+            }
         }
+        
     } else {
         NSString *key = @"";
         if (currentSwitch.tag == 1) {
@@ -477,6 +498,9 @@
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
     if ([error code] != kCLErrorLocationUnknown) {
+        geoEnable = NO;
+        SwitchingTableCell *cell = (SwitchingTableCell*)[permTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:0]];
+        [cell.switching setOn:NO];
         [self stopUpdatingLocation];
     }
 }
