@@ -35,6 +35,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.navigationController.navigationBarHidden = NO;
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(logoutDidFinish:) name:kLogoutFinishNotification object:nil];
     
     UINavigationBar *bar = [self.navigationController navigationBar];

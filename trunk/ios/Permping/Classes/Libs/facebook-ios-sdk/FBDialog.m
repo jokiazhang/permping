@@ -32,7 +32,7 @@ static CGFloat kTransitionDuration = 0.3;
 
 static CGFloat kTitleMarginX = 8;
 static CGFloat kTitleMarginY = 4;
-static CGFloat kPadding = 10;
+static CGFloat kPadding = 0;//10;
 static CGFloat kBorderWidth = 10;
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -375,8 +375,9 @@ BOOL FBIsDeviceIPad(void) {
 
 - (void)drawRect:(CGRect)rect {
     
-    CGRect grayRect = CGRectOffset(rect, -0.5, -0.5);
-    [self drawRect:grayRect fill:kBorderGray radius:10];
+    //CGRect grayRect = CGRectOffset(rect, -0.5, -0.5);
+    //[self drawRect:grayRect fill:kBorderGray radius:10];
+    [self drawRect:rect fill:kBorderGray radius:0];
 
   CGRect headerRect = CGRectMake(
     ceil(rect.origin.x + kBorderWidth), ceil(rect.origin.y + kBorderWidth),

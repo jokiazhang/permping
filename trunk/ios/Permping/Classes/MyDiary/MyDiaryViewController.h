@@ -23,6 +23,9 @@
     
     Taglist_NDModel     *resultModel;
     
+    // prevent handle action after select a date
+    BOOL        _didSelectDate;
+    
 }
 @property (nonatomic, retain) Taglist_NDModel *resultModel;
 @property (nonatomic, assign) id<KalDataSource> dataSource;

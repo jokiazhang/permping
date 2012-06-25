@@ -260,7 +260,7 @@
         self.user.userId = [userDict objectForKey:@"kUserID"];
         self.user.userName = [userDict objectForKey:@"kUserName"];
         self.user.userAvatar = [userDict objectForKey:@"kUserAvatar"];
-        self.user.pinCount = [userDict valueForKey:@"kPins"];
+        self.user.followingCount = [userDict valueForKey:@"kFollowing"];
         self.user.followerCount = [userDict valueForKey:@"kFollowers"];
         _isLogout = NO;
     }
@@ -276,7 +276,7 @@
         [userDict setObject:self.user.userId forKey:@"kUserID"];
         [userDict setObject:self.user.userName forKey:@"kUserName"];
         [userDict setObject:self.user.userAvatar forKey:@"kUserAvatar"];
-        [userDict setObject:self.user.pinCount forKey:@"kPins"];
+        [userDict setObject:self.user.followingCount forKey:@"kFollowing"];
         [userDict setObject:self.user.followerCount forKey:@"kFollowers"];
         [defaults setObject:userDict forKey:@"kCurrentUser"];
         [defaults synchronize];

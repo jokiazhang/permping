@@ -70,6 +70,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     headerLabel.text = NSLocalizedString(@"MyDiaryHeader", @"My Diary");
     CGRect r = [[UIScreen mainScreen] applicationFrame];
     r.origin.y = 50;
@@ -145,11 +146,17 @@
     controler.currentDate = theDate;
     [self.navigationController pushViewController:controler animated:YES];
     [controler release];
+    
+    _didSelectDate = NO;
 }
 
 - (void)didSelectDate:(KalDate *)date
 {
     if (!date) return;
+    if (_didSelectDate) {
+        return;
+    }
+    _didSelectDate = YES;
     [self performSelector:@selector(showPermsForSelectedDate:) withObject:date afterDelay:0.2];
     //[kalView selectDate:nil];
 }

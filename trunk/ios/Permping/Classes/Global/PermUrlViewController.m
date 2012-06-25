@@ -43,13 +43,14 @@
     self.navigationItem.leftBarButtonItem = [Utils barButtonnItemWithTitle:NSLocalizedString(@"globals.back", @"Back") target:self selector:@selector(dismissAndCancelLoadPermUrl)];
     
     permUrlWebView = [[UIWebView alloc] initWithFrame:self.view.bounds];
+    permUrlWebView.scalesPageToFit = YES;
     permUrlWebView.delegate = self;
     [self.view addSubview:permUrlWebView];
     if (urlString) {
+        [self startActivityIndicator];
         NSURL *url = [NSURL URLWithString:urlString];
         NSURLRequest *request = [NSURLRequest requestWithURL:url];
         [permUrlWebView loadRequest:request];
-        [self startActivityIndicator];
     }
 }
 

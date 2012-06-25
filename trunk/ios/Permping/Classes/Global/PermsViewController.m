@@ -359,6 +359,11 @@
     NSInteger currentOffset = scroll.contentOffset.y;
     NSInteger maximumOffset = scroll.contentSize.height - scroll.frame.size.height;
     
+    if (currentOffset <= 0)
+        self.navigationController.navigationBarHidden = NO;
+    else 
+        self.navigationController.navigationBarHidden = YES;
+    
     // Change 10.0 to adjust the distance from bottom
     if (maximumOffset - currentOffset <= 10.0  && [self.resultModel isHasMoreResult] && self.resultModel.isFetching == NO) {
         self.resultModel.isFetching = YES;
@@ -531,7 +536,7 @@
 }
 
 - (void)doneCommentButtonDidTouch:(id)sender {
-    if (![commentTextField.text isEqualToString:@""]) {
+    if (commentTextField.text.length > 0) {
         [commentTextField resignFirstResponder];
         [self startActivityIndicator];
         self.dataLoaderThread = [[ThreadManager getInstance] dispatchToConcurrentBackgroundNormalPriorityQueueWithTarget:self selector:@selector(peformCommentPermAction:thread:) dataObject:[self getMyDataLoader]];

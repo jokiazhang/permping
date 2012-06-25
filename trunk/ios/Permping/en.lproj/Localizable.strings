@@ -73,5 +73,6 @@
 "Account" = "Account";
 "Perms" = "perms";
 "Followers" = "followers";
+"Followings" = "followings";
 "Follow" = "Follow";
 "Unfollow" = "Unfollow";
