@@ -125,7 +125,8 @@ public class ProfileActivity extends Activity {
     }
     protected void exeUserProfile() {
 		// TODO Auto-generated method stub
-		new getUserProfile(API.getProfileURL+commentData.getAuthor().getId()).execute(null);
+		if( commentData != null)
+			new getUserProfile(API.getProfileURL+commentData.getAuthor().getId()).execute(null);
 	}
 	public void onResume(){
     	super.onResume();
@@ -137,11 +138,17 @@ public class ProfileActivity extends Activity {
     public void execGetUserProfile(){
 
     	if(isUserProfile){
-    		btnAccount.setText("Account");
+    		btnAccount.setText("Logout");
     		user = PermUtils.isAuthenticated(getApplicationContext());
-    		ArrayList<PermBoard> boards = (ArrayList<PermBoard>) user.getBoards();
-            BoardAdapter boardAdapter = new BoardAdapter(ProfileActivity.this,R.layout.board_item, boards);
-    		exeGet(boardAdapter);
+    		if(user != null){
+    			ArrayList<PermBoard> boards = (ArrayList<PermBoard>) user.getBoards();
+            	BoardAdapter boardAdapter = new BoardAdapter(ProfileActivity.this,R.layout.board_item, boards);
+            	exeGet(boardAdapter);
+            	btnAccount.setVisibility(View.VISIBLE);
+    		}else{
+    			btnAccount.setVisibility(View.GONE);
+    		}
+    		dismissLoadingDialog();
     	}else{
     		
     		if(commentData != null){
@@ -217,7 +224,7 @@ public class ProfileActivity extends Activity {
 		protected void onPostExecute(Boolean result) {
 			dismissLoadingDialog();
 			if(result != null){
-				if(result.booleanValue() && btnAccount.getText().equals("Account"))
+				if(result.booleanValue() && btnAccount.getText().equals("Logout"))
 					btnAccount.setVisibility(View.VISIBLE);
 				else if(result.booleanValue() && btnAccount.getText().equals("Follow"))
 					btnAccount.setText("UnFollow");
@@ -494,7 +501,6 @@ public class ProfileActivity extends Activity {
 		loadingDialog.setCancelable(true );
 		this.loadingDialog.show();
 	}
-
 	private void dismissLoadingDialog() {
 		if (loadingDialog != null && loadingDialog.isShowing())
 			loadingDialog.dismiss();

@@ -13,6 +13,7 @@ import com.permping.utils.API;
 
 import android.app.Activity;
 import android.app.ActivityGroup;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -25,15 +26,15 @@ import android.util.Log;
 import android.view.View;
 
 public class ExplorerActivity extends Activity {
-	
+	public ProgressDialog loadingDialog;
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.explorer_layout);
-
+		showLoadingDialog("Loading", "Please wait...");
 		ListView categoriesView = (ListView) findViewById(R.id.categories);
 		final CategoryController catController = new CategoryController();
 		final ArrayList<Category> categories = catController.getCategoryList();
-
+		dismissLoadingDialog();
 		CategoryAdapter categoriesAdapter = new CategoryAdapter(this, R.layout.category_item, categories);
 		categoriesView.setAdapter(categoriesAdapter);
 		categoriesView.setOnItemClickListener(new android.widget.AdapterView.OnItemClickListener() {
@@ -59,5 +60,18 @@ public class ExplorerActivity extends Activity {
 				ExplorerActivityGroup.group.replaceView(boardListView);
 			}
 		});
+	}
+	private void showLoadingDialog(String title, String msg) {
+		loadingDialog = new ProgressDialog(getParent());
+		loadingDialog.setMessage(msg);
+		loadingDialog.setTitle(title);
+		loadingDialog.setCancelable(true );
+		this.loadingDialog.show();
+	}
+
+	private void dismissLoadingDialog() {
+		if (loadingDialog != null)
+			if(loadingDialog.isShowing())
+			loadingDialog.dismiss();
 	}
 }
