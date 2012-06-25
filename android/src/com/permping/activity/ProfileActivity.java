@@ -146,7 +146,8 @@ public class ProfileActivity extends Activity {
             	exeGet(boardAdapter);
             	btnAccount.setVisibility(View.VISIBLE);
     		}else{
-    			btnAccount.setVisibility(View.GONE);
+//    			btnAccount.setVisibility(View.GONE);
+    			PermpingMain.showLogin();
     		}
     		dismissLoadingDialog();
     	}else{
