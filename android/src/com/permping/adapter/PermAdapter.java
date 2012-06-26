@@ -59,7 +59,7 @@ import com.permping.view.ImageDetail;
 public class PermAdapter extends ArrayAdapter<Perm> {
 
 	private ArrayList<Perm> items;
-
+	public static final String TAG = "PermAdapter";
 	public Button join;
 	public Button login;
 	public Button like;
@@ -78,7 +78,7 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 	private int screenHeight;
 	private Context context;
 	private HashMap<String, View> viewList = new HashMap<String, View>();
-	public int count = 15;
+	public int count = 11;
 	
 	private FragmentManager fragmentManager;
 	private int nextItems = -1;
@@ -171,13 +171,13 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 				convertView = viewList.get(viewId);
 				
 				if (convertView != null){
+					Log.i(TAG, "getView() convertView != null");
 					return convertView;
 				}else{
+					Log.i(TAG, "getView() convertView == null");
 					LayoutInflater inflater = (LayoutInflater) this.getContext()
 							.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 					final View view = inflater.inflate(R.layout.perm_item_1, null);
-		
-		
 		
 					like = (Button) view.findViewById(R.id.btnLike);
 					// Validate Like or Unlike
@@ -263,7 +263,6 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 					comment = (Button) view.findViewById(R.id.btnComment);
 					comment.setOnClickListener(new OnClickListener() {
 		
-						@Override
 						public void onClick(View v) {
 							user = PermUtils.isAuthenticated(v.getContext());
 							if (user != null) {
@@ -280,7 +279,6 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 					ImageView gotoMap = (ImageView)view.findViewById(R.id.btnLocation);
 					gotoMap.setOnClickListener(new OnClickListener() {
 						
-						@Override
 						public void onClick(View v) {
 							// TODO Auto-generated method stub
 		
@@ -333,7 +331,6 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 						ImageView imageView = (ImageView) view.findViewById(R.id.permImage);
 						imageView.setOnClickListener(new View.OnClickListener() {
 							
-							@Override
 							public void onClick(View arg0) {
 								// TODO Auto-generated method stub
 //								Intent imageDetail = new Intent(context, ImageDetail.class);
@@ -394,7 +391,6 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 										.findViewById(R.id.commentAvatar);
 								cma.setOnClickListener(new View.OnClickListener() {
 									
-									@Override
 									public void onClick(View v) {
 										// TODO Auto-generated method stub
 										PermpingMain.gotoTab(4, pcm);
@@ -446,7 +442,9 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 				}
 			}
 			else{
-				return null;
+				//position > items.size
+				//try to create a null view				
+				return createNullView();
 			}
 			
 		} catch (Exception e) {
@@ -456,6 +454,12 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 		}
 	}
 	
+	public View createNullView() {
+		LayoutInflater inflater = (LayoutInflater) this.getContext()
+				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		View view = inflater.inflate(R.layout.perm_item_1, null);
+		return view;
+	}
 	
 	private void loadImage(ImageView imageView, String url) {
 		// TODO Auto-generated method stub
@@ -520,7 +524,6 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 			
 		}
 
-		@Override
 		public void onClick(View v) {
 			if( v == btnOK )
 			{
@@ -714,7 +717,10 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 	 * @return the count
 	 */
 	public int getCount() {
+		if(items == null) {
 		return count;
+	}
+		return items.size();
 	}
 	
 
