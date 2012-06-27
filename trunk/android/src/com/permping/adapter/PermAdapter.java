@@ -450,7 +450,7 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 		} catch (Exception e) {
 			// TODO: handle exception
 			Log.d("aaa", "=========asdfsfsd======="+e.toString());
-			return null;
+			return createNullView();
 		}
 	}
 	
