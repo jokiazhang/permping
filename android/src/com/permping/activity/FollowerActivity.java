@@ -48,6 +48,8 @@ public class FollowerActivity extends FragmentActivity {
 //	FragmentManager t = ggetSupportFragmentManager();
 	private ProgressDialog dialog;
 	
+	private int currentItemInScrollList = 0;
+	
 	PermAdapter permListAdapter;
 	private BroadcastReceiver receiver = new BroadcastReceiver() {
 
@@ -128,11 +130,11 @@ public class FollowerActivity extends FragmentActivity {
 		ListView permListView = (ListView) findViewById(R.id.permList);
 		User user = PermUtils.isAuthenticated(getApplicationContext());
 		if(permListMain != null && !permListMain.isEmpty()){
+			if(permListAdapter == null) {
 			this.permListAdapter = new PermAdapter(FollowerActivityGroup.context,
 					getSupportFragmentManager(),R.layout.perm_item_1, permListMain, this, screenWidth, screenHeight, header, user);
-			permListView.setAdapter(permListAdapter);
-			permListView.setSelection(0);
 			
+				permListView.setAdapter(permListAdapter);
 			permListView.setOnScrollListener(new OnScrollListener() {
 				
 				public void onScrollStateChanged(AbsListView view, int scrollState) {
@@ -142,19 +144,39 @@ public class FollowerActivity extends FragmentActivity {
 				public void onScroll(AbsListView view, int firstVisibleItem,
 						int visibleItemCount, int totalItemCount) {
 					// TODO Auto-generated method stub
-					
-					boolean loadMore = firstVisibleItem + visibleItemCount >= totalItemCount;
-					if (loadMore && permListAdapter != null) {
+						if(currentItemInScrollList == firstVisibleItem) {
+							return;
+						} else {
+							currentItemInScrollList = firstVisibleItem;
+							if (firstVisibleItem + 1 == totalItemCount) {
 						nextItem = permListAdapter.getNextItems();
-						permListAdapter.count += visibleItemCount;					
+								//permListAdapter.count += visibleItemCount;					
 						dialog = ProgressDialog.show(getParent(), "Loading more", "Please wait...",
 								true);
+								
 						new LoadPermList().execute();
+								//permListAdapter.notifyDataSetChanged();
+							}
+						}
 						
+					}
+				});
+			} else {
+				/*if(permListAdapter.getCount() > permListMain.size()) {
+					permListAdapter.clear();
+				}*/
+				int nextItemCount = permListMain.size() - permListAdapter.getCount();
+				int currentAdapterItemCount = permListAdapter.getCount();				
+				if(nextItemCount > 0) {
+					for(int i = 0; i < nextItemCount; i++) {
+						permListAdapter.add(permListMain.get(currentAdapterItemCount + i));
+					}
 						permListAdapter.notifyDataSetChanged();
 					}
+				//permListAdapter.clear();
 				}
-			});
+			permListView.setSelection(currentItemInScrollList);			
+			
 		}else{
 			
 			
@@ -183,9 +205,18 @@ public class FollowerActivity extends FragmentActivity {
 			} catch (Exception e) {
 				// TODO: handle exception
 			}			
+			if(permListMain == null) {
 			permListMain = permList;
+			} else {				
+				if(permList != null) {
+					for(int i=0; i < permList.size(); i++) {
+						permListMain.add(permList.get(i));
+					}
+				}
+				
+			}
 						
-			return permListMain;
+			return permList;
 		}
 
 		@Override
