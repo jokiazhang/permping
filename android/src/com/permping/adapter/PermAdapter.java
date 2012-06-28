@@ -28,6 +28,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
@@ -37,6 +38,7 @@ import android.widget.Toast;
 import com.permping.PermpingApplication;
 import com.permping.PermpingMain;
 import com.permping.R;
+import com.permping.activity.FollowerActivity;
 import com.permping.activity.FollowerActivityGroup;
 import com.permping.activity.GoogleMapActivity;
 import com.permping.activity.JoinPermActivity;
@@ -165,7 +167,10 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 					}
 				});
 				return view;
-			} else if(items != null && !items.isEmpty() && position < items.size()){			
+			} else if(items != null && !items.isEmpty() && position < items.size()){
+				if(position == items.size() - 1) {
+					return createFooterView();
+				}
 				final Perm perm = items.get(position);
 				String viewId = perm.getId();
 				convertView = viewList.get(viewId);
@@ -454,6 +459,42 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 		}
 	}
 	
+	public View createFooterView() {
+		final Context context = this.getContext();
+		LayoutInflater inflater = (LayoutInflater) context
+				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		View footerView = inflater.inflate(R.layout.prev_next_layout, null);
+		ImageButton previousButton = (ImageButton) footerView.findViewById(R.id.previous);
+		previousButton.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				if(activity instanceof FollowerActivity) {
+					FollowerActivity follow = ((FollowerActivity)activity);
+					follow.loadPreviousItems();
+				}
+
+			}
+		});
+
+	
+		ImageButton nextButton = (ImageButton) footerView.findViewById(R.id.next);
+		nextButton.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					if(activity instanceof FollowerActivity) {
+						FollowerActivity follow = ((FollowerActivity)activity);
+						follow.loadNextItems();
+					}
+					}
+			});
+		return footerView;
+    
+	}
+
 	public View createNullView() {
 		LayoutInflater inflater = (LayoutInflater) this.getContext()
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);

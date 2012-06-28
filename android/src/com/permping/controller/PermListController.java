@@ -124,6 +124,8 @@ public class PermListController implements PermList_Delegate {
 			
 			
 		}
+		//add for footer
+		permList.add(new Perm());
 		
 		//ArrayList <Perm> permList = parser.permListFromNodeList("popularPerms");
 		return permList;
@@ -143,7 +145,7 @@ public class PermListController implements PermList_Delegate {
 		
 		if( url == "" ) {
 			url = API.popularPermsURL;
-//			permList.add(new Perm());
+			permList.add(new Perm());
 		}
 		XMLParser parser = new XMLParser(XMLParser.PERMLIST, PermListController.this, url, nameValuePairs);
 		Document doc = parser.getDoc();
@@ -231,7 +233,8 @@ public class PermListController implements PermList_Delegate {
 			
 			
 		}
-		
+		//add for footer
+		permList.add(new Perm());
 		//ArrayList <Perm> permList = parser.permListFromNodeList("popularPerms");
 		return permList;
 		
