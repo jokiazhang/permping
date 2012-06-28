@@ -78,7 +78,7 @@ public class LoginPermActivity extends Activity implements Login_delegate {
 				if(checkInputData()){
 					showLoadingDialog("Progress", "Please wait");
 					List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(8);
-					nameValuePairs.add(new BasicNameValuePair("type", prefs.getString(Constants.LOGIN_TYPE, "")));
+					nameValuePairs.add(new BasicNameValuePair("type", Constants.LOGIN_TYPE));
 					nameValuePairs.add(new BasicNameValuePair("oauth_token", ""));
 					nameValuePairs.add(new BasicNameValuePair("email", email.getText().toString()));
 					nameValuePairs.add(new BasicNameValuePair("password", password.getText().toString()));
