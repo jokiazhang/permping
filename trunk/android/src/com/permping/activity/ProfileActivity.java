@@ -33,6 +33,7 @@ import com.permping.PermpingMain;
 import com.permping.R;
 import com.permping.adapter.BoardAdapter;
 import com.permping.controller.BoardController;
+import com.permping.interfaces.Get_Board_delegate;
 import com.permping.model.Category;
 import com.permping.model.Comment;
 import com.permping.model.Perm;
@@ -68,7 +69,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class ProfileActivity extends Activity {
+public class ProfileActivity extends Activity implements Get_Board_delegate{
 	
 	private ImageView authorAvatar;
 	private TextView authorName;
@@ -80,6 +81,7 @@ public class ProfileActivity extends Activity {
 	public static boolean isUserProfile = true;
 	public static int userfollowcount;
 	public ProgressDialog loadingDialog;
+	public PermBoard board;
 	public Context context;
 	//private int selectedBoardId = -1;
 	private BroadcastReceiver receiver = new BroadcastReceiver() {
@@ -490,19 +492,9 @@ public class ProfileActivity extends Activity {
 
 		public void onItemClick(AdapterView<?> parent, View view, int pos,
 				long id) {
-			PermBoard board = (PermBoard) parent.getItemAtPosition(pos);
+			board = (PermBoard) parent.getItemAtPosition(pos);
 			BoardController boardController = new BoardController();
-			List<Perm> perms = boardController.getPermsByBoardId(board.getId());
-			
-				Transporter transporter = new Transporter();
-				transporter.setPerms(perms);
-				transporter.setBoardName(board.getName());
-				
-				// Go to the Board Detail screen
-				Intent i = new Intent(view.getContext(), BoardDetailActivity.class);
-				i.putExtra(Constants.TRANSPORTER, transporter);
-				View boardDetail = ProfileActivityGroup.group.getLocalActivityManager() .startActivity("BoardDetailActivity", i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
-				ProfileActivityGroup.group.replaceView(boardDetail);
+			List<Perm> perms = boardController.getPermsByBoardId(board.getId(), ProfileActivity.this);
 	
 		}
 
@@ -518,5 +510,24 @@ public class ProfileActivity extends Activity {
 	private void dismissLoadingDialog() {
 		if (loadingDialog != null && loadingDialog.isShowing())
 			loadingDialog.dismiss();
+	}
+	@Override
+	public void onSuccess(List<Perm> perms) {
+		// TODO Auto-generated method stub
+		
+		Transporter transporter = new Transporter();
+		transporter.setPerms(perms);
+		transporter.setBoardName(board.getName());
+		
+		// Go to the Board Detail screen
+		Intent i = new Intent(context, BoardDetailActivity.class);
+		i.putExtra(Constants.TRANSPORTER, transporter);
+		View boardDetail = ProfileActivityGroup.group.getLocalActivityManager() .startActivity("BoardDetailActivity", i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
+		ProfileActivityGroup.group.replaceView(boardDetail);
+	}
+	@Override
+	public void onError() {
+		// TODO Auto-generated method stub
+		
 	}
 }

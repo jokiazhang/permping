@@ -9,6 +9,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import com.permping.interfaces.Get_Board_delegate;
 import com.permping.model.Perm;
 import com.permping.model.PermBoard;
 import com.permping.utils.API;
@@ -24,46 +25,20 @@ public class BoardController {
 		
 		ArrayList<PermBoard> boards = new ArrayList<PermBoard>();
 		
-		XMLParser parser = new XMLParser( API.getProfileURL + userId, true );
-		Document doc  = parser.getDoc();
-		NodeList boardNodeList = doc.getElementsByTagName("item");
-		
-		for( int i = 0; i < boardNodeList.getLength(); i ++ ){
-			Element boardElement = (Element) boardNodeList.item(i);
-			
-			String boardId = getValue(boardElement, "id");
-			String boardName = getValue(boardElement, "name");
-			
-			PermBoard board = new PermBoard(boardId, boardName);
-			boards.add(board);
-		}
-		
+		XMLParser parser = new XMLParser( API.getProfileURL + userId, true );	
 		return boards;
 	}
 	
-	
-	public String getValue( Element e, String tag ){
-		if( e != null )
-		{
-			Node node = e.getElementsByTagName(tag).item(0).getFirstChild();
-			if( node != null ){
-				return node.getNodeValue();
-			}
-		}
-		return "";
-	}
-	
-	
-	
+		
 	/**
 	 * Return the list of perms of selected board.
 	 * @param boardId the board id.
 	 * @return the list of perms.
 	 */
-	public List<Perm> getPermsByBoardId(String boardId) {
+	public List<Perm> getPermsByBoardId(String boardId, Get_Board_delegate delegate) {
 		if (boardId == null || "".equals(boardId))
 			return null;
-		XMLParser parser = new XMLParser(API.permListFromBoardUrl + boardId);
+		XMLParser parser = new XMLParser(API.permListFromBoardUrl + boardId, delegate, XMLParser.GET_BOARD);
 		return parser.getPerms();
 	}
 }

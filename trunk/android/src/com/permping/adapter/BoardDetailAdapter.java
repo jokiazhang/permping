@@ -166,9 +166,9 @@ public class BoardDetailAdapter extends BaseAdapter implements ListAdapter {
 			TextView txtPermDescription = (TextView) view.findViewById(R.id.permDescription);
 			txtPermDescription.setText(perm.getDescription());
 			
-			// Perm Information
-			TextView txtPermInfo = (TextView) view.findViewById(R.id.permInfo);
-			txtPermInfo.setText("via " + perm.getAuthor().getName() + " on to " + boardName);
+//			// Perm Information
+//			TextView txtPermInfo = (TextView) view.findViewById(R.id.permInfo);
+//			txtPermInfo.setText("via " + perm.getAuthor().getName() + " on to " + boardName);
 			
 			// Status
 			String permStatus = "Like: " + perm.getPermLikeCount() + " - Repin: " + perm.getPermRepinCount() + " - Comment: " + perm.getPermCommentCount();

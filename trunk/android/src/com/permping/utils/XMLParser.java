@@ -40,6 +40,7 @@ import com.permping.PermpingApplication;
 import com.permping.handler.BoardHandler;
 import com.permping.handler.UserHandler;
 import com.permping.interfaces.Create_Board_delegate;
+import com.permping.interfaces.Get_Board_delegate;
 import com.permping.interfaces.HttpAccess;
 import com.permping.interfaces.JoinPerm_Delegate;
 import com.permping.interfaces.Login_delegate;
@@ -58,6 +59,7 @@ public class XMLParser implements HttpAccess {
     public final static int CREATE_BOARD = 2;
     public final static int JOIN_PERM = 3;
     public final static int PERMLIST = 4;
+    public final static int GET_BOARD = 5;
 	private Document doc = null;
 	private String xml = "<empty></empty>";
 	public int type;
@@ -373,6 +375,13 @@ public class XMLParser implements HttpAccess {
 			httpPermUtils = new HttpPermUtils();
 		getResponseFromURL(url);
 	}
+	public XMLParser(String url, Get_Board_delegate delegate, int type) {
+		if(httpPermUtils  == null)
+			httpPermUtils = new HttpPermUtils(XMLParser.this);
+		this.type = type;
+		this.delegate = delegate;
+		getResponseFromURL(url);
+	}
 
 	public XMLParser(int type, Object delegate, String url, List<NameValuePair> nameValuePairs) {
 		if(httpPermUtils  == null)
@@ -424,12 +433,8 @@ public class XMLParser implements HttpAccess {
 	 * @return the Document.
 	 */
 	private Document getResponseFromURL(String url) {
-		HttpPermUtils httpPermUtils = new HttpPermUtils();
+		HttpPermUtils httpPermUtils = new HttpPermUtils(XMLParser.this);
 		String response = httpPermUtils.sendRequest(url, null, true);
-//		if (response != null) {
-//			this.response = response;
-//			return parseResponse(response);
-//		}
 		return null;
 	}
 	
@@ -630,6 +635,9 @@ public class XMLParser implements HttpAccess {
 			case XMLParser.PERMLIST:
 				exePermList(doc);
 				break;
+			case XMLParser.GET_BOARD:
+				exeGetBoard(doc);
+				break;
 			default:
 				break;
 			}
@@ -656,10 +664,46 @@ public class XMLParser implements HttpAccess {
 				PermList_Delegate permList_Delegate = (PermList_Delegate)delegate;
 				permList_Delegate.onError();
 				break;
+			case XMLParser.GET_BOARD:
+				Get_Board_delegate getBoardDelegate = (Get_Board_delegate)delegate;
+				getBoardDelegate.onError();
+				break;
 			default:
 				break;
 			}
 		}
+	}
+	public String getValue( Element e, String tag ){
+		if( e != null )
+		{
+			Node node = e.getElementsByTagName(tag).item(0).getFirstChild();
+			if( node != null ){
+				return node.getNodeValue();
+			}
+		}
+		return "";
+	}
+	
+
+	private void exeGetBoard(Document doc) {
+		// TODO Auto-generated method stub
+		List<Perm> boards = new ArrayList<Perm>();
+		NodeList boardNodeList = doc.getElementsByTagName("item");
+		
+		for( int i = 0; i < boardNodeList.getLength(); i ++ ){
+			Element boardElement = (Element) boardNodeList.item(i);
+			
+			String boardId = getValue(boardElement, "permId");
+			String boardName = getValue(boardElement, "permDesc");
+			String boardDesc = getValue(boardElement, "permDesc");
+			String boardDateMessage = getValue(boardElement, "permDateMessage");
+			String boardImage = getValue(boardElement, "permImage");
+			PermImage permImage = new PermImage(boardImage);
+			Perm board = new Perm(boardId, boardName, boardDesc, boardDateMessage, permImage);
+			boards.add(board);
+		}
+		Get_Board_delegate getBoard_delegate = (Get_Board_delegate)delegate;
+		getBoard_delegate.onSuccess(boards);
 	}
 
 	private void exePermList(Document doc) {

@@ -19,7 +19,7 @@ public class Transporter implements Serializable {
 	private String boardName;
 	
 	private List<Perm> perms;
-	
+	private List<PermBoard> permsBoard;
 	/**
 	 * Default constructor
 	 */
@@ -59,4 +59,12 @@ public class Transporter implements Serializable {
 	public void setPerms(List<Perm> perms) {
 		this.perms = perms;
 	}
+	public List<PermBoard> getPermsBoard() {
+		return permsBoard;
+	}
+
+	public void setPermsBoard(List<PermBoard> perms) {
+		this.permsBoard = perms;
+	}
+
 }
