@@ -579,6 +579,30 @@ public class XMLParser implements HttpAccess {
 	public void onError() {
 		// TODO Auto-generated method stub
 		Log.d("", "ERror====>");
+		switch (type) {
+		case XMLParser.LOGIN:
+			loginDelegate.on_error();
+			break;
+		case XMLParser.MYDIARY:
+			Log.d("delegate====:", "delegate ======>:");
+			MyDiary_Delegate myDialyDelegate = (MyDiary_Delegate)delegate;
+			myDialyDelegate.onError();
+			break;
+		case XMLParser.CREATE_BOARD:
+			Create_Board_delegate createBoardDelegate = (Create_Board_delegate)delegate;
+			createBoardDelegate.onError();
+			break;
+		case XMLParser.JOIN_PERM:
+			JoinPerm_Delegate joinPerm_Delegate = (JoinPerm_Delegate)delegate;
+			joinPerm_Delegate.onError();
+			break;
+		case XMLParser.PERMLIST:
+			PermList_Delegate permList_Delegate = (PermList_Delegate)delegate;
+			permList_Delegate.onError();
+			break;
+		default:
+			break;
+		}
 	}
 
 	@Override

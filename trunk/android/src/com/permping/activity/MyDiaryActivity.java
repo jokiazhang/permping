@@ -453,6 +453,7 @@ public class MyDiaryActivity extends Activity implements View.OnClickListener , 
 			if(theday.length() <2)
 				theday = "0"+theday;
 			String date = theyear+"-"+MyDiaryActivity.this.months.get(themonth)+"-"+theday;
+			row.setTag(date);
 			Log.d(tag, "Setting GridCell " +date);
 			if (day_color[1].equals("GREY")) {
 				gridcell.setTextColor(Color.LTGRAY);
@@ -488,29 +489,20 @@ public class MyDiaryActivity extends Activity implements View.OnClickListener , 
 				@Override
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
-					onClicked(v);
+					String date =(String)v.getTag();
+					if(date != null)
+						onClicked(date);
 				}
 			});
 			return row;
 		}
 
 
-		public void onClicked(View view) {
-			String date_month_year = (String) view.getTag();
-//			selectedDayMonthYearButton.setText("Selected: " + date_month_year);
-
+		public void onClicked(String date_) {
+			String date_month_year = date_;
 			try {
-				Date parsedDate = dateFormatter.parse(date_month_year);
-				Log.d(tag, "Parsed Date: " + parsedDate.toString());
-
-				// TODO: click to show the perms here
-				String[] values = date_month_year.split("-");
-				if (values != null) {
-					String date = values[0];
-					String month = convertMonth(values[1]);
-					String year = values[2];
 					MyDiaryController myDiaryController = new MyDiaryController();
-					List<Perm> perms = myDiaryController.getPermsByDate(year + "-" + month + "-" + date);
+					List<Perm> perms = myDiaryController.getPermsByDate(date_month_year);
 					Transporter transporter = new Transporter();
 					transporter.setPerms(perms);
 					
@@ -519,8 +511,7 @@ public class MyDiaryActivity extends Activity implements View.OnClickListener , 
 		            Intent myIntent = new Intent(MyDiaryActivity.this, BoardDetailActivity.class);
 					View boardListView = MyDiaryActivityGroup.group.getLocalActivityManager() .startActivity("detail", myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
 					MyDiaryActivityGroup.group.replaceView(boardListView);
-				}
-			} catch (ParseException e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
