@@ -107,8 +107,8 @@ public class HttpPermUtils {
 
 		protected String doInBackground(String... urls) {
 			if(isGet){
-				sendGetRequest(urls[0]);
-				return null;
+				String result = sendGetRequest(urls[0]);
+				return result;
 			}else{
 				String url = null;
 				String result=null;

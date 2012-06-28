@@ -49,6 +49,7 @@ public class LoginPermActivity extends Activity implements Login_delegate {
 	Button facebookLogin;
 	Button twitterLogin;
 	Button login;
+	private boolean isLoginFb = false;
 	private ProgressDialog loadingDialog;
 	private PermpingMain login_delegate;
 	SharedPreferences prefs;
@@ -94,17 +95,17 @@ public class LoginPermActivity extends Activity implements Login_delegate {
         //Login with Facebook button
         facebookLogin.setOnClickListener(new View.OnClickListener() {
 			
-			public void onClick(View v) {
+			public void onClick(final View v) {
 				// TODO Auto-generated method stub
 				// Clear FB info to show the login again
-				try {
-					facebookConnector.getFacebook().logout(v.getContext());
-				} catch (MalformedURLException me) {
-					me.printStackTrace();
-				} catch (IOException ioe) {
-					ioe.printStackTrace();
-				}
-				
+//				try {
+//					facebookConnector.getFacebook().logout(v.getContext());
+//				} catch (MalformedURLException me) {
+//					me.printStackTrace();
+//				} catch (IOException ioe) {
+//					ioe.printStackTrace();
+//				}
+//				
 			    //state = (PermpingApplication) getContext().getApplicationContext();
 				
 				if (!facebookConnector.getFacebook().isSessionValid()) {
@@ -125,20 +126,10 @@ public class LoginPermActivity extends Activity implements Login_delegate {
 							nameValuePairs.add(new BasicNameValuePair("oauth_token", prefs.getString(Constants.ACCESS_TOKEN, "")));
 							nameValuePairs.add(new BasicNameValuePair("email", ""));
 							nameValuePairs.add(new BasicNameValuePair("password", ""));
-							boolean existed = AuthorizeController.authorize(getApplicationContext(), nameValuePairs);
-							Intent intent;
-							if (existed) {
-								// Forward back to Following tab
-//								PermUtils.clearViewHistory();
-								FollowerActivity.isLogin = true;
-								finish();
-//								login_delegate.on_success();
-
-							} else {
-								// Forward to Create account window
-								intent = new Intent(getApplicationContext(), JoinPermActivity.class);
-								getApplicationContext().startActivity(intent);
-							}
+							AuthorizeController authorizeController = new AuthorizeController(LoginPermActivity.this);
+							authorizeController.authorize(v.getContext(), nameValuePairs);
+//							boolean existed = AuthorizeController.authorize(getApplicationContext(), nameValuePairs, LoginPermActivity.this);
+							isLoginFb = true;
 						}
 						
 						public void onAuthFail(String error) {
@@ -187,11 +178,18 @@ public class LoginPermActivity extends Activity implements Login_delegate {
 @Override
 public void on_success() {
 	// TODO Auto-generated method stub
-	FollowerActivity.isLogin = true;
-	dismissLoadingDialog();
-	PermpingMain.back();
-	if(PermpingMain.getCurrentTab() == 0)
-		sendBroadcast("", "");
+	if(isLoginFb){
+		FollowerActivity.isLogin = true;
+		isLoginFb = false;
+		finish();
+	}else{
+		FollowerActivity.isLogin = true;
+		dismissLoadingDialog();
+		PermpingMain.back();
+		if(PermpingMain.getCurrentTab() == 0)
+			sendBroadcast("", "");
+	}
+
 }
 private void sendBroadcast(String issueId, String storyId) {
     Intent new_intent = new Intent();
@@ -203,10 +201,17 @@ private void sendBroadcast(String issueId, String storyId) {
 @Override
 public void on_error() {
 	// TODO Auto-generated method stub
-	dismissLoadingDialog();
-	Toast toast = Toast.makeText(getApplicationContext(), "Authentication failed!. Please try again!", Toast.LENGTH_LONG);
-	toast.setGravity(Gravity.TOP | Gravity.CENTER, 0, 300);
-	toast.show();
+	if(isLoginFb){
+		isLoginFb = false;
+		Intent intent = new Intent(getApplicationContext(), JoinPermActivity.class);
+		getParent().startActivity(intent);
+	}else{
+		dismissLoadingDialog();
+		Toast toast = Toast.makeText(getApplicationContext(), "Authentication failed!. Please try again!", Toast.LENGTH_LONG);
+		toast.setGravity(Gravity.TOP | Gravity.CENTER, 0, 300);
+		toast.show();
+		
+	}
 }
 private void showLoadingDialog(String title, String msg) {
 	loadingDialog = new ProgressDialog(getParent());
