@@ -122,7 +122,7 @@ public class LoginPermActivity extends Activity implements Login_delegate {
 
 							// Check on server
 							List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(4);
-							nameValuePairs.add(new BasicNameValuePair("type", prefs.getString(Constants.LOGIN_TYPE, "")));
+							nameValuePairs.add(new BasicNameValuePair("type", Constants.FACEBOOK_LOGIN));
 							nameValuePairs.add(new BasicNameValuePair("oauth_token", prefs.getString(Constants.ACCESS_TOKEN, "")));
 							nameValuePairs.add(new BasicNameValuePair("email", ""));
 							nameValuePairs.add(new BasicNameValuePair("password", ""));
