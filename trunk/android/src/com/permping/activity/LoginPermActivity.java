@@ -13,6 +13,7 @@ import org.apache.http.message.BasicNameValuePair;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -54,6 +55,7 @@ public class LoginPermActivity extends Activity implements Login_delegate {
 	private PermpingMain login_delegate;
 	SharedPreferences prefs;
 	private FacebookConnector facebookConnector;
+	public static Context context;
 //	public LoginPermActivity(Login_delegate loginDelegate){
 //		login_delegate = loginDelegate;
 //	}
@@ -69,7 +71,7 @@ public class LoginPermActivity extends Activity implements Login_delegate {
         facebookLogin = (Button) findViewById(R.id.loginfb);
         twitterLogin  = (Button) findViewById(R.id.logintw);
         login         = (Button) findViewById(R.id.loginPerm);
-         
+        context = LoginPermActivity.this;
 
                 
         // Login button
@@ -181,7 +183,7 @@ public void on_success() {
 	if(isLoginFb){
 		FollowerActivity.isLogin = true;
 		isLoginFb = false;
-		finish();
+		PermpingMain.back();
 	}else{
 		FollowerActivity.isLogin = true;
 		dismissLoadingDialog();
