@@ -101,7 +101,7 @@
     self.perm = in_perm;
     self.commentLabel.text = perm.permDesc;
     self.descriptionLabel.text = perm.permDateMessage;
-    NSString *like = ([in_perm.permUserlikeCount intValue]==0)?@"Like":@"Unlike";
+    NSString *like = ([in_perm.permUserlikeCount intValue]==0)?NSLocalizedString(@"Like", @"Like"):NSLocalizedString(@"Unlike", @"Unlike");
     [likeButton setTitle:like forState:UIControlStateNormal];
     
     self.statusLabel.text = [NSString stringWithFormat:@"Likes %@ Comments %@ Repin %@", perm.permLikeCount, perm.permCommentCount, perm.permRepinCount];
