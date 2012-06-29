@@ -182,7 +182,7 @@
                                {
                                    [self stopActivityIndicator];
                                    if (error) {
-                                       [Utils displayAlert:[error localizedDescription] delegate:nil];
+                                       [Utils displayAlert:[error localizedDescription] delegate:self];
                                        if (error.code == 200) {
                                            uploadSuccess = YES;
                                            //[self dismiss:nil];
@@ -230,17 +230,19 @@
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
     if (uploadSuccess) {
-        BOOL shareKakao = [[NSUserDefaults standardUserDefaults] boolForKey:@"ShareKakao"];
-        if (shareKakao) {
-            // Note: 
-            // Url to open permping again : @"permping://"
-            // This is registered in Permping-Info.plist , key : URL Types
-            
-            NSString *message = [NSString stringWithFormat:@"pindetails/%@", self.permId];
-            NSString *executeUrl = [LAUNCH_APP_URL stringByAppendingFormat:@"pindetails/%@", self.permId]; 
-            NSArray *array = [NSArray arrayWithObjects:@"os", @"iphone", @"devicetype", @"phone", @"installurl", self.permIphoneLink, @"executeurl", executeUrl,nil];
-            NSString *url = [NSString stringWithFormat:@"%@ & %@", self.permIphoneLink, self.permAndroidLink];
-            [[KakaoLinkCenter defaultCenter] openKakaoAppLinkWithMessage:message URL:url appBundleID:@"webactully" appVersion:@"2.0" appName:@"Permping App" metaInfoArray:array];
+        if (!target) {
+            BOOL shareKakao = [[NSUserDefaults standardUserDefaults] boolForKey:@"ShareKakao"];
+            if (shareKakao) {
+                // Note: 
+                // Url to open permping again : @"permping://"
+                // This is registered in Permping-Info.plist , key : URL Types
+                
+                NSString *message = [NSString stringWithFormat:@"pindetails/%@", self.permId];
+                NSString *executeUrl = [LAUNCH_APP_URL stringByAppendingFormat:@"pindetails/%@", self.permId]; 
+                NSArray *array = [NSArray arrayWithObjects:@"os", @"iphone", @"devicetype", @"phone", @"installurl", self.permIphoneLink, @"executeurl", executeUrl,nil];
+                NSString *url = [NSString stringWithFormat:@"%@ & %@", self.permIphoneLink, self.permAndroidLink];
+                [[KakaoLinkCenter defaultCenter] openKakaoAppLinkWithMessage:message URL:url appBundleID:@"webactully" appVersion:@"2.0" appName:@"Permping App" metaInfoArray:array];
+            }
         }
         [self dismiss:nil];
     }
