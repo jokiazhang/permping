@@ -54,6 +54,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 import android.widget.ToggleButton;
@@ -94,7 +95,7 @@ public class NewPermActivity extends Activity implements OnClickListener {
 	private ArrayList<Category> categories;
 	private String permId;
 	private ArrayList<PermBoard> boards;
-
+	private LinearLayout btnCatilogy;
 	public Handler handleFbLogin = new Handler() {
 		@Override
 		public void handleMessage(Message msg) {
@@ -120,10 +121,12 @@ public class NewPermActivity extends Activity implements OnClickListener {
 		btnShareKakao = (ToggleButton) contentView
 				.findViewById(R.id.share_kakao);
 		btnLocation = (ToggleButton) contentView.findViewById(R.id.location);
+		btnCatilogy = (LinearLayout)contentView.findViewById(R.id.categoryItemLayout1);
 		btnShareFacebook.setOnClickListener(this);
 		btnShareTwitter.setOnClickListener(this);
 		btnShareKakao.setOnClickListener(this);
 		btnLocation.setOnClickListener(this);
+		btnCatilogy.setOnClickListener(this);
 		permUtils = new PermUtils();
 		Bundle extras = getIntent().getExtras();
 		if (extras != null) {
@@ -262,11 +265,14 @@ public class NewPermActivity extends Activity implements OnClickListener {
 
 		@Override
 		protected void onPostExecute(String sResponse) {
-
+			
 			setSpinnerData();
-			if (dialog.isShowing()) {
-				dialog.dismiss();
+			if(dialog != null){
+				if (dialog.isShowing()) {
+					dialog.dismiss();
+				}	
 			}
+			
 
 		}
 	}
@@ -468,6 +474,9 @@ public class NewPermActivity extends Activity implements OnClickListener {
 			break;
 		case R.id.location:
 			locationChange();
+		case R.id.categoryItemLayout1:
+			new LoadBoards().execute();
+			break;
 		default:
 			break;
 		}

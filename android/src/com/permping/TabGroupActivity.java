@@ -1,9 +1,12 @@
 package com.permping;
 
 import java.util.ArrayList;
+
+import android.app.Activity;
 import android.app.ActivityGroup;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -63,11 +66,7 @@ public class TabGroupActivity extends ActivityGroup {
 		}
 	}
 
-	@Override
-	public void onBackPressed() {
-		//super.onBackPressed();
-		TabGroupActivity.group.back();
-		return;
-	}
+
+
 
 }

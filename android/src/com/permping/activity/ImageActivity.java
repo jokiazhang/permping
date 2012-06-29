@@ -11,7 +11,10 @@ import com.permping.utils.PermUtils;
 
 import android.app.Activity;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.hardware.Camera;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -36,29 +39,9 @@ public class ImageActivity extends Activity {
 				User user = PermUtils.isAuthenticated(getApplicationContext());
 				if (user != null) {
 					// define the file-name to save photo taken by Camera activity
-					SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.ENGLISH);
-			        String strCurDate = dateFormat.format(new Date(System.currentTimeMillis()));
-			        String imageName = "" + strCurDate + ".jpg";
-			        
-					// create parameters for Intent with filename
-					ContentValues values = new ContentValues();
-					values.put(MediaStore.Images.Media.TITLE, imageName );
-					values.put(MediaStore.Images.Media.DESCRIPTION, "Image capture by camera");
-					// imageUri is the current activity attribute, define and save
-					// it for later usage (also in onSaveInstanceState)
-					Uri imageUri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
-					ImageActivityGroup.imagePath = imageUri.getPath() + "/" + imageName ;
-					// create new Intent
-					Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-					intent.putExtra(MediaStore.EXTRA_OUTPUT, imageName );
-					intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1);
-					getParent().startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
-					//ImageActivityGroup.imagePath = intent.getData().getPath();
-					//getParent().startActivityForResult(Intent.createChooser(intent, "Select Picture"), CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
+					showCamera();
 				} else {
-					// Go to login screen
-//					Intent i = new Intent(v.getContext(), LoginPermActivity.class);
-//					v.getContext().startActivity(i);
+
 					PermpingMain.showLogin();
 				}
 			}
@@ -106,50 +89,30 @@ public class ImageActivity extends Activity {
 		});
 
 	}
-	/*
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
-			if (resultCode == RESULT_OK) {
-				// use imageUri here to access the image
-				Uri selectedImageUri = data.getData();
-				String selectedImagePath = selectedImageUri.getPath();
-				String b  = selectedImagePath;
-			} else if (resultCode == RESULT_CANCELED) {
-				Toast.makeText(this, "Picture was not taken",
-						Toast.LENGTH_SHORT);
-			} else {
-				Toast.makeText(this, "Picture was not taken",
-						Toast.LENGTH_SHORT);
-			}
+
+	public void showCamera(){
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.ENGLISH);
+        String strCurDate = dateFormat.format(new Date(System.currentTimeMillis()));
+        String imageName = "" + strCurDate + ".jpg";
+        
+		// create parameters for Intent with filename
+		ContentValues values = new ContentValues();
+		values.put(MediaStore.Images.Media.TITLE, imageName );
+		values.put(MediaStore.Images.Media.DESCRIPTION, "Image capture by camera");
+		// imageUri is the current activity attribute, define and save
+		// it for later usage (also in onSaveInstanceState)
+		Uri imageUri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+		ImageActivityGroup.imagePath = imageUri.getPath() + "/" + imageName ;
+		// create new Intent
+		Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+		intent.putExtra(MediaStore.EXTRA_OUTPUT, imageName );
+		intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1);
+		Context context = ImageActivity.this;
+		PackageManager packageManager = context.getPackageManager();
+ 
+		// if device support camera?
+		if (packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
+			getParent().startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
 		}
 	}
-	
-	 /*
-	public static File convertImageUriToFile(Uri imageUri, Activity activity) {
-		Cursor cursor = null;
-		try {
-			String[] proj = { MediaStore.Images.Media.DATA,
-					MediaStore.Images.Media._ID,
-					MediaStore.Images.ImageColumns.ORIENTATION };
-			cursor = activity.managedQuery(imageUri, proj, // Which columns to
-															// return
-					null, // WHERE clause; which rows to return (all rows)
-					null, // WHERE clause selection arguments (none)
-					null); // Order-by clause (ascending by name)
-			int file_ColumnIndex = cursor
-					.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-			int orientation_ColumnIndex = cursor
-					.getColumnIndexOrThrow(MediaStore.Images.ImageColumns.ORIENTATION);
-			if (cursor.moveToFirst()) {
-				String orientation = cursor.getString(orientation_ColumnIndex);
-				return new File(cursor.getString(file_ColumnIndex));
-			}
-			return null;
-		} finally {
-			if (cursor != null) {
-				cursor.close();
-			}
-		}
-	}
-	*/
 }
