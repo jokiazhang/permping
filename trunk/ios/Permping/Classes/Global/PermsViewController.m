@@ -33,7 +33,7 @@
 
 @implementation PermsViewController
 @synthesize permTableview, permsImageHeight;
-@synthesize resultModel, noFoundLabel, selectedPerms;
+@synthesize resultModel, noFoundLabel, selectedPerm;
 @synthesize loadMoreSpinner;
 
 - (void)dealloc {
@@ -41,8 +41,9 @@
     self.permsImageHeight = nil;
     self.resultModel = nil;
     self.noFoundLabel = nil;
-    self.selectedPerms = nil;
+    self.selectedPerm = nil;
     self.loadMoreSpinner = nil;
+    [invisibleButton release];
     [super dealloc];
 }
 
@@ -104,6 +105,9 @@
     // Bug black corner on iOS 4
     permTableview.backgroundColor = [UIColor clearColor];
     
+    invisibleButton = [[UIButton alloc] initWithFrame:self.view.bounds];
+    [invisibleButton addTarget:self action:@selector(hideKeyBoard) forControlEvents:UIControlEventTouchUpInside];
+    invisibleButton.backgroundColor = [UIColor colorWithWhite:0 alpha:0.3];
     
     self.loadMoreSpinner = [[[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge] autorelease];
     self.loadMoreSpinner.backgroundColor = [UIColor grayColor];
@@ -133,6 +137,7 @@
     self.permsImageHeight = nil;
     self.permTableview = nil;
     self.noFoundLabel = nil;
+    [invisibleButton release];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -171,8 +176,7 @@
     self.permsImageHeight = nil;
     self.permsImageHeight = [[[NSMutableDictionary alloc] init] autorelease];
     
-    self.selectedPerms = nil;
-    self.selectedPerms = [[[NSMutableArray alloc] init] autorelease];
+    self.selectedPerm = nil;
     
     [self.permTableview reloadData];
     self.navigationController.navigationBarHidden = NO;
@@ -401,7 +405,7 @@
 }
 - (void)likePermAtCell:(PermInfoCell*)cell {
     if ([[AppData getInstance] didLogin]) {
-        [self.selectedPerms addObject:cell.perm];
+        self.selectedPerm = cell.perm;
         [self startActivityIndicator];
         self.dataLoaderThread = [[ThreadManager getInstance] dispatchToConcurrentBackgroundNormalPriorityQueueWithTarget:self selector:@selector(peformLikePermAction:thread:) dataObject:[self getMyDataLoader]];
     } else {
@@ -413,7 +417,7 @@
 - (void)commentPermAtCell:(PermInfoCell*)cell {
     if ([[AppData getInstance] didLogin]) {
         [commentTextField becomeFirstResponder];
-        [self.selectedPerms addObject:cell.perm];
+        self.selectedPerm = cell.perm;
     } else {
         [self pushLoginView];
     }
@@ -462,15 +466,15 @@
                            
                        });
         NSString *userId = [[[AppData getInstance] user] userId];
-        PermModel *perm = [[self.selectedPerms objectAtIndex:0] retain];
+        PermModel *perm = self.selectedPerm;
         NSInteger permIndex = [self.resultModel.arrResults indexOfObjectIdenticalTo:perm];
-        [self.selectedPerms removeObjectAtIndex:0];
         PermActionResponse *response = [(FollowingScreen_DataLoader *)loader likePermWithId:perm.permId userId:userId];
         NSError *error = response.responseError;
         if (![threadObj isCancelled]) {
             dispatch_async(dispatch_get_main_queue(), ^(void)
                            {
                                [self stopActivityIndicator];
+                               self.selectedPerm = nil;
                                if (error) {
                                    [Utils displayAlert:[error localizedDescription] delegate:nil];
                                } else {
@@ -490,7 +494,6 @@
                                }
                            });
         }
-        [perm release];
     }
     //[myLoader release];
     [pool drain];
@@ -506,14 +509,14 @@
                            
                        });
         NSString *userId = [[[AppData getInstance] user] userId];
-        PermModel *perm = [[self.selectedPerms objectAtIndex:0] retain];
+        PermModel *perm = self.selectedPerm;
         NSInteger permIndex = [self.resultModel.arrResults indexOfObjectIdenticalTo:perm];
-        [self.selectedPerms removeObjectAtIndex:0];
         PermActionResponse *response = [(FollowingScreen_DataLoader *)loader commentPermWithId:perm.permId userId:userId content:commentTextField.text];
         NSError *error = response.responseError;
         if (![threadObj isCancelled]) {
             dispatch_async(dispatch_get_main_queue(), ^(void)
                            {
+                               self.selectedPerm = nil;
                                [self stopActivityIndicator];
                                if (error) {
                                    [Utils displayAlert:[error localizedDescription] delegate:nil];
@@ -536,7 +539,6 @@
                                }
                            });
         }
-        [perm release];
     }
     //[myLoader release];
     [pool drain];
@@ -557,26 +559,42 @@
 #pragma mark Notifications
 
 - (void)keyboardWillShow:(NSNotification *)notification {
+    if (_showingKeyboard) {
+        return;
+    }
+    commentTextField.text = @"";
+    _showingKeyboard = YES;
+    [self.view addSubview:invisibleButton];
     [self.view bringSubviewToFront:commentToolBar];
-	[UIView beginAnimations:nil context:NULL];
-	[UIView setAnimationDuration:0.3];
-	
-	CGRect frame = commentToolBar.frame;
+    CGRect frame = commentToolBar.frame;
 	frame.origin.y = self.view.frame.size.height - 211.0;
-	commentToolBar.frame = frame;
-	
-	[UIView commitAnimations];
+    
+    [UIView animateWithDuration:0.3 animations:^{
+        commentToolBar.frame = frame;
+    } completion:^(BOOL finished) {
+        
+    }];
 }
 
 - (void)keyboardWillHide:(NSNotification *)notification {
-	[UIView beginAnimations:nil context:NULL];
-	[UIView setAnimationDuration:0.3];
-	
-	CGRect frame = commentToolBar.frame;
-	frame.origin.y = self.view.frame.size.height;
-	commentToolBar.frame = frame;
-	
-	[UIView commitAnimations];
+    if (!_showingKeyboard) {
+        return;
+    }
+    _showingKeyboard = NO;
+    if ([invisibleButton superview]) {
+        [invisibleButton removeFromSuperview];
+    }
+    CGRect frame = commentToolBar.frame;
+    frame.origin.y = self.view.frame.size.height;
+    [UIView animateWithDuration:0.3 animations:^{
+        commentToolBar.frame = frame;
+    } completion:^(BOOL finished) {
+        
+    }];
+}
+
+- (void)hideKeyBoard {
+    [commentTextField resignFirstResponder];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {

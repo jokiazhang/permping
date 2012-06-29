@@ -20,13 +20,15 @@
     UILabel             *noFoundLabel;
     
     Taglist_NDModel     *resultModel;
-    NSMutableArray      *selectedPerms;
+    PermModel           *selectedPerm;
+    UIButton            *invisibleButton;
     
     UIToolbar      *commentToolBar;
     UITextField    *commentTextField;
+    BOOL            _showingKeyboard;
     
 }
-@property (nonatomic, retain) NSMutableArray *selectedPerms;
+@property (nonatomic, retain) PermModel *selectedPerm;
 @property (nonatomic, retain) Taglist_NDModel *resultModel;
 
 @property (nonatomic, retain) UIActivityIndicatorView       *loadMoreSpinner;
