@@ -30,6 +30,7 @@ import com.permping.model.Perm;
 import com.permping.model.User;
 import com.permping.utils.API;
 import com.permping.utils.PermUtils;
+import com.permping.utils.UrlImageViewHelper;
 
 public class FollowerActivity extends FragmentActivity {
 
@@ -153,7 +154,10 @@ public class FollowerActivity extends FragmentActivity {
 	private void loadPerms() {
 		User user = PermUtils.isAuthenticated(getApplicationContext());		
 		if(permListMain != null && !permListMain.isEmpty()){
-			
+			if(permListAdapter != null && !permListAdapter.isEmpty()) {
+				permListAdapter.clear();
+				UrlImageViewHelper.clearAllImageView();				
+			}
 			this.permListAdapter = new PermAdapter(FollowerActivityGroup.context,
 					getSupportFragmentManager(),R.layout.perm_item_1, permListMain, this, screenWidth, screenHeight, header, user);
 			permListView.setAdapter(permListAdapter);

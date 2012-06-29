@@ -11,7 +11,8 @@
                 android:layout_width="fill_parent"
                 android:layout_span="2"
                 android:padding="15dp"
-                android:text="Pemping is online social media book. Share and express the media you like on your online diary"
+                android:gravity="center"
+                android:text="@string/welcome"
                 android:textColor="#000000" />
         </TableRow>
 
@@ -28,9 +29,9 @@
                     android:id="@+id/bt_join"
                     android:layout_width="80dp"
                     android:layout_height="30dp"
-                    android:background="@drawable/button_bg"
+                    android:background="@drawable/button_bg_new"
                     android:text="@string/bt_join"
-                    android:textColor="#FFFFFF" />
+                    android:textColor="#000000" />
             </LinearLayout>
 
             <LinearLayout
@@ -44,9 +45,9 @@
                     android:id="@+id/bt_login"
                     android:layout_width="80dp"
                     android:layout_height="30dp"
-                    android:background="@drawable/button_bg"
+                    android:background="@drawable/button_bg_new"
                     android:text="@string/bt_login"
-                    android:textColor="#FFFFFF" />
+                    android:textColor="#000000" />
             </LinearLayout>
         </TableRow>
 

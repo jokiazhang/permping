@@ -29,5 +29,23 @@
         <item name="android:textSize">16sp</item>
         <item name="android:textColor">#cccccc</item>
     </style>
+	
+	<style name="next_button_normal">
+	    <item name="android:background">@android:color/transparent</item>
+	    <item name="android:src">@drawable/next_normal</item>
+	</style>
+	<style name="next_button_pressed">
+	    <item name="android:background">@android:color/transparent</item>
+	    <item name="android:src">@drawable/next_pressed</item>
+	</style>
+	
+	<style name="previous_button_normal">
+	    <item name="android:background">@android:color/transparent</item>
+	    <item name="android:src">@drawable/prev_normal</item>
+	</style>
+	<style name="previous_button_pressed">
+	    <item name="android:background">@android:color/transparent</item>
+	    <item name="android:src">@drawable/prev_pressed</item>
+	</style>
 
 </resources>
