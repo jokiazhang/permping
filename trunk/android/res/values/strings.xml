@@ -42,4 +42,6 @@
     <string name="required">입력하세요</string>
     <string name="login">로그인</string>
     
+    <string name="welcome">이미지를 소통하는 소셜 커뮤니티\n\t\t\t\t순간의 이야기를 펌핑과 함께</string>
+    
 </resources>

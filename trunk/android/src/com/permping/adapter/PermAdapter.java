@@ -189,11 +189,15 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 					if (perm != null) {
 						if (perm.getPermUserLikeCount() != null
 								&& "0".equals(perm.getPermUserLikeCount())) {
-							like.setText(Constants.LIKE);
+							like.setText(R.string.bt_like);
 						} else {
-							like.setText(Constants.UNLIKE);
+							like.setText(R.string.bt_unlike);
 						}
 					}
+					
+					final String likeString = this.getContext().getResources().getString(R.string.bt_like);
+					final String repermString = this.getContext().getResources().getString(R.string.bt_reperm);
+					final String commentString = this.getContext().getResources().getString(R.string.bt_comment);
 		
 					like.setOnClickListener(new OnClickListener() {
 						public void onClick(final View v) {
@@ -215,23 +219,24 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 									String label = ((Button) v).getText().toString();
 									int likeCount = Integer.parseInt(perm
 											.getPermLikeCount());
-									if (label != null && label.equals(Constants.LIKE)) { // Like
+									if (label != null && label.equals(likeString)) { // Like
 										// Update the count
 										likeCount++;
 										perm.setPermLikeCount(String.valueOf(likeCount));
 										// Change the text to "Unlike"
-										like.setText(Constants.UNLIKE);
+										like.setText(R.string.bt_unlike);
 									} else { // Unlike
 										likeCount = likeCount - 1;
 										if (likeCount < 0)
 											likeCount = 0;
 										perm.setPermLikeCount(String.valueOf(likeCount));
-										like.setText(Constants.LIKE);
+										like.setText(R.string.bt_like);										
 									}
 								}
-								String permStatus = "Like: " + perm.getPermLikeCount()
-										+ " - Repin: " + perm.getPermRepinCount()
-										+ " - Comment: " + perm.getPermCommentCount();
+								
+								String permStatus = likeString + ": " + perm.getPermLikeCount()
+										+ " - " + repermString + ": " + perm.getPermRepinCount()
+										+ " - " + commentString + ": " + perm.getPermCommentCount();
 								TextView txtStatus = (TextView) view
 										.findViewById(R.id.permStat);
 								if(permStatus != null)
@@ -375,10 +380,11 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 						//holder.permInfo.setText(permInfo);
 						if( permInfo != null)
 							pi.setText(permInfo);
-		
-						String permStat = "Like: " + perm.getPermLikeCount()
-								+ " - Repin: " + perm.getPermRepinCount()
-								+ " - Comment: " + perm.getPermCommentCount();
+						
+						String permStat = likeString + ": " + perm.getPermLikeCount()
+								+ " - " + repermString + ": " + perm.getPermRepinCount()
+								+ " - " + commentString + ": " + perm.getPermCommentCount();
+						
 						TextView ps = (TextView) view.findViewById(R.id.permStat);
 						//holder.permStat.setText(permStat);
 						//holder.permStat.setText(permStat);
