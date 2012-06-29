@@ -41,7 +41,7 @@ public class ExplorerActivity extends Activity implements get_category_delegate 
 				// TODO Auto-generated method stub
 				Intent myIntent = new Intent(v.getContext(), FollowerActivity.class);
 				myIntent.putExtra("allcategory", "allcategory");
-				View boardListView = ExplorerActivityGroup.group.getLocalActivityManager() .startActivity("BoardListActivity", myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
+				View boardListView = ExplorerActivityGroup.group.getLocalActivityManager() .startActivity("AllCatelogy", myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
 				ExplorerActivityGroup.group.replaceView(boardListView);
 			}
 		});

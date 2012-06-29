@@ -17,6 +17,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.util.DisplayMetrics;
+import android.view.KeyEvent;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.ListView;
@@ -24,6 +25,7 @@ import android.widget.ListView;
 import com.permping.PermpingApplication;
 import com.permping.PermpingMain;
 import com.permping.R;
+import com.permping.TabGroupActivity;
 import com.permping.adapter.PermAdapter;
 import com.permping.controller.PermListController;
 import com.permping.model.Perm;
@@ -212,5 +214,13 @@ public class FollowerActivity extends FragmentActivity {
 		}
 
 	}
-	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event)
+	{
+	    if ((keyCode == KeyEvent.KEYCODE_BACK))
+	    {
+	        PermpingMain.back();
+	    }
+	    return super.onKeyDown(keyCode, event);
+	}
 }

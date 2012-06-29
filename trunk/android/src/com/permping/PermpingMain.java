@@ -11,6 +11,7 @@ import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
 
 import com.permping.activity.BoardDetailActivity;
+import com.permping.activity.ExplorerActivity;
 import com.permping.activity.ExplorerActivityGroup;
 import com.permping.activity.FollowerActivityGroup;
 import com.permping.activity.ImageActivityGroup;
@@ -196,7 +197,9 @@ public class PermpingMain extends TabActivity  {
     	if( currentTab == 0){
 			FollowerActivityGroup.group.back();
     	}else if(currentTab == 1){
-			ExplorerActivityGroup.group.back();
+    		View view = ProfileActivityGroup.group.getLocalActivityManager().startActivity( "ProfileActivity", new Intent(context, ExplorerActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
+			ProfileActivityGroup.group.back();
+    		ProfileActivityGroup.group.overrideView(view);
     	}else if(currentTab == 2){
 			ImageActivityGroup.group.back();
     	}else if(currentTab == 3){

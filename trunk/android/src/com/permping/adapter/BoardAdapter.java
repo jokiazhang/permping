@@ -17,9 +17,11 @@ public class BoardAdapter extends ArrayAdapter<PermBoard> {
 	private ArrayList<PermBoard> items;
 	
 	private int textViewResourceId ;
+	private Context context;
 
 	public BoardAdapter(Context context, int textViewResourceId, ArrayList<PermBoard> items) {
 		super(context, textViewResourceId, items);
+		this.context = context;
 		this.textViewResourceId = textViewResourceId;
 		this.items = items;
 	}
@@ -47,7 +49,7 @@ public class BoardAdapter extends ArrayAdapter<PermBoard> {
 			
 			TextView boardStat = (TextView) v.findViewById(R.id.boardStat);
 			if( boardStat != null ){
-				String str = "Perms " + String.valueOf(o.getPins()) + " followers " + String.valueOf(o.getFollowers());
+				String str = context.getString(R.string.perm) +" "+ String.valueOf(o.getPins()) + " "+context.getString(R.string.followers)+" " + String.valueOf(o.getFollowers());
 				boardStat.setText(str);
 			}
 		}

@@ -113,16 +113,16 @@ public class ProfileActivity extends Activity implements Get_Board_delegate{
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
 				String buttonType = btnAccount.getText().toString();
-				if(buttonType.equals("Logout")){
+				if(buttonType.equals(context.getString(R.string.logout))){
 					showLoadingDialog("Pregressing", "Please wait...");
 					new exeFollow(API.logoutURL, false, true).execute(null);
-				}else if(buttonType.equals("Follow")){
+				}else if(buttonType.equals(context.getString(R.string.follow))){
 					showLoadingDialog("Pregressing", "Please wait...");
 					new exeFollow(API.follow, true, false).execute(null);
-				}else if(buttonType.equals("UnFollow")){
+				}else if(buttonType.equals(context.getString(R.string.unfollow))){
 					showLoadingDialog("Pregressing", "Please wait...");
 					new exeFollow(API.follow, false, false).execute(null);
-				}else if(buttonType.equals("Login")){
+				}else if(buttonType.equals(context.getString(R.string.login))){
 					PermpingMain.showLogin();
 				}
 			}
@@ -147,13 +147,13 @@ public class ProfileActivity extends Activity implements Get_Board_delegate{
     		
     		user = PermUtils.isAuthenticated(getApplicationContext());
     		if(user != null){
-    			btnAccount.setText("Logout");
+    			btnAccount.setText(context.getString(R.string.logout));
     			ArrayList<PermBoard> boards = (ArrayList<PermBoard>) user.getBoards();
             	BoardAdapter boardAdapter = new BoardAdapter(ProfileActivity.this,R.layout.board_item, boards);
             	exeGet(boardAdapter);
             	btnAccount.setVisibility(View.VISIBLE);
     		}else{
-    			btnAccount.setText("Login");
+    			btnAccount.setText(context.getString(R.string.login));
     			PermpingMain.showLogin();
     		}
     		dismissLoadingDialog();
@@ -183,10 +183,10 @@ public class ProfileActivity extends Activity implements Get_Board_delegate{
                 UrlImageViewHelper.setUrlDrawable(authorAvatar, avatar.getUrl());
                 
                 // The number of friends
-                friends.setText(String.valueOf(user.getFriends()) + " followers ");
+                friends.setText(String.valueOf(user.getFriends()) + " "+ProfileActivity.this.getString(R.string.followers));
                 
                 // The number of followings
-                followings.setText(String.valueOf(user.getFollowings() + " followings"));
+//                followings.setText(String.valueOf(user.getFollowings() + " followings"));
                 
                 // Build the list of user's boards
                 ListView userBoards = (ListView) findViewById(R.id.userBoards);
@@ -237,16 +237,16 @@ public class ProfileActivity extends Activity implements Get_Board_delegate{
 		protected void onPostExecute(Boolean result) {
 			dismissLoadingDialog();
 			if(result != null){
-				if(result.booleanValue() && btnAccount.getText().equals("Logout")){
+				if(result.booleanValue() && btnAccount.getText().equals(context.getString(R.string.logout))){
 					PermpingApplication state = (PermpingApplication)context.getApplicationContext();
 					state.setUser(null);
 					PermpingMain.back();
-					btnAccount.setText("Login");
+					btnAccount.setText(context.getString(R.string.login));
 				}
-				else if(result.booleanValue() && btnAccount.getText().equals("Follow"))
-					btnAccount.setText("UnFollow");
-				else if(result.booleanValue() && btnAccount.getText().equals("UnFollow"))
-					btnAccount.setText("Follow");
+				else if(result.booleanValue() && btnAccount.getText().equals(context.getString(R.string.follow)))
+					btnAccount.setText(context.getString(R.string.unfollow));
+				else if(result.booleanValue() && btnAccount.getText().equals(context.getString(R.string.unfollow)))
+					btnAccount.setText(context.getString(R.string.follow));
 			}
 
 		}
@@ -287,9 +287,9 @@ public class ProfileActivity extends Activity implements Get_Board_delegate{
 		@Override
 		protected void onPostExecute(ArrayList<PermBoard> boards) {
 			if(ProfileActivity.userfollowcount <= 0)
-				btnAccount.setText("Follow");
+				btnAccount.setText(context.getString(R.string.follow));
 			else
-				btnAccount.setText("UnFollow");
+				btnAccount.setText(context.getString(R.string.unfollow));
 			if(loadingDialog != null)
 			if(loadingDialog.isShowing()){
 				dismissLoadingDialog();
