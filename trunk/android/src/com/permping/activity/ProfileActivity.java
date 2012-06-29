@@ -303,7 +303,7 @@ public class ProfileActivity extends Activity implements Get_Board_delegate{
 	            BoardAdapter boardAdapter = new BoardAdapter(ProfileActivity.this,R.layout.board_item, boards);
 	    		exeGet(boardAdapter);
 			}
-		}
+		} 
 	}
 
 	public Object executeMultipartPost(String filePath, boolean isFollow, boolean isLogout) throws Exception {
