@@ -164,6 +164,7 @@ public class HttpPermUtils {
 	public String sendGetRequest(String url) {
 		HttpGet getRequest = new HttpGet(url);
 		try {
+			client = new DefaultHttpClient();
 			HttpResponse getResponse = client.execute(getRequest);
 			int statusCode = getResponse.getStatusLine().getStatusCode();
 			if (statusCode != HttpStatus.SC_OK) {
