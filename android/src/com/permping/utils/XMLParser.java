@@ -66,17 +66,20 @@ public class XMLParser implements HttpAccess {
 	public int type;
 	HttpPermUtils httpPermUtils;
 	public XMLParser(){
+		type = -1;
 		if(httpPermUtils  == null)
 			httpPermUtils = new HttpPermUtils();
 	}
 
 	public XMLParser(String document, Boolean DownloadFirst) {
+		type = -1;
 		this.setDoc(this.parseXMLFromUrl(document, DownloadFirst));
 		if(httpPermUtils  == null)
 			httpPermUtils = new HttpPermUtils();
 	}
 
 	public String getXML(String url) {
+		type = -1;
 		String line = null;
 		if(httpPermUtils  == null)
 			httpPermUtils = new HttpPermUtils();
@@ -372,6 +375,7 @@ public class XMLParser implements HttpAccess {
 	}
 	
 	public XMLParser(String url) {
+		type = -1;
 		if(httpPermUtils  == null)
 			httpPermUtils = new HttpPermUtils();
 		getResponseFromURL(url);
