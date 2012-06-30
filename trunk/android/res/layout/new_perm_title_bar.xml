@@ -18,7 +18,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@drawable/title_button_bg"
-                android:text="Cancel"
+                android:text="@string/cancel"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="30dp"
                 android:textColor="#FFFFFF" />
@@ -27,7 +27,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:padding="10dip"
-                android:text="Perm"
+                android:text="@string/perm"
                 android:textColor="#FFFFFF"
                 android:textSize="20dip"
                 android:textStyle="bold" />
@@ -38,7 +38,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@drawable/title_button_bg"
-                android:text="OK"
+                android:text="@string/ok"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="20dp"
                 android:textColor="#FFFFFF" />

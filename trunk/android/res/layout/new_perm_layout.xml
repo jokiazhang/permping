@@ -25,7 +25,7 @@
             android:layout_width="0dp"
             android:layout_height="30dp"
             android:layout_weight="1"
-            android:hint="Description of Image"
+            android:hint="@string/new_description"
             android:background="#00000000"
             android:ems="10" >
 
@@ -36,7 +36,7 @@
     
      <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/categoryItemLayout"
+        android:id="@+id/categoryItemLayout1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
@@ -47,7 +47,7 @@
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Board:  "
+            android:text="@string/new_board"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="#000000" />
 
@@ -93,13 +93,13 @@
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Location: "
+            android:text="@string/new_place"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="#000000" />
          <ToggleButton
             android:id="@+id/location"
             android:layout_width="0dp"
-            android:layout_marginLeft="130dip"
+            android:layout_marginLeft="163dip"
             android:layout_height="25dp"
             android:layout_weight="1"
             android:scaleType="fitEnd"
@@ -143,7 +143,7 @@
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Facebook "
+            android:text="@string/new_facebook"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="#000000" />
          <ToggleButton
@@ -174,7 +174,7 @@
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Twitter "
+            android:text="@string/new_twitter"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="#000000" />
 
@@ -182,7 +182,7 @@
             android:id="@+id/share_twitter"
             android:layout_width="0dp"
             android:layout_height="25dp"
-            android:layout_marginLeft="150dip"
+            android:layout_marginLeft="148dip"
             android:layout_weight="1"
             android:layout_gravity="center_vertical"
             android:scaleType="fitEnd"
@@ -206,7 +206,7 @@
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Kakao Talk "
+            android:text="@string/new_kakao_talk"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="#000000" />
 
@@ -214,7 +214,7 @@
             android:id="@+id/share_kakao"
             android:layout_width="0dp"
             android:layout_height="25dp"
-            android:layout_marginLeft="120dip"
+            android:layout_marginLeft="130dip"
             android:layout_weight="1"
             android:layout_gravity="center_vertical"
             android:scaleType="fitEnd"

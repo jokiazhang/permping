@@ -6,27 +6,27 @@
     <string name="bt_unlike">취소</string>
     <string name="bt_facebook">Login with Facebook</string>
     <string name="bt_twitter">Login with Twitter</string>
-    <string name="bt_join_permping">Join Permping</string>
+    <string name="bt_join_permping">펌핑 가입하기</string>
     <string name="permping_head_title">Permping</string>
     <string name="hint_email">Email</string>
     <string name="hint_password">Password</string>
     <string name="bt_cancel">Cancel</string>
     <string name="screen_login">Permping.com/Login</string>
-    <string name="acc_name">Name</string>
-    <string name="acc_email">Email</string>
-    <string name="acc_password">Password</string>
-    <string name="acc_confirm_password">Confirm Password</string>
-    <string name="bt_create_account">Create Account</string>
+    <string name="acc_name">이름</string>
+    <string name="acc_email">이메일</string>
+    <string name="acc_password">비밀번호</string>
+    <string name="acc_confirm_password">재확인</string>
+    <string name="bt_create_account">계정 만들기</string>
     <string name="nick_name">Nickname:</string>
     <string name="user_name">Username:</string>
-    <string name="category">Category:</string>
+    <string name="category">카테고리</string>
     <string name="category_prompt">Main category</string>
     <string name="board_prompt">Select board</string>
-    <string name="board_name">Board Name:</string>
-    <string name="board_description">Board Description:</string>
-    <string name="bt_create_board">Create Board</string>
-    <string name="logout">Logout</string>
-    <string name="cancel">Cancel</string>
+    <string name="board_name">보드 이름</string>
+    <string name="board_description">보드 설명</string>
+    <string name="bt_create_board">확인</string>
+    <string name="logout">로그 아웃</string>
+    <string name="cancel">취소</string>
     <string name="bt_reperm">펌하기</string>
     <string name="bt_like">좋아요</string>
     <string name="bt_comment">댓글</string>
@@ -42,6 +42,21 @@
     <string name="required">입력하세요</string>
     <string name="login">로그인</string>
     
-    <string name="welcome">이미지를 소통하는 소셜 커뮤니티\n\t\t\t\t순간의 이야기를 펌핑과 함께</string>
+    <string name="image_take_photo">카메라 촬영</string>
+    <string name="gallery">앨범에서 선택</string>
+    <string name="create_board">보드 만들기</string>
     
+    <string name="new_description">당신의 이야기를 
+담아 주세요</string>
+    <string name="new_board">보드</string>
+    <string name="new_place">위치</string>
+    <string name="new_facebook">페이스북</string>
+    <string name="new_twitter">트위터</string>
+    <string name="new_kakao_talk">카카오톡</string>
+    
+    <string name="followers">팔로우</string>
+    <string name="perm">펌</string>
+    <string name="follow">팔로우</string>
+    <string name="unfollow">언팔로우</string>
+    <string name="welcome">이미지를 소통하는 소셜 커뮤니티\n\t\t\t\t순간의 이야기를 펌핑과 함께</string>
 </resources>

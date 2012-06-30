@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:padding="15dip"
             android:gravity="center"
-            android:text="Take Photo"
+            android:text="@string/image_take_photo"
             android:textColor="#000000"
             android:textSize="20dip"
             android:layout_weight="1" />
@@ -60,7 +60,7 @@
             android:layout_height="wrap_content"
             android:padding="15dip"
             android:gravity="center"
-            android:text="Gallery"
+            android:text="@string/gallery"
             android:textColor="#000000"
             android:textSize="20dip"
             android:layout_weight="1" />
@@ -90,7 +90,7 @@
             android:layout_height="wrap_content"
             android:padding="15dip"
             android:gravity="center"
-            android:text="Create Board"
+            android:text="@string/create_board"
             android:textColor="#000000"
             android:textSize="20dip"
             android:layout_weight="1" />
