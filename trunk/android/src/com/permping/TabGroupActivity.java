@@ -65,8 +65,13 @@ public class TabGroupActivity extends ActivityGroup {
 			finish();
 		}
 	}
-
-
-
-
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event)
+	{
+	    if ((keyCode == KeyEvent.KEYCODE_BACK))
+	    {
+	        PermpingMain.back();
+	    }
+	    return super.onKeyDown(keyCode, event);
+	}
 }

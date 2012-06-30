@@ -11,6 +11,8 @@ import org.apache.http.message.BasicNameValuePair;
 
 import com.permping.R;
 import com.permping.activity.BoardDetailActivity;
+import com.permping.activity.FollowerActivityGroup;
+import com.permping.activity.GoogleMapActivity;
 import com.permping.activity.NewPermActivity;
 import com.permping.activity.ProfileActivityGroup;
 import com.permping.activity.RepermActivity;
@@ -25,11 +27,15 @@ import com.permping.utils.PermUtils;
 import com.permping.utils.UrlImageViewHelper;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 
+import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -50,10 +56,11 @@ public class BoardDetailAdapter extends BaseAdapter implements ListAdapter {
 	private int screenWidth;
 	private int screenHeight;
 	private User user;
-	
+	private Context context;
 	public BoardDetailAdapter(Activity activity, List<Perm> perms, String boardName, 
 			int screenWidth, int screenHeight, User user) {
 		this.activity = activity;
+		this.context = activity.getParent();
 		this.perms = perms;
 		this.boardName = boardName;
 		this.screenHeight = screenHeight;
@@ -69,7 +76,7 @@ public class BoardDetailAdapter extends BaseAdapter implements ListAdapter {
 		final Perm perm = perms.get(position);
 		final Button like = (Button) view.findViewById(R.id.btLike);
 		final Button rePerm = (Button) view.findViewById(R.id.btReperm);
-		
+		final ImageView btnLocation = (ImageView)view.findViewById(R.id.btLocation);
 		// Validate Like or Unlike
 		if (perm != null) {
 			if (perm.getPermUserLikeCount() != null && "0".equals(perm.getPermUserLikeCount())) {
@@ -142,7 +149,28 @@ public class BoardDetailAdapter extends BaseAdapter implements ListAdapter {
 				}
 			}
 		});
-		
+		btnLocation.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent googleMap = new Intent(context,
+						GoogleMapActivity.class);
+				Bundle bundle = new Bundle();
+				bundle.putFloat("lat", perm.getLat());
+				bundle.putFloat("lon", perm.getLon());
+				bundle.putString("thumbnail", perm.getImage().getUrl());
+				googleMap.putExtra("locationData", bundle);
+				Log.d("AA+++++============","========="+perm.getImage().getUrl());
+				View view = ProfileActivityGroup.group.getLocalActivityManager().startActivity( "PrGoogleMapActivity"+perm.getId(), googleMap).getDecorView();
+				ProfileActivityGroup.group.replaceView(view);	
+			}
+		});
+		if(perm.getLon() ==0 && perm.getLat() == 0){
+			btnLocation.setVisibility(View.GONE);
+		}else{
+			btnLocation.setVisibility(View.VISIBLE);
+		}
 		if (perm != null) {
 			// The Board Name
 			TextView txtBoardName = (TextView) view.findViewById(R.id.boardName);
@@ -176,26 +204,29 @@ public class BoardDetailAdapter extends BaseAdapter implements ListAdapter {
             txtStatus.setText(permStatus);
             
             LinearLayout comments = (LinearLayout) view.findViewById(R.id.comments);
-            for(int i = 0; i < perm.getComments().size(); i ++){
-                View cm = inflater.inflate(R.layout.comment_item, null );
-                Comment comment = perm.getComments().get(i);
-                if(comment != null && comment.getAuthor() != null) {
-                   
-             		   ImageView cma = (ImageView) cm.findViewById(R.id.commentAvatar);
-             		   UrlImageViewHelper.setUrlDrawable(cma, comment.getAuthor().getAvatar().getUrl());
-             	   
-	                   
-	               TextView cmt = (TextView) cm.findViewById(R.id.commentContent);
-	               cmt.setText(comment.getContent());
-	                   
-	               if( i == (perm.getComments().size() -1)){
-	            	   View sp = (View) cm.findViewById(R.id.separator);
-	            	   sp.setVisibility(View.INVISIBLE);
-	               }
-	               comments.addView(cm);
+            if(perm.getComments() != null){
+            	for(int i = 0; i < perm.getComments().size(); i ++){
+                    View cm = inflater.inflate(R.layout.comment_item, null );
+                    Comment comment = perm.getComments().get(i);
+                    if(comment != null && comment.getAuthor() != null) {
+                       
+                 		   ImageView cma = (ImageView) cm.findViewById(R.id.commentAvatar);
+                 		   UrlImageViewHelper.setUrlDrawable(cma, comment.getAuthor().getAvatar().getUrl());
+                 	   
+    	                   
+    	               TextView cmt = (TextView) cm.findViewById(R.id.commentContent);
+    	               cmt.setText(comment.getContent());
+    	                   
+    	               if( i == (perm.getComments().size() -1)){
+    	            	   View sp = (View) cm.findViewById(R.id.separator);
+    	            	   sp.setVisibility(View.INVISIBLE);
+    	               }
+    	               comments.addView(cm);
+                    }
                 }
+	
             }
-
+            
     		
 		}
 		return view;
