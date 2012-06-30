@@ -42,15 +42,15 @@
 
         <com.custom.WebImageView
             android:id="@+id/thumbnail2"
-            android:layout_width="20dip"
-            android:layout_height="20dip"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:background="@android:color/transparent" 
             android:visibility="gone"/>
 
         <com.custom.WebImageView
             android:id="@+id/thumbnail3"
-            android:layout_width="20dip"
-            android:layout_height="20dip"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:background="@android:color/transparent" 
             android:visibility="gone">
         </com.custom.WebImageView>
