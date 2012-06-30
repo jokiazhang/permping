@@ -459,6 +459,7 @@ public class XMLParser implements HttpAccess {
 			
 		} catch (Exception e) {
 			// TODO: handle exception
+			Logger.appendLog(e.toString(), "parseResponseLog");
 			return null;
 		}
 		

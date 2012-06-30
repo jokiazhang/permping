@@ -33,6 +33,7 @@ import com.permping.R;
 import com.permping.controller.AuthorizeController;
 import com.permping.interfaces.Login_delegate;
 import com.permping.utils.Constants;
+import com.permping.utils.Logger;
 import com.permping.utils.facebook.FacebookConnector;
 import com.permping.utils.facebook.SessionEvents;
 import com.permping.utils.facebook.SessionEvents.AuthListener;
@@ -109,39 +110,44 @@ public class LoginPermActivity extends Activity implements Login_delegate {
 //				}
 //				
 			    //state = (PermpingApplication) getContext().getApplicationContext();
-				
-				if (!facebookConnector.getFacebook().isSessionValid()) {
-					AuthListener authListener = new AuthListener() {
-						
-						public void onAuthSucceed() {							
-							//Edit Preferences and update facebook access token
-							SharedPreferences.Editor editor = prefs.edit();
-							editor.putString(Constants.LOGIN_TYPE, Constants.FACEBOOK_LOGIN);
-							editor.putString(Constants.ACCESS_TOKEN, facebookConnector.getFacebook().getAccessToken());
-							editor.putLong(Constants.ACCESS_EXPIRES, facebookConnector.getFacebook().getAccessExpires());
-							editor.commit();
-						
+				try {
+					if (!facebookConnector.getFacebook().isSessionValid()) {
+						AuthListener authListener = new AuthListener() {
+							
+							public void onAuthSucceed() {							
+								//Edit Preferences and update facebook access token
+								SharedPreferences.Editor editor = prefs.edit();
+								editor.putString(Constants.LOGIN_TYPE, Constants.FACEBOOK_LOGIN);
+								editor.putString(Constants.ACCESS_TOKEN, facebookConnector.getFacebook().getAccessToken());
+								editor.putLong(Constants.ACCESS_EXPIRES, facebookConnector.getFacebook().getAccessExpires());
+								editor.commit();
+							
 
-							// Check on server
-							List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(4);
-							nameValuePairs.add(new BasicNameValuePair("type", Constants.FACEBOOK_LOGIN));
-							nameValuePairs.add(new BasicNameValuePair("oauth_token", prefs.getString(Constants.ACCESS_TOKEN, "")));
-							nameValuePairs.add(new BasicNameValuePair("email", ""));
-							nameValuePairs.add(new BasicNameValuePair("password", ""));
-							AuthorizeController authorizeController = new AuthorizeController(LoginPermActivity.this);
-							authorizeController.authorize(v.getContext(), nameValuePairs);
-//							boolean existed = AuthorizeController.authorize(getApplicationContext(), nameValuePairs, LoginPermActivity.this);
-							isLoginFb = true;
-						}
+								// Check on server
+								List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(4);
+								nameValuePairs.add(new BasicNameValuePair("type", Constants.FACEBOOK_LOGIN));
+								nameValuePairs.add(new BasicNameValuePair("oauth_token", prefs.getString(Constants.ACCESS_TOKEN, "")));
+								nameValuePairs.add(new BasicNameValuePair("email", ""));
+								nameValuePairs.add(new BasicNameValuePair("password", ""));
+								AuthorizeController authorizeController = new AuthorizeController(LoginPermActivity.this);
+								authorizeController.authorize(v.getContext(), nameValuePairs);
+//								boolean existed = AuthorizeController.authorize(getApplicationContext(), nameValuePairs, LoginPermActivity.this);
+								isLoginFb = true;
+							}
+							
+							public void onAuthFail(String error) {
+								// TODO Auto-generated method stub							
+							}
+						};
 						
-						public void onAuthFail(String error) {
-							// TODO Auto-generated method stub							
-						}
-					};
-					
-					SessionEvents.addAuthListener(authListener);
-					facebookConnector.login();
-					
+						SessionEvents.addAuthListener(authListener);
+						facebookConnector.login();
+						
+					}
+		
+				} catch (Exception e) {
+					// TODO: handle exception
+					Logger.appendLog(e.toString(), "facebooklog");
 				}
 			}
         });
@@ -180,6 +186,7 @@ public class LoginPermActivity extends Activity implements Login_delegate {
 @Override
 public void on_success() {
 	// TODO Auto-generated method stub
+	Logger.appendLog("test log", "LoginSuccess");
 	if(isLoginFb){
 		FollowerActivity.isLogin = true;
 		isLoginFb = false;
@@ -203,6 +210,7 @@ private void sendBroadcast(String issueId, String storyId) {
 @Override
 public void on_error() {
 	// TODO Auto-generated method stub
+	Logger.appendLog("test log", "loginerror");
 	if(isLoginFb){
 		isLoginFb = false;
 		Intent intent = new Intent(getApplicationContext(), JoinPermActivity.class);

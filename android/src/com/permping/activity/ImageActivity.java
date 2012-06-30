@@ -7,6 +7,7 @@ import java.util.Locale;
 import com.permping.PermpingMain;
 import com.permping.R;
 import com.permping.model.User;
+import com.permping.utils.Logger;
 import com.permping.utils.PermUtils;
 
 import android.app.Activity;
@@ -91,28 +92,33 @@ public class ImageActivity extends Activity {
 	}
 
 	public void showCamera(){
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.ENGLISH);
-        String strCurDate = dateFormat.format(new Date(System.currentTimeMillis()));
-        String imageName = "" + strCurDate + ".jpg";
-        
-		// create parameters for Intent with filename
-		ContentValues values = new ContentValues();
-		values.put(MediaStore.Images.Media.TITLE, imageName );
-		values.put(MediaStore.Images.Media.DESCRIPTION, "Image capture by camera");
-		// imageUri is the current activity attribute, define and save
-		// it for later usage (also in onSaveInstanceState)
-		Uri imageUri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
-		ImageActivityGroup.imagePath = imageUri.getPath() + "/" + imageName ;
-		// create new Intent
-		Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-		intent.putExtra(MediaStore.EXTRA_OUTPUT, imageName );
-		intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1);
-		Context context = ImageActivity.this;
-		PackageManager packageManager = context.getPackageManager();
- 
-		// if device support camera?
-		if (packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
-			getParent().startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
+		try {
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.ENGLISH);
+	        String strCurDate = dateFormat.format(new Date(System.currentTimeMillis()));
+	        String imageName = "" + strCurDate + ".jpg";
+	        
+			// create parameters for Intent with filename
+			ContentValues values = new ContentValues();
+			values.put(MediaStore.Images.Media.TITLE, imageName );
+			values.put(MediaStore.Images.Media.DESCRIPTION, "Image capture by camera");
+			// imageUri is the current activity attribute, define and save
+			// it for later usage (also in onSaveInstanceState)
+			Uri imageUri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+			ImageActivityGroup.imagePath = imageUri.getPath() + "/" + imageName ;
+			// create new Intent
+			Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+			intent.putExtra(MediaStore.EXTRA_OUTPUT, imageName );
+			intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1);
+			Context context = ImageActivity.this;
+			PackageManager packageManager = context.getPackageManager();
+	 
+			// if device support camera?
+			if (packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
+				getParent().startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			Logger.appendLog(e.toString(), "takePhotoLog");
 		}
 	}
 }

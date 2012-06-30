@@ -72,6 +72,7 @@ public class HttpPermUtils {
 					}
 
 				} catch (IOException ioe) {
+					Logger.appendLog(ioe.toString(), "httpErrorLog");
 					postRequest.abort();
 					Log.w(getClass().getSimpleName(), "thien====>ERROR for URL " + url, ioe);
 					httpAccess.onError();
@@ -131,6 +132,7 @@ public class HttpPermUtils {
 					}
 
 				} catch (IOException ioe) {
+					Logger.appendLog(ioe.toString(), "httpParseLog");
 					postRequest.abort();
 					Log.w(getClass().getSimpleName(), "thien====>ERROR for URL " + url, ioe);
 					httpAccess.onError();
@@ -175,6 +177,7 @@ public class HttpPermUtils {
 			if (getResponseEntity != null)
 				return EntityUtils.toString(getResponseEntity);					
 		} catch (IOException ioe) {
+			Logger.appendLog(ioe.toString(), "sendGetRequestLog");
 			getRequest.abort();
 			Log.w(getClass().getSimpleName(), "ERROR for URL: " + url, ioe);
 		}
