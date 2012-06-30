@@ -8,16 +8,17 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-     <uses-permission android:name="android.permission.CAMERA" />
- 	<uses-feature android:name="android.hardware.camera" />
- 	<uses-feature android:name="android.hardware.camera.autofocus" />
+    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+	
 	<uses-feature android:name="android.hardware.camera" />
  	<uses-feature android:name="android.hardware.camera.autofocus" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    
     <application android:name=".PermpingApplication" android:icon="@drawable/icon" android:label="@string/app_name">
         <activity android:name=".PermpingMain"
             	android:theme="@style/CustomTheme"
+            	android:screenOrientation="portrait"
             	android:windowSoftInputMode="adjustPan"
          >                
             <intent-filter>
@@ -26,25 +27,44 @@
             </intent-filter>
         </activity>
         
-        <activity android:name=".activity.ExplorerActivity" />
-        <activity android:name=".activity.FollowerActivityGroup" />
-        <activity android:name=".activity.FollowerActivity" />
-        <activity android:name=".activity.BoardListActivity" />
-        <activity android:name=".activity.ExplorerActivityGroup" />
-        <activity android:name=".activity.ImageActivityGroup" />
-        <activity android:name=".activity.ImageActivity" />
-        <activity android:name=".activity.NewPermActivity" />
-        <activity android:name=".activity.MyDiaryActivity" />
-        <activity android:name=".activity.MyDiaryActivityGroup" />
-        <activity android:name=".activity.ProfileActivity" />
-        <activity android:name=".activity.ProfileActivityGroup" />
-		<activity android:name=".activity.JoinPermActivity" android:theme="@android:style/Theme.NoTitleBar" android:windowSoftInputMode="adjustResize"/>
-		<activity android:name=".activity.LoginPermActivity" android:theme="@android:style/Theme.NoTitleBar" android:windowSoftInputMode="adjustResize"/>
-		<activity android:name=".activity.CreateBoardActivity" android:windowSoftInputMode="adjustResize"/>
-		<activity android:name=".activity.AccountActivity" />
-		<activity android:name=".activity.BoardDetailActivity" />
-		<activity android:name=".activity.RepermActivity" />
-		<activity android:name=".activity.PrepareRequestTokenActivity" android:launchMode="singleTask">>
+        <activity android:name=".activity.ExplorerActivity" 
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.FollowerActivityGroup"
+            android:screenOrientation="portrait" />
+        <activity android:name=".activity.FollowerActivity" 
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.BoardListActivity" 
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.ExplorerActivityGroup" 
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.ImageActivityGroup"
+            android:screenOrientation="portrait" />
+        <activity android:name=".activity.ImageActivity" 
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.NewPermActivity" 
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.MyDiaryActivity" 
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.MyDiaryActivityGroup" 
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.ProfileActivity" 
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.ProfileActivityGroup" 
+            android:screenOrientation="portrait"/>
+		<activity android:name=".activity.JoinPermActivity" android:theme="@android:style/Theme.NoTitleBar" android:windowSoftInputMode="adjustResize"
+		    android:screenOrientation="portrait"/>
+		<activity android:name=".activity.LoginPermActivity" android:theme="@android:style/Theme.NoTitleBar" android:windowSoftInputMode="adjustResize"
+		    android:screenOrientation="portrait"/>
+		<activity android:name=".activity.CreateBoardActivity" android:windowSoftInputMode="adjustResize"
+		    android:screenOrientation="portrait"/>
+		<activity android:name=".activity.AccountActivity"
+		    android:screenOrientation="portrait" />
+		<activity android:name=".activity.BoardDetailActivity"
+		    android:screenOrientation="portrait" />
+		<activity android:name=".activity.RepermActivity"
+		    android:screenOrientation="portrait" />
+		<activity android:name=".activity.PrepareRequestTokenActivity" android:launchMode="singleTask"
+		    android:screenOrientation="portrait">
 			<intent-filter>
 				<action android:name="android.intent.action.VIEW" />
 				<category android:name="android.intent.category.DEFAULT" />
@@ -52,7 +72,8 @@
 				<data android:scheme="perm" android:host="twitter" />
 			</intent-filter>
 		</activity>
-		<activity android:name=".activity.GoogleMapActivity" >
+		<activity android:name=".activity.GoogleMapActivity"
+		    android:screenOrientation="portrait" >
 		</activity>
 		<activity android:name=".activity.FacebookActivity" 
 		    android:noHistory="true"

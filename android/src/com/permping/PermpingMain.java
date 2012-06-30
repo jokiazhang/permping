@@ -80,8 +80,8 @@ public class PermpingMain extends TabActivity  {
         tabHost.addTab( profile );
         
         //Remove item background
-        for( int i = 0; i< tabHost.getTabWidget().getChildCount(); i ++ )
-        	tabHost.getTabWidget().getChildAt(i).setBackgroundColor(  Color.TRANSPARENT );
+        //for( int i = 0; i< tabHost.getTabWidget().getChildCount(); i ++ )
+        	//tabHost.getTabWidget().getChildAt(i).setBackgroundColor(  Color.TRANSPARENT );
         
         // Set the event for Profile tab
 //        tabHost.getTabWidget().getChildAt(4).setOnTouchListener(new ProfileHandler());
@@ -112,6 +112,7 @@ public class PermpingMain extends TabActivity  {
         // Set the event for Followers tab
         tabHost.getTabWidget().getChildAt(0).setOnTouchListener(new FollowerHandler());
     }
+    
     private class ProfileHandler implements View.OnTouchListener {
     	boolean ret = false;
     	@Override
@@ -166,7 +167,7 @@ public class PermpingMain extends TabActivity  {
 		        	// Go to login screen
 		        	gotoDiaryTab(null);
 		        	showLogin();
-					ret = true;
+					ret = false;
 		        }
 			}
 			return ret;

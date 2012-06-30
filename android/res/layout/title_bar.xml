@@ -5,7 +5,8 @@
   android:layout_height="63dip"
   android:background="#771541"
   android:angle="90"
-  android:layout_marginBottom="10dip">
+  android:layout_marginBottom="10dip"
+  android:id="@+id/titlebar">
   
   <!-- Screen Design for Photos -->
   <TextView android:text="PERMPING"
