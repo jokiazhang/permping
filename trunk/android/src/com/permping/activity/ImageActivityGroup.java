@@ -1,6 +1,5 @@
 package com.permping.activity;
 
-
 import com.permping.TabGroupActivity;
 
 import android.content.Intent;
@@ -24,7 +23,7 @@ private int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 1224;
 		
 	}
 	
-	public static String imagePath = "";
+	public static String imagePath = "";	
 	
 	//Gallery process
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -56,13 +55,29 @@ private int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 1224;
 	    ImageActivityGroup.imagePath = "";
 	}
 
-	public String getPath(Uri uri) {
+	/*public String getPath(Uri uri) {
 	    String[] projection = { MediaStore.Images.Media.DATA };
 	    Cursor cursor = managedQuery(uri, projection, null, null, null);
 	    int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
 	    cursor.moveToFirst();
 	    return cursor.getString(column_index);
-	}
+	}*/
+	
+	//UPDATED!
+    public String getPath(Uri uri) {
+        String[] projection = { MediaStore.Images.Media.DATA };
+        Cursor cursor = managedQuery(uri, projection, null, null, null);
+        if(cursor!=null)
+        {
+            //HERE YOU WILL GET A NULLPOINTER IF CURSOR IS NULL
+            //THIS CAN BE, IF YOU USED OI FILE MANAGER FOR PICKING THE MEDIA
+            int column_index = cursor
+            .getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+            cursor.moveToFirst();
+            return cursor.getString(column_index);
+        }
+        else return null;
+    }
 	
 	
 	public String getImagePath(){

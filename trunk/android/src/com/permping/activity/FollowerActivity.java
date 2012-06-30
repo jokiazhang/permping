@@ -17,6 +17,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.util.DisplayMetrics;
+
 import android.view.KeyEvent;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
@@ -96,6 +97,11 @@ public class FollowerActivity extends FragmentActivity {
 			isRefesh = true;
 		}
 	}
+	
+	protected void onPause () {
+    	super.onPause();
+    	clearData();
+    }
 
 	private void exeFollowerActivity() {
 		// TODO Auto-generated method stub
@@ -156,20 +162,23 @@ public class FollowerActivity extends FragmentActivity {
 	private void loadPerms() {
 		User user = PermUtils.isAuthenticated(getApplicationContext());		
 		if(permListMain != null && !permListMain.isEmpty()){
-			if(permListAdapter != null && !permListAdapter.isEmpty()) {
-				permListAdapter.clear();
-				UrlImageViewHelper.clearAllImageView();				
-			}
+			clearData();
 			this.permListAdapter = new PermAdapter(FollowerActivityGroup.context,
 					getSupportFragmentManager(),R.layout.perm_item_1, permListMain, this, screenWidth, screenHeight, header, user);
 			permListView.setAdapter(permListAdapter);
 			permListView.setSelection(0);	
-			
 		}else{
 			
 			
 		}
 
+	}
+	
+	public void clearData() {
+		if(permListAdapter != null && !permListAdapter.isEmpty()) {
+			permListAdapter.clear();
+			UrlImageViewHelper.clearAllImageView();				
+		}
 	}
 
 	

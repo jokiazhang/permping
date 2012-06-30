@@ -1,5 +1,6 @@
 package com.permping.activity;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -18,6 +19,7 @@ import android.content.pm.PackageManager;
 import android.hardware.Camera;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -95,10 +97,20 @@ public class ImageActivity extends Activity {
 		try {
 			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.ENGLISH);
 	        String strCurDate = dateFormat.format(new Date(System.currentTimeMillis()));
-	        String imageName = "" + strCurDate + ".jpg";
+	        String imagePath = Environment.getExternalStorageDirectory() + File.separator + "images" + File.separator;
+	        File root = new File(imagePath);
+	        root.mkdirs();
+	        File sdImageMainDirectory = new File(root, "strCurDate");
+	        
+	        Uri outputFileUri = Uri.fromFile(sdImageMainDirectory);
+
+	        Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
+	        intent.putExtra(MediaStore.EXTRA_OUTPUT, outputFileUri);
+
+	        getParent().startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
 	        
 			// create parameters for Intent with filename
-			ContentValues values = new ContentValues();
+			/*ContentValues values = new ContentValues();
 			values.put(MediaStore.Images.Media.TITLE, imageName );
 			values.put(MediaStore.Images.Media.DESCRIPTION, "Image capture by camera");
 			// imageUri is the current activity attribute, define and save
@@ -115,7 +127,19 @@ public class ImageActivity extends Activity {
 			// if device support camera?
 			if (packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
 				getParent().startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
-			}
+			}*/
+	        
+	        /*File file = new File( imageName );
+	        Uri outputFileUri = Uri.fromFile( file );
+	        Context context = ImageActivity.this;
+	        PackageManager packageManager = context.getPackageManager();
+	        Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE );
+	        intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1);
+	        intent.putExtra( MediaStore.EXTRA_OUTPUT, imageName );
+	        if (packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
+	        	getParent().startActivityForResult( intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE );
+	        }*/
+	        
 		} catch (Exception e) {
 			// TODO: handle exception
 			Logger.appendLog(e.toString(), "takePhotoLog");

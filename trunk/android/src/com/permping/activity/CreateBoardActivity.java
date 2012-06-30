@@ -52,8 +52,7 @@ public class CreateBoardActivity extends Activity implements Create_Board_delega
 	private EditText boardDescription;
 	private Button createBoard;
 	private int categoryId = -1;
-	List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(4);
-	PermpingApplication state = (PermpingApplication) getApplicationContext();
+	List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(4);	
 	User user = null; 
 	/**
 	 * Initialize the View
@@ -65,6 +64,7 @@ public class CreateBoardActivity extends Activity implements Create_Board_delega
 		
 		View contentView = LayoutInflater.from(getParent()).inflate(R.layout.createboard_layout, null);
         setContentView(contentView);
+        PermpingApplication state = (PermpingApplication) getApplicationContext();
 		if(state != null)
 			user = state.getUser();
 		CategoryController catController = new CategoryController(CreateBoardActivity.this);
@@ -82,6 +82,7 @@ public class CreateBoardActivity extends Activity implements Create_Board_delega
 		createBoard.setOnClickListener(new View.OnClickListener() {
 			
 			public void onClick(View v) {
+				PermpingApplication state = (PermpingApplication) getApplicationContext();
 	        	if (state != null) {
 
 	        		if (user != null) {
@@ -156,6 +157,7 @@ public class CreateBoardActivity extends Activity implements Create_Board_delega
 		if (doc != null) {
 			AuthorizeController authorizeController = new AuthorizeController();
 			User updated = authorizeController.getUserProfileById(user.getId());
+			PermpingApplication state = (PermpingApplication) getApplicationContext();
 			if (updated != null)
 				state.setUser(updated);
 			Toast toast = Toast.makeText(getApplicationContext(), "Board is created successfully!", Toast.LENGTH_LONG);

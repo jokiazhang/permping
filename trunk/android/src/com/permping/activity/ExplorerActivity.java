@@ -33,7 +33,7 @@ public class ExplorerActivity extends Activity implements get_category_delegate 
 		final ArrayList<Category> categories = catController.getCategoryList();
 		context = ExplorerActivity.this;
 		
-		Button btnAllCategory = (Button)findViewById(R.id.btnAllCategory);
+		/*Button btnAllCategory = (Button)findViewById(R.id.btnAllCategory);
 		btnAllCategory.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
@@ -44,7 +44,7 @@ public class ExplorerActivity extends Activity implements get_category_delegate 
 				View boardListView = ExplorerActivityGroup.group.getLocalActivityManager() .startActivity("AllCatelogy", myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
 				ExplorerActivityGroup.group.replaceView(boardListView);
 			}
-		});
+		});*/
 	}
 	private void showLoadingDialog(String title, String msg) {
 		loadingDialog = new ProgressDialog(getParent());
@@ -69,13 +69,19 @@ public class ExplorerActivity extends Activity implements get_category_delegate 
 		categoriesView.setAdapter(categoriesAdapter);
 		categoriesView.setOnItemClickListener(new android.widget.AdapterView.OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
 				Intent myIntent = new Intent(view.getContext(), FollowerActivity.class);
-				Category cat = categories.get(position);
-				String categoryUrl = API.permListFromCategory + cat.getId();
-				myIntent.putExtra("categoryURL", categoryUrl);
-				View boardListView = ExplorerActivityGroup.group.getLocalActivityManager() .startActivity("BoardListActivity", myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
-				ExplorerActivityGroup.group.replaceView(boardListView);
+				if(position == 0) {
+					myIntent.putExtra("allcategory", "allcategory");
+					View boardListView = ExplorerActivityGroup.group.getLocalActivityManager() .startActivity("AllCatelogy", myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
+					ExplorerActivityGroup.group.replaceView(boardListView);
+				} else {				
+					
+					Category cat = categories.get(position);
+					String categoryUrl = API.permListFromCategory + cat.getId();
+					myIntent.putExtra("categoryURL", categoryUrl);
+					View boardListView = ExplorerActivityGroup.group.getLocalActivityManager() .startActivity("BoardListActivity", myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
+					ExplorerActivityGroup.group.replaceView(boardListView);
+				}
 			}
 		});
 		dismissLoadingDialog();
