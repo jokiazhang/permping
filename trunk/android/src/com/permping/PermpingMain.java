@@ -4,6 +4,7 @@ import android.app.TabActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.widget.TabHost.TabSpec;
 import com.permping.activity.BoardDetailActivity;
 import com.permping.activity.ExplorerActivity;
 import com.permping.activity.ExplorerActivityGroup;
+import com.permping.activity.FollowerActivity;
 import com.permping.activity.FollowerActivityGroup;
 import com.permping.activity.ImageActivityGroup;
 import com.permping.activity.LoginPermActivity;
@@ -223,9 +225,13 @@ public class PermpingMain extends TabActivity  {
 			ProfileActivity.isUserProfile = false;
 			tabHost.setCurrentTab(tab);
 		}else if(tab == 5){
-			Intent imageDetail = new Intent(context, ImageDetail.class);
-			imageDetail.putExtra("url", (String) data);
-			context.startActivity(imageDetail);
+//			Intent imageDetail = new Intent(context, ImageDetail.class);
+//			imageDetail.putExtra("url", (String) data);
+//			context.startActivity(imageDetail);
+			String link = (String) data;
+			Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
+			context.startActivity(browserIntent);
+			FollowerActivity.isRefesh = false;
 		}
 		
 	}
