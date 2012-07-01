@@ -106,8 +106,14 @@ public class ImageActivity extends Activity {
 
 	        Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
 	        intent.putExtra(MediaStore.EXTRA_OUTPUT, outputFileUri);
-
-	        getParent().startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
+			Context context = ImageActivity.this;
+			PackageManager packageManager = context.getPackageManager();
+	 
+			// if device support camera?
+			if (packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
+				getParent().startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
+			}
+	        
 	        
 			// create parameters for Intent with filename
 			/*ContentValues values = new ContentValues();
