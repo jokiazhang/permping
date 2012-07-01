@@ -32,7 +32,7 @@
                     android:id="@+id/bt_join"
                     android:layout_width="80dp"
                     android:layout_height="37dp"
-                    android:background="@drawable/button_bg_new"
+                    android:background="@drawable/button_style"
                     android:text="@string/bt_join"
                     android:textColor="#5e5d5d" />
             </LinearLayout>
@@ -48,7 +48,7 @@
                     android:id="@+id/bt_login"
                     android:layout_width="80dp"
                     android:layout_height="37dp"
-                    android:background="@drawable/button_bg_new"
+                    android:background="@drawable/button_style"
                     android:text="@string/bt_login"
                     android:textColor="#5e5d5d" />
             </LinearLayout>
