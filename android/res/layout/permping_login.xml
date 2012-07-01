@@ -119,7 +119,7 @@
             android:layout_gravity="center"
         	android:textColor="#000000"
         	android:textStyle="bold"
-            android:background="@drawable/button_bg_new" android:gravity="center"/>
+            android:background="@drawable/button_style" android:gravity="center"/>
 
         <!-- <Button
             android:id="@+id/cancelPerm"
