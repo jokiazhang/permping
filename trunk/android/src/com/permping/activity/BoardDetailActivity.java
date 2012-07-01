@@ -2,6 +2,7 @@ package com.permping.activity;
 
 import java.util.List;
 
+import com.permping.PermpingMain;
 import com.permping.R;
 import com.permping.adapter.BoardDetailAdapter;
 import com.permping.model.Perm;
@@ -14,6 +15,7 @@ import com.permping.utils.UrlImageViewHelper;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -99,4 +101,15 @@ public class BoardDetailActivity extends Activity {
 	 * 
 	 * screenHeight = metrics.heightPixels; screenWidth = metrics.widthPixels; }
 	 */
+	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event)
+	{		
+	    if ((keyCode == KeyEvent.KEYCODE_BACK))
+	    {
+	        PermpingMain.back();
+	        return true;
+	    }
+	    return super.onKeyDown(keyCode, event);
+	}
 }

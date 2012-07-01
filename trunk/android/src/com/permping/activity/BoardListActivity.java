@@ -2,6 +2,7 @@ package com.permping.activity;
 
 import java.util.ArrayList;
 
+import com.permping.PermpingMain;
 import com.permping.R;
 import com.permping.adapter.BoardAdapter;
 import com.permping.controller.BoardController;
@@ -14,6 +15,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.view.KeyEvent;
 import android.view.View;
 
 public class BoardListActivity extends Activity {
@@ -51,11 +53,18 @@ public class BoardListActivity extends Activity {
 	}
 	
 	public void onBackPressed(){
-		String a = "";
-		String b = a;
-		
-		this.finish();
-		return;
+		PermpingMain.back();
+	}
+	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event)
+	{		
+	    if ((keyCode == KeyEvent.KEYCODE_BACK))
+	    {
+	        PermpingMain.back();
+	        return true;
+	    }
+	    return super.onKeyDown(keyCode, event);
 	}
 	
 }

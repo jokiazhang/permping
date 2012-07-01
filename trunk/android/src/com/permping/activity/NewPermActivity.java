@@ -46,6 +46,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -61,6 +62,7 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.permping.PermpingApplication;
+import com.permping.PermpingMain;
 import com.permping.R;
 import com.permping.adapter.BoardSpinnerAdapter;
 import com.permping.model.Category;
@@ -631,5 +633,16 @@ public class NewPermActivity extends Activity implements OnClickListener {
 			// TODO: handle exception
 		}
 
+	}
+	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event)
+	{		
+	    if ((keyCode == KeyEvent.KEYCODE_BACK))
+	    {
+	        PermpingMain.back();
+	        return true;
+	    }
+	    return super.onKeyDown(keyCode, event);
 	}
 }

@@ -4,7 +4,7 @@
     android:id="@android:id/tabhost"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@drawable/background" >
+    android:background="#f2f2f2" >
     <RelativeLayout
         android:orientation="vertical"
         android:layout_width="fill_parent"
@@ -15,7 +15,7 @@
             android:gravity="bottom"
             android:layout_width="fill_parent"
             android:layout_height="60dp" 
-            android:background="#FFFFFF"
+            android:background="#3e3e3e"
             android:tabStripEnabled="false"/>
         <FrameLayout
             android:id="@android:id/tabcontent"

@@ -11,6 +11,7 @@ import org.apache.http.message.BasicNameValuePair;
 import org.w3c.dom.Document;
 
 import com.permping.PermpingApplication;
+import com.permping.PermpingMain;
 import com.permping.R;
 import com.permping.adapter.CategorySpinnerAdapter;
 import com.permping.controller.AuthorizeController;
@@ -28,6 +29,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -191,6 +193,17 @@ public class CreateBoardActivity extends Activity implements Create_Board_delega
 	public void onCompletedGetCategory(ArrayList<Category> categories) {
 		// TODO Auto-generated method stub
 		addItemsOnMainCategory(mainCategory, categories);
+	}
+	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event)
+	{		
+	    if ((keyCode == KeyEvent.KEYCODE_BACK))
+	    {
+	        PermpingMain.back();
+	        return true;
+	    }
+	    return super.onKeyDown(keyCode, event);
 	}
 }
 
