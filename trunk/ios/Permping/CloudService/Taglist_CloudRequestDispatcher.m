@@ -610,7 +610,7 @@ static Taglist_CloudRequestDispatcher *instance = nil;
 - (void)connectionDidFinishLoading:(NSURLConnection *)conn
 {
     //if (receivedData.length < 10000) {
-        NSLog(@"receivedData %d: %@", [receivedData length], [[NSString alloc] initWithData:receivedData encoding:NSUTF8StringEncoding]);
+    //    NSLog(@"receivedData %d: %@", [receivedData length], [[NSString alloc] initWithData:receivedData encoding:NSUTF8StringEncoding]);
     //}
     
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
