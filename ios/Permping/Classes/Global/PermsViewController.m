@@ -564,16 +564,15 @@
     }
     commentTextField.text = @"";
     _showingKeyboard = YES;
-    
-    
+    [self.view addSubview:invisibleButton];
+    [self.view bringSubviewToFront:commentToolBar];
     CGRect frame = commentToolBar.frame;
 	frame.origin.y = self.view.frame.size.height - 211.0;
     
     [UIView animateWithDuration:0.3 animations:^{
         commentToolBar.frame = frame;
     } completion:^(BOOL finished) {
-        [self.view addSubview:invisibleButton];
-        [self.view bringSubviewToFront:commentToolBar];
+        
     }];
 }
 
@@ -582,15 +581,15 @@
         return;
     }
     _showingKeyboard = NO;
-
+    if ([invisibleButton superview]) {
+        [invisibleButton removeFromSuperview];
+    }
     CGRect frame = commentToolBar.frame;
     frame.origin.y = self.view.frame.size.height;
     [UIView animateWithDuration:0.3 animations:^{
         commentToolBar.frame = frame;
     } completion:^(BOOL finished) {
-        if ([invisibleButton superview]) {
-            [invisibleButton removeFromSuperview];
-        }
+        [self.view sendSubviewToBack:commentToolBar];
     }];
 }
 
