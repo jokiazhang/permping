@@ -47,5 +47,14 @@
 	    <item name="android:background">@android:color/transparent</item>
 	    <item name="android:src">@drawable/prev_pressed</item>
 	</style>
+	
+	<style name="button_style_selected">
+	    <item name="android:background">@android:color/transparent</item>
+	    <item name="android:src">@drawable/button_bg_new_selected</item>
+	</style>
+	<style name="button_style_normal">
+	    <item name="android:background">@android:color/transparent</item>
+	    <item name="android:src">@drawable/button_bg_new</item>
+	</style>
 
 </resources>
