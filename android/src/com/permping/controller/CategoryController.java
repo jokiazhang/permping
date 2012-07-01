@@ -41,7 +41,9 @@ public class CategoryController {
 				XMLParser parser = new XMLParser( API.categoryListURL, true );
 				Document doc  = parser.getDoc();
 				NodeList categoryList = doc.getElementsByTagName("item");			
-				
+				if(categories.size() > 0) {
+					categories.clear();
+				}
 				categories.add(new Category("-1", "All Catergory"));
 				
 				for( int i = 0; i < categoryList.getLength(); i ++ ){

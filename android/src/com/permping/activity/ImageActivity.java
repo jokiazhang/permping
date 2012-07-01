@@ -21,6 +21,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -150,5 +151,16 @@ public class ImageActivity extends Activity {
 			// TODO: handle exception
 			Logger.appendLog(e.toString(), "takePhotoLog");
 		}
+	}
+	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event)
+	{		
+	    if ((keyCode == KeyEvent.KEYCODE_BACK))
+	    {
+	        PermpingMain.back();
+	        return true;
+	    }
+	    return super.onKeyDown(keyCode, event);
 	}
 }

@@ -3,12 +3,14 @@
  */
 package com.permping.activity;
 
+import com.permping.PermpingMain;
 import com.permping.R;
 import com.permping.model.PermBoard;
 import com.permping.utils.Constants;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -67,5 +69,16 @@ public class RepermActivity extends Activity {
 			
 		}
 		
+	}
+	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event)
+	{		
+	    if ((keyCode == KeyEvent.KEYCODE_BACK))
+	    {
+	        PermpingMain.back();
+	        return true;
+	    }
+	    return super.onKeyDown(keyCode, event);
 	}
 }

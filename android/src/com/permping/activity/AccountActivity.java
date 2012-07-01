@@ -12,6 +12,7 @@ import com.permping.model.User;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -68,6 +69,17 @@ public class AccountActivity extends Activity {
 				ProfileActivityGroup.group.back();
 			}
 		});
+	}
+	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event)
+	{		
+	    if ((keyCode == KeyEvent.KEYCODE_BACK))
+	    {
+	        PermpingMain.back();
+	        return true;
+	    }
+	    return super.onKeyDown(keyCode, event);
 	}
 	
 }

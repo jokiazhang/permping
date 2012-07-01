@@ -28,6 +28,7 @@ import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -153,5 +154,16 @@ public class JoinPermActivity extends Activity implements TextWatcher, JoinPerm_
     	toast.setGravity(Gravity.TOP | Gravity.CENTER, 0, 300);
     	toast.show();
 
+	}
+	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event)
+	{		
+	    if ((keyCode == KeyEvent.KEYCODE_BACK))
+	    {
+	        PermpingMain.back();
+	        return true;
+	    }
+	    return super.onKeyDown(keyCode, event);
 	}
 }

@@ -19,6 +19,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -234,5 +235,16 @@ private void showLoadingDialog(String title, String msg) {
 private void dismissLoadingDialog() {
 	if (loadingDialog != null && loadingDialog.isShowing())
 		loadingDialog.dismiss();
+}
+
+@Override
+public boolean onKeyDown(int keyCode, KeyEvent event)
+{		
+    if ((keyCode == KeyEvent.KEYCODE_BACK))
+    {
+        PermpingMain.back();
+        return true;
+    }
+    return super.onKeyDown(keyCode, event);
 }
 }

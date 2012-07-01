@@ -101,6 +101,9 @@ public class FollowerActivity extends FragmentActivity {
 	protected void onPause () {
     	super.onPause();
     	clearData();
+    	if (dialog != null && dialog.isShowing()) {
+			dialog.dismiss();
+		}
     }
 
 	private void exeFollowerActivity() {
@@ -131,6 +134,7 @@ public class FollowerActivity extends FragmentActivity {
 			this.url = API.followingPerm + String.valueOf(user.getId());
 			this.header = false;
 		}
+		clearData();
 		dialog = ProgressDialog.show(getParent(), "Loading", "Please wait...",
 				true);
 		new LoadPermList().execute();
@@ -141,6 +145,7 @@ public class FollowerActivity extends FragmentActivity {
 		if(nextItem > -1) {
 			nextItem = nextItem - 1;
 			//loadItems("Loading previous");
+			clearData();
 			dialog = ProgressDialog.show(getParent(), "Loading previous", "Please wait...",
 	    			true);
 			
@@ -152,6 +157,7 @@ public class FollowerActivity extends FragmentActivity {
 	public void loadNextItems() {
 		if(permListAdapter != null) {
 			nextItem = permListAdapter.getNextItems();
+			clearData();
 	    	dialog = ProgressDialog.show(getParent(), "Loading more", "Please wait...",
 	    			true);
 			
@@ -229,6 +235,7 @@ public class FollowerActivity extends FragmentActivity {
 	    if ((keyCode == KeyEvent.KEYCODE_BACK))
 	    {
 	        PermpingMain.back();
+	        return true;
 	    }
 	    return super.onKeyDown(keyCode, event);
 	}

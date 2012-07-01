@@ -7,11 +7,13 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
+import com.permping.PermpingMain;
 import com.permping.R;
 import com.permping.adapter.CategoryAdapter;
 import com.permping.controller.CategoryController;
@@ -85,6 +87,17 @@ public class ExplorerActivity extends Activity implements get_category_delegate 
 			}
 		});
 		dismissLoadingDialog();
+	}
+	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event)
+	{		
+	    if ((keyCode == KeyEvent.KEYCODE_BACK))
+	    {
+	        PermpingMain.back();
+	        return true;
+	    }
+	    return super.onKeyDown(keyCode, event);
 	}
 
 }
