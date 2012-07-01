@@ -38,11 +38,22 @@ private int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 1224;
 		            if( requestCode == SELECT_PICTURE ){
 		            	selectedImagePath = getPath(selectedImageUri);
 		            } else {
-		            	selectedImagePath = getPath(selectedImageUri);
+		                final String[] imageColumns = { MediaStore.Images.Media._ID, MediaStore.Images.Media.DATA };
+		                final String imageOrderBy = MediaStore.Images.Media._ID+" DESC";
+		                Cursor imageCursor = managedQuery(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, imageColumns, null, null, imageOrderBy);
+		                if(imageCursor.moveToFirst()){
+		                    int id = imageCursor.getInt(imageCursor.getColumnIndex(MediaStore.Images.Media._ID));
+		                    String fullPath = imageCursor.getString(imageCursor.getColumnIndex(MediaStore.Images.Media.DATA));
+		                    imageCursor.close();
+		                    selectedImagePath = fullPath;
+		                }else{
+		                }
+//		            	if(selectedImageUri != null)
+//		            		selectedImagePath = getPath(selectedImageUri);
 		            }
 	        	}
 	            //Start activity allow user input perm info
-	            Intent myIntent = new Intent(this, NewPermActivity.class);
+	            Intent myIntent = new Intent(ImageActivityGroup.this, NewPermActivity.class);
 	            myIntent.putExtra("imagePath", selectedImagePath );
 				View boardListView = ExplorerActivityGroup.group.getLocalActivityManager() .startActivity("NewPermActivity", myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
 				ImageActivityGroup.group.replaceView(boardListView);
