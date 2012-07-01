@@ -2,6 +2,7 @@ package com.permping.activity;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
@@ -524,6 +525,36 @@ public class NewPermActivity extends Activity implements OnClickListener {
 
 	private void uploadPerm() {
 		// TODO Auto-generated method stub
+		File file = new File(imagePath);
+		long length = file.length();
+		Bitmap bmpPic = BitmapFactory.decodeFile(imagePath);
+		if ((bmpPic.getWidth() >= 1024) && (bmpPic.getHeight() >= 1024)) {
+		    BitmapFactory.Options bmpOptions = new BitmapFactory.Options();
+		    bmpOptions.inSampleSize = 1;
+		    while ((bmpPic.getWidth() >= 1024) && (bmpPic.getHeight() >= 1024)) {
+		        bmpOptions.inSampleSize++;
+		        bmpPic = BitmapFactory.decodeFile(imagePath, bmpOptions);
+		    }
+		   
+		}
+//		int compressQuality = 104; // quality decreasing by 5 every loop. (start from 99)
+//		int streamLength = 1024;
+//		while (streamLength >= 1024) {
+//		    ByteArrayOutputStream bmpStream = new ByteArrayOutputStream();
+//		    compressQuality -= 5;
+//		    bmpPic.compress(Bitmap.CompressFormat.JPEG, compressQuality, bmpStream);
+//		    byte[] bmpPicByteArray = bmpStream.toByteArray();
+//		    streamLength = bmpPicByteArray.length;
+//		    Log.d("Size: ","======>" + streamLength);
+//		}
+//		try {
+//		    FileOutputStream bmpFile = new FileOutputStream(imagePath);
+//		    bmpPic.compress(Bitmap.CompressFormat.JPEG, compressQuality, bmpFile);
+//		    bmpFile.flush();
+//		    bmpFile.close();
+//		} catch (Exception e) {
+//		    
+//		}
 		if (facebookToken == null && facebookToken.isEmpty()
 				&& twitterAccessToken == null) {
 			Toast.makeText(getApplicationContext(),
