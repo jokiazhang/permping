@@ -145,6 +145,7 @@ public class NewPermActivity extends Activity implements OnClickListener {
 		initToggleStatus();
 		mlocManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 		mlocListener = new MyLocationListener();
+		new LoadBoards().execute();
 
 	}
 

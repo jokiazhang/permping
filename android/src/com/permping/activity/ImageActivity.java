@@ -104,7 +104,7 @@ public class ImageActivity extends Activity {
 	        
 	        Uri outputFileUri = Uri.fromFile(sdImageMainDirectory);
 
-	        Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
+	        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 	        intent.putExtra(MediaStore.EXTRA_OUTPUT, outputFileUri);
 			Context context = ImageActivity.this;
 			PackageManager packageManager = context.getPackageManager();
