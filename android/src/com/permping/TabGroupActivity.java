@@ -45,13 +45,13 @@ public class TabGroupActivity extends ActivityGroup {
 
 	public void replaceView(View v) {
 		// Adds the old one to history
-		//history.add(v);
+		history.add(v);
 		// Changes this Groups View to the new View.
 		setContentView(v);
 	}
 	public void overrideView(View v) {
 		// Adds the old one to history
-		//history.add(v);
+		history.add(v);
 		setContentView(v);
 		if(history.size() >= 2)
 			history.remove(history.size()- 2);
@@ -59,34 +59,36 @@ public class TabGroupActivity extends ActivityGroup {
 	public void back() {
 		if (history.size() > 0) {
 			if (history.size() == 1)
-				setContentView(history.get(history.size() - 1));
+//				setContentView(history.get(history.size() - 1));
+				showDialogToExit();
 			else {
 				history.remove(history.size() - 1);
 				setContentView(history.get(history.size() - 1));
 			}
 		} else {
-			Resources res = this.getApplicationContext().getResources();
-			AlertDialog alertDialog = new AlertDialog.Builder(this).create();		
-			alertDialog.setTitle(res.getString(R.string.exit_title));
-			alertDialog.setMessage(res.getString(R.string.exit_content));
-			alertDialog.setButton(res.getString(R.string.yes), new DialogInterface.OnClickListener() {
-			   public void onClick(DialogInterface dialog, int which) {
-			      // here you can add functions
-				  finish();
-			   }
-			});
-			alertDialog.setButton2(res.getString(R.string.no), new DialogInterface.OnClickListener() {
-			   public void onClick(DialogInterface dialog, int which) {
-					      
-			   }
-			});
-			alertDialog.setIcon(R.drawable.icon);
-			alertDialog.show();
-			
-			
+
+			showDialogToExit();
 		}
 	}
-	
+	public void showDialogToExit(){
+		Resources res = this.getApplicationContext().getResources();
+		AlertDialog alertDialog = new AlertDialog.Builder(this).create();		
+		alertDialog.setTitle(res.getString(R.string.exit_title));
+		alertDialog.setMessage(res.getString(R.string.exit_content));
+		alertDialog.setButton(res.getString(R.string.yes), new DialogInterface.OnClickListener() {
+		   public void onClick(DialogInterface dialog, int which) {
+		      // here you can add functions
+			  finish();
+		   }
+		});
+		alertDialog.setButton2(res.getString(R.string.no), new DialogInterface.OnClickListener() {
+		   public void onClick(DialogInterface dialog, int which) {
+				      
+		   }
+		});
+		alertDialog.setIcon(R.drawable.icon);
+		alertDialog.show();
+	}
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event)
 	{		
