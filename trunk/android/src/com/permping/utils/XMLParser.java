@@ -390,7 +390,7 @@ public class XMLParser implements HttpAccess {
 
 	public XMLParser(int type, Object delegate, String url, List<NameValuePair> nameValuePairs) {
 		if(httpPermUtils  == null)
-			httpPermUtils = new HttpPermUtils();
+			httpPermUtils = new HttpPermUtils(XMLParser.this);
 		this.type = type;
 		getResponseFromURL(type, delegate, url, nameValuePairs);
 	}
@@ -399,7 +399,7 @@ public class XMLParser implements HttpAccess {
 			this.type= Type;
 			if(delegate != null)
 				this.delegate = delegate;		
-			String response = httpPermUtils.sendAsynRequest(url, nameValuePairs,false);
+			String response = httpPermUtils.sendRequest(url, nameValuePairs,false);
 			if (response != null) {
 				this.response = response;
 				return parseResponse(response);
