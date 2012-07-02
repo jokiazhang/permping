@@ -2,6 +2,10 @@ package com.permping;
 
 import java.util.ArrayList;
 
+import com.permping.activity.FollowerActivity;
+import com.permping.model.User;
+import com.permping.utils.PermUtils;
+
 import android.app.Activity;
 import android.app.ActivityGroup;
 import android.app.AlertDialog;
@@ -26,6 +30,8 @@ public class TabGroupActivity extends ActivityGroup {
 	// work properly, don't use this if your activities requires a lot of
 	// memory.
 	private ArrayList<View> history;
+	
+	private boolean isAddedToHistory = false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -46,9 +52,22 @@ public class TabGroupActivity extends ActivityGroup {
 	public void replaceView(View v) {
 		// Adds the old one to history
 		history.add(v);
+		isAddedToHistory = true;
 		// Changes this Groups View to the new View.
 		setContentView(v);
 	}
+	
+	public void replaceViewWithoutHistory(View v) {
+		// Changes this Groups View to the new View.
+		isAddedToHistory = false;
+		setContentView(v);
+	}
+	
+	public void addViewToHistory(View v) {
+		// Adds the old one to history
+		history.add(v);
+	}
+	
 	public void overrideView(View v) {
 		// Adds the old one to history
 		history.add(v);
@@ -58,18 +77,40 @@ public class TabGroupActivity extends ActivityGroup {
 	}
 	public void back() {
 		if (history.size() > 0) {
-			if (history.size() == 1)
+			if (history.size() == 1) {
 //				setContentView(history.get(history.size() - 1));
-				showDialogToExit();
-			else {
+				if(isAddedToHistory == false) {
+					//login activity
+					User user = PermUtils.isAuthenticated(getApplicationContext());
+					if(user != null) {
+						setContentView(history.get(history.size() - 1));
+					} else {
+						showDialogToExit();
+					}					
+				} else {
+					showDialogToExit();
+				}
+			} else {
 				history.remove(history.size() - 1);
 				setContentView(history.get(history.size() - 1));
+				if(PermpingMain.getCurrentTab() == 0) {
+					sendBroadcast("", "");					
+				}
 			}
 		} else {
 
 			showDialogToExit();
 		}
 	}
+	
+	private void sendBroadcast(String issueId, String storyId) {
+	    Intent new_intent = new Intent();
+	    new_intent.putExtra("issueId", issueId);
+	    new_intent.putExtra("storyId", storyId);
+	    new_intent.setAction(FollowerActivity.DOWNLOAD_COMPLETED);
+	    sendBroadcast(new_intent);
+	}
+	
 	public void showDialogToExit(){
 		Resources res = this.getApplicationContext().getResources();
 		AlertDialog alertDialog = new AlertDialog.Builder(this).create();		

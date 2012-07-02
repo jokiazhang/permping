@@ -128,7 +128,7 @@ public class ProfileActivity extends Activity implements Get_Board_delegate{
 				}
 			}
 		});
-       
+		PermUtils.clearViewHistory();       
     }
     protected void exeUserProfile() {
 		// TODO Auto-generated method stub

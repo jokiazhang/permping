@@ -107,11 +107,47 @@ public class PermpingMain extends TabActivity  {
 			}
 		});*/
         
+        // Set the event for Followers tab
+        tabHost.getTabWidget().getChildAt(0).setOnTouchListener(new FollowerHandler());
+        
+        // Set the event for Explorer tab
+        tabHost.getTabWidget().getChildAt(1).setOnTouchListener(new View.OnTouchListener() {
+
+        	@Override
+    		public boolean onTouch(View v, MotionEvent event) {
+        		//do whatever you need
+        		ExplorerActivityGroup.group.clearHistory();
+        		return false;
+
+            }
+        });
+        
+        // Set the event for Images tab
+        tabHost.getTabWidget().getChildAt(2).setOnTouchListener(new View.OnTouchListener() {
+
+        	@Override
+    		public boolean onTouch(View v, MotionEvent event) {
+        		//do whatever you need
+        		ImageActivityGroup.group.clearHistory();
+        		return false;
+
+            }
+        });
+        
         // Set the event for MyDiary tab
         tabHost.getTabWidget().getChildAt(3).setOnTouchListener(new ValidateHandler());
         
-        // Set the event for Followers tab
-        tabHost.getTabWidget().getChildAt(0).setOnTouchListener(new FollowerHandler());
+        // Set the event for Profile tab
+        tabHost.getTabWidget().getChildAt(4).setOnTouchListener(new View.OnTouchListener() {
+
+        	@Override
+    		public boolean onTouch(View v, MotionEvent event) {
+        		//do whatever you need
+        		//ProfileActivityGroup.group.clearHistory();
+        		return false;
+
+            }
+        });        
     }
     
     private class ProfileHandler implements View.OnTouchListener {
@@ -145,7 +181,7 @@ public class PermpingMain extends TabActivity  {
 	        } else {
 	        	
 	        }
-	        
+	        MyDiaryActivityGroup.group.clearHistory();
 	        return false;
     	}
     }
@@ -170,6 +206,7 @@ public class PermpingMain extends TabActivity  {
 		        	showLogin();
 					ret = false;
 		        }
+		        MyDiaryActivityGroup.group.clearHistory();
 			}
 			return ret;
 		}
@@ -189,10 +226,10 @@ public class PermpingMain extends TabActivity  {
 			ImageActivityGroup.group.replaceView(boardListView);
     	}else if(currentTab == 3){
 			View boardListView = MyDiaryActivityGroup.group.getLocalActivityManager() .startActivity("detail", myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
-			MyDiaryActivityGroup.group.replaceView(boardListView);
+			MyDiaryActivityGroup.group.replaceViewWithoutHistory(boardListView);
     	}else if(currentTab == 4){
 			View boardListView = ProfileActivityGroup.group.getLocalActivityManager() .startActivity("detail", myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
-			ProfileActivityGroup.group.replaceView(boardListView);
+			ProfileActivityGroup.group.replaceViewWithoutHistory(boardListView);
     	}
     }
     public static void back(){
@@ -201,18 +238,18 @@ public class PermpingMain extends TabActivity  {
     	if( currentTab == 0){
 			FollowerActivityGroup.group.back();
     	}else if(currentTab == 1){
-    		View view = ProfileActivityGroup.group.getLocalActivityManager().startActivity( "ExplorerActivity", new Intent(context, ExplorerActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
+    		//View view = ProfileActivityGroup.group.getLocalActivityManager().startActivity( "ExplorerActivity", new Intent(context, ExplorerActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
 			ExplorerActivityGroup.group.back();
-    		ExplorerActivityGroup.group.overrideView(view);
+    		//ExplorerActivityGroup.group.overrideView(view);
     	}else if(currentTab == 2){
 			ImageActivityGroup.group.back();
     	}else if(currentTab == 3){
 			MyDiaryActivityGroup.group.back();
     	}else if(currentTab == 4){
 
-    		View view = ProfileActivityGroup.group.getLocalActivityManager().startActivity( "ProfileActivity", new Intent(context, ProfileActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
+    		//View view = ProfileActivityGroup.group.getLocalActivityManager().startActivity( "ProfileActivity", new Intent(context, ProfileActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
 			ProfileActivityGroup.group.back();
-    		ProfileActivityGroup.group.overrideView(view);
+    		//ProfileActivityGroup.group.overrideView(view);
 
     	}
     }

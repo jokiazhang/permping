@@ -28,6 +28,7 @@ import com.permping.model.Perm;
 import com.permping.model.Transporter;
 import com.permping.utils.API;
 import com.permping.utils.Constants;
+import com.permping.utils.PermUtils;
 import com.permping.utils.XMLParser;
 import com.permping.utils.facebook.sdk.Util;
 
@@ -105,6 +106,8 @@ public class MyDiaryActivity extends Activity implements View.OnClickListener , 
 		adapter.notifyDataSetChanged();
 		calendarView.setPadding(0, 0, 0, 0);
 		calendarView.setAdapter(adapter);
+		
+		PermUtils.clearViewHistory();
 
 	}
 //	@Override
