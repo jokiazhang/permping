@@ -161,7 +161,7 @@ public class JoinPermActivity extends Activity implements TextWatcher, JoinPerm_
 	{		
 	    if ((keyCode == KeyEvent.KEYCODE_BACK))
 	    {
-	        PermpingMain.back();
+	        finish();
 	        return true;
 	    }
 	    return super.onKeyDown(keyCode, event);
