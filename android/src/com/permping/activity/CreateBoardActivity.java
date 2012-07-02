@@ -88,6 +88,7 @@ public class CreateBoardActivity extends Activity implements Create_Board_delega
 	        	if (state != null) {
 
 	        		if (user != null) {
+	        			nameValuePairs.clear();
 	        			nameValuePairs.add(new BasicNameValuePair(Constants.BOARD_NAME, 
 	        					boardName.getText().toString()));
 	        			nameValuePairs.add(new BasicNameValuePair(Constants.CATEGORY_ID, 
