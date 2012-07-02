@@ -20,6 +20,7 @@ import com.permping.controller.CategoryController;
 import com.permping.interfaces.get_category_delegate;
 import com.permping.model.Category;
 import com.permping.utils.API;
+import com.permping.utils.PermUtils;
 
 public class ExplorerActivity extends Activity implements get_category_delegate {
 	public ProgressDialog loadingDialog;
@@ -34,6 +35,7 @@ public class ExplorerActivity extends Activity implements get_category_delegate 
 		final CategoryController catController = new CategoryController(ExplorerActivity.this);
 		final ArrayList<Category> categories = catController.getCategoryList();
 		context = ExplorerActivity.this;
+		PermUtils.clearViewHistory();
 		
 		/*Button btnAllCategory = (Button)findViewById(R.id.btnAllCategory);
 		btnAllCategory.setOnClickListener(new View.OnClickListener() {

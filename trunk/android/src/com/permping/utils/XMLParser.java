@@ -728,7 +728,9 @@ public class XMLParser implements HttpAccess {
 	private void exeCreateBoard(Document doc) {
 		// TODO Auto-generated method stub
 		Create_Board_delegate createBoardDelegate = (Create_Board_delegate)delegate;
-		createBoardDelegate.onSucess(doc);
+		if(createBoardDelegate != null) {
+			createBoardDelegate.onSucess(doc);
+		}
 	}
 
 	private void exeMyDiary(Document doc, String id) {

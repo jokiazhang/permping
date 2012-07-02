@@ -74,6 +74,8 @@ public class FollowerActivity extends FragmentActivity {
 		registerReceiver(receiver, intentFilter);
 		
 		permListView = (ListView) findViewById(R.id.permList);
+		
+		PermUtils.clearViewHistory();
 	}
 
 	@Override

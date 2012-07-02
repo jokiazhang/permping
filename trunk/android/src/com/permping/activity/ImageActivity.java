@@ -91,6 +91,8 @@ public class ImageActivity extends Activity {
 				
 			}
 		});
+		
+		PermUtils.clearViewHistory();
 
 	}
 
