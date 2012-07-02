@@ -375,9 +375,9 @@ public class XMLParser implements HttpAccess {
 	}
 	
 	public XMLParser(String url) {
-		type = -1;
+		type = XMLParser.CREATE_BOARD;
 		if(httpPermUtils  == null)
-			httpPermUtils = new HttpPermUtils();
+			httpPermUtils = new HttpPermUtils(XMLParser.this);
 		getResponseFromURL(url);
 	}
 	public XMLParser(String url, Get_Board_delegate delegate, int type) {

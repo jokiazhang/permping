@@ -201,9 +201,9 @@ public class PermpingMain extends TabActivity  {
     	if( currentTab == 0){
 			FollowerActivityGroup.group.back();
     	}else if(currentTab == 1){
-    		View view = ProfileActivityGroup.group.getLocalActivityManager().startActivity( "ProfileActivity", new Intent(context, ExplorerActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
-			ProfileActivityGroup.group.back();
-    		ProfileActivityGroup.group.overrideView(view);
+    		View view = ProfileActivityGroup.group.getLocalActivityManager().startActivity( "ExplorerActivity", new Intent(context, ExplorerActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
+			ExplorerActivityGroup.group.back();
+    		ExplorerActivityGroup.group.overrideView(view);
     	}else if(currentTab == 2){
 			ImageActivityGroup.group.back();
     	}else if(currentTab == 3){

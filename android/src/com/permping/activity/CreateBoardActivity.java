@@ -166,9 +166,6 @@ public class CreateBoardActivity extends Activity implements Create_Board_delega
 			Toast toast = Toast.makeText(getApplicationContext(), "Board is created successfully!", Toast.LENGTH_LONG);
         	toast.setGravity(Gravity.TOP | Gravity.CENTER, 0, 300);
         	toast.show();
-        	/*InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        	imm.hideSoftInputFromWindow(windowToken, flags)
-        	*///getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         	ImageActivityGroup.group.back();
 		} else {
 			Toast toast = Toast.makeText(getApplicationContext(), "Create new board failed! Please try again.", Toast.LENGTH_LONG);
