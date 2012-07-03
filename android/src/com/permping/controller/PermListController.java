@@ -147,7 +147,7 @@ public class PermListController implements PermList_Delegate {
 			url = API.popularPermsURL;
 			permList.add(new Perm());
 		}
-		XMLParser parser = new XMLParser(XMLParser.PERMLIST, PermListController.this, url, nameValuePairs);
+		XMLParser parser = new XMLParser(XMLParser.PERMLIST, PermListController.this, url, nameValuePairs, true);
 		Document doc = parser.getDoc();
 		NodeList responseNodeList = doc.getElementsByTagName("response"); // TODO: actually, only 1 response in the list.
 		String nextItem = "-1";

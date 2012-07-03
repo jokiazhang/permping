@@ -393,6 +393,18 @@ public class XMLParser implements HttpAccess {
 			httpPermUtils = new HttpPermUtils(XMLParser.this);
 		this.type = type;
 		getResponseFromURL(type, delegate, url, nameValuePairs);
+
+	}
+	
+	public XMLParser(int type, Object delegate, String url, List<NameValuePair> nameValuePairs, boolean isCallAsynTask) {
+		if(httpPermUtils  == null)
+			httpPermUtils = new HttpPermUtils(XMLParser.this);
+		this.type = type;
+		if(isCallAsynTask) {
+			getAsynResponseFromURL(type, delegate, url, nameValuePairs);
+		} else {
+			getResponseFromURL(type, delegate, url, nameValuePairs);
+		}		
 	}
 	public Document getResponseFromURL(int Type, Object delegate, String url, List<NameValuePair> nameValuePairs) {
 		try {
@@ -410,6 +422,24 @@ public class XMLParser implements HttpAccess {
 			return null;
 		}
 	}
+	
+	public Document getAsynResponseFromURL(int Type, Object delegate, String url, List<NameValuePair> nameValuePairs) {
+		try {
+			this.type= Type;
+			if(delegate != null)
+				this.delegate = delegate;		
+			String response = httpPermUtils.sendAsynRequest(url, nameValuePairs,false);
+			if (response != null) {
+				this.response = response;
+				return parseResponse(response);
+			}
+			return null;
+		} catch (Exception e) {
+			// TODO: handle exception
+			return null;
+		}
+	}
+	
 	public Document getResponseFromURL(int Type, Object delegate, String url, List<NameValuePair> nameValuePairs, String id) {
 		this.type= Type;
 		this.delegate = delegate;
