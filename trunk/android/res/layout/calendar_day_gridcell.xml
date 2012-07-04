@@ -64,7 +64,7 @@
         android:layout_alignParentTop="true"
         android:background="@android:color/transparent"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="#FFFFFF" 
+        android:textColor="#3e4c5d" 
         android:textSize="14sp"
         android:textStyle="bold">
     </Button>

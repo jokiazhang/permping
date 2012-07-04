@@ -21,6 +21,7 @@
 		android:paddingLeft="10dip"
 		android:typeface="normal"
 		android:text="My Daily"
+		android:textStyle="bold"
 		android:textColor="@android:color/black">
 	</TextView>
 
@@ -44,8 +45,9 @@
 			android:textAppearance="?android:attr/textAppearanceMedium"
 			android:layout_width="wrap_content"
 			android:layout_height="match_parent"
-			android:typeface="serif"
-			android:textColor="@android:color/black"
+			android:typeface="normal"
+			android:textStyle="bold"
+			android:textColor="#2f3946"
 			android:background="@android:color/transparent">
 		</Button>
 		<ImageView
@@ -60,11 +62,11 @@
 	<GridView
 		android:id="@+id/calendar"
 		android:numColumns="7"
-		android:paddingTop="0dip"
+		android:paddingTop="-10dp"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
 		android:background="#d5d4d8"
-		android:padding="0dip">
+		>
 	</GridView>
 
 </LinearLayout>

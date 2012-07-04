@@ -156,7 +156,7 @@ public class NewPermActivity extends Activity implements OnClickListener {
 		// TODO Auto-generated method stub
 		facebookToken = permUtils.getFacebookToken(NewPermActivity.this);
 		twitterAccessToken = permUtils.getTwitterAccess(NewPermActivity.this);
-		if (facebookToken == null) {
+		if (facebookToken == null && facebookToken == "") {// && facebookToken.isEmpty()
 			btnShareFacebook.setChecked(false);
 		} else {
 			btnShareFacebook.setChecked(true);
