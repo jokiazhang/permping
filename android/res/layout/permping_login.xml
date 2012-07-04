@@ -4,14 +4,17 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#FFFFFF"
-    android:layout_marginBottom="59dip">
+    android:layout_marginBottom="59dip"
+    
+    >
     <include android:layout_width="fill_parent" layout="@layout/title_bar" />
 	 <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical" 
         android:paddingTop="15dp"
-        android:paddingBottom="5dp">
+        android:paddingBottom="5dp"
+        android:layout_weight="2">
     	    <TextView
                     xmlns:android="http://schemas.android.com/apk/res/android"
                     android:id="@+id/categoryName"
@@ -28,7 +31,8 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_horizontal" 
-        android:padding="10dp">
+        android:padding="10dp"
+        android:layout_weight="2">
 
         <Button
             android:id="@+id/loginfb"
@@ -65,7 +69,8 @@
         android:layout_marginRight="5dp"
         android:layout_marginTop="10dp"
         android:orientation="vertical"
-        android:background="@drawable/explorer_item_bg_first">
+        android:background="@drawable/explorer_item_bg_first"
+        android:layout_weight="2">
 	<EditText
         android:id="@+id/permEmail"
         android:layout_width="315dp"
@@ -85,7 +90,8 @@
         android:layout_marginRight="5dp"
         android:layout_marginTop="-3dp"
         android:orientation="vertical"
-        android:background="@drawable/explorer_item_bg_end">
+        android:background="@drawable/explorer_item_bg_end"
+        android:layout_weight="2">
    	 <EditText
         android:id="@+id/permPassword"
         android:layout_width="315dp"
@@ -108,7 +114,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:gravity="center_horizontal" 
-        android:padding="10dp">
+        android:layout_weight="2">
 
         <Button
             android:id="@+id/loginPerm"
