@@ -47,13 +47,13 @@
             android:gravity="center"
             android:orientation="horizontal" >
 
-            <com.custom.WebImageView
+            <Button
                 android:id="@+id/thumbnail2"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
+                android:layout_height="wrap_content"     
                 android:background="@android:color/transparent"
-                android:visibility="gone" />
+                android:visibility="visible" 
+                android:layout_weight="0.5"/>
 
             <com.custom.WebImageView
                 android:id="@+id/thumbnail3"
