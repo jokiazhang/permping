@@ -26,7 +26,20 @@ public class ExplorerActivityGroup extends TabGroupActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		View view = getLocalActivityManager().startActivity( "ExplorerActivity", new Intent(this, ExplorerActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
+		setTabGroup(this);
 		replaceView(view);
 	}
+	
+	public void onPause() {
+		super.onPause();
+	}
+	
+	public void onResume() {
+		super.onResume();
+		View view = getLocalActivityManager().startActivity( "ExplorerActivity", new Intent(this, ExplorerActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
+		setTabGroup(this);
+		replaceView(view);
+	}
+	
 
 }

@@ -163,6 +163,15 @@ public class LoginPermActivity extends Activity implements Login_delegate {
 			}
 		});
 	}
+	
+	public void onPause() {
+		super.onPause();
+	}
+	
+	public void onDestroy() {
+		super.onDestroy();
+	}
+	
     public boolean checkInputData()
     {
         Animation shake = AnimationUtils.loadAnimation(this, R.anim.shake);

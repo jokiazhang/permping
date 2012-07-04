@@ -42,6 +42,10 @@ public class TabGroupActivity extends ActivityGroup {
 
 	}
 	
+	public void setTabGroup(TabGroupActivity tabGroup) {
+		group = tabGroup;
+	}
+	
 	public void clearHistory(){
 		//this.history.clear();
 		for( int i = 1; i < history.size(); i++ ){
