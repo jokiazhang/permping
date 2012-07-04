@@ -37,6 +37,7 @@ public class MyDiaryActivityGroup extends TabGroupActivity {
         if (user != null) {
         	View view = getLocalActivityManager().startActivity( "MyDiaryActivity", new Intent(this, MyDiaryActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
     		replaceView(view);
+    		clearHistory();
     	} else {
 			PermpingMain.showLogin();
 		}
