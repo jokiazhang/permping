@@ -135,7 +135,7 @@ public class PermpingMain extends TabActivity  {
         });
         
         // Set the event for MyDiary tab
-        tabHost.getTabWidget().getChildAt(3).setOnTouchListener(new ValidateHandler());
+        //tabHost.getTabWidget().getChildAt(3).setOnTouchListener(new ValidateHandler());
         
         // Set the event for Profile tab
         tabHost.getTabWidget().getChildAt(4).setOnTouchListener(new View.OnTouchListener() {
@@ -213,6 +213,7 @@ public class PermpingMain extends TabActivity  {
 
     }
     public static void showLogin(){
+    	closeLoginActivity();
     	Intent myIntent = new Intent(context, LoginPermActivity.class);
     	int currentTab = tabHost.getCurrentTab();
     	if( currentTab == 0){
@@ -285,6 +286,14 @@ public class PermpingMain extends TabActivity  {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	public static void closeLoginActivity() {
+    	FollowerActivityGroup.group.getLocalActivityManager().destroyActivity("detail", true);
+    	ExplorerActivityGroup.group.getLocalActivityManager().destroyActivity("detail", true);
+    	ImageActivityGroup.group.getLocalActivityManager().destroyActivity("detail", true);
+    	MyDiaryActivityGroup.group.getLocalActivityManager().destroyActivity("detail", true);
+    	ProfileActivityGroup.group.getLocalActivityManager().destroyActivity("detail", true);
+    }
 	
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event)

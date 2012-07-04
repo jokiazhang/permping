@@ -18,10 +18,23 @@ private int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 1224;
 		super.onCreate(savedInstanceState);
 		
 		View view = getLocalActivityManager().startActivity( "ImageActivity", new Intent(this, ImageActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
+		setTabGroup(this);
 		replaceView(view);
 	
 		
 	}
+	
+	public void onPause() {
+		super.onPause();
+	}
+	
+	public void onResume() {
+		super.onResume();
+		View view = getLocalActivityManager().startActivity( "ImageActivity", new Intent(this, ImageActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
+		setTabGroup(this);
+		replaceView(view);
+	}
+	
 	
 	public static String imagePath = "";	
 	
@@ -55,7 +68,7 @@ private int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 1224;
 	            //Start activity allow user input perm info
 	            Intent myIntent = new Intent(ImageActivityGroup.this, NewPermActivity.class);
 	            myIntent.putExtra("imagePath", selectedImagePath );
-				View boardListView = ExplorerActivityGroup.group.getLocalActivityManager() .startActivity("NewPermActivity", myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
+				View boardListView = ImageActivityGroup.group.getLocalActivityManager() .startActivity("NewPermActivity", myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
 				ImageActivityGroup.group.replaceView(boardListView);
 
 				//dialog = ProgressDialog.show(this, "Uploading","Please wait...", true);
