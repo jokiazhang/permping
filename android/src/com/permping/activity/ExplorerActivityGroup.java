@@ -13,7 +13,7 @@ import android.app.Activity;
 import android.app.ActivityGroup;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.StrictMode;
+//import android.os.StrictMode;
 import android.provider.SyncStateContract.Constants;
 import android.widget.AdapterView;
 import android.widget.ListView;

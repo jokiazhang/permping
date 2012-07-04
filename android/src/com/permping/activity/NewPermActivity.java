@@ -156,7 +156,7 @@ public class NewPermActivity extends Activity implements OnClickListener {
 		// TODO Auto-generated method stub
 		facebookToken = permUtils.getFacebookToken(NewPermActivity.this);
 		twitterAccessToken = permUtils.getTwitterAccess(NewPermActivity.this);
-		if (facebookToken == null || facebookToken.isEmpty()) {
+		if (facebookToken == null) {
 			btnShareFacebook.setChecked(false);
 		} else {
 			btnShareFacebook.setChecked(true);
@@ -519,7 +519,7 @@ public class NewPermActivity extends Activity implements OnClickListener {
 			permUtils.logOutFacebook(NewPermActivity.this);
 		
 		}else{
-			if (facebookToken == null || facebookToken.isEmpty()) {
+			if (facebookToken == null || facebookToken == "") {
 				permUtils.integateLoginFacebook(NewPermActivity.this, handleFbLogin);
 			}
 		}
@@ -557,8 +557,7 @@ public class NewPermActivity extends Activity implements OnClickListener {
 //		} catch (Exception e) {
 //		    
 //		}
-		if (facebookToken == null && facebookToken.isEmpty()
-				&& twitterAccessToken == null) {
+		if (facebookToken == null  && twitterAccessToken == null) {
 			Toast.makeText(getApplicationContext(),
 					"Please choose the share type!", Toast.LENGTH_LONG).show();
 		} else {
