@@ -495,8 +495,14 @@ public class ProfileActivity extends Activity implements Get_Board_delegate{
 		public void onItemClick(AdapterView<?> parent, View view, int pos,
 				long id) {
 			board = (PermBoard) parent.getItemAtPosition(pos);
-			BoardController boardController = new BoardController();
-			List<Perm> perms = boardController.getPermsByBoardId(board.getId(), ProfileActivity.this);
+			//BoardController boardController = new BoardController();
+			//List<Perm> perms = boardController.getPermsByBoardId(board.getId(), ProfileActivity.this);			
+			
+			Intent myIntent = new Intent(view.getContext(), FollowerActivity.class);
+			String boardUrl = API.permListFromBoardUrl + board.getId();
+			myIntent.putExtra("categoryURL", boardUrl);
+			View boardListView = ProfileActivityGroup.group.getLocalActivityManager() .startActivity("BoardListActivity", myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
+			ProfileActivityGroup.group.replaceView(boardListView);
 	
 		}
 
