@@ -383,10 +383,10 @@ public class MyDiaryActivity extends Activity implements View.OnClickListener , 
 				Log.d(currentMonthName, String.valueOf(i) + " "
 						+ getMonthAsString(currentMonth) + " " + yy);
 				if (i == getCurrentDayOfMonth()) {
-					list.add(String.valueOf(i) + "-BLUE" + "-"
+					list.add(String.valueOf(i) + "-#8b9096" + "-"
 							+ getMonthAsString(currentMonth) + "-" + yy);
 				} else {
-					list.add(String.valueOf(i) + "-WHITE" + "-"
+					list.add(String.valueOf(i) + "-#2c3642" + "-"
 							+ getMonthAsString(currentMonth) + "-" + yy);
 				}
 			}
@@ -394,7 +394,7 @@ public class MyDiaryActivity extends Activity implements View.OnClickListener , 
 			// Leading Month days
 			for (int i = 0; i < list.size() % 7; i++) {
 				Log.d(tag, "NEXT MONTH:= " + getMonthAsString(nextMonth));
-				list.add(String.valueOf(i + 1) + "-GREY" + "-"
+				list.add(String.valueOf(i + 1) + "-#88b9f4" + "-"
 						+ getMonthAsString(nextMonth) + "-" + nextYear);
 			}
 		}
@@ -453,6 +453,7 @@ public class MyDiaryActivity extends Activity implements View.OnClickListener , 
 			}
 
 			// Set the Day GridCell
+			gridcell.setGravity(Gravity.LEFT | Gravity.TOP);
 			gridcell.setText(theday);
 			gridcell.setTag(theday + "-" + themonth + "-" + theyear);
 			
@@ -461,16 +462,16 @@ public class MyDiaryActivity extends Activity implements View.OnClickListener , 
 			String date = theyear+"-"+MyDiaryActivity.this.months.get(themonth)+"-"+theday;
 			row.setTag(date);
 			Log.d(tag, "Setting GridCell " +date);
-			if (day_color[1].equals("GREY")) {
-				gridcell.setTextColor(Color.LTGRAY);
+			if (day_color[1].equals("#88b9f4")) {
+				gridcell.setTextColor(Color.parseColor("#e9eff3"));
 			}
-			if (day_color[1].equals("WHITE")) {
-				gridcell.setTextColor(Color.WHITE);
+			if (day_color[1].equals("#2c3642")) {
+				gridcell.setTextColor(Color.parseColor("#2c3642"));
 			}
-			if (day_color[1].equals("BLUE")) {
-				gridcell.setTextColor(getResources().getColor(
-						R.color.static_text_color));
-				gridcell.setBackgroundDrawable(getResources().getDrawable(R.drawable.date_bg_selected));
+			if (day_color[1].equals("#8b9096")) {
+				gridcell.setTextColor(Color.parseColor("#ccddf2"));
+//				gridcell.setBackgroundDrawable(getResources().getDrawable(R.drawable.date_bg_selected));
+				row.setBackgroundColor(Color.parseColor("#7ea4bc"));
 			}
 			
 			row.setId(Integer.valueOf(theday+MyDiaryActivity.this.months.get(themonth)));

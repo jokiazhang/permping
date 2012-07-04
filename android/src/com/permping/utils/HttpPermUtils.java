@@ -154,7 +154,7 @@ public class HttpPermUtils {
 	    protected void onPostExecute(String result) {
 	        // TODO: check this.exception 
 	        // TODO: do something with the feed
-			if (result != null && result != "" && httpAccess != null) {				
+			if (result != null && result != "" && httpAccess != null) {	//!result.isEmpty() &&			
 				httpAccess.onSeccess(result, this.myDiaryThumbId);
 			}else if(httpAccess != null){
 				httpAccess.onError();

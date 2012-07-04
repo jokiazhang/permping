@@ -609,7 +609,7 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 					
 				};
 				
-				if( cmText.length() !=0){
+				if( cmText != null  || cmText == "" ){ //!cmText.isEmpty()
 					this.dismiss();
 					dialog = ProgressDialog.show(context, "Uploading","Please wait...", true);
 					comment.execute();
