@@ -470,8 +470,8 @@ public class MyDiaryActivity extends Activity implements View.OnClickListener , 
 			}
 			if (day_color[1].equals("#8b9096")) {
 				gridcell.setTextColor(Color.parseColor("#ccddf2"));
-//				gridcell.setBackgroundDrawable(getResources().getDrawable(R.drawable.date_bg_selected));
-				row.setBackgroundColor(Color.parseColor("#7ea4bc"));
+				row.setBackgroundDrawable(getResources().getDrawable(R.drawable.date_bg_selected));
+//				row.setBackgroundColor(Color.parseColor("#7ea4bc"));
 			}
 			
 			row.setId(Integer.valueOf(theday+MyDiaryActivity.this.months.get(themonth)));
