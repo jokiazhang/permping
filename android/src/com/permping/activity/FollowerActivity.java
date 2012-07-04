@@ -93,7 +93,7 @@ public class FollowerActivity extends FragmentActivity {
 		}else if(PermpingMain.getCurrentTab() == 0 && isRefesh){
 			// Get the screen's size.
 			exeFollowerActivity();
-		}else if(PermpingMain.getCurrentTab() == 1){
+		}else if(PermpingMain.getCurrentTab() == 1 || PermpingMain.getCurrentTab() == 4){
 			exeFollowerActivity();
 		} else if(!isRefesh){
 			isRefesh = true;
