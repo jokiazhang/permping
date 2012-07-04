@@ -23,20 +23,22 @@
             android:background="@android:color/transparent"
             android:gravity="right"
             android:orientation="horizontal" >
-            <com.custom.WebImageView
-                android:id="@+id/thumbnail134"
+
+            <Button
+                android:id="@+id/thumbnail23434"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="0.5"
                 android:background="@android:color/transparent"
-                android:visibility="gone" 
-                android:layout_weight="0.5"/>
+                android:visibility="visible" />
+
             <com.custom.WebImageView
                 android:id="@+id/thumbnail1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="0.5"
                 android:background="@android:color/transparent"
-                android:visibility="gone" 
-                android:layout_weight="0.5"/>
+                android:visibility="gone" />
         </LinearLayout>
 
         <LinearLayout
@@ -47,13 +49,13 @@
             android:gravity="center"
             android:orientation="horizontal" >
 
-            <Button
+            <com.custom.WebImageView
                 android:id="@+id/thumbnail2"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"     
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
                 android:background="@android:color/transparent"
-                android:visibility="visible" 
-                android:layout_weight="0.5"/>
+                android:visibility="gone" />
 
             <com.custom.WebImageView
                 android:id="@+id/thumbnail3"
