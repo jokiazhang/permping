@@ -37,6 +37,7 @@ public class ProfileActivityGroup extends TabGroupActivity {
         if (user != null) {
         	View view = getLocalActivityManager().startActivity( "ProfileActivity", new Intent(this, ProfileActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
     		replaceView(view);
+    		clearHistory();
     	} else {
 			PermpingMain.showLogin();
 		}

@@ -136,14 +136,23 @@ public class PermpingMain extends TabActivity  {
         
         // Set the event for MyDiary tab
         //tabHost.getTabWidget().getChildAt(3).setOnTouchListener(new ValidateHandler());
-        
+        tabHost.getTabWidget().getChildAt(3).setOnTouchListener(new View.OnTouchListener() {
+
+        	@Override
+    		public boolean onTouch(View v, MotionEvent event) {
+        		//do whatever you need
+        		MyDiaryActivityGroup.group.clearHistory();
+        		return false;
+
+            }
+        }); 
         // Set the event for Profile tab
         tabHost.getTabWidget().getChildAt(4).setOnTouchListener(new View.OnTouchListener() {
 
         	@Override
     		public boolean onTouch(View v, MotionEvent event) {
         		//do whatever you need
-        		//ProfileActivityGroup.group.clearHistory();
+        		ProfileActivityGroup.group.clearHistory();
         		return false;
 
             }
@@ -181,7 +190,7 @@ public class PermpingMain extends TabActivity  {
 	        } else {
 	        	
 	        }
-	        MyDiaryActivityGroup.group.clearHistory();
+	        FollowerActivityGroup.group.clearHistory();
 	        return false;
     	}
     }

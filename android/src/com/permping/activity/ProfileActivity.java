@@ -242,6 +242,7 @@ public class ProfileActivity extends Activity implements Get_Board_delegate{
 					PermpingApplication state = (PermpingApplication)context.getApplicationContext();
 					state.setUser(null);
 					PermpingMain.back();
+					PermpingMain.showLogin();
 					btnAccount.setText(context.getString(R.string.login));
 				}
 				else if(result.booleanValue() && btnAccount.getText().equals(context.getString(R.string.follow)))
