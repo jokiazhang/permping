@@ -1,61 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
     android:id="@+id/layout"
+    android:layout_width="wrap_content"
     android:layout_height="48dip"
+    android:layout_margin="0dip"
     android:background="@drawable/calendar_button_selector"
     android:orientation="vertical"
-    android:paddingLeft="5dip" 
-    android:paddingTop="2dip"
-    android:layout_margin="0dip">
-
-
+    android:paddingLeft="5dip"
+    android:paddingTop="2dip" >
 
     <LinearLayout
         android:id="@+id/layout1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:background="@android:color/transparent"
-        android:gravity="right"
-        android:layout_alignParentRight="true"
-        android:orientation="horizontal"
-        android:weightSum="0.5" >
+        android:orientation="vertical" >
 
-        <com.custom.WebImageView
-            android:id="@+id/thumbnail1"
-            android:layout_width="20dip"
-            android:layout_height="20dip"
-            android:background="@android:color/transparent" 
-            android:visibility="gone"/>
+        <LinearLayout
+            android:id="@+id/layout1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:gravity="right"
+            android:orientation="horizontal" >
+            <com.custom.WebImageView
+                android:id="@+id/thumbnail134"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:visibility="gone" 
+                android:layout_weight="0.5"/>
+            <com.custom.WebImageView
+                android:id="@+id/thumbnail1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:visibility="gone" 
+                android:layout_weight="0.5"/>
+        </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/layout2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal" >
+
+            <com.custom.WebImageView
+                android:id="@+id/thumbnail2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:background="@android:color/transparent"
+                android:visibility="gone" />
+
+            <com.custom.WebImageView
+                android:id="@+id/thumbnail3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:background="@android:color/transparent"
+                android:visibility="gone" >
+            </com.custom.WebImageView>
+        </LinearLayout>
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/layout2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:gravity="center"
-        android:layout_centerHorizontal="true"
-        android:orientation="horizontal"
-        android:weightSum="0.5" >
-
-        <com.custom.WebImageView
-            android:id="@+id/thumbnail2"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:background="@android:color/transparent" 
-            android:visibility="gone"/>
-
-        <com.custom.WebImageView
-            android:id="@+id/thumbnail3"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:background="@android:color/transparent" 
-            android:visibility="gone">
-        </com.custom.WebImageView>
-    </LinearLayout>
     <Button
         android:id="@+id/calendar_day_gridcell"
         android:layout_width="wrap_content"
@@ -64,10 +74,11 @@
         android:layout_alignParentTop="true"
         android:background="@android:color/transparent"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="#3e4c5d" 
+        android:textColor="#3e4c5d"
         android:textSize="14sp"
-        android:textStyle="bold">
+        android:textStyle="bold" >
     </Button>
+
     <TextView
         android:id="@+id/num_events_per_day"
         style="@style/calendar_event_style"
