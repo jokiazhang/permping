@@ -37,6 +37,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.permping.PermpingApplication;
+import com.permping.PermpingMain;
 import com.permping.activity.LoginPermActivity;
 import com.permping.handler.BoardHandler;
 import com.permping.handler.UserHandler;
@@ -780,6 +781,7 @@ public class XMLParser implements HttpAccess {
 			// Store the user object to PermpingApplication
 			PermpingApplication state = (PermpingApplication) LoginPermActivity.context.getApplicationContext();
 			state.setUser(user);
+			PermpingMain.UID = user.getId();
 			synchronized (this) {
 				loginDelegate.on_success();
 			}
