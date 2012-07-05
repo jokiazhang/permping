@@ -403,6 +403,8 @@ public final class UrlImageViewHelper {
     	mPendingViews.clear();
     	mPendingDownloads.clear();
     }
+    
+    public static boolean mDownloadException = false;
 
     private static Hashtable<ImageView, String> mPendingViews = new Hashtable<ImageView, String>();
     private static Hashtable<String, ArrayList<ImageView>> mPendingDownloads = new Hashtable<String, ArrayList<ImageView>>();
