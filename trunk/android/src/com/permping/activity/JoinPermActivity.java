@@ -75,7 +75,7 @@ public class JoinPermActivity extends Activity implements TextWatcher, JoinPerm_
 				if (prefs.getString(Constants.LOGIN_TYPE, "").equals(Constants.FACEBOOK_LOGIN)) {// Facebook
 					nameValuePairs.add(new BasicNameValuePair("oauth_token", prefs.getString(Constants.ACCESS_TOKEN, "")));
 					nameValuePairs.add(new BasicNameValuePair("name", name.getText().toString()));
-					//nameValuePairs.add(new BasicNameValuePair("username", name.getText().toString()));
+					nameValuePairs.add(new BasicNameValuePair("username", name.getText().toString()));
 					nameValuePairs.add(new BasicNameValuePair("email", email.getText().toString()));
 					nameValuePairs.add(new BasicNameValuePair("password", password.getText().toString()));
 					nameValuePairs.add(new BasicNameValuePair("cpassword", confirmPassword.getText().toString()));
@@ -83,14 +83,14 @@ public class JoinPermActivity extends Activity implements TextWatcher, JoinPerm_
 					nameValuePairs.add(new BasicNameValuePair("oauth_token", prefs.getString(OAuth.OAUTH_TOKEN, "")));
 					nameValuePairs.add(new BasicNameValuePair("oauth_token_secret", prefs.getString(OAuth.OAUTH_TOKEN_SECRET, "")));
 					nameValuePairs.add(new BasicNameValuePair("name", name.getText().toString()));
-					//nameValuePairs.add(new BasicNameValuePair("username", name.getText().toString()));
+					nameValuePairs.add(new BasicNameValuePair("username", name.getText().toString()));
 					nameValuePairs.add(new BasicNameValuePair("email", email.getText().toString()));
 					nameValuePairs.add(new BasicNameValuePair("password", password.getText().toString()));
 					nameValuePairs.add(new BasicNameValuePair("cpassword", confirmPassword.getText().toString()));
 				} else { // Perm
 					nameValuePairs.add(new BasicNameValuePair("oauth_token", ""));
 					nameValuePairs.add(new BasicNameValuePair("name", name.getText().toString()));
-					//nameValuePairs.add(new BasicNameValuePair("username", name.getText().toString()));
+					nameValuePairs.add(new BasicNameValuePair("username", name.getText().toString()));
 					nameValuePairs.add(new BasicNameValuePair("email", email.getText().toString()));
 					nameValuePairs.add(new BasicNameValuePair("password", password.getText().toString()));
 					nameValuePairs.add(new BasicNameValuePair("cpassword", confirmPassword.getText().toString()));
@@ -98,7 +98,7 @@ public class JoinPermActivity extends Activity implements TextWatcher, JoinPerm_
 				
 				XMLParser parser = new XMLParser(XMLParser.JOIN_PERM, JoinPermActivity.this, API.createAccountURL, nameValuePairs);
 				User user = parser.getUser();
-
+				if(user != null) FollowerActivity.isLogin = true;
 				Intent i = new Intent(v.getContext(), PermpingMain.class);
 				v.getContext().startActivity(i);
 			}
