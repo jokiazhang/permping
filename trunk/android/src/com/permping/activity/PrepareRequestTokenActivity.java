@@ -69,7 +69,7 @@ public class PrepareRequestTokenActivity extends Activity {
 		super.onNewIntent(intent); 
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 		final Uri uri = intent.getData();
-		if (uri != null && uri.getScheme().equals(Constants.OAUTH_CALLBACK_SCHEME)) {
+		if (uri != null && uri.toString().startsWith(Constants.OAUTH_CALLBACK_URL)) {
 			Log.i(TAG, "Callback received : " + uri);
 			Log.i(TAG, "Retrieving Access Token");
 			new RetrieveAccessTokenTask(this,consumer,provider,prefs).execute(uri);
