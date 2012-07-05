@@ -40,7 +40,7 @@
                     android:textColor="#3e4c5d"
                     android:textSize="14sp"
                     android:textStyle="bold"
-                    android:paddingLeft="7dp" >
+                    android:paddingLeft="2dp" >
                 </Button>
             </LinearLayout>
 
