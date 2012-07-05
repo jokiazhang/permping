@@ -589,7 +589,7 @@ public class XMLParser implements HttpAccess {
 			return null;
 		}
 	}
-	public List<String> getNoteListFromDoc(Document doc){
+	public List<String> getNoteListFromDoc(Document doc, String id){
 		try {
 			List<String> thumbList= new ArrayList<String>();
 			doc.getDocumentElement().normalize();
@@ -602,15 +602,26 @@ public class XMLParser implements HttpAccess {
 			for (int i = 0; i < length; i++) {
 
 				Node node = nodeList.item(i);
+				String date = "";
 				Element fstElmnt = (Element) node;
+				NodeList permDate = fstElmnt.getElementsByTagName("permDate");
+				Element dateElement = null;
+				if(permDate != null){
+					dateElement= (Element) permDate.item(0);
+					permDate = dateElement.getChildNodes();
+					date = ((Node) permDate.item(0)).getNodeValue();
+	
+				}
+				date = getDateFromString(date);
 				NodeList nameList = fstElmnt.getElementsByTagName("permImage");
 				Element nameElement = null;
 				if(nameList != null){
 					nameElement= (Element) nameList.item(0);
 					nameList = nameElement.getChildNodes();
 					String link = ((Node) nameList.item(0)).getNodeValue();
-					if(link!= null)
+					if(link!= null && date.equals(id)){
 						thumbList.add(link);
+					}
 				}
 
 			}
@@ -626,7 +637,21 @@ public class XMLParser implements HttpAccess {
 		return true;
 	}*/
 
-
+	public String getDateFromString( String initDate){
+		String date="";
+		int k=0;
+		for(int i=0; i< initDate.length();i++){
+			if(k==2 && initDate.charAt(i) !=' '){
+				date+= initDate.charAt(i) ;
+			}else if(k==2 && initDate.charAt(i) == ' '){
+				return date;
+			}else if(initDate.charAt(i) == '-'){
+				k++;
+			}
+		
+		}
+		return date;
+	}
 	@Override
 	public void onError() {
 		// TODO Auto-generated method stub
@@ -809,7 +834,7 @@ public class XMLParser implements HttpAccess {
 		MyDiary_Delegate myDiary_Delegate = (MyDiary_Delegate)delegate;
 		List<String> thumbList = new ArrayList<String>();
 		if(doc != null)
-			thumbList = getNoteListFromDoc(doc);
+			thumbList = getNoteListFromDoc(doc, id);
 		if(myDiary_Delegate != null)
 			myDiary_Delegate.onSuccess(thumbList, id);
 	}

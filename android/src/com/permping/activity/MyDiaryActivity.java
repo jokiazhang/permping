@@ -478,7 +478,11 @@ public class MyDiaryActivity extends Activity implements View.OnClickListener , 
 			}
 			rowHeight = row.getHeight();
 			rowWidth = row.getWidth();
-			row.setId(Integer.valueOf(theday+MyDiaryActivity.this.months.get(themonth)));
+//			row.setId(Integer.valueOf(theday+MyDiaryActivity.this.months.get(themonth)));
+			row.setId(Integer.valueOf(theday));
+			if(theday.length()==1)
+				theday="0"+theday;
+			row.setId(Integer.valueOf(theday));
 			// thumbs
 			WebImageView thumb1;
 			WebImageView thumb2; 
@@ -490,11 +494,11 @@ public class MyDiaryActivity extends Activity implements View.OnClickListener , 
 			thumbList.add(thumb1);
 			thumbList.add(thumb2);
 			thumbList.add(thumb3);
-			String []paras = {API.getPermsByDateWithMonth+date, PermpingMain.UID ,String.valueOf(row.getId())};
+			String []paras = {API.getPermsByDateWithMonth+date, PermpingMain.UID ,theday};
 			new getData().execute(paras);
-			thumbListById.put(String.valueOf(row.getId()), thumbList);
-			idList.add(String.valueOf(row.getId()));
-			serviceList.add(String.valueOf(row.getId()));
+			thumbListById.put(theday, thumbList);
+			idList.add(theday);
+			serviceList.add(theday);
 			row.setOnClickListener(new View.OnClickListener() {
 				
 				@Override
