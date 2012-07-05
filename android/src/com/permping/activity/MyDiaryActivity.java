@@ -490,7 +490,7 @@ public class MyDiaryActivity extends Activity implements View.OnClickListener , 
 			thumbList.add(thumb1);
 			thumbList.add(thumb2);
 			thumbList.add(thumb3);
-			String []paras = {API.getPermsByDate+date, PermpingMain.UID ,String.valueOf(row.getId())};
+			String []paras = {API.getPermsByDateWithMonth+date, PermpingMain.UID ,String.valueOf(row.getId())};
 			new getData().execute(paras);
 			thumbListById.put(String.valueOf(row.getId()), thumbList);
 			idList.add(String.valueOf(row.getId()));
