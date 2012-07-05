@@ -23,6 +23,8 @@ import com.permping.R;
 import com.permping.TabGroupActivity;
 import com.permping.controller.AuthorizeController;
 import com.permping.controller.MyDiaryController;
+import com.permping.interfaces.Get_Board_delegate;
+import com.permping.interfaces.Get_Perm_Delegate;
 import com.permping.interfaces.MyDiary_Delegate;
 import com.permping.model.Perm;
 import com.permping.model.Transporter;
@@ -58,7 +60,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-public class MyDiaryActivity extends Activity implements View.OnClickListener , MyDiary_Delegate {
+public class MyDiaryActivity extends Activity implements View.OnClickListener , MyDiary_Delegate, Get_Perm_Delegate {
 
 	private static final String TAG = "MyDiaryActivity";
 	private static int rowWidth = 0;
@@ -510,16 +512,24 @@ public class MyDiaryActivity extends Activity implements View.OnClickListener , 
 		public void onClicked(String date_) {
 			String date_month_year = date_;
 			try {
-					MyDiaryController myDiaryController = new MyDiaryController();
-					List<Perm> perms = myDiaryController.getPermsByDate(date_month_year);
-					Transporter transporter = new Transporter();
-					transporter.setPerms(perms);
-					
-					// Go to Perm detail screen
-
-		            Intent myIntent = new Intent(MyDiaryActivity.this, BoardDetailActivity.class);
-					View boardListView = MyDiaryActivityGroup.group.getLocalActivityManager() .startActivity("detail", myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
-					MyDiaryActivityGroup.group.replaceView(boardListView);
+					List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(8);
+					nameValuePairs.add(new BasicNameValuePair("uid", PermpingMain.UID));
+					String url = API.getPermsByDate + date_month_year;
+					XMLParser xmlParser = new XMLParser();
+					xmlParser.getResponseFromURL(XMLParser.GET_PERMS_BY_DATE, MyDiaryActivity.this, url, nameValuePairs,null);
+//					MyDiaryController myDiaryController = new MyDiaryController();
+//					List<Perm> perms = myDiaryController.getPermsByDate(date_month_year, MyDiaryActivity.this);
+//					Transporter transporter = new Transporter();
+//					transporter.setPerms(perms);
+//					
+//					// Go to Perm detail screen
+//
+//					
+//
+//		            Intent myIntent = new Intent(MyDiaryActivity.this, BoardDetailActivity.class);
+//		            myIntent.putExtra(Constants.TRANSPORTER, transporter);
+//					View boardListView = MyDiaryActivityGroup.group.getLocalActivityManager() .startActivity("detail", myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
+//					MyDiaryActivityGroup.group.replaceView(boardListView);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -659,5 +669,18 @@ public class MyDiaryActivity extends Activity implements View.OnClickListener , 
 	        return true;
 	    }
 	    return super.onKeyDown(keyCode, event);
+	}
+	@Override
+	public void onSuccess(List<Perm> perms) {
+		// TODO Auto-generated method stub
+		Transporter transporter = new Transporter();
+		transporter.setPerms(perms);
+
+		
+		// Go to the Board Detail screen
+		Intent i = new Intent(MyDiaryActivity.this, BoardDetailActivity.class);
+		i.putExtra(Constants.TRANSPORTER, transporter);
+		View boardDetail = ProfileActivityGroup.group.getLocalActivityManager() .startActivity("BoardDetailActivity", i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
+		ProfileActivityGroup.group.replaceView(boardDetail);
 	}
 }
