@@ -327,7 +327,9 @@ public class XMLParser implements HttpAccess {
 				if (this.currentElement == "permId") {
 					// Perm id
 					this.currentPem.setId(chars);
-				} else if (this.currentElement == "permImage") {
+				}else if (this.currentElement == "permUrl") {
+					this.currentPem.setPermUrl(chars);
+				}else if (this.currentElement == "permImage") {
 					PermImage imageObject = new PermImage(chars);
 					this.currentPem.setImage(imageObject);
 
@@ -739,8 +741,9 @@ public class XMLParser implements HttpAccess {
 			String boardDesc = getValue(boardElement, "permDesc");
 			String boardDateMessage = getValue(boardElement, "permDateMessage");
 			String boardImage = getValue(boardElement, "permImage");
+			String permUrl = getValue(boardElement, "permUrl");
 			PermImage permImage = new PermImage(boardImage);
-			Perm board = new Perm(boardId, boardName, boardDesc, boardDateMessage, permImage);
+			Perm board = new Perm(boardId, boardName, boardDesc, boardDateMessage, permImage,permUrl);
 			boards.add(board);
 		}
 		delegates.onSuccess(boards);
@@ -771,8 +774,9 @@ public class XMLParser implements HttpAccess {
 			String boardDesc = getValue(boardElement, "permDesc");
 			String boardDateMessage = getValue(boardElement, "permDateMessage");
 			String boardImage = getValue(boardElement, "permImage");
+			String boardUrl = getValue(boardElement, "permUrl");
 			PermImage permImage = new PermImage(boardImage);
-			Perm board = new Perm(boardId, boardName, boardDesc, boardDateMessage, permImage);
+			Perm board = new Perm(boardId, boardName, boardDesc, boardDateMessage, permImage, boardUrl);
 			boards.add(board);
 		}
 		Get_Board_delegate getBoard_delegate = (Get_Board_delegate)delegate;

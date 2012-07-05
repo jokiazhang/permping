@@ -28,6 +28,7 @@ public class Perm implements Serializable{
 	private String permLikeCount = "0";
 	private String permCommentCount = "0";
 	private String permUserLikeCount = "0";
+	private String permUrl = "";
 	private float lat;
 	private float lon;
 	// TODO :This is not good but for now, I will do it
@@ -48,12 +49,13 @@ public class Perm implements Serializable{
 		this.setId(id);
 	}
 	
-	public Perm( String id, String name, String description, String permDateMessage, PermImage image ){
+	public Perm( String id, String name, String description, String permDateMessage, PermImage image, String permUrl ){
 		this.setId(id);
 		this.setName(name);
 		this.setDescription(description);
 		this.setImage(image);
 		this.setPermDateMessage(permDateMessage);
+		this.setPermUrl(permUrl);
 	}
 	
 	
@@ -139,8 +141,12 @@ public class Perm implements Serializable{
 	public void setBoard(PermBoard board) {
 		this.board = board;
 	}
-
-
+	public void setPermUrl( String url) {
+		this.permUrl = url;
+	}
+	public String getPermUrl(){
+		return this.permUrl;
+	}
 	/**
 	 * @return the permRepinCount
 	 */

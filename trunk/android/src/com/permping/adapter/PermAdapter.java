@@ -346,7 +346,7 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 //								Intent imageDetail = new Intent(context, ImageDetail.class);
 //								imageDetail.putExtra("url", perm.getImage().getUrl());
 //								activity.startActivity(imageDetail);
-								PermpingMain.gotoTab(5, perm.getImage().getUrl());
+								PermpingMain.gotoTab(5, perm.getPermUrl());
 //								ImageDetail detailImage = new ImageDetail(perm.getImage().getUrl());
 //								if(fragmentManager != null)detailImage.show(fragmentManager, "sendEmailFrag");
 							}
