@@ -527,6 +527,11 @@ public class NewPermActivity extends Activity implements OnClickListener {
 
 	private void uploadPerm() {
 		// TODO Auto-generated method stub
+		/*if(imagePath == null || imagePath.length() == 0) {
+			Toast.makeText(getApplicationContext(),
+					"Please input an image path", Toast.LENGTH_LONG).show();
+			return;
+		}
 		File file = new File(imagePath);
 		long length = file.length();
 		Bitmap bmpPic = BitmapFactory.decodeFile(imagePath);
@@ -538,7 +543,7 @@ public class NewPermActivity extends Activity implements OnClickListener {
 		        bmpPic = BitmapFactory.decodeFile(imagePath, bmpOptions);
 		    }
 		   
-		}
+		}*/
 //		int compressQuality = 104; // quality decreasing by 5 every loop. (start from 99)
 //		int streamLength = 1024;
 //		while (streamLength >= 1024) {

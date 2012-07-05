@@ -16,6 +16,8 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 import org.w3c.dom.Document;
@@ -33,6 +35,7 @@ import android.util.Log;
 public class HttpPermUtils {
 	private DefaultHttpClient client = new DefaultHttpClient();
 	private HttpAccess httpAccess;
+	public static int TIME_OUT = 10000;
 	public HttpPermUtils(HttpAccess delegate) {
 		// TODO Auto-generated constructor stub
 		httpAccess = delegate;
@@ -60,6 +63,10 @@ public class HttpPermUtils {
 						postRequest.setEntity(new UrlEncodedFormEntity(nameValuePairs, HTTP.UTF_8));
 					}
 					client = new DefaultHttpClient();
+					final HttpParams httpParameters = client.getParams();
+					HttpConnectionParams.setConnectionTimeout(httpParameters, TIME_OUT);
+					HttpConnectionParams.setSoTimeout(httpParameters, TIME_OUT);
+					
 					HttpResponse postResponse = client.execute(postRequest);
 					int statusCode = postResponse.getStatusLine().getStatusCode();
 					if (statusCode != HttpStatus.SC_OK) {
@@ -125,6 +132,10 @@ public class HttpPermUtils {
 						postRequest.setEntity(new UrlEncodedFormEntity(nameValuePairs, HTTP.UTF_8));
 					}
 					client = new DefaultHttpClient();
+					final HttpParams httpParameters = client.getParams();
+					HttpConnectionParams.setConnectionTimeout(httpParameters, TIME_OUT);
+					HttpConnectionParams.setSoTimeout(httpParameters, TIME_OUT);
+					
 					postRequest.setHeader("Accept-Charset", charset);
 					HttpResponse postResponse = client.execute(postRequest);
 					int statusCode = postResponse.getStatusLine().getStatusCode();
@@ -173,6 +184,10 @@ public class HttpPermUtils {
 		HttpGet getRequest = new HttpGet(url);
 		try {
 			client = new DefaultHttpClient();
+			final HttpParams httpParameters = client.getParams();
+			HttpConnectionParams.setConnectionTimeout(httpParameters, TIME_OUT);
+			HttpConnectionParams.setSoTimeout(httpParameters, TIME_OUT);
+			
 			HttpResponse getResponse = client.execute(getRequest);
 			int statusCode = getResponse.getStatusLine().getStatusCode();
 			if (statusCode != HttpStatus.SC_OK) {

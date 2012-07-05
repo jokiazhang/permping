@@ -98,9 +98,6 @@ public class JoinPermActivity extends Activity implements TextWatcher, JoinPerm_
 				
 				XMLParser parser = new XMLParser(XMLParser.JOIN_PERM, JoinPermActivity.this, API.createAccountURL, nameValuePairs);
 				User user = parser.getUser();
-				if(user != null) FollowerActivity.isLogin = true;
-				Intent i = new Intent(v.getContext(), PermpingMain.class);
-				v.getContext().startActivity(i);
 			}
 		});
 	}
@@ -139,12 +136,14 @@ public class JoinPermActivity extends Activity implements TextWatcher, JoinPerm_
 			// Store the user object to PermpingApplication
 			PermpingApplication state = (PermpingApplication) getApplicationContext();
 			state.setUser(user);
+			if(user != null) FollowerActivity.isLogin = true;		
 		} else {
 			Toast toast = Toast.makeText(getApplicationContext(), "Joined perm failed! Please try again.", Toast.LENGTH_LONG);
 	    	toast.setGravity(Gravity.TOP | Gravity.CENTER, 0, 300);
 	    	toast.show();
 
 		}
+		this.finish();
 	}
 
 	@Override
@@ -153,7 +152,7 @@ public class JoinPermActivity extends Activity implements TextWatcher, JoinPerm_
 		Toast toast = Toast.makeText(getApplicationContext(), "Joined perm failed! Please try again.", Toast.LENGTH_LONG);
     	toast.setGravity(Gravity.TOP | Gravity.CENTER, 0, 300);
     	toast.show();
-
+    	this.finish();
 	}
 	
 	@Override

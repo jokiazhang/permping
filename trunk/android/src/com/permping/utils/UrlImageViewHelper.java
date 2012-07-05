@@ -280,16 +280,20 @@ public final class UrlImageViewHelper {
                       prepareResources(context);
                       //BitmapDrawable drawable = loadDrawableFromStream(context, fis);
                       BitmapDrawable drawable = new BitmapDrawable(mResources, b);
-                      
+                      mDownloadException = false;
                       if( width > 0 && height > 0 )
                       {
 	                      Drawable dr = scaleDrawable( drawable, width, height );
+	                      client.close();
 	                      return dr;
                       }
+                      client.close();
                       return drawable;
                 }
                 catch (Exception ex) {
                     Log.e("PERMPING_IMAGE", "Exception during Image download of " + url, ex);
+                    mDownloadException = true;
+                    client.close();
                     return null;
                 }
                 finally {
@@ -376,7 +380,12 @@ public final class UrlImageViewHelper {
                 }
             }
         };
-        downloader.execute();
+        if(mDownloadException == false) {
+        	downloader.execute();
+        } else {
+        	downloader.cancel(true);
+        }
+        
     }
     
     

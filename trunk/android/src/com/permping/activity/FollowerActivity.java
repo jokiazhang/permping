@@ -209,6 +209,9 @@ public class FollowerActivity extends FragmentActivity {
 				}
 			} catch (Exception e) {
 				// TODO: handle exception
+				if (dialog != null && dialog.isShowing()) {
+					dialog.dismiss();
+				}
 			}			
 			permListMain = permList;
 						
