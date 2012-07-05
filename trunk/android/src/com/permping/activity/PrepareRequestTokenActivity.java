@@ -59,7 +59,15 @@ public class PrepareRequestTokenActivity extends Activity {
         Log.i(TAG, "Starting task to retrieve request token.");
 		new OAuthRequestTokenTask(this,consumer,provider).execute();
 	}
-
+	public static boolean flag = false;
+	@Override
+	protected void onResume(){
+		super.onResume();
+		if(flag)
+			finish();
+		flag = true;
+		
+	}
 	/**
 	 * Called when the OAuthRequestTokenTask finishes (user has authorized the request token).
 	 * The callback URL will be intercepted here.
@@ -67,6 +75,7 @@ public class PrepareRequestTokenActivity extends Activity {
 	@Override
 	public void onNewIntent(Intent intent) {
 		super.onNewIntent(intent); 
+		flag = true;
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 		final Uri uri = intent.getData();
 		if (uri != null && uri.toString().startsWith(Constants.OAUTH_CALLBACK_URL)) {
