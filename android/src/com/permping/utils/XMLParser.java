@@ -43,6 +43,7 @@ import com.permping.handler.BoardHandler;
 import com.permping.handler.UserHandler;
 import com.permping.interfaces.Create_Board_delegate;
 import com.permping.interfaces.Get_Board_delegate;
+import com.permping.interfaces.Get_Perm_Delegate;
 import com.permping.interfaces.HttpAccess;
 import com.permping.interfaces.JoinPerm_Delegate;
 import com.permping.interfaces.Login_delegate;
@@ -62,6 +63,7 @@ public class XMLParser implements HttpAccess {
     public final static int JOIN_PERM = 3;
     public final static int PERMLIST = 4;
     public final static int GET_BOARD = 5;
+    public final static int GET_PERMS_BY_DATE = 6;
 	private Document doc = null;
 	private String xml = "<empty></empty>";
 	public int type;
@@ -381,7 +383,13 @@ public class XMLParser implements HttpAccess {
 			httpPermUtils = new HttpPermUtils(XMLParser.this);
 		getResponseFromURL(url);
 	}
-	public XMLParser(String url, Get_Board_delegate delegate, int type) {
+//	public XMLParser(String url, int type) {
+//		this.type = type;
+//		if(httpPermUtils  == null)
+//			httpPermUtils = new HttpPermUtils(XMLParser.this);
+//		getResponseFromURL(url);
+//	}
+	public XMLParser(String url, Object delegate, int type) {
 		if(httpPermUtils  == null)
 			httpPermUtils = new HttpPermUtils(XMLParser.this);
 		this.type = type;
@@ -642,6 +650,10 @@ public class XMLParser implements HttpAccess {
 			PermList_Delegate permList_Delegate = (PermList_Delegate)delegate;
 			permList_Delegate.onError();
 			break;
+		case XMLParser.GET_PERMS_BY_DATE:
+			Get_Perm_Delegate delegates = (Get_Perm_Delegate)delegate;
+			delegates.onError();
+			break;
 		default:
 			break;
 		}
@@ -674,6 +686,9 @@ public class XMLParser implements HttpAccess {
 				break;
 			case XMLParser.GET_BOARD:
 				exeGetBoard(doc);
+				break;
+			case XMLParser.GET_PERMS_BY_DATE:
+				exeGetPerm(doc);
 				break;
 			default:
 				break;
@@ -710,6 +725,27 @@ public class XMLParser implements HttpAccess {
 			}
 		}
 	}
+	private void exeGetPerm(Document doc2) {
+		// TODO Auto-generated method stub
+		Get_Perm_Delegate delegates = (Get_Perm_Delegate)delegate;
+		List<Perm> boards = new ArrayList<Perm>();
+		NodeList boardNodeList = doc.getElementsByTagName("item");
+		
+		for( int i = 0; i < boardNodeList.getLength(); i ++ ){
+			Element boardElement = (Element) boardNodeList.item(i);
+			
+			String boardId = getValue(boardElement, "permId");
+			String boardName = getValue(boardElement, "permDesc");
+			String boardDesc = getValue(boardElement, "permDesc");
+			String boardDateMessage = getValue(boardElement, "permDateMessage");
+			String boardImage = getValue(boardElement, "permImage");
+			PermImage permImage = new PermImage(boardImage);
+			Perm board = new Perm(boardId, boardName, boardDesc, boardDateMessage, permImage);
+			boards.add(board);
+		}
+		delegates.onSuccess(boards);
+	}
+
 	public String getValue( Element e, String tag ){
 		if( e != null )
 		{
