@@ -61,7 +61,8 @@ import android.widget.TextView;
 public class MyDiaryActivity extends Activity implements View.OnClickListener , MyDiary_Delegate {
 
 	private static final String TAG = "MyDiaryActivity";
-
+	private static int rowWidth = 0;
+	private static int rowHeight = 0;
 	//private ImageView calendarToJournalButton;
 	private Button currentMonth;
 	private ImageView prevMonth;
@@ -473,7 +474,8 @@ public class MyDiaryActivity extends Activity implements View.OnClickListener , 
 				row.setBackgroundDrawable(getResources().getDrawable(R.drawable.date_bg_selected));
 //				row.setBackgroundColor(Color.parseColor("#7ea4bc"));
 			}
-			
+			rowHeight = row.getHeight();
+			rowWidth = row.getWidth();
 			row.setId(Integer.valueOf(theday+MyDiaryActivity.this.months.get(themonth)));
 			// thumbs
 			WebImageView thumb1;
