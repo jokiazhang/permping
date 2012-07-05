@@ -38,6 +38,7 @@ public class API {
 	public static final String permListFromCategory = hostURL + "/permservice/getpermwithcategoryid/"; //Add category id when make request
 	public static final String likeURL = hostURL + "/permservice/like";
 	public static final String getPermsByDate = hostURL + "/permservice/getpermwithdate/"; // Add the date as yyyy-dd-mm
+	public static String getPermsByDateWithMonth = hostURL + "/permservice/getthirdpermswithmonth/"; // Add the date as yyyy-dd-mm
 	public static final String logoutURL = hostURL + "/userservice/logout/";
 	public static final String getNewPerm = hostURL + "/permservice/getnewperm";
 	public static final String follow  = hostURL + "/userservice/followuser";
