@@ -3,8 +3,6 @@
  */
 package com.permping.activity;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,10 +21,8 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.permping.PermpingMain;
@@ -35,11 +31,9 @@ import com.permping.controller.AuthorizeController;
 import com.permping.interfaces.Login_delegate;
 import com.permping.utils.Constants;
 import com.permping.utils.Logger;
-import com.permping.utils.PermUtils;
 import com.permping.utils.facebook.FacebookConnector;
 import com.permping.utils.facebook.SessionEvents;
 import com.permping.utils.facebook.SessionEvents.AuthListener;
-import com.permping.utils.twitters.TwitterActivity;
 
 /**
  * @author Linh Nguyen
@@ -159,7 +153,7 @@ public class LoginPermActivity extends Activity implements Login_delegate {
         twitterLogin.setOnClickListener(new View.OnClickListener() {
 			
 			public void onClick(View v) {
-				Intent i = new Intent(v.getContext(), TwitterActivity.class);
+				Intent i = new Intent(v.getContext(), PrepareRequestTokenActivity.class);
 				v.getContext().startActivity(i);	
 			}
 		});
