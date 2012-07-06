@@ -255,14 +255,21 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 							if (user != null) {
 								Intent myIntent = new Intent(view.getContext(),
 										NewPermActivity.class);
-								myIntent.putExtra("permID", (String) perm.getId());
-								View repermView = FollowerActivityGroup.group
-										.getLocalActivityManager()
-										.startActivity(
-												"BoardListActivity",
-												myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
-										.getDecorView();
-								FollowerActivityGroup.group.replaceView(repermView);
+								myIntent.putExtra("reperm", true);
+								NewPermActivity.boardList = user.getBoards();
+								myIntent.putExtra("boardId", perm.getBoard());
+								myIntent.putExtra("boardDesc", (String) perm.getBoard().getDescription());
+								myIntent.putExtra("permId", (String) perm.getId());
+								myIntent.putExtra("permId", (String) perm.getId());
+								myIntent.putExtra("userId", user.getId());
+//								View repermView = FollowerActivityGroup.group
+//										.getLocalActivityManager()
+//										.startActivity(
+//												"BoardListActivity",
+//												myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
+//										.getDecorView();
+//								FollowerActivityGroup.group.replaceView(repermView);
+							context.startActivity(myIntent);
 							} else {
 								Toast.makeText(view.getContext(), Constants.NOT_LOGIN,
 										Toast.LENGTH_LONG).show();

@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.List;
 import java.util.Map;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -74,6 +75,11 @@ import com.permping.utils.PermUtils;
 
 public class NewPermActivity extends Activity implements OnClickListener {
 
+	public static List<PermBoard> boardList = new ArrayList<PermBoard>();
+	private String boardIdRe ="";
+	private String boardDescRe = "";
+	private String permIdRe = "";
+	private String userIdRe = "";
 	private String imagePath = "";
 	private int boardId = -1;
 	public static int LOGIN_FACEBOOK = 1;
@@ -96,16 +102,17 @@ public class NewPermActivity extends Activity implements OnClickListener {
 	private LocationListener mlocListener;
 	private ArrayList<Category> categories;
 	private String permId;
-	private ArrayList<PermBoard> boards;
+	private List<PermBoard> boards;
 	private LinearLayout btnCatilogy;
 	private ProgressDialog loadingDialog;
 	private Context context;
+	public static boolean  isReperm = false;
 	public Handler handleFbLogin = new Handler() {
 		@Override
 		public void handleMessage(Message msg) {
 			if (msg.what == LOGIN_FACEBOOK) {
 				showLoadingDialog("Processing", "Please wait...");
-				new LoadBoards().execute();
+//				new LoadBoards().execute();
 				new ImageUpload(imagePath).execute();
 			}
 		}
@@ -126,26 +133,40 @@ public class NewPermActivity extends Activity implements OnClickListener {
 		btnLocation.setOnClickListener(this);
 		btnCatilogy.setOnClickListener(this);
 		permUtils = new PermUtils();
-		Bundle extras = getIntent().getExtras();
-		if (extras != null) {
-			this.imagePath = (String) extras.get("imagePath");
-			if (extras.get("permID") != null)
-				this.permID = Integer.parseInt((String) extras.get("permID"));
-
-		}
-
 		final Button buttonCANCEL = (Button) findViewById(R.id.buttonCANCEL);
 		buttonCANCEL.setOnClickListener(this);
-
 		final Button buttonOK = (Button) findViewById(R.id.buttonOK);
 		buttonOK.setOnClickListener(this);
 		permDesc = (EditText) findViewById(R.id.permDesc);
 		initToggleStatus();
 		mlocManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 		mlocListener = new MyLocationListener();
-		new LoadBoards().execute();
 		context = NewPermActivity.this;
+		Bundle extras = getIntent().getExtras();
+		if (extras != null) {
+			if(extras.get("reperm") != null){
+				isReperm = true;
+				boardIdRe = (String) extras.getString("boardId");
+				boardDescRe = (String) extras.getString("boardDesc");
+				permIdRe = (String) extras.getString("permId");
+				userIdRe = (String) extras.getString("userId");
+				initValue();
+				new LoadBoards().execute();
+			}else{
+				this.imagePath = (String) extras.get("imagePath");
+				if (extras.get("permID") != null)
+					this.permID = Integer.parseInt((String) extras.get("permID"));
+				new LoadBoards().execute();
+			}
 
+		}
+
+	}
+
+	private void initValue() {
+		// TODO Auto-generated method stub
+		if(boardDescRe != null)
+			permDesc.setText(this.boardDescRe);
 	}
 
 	private void initToggleStatus() {
@@ -213,14 +234,13 @@ public class NewPermActivity extends Activity implements OnClickListener {
 	public void setSpinnerData() {
 		Spinner boardSelect = (Spinner) findViewById(R.id.boardSpinnerNewPerm);
 		addItemsOnMainCategory(boardSelect, boards);
-		boardSelect
-				.setOnItemSelectedListener(new CategorySpinnerSelectedListener());
+		boardSelect.setOnItemSelectedListener(new CategorySpinnerSelectedListener());
 	}
 
 	private void addItemsOnMainCategory(Spinner spinner,
-			ArrayList<PermBoard> boards) {
+			List<PermBoard> boards2) {
 		BoardSpinnerAdapter boardSpinnerAdapter = new BoardSpinnerAdapter(this,
-				boards);
+				boards2);
 		spinner.setAdapter(boardSpinnerAdapter);
 		PermBoard initial = (PermBoard) boardSpinnerAdapter.getItem(0);
 		if (initial != null)
@@ -310,7 +330,7 @@ public class NewPermActivity extends Activity implements OnClickListener {
 					HttpPost postRequest = null;
 					MultipartEntity reqEntity = new MultipartEntity(
 							HttpMultipartMode.BROWSER_COMPATIBLE);
-					if (filePath != null && !"".equals(filePath)) {
+					if (!isReperm && filePath != null && !"".equals(filePath)) {
 						postRequest = new HttpPost(API.addNewPermUrl);
 
 						ByteArrayOutputStream bos = new ByteArrayOutputStream();
@@ -324,17 +344,23 @@ public class NewPermActivity extends Activity implements OnClickListener {
 						reqEntity.addPart("img", bab);
 						reqEntity.addPart("photoCaption", new StringBody(
 								fileName));
-					} else if (permID > 0) { // Reperm
+						reqEntity.addPart("uid", new StringBody(user.getId()));
+						reqEntity.addPart("board",
+								new StringBody(String.valueOf(boardId)));
+						reqEntity.addPart("board_desc", new StringBody(permDesc
+								.getText().toString()));
+					} else if (isReperm ) { // Reperm
 						postRequest = new HttpPost(API.repermUrl);
 
 						reqEntity.addPart("pid",
-								new StringBody(String.valueOf(permID)));
+								new StringBody(String.valueOf(permIdRe)));
+						reqEntity.addPart("uid", new StringBody(userIdRe));
+						reqEntity.addPart("board",
+								new StringBody(String.valueOf(boardIdRe)));
+						reqEntity.addPart("board_desc", new StringBody(permDesc
+								.getText().toString()));
 					}
-					reqEntity.addPart("uid", new StringBody(user.getId()));
-					reqEntity.addPart("board",
-							new StringBody(String.valueOf(boardId)));
-					reqEntity.addPart("board_desc", new StringBody(permDesc
-							.getText().toString()));
+
 					if (facebookToken != null)
 						reqEntity.addPart("fb_oauth_token", new StringBody(
 								facebookToken));
@@ -430,12 +456,26 @@ public class NewPermActivity extends Activity implements OnClickListener {
 				dismissLoadingDialog();
 				ImageActivityGroup.group.back();
 				if (btnShareKakao.isChecked()) {
-					Toast.makeText(getApplicationContext(),
-							"Uploaded new perm and shared to Kakao app!",
-							Toast.LENGTH_LONG).show();
+					if( isReperm){
+						Toast.makeText(getApplicationContext(),
+								"Re-Permed  and shared to Kakao app!",
+								Toast.LENGTH_LONG).show();
+						isReperm = false;
+					}else{
+						Toast.makeText(getApplicationContext(),
+								"Uploaded new perm and shared to Kakao app!",
+								Toast.LENGTH_LONG).show();
+					}
+
 				} else {
-					Toast.makeText(getApplicationContext(),
-							"Uploaded new perm!", Toast.LENGTH_LONG).show();
+					if(isReperm){
+						Toast.makeText(getApplicationContext(),
+								"Re-Permed!", Toast.LENGTH_LONG).show();
+						isReperm =false;
+					}else{
+						Toast.makeText(getApplicationContext(),
+								"Uploaded new perm!", Toast.LENGTH_LONG).show();
+					}
 					finish();
 				}
 				
@@ -530,6 +570,9 @@ public class NewPermActivity extends Activity implements OnClickListener {
 				showLoadingDialog("Processing", "Please wait...");
 				new ImageUpload(imagePath).execute();
 
+			}else if(isReperm){
+				showLoadingDialog("Processing", "Please wait...");
+				new ImageUpload(imagePath).execute();
 			}
 		}
 
