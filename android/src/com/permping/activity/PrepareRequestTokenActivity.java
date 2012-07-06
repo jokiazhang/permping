@@ -127,8 +127,8 @@ public class PrepareRequestTokenActivity extends Activity implements Login_deleg
 				nameValuePairs.add(new BasicNameValuePair("type", "twitter"));
 				nameValuePairs.add(new BasicNameValuePair("oauth_token", token));
 				nameValuePairs.add(new BasicNameValuePair("oauth_token_secret", secret));
-				nameValuePairs.add(new BasicNameValuePair("email", ""));
-				nameValuePairs.add(new BasicNameValuePair("password", ""));
+				nameValuePairs.add(new BasicNameValuePair("oath_verifier", oauth_verifier));
+//				nameValuePairs.add(new BasicNameValuePair("password", ""));
 				AuthorizeController authorize = new AuthorizeController(PrepareRequestTokenActivity.this);
 				authorize.authorize(context, nameValuePairs);
 			

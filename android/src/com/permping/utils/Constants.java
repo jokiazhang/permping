@@ -15,8 +15,8 @@ public class Constants {
 	//public static final String CONSUMER_KEY = "uMtOaN3CLE7dvvVSR1giLA";
 	//public static final String CONSUMER_SECRET= "erVQyuoDUu3cwOG48cgUm5V14puqN3JbjSP4v4NE";
 	
-	public static final String CONSUMER_KEY = "XL030SY0ABiJNVBq4grQ";
-	public static final String CONSUMER_SECRET= "ttNPLjqLnjOkmjyZK5IsjvHU1iW0zC2hSSHigV1EU";
+	public static final String CONSUMER_KEY = "uMtOaN3CLE7dvvVSR1giLA";
+	public static final String CONSUMER_SECRET= "erVQyuoDUu3cwOG48cgUm5V14puqN3JbjSP4v4NE";
 	
 	public static final String REQUEST_URL = "https://api.twitter.com/oauth/request_token";
 	public static final String ACCESS_URL = "https://api.twitter.com/oauth/access_token";

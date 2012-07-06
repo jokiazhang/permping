@@ -167,6 +167,9 @@ public class NewPermActivity extends Activity implements OnClickListener {
 		// TODO Auto-generated method stub
 		if(boardDescRe != null)
 			permDesc.setText(this.boardDescRe);
+		btnShareFacebook.setVisibility(View.INVISIBLE);
+		btnShareTwitter.setFocusable(false);
+		btnShareFacebook.setFocusable(false);
 	}
 
 	private void initToggleStatus() {
@@ -495,7 +498,8 @@ public class NewPermActivity extends Activity implements OnClickListener {
 		int id = arg0.getId();
 		switch (id) {
 		case R.id.buttonCANCEL:
-			ImageActivityGroup.group.back();
+//			ImageActivityGroup.group.back();
+			finish();
 			break;
 		case R.id.buttonOK:
 			uploadPerm();
