@@ -75,7 +75,6 @@ import com.permping.utils.PermUtils;
 public class NewPermActivity extends Activity implements OnClickListener {
 
 	private String imagePath = "";
-	private ProgressDialog dialog;
 	private int boardId = -1;
 	public static int LOGIN_FACEBOOK = 1;
 	public static int LOGIN_TWITTER = 2;
@@ -99,12 +98,13 @@ public class NewPermActivity extends Activity implements OnClickListener {
 	private String permId;
 	private ArrayList<PermBoard> boards;
 	private LinearLayout btnCatilogy;
+	private ProgressDialog loadingDialog;
+	private Context context;
 	public Handler handleFbLogin = new Handler() {
 		@Override
 		public void handleMessage(Message msg) {
 			if (msg.what == LOGIN_FACEBOOK) {
-				dialog = ProgressDialog.show(getParent(), "Loading",
-						"Please wait...", true);
+				showLoadingDialog("Processing", "Please wait...");
 				new LoadBoards().execute();
 				new ImageUpload(imagePath).execute();
 			}
@@ -114,17 +114,12 @@ public class NewPermActivity extends Activity implements OnClickListener {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		// setContentView(R.layout.new_perm_layout);
-		View contentView = LayoutInflater.from(getParent()).inflate(
-				R.layout.new_perm_layout, null);
-		setContentView(contentView);
-		btnShareFacebook = (ToggleButton) contentView
-				.findViewById(R.id.share_facebookr);
-		btnShareTwitter = (ToggleButton) contentView
-				.findViewById(R.id.share_twitter);
-		btnShareKakao = (ToggleButton) contentView
-				.findViewById(R.id.share_kakao);
-		btnLocation = (ToggleButton) contentView.findViewById(R.id.location);
-		btnCatilogy = (LinearLayout)contentView.findViewById(R.id.categoryItemLayout1);
+		setContentView(R.layout.new_perm_layout);
+		btnShareFacebook = (ToggleButton) findViewById(R.id.share_facebookr);
+		btnShareTwitter = (ToggleButton) findViewById(R.id.share_twitter);
+		btnShareKakao = (ToggleButton) findViewById(R.id.share_kakao);
+		btnLocation = (ToggleButton) findViewById(R.id.location);
+		btnCatilogy = (LinearLayout) findViewById(R.id.categoryItemLayout1);
 		btnShareFacebook.setOnClickListener(this);
 		btnShareTwitter.setOnClickListener(this);
 		btnShareKakao.setOnClickListener(this);
@@ -149,6 +144,7 @@ public class NewPermActivity extends Activity implements OnClickListener {
 		mlocManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 		mlocListener = new MyLocationListener();
 		new LoadBoards().execute();
+		context = NewPermActivity.this;
 
 	}
 
@@ -156,7 +152,8 @@ public class NewPermActivity extends Activity implements OnClickListener {
 		// TODO Auto-generated method stub
 		facebookToken = permUtils.getFacebookToken(NewPermActivity.this);
 		twitterAccessToken = permUtils.getTwitterAccess(NewPermActivity.this);
-		if (facebookToken == null && facebookToken == "") {// && facebookToken.isEmpty()
+		if (facebookToken == null && facebookToken == "") {// &&
+															// facebookToken.isEmpty()
 			btnShareFacebook.setChecked(false);
 		} else {
 			btnShareFacebook.setChecked(true);
@@ -269,14 +266,9 @@ public class NewPermActivity extends Activity implements OnClickListener {
 
 		@Override
 		protected void onPostExecute(String sResponse) {
-			
+
 			setSpinnerData();
-			if(dialog != null){
-				if (dialog.isShowing()) {
-					dialog.dismiss();
-				}	
-			}
-			
+			dismissLoadingDialog();
 
 		}
 	}
@@ -362,9 +354,9 @@ public class NewPermActivity extends Activity implements OnClickListener {
 					String readFile = EntityUtils.toString(entry);
 
 					boolean uploadStatus = parseXmlFile(readFile);
-					if( uploadStatus && btnShareKakao.isChecked()){
+					if (uploadStatus && btnShareKakao.isChecked()) {
 						gotoKakao();
-					}else{
+					} else {
 
 					}
 				}
@@ -434,16 +426,19 @@ public class NewPermActivity extends Activity implements OnClickListener {
 		@Override
 		protected void onPostExecute(String sResponse) {
 
-			if (dialog.isShowing()) {
-				dialog.dismiss();
+			if (loadingDialog.isShowing()) {
+				dismissLoadingDialog();
 				ImageActivityGroup.group.back();
-				if(btnShareKakao.isChecked()){
+				if (btnShareKakao.isChecked()) {
 					Toast.makeText(getApplicationContext(),
-							"Uploaded new perm and shared to Kakao app!", Toast.LENGTH_LONG).show();
-				}else{
+							"Uploaded new perm and shared to Kakao app!",
+							Toast.LENGTH_LONG).show();
+				} else {
 					Toast.makeText(getApplicationContext(),
 							"Uploaded new perm!", Toast.LENGTH_LONG).show();
+					finish();
 				}
+				
 			}
 
 		}
@@ -451,9 +446,7 @@ public class NewPermActivity extends Activity implements OnClickListener {
 
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if (dialog.isShowing()) {
-			dialog.dismiss();
-		}
+		dismissLoadingDialog();
 	}
 
 	@Override
@@ -500,7 +493,7 @@ public class NewPermActivity extends Activity implements OnClickListener {
 
 	private void shareKakao() {
 		// TODO Auto-generated method stub
-		if(btnShareKakao.isChecked())
+		if (btnShareKakao.isChecked())
 			btnShareFacebook.setChecked(false);
 		else
 			btnShareKakao.setChecked(true);
@@ -514,69 +507,29 @@ public class NewPermActivity extends Activity implements OnClickListener {
 	private void shareFb() {
 		// TODO Auto-generated method stub
 		facebookToken = permUtils.getFacebookToken(NewPermActivity.this);
-		if( btnShareFacebook.isChecked()){
+		if (btnShareFacebook.isChecked()) {
 			btnShareFacebook.setChecked(false);
 			permUtils.logOutFacebook(NewPermActivity.this);
-		
-		}else{
+
+		} else {
 			if (facebookToken == null || facebookToken == "") {
-				permUtils.integateLoginFacebook(NewPermActivity.this, handleFbLogin);
+				permUtils.integateLoginFacebook(NewPermActivity.this,
+						handleFbLogin);
 			}
 		}
 	}
 
 	private void uploadPerm() {
 		// TODO Auto-generated method stub
-		/*if(imagePath == null || imagePath.length() == 0) {
-			Toast.makeText(getApplicationContext(),
-					"Please input an image path", Toast.LENGTH_LONG).show();
-			return;
-		}
-		File file = new File(imagePath);
-		long length = file.length();
-		Bitmap bmpPic = BitmapFactory.decodeFile(imagePath);
-		if ((bmpPic.getWidth() >= 1024) && (bmpPic.getHeight() >= 1024)) {
-		    BitmapFactory.Options bmpOptions = new BitmapFactory.Options();
-		    bmpOptions.inSampleSize = 1;
-		    while ((bmpPic.getWidth() >= 1024) && (bmpPic.getHeight() >= 1024)) {
-		        bmpOptions.inSampleSize++;
-		        bmpPic = BitmapFactory.decodeFile(imagePath, bmpOptions);
-		    }
-		   
-		}*/
-//		int compressQuality = 104; // quality decreasing by 5 every loop. (start from 99)
-//		int streamLength = 1024;
-//		while (streamLength >= 1024) {
-//		    ByteArrayOutputStream bmpStream = new ByteArrayOutputStream();
-//		    compressQuality -= 5;
-//		    bmpPic.compress(Bitmap.CompressFormat.JPEG, compressQuality, bmpStream);
-//		    byte[] bmpPicByteArray = bmpStream.toByteArray();
-//		    streamLength = bmpPicByteArray.length;
-//		    Log.d("Size: ","======>" + streamLength);
-//		}
-//		try {
-//		    FileOutputStream bmpFile = new FileOutputStream(imagePath);
-//		    bmpPic.compress(Bitmap.CompressFormat.JPEG, compressQuality, bmpFile);
-//		    bmpFile.flush();
-//		    bmpFile.close();
-//		} catch (Exception e) {
-//		    
-//		}
-		if (facebookToken == null  && twitterAccessToken == null) {
+		if (facebookToken == null && twitterAccessToken == null) {
 			Toast.makeText(getApplicationContext(),
 					"Please choose the share type!", Toast.LENGTH_LONG).show();
 		} else {
 			if (imagePath != "" || permID > 0) {
 
-				dialog = ProgressDialog.show(getParent(), "Uploading",
-						"Please wait...", true);
+				showLoadingDialog("Processing", "Please wait...");
 				new ImageUpload(imagePath).execute();
-				// if( facebookToken == null || facebookToken .isEmpty()){
-				// permUtils.integateLoginFacebook(NewPermActivity.this,
-				// handleFbLogin);
-				// }else{
-				// new ImageUpload( imagePath ).execute();
-				// }
+
 			}
 		}
 
@@ -609,17 +562,18 @@ public class NewPermActivity extends Activity implements OnClickListener {
 		}
 
 	}/* End of Class MyLocationListener */
-	public void gotoKakao() throws Exception{
-		
+
+	public void gotoKakao() throws Exception {
+
 		try {
-			String strMessage = "pindetails/"+ permId;//"카카오링크를 사용하여 메세지를 전달해 보세요."; 
+			String strMessage = "pindetails/" + permId;// "카카오링크를 사용하여 메세지를 전달해 보세요.";
 			String strURL = "http://link.kakao.com";
 			String strAppId = "com.kakao.android.image";
 			String strAppVer = "2.0";
-			String strAppName = "[Permping]";//"[카카오톡]";
-			String strInstallUrl = "market://details?id=com.kakao.talk"; 
+			String strAppName = "[Permping]";// "[카카오톡]";
+			String strInstallUrl = "market://details?id=com.kakao.talk";
 			ArrayList<Map<String, String>> arrMetaInfo = new ArrayList<Map<String, String>>();
-		
+
 			Map<String, String> metaInfoAndroid = new Hashtable<String, String>(
 					1);
 			metaInfoAndroid.put("os", "android");
@@ -627,26 +581,40 @@ public class NewPermActivity extends Activity implements OnClickListener {
 			metaInfoAndroid.put("installurl", strInstallUrl);
 			metaInfoAndroid.put("executeurl", "android.com");
 			arrMetaInfo.add(metaInfoAndroid);
-			KakaoLink link = new KakaoLink(NewPermActivity.this, strURL, strAppId, strAppVer,strMessage, strAppName, arrMetaInfo, "UTF-8");
+			KakaoLink link = new KakaoLink(NewPermActivity.this, strURL,
+					strAppId, strAppVer, strMessage, strAppName, arrMetaInfo,
+					"UTF-8");
 
 			if (link.isAvailable()) {
 				startActivity(link.getIntent());
 			}
 			startActivity(link.getIntent());
+			
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
 
 	}
-	
+	private void showLoadingDialog(String title, String msg) {
+		loadingDialog = new ProgressDialog(context);
+		loadingDialog.setMessage(msg);
+		loadingDialog.setTitle(title);
+		loadingDialog.setCancelable(true);
+		loadingDialog.show();
+	}
+
+	private void dismissLoadingDialog() {
+		if (loadingDialog != null )
+			if(loadingDialog.isShowing())
+				loadingDialog.dismiss();
+	}
+
 	@Override
-	public boolean onKeyDown(int keyCode, KeyEvent event)
-	{		
-	    if ((keyCode == KeyEvent.KEYCODE_BACK))
-	    {
-	        PermpingMain.back();
-	        return true;
-	    }
-	    return super.onKeyDown(keyCode, event);
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if ((keyCode == KeyEvent.KEYCODE_BACK)) {
+			PermpingMain.back();
+			return true;
+		}
+		return super.onKeyDown(keyCode, event);
 	}
 }

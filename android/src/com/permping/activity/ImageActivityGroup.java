@@ -70,8 +70,9 @@ private int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 1224;
 	            Intent myIntent = new Intent(ImageActivityGroup.this, NewPermActivity.class);
 	            myIntent.putExtra("imagePath", selectedImagePath );
 				View boardListView = ImageActivityGroup.group.getLocalActivityManager() .startActivity("NewPermActivity", myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
-				ImageActivityGroup.group.replaceView(boardListView);
-
+//				startActivity(myIntent);
+//				ImageActivityGroup.group.replaceView(boardListView);
+				getParent().startActivity(myIntent);
 				//dialog = ProgressDialog.show(this, "Uploading","Please wait...", true);
 				//new ImageUpload( selectedImagePath ).execute();
 	        }
