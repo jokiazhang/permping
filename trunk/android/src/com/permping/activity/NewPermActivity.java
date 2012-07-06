@@ -167,9 +167,9 @@ public class NewPermActivity extends Activity implements OnClickListener {
 		// TODO Auto-generated method stub
 		if(boardDescRe != null)
 			permDesc.setText(this.boardDescRe);
-		btnShareFacebook.setVisibility(View.INVISIBLE);
-		btnShareTwitter.setFocusable(false);
-		btnShareFacebook.setFocusable(false);
+		btnShareFacebook.setEnabled(false);
+		btnShareTwitter.setEnabled(false);
+		btnShareKakao.setEnabled(false);
 	}
 
 	private void initToggleStatus() {
