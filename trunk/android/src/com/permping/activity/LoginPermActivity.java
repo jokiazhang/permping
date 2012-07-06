@@ -39,6 +39,7 @@ import com.permping.utils.PermUtils;
 import com.permping.utils.facebook.FacebookConnector;
 import com.permping.utils.facebook.SessionEvents;
 import com.permping.utils.facebook.SessionEvents.AuthListener;
+import com.permping.utils.twitters.TwitterActivity;
 
 /**
  * @author Linh Nguyen
@@ -158,7 +159,7 @@ public class LoginPermActivity extends Activity implements Login_delegate {
         twitterLogin.setOnClickListener(new View.OnClickListener() {
 			
 			public void onClick(View v) {
-				Intent i = new Intent(v.getContext(), PrepareRequestTokenActivity.class);
+				Intent i = new Intent(v.getContext(), TwitterActivity.class);
 				v.getContext().startActivity(i);	
 			}
 		});

@@ -632,6 +632,39 @@ public class XMLParser implements HttpAccess {
 		}
 		
 	}
+	public List<String> getNoteListFromDocDiary(Document doc){
+		try {
+			List<String> thumbList= new ArrayList<String>();
+			doc.getDocumentElement().normalize();
+			
+			NodeList nodeList = doc.getElementsByTagName("item");
+
+			/** Assign textview array lenght by arraylist size */
+			int length = nodeList.getLength();
+
+			for (int i = 0; i < length; i++) {
+
+				Node node = nodeList.item(i);
+				Element fstElmnt = (Element) node;
+				NodeList nameList = fstElmnt.getElementsByTagName("permImage");
+				Element nameElement = null;
+				if(nameList != null){
+					nameElement= (Element) nameList.item(0);
+					nameList = nameElement.getChildNodes();
+					String link = ((Node) nameList.item(0)).getNodeValue();
+					if(link!= null)
+						thumbList.add(link);
+				}
+
+			}
+			return thumbList;
+		} catch (Exception e) {
+			// TODO: handle exception
+			return null;
+		}
+		
+	}
+
 	/*public boolean isCreatedAccount() {
 		// TODO: Should check the response
 		return true;
@@ -834,7 +867,9 @@ public class XMLParser implements HttpAccess {
 		MyDiary_Delegate myDiary_Delegate = (MyDiary_Delegate)delegate;
 		List<String> thumbList = new ArrayList<String>();
 		if(doc != null)
-			thumbList = getNoteListFromDoc(doc, id);
+
+		thumbList = getNoteListFromDoc(doc, id);
+
 		if(myDiary_Delegate != null)
 			myDiary_Delegate.onSuccess(thumbList, id);
 	}
@@ -852,7 +887,8 @@ public class XMLParser implements HttpAccess {
 			}
 		} else {
 			synchronized (this) {
-				loginDelegate.on_error();
+				if(loginDelegate != null)
+					loginDelegate.on_error();
 			}
 			
 		}
