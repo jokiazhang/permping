@@ -62,14 +62,7 @@ public class OAuthRequestTokenTask extends AsyncTask<Void, Void, Void> {
 		
 		try {
 			Log.i(TAG, "Retrieving request token from Google servers");
-			/*
-			HttpParameters parameters = consumer.getRequestParameters();
-			Set<String> keys = parameters.keySet();
-			for (Iterator<String> it = keys.iterator(); it.hasNext();) {
-				String key = (String) it.next();
-				URLEncoder.encode(parameters.getFirst(key, false), HTTP.UTF_8);
-			}
-			*/
+
 			final String url = provider.retrieveRequestToken(consumer, Constants.OAUTH_CALLBACK_URL);
 			URLEncoder.encode(url, HTTP.UTF_8);
 			Log.i(TAG, "Popping a browser with the authorize URL : " + url);

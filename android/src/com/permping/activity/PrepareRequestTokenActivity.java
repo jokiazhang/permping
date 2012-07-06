@@ -63,14 +63,7 @@ public class PrepareRequestTokenActivity extends Activity implements Login_deleg
 		new OAuthRequestTokenTask(this,consumer,provider).execute();
 	}
 	public static boolean flag = false;
-	@Override
-	protected void onResume(){
-		super.onResume();
-		if(flag)
-			finish();
-		flag = true;
-		
-	}
+
 	/**
 	 * Called when the OAuthRequestTokenTask finishes (user has authorized the request token).
 	 * The callback URL will be intercepted here.
@@ -138,22 +131,7 @@ public class PrepareRequestTokenActivity extends Activity implements Login_deleg
 				nameValuePairs.add(new BasicNameValuePair("password", ""));
 				AuthorizeController authorize = new AuthorizeController(PrepareRequestTokenActivity.this);
 				authorize.authorize(context, nameValuePairs);
-				AuthorizeController.authorize(context, nameValuePairs);
-//				Intent intent;
-//				if (existed) {
-//					// Forward back to Following tab
-//					intent = new Intent(context, PermpingMain.class);
-//					context.startActivity(intent);
-//				} else {
-//					// Forward to Create account window
-//					intent = new Intent(context, JoinPermActivity.class);
-//					context.startActivity(intent);
-//				}
-				
-				//context.startActivity(new Intent(context, PermpingMain.class));
-
-				//executeAfterAccessTokenRetrieval();
-				
+			
 				Log.i(TAG, "OAuth - Access Token Retrieved");
 				
 			} catch (Exception e) {
