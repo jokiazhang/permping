@@ -37,21 +37,6 @@ public class RepermActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		View contentView = LayoutInflater.from(getParent()).inflate(R.layout.reperm_layout, null);
         setContentView(contentView);
-        /*
-        Bundle bundle = getIntent().getExtras();
-        if (bundle != null) {
-        	p_permId = (String) bundle.get(Constants.PERM_ID);
-        	p_permDescription = (String) bundle.get(Constants.PERM_DESCRIPTION);
-        	p_currentBoard = (PermBoard) bundle.get(Constants.CURRENT_BOARD);
-        }
-        if (p_permDescription != null) {
-        	permDescription = (EditText) findViewById(R.id.permDescription);
-        	permDescription.setText(p_permDescription);
-        }
-        if (p_currentBoard != null) {
-        	boardSpinner = (Spinner) findViewById(R.id.boardSpinner);
-        	boardSpinner.setOnItemSelectedListener(new SpinnerSelectedItemListener());
-        }*/
 	}
 	
 	private class SpinnerSelectedItemListener implements OnItemSelectedListener {
