@@ -277,9 +277,12 @@ public class PermpingMain extends TabActivity  {
 //			Intent imageDetail = new Intent(context, ImageDetail.class);
 //			imageDetail.putExtra("url", (String) data);
 //			context.startActivity(imageDetail);
+			if(FollowerActivity.loadPermList != null) {
+				FollowerActivity.loadPermList.cancel(true);
+			}
 			String link = (String) data;
 			Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
-			context.startActivity(browserIntent);
+			FollowerActivityGroup.context.startActivity(browserIntent);
 			FollowerActivity.isRefesh = false;
 		}
 		
