@@ -8,6 +8,7 @@ import org.apache.http.message.BasicNameValuePair;
 
 import com.permping.PermpingMain;
 import com.permping.controller.AuthorizeController;
+import com.permping.interfaces.Login_delegate;
 import com.permping.utils.Constants;
 import com.permping.utils.twitter.OAuthRequestTokenTask;
 //import com.permping.utils.twitter.TwitterUtils;
@@ -39,23 +40,25 @@ import android.util.Log;
  * After the request is authorized, a callback is made here.
  * 
  */
-public class PrepareRequestTokenActivity extends Activity {
+public class PrepareRequestTokenActivity extends Activity implements Login_delegate{
 
 	final String TAG = getClass().getName();
 	
     private OAuthConsumer consumer; 
     private OAuthProvider provider;
     
+    private Context context;  
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		context = PrepareRequestTokenActivity.this;
     	try {
     		this.consumer = new CommonsHttpOAuthConsumer(Constants.CONSUMER_KEY, Constants.CONSUMER_SECRET);
     	    this.provider = new CommonsHttpOAuthProvider(Constants.REQUEST_URL,Constants.ACCESS_URL,Constants.AUTHORIZE_URL);
     	} catch (Exception e) {
     		Log.e(TAG, "Error creating consumer / provider",e);
 		}
-
+    	
         Log.i(TAG, "Starting task to retrieve request token.");
 		new OAuthRequestTokenTask(this,consumer,provider).execute();
 	}
@@ -133,17 +136,19 @@ public class PrepareRequestTokenActivity extends Activity {
 				nameValuePairs.add(new BasicNameValuePair("oauth_token_secret", secret));
 				nameValuePairs.add(new BasicNameValuePair("email", ""));
 				nameValuePairs.add(new BasicNameValuePair("password", ""));
-				boolean existed = AuthorizeController.authorize(context, nameValuePairs);
-				Intent intent;
-				if (existed) {
-					// Forward back to Following tab
-					intent = new Intent(context, PermpingMain.class);
-					context.startActivity(intent);
-				} else {
-					// Forward to Create account window
-					intent = new Intent(context, JoinPermActivity.class);
-					context.startActivity(intent);
-				}
+				AuthorizeController authorize = new AuthorizeController(PrepareRequestTokenActivity.this);
+				authorize.authorize(context, nameValuePairs);
+				AuthorizeController.authorize(context, nameValuePairs);
+//				Intent intent;
+//				if (existed) {
+//					// Forward back to Following tab
+//					intent = new Intent(context, PermpingMain.class);
+//					context.startActivity(intent);
+//				} else {
+//					// Forward to Create account window
+//					intent = new Intent(context, JoinPermActivity.class);
+//					context.startActivity(intent);
+//				}
 				
 				//context.startActivity(new Intent(context, PermpingMain.class));
 
@@ -167,6 +172,19 @@ public class PrepareRequestTokenActivity extends Activity {
 				Log.e(TAG, "OAuth - Error sending to Twitter", e);
 			}
 		}*/
+	}
+
+	@Override
+	public void on_success() {
+		// TODO Auto-generated method stub
+		Intent intent = new Intent(context, PermpingMain.class);
+		context.startActivity(intent);
+	}
+	@Override
+	public void on_error() {
+		// TODO Auto-generated method stub
+		Intent intent = new Intent(context, JoinPermActivity.class);
+		context.startActivity(intent);
 	}	
 	
 }
