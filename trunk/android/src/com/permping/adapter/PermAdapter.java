@@ -257,9 +257,8 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 										NewPermActivity.class);
 								myIntent.putExtra("reperm", true);
 								NewPermActivity.boardList = user.getBoards();
-								myIntent.putExtra("boardId", perm.getBoard());
+								myIntent.putExtra("boardId", perm.getBoard().getId());
 								myIntent.putExtra("boardDesc", (String) perm.getBoard().getDescription());
-								myIntent.putExtra("permId", (String) perm.getId());
 								myIntent.putExtra("permId", (String) perm.getId());
 								myIntent.putExtra("userId", user.getId());
 //								View repermView = FollowerActivityGroup.group
