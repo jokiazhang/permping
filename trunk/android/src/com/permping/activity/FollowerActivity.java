@@ -55,6 +55,8 @@ public class FollowerActivity extends FragmentActivity {
 	ListView permListView;
 	
 	PermAdapter permListAdapter;
+	
+	public static LoadPermList loadPermList;
 	private BroadcastReceiver receiver = new BroadcastReceiver() {
 
 		@Override
@@ -76,6 +78,7 @@ public class FollowerActivity extends FragmentActivity {
 		permListView = (ListView) findViewById(R.id.permList);
 		
 		PermUtils.clearViewHistory();
+		loadPermList = new LoadPermList();
 	}
 
 	@Override
@@ -139,7 +142,8 @@ public class FollowerActivity extends FragmentActivity {
 		clearData();
 		dialog = ProgressDialog.show(getParent(), "Loading", "Please wait...",
 				true);
-		new LoadPermList().execute();
+		loadPermList = new LoadPermList();
+		loadPermList.execute();
 	}
 	
 	
@@ -151,7 +155,8 @@ public class FollowerActivity extends FragmentActivity {
 			dialog = ProgressDialog.show(getParent(), "Loading previous", "Please wait...",
 	    			true);
 			
-	    	new LoadPermList().execute();
+			loadPermList = new LoadPermList();
+			loadPermList.execute();
 		}
 		
 	}
@@ -163,8 +168,15 @@ public class FollowerActivity extends FragmentActivity {
 	    	dialog = ProgressDialog.show(getParent(), "Loading more", "Please wait...",
 	    			true);
 			
-	    	new LoadPermList().execute();
+	    	loadPermList = new LoadPermList();
+			loadPermList.execute();
 		}		
+	}
+	
+	public void cancelLoadPermList() {
+		if(loadPermList != null) {
+			loadPermList.cancel(true);
+		}
 	}
 	
 	private void loadPerms() {
@@ -192,7 +204,7 @@ public class FollowerActivity extends FragmentActivity {
 	
 	// AsyncTask task for upload file
 
-	class LoadPermList extends AsyncTask<ArrayList<Perm>, Void, ArrayList<Perm>> {
+	public class LoadPermList extends AsyncTask<ArrayList<Perm>, Void, ArrayList<Perm>> {
 
 		@Override
 		protected ArrayList<Perm> doInBackground(ArrayList<Perm>... params) {

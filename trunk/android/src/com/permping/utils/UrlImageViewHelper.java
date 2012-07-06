@@ -15,6 +15,7 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.params.HttpClientParams;
 import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 
 import com.permping.PermpingApplication;
@@ -229,6 +230,8 @@ public final class UrlImageViewHelper {
                 try {
                     HttpGet get = new HttpGet(url);
                     final HttpParams httpParams = new BasicHttpParams();
+                    HttpConnectionParams.setConnectionTimeout(httpParams, HttpPermUtils.TIME_OUT);
+					HttpConnectionParams.setSoTimeout(httpParams, HttpPermUtils.TIME_OUT);
                     HttpClientParams.setRedirecting(httpParams, true);
                     get.setParams(httpParams);
                     HttpResponse resp = client.execute(get);
