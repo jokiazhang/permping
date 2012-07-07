@@ -336,16 +336,21 @@ public class PermUtils {
 
 			@Override
 			public void onFacebookError(FacebookError error) {
+				 Message message = handleFbLogin.obtainMessage(NewPermActivity.MESSAGE_LOGIN_FACEBOOK_ERROR, "");
+				 handleFbLogin.sendMessage(message);
 			}
 
 			@Override
 			public void onError(DialogError e) {
+				 Message message = handleFbLogin.obtainMessage(NewPermActivity.MESSAGE_LOGIN_FACEBOOK_ERROR, "");
+				 handleFbLogin.sendMessage(message);
 			}
 
 			@Override
 			public void onCancel() {
 				// cancel press or back press
-			
+				 Message message = handleFbLogin.obtainMessage(NewPermActivity.MESSAGE_LOGIN_FACEBOOK_ERROR, "");
+				 handleFbLogin.sendMessage(message);
 			}
 		});
 		return getFacebookToken(activity);
@@ -353,7 +358,7 @@ public class PermUtils {
 
 	public void saveFacebookToken(String key, String value, Activity activity) {
 		SharedPreferences sharedPreferences = activity
-				.getPreferences(activity.MODE_PRIVATE);
+				.getPreferences(Context.MODE_PRIVATE);
 		SharedPreferences.Editor editor = sharedPreferences.edit();
 		editor.putString("oauth_token", value);
 		editor.commit();
@@ -361,7 +366,7 @@ public class PermUtils {
 
 	public String getFacebookToken(Activity activity) {
 		SharedPreferences sharedPreferences = activity
-				.getPreferences(activity.MODE_PRIVATE);
+				.getPreferences(Context.MODE_PRIVATE);
 		return sharedPreferences.getString("oauth_token", "");
 	}
 	public boolean saveTwitterAccess(String key, AccessToken value, Activity activity) {

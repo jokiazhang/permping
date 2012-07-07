@@ -50,7 +50,7 @@
             android:screenOrientation="portrait" />
         <activity android:name=".activity.ImageActivity" 
             android:screenOrientation="portrait"/>
-        <activity android:name=".activity.NewPermActivity" 
+        <activity android:name=".activity.NewPermActivity" android:theme="@style/toggle_style"
             android:screenOrientation="portrait"/>
         <activity android:name=".activity.MyDiaryActivity" 
             android:screenOrientation="portrait"/>

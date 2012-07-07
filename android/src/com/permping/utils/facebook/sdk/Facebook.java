@@ -810,7 +810,7 @@ public class Facebook {
             Util.showAlert(context, "Error",
                     "Application requires permission to access the Internet");
         } else {
-            new FbDialog(FollowerActivityGroup.context, url, listener).show();
+            new FbDialog(context, url, listener).show();
         }
     }
 

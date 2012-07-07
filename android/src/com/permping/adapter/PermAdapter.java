@@ -30,6 +30,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -177,6 +178,7 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 				
 				if (convertView != null){
 					Log.i(TAG, "getView() convertView != null");
+					addComments(convertView, perm);
 					return convertView;
 				}else{
 					Log.i(TAG, "getView() convertView == null");
@@ -224,13 +226,15 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 										likeCount++;
 										perm.setPermLikeCount(String.valueOf(likeCount));
 										// Change the text to "Unlike"
-										like.setText(R.string.bt_unlike);
+										((Button)v).setText(R.string.bt_unlike);
+										v.invalidate();
 									} else { // Unlike
 										likeCount = likeCount - 1;
 										if (likeCount < 0)
 											likeCount = 0;
 										perm.setPermLikeCount(String.valueOf(likeCount));
-										like.setText(R.string.bt_like);										
+										((Button)v).setText(R.string.bt_like);
+										v.invalidate();
 									}
 								}
 								
@@ -247,6 +251,10 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 							}
 						}
 					});
+					
+					if(perm.getAuthor().getId().equalsIgnoreCase(user.getId())) {
+						like.setVisibility(View.GONE);
+					}
 		
 					reperm = (Button) view.findViewById(R.id.btnRepem);
 					reperm.setOnClickListener(new OnClickListener() {
@@ -473,6 +481,69 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 		}
 	}
 	
+	public void addComments(View view, Perm perm) {
+		LinearLayout comments = (LinearLayout) view
+				.findViewById(R.id.comments);
+		if(perm.getComments().size() == comments.getChildCount()) {
+			return;
+		}
+		comments.removeAllViews();
+		LayoutInflater inflater = (LayoutInflater) this.getContext()
+				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		for (int i = 0; i < perm.getComments().size(); i++) {
+			View cm = inflater.inflate(R.layout.comment_item, null);
+			final Comment pcm = perm.getComments().get(i);
+			if (pcm != null && pcm.getAuthor() != null) {
+
+				ImageView cma = (ImageView) cm
+						.findViewById(R.id.commentAvatar);
+				cma.setOnClickListener(new View.OnClickListener() {
+					
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+						PermpingMain.gotoTab(4, pcm);
+					}
+				});
+				UrlImageViewHelper.setUrlDrawable(cma, pcm.getAuthor()
+						.getAvatar().getUrl());
+
+				TextView authorName = (TextView) cm
+						.findViewById(R.id.commentAuthor);
+				if(pcm !=null){
+					if(pcm.getAuthor() != null)
+						if(pcm.getAuthor().getName() != null)
+							authorName.setText(pcm.getAuthor().getName());
+
+					TextView cmt = (TextView) cm
+						.findViewById(R.id.commentContent);
+					if(pcm.getContent() != null)
+						cmt.setText(pcm.getContent());
+				}
+				/*
+				 * boolean isWrapped = PermUtils.isTextWrapped(activity,
+				 * cmt.getText().toString(), cmt.getContext()); if
+				 * (isWrapped) { cmt.setMaxLines(5);
+				 * cmt.setSingleLine(false);
+				 * cmt.setEllipsize(TruncateAt.MARQUEE); }
+				 */
+				if (i == (perm.getComments().size() - 1)) {
+					View sp = (View) cm.findViewById(R.id.separator);
+					sp.setVisibility(View.INVISIBLE);
+				}
+				/*
+				 * EllipsizingTextView cmt = (EllipsizingTextView) cm
+				 * .findViewById(R.id.commentContent);
+				 * cmt.setText(pcm.getContent());
+				 * 
+				 * if (i == (perm.getComments().size() - 1)) { View sp =
+				 * (View) cm.findViewById(R.id.separator);
+				 * sp.setVisibility(View.INVISIBLE); }
+				 */
+				comments.addView(cm);
+			}
+		}
+	}
+	
 	public View createFooterView() {
 		final Context context = this.getContext();
 		LayoutInflater inflater = (LayoutInflater) context
@@ -581,9 +652,7 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 
 		public void onClick(View v) {
 			if( v == btnOK )
-			{
-				
-				
+			{				
 				final String cmText = txtComment.getText().toString();
 				
 				AsyncTask<Void, Void, String> comment = new AsyncTask<Void, Void, String >(){
@@ -612,12 +681,24 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 			  			if (dialog.isShowing()){
 			  				dialog.dismiss();
 			  				Toast.makeText(context,"Added comment!",Toast.LENGTH_LONG).show();
+			  				int position = items.indexOf(perm);			  				
+			  				Comment comment = new Comment(perm.getId(), cmText);
+			  				comment.setAuthor(user);
+			  				//perm.addCommnent(comment);
+			  				items.get(position).addCommnent(comment);
+			  				
+			  				if(activity != null) {
+			  					ListView list = (ListView) activity.findViewById(R.id.permList);
+			  					if(list != null) {
+			  						list.invalidateViews();
+			  					}
+			  				}			  				
 			  			}
 			  		}
 					
 				};
 				
-				if( cmText != null  || cmText == "" ){ //!cmText.isEmpty()
+				if(cmText.length() > 0 ){ //!cmText.isEmpty()
 					this.dismiss();
 					dialog = ProgressDialog.show(context, "Uploading","Please wait...", true);
 					comment.execute();

@@ -83,6 +83,7 @@ public class NewPermActivity extends Activity implements OnClickListener {
 	private String imagePath = "";
 	private int boardId = -1;
 	public static int LOGIN_FACEBOOK = 1;
+	public static int MESSAGE_LOGIN_FACEBOOK_ERROR = 100;
 	public static int LOGIN_TWITTER = 2;
 	public static int SHARE_FB = 1;
 	public static int SHARE_TWITTER = 2;
@@ -114,6 +115,11 @@ public class NewPermActivity extends Activity implements OnClickListener {
 				showLoadingDialog("Processing", "Please wait...");
 //				new LoadBoards().execute();
 				new ImageUpload(imagePath).execute();
+				btnShareFacebook.setChecked(true);
+			}
+			
+			if (msg.what == MESSAGE_LOGIN_FACEBOOK_ERROR) {
+				btnShareFacebook.setChecked(false);
 			}
 		}
 	};
@@ -176,7 +182,7 @@ public class NewPermActivity extends Activity implements OnClickListener {
 		// TODO Auto-generated method stub
 		facebookToken = permUtils.getFacebookToken(NewPermActivity.this);
 		twitterAccessToken = permUtils.getTwitterAccess(NewPermActivity.this);
-		if (facebookToken == null && facebookToken == "") {// &&
+		if (facebookToken == null || facebookToken == "") {// &&
 															// facebookToken.isEmpty()
 			btnShareFacebook.setChecked(false);
 		} else {
@@ -186,7 +192,7 @@ public class NewPermActivity extends Activity implements OnClickListener {
 			btnShareTwitter.setChecked(false);
 
 		} else {
-			btnShareTwitter.setChecked(false);
+			btnShareTwitter.setChecked(true);
 		}
 		if (btnLocation.isChecked()) {
 			mlocManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0,
@@ -549,18 +555,14 @@ public class NewPermActivity extends Activity implements OnClickListener {
 	}
 
 	private void shareFb() {
-		// TODO Auto-generated method stub
 		facebookToken = permUtils.getFacebookToken(NewPermActivity.this);
-		if (btnShareFacebook.isChecked()) {
+		if (facebookToken == null || facebookToken == "") {
+			permUtils.integateLoginFacebook(NewPermActivity.this,
+					handleFbLogin);
+		} else {
 			btnShareFacebook.setChecked(false);
 			permUtils.logOutFacebook(NewPermActivity.this);
-
-		} else {
-			if (facebookToken == null || facebookToken == "") {
-				permUtils.integateLoginFacebook(NewPermActivity.this,
-						handleFbLogin);
-			}
-		}
+		}		
 	}
 
 	private void uploadPerm() {
