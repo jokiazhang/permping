@@ -252,7 +252,7 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 						}
 					});
 					
-					if(perm.getAuthor().getId().equalsIgnoreCase(user.getId())) {
+					if(perm != null && user != null && perm.getAuthor().getId().equalsIgnoreCase(user.getId())) {
 						like.setVisibility(View.GONE);
 					}
 		
@@ -476,6 +476,7 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 			
 		} catch (Exception e) {
 			// TODO: handle exception
+			e.printStackTrace();
 			Log.d("aaa", "=========asdfsfsd======="+e.toString());
 			return createNullView();
 		}
