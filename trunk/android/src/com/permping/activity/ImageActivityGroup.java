@@ -1,5 +1,7 @@
 package com.permping.activity;
 
+import java.io.File;
+
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -37,7 +39,7 @@ private int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 1224;
 	}
 	
 	
-	public static String imagePath = "";	
+//	public static String imagePath = "";	
 	
 	//Gallery process
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -52,33 +54,44 @@ private int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 1224;
 		            if( requestCode == SELECT_PICTURE ){
 		            	selectedImagePath = getPath(selectedImageUri);
 		            } else {
-		                final String[] imageColumns = { MediaStore.Images.Media._ID, MediaStore.Images.Media.DATA };
-		                final String imageOrderBy = MediaStore.Images.Media._ID+" DESC";
-		                Cursor imageCursor = managedQuery(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, imageColumns, null, null, imageOrderBy);
+		            	String[] projection = { MediaStore.Images.Media.DATA}; 
+//		                final String[] imageColumns = { MediaStore.Images.Media._ID, MediaStore.Images.Media.DATA };
+//		                final String imageOrderBy = MediaStore.Images.Media._ID+" DESC";
+		                Cursor imageCursor = managedQuery(ImageActivity.mCapturedImageURI, projection, null, null, null);
 		                if(imageCursor.moveToFirst()){
-		                    int id = imageCursor.getInt(imageCursor.getColumnIndex(MediaStore.Images.Media._ID));
-		                    String fullPath = imageCursor.getString(imageCursor.getColumnIndex(MediaStore.Images.Media.DATA));
-		                    imageCursor.close();
-		                    selectedImagePath = fullPath;
+//		                    int id = imageCursor.getInt(imageCursor.getColumnIndex(MediaStore.Images.Media._ID));
+//		                    String fullPath = imageCursor.getString(imageCursor.getColumnIndex(MediaStore.Images.Media.DATA));
+//		                    imageCursor.close();
+//		                    
+//			                if(fullPath.equals(ImageActivity.imagePath)){
+//			                	selectedImagePath = fullPath;
+//			                }else{
+//			                	selectedImagePath = "";
+//			                }
+			                int column_index_data = imageCursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA); 
+			                String capturedImageFilePath = imageCursor.getString(column_index_data);
+			                selectedImagePath = capturedImageFilePath;
 		                }else{
 		                }
-//		            	if(selectedImageUri != null)
-//		            		selectedImagePath = getPath(selectedImageUri);
 		            }
 	        	}
 	            //Start activity allow user input perm info
 	            Intent myIntent = new Intent(ImageActivityGroup.this, NewPermActivity.class);
 	            myIntent.putExtra("imagePath", selectedImagePath );
 				View boardListView = ImageActivityGroup.group.getLocalActivityManager() .startActivity("NewPermActivity", myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
-				startActivity(myIntent);
+				if(selectedImagePath != null && selectedImagePath != ""){
+					startActivity(myIntent);
+				}else{
+					ImageActivity imageActivity = new ImageActivity();
+					imageActivity.showCamera();
+				}
+					
 //				ImageActivityGroup.group.replaceView(boardListView);
-//				getParent().startActivity(myIntent);
-				//dialog = ProgressDialog.show(this, "Uploading","Please wait...", true);
-				//new ImageUpload( selectedImagePath ).execute();
+
 	        }
 	    }
 	    
-	    ImageActivityGroup.imagePath = "";
+	    ImageActivity.imagePath = "";
 	}
 
 	/*public String getPath(Uri uri) {

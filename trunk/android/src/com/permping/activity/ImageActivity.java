@@ -29,8 +29,9 @@ public class ImageActivity extends Activity {
 	private int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 1224;
 	
 	private int SELECT_PICTURE = 1;
-	
-	
+	public static String imagePath="";
+	public static String strCurDate="";
+	public static Uri mCapturedImageURI;
 	//private ProgressDialog dialog;
 
 	public void onCreate(Bundle savedInstanceState) {
@@ -98,56 +99,31 @@ public class ImageActivity extends Activity {
 
 	public void showCamera(){
 		try {
-			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.ENGLISH);
-	        String strCurDate = dateFormat.format(new Date(System.currentTimeMillis()));
-	        String imagePath = Environment.getExternalStorageDirectory() + File.separator + "images" + File.separator;
-	        File root = new File(imagePath);
-	        root.mkdirs();
-	        File sdImageMainDirectory = new File(root, "strCurDate");
-	        
-	        Uri outputFileUri = Uri.fromFile(sdImageMainDirectory);
+//			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.ENGLISH);
+//	        strCurDate = dateFormat.format(new Date(System.currentTimeMillis()));
+//	        imagePath = Environment.getExternalStorageDirectory() + File.separator + "images" + File.separator;
+//	        File root = new File(imagePath);
+//	        root.mkdirs();
+//	        File sdImageMainDirectory = new File(root, strCurDate);
+//	        mCapturedImageURI = Uri.fromFile(sdImageMainDirectory);
+//	        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//	        intent.putExtra(MediaStore.EXTRA_OUTPUT, mCapturedImageURI);
+//			Context context = ImageActivity.this;
+//			PackageManager packageManager = context.getPackageManager();
+//	 
+//			// if device support camera?
+//			if (packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
+//				getParent().startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
+//			}
+	        String fileName = "temp.jpg";  
+	        ContentValues values = new ContentValues();  
+	        values.put(MediaStore.Images.Media.TITLE, fileName);  
+	        mCapturedImageURI = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);  
 
-	        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-	        intent.putExtra(MediaStore.EXTRA_OUTPUT, outputFileUri);
-			Context context = ImageActivity.this;
-			PackageManager packageManager = context.getPackageManager();
-	 
-			// if device support camera?
-			if (packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
-				getParent().startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
-			}
-	        
-	        
-			// create parameters for Intent with filename
-			/*ContentValues values = new ContentValues();
-			values.put(MediaStore.Images.Media.TITLE, imageName );
-			values.put(MediaStore.Images.Media.DESCRIPTION, "Image capture by camera");
-			// imageUri is the current activity attribute, define and save
-			// it for later usage (also in onSaveInstanceState)
-			Uri imageUri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
-			ImageActivityGroup.imagePath = imageUri.getPath() + "/" + imageName ;
-			// create new Intent
-			Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-			intent.putExtra(MediaStore.EXTRA_OUTPUT, imageName );
-			intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1);
-			Context context = ImageActivity.this;
-			PackageManager packageManager = context.getPackageManager();
-	 
-			// if device support camera?
-			if (packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
-				getParent().startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
-			}*/
-	        
-	        /*File file = new File( imageName );
-	        Uri outputFileUri = Uri.fromFile( file );
-	        Context context = ImageActivity.this;
-	        PackageManager packageManager = context.getPackageManager();
-	        Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE );
-	        intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1);
-	        intent.putExtra( MediaStore.EXTRA_OUTPUT, imageName );
-	        if (packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
-	        	getParent().startActivityForResult( intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE );
-	        }*/
+	        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);  
+	        intent.putExtra(MediaStore.EXTRA_OUTPUT, mCapturedImageURI);  
+	        getParent().startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
+	  
 	        
 		} catch (Exception e) {
 			// TODO: handle exception
