@@ -91,6 +91,11 @@ public class Perm implements Serializable{
 	public List<Comment> getComments(){
 		return this.comments;
 	}
+	
+	public void addCommnent(Comment comment) {
+		this.comments.add(comment);
+		this.permCommentCount += 1;
+	}
 
 	public PermImage getImage() {
 		return image;
