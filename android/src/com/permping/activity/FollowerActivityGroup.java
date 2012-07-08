@@ -29,6 +29,10 @@ public class FollowerActivityGroup extends TabGroupActivity {
 	
 	public void onResume() {
 		super.onResume();
+		createFollowerActivity();
+	}
+	
+	public void createFollowerActivity() {
 		View view = getLocalActivityManager().startActivity( "FollowerActivity", new Intent(this, FollowerActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
 		setTabGroup(this);
 		replaceView(view);
