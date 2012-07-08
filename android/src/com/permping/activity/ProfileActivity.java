@@ -118,7 +118,7 @@ public class ProfileActivity extends Activity implements Get_Board_delegate{
 				if(buttonType.equals(context.getString(R.string.logout))){
 					PermUtils permUtils = new PermUtils();
 					permUtils.logOutFacebook(getParent());
-					permUtils.saveTwitterAccess("twitter", null, getParent());
+//					permUtils.saveTwitterAccess("twitter", "", getParent()):
 					showLoadingDialog("Pregressing", "Please wait...");
 					new exeFollow(API.logoutURL, false, true).execute(null);
 				}else if(buttonType.equals(context.getString(R.string.follow))){
