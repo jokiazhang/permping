@@ -307,6 +307,12 @@ public class PermpingMain extends TabActivity  {
     	ProfileActivityGroup.group.getLocalActivityManager().destroyActivity("detail", true);
     }
 	
+	public static void refeshFollowerActivity() {
+		if(PermpingMain.getCurrentTab() == 0) {
+			FollowerActivityGroup.group.sendBroadcast("", "");					
+		}
+	}
+	
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event)
 	{

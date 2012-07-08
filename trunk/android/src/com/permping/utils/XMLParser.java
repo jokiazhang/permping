@@ -887,6 +887,7 @@ public class XMLParser implements HttpAccess {
 			PermpingApplication state = (PermpingApplication)context.getApplicationContext();
 			state.setUser(user);
 			PermpingMain.UID = user.getId();
+			PermpingMain.refeshFollowerActivity();
 			synchronized (this) {
 				if(loginDelegate != null) {
 					loginDelegate.on_success();

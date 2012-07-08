@@ -107,7 +107,7 @@ public class TabGroupActivity extends ActivityGroup {
 		}
 	}
 	
-	private void sendBroadcast(String issueId, String storyId) {
+	public void sendBroadcast(String issueId, String storyId) {
 	    Intent new_intent = new Intent();
 	    new_intent.putExtra("issueId", issueId);
 	    new_intent.putExtra("storyId", storyId);

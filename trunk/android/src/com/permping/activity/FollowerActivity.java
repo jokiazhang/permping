@@ -115,7 +115,7 @@ public class FollowerActivity extends FragmentActivity {
 		}
     }
 
-	private void exeFollowerActivity() {
+	public void exeFollowerActivity() {
 		// TODO Auto-generated method stub
 		DisplayMetrics metrics = new DisplayMetrics();
 		getWindowManager().getDefaultDisplay().getMetrics(metrics);
