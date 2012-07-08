@@ -10,6 +10,7 @@ import com.permping.PermpingMain;
 import com.permping.controller.AuthorizeController;
 import com.permping.interfaces.Login_delegate;
 import com.permping.utils.Constants;
+import com.permping.utils.PermUtils;
 import com.permping.utils.twitter.OAuthRequestTokenTask;
 //import com.permping.utils.twitter.TwitterUtils;
 
@@ -18,6 +19,7 @@ import oauth.signpost.OAuthConsumer;
 import oauth.signpost.OAuthProvider;
 import oauth.signpost.commonshttp.CommonsHttpOAuthConsumer;
 import oauth.signpost.commonshttp.CommonsHttpOAuthProvider;
+import twitter4j.http.AccessToken;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -121,7 +123,9 @@ public class PrepareRequestTokenActivity extends Activity implements Login_deleg
 				String secret = prefs.getString(OAuth.OAUTH_TOKEN_SECRET, "");
 				
 				consumer.setTokenWithSecret(token, secret);
-				
+				AccessToken accessToken = new AccessToken(token, secret);
+				PermUtils permUtils = new PermUtils();
+				permUtils.saveTwitterAccess("twitter", accessToken, PrepareRequestTokenActivity.this);
 				//TODO: validate user before forwarding to new page.
 				// Check on server
 //				List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(5);

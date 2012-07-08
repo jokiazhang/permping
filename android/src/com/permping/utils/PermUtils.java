@@ -328,8 +328,8 @@ public class PermUtils {
 			@Override
 			public void onComplete(Bundle values) {
 				Log.d("", "=====>"+values.toString());
-				saveFacebookToken("", "", activity);
-				saveFacebookToken("oauth_token", "a", activity);
+				String accessToken = values.getString("access_token");
+				saveFacebookToken("oauth_token", accessToken, activity);
 				 Message message = handleFbLogin.obtainMessage(NewPermActivity.LOGIN_FACEBOOK, "");
 				 handleFbLogin.sendMessage(message);
 			}
