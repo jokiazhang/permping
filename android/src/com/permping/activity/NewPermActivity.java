@@ -463,7 +463,7 @@ public class NewPermActivity extends Activity implements OnClickListener {
 
 			if (loadingDialog.isShowing()) {
 				dismissLoadingDialog();
-				ImageActivityGroup.group.back();
+//				ImageActivityGroup.group.back();
 				if (btnShareKakao.isChecked()) {
 					if( isReperm){
 						Toast.makeText(getApplicationContext(),
@@ -485,6 +485,7 @@ public class NewPermActivity extends Activity implements OnClickListener {
 						Toast.makeText(getApplicationContext(),
 								"Uploaded new perm!", Toast.LENGTH_LONG).show();
 					}
+					ImageActivityGroup.uploaded =true;
 					finish();
 				}
 				
@@ -661,7 +662,8 @@ public class NewPermActivity extends Activity implements OnClickListener {
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if ((keyCode == KeyEvent.KEYCODE_BACK)) {
-			PermpingMain.back();
+//			PermpingMain.back();
+			finish();
 			return true;
 		}
 		return super.onKeyDown(keyCode, event);
