@@ -776,35 +776,29 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 
 		public void onClick(View v) {
 			if (v == facebookLogin) {
-				// Clear FB info to show the login again
-				/*try {
-					facebookConnector.getFacebook().logout(context);
-				} catch (MalformedURLException me) {
-					me.printStackTrace();
-				} catch (IOException ioe) {
-					ioe.printStackTrace();
-				}
-
-				if (!facebookConnector.getFacebook().isSessionValid()) {*/
-					    Facebook mFacebook;
-						mFacebook = new Facebook(Constants.FACEBOOK_APP_ID);
-						//final Activity activity = getParent();
-						mFacebook.authorize( FollowerActivityGroup.context, new String[] { "email", "status_update",
-								"user_birthday" }, new DialogListener() {
-							@Override
-							public void onComplete(Bundle values) {
-								Log.d("", "=====>"+values.toString());
-								PermUtils permutils = new PermUtils();
-								String accessToken = values.getString("access_token");
-								permutils.saveFacebookToken("oauth_token", accessToken, activity);
+				    Facebook mFacebook;
+					mFacebook = new Facebook(Constants.FACEBOOK_APP_ID);
+					//final Activity activity = getParent();
+					mFacebook.authorize( FollowerActivityGroup.context, new String[] { "email", "status_update",
+							"user_birthday" }, new DialogListener() {
+						@Override
+						public void onComplete(Bundle values) {
+							Log.d("", "=====>"+values.toString());
+							PermUtils permutils = new PermUtils();
+							String accessToken = values.getString("access_token");
+							permutils.saveFacebookToken("oauth_token", accessToken, activity);
 //								// Check on server
-								List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(4);
-								nameValuePairs.add(new BasicNameValuePair("type", Constants.FACEBOOK_LOGIN));
-								nameValuePairs.add(new BasicNameValuePair("oauth_token", accessToken));
-								nameValuePairs.add(new BasicNameValuePair("email", ""));
-								nameValuePairs.add(new BasicNameValuePair("password", ""));								
-								AuthorizeController.authorize(getContext(), nameValuePairs);
+							List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(4);
+							nameValuePairs.add(new BasicNameValuePair("type", Constants.FACEBOOK_LOGIN));
+							nameValuePairs.add(new BasicNameValuePair("oauth_token", accessToken));
+							nameValuePairs.add(new BasicNameValuePair("email", ""));
+							nameValuePairs.add(new BasicNameValuePair("password", ""));
+							if(activity instanceof FollowerActivity) {
+								AuthorizeController authorizeController = new AuthorizeController((FollowerActivity)activity);
+								authorizeController.authorize(getContext(), nameValuePairs);	
 							}
+														
+						}
 
 							@Override
 							public void onFacebookError(FacebookError error) {

@@ -29,13 +29,14 @@ import com.permping.R;
 import com.permping.TabGroupActivity;
 import com.permping.adapter.PermAdapter;
 import com.permping.controller.PermListController;
+import com.permping.interfaces.Login_delegate;
 import com.permping.model.Perm;
 import com.permping.model.User;
 import com.permping.utils.API;
 import com.permping.utils.PermUtils;
 import com.permping.utils.UrlImageViewHelper;
 
-public class FollowerActivity extends FragmentActivity {
+public class FollowerActivity extends FragmentActivity implements Login_delegate{
 
 	
 	public static final String DOWNLOAD_COMPLETED = "DOWNLOAD_COMPLETED";
@@ -275,5 +276,19 @@ public class FollowerActivity extends FragmentActivity {
 	        return true;
 	    }
 	    return super.onKeyDown(keyCode, event);
+	}
+
+	@Override
+	public void on_success() {
+		// TODO Auto-generated method stub
+		PermpingMain.refeshFollowerActivity();
+	}
+
+	@Override
+	public void on_error() {
+		// TODO Auto-generated method stub
+		//Logger.appendLog("test log", "loginerror");
+		Intent intent = new Intent(getApplicationContext(), JoinPermActivity.class);
+		this.startActivity(intent);		
 	}
 }
