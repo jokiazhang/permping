@@ -9,8 +9,7 @@
         android:layout_width="fill_parent"
         layout="@layout/new_perm_title_bar" />
 
-
-     <LinearLayout
+    <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/categoryItemLayout"
         android:layout_width="match_parent"
@@ -18,23 +17,22 @@
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:layout_marginTop="20dp"
-        android:background="@drawable/explorer_item_bg_first">
+        android:background="@drawable/explorer_item_bg_first" >
 
         <EditText
             android:id="@+id/permDesc"
             android:layout_width="0dp"
             android:layout_height="30dp"
             android:layout_weight="1"
-            android:hint="@string/new_description"
             android:background="#00000000"
-            android:ems="10" >
+            android:ems="10"
+            android:hint="@string/new_description" >
 
             <requestFocus />
         </EditText>
-
     </LinearLayout>
-    
-     <LinearLayout
+
+    <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/categoryItemLayout1"
         android:layout_width="match_parent"
@@ -42,7 +40,8 @@
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:layout_marginTop="-3dp"
-        android:background="@drawable/explorer_item_bg">
+        android:background="@drawable/explorer_item_bg" >
+
         <TextView
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="wrap_content"
@@ -51,36 +50,37 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="#000000" />
 
-         <!--  <TextView
-              xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_weight="0.93"
-              android:gravity="right"
-              android:text="Select board..."
-              android:textAppearance="?android:attr/textAppearanceMedium"
-              android:textColor="#000000" />  -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
 
-		<Spinner
-		    android:id="@+id/boardSpinnerNewPerm"
-		    android:layout_width="200dp"
-		    android:layout_height="25dp"
-		    android:background="#00000000"
-		    android:gravity="center"
-		    android:prompt="@string/board_prompt" />
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+                <ImageView
+                    android:id="@+id/rightArrow"
+                    android:layout_width="30dp"
+                    android:layout_height="25dp"
+                    android:layout_weight="1"
+                    android:paddingTop="5dp"
+                    android:scaleType="fitEnd"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/right_arrow" />
+                <Spinner
+                    android:id="@+id/boardSpinnerNewPerm"
+                    android:layout_width="260dp"
+                    android:layout_height="25dp"
+                    android:paddingRight="50dp"
+                    android:gravity="center"
+                    android:background="@android:color/transparent"
+                    android:prompt="@string/board_prompt" />
 
-         <ImageView
-            android:layout_width="0dp"
-            android:layout_height="15dp"
-            android:layout_weight="1"
-            android:paddingTop="5dp"
-            android:scaleType="fitEnd"
-            android:src="@drawable/right_arrow" />
-        
 
+            </RelativeLayout>
+        </LinearLayout>
     </LinearLayout>
-    
-      <LinearLayout
+
+    <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/categoryItemLayout"
         android:layout_width="match_parent"
@@ -88,7 +88,8 @@
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:layout_marginTop="-3dp"
-        android:background="@drawable/explorer_item_bg_end">
+        android:background="@drawable/explorer_item_bg_end" >
+
         <TextView
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="wrap_content"
@@ -96,42 +97,29 @@
             android:text="@string/new_place"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="#000000" />
-         <ToggleButton
+
+        <ToggleButton
             android:id="@+id/location"
             android:layout_width="0dp"
-            android:layout_marginLeft="163dip"
             android:layout_height="25dp"
+            android:layout_marginLeft="163dip"
             android:layout_weight="1"
             android:scaleType="fitEnd"
-            android:textOn=""
-            android:textOff="" />
-         
-
+            android:textOff=""
+            android:textOn="" />
     </LinearLayout>
-    
-      
-      
-      
-      
-      
- 	<TextView
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="20dp"
-            android:text="Share on "
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="#000000" />
- 	
- 	
- 	
- 	
- 	
- 	
- 	
- 	
- 	 <LinearLayout
+
+    <TextView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="20dp"
+        android:text="Share on "
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#000000" />
+
+    <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/categoryItemLayout"
         android:layout_width="match_parent"
@@ -139,7 +127,8 @@
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:layout_marginTop="20dp"
-        android:background="@drawable/explorer_item_bg_first">
+        android:background="@drawable/explorer_item_bg_first" >
+
         <TextView
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="wrap_content"
@@ -147,23 +136,20 @@
             android:text="@string/new_facebook"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="#000000" />
-         <ToggleButton
+
+        <ToggleButton
             android:id="@+id/share_facebookr"
             android:layout_width="0dp"
             android:layout_height="25dp"
+            android:layout_gravity="center_vertical"
             android:layout_marginLeft="130dip"
             android:layout_weight="1"
-            android:layout_gravity="center_vertical"
             android:scaleType="fitEnd"
-            android:textOn=""
             android:textOff=""
-            />
-         
+            android:textOn="" />
     </LinearLayout>
-    
- 	 
- 	 
- 	  <LinearLayout
+
+    <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/categoryItemLayout"
         android:layout_width="match_parent"
@@ -171,7 +157,8 @@
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:layout_marginTop="-3dp"
-        android:background="@drawable/explorer_item_bg">
+        android:background="@drawable/explorer_item_bg" >
+
         <TextView
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="wrap_content"
@@ -180,22 +167,19 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="#000000" />
 
-         <ToggleButton
+        <ToggleButton
             android:id="@+id/share_twitter"
             android:layout_width="0dp"
             android:layout_height="25dp"
+            android:layout_gravity="center_vertical"
             android:layout_marginLeft="148dip"
             android:layout_weight="1"
-            android:layout_gravity="center_vertical"
             android:scaleType="fitEnd"
-            android:textOn=""
-            android:textOff=""/>
-        
-
+            android:textOff=""
+            android:textOn="" />
     </LinearLayout>
-    
- 	  
- 	   <LinearLayout
+
+    <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/categoryItemLayout"
         android:layout_width="match_parent"
@@ -203,7 +187,8 @@
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:layout_marginTop="-3dp"
-        android:background="@drawable/explorer_item_bg_end">
+        android:background="@drawable/explorer_item_bg_end" >
+
         <TextView
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="wrap_content"
@@ -212,19 +197,16 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="#000000" />
 
-         <ToggleButton
+        <ToggleButton
             android:id="@+id/share_kakao"
             android:layout_width="0dp"
             android:layout_height="25dp"
+            android:layout_gravity="center_vertical"
             android:layout_marginLeft="130dip"
             android:layout_weight="1"
-            android:layout_gravity="center_vertical"
             android:scaleType="fitEnd"
-            android:textOn=""
-            android:textOff="" />
-        
-
+            android:textOff=""
+            android:textOn="" />
     </LinearLayout>
-    
 
 </LinearLayout>
