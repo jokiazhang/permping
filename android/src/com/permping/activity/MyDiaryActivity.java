@@ -504,12 +504,13 @@ public class MyDiaryActivity extends Activity implements View.OnClickListener , 
 					// TODO Auto-generated method stub
 					String date =(String)v.getTag();
 					if(date != null){
-						onClicked(date);
-//						Intent myIntent = new Intent(v.getContext(), FollowerActivity.class);
-//						String boardUrl = API.getPermsByDate + date;
-//						myIntent.putExtra("categoryURL", boardUrl);
-//						View boardListView = MyDiaryActivityGroup.group.getLocalActivityManager() .startActivity("BoardDeatalListActivity", myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
-//						MyDiaryActivityGroup.group.replaceView(boardListView);
+//						onClicked(date);
+						Intent myIntent = new Intent(v.getContext(), FollowerActivity.class);
+						String boardUrl = API.getPermsByDate + date;
+						myIntent.putExtra("permByDate", boardUrl);
+						FollowerActivity.isLogin =false;
+						View boardListView = MyDiaryActivityGroup.group.getLocalActivityManager() .startActivity("BoardDeatalListActivity", myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
+						MyDiaryActivityGroup.group.replaceView(boardListView);
 					}
 				}
 			});
