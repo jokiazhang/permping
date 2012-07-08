@@ -45,6 +45,7 @@ import com.permping.utils.API;
 import com.permping.utils.Constants;
 import com.permping.utils.PermUtils;
 import com.permping.utils.UrlImageViewHelper;
+import com.permping.utils.facebook.sdk.Util;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -115,6 +116,9 @@ public class ProfileActivity extends Activity implements Get_Board_delegate{
 				// TODO Auto-generated method stub
 				String buttonType = btnAccount.getText().toString();
 				if(buttonType.equals(context.getString(R.string.logout))){
+					PermUtils permUtils = new PermUtils();
+					permUtils.logOutFacebook(getParent());
+					permUtils.saveTwitterAccess("twitter", null, getParent());
 					showLoadingDialog("Pregressing", "Please wait...");
 					new exeFollow(API.logoutURL, false, true).execute(null);
 				}else if(buttonType.equals(context.getString(R.string.follow))){
