@@ -114,6 +114,7 @@ public class PrepareRequestTokenActivity extends Activity implements Login_deleg
 				editor.putString(Constants.LOGIN_TYPE, Constants.TWITTER_LOGIN);
 				editor.putString(OAuth.OAUTH_TOKEN, consumer.getToken());
 				editor.putString(OAuth.OAUTH_TOKEN_SECRET, consumer.getTokenSecret());
+				editor.putString(OAuth.OAUTH_VERIFIER, oauth_verifier);
 				editor.commit();
 				
 				String token = prefs.getString(OAuth.OAUTH_TOKEN, "");
@@ -123,14 +124,13 @@ public class PrepareRequestTokenActivity extends Activity implements Login_deleg
 				
 				//TODO: validate user before forwarding to new page.
 				// Check on server
-				List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(5);
-				nameValuePairs.add(new BasicNameValuePair("type", "twitter"));
-				nameValuePairs.add(new BasicNameValuePair("oauth_token", token));
-				nameValuePairs.add(new BasicNameValuePair("oauth_token_secret", secret));
-				nameValuePairs.add(new BasicNameValuePair("oath_verifier", oauth_verifier));
-//				nameValuePairs.add(new BasicNameValuePair("password", ""));
-				AuthorizeController authorize = new AuthorizeController(PrepareRequestTokenActivity.this);
-				authorize.authorize(context, nameValuePairs);
+//				List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(5);
+//				nameValuePairs.add(new BasicNameValuePair("type", "twitter"));
+//				nameValuePairs.add(new BasicNameValuePair("oauth_token", token));
+//				nameValuePairs.add(new BasicNameValuePair("oauth_token_secret", secret));
+//				nameValuePairs.add(new BasicNameValuePair("oath_verifier", oauth_verifier));
+//				AuthorizeController authorize = new AuthorizeController(PrepareRequestTokenActivity.this);
+//				authorize.authorize(context, nameValuePairs);
 			
 				Log.i(TAG, "OAuth - Access Token Retrieved");
 				

@@ -552,7 +552,13 @@ public class NewPermActivity extends Activity implements OnClickListener {
 
 	private void shareTwitter() {
 		// TODO Auto-generated method stub
-
+		if (twitterAccessToken == null) {
+			Intent i = new Intent(context, PrepareRequestTokenActivity.class);
+			context.startActivity(i);	
+			btnShareTwitter.setChecked(true);
+		} else {
+			btnShareTwitter.setChecked(true);
+		}
 	}
 
 	private void shareFb() {

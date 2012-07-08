@@ -6,6 +6,8 @@ package com.permping.activity;
 import java.util.ArrayList;
 import java.util.List;
 
+import oauth.signpost.OAuth;
+
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
@@ -15,7 +17,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Message;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
@@ -25,15 +29,22 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.permping.PermpingApplication;
 import com.permping.PermpingMain;
 import com.permping.R;
+import com.permping.adapter.PermAdapter;
 import com.permping.controller.AuthorizeController;
 import com.permping.interfaces.Login_delegate;
 import com.permping.utils.Constants;
 import com.permping.utils.Logger;
+import com.permping.utils.PermUtils;
 import com.permping.utils.facebook.FacebookConnector;
 import com.permping.utils.facebook.SessionEvents;
 import com.permping.utils.facebook.SessionEvents.AuthListener;
+import com.permping.utils.facebook.sdk.DialogError;
+import com.permping.utils.facebook.sdk.Facebook;
+import com.permping.utils.facebook.sdk.FacebookError;
+import com.permping.utils.facebook.sdk.Facebook.DialogListener;
 
 /**
  * @author Linh Nguyen
@@ -49,6 +60,7 @@ public class LoginPermActivity extends Activity implements Login_delegate {
 	Button twitterLogin;
 	Button login;
 	private boolean isLoginFb = false;
+	private boolean isTwitter = false;
 	private ProgressDialog loadingDialog;
 	private PermpingMain login_delegate;
 	SharedPreferences prefs;
@@ -106,46 +118,86 @@ public class LoginPermActivity extends Activity implements Login_delegate {
 //					ioe.printStackTrace();
 //				}
 //				
-			    //state = (PermpingApplication) getContext().getApplicationContext();
-				try {
-					if (!facebookConnector.getFacebook().isSessionValid()) {
-						AuthListener authListener = new AuthListener() {
-							
-							public void onAuthSucceed() {							
-								//Edit Preferences and update facebook access token
-								SharedPreferences.Editor editor = prefs.edit();
-								editor.putString(Constants.LOGIN_TYPE, Constants.FACEBOOK_LOGIN);
-								editor.putString(Constants.ACCESS_TOKEN, facebookConnector.getFacebook().getAccessToken());
-								editor.putLong(Constants.ACCESS_EXPIRES, facebookConnector.getFacebook().getAccessExpires());
-								editor.commit();
-							
-
-								// Check on server
-								List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(4);
-								nameValuePairs.add(new BasicNameValuePair("type", Constants.FACEBOOK_LOGIN));
-								nameValuePairs.add(new BasicNameValuePair("oauth_token", prefs.getString(Constants.ACCESS_TOKEN, "")));
-								nameValuePairs.add(new BasicNameValuePair("email", ""));
-								nameValuePairs.add(new BasicNameValuePair("password", ""));
-								AuthorizeController authorizeController = new AuthorizeController(LoginPermActivity.this);
-								authorizeController.authorize(v.getContext(), nameValuePairs);
-//								boolean existed = AuthorizeController.authorize(getApplicationContext(), nameValuePairs, LoginPermActivity.this);
-								isLoginFb = true;
-							}
-							
-							public void onAuthFail(String error) {
-								// TODO Auto-generated method stub							
-							}
-						};
-						
-						SessionEvents.addAuthListener(authListener);
-						facebookConnector.login();
-						
+//				PermpingApplication state = (PermpingApplication) context.getApplicationContext();
+//				try {
+//					if (!facebookConnector.getFacebook().isSessionValid()) {
+//						AuthListener authListener = new AuthListener() {
+//							
+//							public void onAuthSucceed() {							
+//								//Edit Preferences and update facebook access token
+//								SharedPreferences.Editor editor = prefs.edit();
+//								editor.putString(Constants.LOGIN_TYPE, Constants.FACEBOOK_LOGIN);
+//								editor.putString(Constants.ACCESS_TOKEN, facebookConnector.getFacebook().getAccessToken());
+//								editor.putLong(Constants.ACCESS_EXPIRES, facebookConnector.getFacebook().getAccessExpires());
+//								editor.commit();
+//							
+//
+//								// Check on server
+//								List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(4);
+//								nameValuePairs.add(new BasicNameValuePair("type", Constants.FACEBOOK_LOGIN));
+//								nameValuePairs.add(new BasicNameValuePair("oauth_token", prefs.getString(Constants.ACCESS_TOKEN, "")));
+//								nameValuePairs.add(new BasicNameValuePair("email", ""));
+//								nameValuePairs.add(new BasicNameValuePair("password", ""));
+//								AuthorizeController authorizeController = new AuthorizeController(LoginPermActivity.this);
+//								authorizeController.authorize(v.getContext(), nameValuePairs);
+////								boolean existed = AuthorizeController.authorize(getApplicationContext(), nameValuePairs, LoginPermActivity.this);
+//								isLoginFb = true;
+//							}
+//							
+//							public void onAuthFail(String error) {
+//								// TODO Auto-generated method stub							
+//							}
+//						};
+//						
+//						SessionEvents.addAuthListener(authListener);
+//						facebookConnector.login();
+//						
+//					}
+//		
+//				} catch (Exception e) {
+//					// TODO: handle exception
+//					Logger.appendLog(e.toString(), "facebooklog");
+//				}
+				final SharedPreferences prefs;
+			    Facebook mFacebook;
+			    String token = null;
+				mFacebook = new Facebook(Constants.FACEBOOK_APP_ID);
+				final Activity activity = getParent();
+				mFacebook.authorize( activity, new String[] { "email", "status_update",
+						"user_birthday" }, new DialogListener() {
+					@Override
+					public void onComplete(Bundle values) {
+						Log.d("", "=====>"+values.toString());
+						PermUtils permutils = new PermUtils();
+						String accessToken = values.getString("access_token");
+						permutils.saveFacebookToken("oauth_token", accessToken, activity);
+//						// Check on server
+						List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(4);
+						nameValuePairs.add(new BasicNameValuePair("type", Constants.FACEBOOK_LOGIN));
+						nameValuePairs.add(new BasicNameValuePair("oauth_token", accessToken));
+						nameValuePairs.add(new BasicNameValuePair("email", ""));
+						nameValuePairs.add(new BasicNameValuePair("password", ""));
+						AuthorizeController authorizeController = new AuthorizeController(LoginPermActivity.this);
+						authorizeController.authorize(v.getContext(), nameValuePairs);
+//						boolean existed = AuthorizeController.authorize(getApplicationContext(), nameValuePairs, LoginPermActivity.this);
+						isLoginFb = true;
 					}
-		
-				} catch (Exception e) {
-					// TODO: handle exception
-					Logger.appendLog(e.toString(), "facebooklog");
-				}
+
+					@Override
+					public void onFacebookError(FacebookError error) {
+
+					}
+
+					@Override
+					public void onError(DialogError e) {
+
+					}
+
+					@Override
+					public void onCancel() {
+						// cancel press or back press
+					}
+				});
 			}
         });
         
@@ -153,12 +205,28 @@ public class LoginPermActivity extends Activity implements Login_delegate {
         twitterLogin.setOnClickListener(new View.OnClickListener() {
 			
 			public void onClick(View v) {
+				isTwitter = true;
 				Intent i = new Intent(v.getContext(), PrepareRequestTokenActivity.class);
 				v.getContext().startActivity(i);	
 			}
 		});
 	}
-	
+	@Override
+	public void onResume(){
+		super.onResume();
+		if(isTwitter){
+			String token = prefs.getString(OAuth.OAUTH_TOKEN, "");
+			String secret = prefs.getString(OAuth.OAUTH_TOKEN_SECRET, "");
+			String oauth_verifier = prefs.getString(OAuth.OAUTH_VERIFIER, "");
+			List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(5);
+			nameValuePairs.add(new BasicNameValuePair("type", "twitter"));
+			nameValuePairs.add(new BasicNameValuePair("oauth_token", token));
+			nameValuePairs.add(new BasicNameValuePair("oauth_token_secret", secret));
+			nameValuePairs.add(new BasicNameValuePair("oath_verifier", oauth_verifier));
+			AuthorizeController authorize = new AuthorizeController(LoginPermActivity.this);
+			authorize.authorize(context, nameValuePairs);
+		}
+	}
 	public void onPause() {
 		super.onPause();
 	}
@@ -197,6 +265,12 @@ public void on_success() {
 		FollowerActivity.isLogin = true;
 		isLoginFb = false;
 		PermpingMain.back();
+	}else if(isTwitter){
+		FollowerActivity.isLogin = true;
+		Intent intent = new Intent(context, PermpingMain.class);
+//		context.startActivity(intent);
+//		PermpingMain.back();
+		isTwitter = false;
 	}else{
 		FollowerActivity.isLogin = true;
 		dismissLoadingDialog();
@@ -213,6 +287,10 @@ public void on_error() {
 		isLoginFb = false;
 		Intent intent = new Intent(getApplicationContext(), JoinPermActivity.class);
 		getParent().startActivity(intent);
+	}else if(isTwitter){
+		isTwitter = false;
+		Intent intent = new Intent(context, JoinPermActivity.class);
+		context.startActivity(intent);
 	}else{
 		dismissLoadingDialog();
 		Toast toast = Toast.makeText(getApplicationContext(), "Authentication failed!. Please try again!", Toast.LENGTH_LONG);
