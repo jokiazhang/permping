@@ -117,12 +117,19 @@ public class ImageActivity extends Activity {
 //			}
 	        String fileName = "temp.jpg";  
 	        ContentValues values = new ContentValues();  
-	        values.put(MediaStore.Images.Media.TITLE, fileName);  
+//	        values.put(MediaStore.Images.Media.TITLE, fileName);  
 	        mCapturedImageURI = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);  
 
 	        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);  
 	        intent.putExtra(MediaStore.EXTRA_OUTPUT, mCapturedImageURI);  
-	        getParent().startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
+			Context context = ImageActivity.this;
+			PackageManager packageManager = context.getPackageManager();
+	 
+			// if device support camera?
+			if (packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
+				 getParent().startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
+			}
+	       
 	  
 	        
 		} catch (Exception e) {

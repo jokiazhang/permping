@@ -2,6 +2,7 @@ package com.permping.activity;
 
 import java.io.File;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -16,6 +17,7 @@ public class ImageActivityGroup extends TabGroupActivity {
 private int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 1224;
 	
 	private int SELECT_PICTURE = 1;
+	public static boolean uploaded =false;
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
@@ -32,10 +34,15 @@ private int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 1224;
 	
 	public void onResume() {
 		super.onResume();
-		View view = getLocalActivityManager().startActivity( "ImageActivity", new Intent(this, ImageActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
-		setTabGroup(this);
-		replaceView(view);
-		clearHistory();
+		if(! uploaded){
+			View view = getLocalActivityManager().startActivity( "ImageActivity", new Intent(this, ImageActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
+			setTabGroup(this);
+			replaceView(view);
+			clearHistory();
+		}else{
+			
+			uploaded = false;
+		}
 	}
 	
 	
