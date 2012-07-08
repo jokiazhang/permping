@@ -349,7 +349,7 @@ public final class UrlImageViewHelper {
                         		marginLeft = 12;
                         		marginRight = 12;
                         		if( oiw < 560 ) {
-                        			imgWidth = (  oiw  * 456/ 560 );
+                        			imgWidth = 456;//(  oiw  * 456/ 560 );
                         			imgHeight = ( oih * 456/ 560   );
                         		} else {
                         			imgWidth = 456;
@@ -379,6 +379,7 @@ public final class UrlImageViewHelper {
                         
                         
                         imageView.setImageDrawable(newImage);
+                        imageView.setScaleType(ScaleType.FIT_XY);
                     }
                 }
             }

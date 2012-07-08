@@ -18,12 +18,13 @@ import com.permping.utils.PermUtils;
  *
  */
 public class MyDiaryActivityGroup extends TabGroupActivity {
-	
+	public static MyDiaryActivityGroup context;
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		View view = getLocalActivityManager().startActivity( "MyDiaryActivity", new Intent(this, MyDiaryActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
 		setTabGroup(this);
 		replaceView(view);
+		context = this;
 	}
 	
 	public void onPause() {

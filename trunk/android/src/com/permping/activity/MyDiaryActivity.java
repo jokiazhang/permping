@@ -1,13 +1,9 @@
 package com.permping.activity;
 
-import java.io.IOException;
 import java.net.URL;
-import java.net.UnknownHostException;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
@@ -15,33 +11,11 @@ import java.util.Locale;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
-import org.w3c.dom.Document;
 
-import com.custom.WebImageView;
-import com.permping.PermpingMain;
-import com.permping.R;
-import com.permping.TabGroupActivity;
-import com.permping.controller.AuthorizeController;
-import com.permping.controller.MyDiaryController;
-import com.permping.interfaces.Get_Board_delegate;
-import com.permping.interfaces.Get_Perm_Delegate;
-import com.permping.interfaces.MyDiary_Delegate;
-import com.permping.model.Perm;
-import com.permping.model.Transporter;
-import com.permping.utils.API;
-import com.permping.utils.Constants;
-import com.permping.utils.PermUtils;
-import com.permping.utils.XMLParser;
-import com.permping.utils.facebook.sdk.Util;
-
-import android.R.xml;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.database.CursorJoiner.Result;
 import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.format.DateFormat;
@@ -51,14 +25,24 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.View.OnClickListener;
-import android.view.ViewGroup.LayoutParams;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.custom.WebImageView;
+import com.permping.PermpingMain;
+import com.permping.R;
+import com.permping.interfaces.Get_Perm_Delegate;
+import com.permping.interfaces.MyDiary_Delegate;
+import com.permping.model.Perm;
+import com.permping.model.Transporter;
+import com.permping.utils.API;
+import com.permping.utils.Constants;
+import com.permping.utils.PermUtils;
+import com.permping.utils.XMLParser;
 
 public class MyDiaryActivity extends Activity implements View.OnClickListener , MyDiary_Delegate, Get_Perm_Delegate {
 
@@ -73,6 +57,8 @@ public class MyDiaryActivity extends Activity implements View.OnClickListener , 
 	private GridCellAdapter adapter;
 	private Calendar calendar;
 	private int month, year;
+	private String monthGetData= "";
+	private boolean isGettingData = false;
 	private HashMap<String, String> months = new HashMap<String, String>();
 	private final DateFormat dateFormatter = new DateFormat();
 	private static final String dateTemplate = "MMMM yyyy";
@@ -465,6 +451,11 @@ public class MyDiaryActivity extends Activity implements View.OnClickListener , 
 			String date = theyear+"-"+MyDiaryActivity.this.months.get(themonth)+"-"+theday;
 			row.setTag(date);
 			Log.d(tag, "Setting GridCell " +date);
+			String monthString = MyDiaryActivity.this.months.get(themonth);
+			if(monthString.length() == 1){
+				monthString = "0"+monthString;
+			}
+			String id = monthString+theday;
 			if (day_color[1].equals("#88b9f4")) {
 				gridcell.setTextColor(Color.parseColor("#e9eff3"));
 			}
@@ -479,7 +470,6 @@ public class MyDiaryActivity extends Activity implements View.OnClickListener , 
 			rowHeight = row.getHeight();
 			rowWidth = row.getWidth();
 //			row.setId(Integer.valueOf(theday+MyDiaryActivity.this.months.get(themonth)));
-			row.setId(Integer.valueOf(theday));
 			if(theday.length()==1)
 				theday="0"+theday;
 			row.setId(Integer.valueOf(theday));
@@ -495,18 +485,32 @@ public class MyDiaryActivity extends Activity implements View.OnClickListener , 
 			thumbList.add(thumb2);
 			thumbList.add(thumb3);
 			String []paras = {API.getPermsByDateWithMonth+date, PermpingMain.UID ,theday};
-			new getData().execute(paras);
-			thumbListById.put(theday, thumbList);
-			idList.add(theday);
-			serviceList.add(theday);
+			if(!isGettingData ){
+				isGettingData = true;
+				new getData().execute(paras);
+				monthGetData = themonth;
+			}else if(!themonth.equals(monthGetData)){
+				new getData().execute(paras);
+				monthGetData = themonth;
+			}
+				
+			thumbListById.put(id, thumbList);
+			idList.add(id);
+			serviceList.add(id);
 			row.setOnClickListener(new View.OnClickListener() {
 				
 				@Override
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
 					String date =(String)v.getTag();
-					if(date != null)
+					if(date != null){
 						onClicked(date);
+//						Intent myIntent = new Intent(v.getContext(), FollowerActivity.class);
+//						String boardUrl = API.getPermsByDate + date;
+//						myIntent.putExtra("categoryURL", boardUrl);
+//						View boardListView = MyDiaryActivityGroup.group.getLocalActivityManager() .startActivity("BoardDeatalListActivity", myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
+//						MyDiaryActivityGroup.group.replaceView(boardListView);
+					}
 				}
 			});
 			return row;
@@ -639,31 +643,7 @@ public class MyDiaryActivity extends Activity implements View.OnClickListener , 
 		// TODO Auto-generated method stub
 		
 	}
-	@Override
-	public void onSuccess(List<String> thumbList, String id) {
-		// TODO Auto-generated method stub
-		List<String> imageList = new ArrayList<String>();
-		imageList = thumbList;
-        if(imageList != null){
-        	if(id != null){
 
-              		int max;
-              		if(imageList.size() > 3){
-              			max = 3;
-              		}
-              		else{
-              			max = imageList.size();
-              		}
-
-          			for(int i=0;i< max;i++){
-          				Log.d("===Update",id+">>>========"+imageList.get(i));
-          				new showData(thumbListById.get(id).get(i)).execute(imageList.get(i));
-          			}
-        	}		
-        }
-
-	}
-	
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event)
 	{		
@@ -675,7 +655,7 @@ public class MyDiaryActivity extends Activity implements View.OnClickListener , 
 	    return super.onKeyDown(keyCode, event);
 	}
 	@Override
-	public void onSuccess(List<Perm> perms) {
+	public void onSuccess(ArrayList<Perm> perms) {
 		// TODO Auto-generated method stub
 		Transporter transporter = new Transporter();
 		transporter.setPerms(perms);
@@ -686,5 +666,56 @@ public class MyDiaryActivity extends Activity implements View.OnClickListener , 
 		i.putExtra(Constants.TRANSPORTER, transporter);
 		View boardDetail = ProfileActivityGroup.group.getLocalActivityManager() .startActivity("BoardDetailActivity", i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
 		ProfileActivityGroup.group.replaceView(boardDetail);
+	}
+	@Override
+	public void onSuccess(List<String[]> imagesList, String idMonth) {
+		// TODO Auto-generated method stub
+		int length = imagesList.size();
+		for(int i=0; i < length; i++){
+//			String id = String.valueOf(i);
+//			if(id.length()==1)
+//				id="0"+id;
+			String[] item = imagesList.get(i);
+			if(item != null )
+			{
+				if(item.length > 0){
+					String id = item[0];
+					String thumbLink = item[1];
+					int numberThumb = 0;
+					WebImageView thumb = getThumbToLoad(id);
+					if(thumb != null)
+						new showData(thumb).execute(thumbLink);					 
+				}
+			}
+//	        if(imageList != null){
+//	        	if(id != null){
+//
+//	              		int max;
+//	              		if(imageList.size() > 3){
+//	              			max = 3;
+//	              		}
+//	              		else{
+//	              			max = imageList.size();
+//	              		}
+//
+//	          			for(int j=0;j< max;j++){
+//	          				Log.d("===Update",id+">>>========"+imageList.get(j));
+//	          				new showData(thumbListById.get(id).get(j)).execute(imageList.get(j));
+//	          			}
+//	        	}		
+//	        }
+
+		}
+
+	}
+	private WebImageView getThumbToLoad(String id) {
+		// TODO Auto-generated method stub
+		WebImageView result;
+		for(int i=0;i<3;i++){
+			result = thumbListById.get(id).get(i);
+			if(result.getVisibility() != View.VISIBLE)
+				return result;
+		}
+		return null;
 	}
 }

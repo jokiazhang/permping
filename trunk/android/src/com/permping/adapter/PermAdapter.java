@@ -335,7 +335,10 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 							nextItems = -1;
 						
 						ImageView av = (ImageView) view.findViewById(R.id.authorAvatar);
-						UrlImageViewHelper.setUrlDrawable(av, perm.getAuthor()
+						if( perm.getAuthor() != null)
+							if(perm.getAuthor().getAvatar()!=null)
+								if(perm.getAuthor().getAvatar().getUrl() != null)
+									UrlImageViewHelper.setUrlDrawable(av, perm.getAuthor()
 								.getAvatar().getUrl());
 		
 						TextView an = (TextView) view.findViewById(R.id.authorName);
@@ -409,57 +412,63 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 		
 						LinearLayout comments = (LinearLayout) view
 								.findViewById(R.id.comments);
-						for (int i = 0; i < perm.getComments().size(); i++) {
-							View cm = inflater.inflate(R.layout.comment_item, null);
-							final Comment pcm = perm.getComments().get(i);
-							if (pcm != null && pcm.getAuthor() != null) {
-		
-								ImageView cma = (ImageView) cm
-										.findViewById(R.id.commentAvatar);
-								cma.setOnClickListener(new View.OnClickListener() {
-									
-									public void onClick(View v) {
-										// TODO Auto-generated method stub
-										PermpingMain.gotoTab(4, pcm);
+						if(perm.getComments() != null){
+							for (int i = 0; i < perm.getComments().size(); i++) {
+								View cm = inflater.inflate(R.layout.comment_item, null);
+								final Comment pcm = perm.getComments().get(i);
+								if (pcm != null && pcm.getAuthor() != null) {
+			
+									ImageView cma = (ImageView) cm
+											.findViewById(R.id.commentAvatar);
+									cma.setOnClickListener(new View.OnClickListener() {
+										
+										public void onClick(View v) {
+											// TODO Auto-generated method stub
+											PermpingMain.gotoTab(4, pcm);
+										}
+									});
+									if( pcm.getAuthor() != null)
+										if(pcm.getAuthor().getAvatar()!=null)
+											if(pcm.getAuthor().getAvatar().getUrl() != null)
+												UrlImageViewHelper.setUrlDrawable(cma, pcm.getAuthor()
+											.getAvatar().getUrl());
+			
+									TextView authorName = (TextView) cm
+											.findViewById(R.id.commentAuthor);
+									if(pcm !=null){
+										if(pcm.getAuthor() != null)
+											if(pcm.getAuthor().getName() != null)
+												authorName.setText(pcm.getAuthor().getName());
+			
+										TextView cmt = (TextView) cm
+											.findViewById(R.id.commentContent);
+										if(pcm.getContent() != null)
+											cmt.setText(pcm.getContent());
 									}
-								});
-								UrlImageViewHelper.setUrlDrawable(cma, pcm.getAuthor()
-										.getAvatar().getUrl());
-		
-								TextView authorName = (TextView) cm
-										.findViewById(R.id.commentAuthor);
-								if(pcm !=null){
-									if(pcm.getAuthor() != null)
-										if(pcm.getAuthor().getName() != null)
-											authorName.setText(pcm.getAuthor().getName());
-		
-									TextView cmt = (TextView) cm
-										.findViewById(R.id.commentContent);
-									if(pcm.getContent() != null)
-										cmt.setText(pcm.getContent());
+									/*
+									 * boolean isWrapped = PermUtils.isTextWrapped(activity,
+									 * cmt.getText().toString(), cmt.getContext()); if
+									 * (isWrapped) { cmt.setMaxLines(5);
+									 * cmt.setSingleLine(false);
+									 * cmt.setEllipsize(TruncateAt.MARQUEE); }
+									 */
+									if (i == (perm.getComments().size() - 1)) {
+										View sp = (View) cm.findViewById(R.id.separator);
+										sp.setVisibility(View.INVISIBLE);
+									}
+									/*
+									 * EllipsizingTextView cmt = (EllipsizingTextView) cm
+									 * .findViewById(R.id.commentContent);
+									 * cmt.setText(pcm.getContent());
+									 * 
+									 * if (i == (perm.getComments().size() - 1)) { View sp =
+									 * (View) cm.findViewById(R.id.separator);
+									 * sp.setVisibility(View.INVISIBLE); }
+									 */
+									comments.addView(cm);
 								}
-								/*
-								 * boolean isWrapped = PermUtils.isTextWrapped(activity,
-								 * cmt.getText().toString(), cmt.getContext()); if
-								 * (isWrapped) { cmt.setMaxLines(5);
-								 * cmt.setSingleLine(false);
-								 * cmt.setEllipsize(TruncateAt.MARQUEE); }
-								 */
-								if (i == (perm.getComments().size() - 1)) {
-									View sp = (View) cm.findViewById(R.id.separator);
-									sp.setVisibility(View.INVISIBLE);
-								}
-								/*
-								 * EllipsizingTextView cmt = (EllipsizingTextView) cm
-								 * .findViewById(R.id.commentContent);
-								 * cmt.setText(pcm.getContent());
-								 * 
-								 * if (i == (perm.getComments().size() - 1)) { View sp =
-								 * (View) cm.findViewById(R.id.separator);
-								 * sp.setVisibility(View.INVISIBLE); }
-								 */
-								comments.addView(cm);
 							}
+							
 						}
 					}
 					//return convertView;
