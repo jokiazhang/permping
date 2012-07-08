@@ -57,6 +57,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -105,6 +106,7 @@ public class NewPermActivity extends Activity implements OnClickListener {
 	private String permId;
 	private List<PermBoard> boards;
 	private LinearLayout btnCatilogy;
+	private ImageView rightArrow;
 	private ProgressDialog loadingDialog;
 	private Context context;
 	public static boolean  isReperm = false;
@@ -133,6 +135,8 @@ public class NewPermActivity extends Activity implements OnClickListener {
 		btnShareKakao = (ToggleButton) findViewById(R.id.share_kakao);
 		btnLocation = (ToggleButton) findViewById(R.id.location);
 		btnCatilogy = (LinearLayout) findViewById(R.id.categoryItemLayout1);
+		rightArrow = (ImageView)findViewById(R.id.rightArrow);
+		rightArrow.setOnClickListener(this);
 		btnShareFacebook.setOnClickListener(this);
 		btnShareTwitter.setOnClickListener(this);
 		btnShareKakao.setOnClickListener(this);
@@ -522,8 +526,10 @@ public class NewPermActivity extends Activity implements OnClickListener {
 			break;
 		case R.id.location:
 			locationChange();
-		case R.id.categoryItemLayout1:
-			new LoadBoards().execute();
+			break;
+		case R.id.rightArrow:
+//			new LoadBoards().execute();
+			new CategorySpinnerSelectedListener();
 			break;
 		default:
 			break;
