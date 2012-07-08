@@ -394,6 +394,7 @@ public class PermUtils {
 		try {
 			Facebook mFacebook = new Facebook(Constants.FACEBOOK_APP_ID);
 			result = mFacebook.logout(activity.getApplicationContext());
+			saveFacebookToken("oauth_token", "", activity);
 			if(result.equals("true"))
 				return true;
 			else 
