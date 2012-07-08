@@ -882,13 +882,15 @@ public class XMLParser implements HttpAccess {
 	private void exeLoginTask() {
 		// TODO Auto-generated method stub
 		User user = getUser();
-		if (user != null) {
+		if (user != null && context != null && (context.getApplicationContext() instanceof PermpingApplication)) {
 			// Store the user object to PermpingApplication
-			PermpingApplication state = (PermpingApplication) LoginPermActivity.context.getApplicationContext();
+			PermpingApplication state = (PermpingApplication)context.getApplicationContext();
 			state.setUser(user);
 			PermpingMain.UID = user.getId();
 			synchronized (this) {
-				loginDelegate.on_success();
+				if(loginDelegate != null) {
+					loginDelegate.on_success();
+				}
 			}
 		} else {
 			synchronized (this) {
