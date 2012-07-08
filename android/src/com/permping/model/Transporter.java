@@ -4,6 +4,7 @@
 package com.permping.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,7 +19,7 @@ public class Transporter implements Serializable {
 	
 	private String boardName;
 	
-	private List<Perm> perms;
+	private ArrayList<Perm> perms;
 	private List<PermBoard> permsBoard;
 	/**
 	 * Default constructor
@@ -48,15 +49,15 @@ public class Transporter implements Serializable {
 	 * Constructor which initializes the list of perms
 	 * @param perms the list of perms
 	 */
-	public Transporter(List<Perm> perms) {
+	public Transporter(ArrayList<Perm> perms) {
 		this.perms = perms;
 	}
 
-	public List<Perm> getPerms() {
+	public ArrayList<Perm> getPerms() {
 		return perms;
 	}
 
-	public void setPerms(List<Perm> perms) {
+	public void setPerms(ArrayList<Perm> perms) {
 		this.perms = perms;
 	}
 	public List<PermBoard> getPermsBoard() {

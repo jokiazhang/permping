@@ -520,7 +520,7 @@ public class ProfileActivity extends Activity implements Get_Board_delegate{
 			loadingDialog.dismiss();
 	}
 	@Override
-	public void onSuccess(List<Perm> perms) {
+	public void onSuccess(ArrayList<Perm> perms) {
 		// TODO Auto-generated method stub
 		
 		Transporter transporter = new Transporter();

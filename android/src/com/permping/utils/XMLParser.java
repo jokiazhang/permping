@@ -5,6 +5,8 @@ import java.io.StringReader;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -589,9 +591,10 @@ public class XMLParser implements HttpAccess {
 			return null;
 		}
 	}
-	public List<String> getNoteListFromDoc(Document doc, String id){
+	public List<String[]> getNoteListFromDoc(Document doc, String id){
 		try {
-			List<String> thumbList= new ArrayList<String>();
+//			List<HashMap<String, String>>;
+			List<String[]> imagesList = new ArrayList<String[]>();
 			doc.getDocumentElement().normalize();
 			
 			NodeList nodeList = doc.getElementsByTagName("item");
@@ -600,7 +603,7 @@ public class XMLParser implements HttpAccess {
 			int length = nodeList.getLength();
 
 			for (int i = 0; i < length; i++) {
-
+				String []item =  new String[2];
 				Node node = nodeList.item(i);
 				String date = "";
 				Element fstElmnt = (Element) node;
@@ -619,13 +622,15 @@ public class XMLParser implements HttpAccess {
 					nameElement= (Element) nameList.item(0);
 					nameList = nameElement.getChildNodes();
 					String link = ((Node) nameList.item(0)).getNodeValue();
-					if(link!= null && date.equals(id)){
-						thumbList.add(link);
+					if(link!= null ){//&& date.equals(id)
+						item[0] = date;
+						item[1] = link;
+ 
 					}
 				}
-
+				imagesList.add(item);
 			}
-			return thumbList;
+			return imagesList;
 		} catch (Exception e) {
 			// TODO: handle exception
 			return null;
@@ -670,13 +675,13 @@ public class XMLParser implements HttpAccess {
 		return true;
 	}*/
 
-	public String getDateFromString( String initDate){
+	public static String getDateFromString( String initDate){
 		String date="";
 		int k=0;
 		for(int i=0; i< initDate.length();i++){
-			if(k==2 && initDate.charAt(i) !=' '){
-				date+= initDate.charAt(i) ;
-			}else if(k==2 && initDate.charAt(i) == ' '){
+			if(k >= 1 && initDate.charAt(i) !=' '){
+				if(initDate.charAt(i) != '-')date+= initDate.charAt(i) ;
+			}else if(k >=1 && initDate.charAt(i) == ' '){
 				return date;
 			}else if(initDate.charAt(i) == '-'){
 				k++;
@@ -788,7 +793,7 @@ public class XMLParser implements HttpAccess {
 	private void exeGetPerm(Document doc2) {
 		// TODO Auto-generated method stub
 		Get_Perm_Delegate delegates = (Get_Perm_Delegate)delegate;
-		List<Perm> boards = new ArrayList<Perm>();
+		ArrayList<Perm> boards = new ArrayList<Perm>();
 		NodeList boardNodeList = doc.getElementsByTagName("item");
 		
 		for( int i = 0; i < boardNodeList.getLength(); i ++ ){
@@ -821,7 +826,7 @@ public class XMLParser implements HttpAccess {
 
 	private void exeGetBoard(Document doc) {
 		// TODO Auto-generated method stub
-		List<Perm> boards = new ArrayList<Perm>();
+		ArrayList<Perm> boards = new ArrayList<Perm>();
 		NodeList boardNodeList = doc.getElementsByTagName("item");
 		
 		for( int i = 0; i < boardNodeList.getLength(); i ++ ){
@@ -865,7 +870,7 @@ public class XMLParser implements HttpAccess {
 	private void exeMyDiary(Document doc, String id) {
 		// TODO Auto-generated method stub
 		MyDiary_Delegate myDiary_Delegate = (MyDiary_Delegate)delegate;
-		List<String> thumbList = new ArrayList<String>();
+		List<String[]> thumbList = new ArrayList<String[]>();
 		if(doc != null)
 
 		thumbList = getNoteListFromDoc(doc, id);

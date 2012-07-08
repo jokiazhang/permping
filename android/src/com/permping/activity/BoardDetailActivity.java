@@ -1,10 +1,12 @@
 package com.permping.activity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.permping.PermpingMain;
 import com.permping.R;
 import com.permping.adapter.BoardDetailAdapter;
+import com.permping.adapter.PermAdapter;
 import com.permping.model.Perm;
 import com.permping.model.Transporter;
 import com.permping.model.User;
@@ -40,7 +42,7 @@ public class BoardDetailActivity extends Activity {
 		if(extras != null)
 			transporter = (Transporter) extras
 				.get(Constants.TRANSPORTER);
-		List<Perm> perms = null;
+		ArrayList<Perm> perms = null;
 		String boardName = null;
 		if(transporter != null){
 			perms = transporter.getPerms();
@@ -58,26 +60,15 @@ public class BoardDetailActivity extends Activity {
 			setContentView(R.layout.profile_emptyperm_layout);
 			message = (TextView) findViewById(R.id.message);
 			message.setText("No Perms Found. Please press Back to select another board!");
-/*			
-			*//**
-			 * TODO: Just for testing the image scaling function
-			 *//*
-			// <560
-			ImageView image1 = (ImageView) findViewById(R.id.image1);
-			UrlImageViewHelper.setUrlDrawable(image1, "http://3.bp.blogspot.com/-kZJirjdmR4Q/T6HCHiu--WI/AAAAAAAADdc/75BCY1nVKSQ/s1600/android.png");
-			PermUtils.scale("1", image1, screenWidth, screenHeight);
-			
-			// >560
-			ImageView image2 = (ImageView) findViewById(R.id.image2);
-			UrlImageViewHelper.setUrlDrawable(image2, "http://www.greggibsonblog.com/blogpix/2009/03/00071.jpg");
-			PermUtils.scale(image2, screenWidth, screenHeight);
-			
-*/		} else {
+		} else {
 			setContentView(R.layout.profile_permlist_layout);
 			permList = (ListView) findViewById(R.id.permList);
 			User user = PermUtils.isAuthenticated(getApplicationContext());
-			BoardDetailAdapter boardDetailAdapter = new BoardDetailAdapter(
-					this, perms, boardName, screenHeight, screenWidth, user);
+//			BoardDetailAdapter boardDetailAdapter = new BoardDetailAdapter(
+//					this, perms, boardName, screenHeight, screenWidth, user);
+			PermAdapter boardDetailAdapter =  new PermAdapter(MyDiaryActivityGroup.context,
+					null,R.layout.perm_item_1, perms, BoardDetailActivity.this, screenHeight, screenWidth, false, user);
+
 			permList.setAdapter(boardDetailAdapter);
 		}
 
