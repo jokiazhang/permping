@@ -48,6 +48,7 @@ public class FollowerActivity extends FragmentActivity {
 	public static int screenHeight;
 	public static boolean isLogin = false;
 	public static boolean isRefesh = true;
+	public static boolean isCalendar = false;
 	int nextItem = -1;
 //	FragmentManager t = ggetSupportFragmentManager();
 	private ProgressDialog dialog;
@@ -98,7 +99,10 @@ public class FollowerActivity extends FragmentActivity {
 			exeFollowerActivity();
 		}else if(PermpingMain.getCurrentTab() == 1 || PermpingMain.getCurrentTab() == 4){
 			exeFollowerActivity();
-		} else if(!isRefesh){
+		}else if(PermpingMain.getCurrentTab() == 3) { 
+			isCalendar = true;
+			exeFollowerActivity();
+		}else if(!isRefesh){
 			isRefesh = true;
 		}
 	}
@@ -131,6 +135,9 @@ public class FollowerActivity extends FragmentActivity {
 		Bundle extras = getIntent().getExtras();
 		if(extras != null && extras.containsKey("allcategory")){
 			this.url = API.getNewPerm;
+			this.header = false;
+		}else if( extras != null && extras.containsKey("permByDate")){
+			this.url = (String)extras.getString("permByDate");
 			this.header = false;
 		}else if (extras != null) {
 			this.url = (String) extras.get("categoryURL");
@@ -215,9 +222,22 @@ public class FollowerActivity extends FragmentActivity {
 				if (nextItem != -1) {
 					List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
 					nameValuePairs.add(new BasicNameValuePair("nextItem", String.valueOf(nextItem)));
+					if(isCalendar){
+						nameValuePairs.add(new BasicNameValuePair("uid", PermpingMain.UID));
+						isCalendar =false;
+					}
+
 					permList = permListController.getPermList(url, nameValuePairs);
 				} else {
-					permList = permListController.getPermList(url);
+					if(isCalendar){
+						List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+						nameValuePairs.add(new BasicNameValuePair("uid", PermpingMain.UID));
+						permList = permListController.getPermList(url,nameValuePairs);
+						isCalendar =false;
+					}else{
+						permList = permListController.getPermList(url);	
+					}
+					
 				}
 			} catch (Exception e) {
 				// TODO: handle exception
