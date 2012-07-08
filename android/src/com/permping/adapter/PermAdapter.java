@@ -252,8 +252,10 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 						}
 					});
 					
-					if(perm != null && user != null && perm.getAuthor().getId().equalsIgnoreCase(user.getId())) {
-						like.setVisibility(View.GONE);
+					if(perm != null && user != null) {
+						if( perm.getAuthor() != null)
+							if(perm.getAuthor().getId().equalsIgnoreCase(user.getId()))
+								like.setVisibility(View.GONE);
 					}
 		
 					reperm = (Button) view.findViewById(R.id.btnRepem);
