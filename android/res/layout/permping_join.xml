@@ -143,11 +143,12 @@
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="150dp"
                 android:layout_height="40dp"
-                android:background="@drawable/button_bg"
+                android:background="@drawable/button_style"
                 android:gravity="center"
                 android:layout_span="2"
                 android:text="@string/bt_create_account"
-                android:textColor="#FFFFFF" />
+                android:textColor="#5e5d5d" 
+                />
      
      </LinearLayout>
 
