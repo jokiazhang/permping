@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.StringReader;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
@@ -17,12 +18,14 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.mime.HttpMultipartMode;
 import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.content.ByteArrayBody;
 import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -341,8 +344,7 @@ public class NewPermActivity extends Activity implements OnClickListener {
 					// HttpPost postRequest = new
 					// HttpPost("http://10.0.2.2/perm/testupload.php");
 					HttpPost postRequest = null;
-					MultipartEntity reqEntity = new MultipartEntity(
-							HttpMultipartMode.BROWSER_COMPATIBLE);
+					MultipartEntity reqEntity = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE, null, Charset.forName(HTTP.UTF_8));
 					if (!isReperm && filePath != null && !"".equals(filePath)) {
 						postRequest = new HttpPost(API.addNewPermUrl);
 

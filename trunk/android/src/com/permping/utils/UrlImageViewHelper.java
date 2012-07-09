@@ -328,44 +328,40 @@ public final class UrlImageViewHelper {
                         	DisplayMetrics metrics = state.getDisplayMetrics();
                         	
                         	//Calculate with & height //This should be in a function 
-                        	int marginLeft = 0;
-                        	int marginRight = 0;
+                        	int marginLeft = 6;
+                        	int marginRight = 6;
                         	
                         	int imgWidth = 0;
                         	int imgHeight = 0;
                         	
                         	if( metrics.widthPixels <= 320 ) { //320 x 480
-                        		marginLeft = 8;
-                        		marginRight = 8;
+                        		int width = (320 - (marginLeft + marginRight));
                         		if( oiw < 560 ){
-	                        		imgWidth = (  oiw * 304/ 560   );
-	                        		imgHeight = ( oih * 304/ 560  );
+	                        		imgWidth = (  oiw * width/ 560   );
+	                        		imgHeight = ( oih * width/ 560  );
                         		} else {
-                        			imgWidth = 304;
-                        			imgHeight = ( oih * 304 ) / oiw ;
+                        			imgWidth = width;
+                        			imgHeight = ( oih * width ) / oiw ;
                         		}
                         	}
-                        	else if( metrics.widthPixels <= 480 ){ //480 x 800 
-                        		marginLeft = 12;
-                        		marginRight = 12;
+                        	else if( metrics.widthPixels <= 480 ){ //480 x 800
+                        		int width = (480 - (marginLeft + marginRight));
                         		if( oiw < 560 ) {
-                        			imgWidth = 456;//(  oiw  * 456/ 560 );
-                        			imgHeight = ( oih * 456/ 560   );
+                        			imgWidth = width;//(  oiw  * 456/ 560 );
+                        			imgHeight = ( oih * width/ 560   );
                         		} else {
-                        			imgWidth = 456;
-                        			imgHeight = ( oih * 456 ) / oiw ;
+                        			imgWidth = width;
+                        			imgHeight = ( oih * width ) / oiw ;
                         		}
                         		
-                        	} else if( metrics.widthPixels <= 800 ){ //800 x 1280
-                        		marginLeft = 20;
-                        		marginRight = 20;
-                        		
+                        	} else if( metrics.widthPixels <= 800 ){ //800 x 1280 
+                        		int width = (800 - (marginLeft + marginRight));
                         		if( oiw < 560 ){
-                        			imgWidth = (  oiw * 760/ 560   );
-                        			imgHeight = ( oih * 760/ 560 );
+                        			imgWidth = (  oiw * width/ 560   );
+                        			imgHeight = ( oih * width/ 560 );
                         		} else {
-                        			imgWidth = 760;
-                        			imgHeight = ( oih * 760 ) / oiw ;
+                        			imgWidth = width;
+                        			imgHeight = ( oih * width ) / oiw ;
                         		}
                         	}
                         	
