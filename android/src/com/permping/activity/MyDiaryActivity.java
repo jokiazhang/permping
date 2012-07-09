@@ -16,6 +16,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.format.DateFormat;
@@ -69,6 +70,13 @@ public class MyDiaryActivity extends Activity implements View.OnClickListener , 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.mydiary_layout);
+		
+		TextView textView = (TextView)findViewById(R.id.permpingTitle);
+		Typeface tf = Typeface.createFromAsset(getAssets(), "ufonts.com_franklin-gothic-demi-cond-2.ttf");
+		if(textView != null) {
+			textView.setTypeface(tf);
+		}
+		
 		calendar = Calendar.getInstance(Locale.getDefault());
 		month = calendar.get(Calendar.MONTH) + 1;
 		year = calendar.get(Calendar.YEAR);

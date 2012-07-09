@@ -54,6 +54,12 @@ public class AuthorizeController {
 		return null;
 	}
 	
+	public void updateUserProfileById(Context context, String userId, int type, Object login) {
+		if (userId.length() > 0) {
+			XMLParser parser = new XMLParser(context, API.getProfileURL + userId, login, type);
+		}
+	}
+	
 	public void logout(String userId) {
 		if (userId != null && !"".equals(userId)) {
 			XMLParser parser = new XMLParser(API.logoutURL + userId);			

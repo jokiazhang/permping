@@ -15,6 +15,7 @@ import com.permping.utils.PermUtils;
 import com.permping.utils.UrlImageViewHelper;
 
 import android.app.Activity;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.KeyEvent;
@@ -70,6 +71,12 @@ public class BoardDetailActivity extends Activity {
 					null,R.layout.perm_item_1, perms, BoardDetailActivity.this, screenHeight, screenWidth, false, user);
 
 			permList.setAdapter(boardDetailAdapter);
+		}
+		
+		TextView textView = (TextView)findViewById(R.id.permpingTitle);
+		Typeface tf = Typeface.createFromAsset(getAssets(), "ufonts.com_franklin-gothic-demi-cond-2.ttf");
+		if(textView != null) {
+			textView.setTypeface(tf);
 		}
 
 //		thien back = (Button) findViewById(R.id.btBack);

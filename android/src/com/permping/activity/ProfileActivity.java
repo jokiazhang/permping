@@ -55,6 +55,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Typeface;
 import android.graphics.Bitmap.CompressFormat;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -100,6 +101,13 @@ public class ProfileActivity extends Activity implements Get_Board_delegate{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.profile_layout);
+        
+        TextView textView = (TextView)findViewById(R.id.permpingTitle);
+		Typeface tf = Typeface.createFromAsset(getAssets(), "ufonts.com_franklin-gothic-demi-cond-2.ttf");
+		if(textView != null) {
+			textView.setTypeface(tf);
+		}
+		
         showLoadingDialog("Loading", "Please wait...");
         authorAvatar = (ImageView) findViewById(R.id.authorAvatar);
         authorName = (TextView) findViewById(R.id.authorName);

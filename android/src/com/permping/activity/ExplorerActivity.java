@@ -6,12 +6,14 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.permping.PermpingMain;
 import com.permping.R;
@@ -30,6 +32,13 @@ public class ExplorerActivity extends Activity implements get_category_delegate 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.explorer_layout);
+		
+		TextView textView = (TextView)findViewById(R.id.permpingTitle);
+		Typeface tf = Typeface.createFromAsset(getAssets(), "ufonts.com_franklin-gothic-demi-cond-2.ttf");
+		if(textView != null) {
+			textView.setTypeface(tf);
+		}
+		
 		showLoadingDialog("Loading", "Please wait...");
 		categoriesView = (ListView) findViewById(R.id.categories);
 		final CategoryController catController = new CategoryController(ExplorerActivity.this);
