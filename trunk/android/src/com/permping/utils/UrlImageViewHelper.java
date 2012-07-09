@@ -336,9 +336,9 @@ public final class UrlImageViewHelper {
                         	
                         	if( metrics.widthPixels <= 320 ) { //320 x 480
                         		int width = (320 - (marginLeft + marginRight));
-                        		if( oiw < 560 ){
-	                        		imgWidth = (  oiw * width/ 560   );
-	                        		imgHeight = ( oih * width/ 560  );
+                        		if( oiw < 510 ){
+	                        		imgWidth = (  oiw * width/ 510   );
+	                        		imgHeight = ( oih * width/ 510  );
                         		} else {
                         			imgWidth = width;
                         			imgHeight = ( oih * width ) / oiw ;
@@ -346,9 +346,9 @@ public final class UrlImageViewHelper {
                         	}
                         	else if( metrics.widthPixels <= 480 ){ //480 x 800
                         		int width = (480 - (marginLeft + marginRight));
-                        		if( oiw < 560 ) {
+                        		if( oiw < 510 ) {
                         			imgWidth = width;//(  oiw  * 456/ 560 );
-                        			imgHeight = ( oih * width/ 560   );
+                        			imgHeight = ( oih * width/ 510   );
                         		} else {
                         			imgWidth = width;
                         			imgHeight = ( oih * width ) / oiw ;
@@ -356,9 +356,9 @@ public final class UrlImageViewHelper {
                         		
                         	} else if( metrics.widthPixels <= 800 ){ //800 x 1280 
                         		int width = (800 - (marginLeft + marginRight));
-                        		if( oiw < 560 ){
-                        			imgWidth = (  oiw * width/ 560   );
-                        			imgHeight = ( oih * width/ 560 );
+                        		if( oiw < 510 ){
+                        			imgWidth = (  oiw * width/ 510   );
+                        			imgHeight = ( oih * width/ 510 );
                         		} else {
                         			imgWidth = width;
                         			imgHeight = ( oih * width ) / oiw ;

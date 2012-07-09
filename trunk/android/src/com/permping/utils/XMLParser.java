@@ -66,6 +66,7 @@ public class XMLParser implements HttpAccess {
     public final static int PERMLIST = 4;
     public final static int GET_BOARD = 5;
     public final static int GET_PERMS_BY_DATE = 6;
+    public final static int UPDATE_PROFILE = 7;
 	private Document doc = null;
 	private String xml = "<empty></empty>";
 	public int type;
@@ -394,6 +395,15 @@ public class XMLParser implements HttpAccess {
 //		getResponseFromURL(url);
 //	}
 	public XMLParser(String url, Object delegate, int type) {
+		if(httpPermUtils  == null)
+			httpPermUtils = new HttpPermUtils(XMLParser.this);
+		this.type = type;
+		this.delegate = delegate;
+		getResponseFromURL(url);
+	}
+	
+	public XMLParser(Context context, String url, Object delegate, int type) {
+		this.context = context;
 		if(httpPermUtils  == null)
 			httpPermUtils = new HttpPermUtils(XMLParser.this);
 		this.type = type;
@@ -755,6 +765,13 @@ public class XMLParser implements HttpAccess {
 			case XMLParser.GET_PERMS_BY_DATE:
 				exeGetPerm(doc);
 				break;
+			case XMLParser.UPDATE_PROFILE:
+				User user = getUser();
+				if(user != null && context != null) {
+					PermpingApplication state = (PermpingApplication) context.getApplicationContext();
+					if (state != null)
+						state.setUser(user);
+				}
 			default:
 				break;
 			}

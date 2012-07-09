@@ -26,6 +26,7 @@ import com.permping.utils.XMLParser;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -40,6 +41,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemSelectedListener;
 
@@ -66,6 +68,13 @@ public class CreateBoardActivity extends Activity implements Create_Board_delega
 		
 		View contentView = LayoutInflater.from(getParent()).inflate(R.layout.createboard_layout, null);
         setContentView(contentView);
+        
+        TextView textView = (TextView)findViewById(R.id.permpingTitle);
+		Typeface tf = Typeface.createFromAsset(getAssets(), "ufonts.com_franklin-gothic-demi-cond-2.ttf");
+		if(textView != null) {
+			textView.setTypeface(tf);
+		}
+		
         PermpingApplication state = (PermpingApplication) getApplicationContext();
 		if(state != null)
 			user = state.getUser();
@@ -159,10 +168,7 @@ public class CreateBoardActivity extends Activity implements Create_Board_delega
 		// TODO Auto-generated method stub
 		if (doc != null) {
 			AuthorizeController authorizeController = new AuthorizeController();
-			User updated = authorizeController.getUserProfileById(user.getId());
-			PermpingApplication state = (PermpingApplication) getApplicationContext();
-			if (updated != null)
-				state.setUser(updated);
+			authorizeController.updateUserProfileById(this, user.getId(), XMLParser.UPDATE_PROFILE, CreateBoardActivity.this);			
 			Toast toast = Toast.makeText(getApplicationContext(), "Board is created successfully!", Toast.LENGTH_LONG);
         	toast.setGravity(Gravity.TOP | Gravity.CENTER, 0, 300);
         	toast.show();

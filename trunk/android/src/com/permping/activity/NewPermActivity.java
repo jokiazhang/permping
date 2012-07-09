@@ -40,6 +40,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Typeface;
 import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
 import android.location.Location;
@@ -63,6 +64,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
@@ -133,6 +135,13 @@ public class NewPermActivity extends Activity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		// setContentView(R.layout.new_perm_layout);
 		setContentView(R.layout.new_perm_layout);
+		
+		TextView textView = (TextView)findViewById(R.id.permpingTitle);
+		Typeface tf = Typeface.createFromAsset(getAssets(), "ufonts.com_franklin-gothic-demi-cond-2.ttf");
+		if(textView != null) {
+			textView.setTypeface(tf);
+		}
+		
 		btnShareFacebook = (ToggleButton) findViewById(R.id.share_facebookr);
 		btnShareTwitter = (ToggleButton) findViewById(R.id.share_twitter);
 		btnShareKakao = (ToggleButton) findViewById(R.id.share_kakao);
@@ -344,6 +353,7 @@ public class NewPermActivity extends Activity implements OnClickListener {
 					// HttpPost postRequest = new
 					// HttpPost("http://10.0.2.2/perm/testupload.php");
 					HttpPost postRequest = null;
+					Charset chars = Charset.forName("UTF-8");
 					MultipartEntity reqEntity = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE, null, Charset.forName(HTTP.UTF_8));
 					if (!isReperm && filePath != null && !"".equals(filePath)) {
 						postRequest = new HttpPost(API.addNewPermUrl);
@@ -358,37 +368,37 @@ public class NewPermActivity extends Activity implements OnClickListener {
 						ByteArrayBody bab = new ByteArrayBody(data, fileName);
 						reqEntity.addPart("img", bab);
 						reqEntity.addPart("photoCaption", new StringBody(
-								fileName));
-						reqEntity.addPart("uid", new StringBody(user.getId()));
+								fileName, chars));
+						reqEntity.addPart("uid", new StringBody(user.getId(), chars));
 						reqEntity.addPart("board",
-								new StringBody(String.valueOf(boardId)));
+								new StringBody(String.valueOf(boardId), chars));
 						reqEntity.addPart("board_desc", new StringBody(permDesc
-								.getText().toString()));
+								.getText().toString(), chars));
 					} else if (isReperm ) { // Reperm
 						postRequest = new HttpPost(API.repermUrl);
 
 						reqEntity.addPart("pid",
-								new StringBody(String.valueOf(permIdRe)));
-						reqEntity.addPart("uid", new StringBody(String.valueOf(userIdRe)));
+								new StringBody(String.valueOf(permIdRe), chars));
+						reqEntity.addPart("uid", new StringBody(String.valueOf(userIdRe), chars));
 						reqEntity.addPart("board",
-								new StringBody(String.valueOf(boardId)));
+								new StringBody(String.valueOf(boardId), chars));
 						reqEntity.addPart("board_desc", new StringBody(permDesc
-								.getText().toString()));
+								.getText().toString(), chars));
 					}
 
 					if (facebookToken != null)
 						reqEntity.addPart("fb_oauth_token", new StringBody(
-								facebookToken));
+								facebookToken, chars));
 					if (twitterAccessToken != null) {
 						reqEntity.addPart("tw_oauth_token", new StringBody(
-								twitterAccessToken.getToken()));
+								twitterAccessToken.getToken(), chars));
 						reqEntity.addPart(
 								"tw_oauth_token_secret",
 								new StringBody(twitterAccessToken
-										.getTokenSecret()));
+										.getTokenSecret(), chars));
 					}
-					reqEntity.addPart("lat", new StringBody("" + lat));
-					reqEntity.addPart("long", new StringBody("" + lon));
+					reqEntity.addPart("lat", new StringBody("" + lat, chars));
+					reqEntity.addPart("long", new StringBody("" + lon, chars));
 					postRequest.setEntity(reqEntity);
 					HttpResponse response = httpClient.execute(postRequest);
 					HttpEntity entry = response.getEntity();

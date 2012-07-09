@@ -23,6 +23,7 @@ import com.permping.utils.XMLParser;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.Editable;
@@ -32,6 +33,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 /**
@@ -53,6 +55,12 @@ public class JoinPermActivity extends Activity implements TextWatcher, JoinPerm_
 		super.onCreate(savedInstanceState);
         setContentView(R.layout.permping_join);
         
+        TextView textView = (TextView)findViewById(R.id.permpingTitle);
+		Typeface tf = Typeface.createFromAsset(getAssets(), "ufonts.com_franklin-gothic-demi-cond-2.ttf");
+		if(textView != null) {
+			textView.setTypeface(tf);
+		}
+		
         prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         
         name = (EditText) findViewById(R.id.acccountName);

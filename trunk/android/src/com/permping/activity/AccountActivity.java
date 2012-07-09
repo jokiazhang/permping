@@ -11,11 +11,13 @@ import com.permping.model.User;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 /**
  * @author Linh Nguyen
@@ -34,6 +36,12 @@ public class AccountActivity extends Activity {
 		View contentView = LayoutInflater.from(getParent()).inflate(R.layout.account_layout, null);
         setContentView(contentView);
 		
+        TextView textView = (TextView)findViewById(R.id.permpingTitle);
+		Typeface tf = Typeface.createFromAsset(getAssets(), "ufonts.com_franklin-gothic-demi-cond-2.ttf");
+		if(textView != null) {
+			textView.setTypeface(tf);
+		}
+        
 		logout = (Button) findViewById(R.id.btLogout);
 		cancel = (Button) findViewById(R.id.btCancel);
 //thien		back = (Button) findViewById(R.id.btBack); 

@@ -9,13 +9,14 @@
   android:id="@+id/titlebar">
   
   <!-- Screen Design for Photos -->
-  <TextView android:text="PERMPING"
-  			android:padding="10dip"
-  			android:textSize="25dip"
-  			android:textColor="#FFFFFF"
-  			 android:textStyle="bold"
-  			android:layout_width="fill_parent"
-  			android:gravity="center_vertical|center_horizontal"
-  			android:layout_height="55dp"/>
+  <TextView
+      android:id="@+id/permpingTitle" 
+      android:text="PERMPING"
+  	  android:textSize="25dip"
+  	  android:textColor="#FFFFFF"
+  	  android:textStyle="bold"
+  	  android:layout_width="fill_parent"
+  	  android:gravity="center_vertical|center_horizontal"
+  	  android:layout_height="fill_parent"/>
     
 </LinearLayout>

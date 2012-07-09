@@ -12,9 +12,11 @@ import com.permping.utils.API;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.view.KeyEvent;
 import android.view.View;
 
@@ -28,6 +30,12 @@ public class BoardListActivity extends Activity {
 		this.cat = (Category) extras.get("Category");
 		
 		setContentView(R.layout.explorer_layout);
+		
+		TextView textView = (TextView)findViewById(R.id.permpingTitle);
+		Typeface tf = Typeface.createFromAsset(getAssets(), "ufonts.com_franklin-gothic-demi-cond-2.ttf");
+		if(textView != null) {
+			textView.setTypeface(tf);
+		}
 		
 		ListView boardView = (ListView) findViewById(R.id.categories); //Reuse category layout
 		BoardController boardController = new BoardController();
