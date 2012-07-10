@@ -182,6 +182,7 @@ public class MyDiaryActivity extends Activity implements View.OnClickListener , 
 	public void onClick(View v) {
 		if (v == prevMonth) {
 			maxMonth = 0;
+			isGettingData = false;
 			if (month <= 1) {
 				month = 12;
 				year--;
@@ -194,6 +195,7 @@ public class MyDiaryActivity extends Activity implements View.OnClickListener , 
 		}
 		if (v == nextMonth) {
 			maxMonth = 0;
+			isGettingData = false;
 			if (month > 11) {
 				month = 1;
 				year++;
