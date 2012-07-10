@@ -59,6 +59,7 @@ public class MyDiaryActivity extends Activity implements View.OnClickListener , 
 	private Calendar calendar;
 	private int month, year;
 	private String monthGetData= "";
+	private int maxMonth = 0;
 	private boolean isGettingData = false;
 	private HashMap<String, String> months = new HashMap<String, String>();
 	private final DateFormat dateFormatter = new DateFormat();
@@ -497,9 +498,11 @@ public class MyDiaryActivity extends Activity implements View.OnClickListener , 
 				isGettingData = true;
 				new getData().execute(paras);
 				monthGetData = themonth;
-			}else if(!themonth.equals(monthGetData)){
+				maxMonth++;
+			}else if(maxMonth <2 &&!themonth.equals(monthGetData)){
 				new getData().execute(paras);
 				monthGetData = themonth;
+				maxMonth++;
 			}
 				
 			thumbListById.put(id, thumbList);
