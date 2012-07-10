@@ -3,8 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" 
-    android:layout_marginBottom="60dp"
-    android:background="@drawable/background">
+    android:layout_marginBottom="60dp">
 	<include
         android:layout_width="fill_parent"
         layout="@layout/title_bar" />
@@ -41,16 +40,21 @@
    	            android:hint="@string/required"
    	            style="@style/edit_text" />
 	    </TableRow>
+	    <TableRow android:gravity="center">
+		    <Button
+	        android:id="@+id/createBoard"
+	        style="?android:attr/buttonStyleSmall"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:gravity="center"
+	        android:layout_marginTop="5dp"
+	        android:text="@string/bt_create_board"
+	        android:textColor="#5e5d5d"
+	        android:textSize="20dp"
+	        android:background="@drawable/button_style" />
+		</TableRow>
 	    
 	</TableLayout>
 
-	<Button
-        android:id="@+id/createBoard"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/bt_create_board"
-        android:textColor="#FFFFFF"
-        android:background="@drawable/button_bg" />
+	
 </LinearLayout>

@@ -3,6 +3,7 @@
     android:layout_height="50dp"
     android:angle="90"
     android:background="#771541"
+    android:layout_marginBottom="10dip"
     android:orientation="vertical" >
 
     <TableLayout
@@ -15,22 +16,25 @@
             <Button
                 android:id="@+id/btAccount"
                 android:layout_width="10dp"
-                android:layout_height="wrap_content"
+                android:layout_height="30dp"
                 android:layout_weight="1"
-                android:background="@drawable/title_button_bg"
+                android:background="@drawable/button_style"
                 android:text="@string/logout"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="5dp"
                 android:layout_marginRight="10dp"
-                android:textColor="#FFFFFF"
-                android:textSize="18px" />
+                android:layout_gravity="center"
+                android:textColor="#5e5d5d"
+                android:textSize="10dp" />
 
             <TextView
+                android:id="@+id/permpingTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
-                android:padding="10dip"
-                android:text="Permping"
-                android:textColor="#FFFFFF"
-                android:textSize="20dip"
+                android:text="PERMPING"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp"
+                android:textSize="25dp"
+  	 	 		android:textColor="#FFFFFF"
                 android:textStyle="bold" />
 
             <TextView

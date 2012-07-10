@@ -98,6 +98,8 @@ public class ProfileActivity extends Activity implements Get_Board_delegate{
 			} 
 		}
 	};
+	
+	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.profile_layout);
@@ -124,11 +126,17 @@ public class ProfileActivity extends Activity implements Get_Board_delegate{
 				// TODO Auto-generated method stub
 				String buttonType = btnAccount.getText().toString();
 				if(buttonType.equals(context.getString(R.string.logout))){
-					PermUtils permUtils = new PermUtils();
+					Intent myIntent = new Intent(ProfileActivity.this, AccountActivity.class);
+					View accountView = ProfileActivityGroup.group.getLocalActivityManager() .startActivity("AccountActivity", myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
+					ProfileActivityGroup.group.replaceView(accountView);
+					
+					//View view = getLocalActivityManager().startActivity( "FollowerActivity", new Intent(this, FollowerActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
+					
+					/*PermUtils permUtils = new PermUtils();
 					permUtils.logOutFacebook(getParent());
 //					permUtils.saveTwitterAccess("twitter", "", getParent()):
 					showLoadingDialog("Pregressing", "Please wait...");
-					new exeFollow(API.logoutURL, false, true).execute(null);
+					new exeFollow(API.logoutURL, false, true).execute(null);*/
 				}else if(buttonType.equals(context.getString(R.string.follow))){
 					showLoadingDialog("Pregressing", "Please wait...");
 					new exeFollow(API.follow, true, false).execute(null);
@@ -142,12 +150,15 @@ public class ProfileActivity extends Activity implements Get_Board_delegate{
 		});
 		PermUtils.clearViewHistory();       
     }
+	
     protected void exeUserProfile() {
 		// TODO Auto-generated method stub
 		if( commentData != null)
 			new getUserProfile(API.getProfileURL+commentData.getAuthor().getId()).execute(null);
 	}
-	public void onResume(){
+    
+    @Override
+    protected void onResume(){
     	super.onResume();
     	
     	 /** Load the information from Application (user info) when the page is loaded. */

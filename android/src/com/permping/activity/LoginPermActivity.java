@@ -282,7 +282,11 @@ public void on_success() {
 	}else{
 		FollowerActivity.isLogin = true;
 		dismissLoadingDialog();
-		PermpingMain.back();		
+		if(PermpingMain.getCurrentTab() == 4) {
+			((ProfileActivityGroup)ProfileActivityGroup.group).createUI();
+		} else {
+			PermpingMain.back();
+		}
 	}
 
 }
