@@ -12,7 +12,7 @@
         android:anyDensity="true"
         />
     <uses-sdk android:minSdkVersion="8" />
-
+	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
@@ -20,7 +20,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />	
-	
+	<uses-feature android:name="android.hardware.screen.portrait" />
 	<uses-feature android:name="android.hardware.camera" />
  	<uses-feature android:name="android.hardware.camera.autofocus" />
     
@@ -60,6 +60,7 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".activity.ProfileActivityGroup" 
             android:screenOrientation="portrait"/>
+        <activity android:name=".utils.twitters.TwitterActivity"></activity>
 		<activity android:name=".activity.JoinPermActivity" android:theme="@android:style/Theme.NoTitleBar" android:windowSoftInputMode="adjustResize"
 		    android:screenOrientation="portrait"/>
 		<activity android:name=".activity.LoginPermActivity" android:theme="@android:style/Theme.NoTitleBar" android:windowSoftInputMode="adjustResize"
