@@ -2,8 +2,10 @@ package com.permping.activity;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.StringReader;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
@@ -40,6 +42,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Path;
 import android.graphics.Typeface;
 import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
@@ -360,7 +363,7 @@ public class NewPermActivity extends Activity implements OnClickListener {
 
 						ByteArrayOutputStream bos = new ByteArrayOutputStream();
 						Bitmap bm = BitmapFactory.decodeFile(filePath);
-						;
+						bm = getBitmap(filePath);
 						bm.compress(CompressFormat.JPEG, 75, bos);
 						byte[] data = bos.toByteArray();
 
@@ -417,6 +420,58 @@ public class NewPermActivity extends Activity implements OnClickListener {
 			// Toast.makeText(getApplicationContext(),"Please login first!",Toast.LENGTH_LONG).show();
 		}
 
+		private Bitmap checkBitmapSize(Bitmap bm) {
+			// TODO Auto-generated method stub
+			Bitmap bmResult = null;
+			return bmResult;
+		}
+		  private Bitmap getBitmap(String path) {
+			    try {
+			        final int IMAGE_MAX_SIZE = 1200000; // 1.2MP
+			        // Decode image size
+			        BitmapFactory.Options o = new BitmapFactory.Options();
+			        o.inJustDecodeBounds = true;
+			        int scale = 1;
+			        while ((o.outWidth * o.outHeight) * (1 / Math.pow(scale, 2)) > IMAGE_MAX_SIZE) {
+			            scale++;
+			        }
+			        Log.d("","scale = " + scale + ", orig-width: " + o.outWidth       + ", orig-height: " + o.outHeight);
+
+			        Bitmap b = null;
+			        if (scale > 1) {
+			            scale--;
+			            // scale to max possible inSampleSize that still yields an image
+			            // larger than target
+			            o = new BitmapFactory.Options();
+			            o.inSampleSize = scale;
+			            b = BitmapFactory.decodeFile(path);
+
+			            // resize to desired dimensions
+			            int height = b.getHeight();
+			            int width = b.getWidth();
+			            Log.d("", "1th scale operation dimenions - width: " + width    + ", height: " + height);
+
+			            double y = Math.sqrt(IMAGE_MAX_SIZE
+			                    / (((double) width) / height));
+			            double x = (y / height) * width;
+
+			            Bitmap scaledBitmap = Bitmap.createScaledBitmap(b, (int) x,     (int) y, true);
+			            b.recycle();
+			            b = scaledBitmap;
+
+			            System.gc();
+			        } else {
+			            b = BitmapFactory.decodeFile(path);
+			        }
+
+
+			        Log.d("", "bitmap size - width: "+b.getWidth()+ ", height: " + b.getHeight()+"");
+			        return b;
+			    } catch (Exception e) {
+			        Log.e("", e.getMessage(),e);
+			        return null;
+			    }
+			}
 		boolean parseXmlFile(String xmlFile) {
 			Document doc = null;
 
