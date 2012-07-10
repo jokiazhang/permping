@@ -363,7 +363,7 @@ public class NewPermActivity extends Activity implements OnClickListener {
 
 						ByteArrayOutputStream bos = new ByteArrayOutputStream();
 						Bitmap bm = BitmapFactory.decodeFile(filePath);
-						bm = getBitmap(filePath);
+//						bm = getBitmap(filePath);
 						bm.compress(CompressFormat.JPEG, 75, bos);
 						byte[] data = bos.toByteArray();
 

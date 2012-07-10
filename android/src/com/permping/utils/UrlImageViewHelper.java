@@ -277,7 +277,9 @@ public final class UrlImageViewHelper {
                       BitmapFactory.Options o2 = new BitmapFactory.Options();
                       o2.inSampleSize = scale;
                       fis = context.openFileInput(filename);
-                      Bitmap b = BitmapFactory.decodeStream(fis, null, o2);
+                      Bitmap b=null;
+                      if(fis != null)
+                    	  b = BitmapFactory.decodeStream(fis, null, o2);
                       fis.close();
 
                       prepareResources(context);
