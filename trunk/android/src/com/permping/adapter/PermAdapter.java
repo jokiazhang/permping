@@ -64,7 +64,7 @@ import com.permping.utils.facebook.sdk.FacebookError;
 import com.permping.utils.facebook.sdk.Facebook.DialogListener;
 import com.permping.view.ImageDetail;
 
-public class PermAdapter extends ArrayAdapter<Perm> {
+public class PermAdapter extends ArrayAdapter<Perm> implements OnClickListener {
 
 	private ArrayList<Perm> items;
 	public static final String TAG = "PermAdapter";
@@ -86,10 +86,19 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 	private int screenHeight;
 	private Context context;
 	private HashMap<String, View> viewList = new HashMap<String, View>();
+	private HashMap<String, Perm> newPermList = new HashMap<String, Perm>();
+	private HashMap<String, TextView> permStateList = new HashMap<String, TextView>();
 	public int count = 11;
 	
 	private FragmentManager fragmentManager;
 	private int nextItems = -1;
+	
+//	new
+	
+	final String likeString = this.getContext().getResources().getString(R.string.bt_like);
+	final String repermString = this.getContext().getResources().getString(R.string.bt_reperm);
+	final String commentString = this.getContext().getResources().getString(R.string.bt_comment);
+	final String textCurrentLike = this.getContext().getResources().getString(R.string.delete);
 /*	
 	PermAdapter(ArrayList<Perm> perms) {
 		super(PermAdapter.getContext(), new SpecialAdapter(perms), R.layout.pending);
@@ -151,27 +160,8 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 				// Process buttons
 				join = (Button) view.findViewById(R.id.bt_join);
 				login = (Button) view.findViewById(R.id.bt_login);
-				login.setOnClickListener(new OnClickListener() {
-
-					public void onClick(View v) {
-						SharedPreferences.Editor editor = prefs.edit();
-						// Set default login type.
-						editor.putString(Constants.LOGIN_TYPE,
-								Constants.PERMPING_LOGIN);
-						editor.commit();
-						PermpingMain.showLogin();
-					}
-				});
-
-				final OptionsDialog dialog = new OptionsDialog(context);
-
-				// Show the dialog
-				join.setOnClickListener(new OnClickListener() {
-
-					public void onClick(View v) {
-						dialog.show();
-					}
-				});
+				login.setOnClickListener(PermAdapter.this);
+				join.setOnClickListener(PermAdapter.this);
 				return view;
 			} else if(items != null && !items.isEmpty() && position < items.size()){
 				if(position == items.size() - 1) {
@@ -180,7 +170,7 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 				final Perm perm = items.get(position);
 				final String viewId = perm.getId();
 				convertView = viewList.get(viewId);
-				
+				newPermList.put(viewId, perm);
 				if (convertView != null){
 					Log.i(TAG, "getView() convertView != null");
 					addComments(convertView, perm);
@@ -201,75 +191,9 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 							like.setText(R.string.bt_unlike);
 						}
 					}
-					
-					final String likeString = this.getContext().getResources().getString(R.string.bt_like);
-					final String repermString = this.getContext().getResources().getString(R.string.bt_reperm);
-					final String commentString = this.getContext().getResources().getString(R.string.bt_comment);
-					final String textCurrentLike = this.getContext().getResources().getString(R.string.delete);
-					like.setOnClickListener(new OnClickListener() {
-						public void onClick(final View v) {
-							user = PermUtils.isAuthenticated(v.getContext());
-							if (user != null) {
-								// final ProgressDialog dialog =
-								// ProgressDialog.show(v.getContext(),
-								// "Loading","Please wait...", true);
-		
-								HttpPermUtils util = new HttpPermUtils();
-								Log.d("aasdfsdss", like.getText().toString()+"======="+R.string.delete);
-								if(like.getText().toString().equals(likeString)){
-									List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
-									nameValuePairs.add(new BasicNameValuePair("pid", String
-											.valueOf(perm.getId())));
-									nameValuePairs.add(new BasicNameValuePair("uid", String
-											.valueOf(user.getId())));
-									util.sendRequest(API.likeURL, nameValuePairs, false);
-			
-									if (v instanceof Button) {
-										String label = ((Button) v).getText().toString();
-										int likeCount = Integer.parseInt(perm
-												.getPermLikeCount());
-										if (label != null && label.equals(likeString)) { // Like
-											// Update the count
-											likeCount++;
-											perm.setPermLikeCount(String.valueOf(likeCount));
-											// Change the text to "Unlike"
-											((Button)v).setText(R.string.bt_unlike);
-											v.invalidate();
-										} else { // Unlike
-											likeCount = likeCount - 1;
-											if (likeCount < 0)
-												likeCount = 0;
-											perm.setPermLikeCount(String.valueOf(likeCount));
-											((Button)v).setText(R.string.bt_like);
-											v.invalidate();
-										}
-									}
-									
-									String permStatus = likeString + ": " + perm.getPermLikeCount()
-											+ " - " + repermString + ": " + perm.getPermRepinCount()
-											+ " - " + commentString + ": " + perm.getPermCommentCount();
-									TextView txtStatus = (TextView) view
-											.findViewById(R.id.permStat);
-									if(permStatus != null)
-										txtStatus.setText(permStatus);
-								}else if(like.getText().toString().equals(textCurrentLike)){
-									viewList.remove(viewId);
-									items.remove(position);
-									notifyDataSetChanged();
-									List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
-									nameValuePairs.add(new BasicNameValuePair("delid", String
-											.valueOf(perm.getId())));
-									nameValuePairs.add(new BasicNameValuePair("uid", String
-											.valueOf(user.getId())));
-									util.sendRequest(API.deleteUrl, nameValuePairs, false);
-									
-								}
-							} else {
-								Toast.makeText(view.getContext(), Constants.NOT_LOGIN,
-										Toast.LENGTH_LONG).show();
-							}
-						}
-					});
+
+					like.setTag(viewId);
+					like.setNextFocusDownId(position);
 					
 					if(perm != null && user != null) {
 						if( perm.getAuthor() != null)
@@ -277,70 +201,17 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 								like.setText(R.string.delete);
 //								like.setVisibility(View.GONE);
 					}
-		
+					like.setOnClickListener(PermAdapter.this);
 					reperm = (Button) view.findViewById(R.id.btnRepem);
-					reperm.setOnClickListener(new OnClickListener() {
-						public void onClick(final View v) {
-							user = PermUtils.isAuthenticated(v.getContext());
-							if (user != null) {
-								Intent myIntent = new Intent(view.getContext(),
-										NewPermActivity.class);
-								myIntent.putExtra("reperm", true);
-								NewPermActivity.boardList = user.getBoards();
-								myIntent.putExtra("boardId", perm.getBoard().getId());
-								myIntent.putExtra("boardDesc", (String) perm.getBoard().getDescription());
-								myIntent.putExtra("permId", (String) perm.getId());
-								myIntent.putExtra("userId", user.getId());
-//								View repermView = FollowerActivityGroup.group
-//										.getLocalActivityManager()
-//										.startActivity(
-//												"BoardListActivity",
-//												myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
-//										.getDecorView();
-//								FollowerActivityGroup.group.replaceView(repermView);
-							context.startActivity(myIntent);
-							} else {
-								Toast.makeText(view.getContext(), Constants.NOT_LOGIN,
-										Toast.LENGTH_LONG).show();
-							}
-						}
-					});
+					reperm.setTag(viewId);
+					reperm.setOnClickListener(PermAdapter.this);
 		
 					comment = (Button) view.findViewById(R.id.btnComment);
-					comment.setOnClickListener(new OnClickListener() {
-		
-						public void onClick(View v) {
-							user = PermUtils.isAuthenticated(v.getContext());
-							if (user != null) {
-								
-								PermpingApplication state = (PermpingApplication)v.getContext().getApplicationContext();
-								
-								CommentDialog commentDialog = new CommentDialog( v.getContext(), perm , state.getUser() );
-								commentDialog.show();
-							} else {
-								Toast.makeText(view.getContext(), Constants.NOT_LOGIN, Toast.LENGTH_LONG).show();
-							}
-						}
-					});
+					comment.setTag(viewId);
+					comment.setOnClickListener(PermAdapter.this);
 					ImageView gotoMap = (ImageView)view.findViewById(R.id.btnLocation);
-					gotoMap.setOnClickListener(new OnClickListener() {
-						
-						public void onClick(View v) {
-							// TODO Auto-generated method stub
-		
-							Intent googleMap = new Intent(context,
-									GoogleMapActivity.class);
-							Bundle bundle = new Bundle();
-							bundle.putFloat("lat", perm.getLat());
-							bundle.putFloat("lon", perm.getLon());
-							bundle.putString("thumbnail", perm.getImage().getUrl());
-							googleMap.putExtra("locationData", bundle);
-							Log.d("AA+++++============","========="+perm.getImage().getUrl());
-							View view = FollowerActivityGroup.group.getLocalActivityManager().startActivity( "GoogleMapActivity"+perm.getId(), googleMap).getDecorView();
-							FollowerActivityGroup.group.replaceView(view);
-		
-						}
-					});
+					gotoMap.setTag(viewId);
+					gotoMap.setOnClickListener(PermAdapter.this);
 					if(perm.getLon() ==0 && perm.getLat() == 0){
 						gotoMap.setVisibility(View.GONE);
 					}else{
@@ -382,40 +253,18 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 							
 							public void onClick(View arg0) {
 								// TODO Auto-generated method stub
-//								Intent imageDetail = new Intent(context, ImageDetail.class);
-//								imageDetail.putExtra("url", perm.getImage().getUrl());
-//								activity.startActivity(imageDetail);
 								String permUrl = perm.getImage().getUrl();
 								if(permUrl != null && permUrl != "")
 									PermpingMain.gotoTab(5, perm.getImage().getUrl());
-//								ImageDetail detailImage = new ImageDetail(perm.getImage().getUrl());
-//								if(fragmentManager != null)detailImage.show(fragmentManager, "sendEmailFrag");
 							}
 						});
-						//thien
-//						if(perm.getImage() != null){
-//							if(perm.getImage().getUrl() != null)
-//								new getData(perm.getImage().getUrl()).execute(imageView);
-//						}
-						//endthien
-						/*
-						 LinearLayout.LayoutParams layoutParams = (LayoutParams) pv.getLayoutParams();
-		 				layoutParams.width = 350;
-		 				pv.setLayoutParams(layoutParams);
-		 				*/
 					
 						UrlImageViewHelper.setUrlDrawable(imageView, perm.getImage().getUrl() , true ); 
-						//PermUtils.scaleImage(pv, screenWidth, screenHeight);
-						
-						// Perm description
 						TextView pd = (TextView) view.findViewById(R.id.permDesc);
 						//holder.permDesc.setText(perm.getDescription());
 						if(perm != null)
 							if(perm.getDescription() != null)
 								pd.setText(perm.getDescription());
-		
-//			thien.messge			String permInfo = "via " + perm.getAuthor().getName()
-//								+ " on to " + perm.getBoard().getName();
 						String permInfo = perm.getPermDatemessage();
 						TextView pi = (TextView) view.findViewById(R.id.permInfo);
 						//holder.permInfo.setText(permInfo);
@@ -427,8 +276,7 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 								+ " - " + commentString + ": " + perm.getPermCommentCount();
 						
 						TextView ps = (TextView) view.findViewById(R.id.permStat);
-						//holder.permStat.setText(permStat);
-						//holder.permStat.setText(permStat);
+						permStateList.put(viewId, ps);
 						if(permStat !=null)
 							ps.setText(permStat);
 		
@@ -467,26 +315,11 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 										if(pcm.getContent() != null)
 											cmt.setText(pcm.getContent());
 									}
-									/*
-									 * boolean isWrapped = PermUtils.isTextWrapped(activity,
-									 * cmt.getText().toString(), cmt.getContext()); if
-									 * (isWrapped) { cmt.setMaxLines(5);
-									 * cmt.setSingleLine(false);
-									 * cmt.setEllipsize(TruncateAt.MARQUEE); }
-									 */
 									if (i == (perm.getComments().size() - 1)) {
 										View sp = (View) cm.findViewById(R.id.separator);
 										sp.setVisibility(View.INVISIBLE);
 									}
-									/*
-									 * EllipsizingTextView cmt = (EllipsizingTextView) cm
-									 * .findViewById(R.id.commentContent);
-									 * cmt.setText(pcm.getContent());
-									 * 
-									 * if (i == (perm.getComments().size() - 1)) { View sp =
-									 * (View) cm.findViewById(R.id.separator);
-									 * sp.setVisibility(View.INVISIBLE); }
-									 */
+
 									comments.addView(cm);
 								}
 							}
@@ -852,22 +685,7 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 
 		}
 	}
-/*	
-	class SpecialAdapter extends ArrayAdapter<Perm> {
-		SpecialAdapter(ArrayList<Perm> perms) {
-			super(PermAdapter.getContext(), R.layout.perm_item_special,
-					android.R.id.text1, perms);
-		}
-		
-		 
-		@Override
-		public View getView(int position, View convertView, ViewGroup parent) {
-			// TODO Auto-generated method stub
-			View row = super.getView(position, convertView, parent);
-			return row;
-		}
-	}*/
-	
+
 	/**
 	 * @return the count
 	 */
@@ -921,6 +739,186 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 		TextView permStat;
 		LinearLayout comments;
 	}*/
+
+	@Override
+	public void onClick(View v) {
+		// TODO Auto-generated method stub
+		int id= v.getId();
+		switch (id) {
+		case R.id.bt_login:
+			exeLogin();
+			break;
+		case R.id.bt_join:
+			exeJoin();
+			break;
+		case R.id.btnLike:
+			exeLike(v);
+			break;
+		case R.id.btnRepem:
+			exeReperm(v);
+			break;
+		case R.id.btnComment:
+			exeComment(v);
+			break;
+		case R.id.btnLocation:
+			exeGotoMap(v);
+			break;
+		default:
+			break;
+		}
+		
+	}
+
+	private void exeGotoMap(View view) {
+		// TODO Auto-generated method stub
+
+		// TODO Auto-generated method stub
+		String permId = (String)view.getTag();
+		if(permId != null){
+			Perm perm = newPermList.get(permId);
+			Intent googleMap = new Intent(context,
+					GoogleMapActivity.class);
+			Bundle bundle = new Bundle();
+			bundle.putFloat("lat", perm.getLat());
+			bundle.putFloat("lon", perm.getLon());
+			bundle.putString("thumbnail", perm.getImage().getUrl());
+			googleMap.putExtra("locationData", bundle);
+			Log.d("AA+++++============","========="+perm.getImage().getUrl());
+			View view2 = FollowerActivityGroup.group.getLocalActivityManager().startActivity( "GoogleMapActivity"+perm.getId(), googleMap).getDecorView();
+			FollowerActivityGroup.group.replaceView(view2);
+
+		}	
+	}
+
+	private void exeComment(View view) {
+		// TODO Auto-generated method stub
+		String permId = (String)view.getTag();
+		if(permId != null){
+			Perm perm = newPermList.get(permId);
+			user = PermUtils.isAuthenticated(view.getContext());
+			if (user != null) {
+				
+				PermpingApplication state = (PermpingApplication)view.getContext().getApplicationContext();
+				
+				CommentDialog commentDialog = new CommentDialog( view.getContext(), perm , state.getUser() );
+				commentDialog.show();
+			} else {
+				Toast.makeText(view.getContext(), Constants.NOT_LOGIN, Toast.LENGTH_LONG).show();
+			}
+
+		}
+	
+	}
+
+	private void exeReperm(View view) {
+		// TODO Auto-generated method stub
+		String permId = (String)view.getTag();
+		if(permId != null){
+			Perm perm = newPermList.get(permId);
+			user = PermUtils.isAuthenticated(view.getContext());
+			if (user != null) {
+				Intent myIntent = new Intent(view.getContext(),
+						NewPermActivity.class);
+				myIntent.putExtra("reperm", true);
+				NewPermActivity.boardList = user.getBoards();
+				myIntent.putExtra("boardId", perm.getBoard().getId());
+				myIntent.putExtra("boardDesc", (String) perm.getBoard().getDescription());
+				myIntent.putExtra("permId", (String) perm.getId());
+				myIntent.putExtra("userId", user.getId());
+				context.startActivity(myIntent);
+			} else {
+				Toast.makeText(view.getContext(), Constants.NOT_LOGIN,
+						Toast.LENGTH_LONG).show();
+			}
+			
+		}
+	
+	}
+
+	private void exeLike(View v) {
+		// TODO Auto-generated method stub
+		String permId = (String)v.getTag();
+		if(permId != null){
+			Perm perm = newPermList.get(permId);
+			user = PermUtils.isAuthenticated(v.getContext());
+			if (user != null) {
+				// final ProgressDialog dialog =
+				// ProgressDialog.show(v.getContext(),
+				// "Loading","Please wait...", true);
+
+				HttpPermUtils util = new HttpPermUtils();
+				Log.d("aasdfsdss", like.getText().toString()+"======="+R.string.delete);
+				if(like.getText().toString().equals(likeString)){
+					List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+					nameValuePairs.add(new BasicNameValuePair("pid", String
+							.valueOf(perm.getId())));
+					nameValuePairs.add(new BasicNameValuePair("uid", String
+							.valueOf(user.getId())));
+					util.sendRequest(API.likeURL, nameValuePairs, false);
+
+					if (v instanceof Button) {
+						String label = ((Button) v).getText().toString();
+						int likeCount = Integer.parseInt(perm
+								.getPermLikeCount());
+						if (label != null && label.equals(likeString)) { // Like
+							// Update the count
+							likeCount++;
+							perm.setPermLikeCount(String.valueOf(likeCount));
+							// Change the text to "Unlike"
+							((Button)v).setText(R.string.bt_unlike);
+							v.invalidate();
+						} else { // Unlike
+							likeCount = likeCount - 1;
+							if (likeCount < 0)
+								likeCount = 0;
+							perm.setPermLikeCount(String.valueOf(likeCount));
+							((Button)v).setText(R.string.bt_like);
+							v.invalidate();
+						}
+					}
+					
+					String permStatus = likeString + ": " + perm.getPermLikeCount()
+							+ " - " + repermString + ": " + perm.getPermRepinCount()
+							+ " - " + commentString + ": " + perm.getPermCommentCount();
+					TextView txtStatus = permStateList.get(permId);
+					if(permStatus != null)
+						txtStatus.setText(permStatus);
+				}else if(like.getText().toString().equals(textCurrentLike)){
+					viewList.remove(perm.getId());
+					int position = v.getNextFocusDownId();
+					if(position >= 0 && items.size() > position)
+						items.remove(position);
+					notifyDataSetChanged();
+					List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+					nameValuePairs.add(new BasicNameValuePair("delid", String
+							.valueOf(perm.getId())));
+					nameValuePairs.add(new BasicNameValuePair("uid", String
+							.valueOf(user.getId())));
+					util.sendRequest(API.deleteUrl, nameValuePairs, false);
+					
+				}
+			} else {
+
+			}
+
+		}	
+	}
+
+	private void exeJoin() {
+		// TODO Auto-generated method stub
+		final OptionsDialog dialog = new OptionsDialog(context);
+		dialog.show();
+	}
+
+	private void exeLogin() {
+		// TODO Auto-generated method stub
+		SharedPreferences.Editor editor = prefs.edit();
+		// Set default login type.
+		editor.putString(Constants.LOGIN_TYPE,
+				Constants.PERMPING_LOGIN);
+		editor.commit();
+		PermpingMain.showLogin();
+	}
 
 }
 
