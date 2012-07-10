@@ -254,6 +254,7 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 										txtStatus.setText(permStatus);
 								}else if(like.getText().toString().equals(textCurrentLike)){
 									viewList.remove(viewId);
+									items.remove(position);
 									notifyDataSetChanged();
 									List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
 									nameValuePairs.add(new BasicNameValuePair("delid", String
