@@ -42,5 +42,6 @@ public class API {
 	public static final String logoutURL = hostURL + "/userservice/logout/";
 	public static final String getNewPerm = hostURL + "/permservice/getnewperm";
 	public static final String follow  = hostURL + "/userservice/followuser";
+	public static final String deleteUrl  = hostURL + "/permservice/delete";
 	
 }
