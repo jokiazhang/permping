@@ -64,4 +64,5 @@
     <string name="exit_content">펌핑을 종료 하시겠습니까?</string>
     <string name="yes">종료</string>
     <string name="no">아니오</string>
+    <string name="delete">삭제</string>
 </resources>
