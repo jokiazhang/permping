@@ -2,6 +2,8 @@ package com.permping.activity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -18,9 +20,11 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.util.DisplayMetrics;
+import android.util.Log;
 
 import android.view.KeyEvent;
 import android.widget.AbsListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.ListView;
@@ -159,11 +163,27 @@ public class FollowerActivity extends FragmentActivity implements Login_delegate
 		clearData();
 		dialog = ProgressDialog.show(getParent(), "Loading", "Please wait...",
 				true);
+		new Timer().schedule(new TimerTask() {
+			
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				timeoutDialog();
+			}
+		}, 5000);
+
 		loadPermList = new LoadPermList();
 		loadPermList.execute();
 	}
 	
-	
+	private void timeoutDialog() {
+		// TODO Auto-generated method stub
+			if(dialog != null){
+				if(dialog.isShowing()){
+					dialog.dismiss();
+				}
+			}
+	}
 	public void loadPreviousItems() {
 		if(nextItem > -1) {
 			nextItem = nextItem - 1;
