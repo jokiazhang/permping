@@ -139,7 +139,7 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 	}
 
 	@Override
-	public View getView(int position, View convertView, ViewGroup parent) {
+	public View getView(final int position, View convertView, ViewGroup parent) {
 		try {
 
 			//ViewHolder holder;
@@ -178,7 +178,7 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 					return createFooterView();
 				}
 				final Perm perm = items.get(position);
-				String viewId = perm.getId();
+				final String viewId = perm.getId();
 				convertView = viewList.get(viewId);
 				
 				if (convertView != null){
@@ -253,13 +253,15 @@ public class PermAdapter extends ArrayAdapter<Perm> {
 									if(permStatus != null)
 										txtStatus.setText(permStatus);
 								}else if(like.getText().toString().equals(textCurrentLike)){
+									viewList.remove(viewId);
+									notifyDataSetChanged();
 									List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
 									nameValuePairs.add(new BasicNameValuePair("delid", String
 											.valueOf(perm.getId())));
 									nameValuePairs.add(new BasicNameValuePair("uid", String
 											.valueOf(user.getId())));
 									util.sendRequest(API.deleteUrl, nameValuePairs, false);
-									notifyDataSetChanged();
+									
 								}
 							} else {
 								Toast.makeText(view.getContext(), Constants.NOT_LOGIN,
