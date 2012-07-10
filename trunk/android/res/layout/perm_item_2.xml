@@ -3,7 +3,8 @@
      xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:stretchColumns="0">
+        android:stretchColumns="0"
+        android:paddingBottom="0dp">
     
         <TableRow>
 
@@ -64,7 +65,8 @@
                 android:layout_height="20dp"
                 android:layout_span="2"
                 android:orientation="vertical"
-                android:padding="5dp" >
+                android:padding="0dp"
+                android:layout_marginTop="10dp" >
 
                 <View
                     android:id="@+id/separator"
