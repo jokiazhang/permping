@@ -58,25 +58,27 @@ public class AccountActivity extends Activity {
 					state.setUser(null);
 				}
 				
+				((ProfileActivityGroup)(ProfileActivityGroup.group)).createUI();
+				
 				// Forward to PermpingMain screen (Followers tab)
-				Intent intent = new Intent(v.getContext(), PermpingMain.class);
-				v.getContext().startActivity(intent);
+				//Intent intent = new Intent(v.getContext(), PermpingMain.class);
+				//v.getContext().startActivity(intent);
 			}
 		});
 		
 		cancel.setOnClickListener(new View.OnClickListener() {
 			
 			public void onClick(View v) {
-				ProfileActivityGroup.group.back();
+				((ProfileActivityGroup)(ProfileActivityGroup.group)).createUI();
 			}
 		});
 		
-		back.setOnClickListener(new View.OnClickListener() {
+		/*back.setOnClickListener(new View.OnClickListener() {
 			
 			public void onClick(View v) {
 				ProfileActivityGroup.group.back();
 			}
-		});
+		});*/
 	}
 	
 	@Override
@@ -84,7 +86,7 @@ public class AccountActivity extends Activity {
 	{		
 	    if ((keyCode == KeyEvent.KEYCODE_BACK))
 	    {
-	        PermpingMain.back();
+	    	((ProfileActivityGroup)(ProfileActivityGroup.group)).createUI();
 	        return true;
 	    }
 	    return super.onKeyDown(keyCode, event);

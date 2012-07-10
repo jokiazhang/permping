@@ -6,6 +6,7 @@ package com.permping.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 
 import com.permping.PermpingMain;
@@ -32,6 +33,10 @@ public class ProfileActivityGroup extends TabGroupActivity {
 	
 	public void onResume(){
 		super.onResume();
+		createUI();
+	}
+	
+	public void createUI() {
 		User user = PermUtils.isAuthenticated(getApplicationContext());
 		setTabGroup(this);
         if (user != null) {
@@ -39,7 +44,23 @@ public class ProfileActivityGroup extends TabGroupActivity {
     		replaceView(view);
     		clearHistory();
     	} else {
+    		clearHistory();
 			PermpingMain.showLogin();
 		}
+	}
+	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event)
+	{		
+	    if ((keyCode == KeyEvent.KEYCODE_BACK))
+	    {
+	    	Activity accountActivity = ProfileActivityGroup.group.getCurrentActivity();
+	    	if(accountActivity instanceof AccountActivity) {
+	    		return accountActivity.onKeyDown(keyCode, event);
+	    	}
+	        PermpingMain.back();
+	        return true;
+	    }
+	    return super.onKeyDown(keyCode, event);
 	}
 }

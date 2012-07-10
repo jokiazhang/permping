@@ -36,7 +36,7 @@
     <string name="comment_title">Comment</string>
     <string name="addnew">All category</string>
     
-    <string name="login_text">펌핑 이미지 SNS 로그인 하기</string>
+    <string name="login_text">펌핑 이미지 SNS\n\t로그인 하기</string>
     <string name="email_address">이메일    :   입력해 주세요</string>
     <string name="password">비밀번호  :  입력해 주세요</string>
     <string name="required">입력하세요</string>
