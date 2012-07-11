@@ -48,12 +48,13 @@ public class PrepareRequestTokenActivity extends Activity implements Login_deleg
 	
     private OAuthConsumer consumer; 
     private OAuthProvider provider;
-    
+    private Activity parentActivity;
     private Context context;  
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		context = PrepareRequestTokenActivity.this;
+		parentActivity = getParent();
     	try {
     		this.consumer = new CommonsHttpOAuthConsumer(Constants.CONSUMER_KEY, Constants.CONSUMER_SECRET);
     	    this.provider = new CommonsHttpOAuthProvider(Constants.REQUEST_URL,Constants.ACCESS_URL,Constants.AUTHORIZE_URL);
@@ -74,13 +75,14 @@ public class PrepareRequestTokenActivity extends Activity implements Login_deleg
 	public void onNewIntent(Intent intent) {
 		super.onNewIntent(intent); 
 		flag = true;
-		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 		final Uri uri = intent.getData();
 		if (uri != null && uri.toString().startsWith(Constants.OAUTH_CALLBACK_URL)) {
 			Log.i(TAG, "Callback received : " + uri);
 			Log.i(TAG, "Retrieving Access Token");
 			new RetrieveAccessTokenTask(this,consumer,provider,prefs).execute(uri);
-			finish();	
+			if(!LoginPermActivity.isTwitter)
+				finish();	
 		}
 	}
 	
@@ -111,30 +113,33 @@ public class PrepareRequestTokenActivity extends Activity implements Login_deleg
 			try {
 				provider.retrieveAccessToken(consumer, oauth_verifier);
 
-				final Editor editor = prefs.edit();
+				Editor editor = prefs.edit();
 				// Set the login type as Twitter
 				editor.putString(Constants.LOGIN_TYPE, Constants.TWITTER_LOGIN);
-				editor.putString(OAuth.OAUTH_TOKEN, consumer.getToken());
-				editor.putString(OAuth.OAUTH_TOKEN_SECRET, consumer.getTokenSecret());
+//				editor.putString(OAuth.OAUTH_TOKEN, consumer.getToken());
+//				editor.putString(OAuth.OAUTH_TOKEN_SECRET, consumer.getTokenSecret());
 				editor.putString(OAuth.OAUTH_VERIFIER, oauth_verifier);
-				editor.commit();
+//				editor.commit();
 				
-				String token = prefs.getString(OAuth.OAUTH_TOKEN, "");
-				String secret = prefs.getString(OAuth.OAUTH_TOKEN_SECRET, "");
+				String token = consumer.getToken();
+				String secret = consumer.getTokenSecret();
 				
 				consumer.setTokenWithSecret(token, secret);
 				AccessToken accessToken = new AccessToken(token, secret);
 				PermUtils permUtils = new PermUtils();
-				permUtils.saveTwitterAccess("twitter", accessToken, PrepareRequestTokenActivity.this);
+				permUtils.saveTwitterAccess("twitter", accessToken, getApplicationContext());
 				//TODO: validate user before forwarding to new page.
 				// Check on server
-//				List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(5);
-//				nameValuePairs.add(new BasicNameValuePair("type", "twitter"));
-//				nameValuePairs.add(new BasicNameValuePair("oauth_token", token));
-//				nameValuePairs.add(new BasicNameValuePair("oauth_token_secret", secret));
-//				nameValuePairs.add(new BasicNameValuePair("oath_verifier", oauth_verifier));
-//				AuthorizeController authorize = new AuthorizeController(PrepareRequestTokenActivity.this);
-//				authorize.authorize(context, nameValuePairs);
+				if(LoginPermActivity.isTwitter){
+					List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(5);
+					nameValuePairs.add(new BasicNameValuePair("type", "twitter"));
+					nameValuePairs.add(new BasicNameValuePair("oauth_token", token));
+					nameValuePairs.add(new BasicNameValuePair("oauth_token_secret", secret));
+					nameValuePairs.add(new BasicNameValuePair("oath_verifier", oauth_verifier));
+					AuthorizeController authorize = new AuthorizeController(PrepareRequestTokenActivity.this);
+					authorize.authorize(context, nameValuePairs);
+					
+				}
 			
 				Log.i(TAG, "OAuth - Access Token Retrieved");
 				
@@ -161,12 +166,16 @@ public class PrepareRequestTokenActivity extends Activity implements Login_deleg
 		// TODO Auto-generated method stub
 		Intent intent = new Intent(context, PermpingMain.class);
 		context.startActivity(intent);
+		LoginPermActivity.isTwitter =false;
+		finish();
 	}
 	@Override
 	public void on_error() {
 		// TODO Auto-generated method stub
 		Intent intent = new Intent(context, JoinPermActivity.class);
 		context.startActivity(intent);
+		LoginPermActivity.isTwitter = false;
+		finish();
 	}	
 	
 }

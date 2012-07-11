@@ -11,6 +11,8 @@ import oauth.signpost.OAuth;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
+import twitter4j.http.AccessToken;
+
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -62,7 +64,7 @@ public class LoginPermActivity extends Activity implements Login_delegate {
 	Button twitterLogin;
 	Button login;
 	private boolean isLoginFb = false;
-	private boolean isTwitter = false;
+	public static boolean isTwitter = false;
 	private ProgressDialog loadingDialog;
 	private PermpingMain login_delegate;
 	SharedPreferences prefs;
@@ -166,7 +168,7 @@ public class LoginPermActivity extends Activity implements Login_delegate {
 //					// TODO: handle exception
 //					Logger.appendLog(e.toString(), "facebooklog");
 //				}
-				final SharedPreferences prefs;
+			
 			    Facebook mFacebook;
 			    String token = null;
 				mFacebook = new Facebook(Constants.FACEBOOK_APP_ID);
@@ -222,18 +224,23 @@ public class LoginPermActivity extends Activity implements Login_delegate {
 	@Override
 	public void onResume(){
 		super.onResume();
-		if(isTwitter){
-			String token = prefs.getString(OAuth.OAUTH_TOKEN, "");
-			String secret = prefs.getString(OAuth.OAUTH_TOKEN_SECRET, "");
-			String oauth_verifier = prefs.getString(OAuth.OAUTH_VERIFIER, "");
-			List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(5);
-			nameValuePairs.add(new BasicNameValuePair("type", "twitter"));
-			nameValuePairs.add(new BasicNameValuePair("oauth_token", token));
-			nameValuePairs.add(new BasicNameValuePair("oauth_token_secret", secret));
-			nameValuePairs.add(new BasicNameValuePair("oath_verifier", oauth_verifier));
-			AuthorizeController authorize = new AuthorizeController(LoginPermActivity.this);
-			authorize.authorize(context, nameValuePairs);
-		}
+//		if(isTwitter){
+//			PermUtils permUtils = new PermUtils();
+//			AccessToken accessToken = permUtils.getTwitterAccess(getApplicationContext());
+//			if(accessToken != null){
+//				String token = accessToken.getToken();//prefs.getString(OAuth.OAUTH_TOKEN, "");
+//				String secret = accessToken.getTokenSecret();//prefs.getString(OAuth.OAUTH_TOKEN_SECRET, "");
+//				String oauth_verifier = prefs.getString(OAuth.OAUTH_VERIFIER, "");
+//				List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(5);
+//				nameValuePairs.add(new BasicNameValuePair("type", "twitter"));
+//				nameValuePairs.add(new BasicNameValuePair("oauth_token", token));
+//				nameValuePairs.add(new BasicNameValuePair("oauth_token_secret", secret));
+//				nameValuePairs.add(new BasicNameValuePair("oath_verifier", oauth_verifier));
+//				AuthorizeController authorize = new AuthorizeController(LoginPermActivity.this);
+//				authorize.authorize(context, nameValuePairs);
+//				
+//			}
+//		}
 	}
 	public void onPause() {
 		super.onPause();
@@ -275,9 +282,9 @@ public void on_success() {
 		PermpingMain.back();
 	}else if(isTwitter){
 		FollowerActivity.isLogin = true;
-		Intent intent = new Intent(context, PermpingMain.class);
+//		Intent intent = new Intent(context, PermpingMain.class);
 //		context.startActivity(intent);
-//		PermpingMain.back();
+		PermpingMain.back();
 		isTwitter = false;
 	}else{
 		FollowerActivity.isLogin = true;
