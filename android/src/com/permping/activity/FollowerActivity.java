@@ -171,7 +171,7 @@ public class FollowerActivity extends FragmentActivity implements Login_delegate
 			this.header = false;
 		}
 		clearData();
-		dialog = ProgressDialog.show(getParent(), "Loading", "Please wait...",
+		/*dialog = ProgressDialog.show(getParent(), "Loading", "Please wait...",
 				true);
 		new Timer().schedule(new TimerTask() {
 			
@@ -180,7 +180,7 @@ public class FollowerActivity extends FragmentActivity implements Login_delegate
 				// TODO Auto-generated method stub
 				timeoutDialog();
 			}
-		}, 5000);
+		}, 5000);*/
 
 		loadPermList = new LoadPermList();
 		loadPermList.execute();
@@ -199,8 +199,8 @@ public class FollowerActivity extends FragmentActivity implements Login_delegate
 			nextItem = nextItem - 1;
 			//loadItems("Loading previous");
 			clearData();
-			dialog = ProgressDialog.show(getParent(), "Loading previous", "Please wait...",
-	    			true);
+			/*dialog = ProgressDialog.show(getParent(), "Loading previous", "Please wait...",
+	    			true);*/
 			
 			loadPermList = new LoadPermList();
 			loadPermList.execute();
@@ -212,8 +212,8 @@ public class FollowerActivity extends FragmentActivity implements Login_delegate
 		if(permListAdapter != null) {
 			nextItem = permListAdapter.getNextItems();
 			clearData();
-	    	dialog = ProgressDialog.show(getParent(), "Loading more", "Please wait...",
-	    			true);
+	    	/*dialog = ProgressDialog.show(getParent(), "Loading more", "Please wait...",
+	    			true);*/
 			
 	    	loadPermList = new LoadPermList();
 			loadPermList.execute();
