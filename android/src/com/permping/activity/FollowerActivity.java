@@ -23,8 +23,12 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 
 import android.view.KeyEvent;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AbsListView;
+import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.ListView;
@@ -42,7 +46,7 @@ import com.permping.utils.API;
 import com.permping.utils.PermUtils;
 import com.permping.utils.UrlImageViewHelper;
 
-public class FollowerActivity extends FragmentActivity implements Login_delegate{
+public class FollowerActivity extends FragmentActivity implements Login_delegate, OnClickListener{
 
 	
 	public static final String DOWNLOAD_COMPLETED = "DOWNLOAD_COMPLETED";
@@ -61,7 +65,8 @@ public class FollowerActivity extends FragmentActivity implements Login_delegate
 	private ProgressDialog dialog;
 	
 	ListView permListView;
-	
+	Button btnRefesh;
+	RelativeLayout headerLayout;
 	PermAdapter permListAdapter;
 	
 	public static LoadPermList loadPermList;
@@ -94,6 +99,11 @@ public class FollowerActivity extends FragmentActivity implements Login_delegate
 		
 		PermUtils.clearViewHistory();
 		loadPermList = new LoadPermList();
+		headerLayout = (RelativeLayout)findViewById(R.id.titlebar);
+		headerLayout.setBackgroundResource(R.drawable.header);
+		btnRefesh = (Button)findViewById(R.id.btnRefesh);
+		btnRefesh.setVisibility(View.VISIBLE);
+		btnRefesh.setOnClickListener(this);
 	}
 
 	@Override
@@ -319,5 +329,19 @@ public class FollowerActivity extends FragmentActivity implements Login_delegate
 		//Logger.appendLog("test log", "loginerror");
 		Intent intent = new Intent(getApplicationContext(), JoinPermActivity.class);
 		this.startActivity(intent);		
+	}
+
+	@Override
+	public void onClick(View v) {
+		// TODO Auto-generated method stub
+		int id = v.getId();
+		switch (id) {
+		case R.id.btnRefesh:
+			exeFollowerActivity();
+			break;
+
+		default:
+			break;
+		}
 	}
 }
