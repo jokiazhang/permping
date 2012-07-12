@@ -20,6 +20,7 @@ import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -35,6 +36,7 @@ import twitter4j.internal.org.json.XML;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -67,6 +69,9 @@ public class XMLParser implements HttpAccess {
     public final static int GET_BOARD = 5;
     public final static int GET_PERMS_BY_DATE = 6;
     public final static int UPDATE_PROFILE = 7;
+    public static final String PREFS_NAME = "UserPermping";
+    public static final String STORE_USER_EMAIL = "UserEmail";
+    public static final String STORE_USER_PASS = "UserPass";
 	private Document doc = null;
 	private String xml = "<empty></empty>";
 	public int type;
@@ -371,6 +376,7 @@ public class XMLParser implements HttpAccess {
 	public MyDiary_Delegate myDiaryDelegate;
 	public Object delegate;
 	public Context context;
+	List<NameValuePair> nameValuePairs;
 	/**
 	 * Initialize the parser with the url and params
 	 * @param url
@@ -379,6 +385,7 @@ public class XMLParser implements HttpAccess {
 		this.context = context;
 		this.type = type;
 		this.loginDelegate = delegate;
+		this.nameValuePairs = nameValuePairs;
 		getResponseFromURL(delegate, url, nameValuePairs);
 	}
 	
@@ -415,6 +422,7 @@ public class XMLParser implements HttpAccess {
 		if(httpPermUtils  == null)
 			httpPermUtils = new HttpPermUtils(XMLParser.this);
 		this.type = type;
+		this.nameValuePairs = nameValuePairs;
 		getResponseFromURL(type, delegate, url, nameValuePairs);
 
 	}
@@ -423,6 +431,7 @@ public class XMLParser implements HttpAccess {
 		if(httpPermUtils  == null)
 			httpPermUtils = new HttpPermUtils(XMLParser.this);
 		this.type = type;
+		this.nameValuePairs = nameValuePairs;
 		if(isCallAsynTask) {
 			getAsynResponseFromURL(type, delegate, url, nameValuePairs);
 		} else {
@@ -432,6 +441,7 @@ public class XMLParser implements HttpAccess {
 	public Document getResponseFromURL(int Type, Object delegate, String url, List<NameValuePair> nameValuePairs) {
 		try {
 			this.type= Type;
+			this.nameValuePairs = nameValuePairs;
 			if(delegate != null)
 				this.delegate = delegate;		
 			String response = httpPermUtils.sendRequest(url, nameValuePairs,false);
@@ -449,6 +459,7 @@ public class XMLParser implements HttpAccess {
 	public Document getAsynResponseFromURL(int Type, Object delegate, String url, List<NameValuePair> nameValuePairs) {
 		try {
 			this.type= Type;
+			this.nameValuePairs = nameValuePairs;
 			if(delegate != null)
 				this.delegate = delegate;		
 			String response = httpPermUtils.sendAsynRequest(url, nameValuePairs,false);
@@ -466,6 +477,7 @@ public class XMLParser implements HttpAccess {
 	public Document getResponseFromURL(int Type, Object delegate, String url, List<NameValuePair> nameValuePairs, String id) {
 		this.type= Type;
 		this.delegate = delegate;
+		this.nameValuePairs = nameValuePairs;
 		HttpPermUtils httpPermUtils = new HttpPermUtils(XMLParser.this);
 		String response = httpPermUtils.sendRequest(url, nameValuePairs,id, false);
 		if (response != null) {
@@ -481,6 +493,7 @@ public class XMLParser implements HttpAccess {
 	 */
 	public Document getResponseFromURL(Login_delegate delegate, String url, List<NameValuePair> nameValuePairs) {
 		HttpPermUtils httpPermUtils = new HttpPermUtils(XMLParser.this);
+		this.nameValuePairs = nameValuePairs;
 		httpPermUtils.sendRequest( url, nameValuePairs, false);
 		return null;
 	}
@@ -769,8 +782,10 @@ public class XMLParser implements HttpAccess {
 				User user = getUser();
 				if(user != null && context != null) {
 					PermpingApplication state = (PermpingApplication) context.getApplicationContext();
-					if (state != null)
+					if (state != null) {
 						state.setUser(user);
+						storeAccount();
+					}
 				}
 			default:
 				break;
@@ -807,6 +822,42 @@ public class XMLParser implements HttpAccess {
 			}
 		}
 	}
+	
+	public static void storePermpingAccount(Context context, String userEmail, String userPass) {
+		SharedPreferences account = context.getApplicationContext().getSharedPreferences(PREFS_NAME, 0);
+		SharedPreferences.Editor editor = account.edit();
+		editor.putString(STORE_USER_EMAIL, userEmail);
+		editor.putString(STORE_USER_PASS, userPass);		
+		editor.commit();
+	}
+	
+	public static String getUserEmail(Context context) {
+		SharedPreferences account = context.getApplicationContext().getSharedPreferences(PREFS_NAME, 0);
+		return account.getString(STORE_USER_EMAIL, "");		
+	}
+	
+	public static String getUserPass(Context context) {
+		SharedPreferences account = context.getApplicationContext().getSharedPreferences(PREFS_NAME, 0);
+		return account.getString(STORE_USER_PASS, "");		
+	}
+	
+	private void storeAccount() {
+		if(nameValuePairs != null && nameValuePairs.size() > 0) {
+			String userEmail = "";
+			String userPass = "";
+			for(int i=0; i < nameValuePairs.size(); i++) {
+				BasicNameValuePair pair = (BasicNameValuePair) nameValuePairs.get(i);
+				if(pair != null && pair.getName().equals("email")) {
+					userEmail = pair.getValue();
+				}
+				if(pair != null && pair.getName().equals("password")) {
+					userPass = pair.getValue();
+				}
+			}
+			storePermpingAccount(context, userEmail, userPass);
+		}
+	}
+	
 	private void exeGetPerm(Document doc2) {
 		// TODO Auto-generated method stub
 		Get_Perm_Delegate delegates = (Get_Perm_Delegate)delegate;
@@ -903,6 +954,7 @@ public class XMLParser implements HttpAccess {
 			// Store the user object to PermpingApplication
 			PermpingApplication state = (PermpingApplication)context.getApplicationContext();
 			state.setUser(user);
+			storeAccount();			
 			PermpingMain.UID = user.getId();			
 			synchronized (this) {
 				if(loginDelegate != null) {
