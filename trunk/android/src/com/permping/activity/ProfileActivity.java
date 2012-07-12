@@ -45,6 +45,7 @@ import com.permping.utils.API;
 import com.permping.utils.Constants;
 import com.permping.utils.PermUtils;
 import com.permping.utils.UrlImageViewHelper;
+import com.permping.utils.XMLParser;
 import com.permping.utils.facebook.sdk.Util;
 
 import android.app.Activity;
@@ -264,6 +265,7 @@ public class ProfileActivity extends Activity implements Get_Board_delegate{
 				if(result.booleanValue() && btnAccount.getText().equals(context.getString(R.string.logout))){
 					PermpingApplication state = (PermpingApplication)context.getApplicationContext();
 					state.setUser(null);
+					XMLParser.storePermpingAccount(context, "", "");
 					PermpingMain.back();
 					PermpingMain.showLogin();
 					btnAccount.setText(context.getString(R.string.login));

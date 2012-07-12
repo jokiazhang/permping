@@ -144,6 +144,11 @@ public class JoinPermActivity extends Activity implements TextWatcher, JoinPerm_
 			// Store the user object to PermpingApplication
 			PermpingApplication state = (PermpingApplication) getApplicationContext();
 			state.setUser(user);
+			if(getApplicationContext() != null && email != null && password != null) {
+				if(email.getText().toString().length() > 0 && password.getText().toString().length() > 0) {
+					XMLParser.storePermpingAccount(getApplicationContext(), email.getText().toString(), password.getText().toString());
+				}
+			}			
 			if(user != null) FollowerActivity.isLogin = true;		
 		} else {
 			Toast toast = Toast.makeText(getApplicationContext(), "Joined perm failed! Please try again.", Toast.LENGTH_LONG);

@@ -8,6 +8,7 @@ import com.permping.PermpingMain;
 import com.permping.R;
 import com.permping.controller.AuthorizeController;
 import com.permping.model.User;
+import com.permping.utils.XMLParser;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -56,6 +57,7 @@ public class AccountActivity extends Activity {
 					AuthorizeController authorizeController = new AuthorizeController();
 					authorizeController.logout(user.getId());
 					state.setUser(null);
+					XMLParser.storePermpingAccount(AccountActivity.this, "", "");
 				}
 				
 				((ProfileActivityGroup)(ProfileActivityGroup.group)).createUI();
