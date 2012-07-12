@@ -91,6 +91,8 @@ public class NewPermActivity extends Activity implements OnClickListener {
 	private String userIdRe = "";
 	private String imagePath = "";
 	private int boardId = -1;
+	private String permAndroidLink="";
+	private String permIphoneLink="";
 	public static int LOGIN_FACEBOOK = 1;
 	public static int MESSAGE_LOGIN_FACEBOOK_ERROR = 100;
 	public static int LOGIN_TWITTER = 2;
@@ -118,13 +120,14 @@ public class NewPermActivity extends Activity implements OnClickListener {
 	private ProgressDialog loadingDialog;
 	private Context context;
 	public static boolean  isReperm = false;
+	private boolean uploadStatus = false;
 	public Handler handleFbLogin = new Handler() {
 		@Override
 		public void handleMessage(Message msg) {
 			if (msg.what == LOGIN_FACEBOOK) {
 				showLoadingDialog("Processing", "Please wait...");
 //				new LoadBoards().execute();
-				new ImageUpload(imagePath).execute();
+//				new ImageUpload(imagePath).execute();
 				btnShareFacebook.setChecked(true);
 			}
 			
@@ -357,6 +360,9 @@ public class NewPermActivity extends Activity implements OnClickListener {
 					// HttpPost("http://10.0.2.2/perm/testupload.php");
 					HttpPost postRequest = null;
 					Charset chars = Charset.forName("UTF-8");
+					facebookToken = permUtils.getFacebookToken(NewPermActivity.this);
+					twitterAccessToken = permUtils.getTwitterAccess(NewPermActivity.this);
+
 					MultipartEntity reqEntity = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE, null, Charset.forName(HTTP.UTF_8));
 					if (!isReperm && filePath != null && !"".equals(filePath)) {
 						postRequest = new HttpPost(API.addNewPermUrl);
@@ -388,10 +394,12 @@ public class NewPermActivity extends Activity implements OnClickListener {
 						reqEntity.addPart("board_desc", new StringBody(permDesc
 								.getText().toString(), chars));
 					}
-
-					if (facebookToken != null)
+					String type = "";
+					if (facebookToken != null){
 						reqEntity.addPart("fb_oauth_token", new StringBody(
 								facebookToken, chars));
+						type = "facebook";
+					}
 					if (twitterAccessToken != null) {
 						reqEntity.addPart("tw_oauth_token", new StringBody(
 								twitterAccessToken.getToken(), chars));
@@ -399,7 +407,12 @@ public class NewPermActivity extends Activity implements OnClickListener {
 								"tw_oauth_token_secret",
 								new StringBody(twitterAccessToken
 										.getTokenSecret(), chars));
+						type = "twitter";
 					}
+					if( facebookToken != null && twitterAccessToken != null){
+						type = "all";
+					}
+					reqEntity.addPart("type", new StringBody("" + type, chars));
 					reqEntity.addPart("lat", new StringBody("" + lat, chars));
 					reqEntity.addPart("long", new StringBody("" + lon, chars));
 					postRequest.setEntity(reqEntity);
@@ -407,13 +420,8 @@ public class NewPermActivity extends Activity implements OnClickListener {
 					HttpEntity entry = response.getEntity();
 					String readFile = EntityUtils.toString(entry);
 
-					boolean uploadStatus = parseXmlFile(readFile);
-					if (uploadStatus && btnShareKakao.isChecked()) {
-						gotoKakao();
-					} else {
-
+					parseXmlFile(readFile);
 					}
-				}
 			} catch (Exception e) {
 
 			}
@@ -495,16 +503,51 @@ public class NewPermActivity extends Activity implements OnClickListener {
 
 					Node node = nodeList.item(i);
 					Element fstElmnt = (Element) node;
+
+					NodeList nameListLink = fstElmnt
+							.getElementsByTagName("permAndroidLink");
+					Element nameElementLink = null;
+					if (nameListLink != null) {
+						nameElementLink = (Element) nameListLink.item(0);
+						nameListLink = nameElementLink.getChildNodes();
+						permAndroidLink = ((Node) nameListLink.item(0))
+								.getNodeValue();
+
+					}
+					NodeList nameListLinkIphone = fstElmnt
+							.getElementsByTagName("permIphoneLink");
+					Element nameElementLinkIphone = null;
+					if (nameListLinkIphone != null) {
+						nameElementLinkIphone = (Element) nameListLinkIphone.item(0);
+						nameListLinkIphone = nameElementLinkIphone.getChildNodes();
+						permIphoneLink = ((Node) nameListLinkIphone.item(0))
+								.getNodeValue();
+
+					}
+					NodeList nameListId = fstElmnt
+							.getElementsByTagName("permId");
+					Element nameElementId = null;
+					if (nameListId != null) {
+						nameElementId = (Element) nameListId.item(0);
+						nameListId = nameElementId.getChildNodes();
+						permId = ((Node) nameListId.item(0))
+								.getNodeValue();
+
+					}
 					NodeList nameList = fstElmnt
 							.getElementsByTagName("errorcode");
 					Element nameElement = null;
 					if (nameList != null) {
 						nameElement = (Element) nameList.item(0);
-						nameList = nameElement.getChildNodes();
-						String status = ((Node) nameList.item(0))
-								.getNodeValue();
-						if (status != null)
-							return true;
+						if( nameElement != null){
+							nameList = nameElement.getChildNodes();
+							String status = ((Node) nameList.item(0))
+									.getNodeValue();
+							if (status.equals("200")){
+								uploadStatus = true;
+								return true;
+							}	
+						}
 					}
 
 				}
@@ -543,8 +586,19 @@ public class NewPermActivity extends Activity implements OnClickListener {
 						isReperm = false;
 					}else{
 						Toast.makeText(getApplicationContext(),
-								"Uploaded new perm and shared to Kakao app!",
+								"Uploaded new perm \nLet share on Kakao app!",
 								Toast.LENGTH_LONG).show();
+						if (uploadStatus && btnShareKakao.isChecked()) {//uploadStatus && 
+							try {
+								gotoKakao();
+							} catch (Exception e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+						} else {
+
+						}
+
 					}
 
 				} else {
@@ -618,9 +672,9 @@ public class NewPermActivity extends Activity implements OnClickListener {
 	private void shareKakao() {
 		// TODO Auto-generated method stub
 		if (btnShareKakao.isChecked())
-			btnShareFacebook.setChecked(false);
-		else
 			btnShareKakao.setChecked(true);
+		else
+			btnShareKakao.setChecked(false);
 	}
 
 	private void shareTwitter() {
@@ -696,11 +750,11 @@ public class NewPermActivity extends Activity implements OnClickListener {
 
 		try {
 			String strMessage = "pindetails/" + permId;// "카카오링크를 사용하여 메세지를 전달해 보세요.";
-			String strURL = "http://link.kakao.com";
+			String strURL = permAndroidLink+" & "+permIphoneLink;//"http://link.kakao.com";
 			String strAppId = "com.kakao.android.image";
 			String strAppVer = "2.0";
 			String strAppName = "[Permping]";// "[카카오톡]";
-			String strInstallUrl = "market://details?id=com.kakao.talk";
+			String strInstallUrl = permAndroidLink+" & "+permIphoneLink;;
 			ArrayList<Map<String, String>> arrMetaInfo = new ArrayList<Map<String, String>>();
 
 			Map<String, String> metaInfoAndroid = new Hashtable<String, String>(
