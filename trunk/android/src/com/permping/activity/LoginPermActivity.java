@@ -30,6 +30,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -65,7 +66,8 @@ public class LoginPermActivity extends Activity implements Login_delegate {
 	Button login;
 	private boolean isLoginFb = false;
 	public static boolean isTwitter = false;
-	private ProgressDialog loadingDialog;
+//	private ProgressDialog loadingDialog;
+	ProgressBar progressBar;
 	private PermpingMain login_delegate;
 	SharedPreferences prefs;
 	private FacebookConnector facebookConnector;
@@ -91,8 +93,9 @@ public class LoginPermActivity extends Activity implements Login_delegate {
         facebookLogin = (Button) findViewById(R.id.loginfb);
         twitterLogin  = (Button) findViewById(R.id.logintw);
         login         = (Button) findViewById(R.id.loginPerm);
+        progressBar = (ProgressBar)findViewById(R.id.progressBar);
         context = LoginPermActivity.this;
-
+        
                 
         // Login button
         login.setOnClickListener(new View.OnClickListener() {
@@ -319,16 +322,20 @@ public void on_error() {
 	}
 }
 private void showLoadingDialog(String title, String msg) {
-	loadingDialog = new ProgressDialog(getParent());
-	loadingDialog.setMessage(msg);
-	loadingDialog.setTitle(title);
-	loadingDialog.setCancelable(true);
-	loadingDialog.show();
+//	loadingDialog = new ProgressDialog(getParent());
+//	loadingDialog.setMessage(msg);
+//	loadingDialog.setTitle(title);
+//	loadingDialog.setCancelable(true);
+//	loadingDialog.show();
+	progressBar.setVisibility(View.VISIBLE);
 }
 
 private void dismissLoadingDialog() {
-	if (loadingDialog != null && loadingDialog.isShowing())
-		loadingDialog.dismiss();
+//	if (loadingDialog != null && loadingDialog.isShowing())
+//		loadingDialog.dismiss();
+	if(progressBar.getVisibility()==View.VISIBLE){
+		progressBar.setVisibility(View.GONE);
+	}
 }
 
 @Override

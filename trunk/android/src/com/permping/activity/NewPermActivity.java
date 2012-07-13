@@ -66,6 +66,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -117,7 +118,9 @@ public class NewPermActivity extends Activity implements OnClickListener {
 	private List<PermBoard> boards;
 	private LinearLayout btnCatilogy;
 	private ImageView rightArrow;
-	private ProgressDialog loadingDialog;
+//	private ProgressDialog loadingDialog;
+	ProgressBar progressBar;
+	Button btnOk;
 	private Context context;
 	public static boolean  isReperm = false;
 	private boolean uploadStatus = false;
@@ -125,7 +128,8 @@ public class NewPermActivity extends Activity implements OnClickListener {
 		@Override
 		public void handleMessage(Message msg) {
 			if (msg.what == LOGIN_FACEBOOK) {
-				//showLoadingDialog("Processing", "Please wait...");
+				
+				showLoadingDialog("Processing", "Please wait...");
 //				new LoadBoards().execute();
 //				new ImageUpload(imagePath).execute();
 				btnShareFacebook.setChecked(true);
@@ -147,7 +151,7 @@ public class NewPermActivity extends Activity implements OnClickListener {
 		if(textView != null) {
 			textView.setTypeface(tf);
 		}
-		
+		progressBar = (ProgressBar)findViewById(R.id.progressBar2);
 		btnShareFacebook = (ToggleButton) findViewById(R.id.share_facebookr);
 		btnShareTwitter = (ToggleButton) findViewById(R.id.share_twitter);
 		btnShareKakao = (ToggleButton) findViewById(R.id.share_kakao);
@@ -163,8 +167,8 @@ public class NewPermActivity extends Activity implements OnClickListener {
 		permUtils = new PermUtils();
 		final Button buttonCANCEL = (Button) findViewById(R.id.buttonCANCEL);
 		buttonCANCEL.setOnClickListener(this);
-		final Button buttonOK = (Button) findViewById(R.id.buttonOK);
-		buttonOK.setOnClickListener(this);
+		btnOk = (Button) findViewById(R.id.buttonOK);
+		btnOk.setOnClickListener(this);
 		permDesc = (EditText) findViewById(R.id.permDesc);
 		initToggleStatus();
 		mlocManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
@@ -575,7 +579,7 @@ public class NewPermActivity extends Activity implements OnClickListener {
 		@Override
 		protected void onPostExecute(String sResponse) {
 
-			if (loadingDialog.isShowing()) {
+			if (progressBar.getVisibility()==View.VISIBLE) {
 				dismissLoadingDialog();
 //				ImageActivityGroup.group.back();
 				if (btnShareKakao.isChecked()) {
@@ -750,11 +754,11 @@ public class NewPermActivity extends Activity implements OnClickListener {
 
 		try {
 			String strMessage = "pindetails/" + permId;// "카카오링크를 사용하여 메세지를 전달해 보세요.";
-			String strURL = permAndroidLink+" & "+permIphoneLink;//"http://link.kakao.com";
+			String strURL = "Android: "+permAndroidLink+" & Iphone: "+permIphoneLink;//"http://link.kakao.com";
 			String strAppId = "com.kakao.android.image";
 			String strAppVer = "2.0";
 			String strAppName = "[Permping]";// "[카카오톡]";
-			String strInstallUrl = permAndroidLink+" & "+permIphoneLink;;
+			String strInstallUrl = "Android: "+permAndroidLink+" &Iphone: "+permIphoneLink;;
 			ArrayList<Map<String, String>> arrMetaInfo = new ArrayList<Map<String, String>>();
 
 			Map<String, String> metaInfoAndroid = new Hashtable<String, String>(
@@ -779,17 +783,24 @@ public class NewPermActivity extends Activity implements OnClickListener {
 
 	}
 	private void showLoadingDialog(String title, String msg) {
-		loadingDialog = new ProgressDialog(context);
-		loadingDialog.setMessage(msg);
-		loadingDialog.setTitle(title);
-		loadingDialog.setCancelable(true);
-		loadingDialog.show();
+//		loadingDialog = new ProgressDialog(context);
+//		loadingDialog.setMessage(msg);
+//		loadingDialog.setTitle(title);
+//		loadingDialog.setCancelable(true);
+//		loadingDialog.show();
+		btnOk.setVisibility(View.INVISIBLE);
+		progressBar.setVisibility(View.VISIBLE);
 	}
 
 	private void dismissLoadingDialog() {
-		if (loadingDialog != null )
-			if(loadingDialog.isShowing())
-				loadingDialog.dismiss();
+//		if (loadingDialog != null )
+//			if(loadingDialog.isShowing())
+//				loadingDialog.dismiss();
+		if(progressBar.getVisibility()==View.VISIBLE){
+			progressBar.setVisibility(View.INVISIBLE);
+			btnOk.setVisibility(View.VISIBLE);
+		}
+		
 	}
 
 	@Override
