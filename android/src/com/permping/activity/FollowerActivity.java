@@ -304,10 +304,10 @@ public class FollowerActivity extends FragmentActivity implements Login_delegate
 //				if (dialog != null && dialog.isShowing()) {
 //					dialog.dismiss();
 //				}
-				if(progressBar.getVisibility()==View.VISIBLE){
+				/*if(progressBar.getVisibility()==View.VISIBLE){
 					progressBar.setVisibility(View.GONE);
 					btnRefesh.setVisibility(View.VISIBLE);
-				}
+				}*/
 			}			
 			permListMain = permList;
 						
@@ -330,7 +330,9 @@ public class FollowerActivity extends FragmentActivity implements Login_delegate
 				progressBar.setVisibility(View.GONE);
 				btnRefesh.setVisibility(View.VISIBLE);
 			}
-			permListAdapter.notifyDataSetChanged();
+			if(permListAdapter != null) {
+				permListAdapter.notifyDataSetChanged();
+			}
 		}
 
 	}

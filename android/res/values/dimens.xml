@@ -1,4 +1,15 @@
 
     <resources>
         <dimen name="avatar_size">50dp</dimen>
+        <dimen name="avatar_size_plus_padding">65dp</dimen>
+        <dimen name="button_join_width">100dp</dimen>
+        <dimen name="button_join_height">50dp</dimen>
+        <dimen name="text_size_header">17dp</dimen>
+        <dimen name="text_size_auther_name">15.5dp</dimen>
+        <dimen name="text_size_board_name">15.5dp</dimen>
+        <dimen name="text_size_perm_stat">15.5dp</dimen>
+        <dimen name="text_size_comment">15.5dp</dimen>
+        <dimen name="text_size_perm_description">17dp</dimen>
+        <dimen name="text_size_like_button">15.5dp</dimen>
+        
     </resources>

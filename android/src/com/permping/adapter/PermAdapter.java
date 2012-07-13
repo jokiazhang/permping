@@ -16,6 +16,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.opengl.Visibility;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -33,6 +34,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -47,6 +49,7 @@ import com.permping.activity.LoginPermActivity;
 import com.permping.activity.NewPermActivity;
 import com.permping.activity.PrepareRequestTokenActivity;
 import com.permping.controller.AuthorizeController;
+import com.permping.controller.PermListController;
 import com.permping.model.Comment;
 import com.permping.model.Perm;
 import com.permping.model.User;
@@ -164,8 +167,37 @@ public class PermAdapter extends ArrayAdapter<Perm> implements OnClickListener {
 				join.setOnClickListener(PermAdapter.this);
 				return view;
 			} else if(items != null && !items.isEmpty() && position < items.size()){
-				if(position == items.size() - 1) {
-					return createFooterView();
+				if(position == 0 && PermpingMain.getCurrentTab() == 0) {
+					LayoutInflater inflater = (LayoutInflater) this.getContext()
+							.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+					final View view = inflater.inflate(R.layout.perm_item_2, null);
+						
+					join = (Button) view.findViewById(R.id.bt_join);
+					login = (Button) view.findViewById(R.id.bt_login);
+					// Process buttons					
+					login.setOnClickListener(PermAdapter.this);
+					join.setOnClickListener(PermAdapter.this);
+
+					if(this.header == false) {
+						//remove button
+						TableRow loginRow = (TableRow) view.findViewById(R.id.loginBar);
+						loginRow.setVisibility(View.GONE);
+					}
+					return view;
+				}
+				
+				if(position == items.size() - 1 && PermListController.isFooterAdded == true) {
+					View footerView = createFooterView();
+					if(getNextItems() == -1) {						
+						ImageButton nextButton = (ImageButton) footerView.findViewById(R.id.next);
+						nextButton.setVisibility(View.INVISIBLE);
+					}
+					if(getNextItems() == 2) {
+						//currently, the page is 1, so no page is previous page
+						ImageButton previousButton = (ImageButton) footerView.findViewById(R.id.previous);
+						previousButton.setVisibility(View.INVISIBLE);
+					}
+					return footerView;
 				}
 				final Perm perm = items.get(position);
 				final String viewId = perm.getId();
