@@ -108,11 +108,14 @@ public class FollowerActivity extends FragmentActivity implements Login_delegate
 		
 		progressBar = (ProgressBar)findViewById(R.id.progressBar);
 	}
-
+	@Override
+	protected void onDestroy(){
+		super.onDestroy();
+		isCalendar =false;
+	}
 	@Override
 	protected void onResume() {
 		super.onResume();
-		
 		if(isLogin && PermpingMain.getCurrentTab() == 3){
 			User user2 = PermUtils.isAuthenticated(getApplicationContext());
 			if(user2 != null){
@@ -281,7 +284,7 @@ public class FollowerActivity extends FragmentActivity implements Login_delegate
 					nameValuePairs.add(new BasicNameValuePair("nextItem", String.valueOf(nextItem)));
 					if(isCalendar){
 						nameValuePairs.add(new BasicNameValuePair("uid", PermpingMain.UID));
-						isCalendar =false;
+//						isCalendar =false;
 					}
 
 					permList = permListController.getPermList(url, nameValuePairs);
@@ -290,7 +293,7 @@ public class FollowerActivity extends FragmentActivity implements Login_delegate
 						List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
 						nameValuePairs.add(new BasicNameValuePair("uid", PermpingMain.UID));
 						permList = permListController.getPermList(url,nameValuePairs);
-						isCalendar =false;
+						
 					}else{
 						permList = permListController.getPermList(url);	
 					}
