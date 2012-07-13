@@ -30,6 +30,7 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.ImageView.ScaleType;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -635,6 +636,7 @@ public class MyDiaryActivity extends Activity implements View.OnClickListener , 
 		public showData( WebImageView thumb) {
 			// TODO Auto-generated constructor stub
 			this.thumb = thumb;
+			this.thumb.setScaleType(ScaleType.FIT_XY);
 			this.thumb.setVisibility(View.VISIBLE);
 		}
         @Override

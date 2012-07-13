@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.permping.PermpingMain;
@@ -25,7 +26,8 @@ import com.permping.utils.API;
 import com.permping.utils.PermUtils;
 
 public class ExplorerActivity extends Activity implements get_category_delegate {
-	public ProgressDialog loadingDialog;
+//	public ProgressDialog loadingDialog;
+	private ProgressBar progressBar;
 	public Context context;
 	public CategoryController catController;
 	public ListView categoriesView;
@@ -38,7 +40,7 @@ public class ExplorerActivity extends Activity implements get_category_delegate 
 		if(textView != null) {
 			textView.setTypeface(tf);
 		}
-		
+		progressBar = (ProgressBar)findViewById(R.id.progressBar);
 		showLoadingDialog("Loading", "Please wait...");
 		categoriesView = (ListView) findViewById(R.id.categories);
 		final CategoryController catController = new CategoryController(ExplorerActivity.this);
@@ -60,17 +62,21 @@ public class ExplorerActivity extends Activity implements get_category_delegate 
 		});*/
 	}
 	private void showLoadingDialog(String title, String msg) {
-		loadingDialog = new ProgressDialog(getParent());
-		loadingDialog.setMessage(msg);
-		loadingDialog.setTitle(title);
-		loadingDialog.setCancelable(true );
-		this.loadingDialog.show();
+//		loadingDialog = new ProgressDialog(getParent());
+//		loadingDialog.setMessage(msg);
+//		loadingDialog.setTitle(title);
+//		loadingDialog.setCancelable(true );
+//		this.loadingDialog.show();
+		progressBar.setVisibility(View.VISIBLE);
 	}
 
 	private void dismissLoadingDialog() {
-		if (loadingDialog != null)
-			if(loadingDialog.isShowing())
-			loadingDialog.dismiss();
+//		if (loadingDialog != null)
+//			if(loadingDialog.isShowing())
+//			loadingDialog.dismiss();
+		if(progressBar.getVisibility()==View.VISIBLE){
+			progressBar.setVisibility(View.GONE);
+		}
 	}
 
 	@Override

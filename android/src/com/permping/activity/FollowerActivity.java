@@ -62,10 +62,11 @@ public class FollowerActivity extends FragmentActivity implements Login_delegate
 	public static boolean isCalendar = false;
 	int nextItem = -1;
 //	FragmentManager t = ggetSupportFragmentManager();
-	private ProgressDialog dialog;
+//	private ProgressDialog dialog;
 	
 	ListView permListView;
 	Button btnRefesh;
+	ProgressBar progressBar;
 	RelativeLayout headerLayout;
 	PermAdapter permListAdapter;
 	
@@ -104,6 +105,8 @@ public class FollowerActivity extends FragmentActivity implements Login_delegate
 		btnRefesh = (Button)findViewById(R.id.btnRefesh);
 		btnRefesh.setVisibility(View.VISIBLE);
 		btnRefesh.setOnClickListener(this);
+		
+		progressBar = (ProgressBar)findViewById(R.id.progressBar);
 	}
 
 	@Override
@@ -134,9 +137,14 @@ public class FollowerActivity extends FragmentActivity implements Login_delegate
 	protected void onPause () {
     	super.onPause();
     	clearData();
-    	if (dialog != null && dialog.isShowing()) {
-			dialog.dismiss();
-		}
+//    	if (dialog != null && dialog.isShowing()) {
+//			dialog.dismiss();
+//		}
+    	if(progressBar.getVisibility() == View.VISIBLE){
+    		progressBar.setVisibility(View.GONE);
+    		btnRefesh.setVisibility(View.VISIBLE);
+    	}
+    	
     }
 
 	public void exeFollowerActivity() {
@@ -171,16 +179,18 @@ public class FollowerActivity extends FragmentActivity implements Login_delegate
 			this.header = false;
 		}
 		clearData();
-		/*dialog = ProgressDialog.show(getParent(), "Loading", "Please wait...",
-				true);
-		new Timer().schedule(new TimerTask() {
-			
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				timeoutDialog();
-			}
-		}, 5000);*/
+//		dialog = ProgressDialog.show(getParent(), "Loading", "Please wait...",
+//				true);
+		btnRefesh.setVisibility(View.GONE);
+		progressBar.setVisibility(View.VISIBLE);
+//		new Timer().schedule(new TimerTask() {
+//			
+//			@Override
+//			public void run() {
+//				// TODO Auto-generated method stub
+//				timeoutDialog();
+//			}
+//		}, 5000);
 
 		loadPermList = new LoadPermList();
 		loadPermList.execute();
@@ -188,19 +198,25 @@ public class FollowerActivity extends FragmentActivity implements Login_delegate
 	
 	private void timeoutDialog() {
 		// TODO Auto-generated method stub
-			if(dialog != null){
-				if(dialog.isShowing()){
-					dialog.dismiss();
-				}
-			}
+//			if(dialog != null){
+//				if(dialog.isShowing()){
+//					dialog.dismiss();
+//				}
+//			}
+		if(progressBar.getVisibility()==View.VISIBLE){
+			progressBar.setVisibility(View.GONE);
+			btnRefesh.setVisibility(View.VISIBLE);
+		}
 	}
 	public void loadPreviousItems() {
 		if(nextItem > -1) {
 			nextItem = nextItem - 1;
 			//loadItems("Loading previous");
 			clearData();
-			/*dialog = ProgressDialog.show(getParent(), "Loading previous", "Please wait...",
-	    			true);*/
+//			dialog = ProgressDialog.show(getParent(), "Loading previous", "Please wait...",
+//	    			true);
+			btnRefesh.setVisibility(View.GONE);
+			progressBar.setVisibility(View.VISIBLE);
 			
 			loadPermList = new LoadPermList();
 			loadPermList.execute();
@@ -212,9 +228,10 @@ public class FollowerActivity extends FragmentActivity implements Login_delegate
 		if(permListAdapter != null) {
 			nextItem = permListAdapter.getNextItems();
 			clearData();
-	    	/*dialog = ProgressDialog.show(getParent(), "Loading more", "Please wait...",
-	    			true);*/
-			
+//	    	dialog = ProgressDialog.show(getParent(), "Loading more", "Please wait...",
+//	    			true);
+			btnRefesh.setVisibility(View.GONE);
+			progressBar.setVisibility(View.VISIBLE);
 	    	loadPermList = new LoadPermList();
 			loadPermList.execute();
 		}		
@@ -281,8 +298,12 @@ public class FollowerActivity extends FragmentActivity implements Login_delegate
 				}
 			} catch (Exception e) {
 				// TODO: handle exception
-				if (dialog != null && dialog.isShowing()) {
-					dialog.dismiss();
+//				if (dialog != null && dialog.isShowing()) {
+//					dialog.dismiss();
+//				}
+				if(progressBar.getVisibility()==View.VISIBLE){
+					progressBar.setVisibility(View.GONE);
+					btnRefesh.setVisibility(View.VISIBLE);
 				}
 			}			
 			permListMain = permList;
@@ -299,8 +320,12 @@ public class FollowerActivity extends FragmentActivity implements Login_delegate
 		protected void onPostExecute(ArrayList< Perm> sResponse) {
 			loadPerms();
 			//permListMain.size();
-			if (dialog != null && dialog.isShowing()) {
-				dialog.dismiss();
+//			if (dialog != null && dialog.isShowing()) {
+//				dialog.dismiss();
+//			}
+			if(progressBar.getVisibility()==View.VISIBLE){
+				progressBar.setVisibility(View.GONE);
+				btnRefesh.setVisibility(View.VISIBLE);
 			}
 			permListAdapter.notifyDataSetChanged();
 		}
