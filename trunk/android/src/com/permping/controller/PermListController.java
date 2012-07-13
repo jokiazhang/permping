@@ -143,11 +143,11 @@ public class PermListController implements PermList_Delegate {
 			
 		}
 		//add for footer
-		if(permNodeList.getLength() == MAX_ITEMS) {
+		if(Integer.parseInt(nextItem) == -1 && Integer.parseInt(previousItem) == -1) {
+			isFooterAdded = false;
+		} else {
 			permList.add(new Perm());
 			isFooterAdded = true;
-		} else {
-			isFooterAdded = false;
 		}
 		
 		//ArrayList <Perm> permList = parser.permListFromNodeList("popularPerms");
