@@ -1,4 +1,4 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="50dp"
     android:angle="90"
@@ -6,7 +6,6 @@
     android:orientation="vertical" >
 
     <TableLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
 
@@ -16,11 +15,12 @@
                 android:id="@+id/buttonCANCEL"
                 android:layout_width="30dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/title_button_bg"
-                android:text="@string/cancel"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="30dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="@drawable/title_button_bg"
+                android:text="@string/cancel"
                 android:textColor="#FFFFFF" />
 
             <TextView
@@ -36,13 +36,24 @@
                 android:id="@+id/buttonOK"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="20dp"
+                android:gravity="center"
                 android:layout_weight="1"
                 android:background="@drawable/title_button_bg"
                 android:text="@string/ok"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="20dp"
-                android:textColor="#FFFFFF" />
+                android:textColor="#FFFFFF" 
+                android:visibility="visible"/>
         </TableRow>
     </TableLayout>
 
-</LinearLayout>
+    <ProgressBar
+        android:id="@+id/progressBar2"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="25dp"
+        android:visibility="visible" />
+
+</RelativeLayout>

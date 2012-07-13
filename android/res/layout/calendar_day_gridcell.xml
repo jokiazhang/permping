@@ -48,14 +48,17 @@
                 android:id="@+id/layout122"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1" >
+                android:layout_weight="1" 
+                android:paddingTop="1dp"
+                android:paddingRight="1dp"
+                android:paddingBottom="-2.5dp">
 
                 <com.custom.WebImageView
                     android:id="@+id/thumbnail1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@android:color/transparent"
-                    android:visibility="gone" />
+                    android:visibility="invisible"/>
             </LinearLayout>
         </LinearLayout>
 
@@ -71,14 +74,18 @@
                 android:id="@+id/layout21"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1" >
+                android:layout_weight="1" 
+                android:paddingBottom="1dp"
+                android:paddingLeft="1dp"
+                android:paddingRight="1dp"
+                android:paddingTop="2dp">
 
                 <com.custom.WebImageView
                     android:id="@+id/thumbnail2"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@android:color/transparent"
-                    android:visibility="gone" />
+                    android:visibility="invisible" />
             </LinearLayout>
 
             <LinearLayout
@@ -86,14 +93,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:orientation="vertical" >
+                android:orientation="vertical" 
+                android:paddingBottom="1dp"
+                android:paddingLeft="1dp"
+                android:paddingRight="1dp"
+                android:paddingTop="2dp">
 
                 <com.custom.WebImageView
                     android:id="@+id/thumbnail3"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@android:color/transparent"
-                    android:visibility="gone" >
+                    android:visibility="invisible" >
                 </com.custom.WebImageView>
             </LinearLayout>
         </LinearLayout>
