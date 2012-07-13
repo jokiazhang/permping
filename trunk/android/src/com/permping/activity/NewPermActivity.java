@@ -372,8 +372,8 @@ public class NewPermActivity extends Activity implements OnClickListener {
 						postRequest = new HttpPost(API.addNewPermUrl);
 
 						ByteArrayOutputStream bos = new ByteArrayOutputStream();
-						Bitmap bm = BitmapFactory.decodeFile(filePath);
-//						bm = getBitmap(filePath);
+//						Bitmap bm = BitmapFactory.decodeFile(filePath);
+						Bitmap bm = getBitmap2(filePath);
 						bm.compress(CompressFormat.JPEG, 75, bos);
 						byte[] data = bos.toByteArray();
 
@@ -393,7 +393,7 @@ public class NewPermActivity extends Activity implements OnClickListener {
 						reqEntity.addPart("pid",
 								new StringBody(String.valueOf(permIdRe), chars));
 						reqEntity.addPart("uid", new StringBody(String.valueOf(userIdRe), chars));
-						reqEntity.addPart("board",
+						reqEntity.addPart("board ",
 								new StringBody(String.valueOf(boardId), chars));
 						reqEntity.addPart("board_desc", new StringBody(permDesc
 								.getText().toString(), chars));
@@ -484,6 +484,40 @@ public class NewPermActivity extends Activity implements OnClickListener {
 			        return null;
 			    }
 			}
+		  private Bitmap getBitmap2(String path) {
+			    try {
+			        final int IMAGE_MAX_SIZE = 1024; // 1.2MP
+			        // Decode image size
+			        BitmapFactory.Options o = new BitmapFactory.Options();
+			        o.inJustDecodeBounds = true;
+			        double scale = 1;
+			        while (o.outWidth  > IMAGE_MAX_SIZE) {
+			            scale = o.outWidth/IMAGE_MAX_SIZE;
+			        }
+			        Log.d("","scale = " + scale + ", orig-width: " + o.outWidth       + ", orig-height: " + o.outHeight);
+
+			        Bitmap b = null;
+			        if (scale > 1) {
+			
+			        	double y = (double)o.outHeight/scale;
+			            double x = 1024;
+
+			            Bitmap scaledBitmap = Bitmap.createScaledBitmap(b, (int) x,     (int) y, true);
+			            b = scaledBitmap;
+//			            System.gc();
+			        } else {
+			            b = BitmapFactory.decodeFile(path);
+			        }
+
+
+			        Log.d("", "bitmap size - width: "+b.getWidth()+ ", height: " + b.getHeight()+"");
+			        return b;
+			    } catch (Exception e) {
+			        Log.e("", e.getMessage(),e);
+			        return null;
+			    }
+			}
+
 		boolean parseXmlFile(String xmlFile) {
 			Document doc = null;
 
