@@ -20,6 +20,7 @@ import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.format.DateFormat;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -30,7 +31,10 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.ImageView.ScaleType;
+import android.widget.LinearLayout.LayoutParams;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -68,11 +72,15 @@ public class MyDiaryActivity extends Activity implements View.OnClickListener , 
 	private List<String> imageList = new ArrayList<String>();
 	private List<String> serviceList = new ArrayList<String>();
 	private List<String> idList = new ArrayList<String>();
+	RelativeLayout cellLayout;
+	DisplayMetrics metrics;
+	ProgressBar progressBar;
 	private HashMap<String, List<WebImageView>> thumbListById = new HashMap<String, List<WebImageView>>();
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.mydiary_layout);
-		
+		progressBar = (ProgressBar)findViewById(R.id.progressBar);
+		progressBar.setVisibility(View.VISIBLE);
 		TextView textView = (TextView)findViewById(R.id.permpingTitle);
 		Typeface tf = Typeface.createFromAsset(getAssets(), "ufonts.com_franklin-gothic-demi-cond-2.ttf");
 		if(textView != null) {
@@ -98,6 +106,10 @@ public class MyDiaryActivity extends Activity implements View.OnClickListener , 
 
 		calendarView = (GridView) this.findViewById(R.id.calendar);
 		
+		metrics = new DisplayMetrics();
+		getWindowManager().getDefaultDisplay().getMetrics(metrics);
+
+
 
 		// Initialised
 		adapter = new GridCellAdapter(getApplicationContext(),
@@ -425,6 +437,7 @@ public class MyDiaryActivity extends Activity implements View.OnClickListener , 
 
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
+			
 			View row = convertView;
 			if (row == null) {
 				LayoutInflater inflater = (LayoutInflater) _context
@@ -436,7 +449,13 @@ public class MyDiaryActivity extends Activity implements View.OnClickListener , 
 			// Get a reference to the Day gridcell
 			gridcell = (Button) row.findViewById(R.id.calendar_day_gridcell);
 //			gridcell.setOnClickListener(this);
-
+			cellLayout = (RelativeLayout)row.findViewById(R.id.layout);
+			if(cellLayout != null){
+				android.view.ViewGroup.LayoutParams params = cellLayout.getLayoutParams();
+				params.height = (metrics.widthPixels-4)/7;
+				
+			}
+				
 			// ACCOUNT FOR SPACING
 
 			Log.d(tag, "Current Day: " + getCurrentDayOfMonth());
@@ -660,7 +679,7 @@ public class MyDiaryActivity extends Activity implements View.OnClickListener , 
 	@Override
 	public void onError() {
 		// TODO Auto-generated method stub
-		
+		progressBar.setVisibility(View.INVISIBLE);
 	}
 
 	@Override
@@ -725,6 +744,7 @@ public class MyDiaryActivity extends Activity implements View.OnClickListener , 
 //	        }
 
 		}
+		progressBar.setVisibility(View.INVISIBLE);
 
 	}
 	private WebImageView getThumbToLoad(String id) {
