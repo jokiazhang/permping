@@ -58,7 +58,8 @@
     <string name="perm">펌</string>
     <string name="follow">팔로우</string>
     <string name="unfollow">언팔로우</string>
-    <string name="welcome">이미지를 소통하는 소셜 커뮤니티\n\t\t\t\t순간의 이야기를 펌핑과 함께</string>
+    <string name="welcome1">이미지를 소통하는 소셜 커뮤니티</string>
+    <string name="welcome2">순간의 이야기를 펌핑과 함께</string>
     
     <string name="exit_title">종료 안내</string>
     <string name="exit_content">펌핑을 종료 하시겠습니까?</string>

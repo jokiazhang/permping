@@ -35,6 +35,7 @@ public class Perm implements Serializable{
 	// This is for keeping the value of <nextItem> in the response when get the list of Perm
 	private String nextItem;
 	
+	private String previousItem;	
 	
 	/**
 	 * Constructor
@@ -219,6 +220,14 @@ public class Perm implements Serializable{
 		this.nextItem = nextItem;
 	}
 
+	public String getPreviousItem() {
+		return previousItem;
+	}
+
+
+	public void setPreviousItem(String previousItem) {
+		this.previousItem = previousItem;
+	}
 
 	/**
 	 * @return the permUserLikeCount

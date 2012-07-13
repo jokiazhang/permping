@@ -1,9 +1,12 @@
 package com.permping.controller;
 
+import com.permping.PermpingMain;
+import com.permping.activity.FollowerActivityGroup;
 import com.permping.interfaces.PermList_Delegate;
 import com.permping.model.*;
 import com.permping.utils.API;
 import com.permping.utils.Constants;
+import com.permping.utils.PermUtils;
 import com.permping.utils.XMLParser;
 
 import java.util.ArrayList;
@@ -17,6 +20,8 @@ import org.w3c.dom.NodeList;
 
 public class PermListController implements PermList_Delegate {
 
+
+	public static boolean isFooterAdded = false;
 	/**
 	 * Constructor
 	 */
@@ -35,6 +40,11 @@ public class PermListController implements PermList_Delegate {
 		if( url == "" ){
 			url = API.popularPermsURL;
 			permList.add(new Perm());
+		} else {
+			if(PermpingMain.getCurrentTab() == 0) {
+				//add this for follower header
+				permList.add(new Perm());
+			}
 		}
 		XMLParser parser = new XMLParser( url , true );
 		Document doc = null;
@@ -46,6 +56,13 @@ public class PermListController implements PermList_Delegate {
 			Element e = (Element) responseNodeList.item(i);
 			nextItem = getValue(e, "nextItem");
 		}
+		
+		String previousItem = "-1";
+		for (int i = 0; i < responseNodeList.getLength(); i++) {
+			Element e = (Element) responseNodeList.item(i);
+			previousItem = getValue(e, "previousItem");
+		}
+		
 		NodeList permNodeList =  doc.getElementsByTagName("item");
 		
 		for( int i = 0; i< permNodeList.getLength(); i++ ){
@@ -118,6 +135,7 @@ public class PermListController implements PermList_Delegate {
 			perm.setLat(Float.valueOf(lat).floatValue());
 			perm.setLon(Float.valueOf(lon).floatValue());
 			perm.setNextItem(nextItem);
+			perm.setPreviousItem(previousItem);
 			
 			permList.add(perm);
 			
@@ -125,7 +143,12 @@ public class PermListController implements PermList_Delegate {
 			
 		}
 		//add for footer
-		permList.add(new Perm());
+		if(permNodeList.getLength() == MAX_ITEMS) {
+			permList.add(new Perm());
+			isFooterAdded = true;
+		} else {
+			isFooterAdded = false;
+		}
 		
 		//ArrayList <Perm> permList = parser.permListFromNodeList("popularPerms");
 		return permList;
@@ -146,6 +169,11 @@ public class PermListController implements PermList_Delegate {
 		if( url == "" ) {
 			url = API.popularPermsURL;
 			permList.add(new Perm());
+		} else {
+			if(PermpingMain.getCurrentTab() == 0) {
+				//add this for follower header
+				permList.add(new Perm());
+			}
 		}
 		XMLParser parser = new XMLParser(XMLParser.PERMLIST, PermListController.this, url, nameValuePairs, true);
 		Document doc = parser.getDoc();
@@ -154,6 +182,11 @@ public class PermListController implements PermList_Delegate {
 		for (int i = 0; i < responseNodeList.getLength(); i++) {
 			Element e = (Element) responseNodeList.item(i);
 			nextItem = getValue(e, "nextItem");
+		}
+		String previousItem = "-1";
+		for (int i = 0; i < responseNodeList.getLength(); i++) {
+			Element e = (Element) responseNodeList.item(i);
+			previousItem = getValue(e, "previousItem");
 		}
 		NodeList permNodeList =  doc.getElementsByTagName("item");
 		
@@ -227,14 +260,19 @@ public class PermListController implements PermList_Delegate {
 			perm.setLat(Float.valueOf(lat).floatValue());
 			perm.setLon(Float.valueOf(lon).floatValue());
 			perm.setNextItem(nextItem);
-			
+			perm.setPreviousItem(previousItem);
 			permList.add(perm);
 			
 			
 			
 		}
 		//add for footer
-		permList.add(new Perm());
+		if(Integer.parseInt(nextItem) == -1 && Integer.parseInt(previousItem) == -1) {
+			isFooterAdded = false;
+		} else {
+			permList.add(new Perm());
+			isFooterAdded = true;
+		}
 		//ArrayList <Perm> permList = parser.permListFromNodeList("popularPerms");
 		return permList;
 		
