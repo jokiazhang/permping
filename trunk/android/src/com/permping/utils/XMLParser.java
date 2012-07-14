@@ -72,6 +72,8 @@ public class XMLParser implements HttpAccess {
     public static final String PREFS_NAME = "UserPermping";
     public static final String STORE_USER_EMAIL = "UserEmail";
     public static final String STORE_USER_PASS = "UserPass";
+    public static final String STORE_LAST_TIME_LOGIN = "LastTimeLogin";
+    public static final long ACCOUNT_TIME_OUT = 3 * 60 * 60 * 1000;
 	private Document doc = null;
 	private String xml = "<empty></empty>";
 	public int type;
@@ -827,7 +829,8 @@ public class XMLParser implements HttpAccess {
 		SharedPreferences account = context.getApplicationContext().getSharedPreferences(PREFS_NAME, 0);
 		SharedPreferences.Editor editor = account.edit();
 		editor.putString(STORE_USER_EMAIL, userEmail);
-		editor.putString(STORE_USER_PASS, userPass);		
+		editor.putString(STORE_USER_PASS, userPass);
+		editor.putLong(STORE_LAST_TIME_LOGIN, System.currentTimeMillis());
 		editor.commit();
 	}
 	
@@ -839,6 +842,11 @@ public class XMLParser implements HttpAccess {
 	public static String getUserPass(Context context) {
 		SharedPreferences account = context.getApplicationContext().getSharedPreferences(PREFS_NAME, 0);
 		return account.getString(STORE_USER_PASS, "");		
+	}
+	
+	public static long getLastTimeLogin(Context context) {
+		SharedPreferences account = context.getApplicationContext().getSharedPreferences(PREFS_NAME, 0);
+		return account.getLong(STORE_LAST_TIME_LOGIN, System.currentTimeMillis());		
 	}
 	
 	private void storeAccount() {

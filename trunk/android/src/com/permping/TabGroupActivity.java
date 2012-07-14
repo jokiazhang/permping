@@ -3,8 +3,10 @@ package com.permping;
 import java.util.ArrayList;
 
 import com.permping.activity.FollowerActivity;
+import com.permping.controller.AuthorizeController;
 import com.permping.model.User;
 import com.permping.utils.PermUtils;
+import com.permping.utils.XMLParser;
 
 import android.app.Activity;
 import android.app.ActivityGroup;
@@ -41,6 +43,23 @@ public class TabGroupActivity extends ActivityGroup {
 		
 
 	}
+	
+	@Override
+	public void onResume() {
+		super.onResume();
+		long lastTimeLogin = XMLParser.getLastTimeLogin(this);
+		long timeout = System.currentTimeMillis() - lastTimeLogin;
+		if(timeout >= XMLParser.ACCOUNT_TIME_OUT) {
+			PermpingApplication state = (PermpingApplication) getApplicationContext();
+			User user = state.getUser();
+			if (user != null) {
+				AuthorizeController authorizeController = new AuthorizeController();
+				authorizeController.logout(user.getId());
+				state.setUser(null);
+				XMLParser.storePermpingAccount(this, "", "");
+			}
+		}
+	}	
 	
 	public void setTabGroup(TabGroupActivity tabGroup) {
 		group = tabGroup;
