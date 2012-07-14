@@ -288,6 +288,7 @@ public class PermAdapter extends ArrayAdapter<Perm> implements OnClickListener {
 								String permUrl = perm.getPermUrl();
 								if(permUrl != null && permUrl != "")
 									PermpingMain.gotoTab(5, permUrl);
+								Log.d("=====>", "=================>go to Perm Browser >");
 							}
 						});
 					
