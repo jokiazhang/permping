@@ -285,9 +285,9 @@ public class PermAdapter extends ArrayAdapter<Perm> implements OnClickListener {
 							
 							public void onClick(View arg0) {
 								// TODO Auto-generated method stub
-								String permUrl = perm.getImage().getUrl();
+								String permUrl = perm.getPermUrl();
 								if(permUrl != null && permUrl != "")
-									PermpingMain.gotoTab(5, perm.getImage().getUrl());
+									PermpingMain.gotoTab(5, permUrl);
 							}
 						});
 					
