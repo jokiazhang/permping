@@ -73,46 +73,89 @@
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/categoryItemLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:layout_marginTop="0dp"
             android:layout_weight="3"
             android:background="@drawable/explorer_item_bg_first"
-            android:orientation="vertical" >
+            android:orientation="horizontal" >
 
-            <EditText
-                android:id="@+id/permEmail"
-                android:layout_width="315dp"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#00000000"
-                android:ems="10"
-                android:hint="@string/email_address"
-                android:imeOptions="actionNext"
-                android:singleLine="true" />
+                android:layout_weight="2"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/email_address" 
+                    android:textColor="@android:color/black"
+                    android:textStyle="bold"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical" >
+
+                <EditText
+                    android:id="@+id/permEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="#00000000"
+                    android:ems="10"
+                    android:hint="@string/hint_email"
+                    android:imeOptions="actionNext"
+                    android:singleLine="true" />
+            </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/categoryItemLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
-            android:layout_marginTop="-3dp"
+            android:layout_marginTop="0dp"
             android:layout_weight="3"
             android:background="@drawable/explorer_item_bg_end"
-            android:orientation="vertical" >
+            android:orientation="horizontal" >
 
-            <EditText
-                android:id="@+id/permPassword"
-                android:layout_width="315dp"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#00000000"
-                android:hint="@string/password"
-                android:imeOptions="actionDone"
-                android:inputType="textPassword"
-                android:singleLine="true" />
+                android:layout_weight="2"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/password" 
+                    android:textColor="@android:color/black"
+                    android:textStyle="bold"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical" >
+
+                <EditText
+                    android:id="@+id/permPassword"
+                    android:layout_width="315dp"
+                    android:layout_height="wrap_content"
+                    android:background="#00000000"
+                    android:hint="@string/hint_password"
+                    android:imeOptions="actionDone"
+                    android:inputType="textPassword"
+                    android:singleLine="true" />
+            </LinearLayout>
         </LinearLayout>
 
         <View
@@ -150,8 +193,9 @@
             android:text="@string/bt_cancel"
             android:layout_gravity="center"
         android:textColor="#FFFFFF"
-            android:background="@drawable/button_bg" />
+            android:background="@drawable/button_bg" />
             -->
         </LinearLayout>
     </LinearLayout>
+
 </LinearLayout>

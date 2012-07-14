@@ -8,8 +8,8 @@
     <string name="bt_twitter">Login with Twitter</string>
     <string name="bt_join_permping">펌핑 가입하기</string>
     <string name="permping_head_title">Permping</string>
-    <string name="hint_email">Email</string>
-    <string name="hint_password">Password</string>
+    <string name="hint_email">입력해 주세요</string>
+    <string name="hint_password">입력해 주세요</string>
     <string name="bt_cancel">Cancel</string>
     <string name="screen_login">Permping.com/Login</string>
     <string name="acc_name">이름</string>
@@ -37,8 +37,8 @@
     <string name="addnew">All category</string>
     
     <string name="login_text">펌핑 이미지 SNS\n\t로그인 하기</string>
-    <string name="email_address">이메일    :   입력해 주세요</string>
-    <string name="password">비밀번호  :  입력해 주세요</string>
+    <string name="email_address">이메일    :   </string>
+    <string name="password">비밀번호  :  </string>
     <string name="required">입력하세요</string>
     <string name="login">로그인</string>
     
