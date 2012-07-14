@@ -349,8 +349,8 @@ public final class UrlImageViewHelper {
                         	else if( metrics.widthPixels <= 480 ){ //480 x 800
                         		int width = (480 - (marginLeft + marginRight));
                         		if( oiw < 510 ) {
-                        			imgWidth = width;//(  oiw  * 456/ 560 );
-                        			imgHeight = ( oih * width/ 510   );
+                        			imgWidth = ( oiw  * width/ 510 );
+                        			imgHeight = ( oih * width/ 510 );
                         		} else {
                         			imgWidth = width;
                         			imgHeight = ( oih * width ) / oiw ;
