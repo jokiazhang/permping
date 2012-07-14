@@ -74,6 +74,7 @@ public class PermListController implements PermList_Delegate {
 			String permDateMessage = getValue(permElement, "permDateMessage");
 			String permBoard = getValue(permElement, "permCategory");
 			String permImage = getValue(permElement, "permImage");
+			String permUrl = getValue(permElement, "permUrl");
 			
 			//User 
 			Element permUser = (Element) permElement.getElementsByTagName("user").item(0);
@@ -126,7 +127,7 @@ public class PermListController implements PermList_Delegate {
 			String lon = getValue(permElement, "permLong");
 			String permUserLikeCount = getValue(permElement, Constants.PERM_USERLIKECOUNT);
 			
-			Perm perm = new Perm(permId, new PermBoard("BoardID", permBoard), permDesc, permDateMessage, new PermImage(permImage), comments);
+			Perm perm = new Perm(permId, new PermBoard("BoardID", permBoard), permDesc, permDateMessage, new PermImage(permImage), comments, permUrl);
 			perm.setAuthor(permAuthor);
 			perm.setPermRepinCount(permRepinCount);
 			perm.setPermLikeCount(permLikeCount);
@@ -199,7 +200,7 @@ public class PermListController implements PermList_Delegate {
 			String permDateMessage = getValue(permElement, "permDateMessage");
 			String permBoard = getValue(permElement, "permCategory");
 			String permImage = getValue(permElement, "permImage");
-
+			String permUrl = getValue(permElement, "permUrl");
 			//User 
 			Element permUser = (Element) permElement.getElementsByTagName("user").item(0);
 			String userId  = getValue(permUser, "userId");
@@ -251,7 +252,7 @@ public class PermListController implements PermList_Delegate {
 			String lon = getValue(permElement, "permLong");
 			String permUserLikeCount = getValue(permElement, Constants.PERM_USERLIKECOUNT);
 			
-			Perm perm = new Perm(permId, new PermBoard("BoardID", permBoard), permDesc, permDateMessage, new PermImage(permImage), comments);
+			Perm perm = new Perm(permId, new PermBoard("BoardID", permBoard), permDesc, permDateMessage, new PermImage(permImage), comments, permUrl);
 			perm.setAuthor(permAuthor);
 			perm.setPermRepinCount(permRepinCount);
 			perm.setPermLikeCount(permLikeCount);
