@@ -440,7 +440,7 @@ public class ProfileActivity extends Activity implements Get_Board_delegate{
 				doc = db.parse(is);
 			doc.getDocumentElement().normalize();
 
-			NodeList nodeList = doc.getElementsByTagName("respond");
+			NodeList nodeList = doc.getElementsByTagName("response");
 
 			/** Assign textview array lenght by arraylist size */
 			int length = nodeList.getLength();
