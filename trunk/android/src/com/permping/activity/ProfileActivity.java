@@ -60,6 +60,8 @@ import android.graphics.Typeface;
 import android.graphics.Bitmap.CompressFormat;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -84,6 +86,11 @@ public class ProfileActivity extends Activity implements Get_Board_delegate{
 	public static Comment commentData = null;
 	public static boolean isUserProfile = true;
 	public static int userfollowcount;
+	public static int pinCount;
+	public static int followerCount;
+	
+	public static int UPDATE_BUTTON = 1;
+	
 	public ProgressDialog loadingDialog;
 	public PermBoard board;
 	public Context context;
@@ -97,6 +104,15 @@ public class ProfileActivity extends Activity implements Get_Board_delegate{
 				Log.d("thien", "======>>>>??????");
 				exeUserProfile();
 			} 
+		}
+	};
+	
+	public Handler handler = new Handler() {
+		@Override
+		public void handleMessage(Message msg) {
+			if (msg.what == UPDATE_BUTTON) {
+				btnAccount.invalidate();
+			}
 		}
 	};
 	
@@ -143,7 +159,7 @@ public class ProfileActivity extends Activity implements Get_Board_delegate{
 					new exeFollow(API.follow, true, false).execute(null);
 				}else if(buttonType.equals(context.getString(R.string.unfollow))){
 					showLoadingDialog("Pregressing", "Please wait...");
-					new exeFollow(API.follow, false, false).execute(null);
+					new exeFollow(API.follow, true, false).execute(null);
 				}else if(buttonType.equals(context.getString(R.string.login))){
 					PermpingMain.showLogin();
 				}
@@ -154,8 +170,13 @@ public class ProfileActivity extends Activity implements Get_Board_delegate{
 	
     protected void exeUserProfile() {
 		// TODO Auto-generated method stub
-		if( commentData != null)
-			new getUserProfile(API.getProfileURL+commentData.getAuthor().getId()).execute(null);
+		if( commentData != null) {
+			if(commentData.getAuthor() != null) {
+				new getUserProfile(API.getProfileURL+commentData.getAuthor().getId()).execute(null);
+			} else {
+				new getUserProfile(API.getProfileURL+commentData.getId()).execute(null);
+			}
+		}
 	}
     
     @Override
@@ -177,20 +198,25 @@ public class ProfileActivity extends Activity implements Get_Board_delegate{
             	BoardAdapter boardAdapter = new BoardAdapter(ProfileActivity.this,R.layout.board_item, boards);
             	exeGet(boardAdapter);
             	btnAccount.setVisibility(View.VISIBLE);
+            	btnAccount.invalidate();
     		}else{
     			btnAccount.setText(context.getString(R.string.login));
+    			btnAccount.invalidate();
     			PermpingMain.showLogin();
     		}
     		dismissLoadingDialog();
     	}else{
     		
     		if(commentData != null){
-    			if(commentData.getAuthor() != null)
+    			if(commentData.getAuthor() != null) {
     				if(commentData.getAuthor().getId() != null){
 //    		    		showLoadingDialog("Loading", "Please wait");
     		    			new getUserProfile(API.getProfileURL+commentData.getAuthor().getId()).execute(null);
     					
     				}
+    			} else {
+    				new getUserProfile(API.getProfileURL+commentData.getId()).execute(null);
+    			}
     		}
     	}
     }
@@ -199,16 +225,23 @@ public class ProfileActivity extends Activity implements Get_Board_delegate{
     	try {
     	   
             if (user != null) {
-            	// The author name
-            	String name = user.getName();
-                authorName.setText(name);
-                
-                // The author avatar
-            	PermImage avatar = user.getAvatar();
-                UrlImageViewHelper.setUrlDrawable(authorAvatar, avatar.getUrl());
-                
-                // The number of friends
-                friends.setText(String.valueOf(user.getFriends()) + " "+ProfileActivity.this.getString(R.string.followers));
+            	if(commentData == null) {
+            		// The author name
+                	String name = user.getName();
+                    authorName.setText(name);
+                    
+                    // The author avatar
+                	PermImage avatar = user.getAvatar();
+                    UrlImageViewHelper.setUrlDrawable(authorAvatar, avatar.getUrl());
+                    
+                    // The number of friends
+                    friends.setText(String.valueOf(user.getFriends()) + " "+ ProfileActivity.this.getString(R.string.followers));
+            	} else {
+	                authorName.setText(commentData.getAuthor().getName());
+	                PermImage avatar = commentData.getAuthor().getAvatar();
+	                UrlImageViewHelper.setUrlDrawable(authorAvatar, avatar.getUrl());
+	                friends.setText(String.valueOf(ProfileActivity.this.getString(R.string.perm) + " " + ProfileActivity.pinCount + ProfileActivity.this.getString(R.string.followers) + " " + ProfileActivity.followerCount));
+            	}
                 
                 // The number of followings
 //                followings.setText(String.valueOf(user.getFollowings() + " followings"));
@@ -269,11 +302,19 @@ public class ProfileActivity extends Activity implements Get_Board_delegate{
 					PermpingMain.back();
 					PermpingMain.showLogin();
 					btnAccount.setText(context.getString(R.string.login));
+					btnAccount.invalidate();
 				}
-				else if(result.booleanValue() && btnAccount.getText().equals(context.getString(R.string.follow)))
+				else if(result.booleanValue() && btnAccount.getText().equals(context.getString(R.string.follow))) {
 					btnAccount.setText(context.getString(R.string.unfollow));
-				else if(result.booleanValue() && btnAccount.getText().equals(context.getString(R.string.unfollow)))
+					btnAccount.invalidate();
+					Message message = handler.obtainMessage(UPDATE_BUTTON, "");
+					handler.sendMessage(message);
+				} else if(result.booleanValue() && btnAccount.getText().equals(context.getString(R.string.unfollow))) {
 					btnAccount.setText(context.getString(R.string.follow));
+					btnAccount.invalidate();
+					Message message = handler.obtainMessage(UPDATE_BUTTON, "");
+					handler.sendMessage(message);
+				}
 			}
 
 		}
@@ -313,14 +354,17 @@ public class ProfileActivity extends Activity implements Get_Board_delegate{
 
 		@Override
 		protected void onPostExecute(ArrayList<PermBoard> boards) {
-			if(ProfileActivity.userfollowcount <= 0)
+			if(ProfileActivity.userfollowcount <= 0) {
 				btnAccount.setText(context.getString(R.string.follow));
-			else
+				btnAccount.invalidate();
+			} else {
 				btnAccount.setText(context.getString(R.string.unfollow));
+				btnAccount.invalidate();
+			}
 			if(loadingDialog != null)
 			if(loadingDialog.isShowing()){
 				dismissLoadingDialog();
-				PermpingMain.showLogin();				
+				//PermpingMain.showLogin();				
 			}
 
 			
@@ -457,6 +501,29 @@ public class ProfileActivity extends Activity implements Get_Board_delegate{
 					}
 				}
 			}
+			
+			NodeList nodeList3 = doc.getElementsByTagName("followerCount");
+			if(nodeList3 != null){
+				if(nodeList3.item(0) != null){
+					if(nodeList3.item(0).getChildNodes() != null){
+						if(nodeList3.item(0).getChildNodes().item(0) != null){
+							ProfileActivity.followerCount =  Integer.valueOf(nodeList3.item(0).getChildNodes().item(0).getNodeValue());
+						}
+					}
+				}
+			}
+			
+			NodeList nodeList4 = doc.getElementsByTagName("pinCount");
+			if(nodeList4 != null){
+				if(nodeList4.item(0) != null){
+					if(nodeList4.item(0).getChildNodes() != null){
+						if(nodeList4.item(0).getChildNodes().item(0) != null){
+							ProfileActivity.pinCount =  Integer.valueOf(nodeList4.item(0).getChildNodes().item(0).getNodeValue());
+						}
+					}
+				}
+			}
+			
 			NodeList nodeList = doc.getElementsByTagName("item");
 
 			/** Assign textview array lenght by arraylist size */

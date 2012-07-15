@@ -10,6 +10,7 @@ import com.permping.PermpingApplication;
 import com.permping.TabGroupActivity;
 import com.permping.controller.AuthorizeController;
 import com.permping.interfaces.Login_delegate;
+import com.permping.model.Comment;
 import com.permping.model.User;
 import com.permping.utils.Constants;
 import com.permping.utils.XMLParser;
@@ -22,6 +23,7 @@ import android.view.View;
 public class FollowerActivityGroup extends TabGroupActivity implements Login_delegate {
 	
 	public static FollowerActivityGroup context;
+	public boolean isReload = true;
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		this.context = this;
@@ -40,6 +42,7 @@ public class FollowerActivityGroup extends TabGroupActivity implements Login_del
 				nameValuePairs.add(new BasicNameValuePair("password", userPass));
 				AuthorizeController authorizeController = new AuthorizeController(FollowerActivityGroup.this);
 				authorizeController.authorize(this, nameValuePairs);
+				isReload = true;
 			} else {
 				PermpingApplication state = (PermpingApplication) getApplicationContext();
 				User user = state.getUser();
@@ -62,6 +65,7 @@ public class FollowerActivityGroup extends TabGroupActivity implements Login_del
 	public void onResume() {
 		super.onResume();
 		createFollowerActivity();
+		isReload = false;
 	}
 	
 	public void createFollowerActivity() {
@@ -71,10 +75,22 @@ public class FollowerActivityGroup extends TabGroupActivity implements Login_del
 		clearHistory();
 	}
 
+	public static void createProfileActivity(Object comment, boolean isUserProfile) {
+		group.clearHistory();
+		ProfileActivity.commentData = ( Comment)comment;
+		ProfileActivity.isUserProfile = false;
+		View view = group.getLocalActivityManager().startActivity( "ProfileActivity", new Intent(group, ProfileActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
+		setTabGroup(group);
+		group.replaceView(view);
+	}
+	
 	@Override
 	public void on_success() {
 		// TODO Auto-generated method stub
-		
+		if(isReload == false) {
+			createFollowerActivity();
+			isReload = true;
+		}
 	}
 
 	@Override

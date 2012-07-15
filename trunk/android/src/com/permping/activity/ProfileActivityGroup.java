@@ -11,6 +11,7 @@ import android.view.View;
 
 import com.permping.PermpingMain;
 import com.permping.TabGroupActivity;
+import com.permping.model.Comment;
 import com.permping.model.User;
 import com.permping.utils.PermUtils;
 
@@ -37,6 +38,8 @@ public class ProfileActivityGroup extends TabGroupActivity {
 	}
 	
 	public void createUI() {
+		ProfileActivity.commentData = null;
+		ProfileActivity.isUserProfile = true;
 		User user = PermUtils.isAuthenticated(getApplicationContext());
 		setTabGroup(this);
         if (user != null) {

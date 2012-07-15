@@ -54,6 +54,7 @@
     <string name="new_facebook">페이스북</string>
     <string name="new_twitter">트위터</string>
     <string name="new_kakao_talk">카카오톡</string>
+    <string name="voice_recording">얘기 녹음</string>
     
     <string name="followers">팔로우</string>
     <string name="perm">펌</string>

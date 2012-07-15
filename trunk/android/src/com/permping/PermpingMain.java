@@ -269,10 +269,13 @@ public class PermpingMain extends TabActivity  {
 	}
 	public static void gotoTab(int tab, Object data){
 		
-		if(tab == 4){
-			ProfileActivity.commentData = ( Comment)data;
-			ProfileActivity.isUserProfile = false;
-			tabHost.setCurrentTab(tab);
+		if(tab == 4){			
+			//tabHost.setCurrentTab(tab);
+			
+			FollowerActivityGroup.createProfileActivity(data, false);
+			
+			
+			
 		}else if(tab == 5){
 //			Intent imageDetail = new Intent(context, ImageDetail.class);
 //			imageDetail.putExtra("url", (String) data);
