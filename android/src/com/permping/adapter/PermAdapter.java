@@ -272,7 +272,15 @@ public class PermAdapter extends ArrayAdapter<Perm> implements OnClickListener {
 							if(perm.getAuthor() != null)
 								if(perm.getAuthor().getName() != null)
 									an.setText(perm.getAuthor().getName());
-		
+						av.setOnClickListener(new View.OnClickListener() {
+							
+							public void onClick(View v) {
+								// TODO Auto-generated method stub
+								Comment comment = new Comment(perm.getAuthor().getId());
+								comment.setAuthor(perm.getAuthor());
+								PermpingMain.gotoTab(4, comment);
+							}
+						});
 						// Board name
 						TextView bn = (TextView) view.findViewById(R.id.boardName);
 						//holder.boardName.setText(perm.getBoard().getName());

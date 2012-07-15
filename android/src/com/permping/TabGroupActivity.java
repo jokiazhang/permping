@@ -61,7 +61,7 @@ public class TabGroupActivity extends ActivityGroup {
 		}
 	}	
 	
-	public void setTabGroup(TabGroupActivity tabGroup) {
+	public static void setTabGroup(TabGroupActivity tabGroup) {
 		group = tabGroup;
 	}
 	
