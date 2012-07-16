@@ -1,109 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TableLayout
-     xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:padding="3dp"
-        android:paddingTop="0dp"
-        android:stretchColumns="0">
-    <TableRow >
-    <RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="fill_parent"
-        android:paddingLeft="7dp"
-        android:textColor="#000000" 
-        android:layout_marginTop="10dip">
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:padding="3dp"
+    android:paddingTop="0dp"
+    android:stretchColumns="0" >
 
-        <ImageView
-            android:id="@+id/authorAvatar"
-            android:scaleType="fitCenter"
-            android:layout_width="@dimen/avatar_size"
-            android:layout_height="@dimen/avatar_size"/>
+    <TableRow>
 
-        <LinearLayout
-            android:layout_width="120dp"
-            android:layout_height="30dp"
-            android:layout_marginLeft="@dimen/avatar_size_plus_padding"
-            android:orientation="vertical">
+        <RelativeLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="fill_parent"
+            android:layout_marginTop="10dip"
+            android:paddingLeft="7dp"
+            android:textColor="#000000" >
 
-            <TextView
-                android:id="@+id/authorName"
-                android:layout_width="fill_parent"
-                android:layout_height="0dip"
-                android:layout_weight="1"
-            	android:textStyle="bold"
-                android:gravity="center_vertical"
-                android:text=""
-                android:textSize="@dimen/text_size_auther_name"
-                android:textColor="#000000" />
-        </LinearLayout>
+            <ImageView
+                android:id="@+id/authorAvatar"
+                android:layout_width="@dimen/avatar_size"
+                android:layout_height="@dimen/avatar_size"
+                android:scaleType="fitCenter" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:layout_alignParentRight="true"
-            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="120dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="@dimen/avatar_size_plus_padding"
+                android:orientation="vertical" >
 
-            <TextView
-                android:id="@+id/boardName"
+                <TextView
+                    android:id="@+id/authorName"
+                    android:layout_width="fill_parent"
+                    android:layout_height="0dip"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text=""
+                    android:textColor="#000000"
+                    android:textSize="@dimen/text_size_auther_name"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="0dip"
-                android:gravity="right"
-                android:paddingRight="20dp"
-                android:layout_weight="1"
-            	android:textStyle="bold"
-            	android:textSize="@dimen/text_size_board_name"
-                android:text=""
-                android:textColor="#5c5c5c" />
-        </LinearLayout>
-    </RelativeLayout>
+                android:layout_height="30dp"
+                android:layout_alignParentRight="true"
+                android:orientation="vertical" >
 
+                <TextView
+                    android:id="@+id/boardName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dip"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:paddingRight="20dp"
+                    android:text=""
+                    android:textColor="#5c5c5c"
+                    android:textSize="@dimen/text_size_board_name"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </RelativeLayout>
     </TableRow>
-    
+
     <TableRow
         android:id="@+id/permImageParent"
         android:layout_width="100dip"
         android:layout_height="100dip"
-        android:paddingBottom="10dip"
-        android:padding="0dp"
-        android:paddingTop="0dp"
+        android:layout_marginLeft="3dp"
         android:layout_marginRight="5dp"
-        android:layout_marginLeft="3dp">
-            <ImageView
+        android:padding="0dp"
+        android:paddingBottom="10dip"
+        android:paddingTop="0dp" >
+
+        <ImageView
             android:id="@+id/permImage"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scaleType="fitCenter"
-            android:src="@drawable/icon"
             android:layout_gravity="center_vertical"
-            android:background="#dddadd" />
-                        
+            android:background="#dddadd"
+            android:scaleType="fitCenter"
+            android:src="@drawable/icon" />
     </TableRow>
-    
-    <TableRow >
 
-           <TextView
-                android:layout_width="fill_parent"
-                android:id="@+id/permDesc"
-                android:layout_span="2"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:text="Perm Description"
-                android:textSize="@dimen/text_size_perm_description"
-                android:textColor="#4c566c"/>
-    </TableRow>
-    <TableRow android:paddingBottom="10dp">
+    <TableRow>
 
-           <TextView
-                android:layout_width="fill_parent"
-                android:id="@+id/permInfo"
-                android:layout_span="2"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:textSize="@dimen/text_size_perm_description"
-                android:text="via username onto category" />
+        <TextView
+            android:id="@+id/permDesc"
+            android:layout_width="fill_parent"
+            android:layout_span="2"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="Perm Description"
+            android:textColor="#4c566c"
+            android:textSize="@dimen/text_size_perm_description" />
     </TableRow>
-    <TableRow android:paddingBottom="10dp">
+
+    <TableRow android:paddingBottom="10dp" >
+
+        <TextView
+            android:id="@+id/permInfo"
+            android:layout_width="fill_parent"
+            android:layout_span="2"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="via username onto category"
+            android:textSize="@dimen/text_size_perm_description" />
+    </TableRow>
+
+    <TableRow android:paddingBottom="10dp" >
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -113,9 +116,9 @@
                 android:id="@+id/permVoiceInfo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:gravity="center_vertical"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
-                android:gravity="center_vertical"
                 android:text="Voice record Broxn, New York"
                 android:textSize="@dimen/text_size_perm_description" />
 
@@ -126,104 +129,146 @@
                 android:layout_marginRight="5dip"
                 android:gravity="center_vertical"
                 android:src="@drawable/voice_icon" />
+
             <ImageView
-            android:id="@+id/btnLocal"
-            android:layout_width="fill_parent"
-            android:layout_height="30dp"
-            android:layout_marginRight="5dip" 
-            android:src="@drawable/location_icon" />
+                android:id="@+id/btnLocation"
+                android:layout_width="fill_parent"
+                android:layout_height="30dp"
+                android:layout_marginRight="5dip"
+                android:src="@drawable/location_icon" />
         </LinearLayout>
-	</TableRow>
-    <TableRow >
+    </TableRow>
+
+    <TableRow>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp">
-         <Button
-                    android:id="@+id/btnRepem"
-                    android:layout_width="75dp"
-                    android:layout_height="45dp"
-                    android:background="@drawable/button_style"
-                    android:text="@string/bt_reperm"
-                    android:textSize="@dimen/text_size_like_button"
-                    android:textColor="#5e5d5d" 
-                    android:layout_marginLeft="10dp"/>
-        <Button
-                    android:id="@+id/btnLike"
-                    android:layout_width="75dp"
-                    android:layout_height="45dp"
-                    android:background="@drawable/button_style"
-                    android:text="@string/bt_like"
-                    android:textSize="@dimen/text_size_like_button"
-                    android:textColor="#5e5d5d" 
-                    android:layout_marginLeft="10dp"/>
-         <Button
-                    android:id="@+id/btnComment"
-                    android:layout_width="75dp"
-                    android:layout_height="45dp"
-                    android:background="@drawable/button_style"
-                    android:text="@string/bt_comment"
-                    android:textSize="@dimen/text_size_like_button"
-                    android:textColor="#5e5d5d" 
-                    android:layout_marginLeft="10dp"/>
-          <ImageView
-            android:id="@+id/btnLocation"
-            android:layout_width="fill_parent"
-            android:layout_height="30dp"
-            android:layout_marginRight="5dip" 
-            android:src="@drawable/location_icon" />
-         </LinearLayout>
-    </TableRow>
-    <TableRow>
+            android:layout_marginBottom="10dp" >
 
-           <TextView
+            <Button
+                android:id="@+id/btnRepem"
+                android:layout_width="75dp"
+                android:layout_height="45dp"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/button_style"
+                android:text="@string/bt_reperm"
+                android:textColor="#5e5d5d"
+                android:textSize="@dimen/text_size_like_button" />
+
+            <Button
+                android:id="@+id/btnLike"
+                android:layout_width="75dp"
+                android:layout_height="45dp"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/button_style"
+                android:text="@string/bt_like"
+                android:textColor="#5e5d5d"
+                android:textSize="@dimen/text_size_like_button" />
+
+            <Button
+                android:id="@+id/btnComment"
+                android:layout_width="75dp"
+                android:layout_height="45dp"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/button_style"
+                android:text="@string/bt_comment"
+                android:textColor="#5e5d5d"
+                android:textSize="@dimen/text_size_like_button" />
+
+            <ImageView
+                android:id="@+id/btnLocationNotUse"
                 android:layout_width="fill_parent"
-                android:id="@+id/permStat"
-                android:layout_span="2"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:textSize="@dimen/text_size_perm_stat"
-                 />
+                android:layout_height="30dp"
+                android:layout_marginRight="5dip"
+                android:src="@drawable/location_icon" 
+                android:visibility="gone"/>
+        </LinearLayout>
     </TableRow>
-    
+
     <TableRow>
+
+        <TextView
+            android:id="@+id/permStat"
+            android:layout_width="fill_parent"
+            android:layout_span="2"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:textSize="@dimen/text_size_perm_stat" />
+    </TableRow>
+
+    <TableRow>
+
         <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
             android:id="@+id/commentInput"
-            android:orientation="vertical">
-        </LinearLayout>
-    </TableRow>
-    
-    <TableRow >
-        <LinearLayout 
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/comments"
-            android:orientation="vertical"
-            >
-            
-            
-            
+            android:orientation="vertical" >
         </LinearLayout>
     </TableRow>
+
+ 
     <TableRow>
 
-            <!-- Horizonal split line -->
+        <LinearLayout
+            android:id="@+id/comments"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+        </LinearLayout>
+    </TableRow>
+<!--    <TableRow>
 
-            <LinearLayout
-                xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="25dp"
-                android:orientation="vertical"
-                android:padding="3dp"
-                android:paddingTop="0dp" >
+        <VideoView
+            android:id="@+id/permVideo"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_margin="10dp"
+            android:gravity="center_horizontal" />
+    </TableRow>
 
-                <View
-                    android:id="@+id/item_separator"
-                    android:layout_width="fill_parent"
-                    android:layout_height="0.5dp"
-                    android:background="@android:color/darker_gray" />
-            </LinearLayout>
-        </TableRow>
+    <TableRow>
+
+        <LinearLayout
+            android:id="@+id/buttons"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/btnPlay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Play" />
+
+            <Button
+                android:id="@+id/btnStop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Stop" />
+        </LinearLayout>
+    </TableRow>
+ -->
+    <TableRow>
+
+        <!-- Horizonal split line -->
+
+        <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:orientation="vertical"
+            android:padding="3dp"
+            android:paddingTop="0dp" >
+
+            <View
+                android:id="@+id/item_separator"
+                android:layout_width="fill_parent"
+                android:layout_height="0.5dp"
+                android:background="@android:color/darker_gray" />
+        </LinearLayout>
+    </TableRow>
+
 </TableLayout>
