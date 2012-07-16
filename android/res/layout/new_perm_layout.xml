@@ -57,25 +57,25 @@
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" >
+
                 <ImageView
                     android:id="@+id/rightArrow"
                     android:layout_width="30dp"
                     android:layout_height="25dp"
+                    android:layout_alignParentRight="true"
                     android:layout_weight="1"
                     android:paddingTop="5dp"
                     android:scaleType="fitEnd"
-                    android:layout_alignParentRight="true"
                     android:src="@drawable/right_arrow" />
+
                 <Spinner
                     android:id="@+id/boardSpinnerNewPerm"
                     android:layout_width="260dp"
                     android:layout_height="25dp"
-                    android:paddingRight="50dp"
-                    android:gravity="center"
                     android:background="@android:color/transparent"
+                    android:gravity="center"
+                    android:paddingRight="50dp"
                     android:prompt="@string/board_prompt" />
-
-
             </RelativeLayout>
         </LinearLayout>
     </LinearLayout>
@@ -102,6 +102,35 @@
             android:layout_width="0dp"
             android:layout_height="25dp"
             android:layout_marginLeft="120dip"
+            android:layout_weight="1"
+            android:scaleType="fitEnd"
+            android:textOff=""
+            android:textOn="" />
+    </LinearLayout>
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/categoryItemLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="-3dp"
+        android:background="@drawable/explorer_item_bg_end" >
+
+        <TextView
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/record_audio"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#000000" />
+
+        <ToggleButton
+            android:id="@+id/btnRecordAudio"
+            android:layout_width="0dp"
+            android:layout_height="25dp"
+            android:layout_marginLeft="140dip"
             android:layout_weight="1"
             android:scaleType="fitEnd"
             android:textOff=""
