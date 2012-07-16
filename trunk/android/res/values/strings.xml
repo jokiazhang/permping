@@ -25,7 +25,8 @@
     <string name="board_name">보드 이름</string>
     <string name="board_description">보드 설명</string>
     <string name="bt_create_board">확인</string>
-    <string name="logout">Account</string>
+    <string name="logout">로그 아웃</string>
+    <string name="account">Account</string>
     <string name="cancel">취소</string>
     <string name="bt_reperm">펌하기</string>
     <string name="bt_like">좋아요</string>

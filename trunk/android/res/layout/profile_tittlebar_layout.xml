@@ -20,7 +20,7 @@
                 android:layout_marginRight="10dp"
                 android:layout_weight="1"
                 android:background="@drawable/title_button_bg"
-                android:text="@string/logout"
+                android:text="@string/account"
                 android:textColor="#FFFFFF"
                 android:textSize="18px" />
 
