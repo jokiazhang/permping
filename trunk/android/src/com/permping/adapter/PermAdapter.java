@@ -244,10 +244,14 @@ public class PermAdapter extends ArrayAdapter<Perm> implements OnClickListener {
 					ImageView gotoMap = (ImageView)view.findViewById(R.id.btnLocation);
 					gotoMap.setTag(viewId);
 					gotoMap.setOnClickListener(PermAdapter.this);
+					TextView permViewInfo = (TextView)view.findViewById(R.id.permVoiceInfo);
 					if(perm.getLon() ==0 && perm.getLat() == 0){
 						gotoMap.setVisibility(View.GONE);
+						permViewInfo.setVisibility(View.GONE);
+						
 					}else{
 						gotoMap.setVisibility(View.VISIBLE);
+						permViewInfo.setVisibility(View.VISIBLE);
 					}
 					
 					
@@ -268,13 +272,13 @@ public class PermAdapter extends ArrayAdapter<Perm> implements OnClickListener {
 								PermpingMain.gotoTab(6, perm.getPermAudio());
 							}
 						});
-						TextView permViewInfo = (TextView)view.findViewById(R.id.permVoiceInfo);
+						
 						if(perm.getPermAudio() !=null && !perm.getPermAudio().equals("")){
 							btnPlayAudio.setVisibility(View.VISIBLE);
-							permViewInfo.setVisibility(View.VISIBLE);
+							
 						}else{
-							btnPlayAudio.setVisibility(View.INVISIBLE);
-							permViewInfo.setVisibility(View.INVISIBLE);
+							btnPlayAudio.setVisibility(View.GONE);
+							
 						}
 						ImageView av = (ImageView) view.findViewById(R.id.authorAvatar);
 						if( perm.getAuthor() != null)
