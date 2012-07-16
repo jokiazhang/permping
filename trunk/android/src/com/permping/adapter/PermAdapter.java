@@ -99,6 +99,7 @@ public class PermAdapter extends ArrayAdapter<Perm> implements OnClickListener {
 //	new
 	
 	final String likeString = this.getContext().getResources().getString(R.string.bt_like);
+	final String unlikeString = this.getContext().getResources().getString(R.string.bt_unlike);
 	final String repermString = this.getContext().getResources().getString(R.string.bt_reperm);
 	final String commentString = this.getContext().getResources().getString(R.string.bt_comment);
 	final String textCurrentLike = this.getContext().getResources().getString(R.string.delete);
@@ -931,7 +932,7 @@ public class PermAdapter extends ArrayAdapter<Perm> implements OnClickListener {
 
 				HttpPermUtils util = new HttpPermUtils();
 				Log.d("aasdfsdss", like.getText().toString()+"======="+R.string.delete);
-				if(like.getText().toString().equals(likeString)){
+				if(like.getText().toString().equals(likeString) || like.getText().toString().equals(unlikeString)){
 					List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
 					nameValuePairs.add(new BasicNameValuePair("pid", String
 							.valueOf(perm.getId())));
