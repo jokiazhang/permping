@@ -205,7 +205,7 @@ public class PermAdapter extends ArrayAdapter<Perm> implements OnClickListener {
 				newPermList.put(viewId, perm);
 				if (convertView != null){
 					Log.i(TAG, "getView() convertView != null");
-					addComments(convertView, perm);
+//					addComments(convertView, perm);
 					return convertView;
 				}else{
 					Log.i(TAG, "getView() convertView == null");
