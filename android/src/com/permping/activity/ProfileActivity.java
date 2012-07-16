@@ -72,6 +72,7 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -91,7 +92,8 @@ public class ProfileActivity extends Activity implements Get_Board_delegate{
 	
 	public static int UPDATE_BUTTON = 1;
 	
-	public ProgressDialog loadingDialog;
+//	public ProgressDialog loadingDialog;
+	ProgressBar progressBar;
 	public PermBoard board;
 	public Context context;
 	//private int selectedBoardId = -1;
@@ -120,14 +122,15 @@ public class ProfileActivity extends Activity implements Get_Board_delegate{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.profile_layout);
-        
+        progressBar = (ProgressBar)findViewById(R.id.progressBarProfile);
         TextView textView = (TextView)findViewById(R.id.permpingTitle);
 		Typeface tf = Typeface.createFromAsset(getAssets(), "ufonts.com_franklin-gothic-demi-cond-2.ttf");
 		if(textView != null) {
 			textView.setTypeface(tf);
 		}
 		
-        showLoadingDialog("Loading", "Please wait...");
+		progressBar.setVisibility(View.VISIBLE);
+//        showLoadingDialog("Loading", "Please wait...");
         authorAvatar = (ImageView) findViewById(R.id.authorAvatar);
         authorName = (TextView) findViewById(R.id.authorName);
         friends = (TextView) findViewById(R.id.friends);
@@ -141,6 +144,8 @@ public class ProfileActivity extends Activity implements Get_Board_delegate{
 			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
+				PermpingApplication state = (PermpingApplication) context.getApplicationContext();
+				User user = state.getUser();
 				String buttonType = btnAccount.getText().toString();
 				if(buttonType.equals(context.getString(R.string.logout))){
 					Intent myIntent = new Intent(ProfileActivity.this, AccountActivity.class);
@@ -155,11 +160,26 @@ public class ProfileActivity extends Activity implements Get_Board_delegate{
 					showLoadingDialog("Pregressing", "Please wait...");
 					new exeFollow(API.logoutURL, false, true).execute(null);*/
 				}else if(buttonType.equals(context.getString(R.string.follow))){
-					showLoadingDialog("Pregressing", "Please wait...");
+					if(user !=null){
+//						showLoadingDialog("Pregressing", "Please wait...");
+						progressBar.setVisibility(View.VISIBLE);
+						new exeFollow(API.follow, true, false).execute(null);
+						
+					}else {
+						PermpingMain.showLogin();
+					}
+					progressBar.setVisibility(View.VISIBLE);
+//					showLoadingDialog("Pregressing", "Please wait...");
 					new exeFollow(API.follow, true, false).execute(null);
 				}else if(buttonType.equals(context.getString(R.string.unfollow))){
-					showLoadingDialog("Pregressing", "Please wait...");
-					new exeFollow(API.follow, true, false).execute(null);
+					if(user !=null){
+						progressBar.setVisibility(View.VISIBLE);
+//						showLoadingDialog("Pregressing", "Please wait...");
+						new exeFollow(API.follow, true, false).execute(null);
+						
+					}else {
+						PermpingMain.showLogin();
+					}
 				}else if(buttonType.equals(context.getString(R.string.login))){
 					PermpingMain.showLogin();
 				}
@@ -204,7 +224,8 @@ public class ProfileActivity extends Activity implements Get_Board_delegate{
     			btnAccount.invalidate();
     			PermpingMain.showLogin();
     		}
-    		dismissLoadingDialog();
+//    		dismissLoadingDialog();
+    		progressBar.setVisibility(View.GONE);
     	}else{
     		
     		if(commentData != null){
@@ -293,7 +314,8 @@ public class ProfileActivity extends Activity implements Get_Board_delegate{
 
 		@Override
 		protected void onPostExecute(Boolean result) {
-			dismissLoadingDialog();
+//			dismissLoadingDialog();
+			progressBar.setVisibility(View.GONE);
 			if(result != null){
 				if(result.booleanValue() && btnAccount.getText().equals(context.getString(R.string.logout))){
 					PermpingApplication state = (PermpingApplication)context.getApplicationContext();
@@ -361,12 +383,12 @@ public class ProfileActivity extends Activity implements Get_Board_delegate{
 				btnAccount.setText(context.getString(R.string.unfollow));
 				btnAccount.invalidate();
 			}
-			if(loadingDialog != null)
-			if(loadingDialog.isShowing()){
-				dismissLoadingDialog();
-				//PermpingMain.showLogin();				
-			}
-
+//			if(loadingDialog != null)
+//			if(loadingDialog.isShowing()){
+//				dismissLoadingDialog();
+//				//PermpingMain.showLogin();				
+//			}
+			progressBar.setVisibility(View.GONE);
 			
 			if(boards != null){
 				Log.d("tttttt","OOOOOOO=======>>>>>"+boards);
@@ -600,17 +622,17 @@ public class ProfileActivity extends Activity implements Get_Board_delegate{
 
     	
     }
-	private void showLoadingDialog(String title, String msg) {
-		loadingDialog = new ProgressDialog(getParent());
-		loadingDialog.setMessage(msg);
-		loadingDialog.setTitle(title);
-		loadingDialog.setCancelable(true );
-		this.loadingDialog.show();
-	}
-	private void dismissLoadingDialog() {
-		if (loadingDialog != null && loadingDialog.isShowing())
-			loadingDialog.dismiss();
-	}
+//	private void showLoadingDialog(String title, String msg) {
+//		loadingDialog = new ProgressDialog(getParent());
+//		loadingDialog.setMessage(msg);
+//		loadingDialog.setTitle(title);
+//		loadingDialog.setCancelable(true );
+//		this.loadingDialog.show();
+//	}
+//	private void dismissLoadingDialog() {
+//		if (loadingDialog != null && loadingDialog.isShowing())
+//			loadingDialog.dismiss();
+//	}
 	@Override
 	public void onSuccess(ArrayList<Perm> perms) {
 		// TODO Auto-generated method stub
