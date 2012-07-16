@@ -29,6 +29,7 @@ public class AccountActivity extends Activity {
 	Button logout;
 	Button cancel;
 	Button back;
+	Button btnAddProfile;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +46,7 @@ public class AccountActivity extends Activity {
         
 		logout = (Button) findViewById(R.id.btLogout);
 		cancel = (Button) findViewById(R.id.btCancel);
+		btnAddProfile = (Button)findViewById(R.id.btnAddProfile);
 //thien		back = (Button) findViewById(R.id.btBack); 
 		
 		logout.setOnClickListener(new View.OnClickListener() {
@@ -72,6 +74,14 @@ public class AccountActivity extends Activity {
 			
 			public void onClick(View v) {
 				((ProfileActivityGroup)(ProfileActivityGroup.group)).createUI();
+			}
+		});
+		btnAddProfile.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				PermpingMain.gotoTab(2, "UploadProfile");
 			}
 		});
 		
