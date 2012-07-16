@@ -340,7 +340,7 @@ public final class UrlImageViewHelper {
                         		int width = (320 - (marginLeft + marginRight));
                         		if( oiw < 510 ){
 	                        		imgWidth = (  oiw * width/ 510   );
-	                        		imgHeight = ( oih * width/ 510  );
+	                        		imgHeight = ( oih * width/ imgWidth  );
                         		} else {
                         			imgWidth = width;
                         			imgHeight = ( oih * width ) / oiw ;
@@ -350,7 +350,7 @@ public final class UrlImageViewHelper {
                         		int width = (480 - (marginLeft + marginRight));
                         		if( oiw < 510 ) {
                         			imgWidth = ( oiw  * width/ 510 );
-                        			imgHeight = ( oih * width/ 510 );
+                        			imgHeight = ( oih * width/ imgWidth );
                         		} else {
                         			imgWidth = width;
                         			imgHeight = ( oih * width ) / oiw ;
@@ -360,7 +360,7 @@ public final class UrlImageViewHelper {
                         		int width = (800 - (marginLeft + marginRight));
                         		if( oiw < 510 ){
                         			imgWidth = (  oiw * width/ 510   );
-                        			imgHeight = ( oih * width/ 510 );
+                        			imgHeight = ( oih * width/ imgWidth );
                         		} else {
                         			imgWidth = width;
                         			imgHeight = ( oih * width ) / oiw ;
