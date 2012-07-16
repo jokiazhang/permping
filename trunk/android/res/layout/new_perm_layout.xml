@@ -80,7 +80,7 @@
         </LinearLayout>
     </LinearLayout>
     
-    <LinearLayout
+<!--     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -107,7 +107,7 @@
             android:textOff=""
             android:textOn="" />
     </LinearLayout>
-
+ -->
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/categoryItemLayout"
@@ -116,7 +116,7 @@
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:layout_marginTop="-3dp"
-        android:background="@drawable/explorer_item_bg_end" >
+        android:background="@drawable/explorer_item_bg" >
 
         <TextView
             xmlns:android="http://schemas.android.com/apk/res/android"
