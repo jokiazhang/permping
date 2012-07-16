@@ -53,7 +53,7 @@ public final class UrlImageViewHelper {
         return total;
     }
     
-    static int IMAGE_MAX_SIZE = 1200000;//60000;//30000;//1200000/4;//60000;//1200000;
+    static int IMAGE_MAX_SIZE = 100000;//60000;//30000;//1200000/4;//60000;//1200000;
     static int SCALE_RATIO = 2;
     static Resources mResources;
     static DisplayMetrics mMetrics;
@@ -333,44 +333,49 @@ public final class UrlImageViewHelper {
                         	int marginLeft = 6;
                         	int marginRight = 6;
                         	
-                        	int imgWidth = 0;
-                        	int imgHeight = 0;
-                        	
+                        	float imgWidth = 0;
+                        	float imgHeight = 0;
+                        	float width = 0;
                         	if( metrics.widthPixels <= 320 ) { //320 x 480
-                        		int width = (320 - (marginLeft + marginRight));
-                        		if( oiw < 510 ){
-	                        		imgWidth = (  oiw * width/ 510   );
-	                        		imgHeight = ( oih * width/ imgWidth  );
-                        		} else {
-                        			imgWidth = width;
-                        			imgHeight = ( oih * width ) / oiw ;
-                        		}
+                        		width = (320 - (marginLeft + marginRight));
+//                        		if( oiw < 510 ){
+                        		
+//	                        		imgWidth = (  oiw * width/ 510   );
+//	                        		imgHeight = ( oih * width/ imgWidth  );
+//                        		} else {
+//                        			imgWidth = width;
+//                        			imgHeight = ( oih * width ) / oiw ;
+//                        		}
                         	}
                         	else if( metrics.widthPixels <= 480 ){ //480 x 800
-                        		int width = (480 - (marginLeft + marginRight));
-                        		if( oiw < 510 ) {
-                        			imgWidth = ( oiw  * width/ 510 );
-                        			imgHeight = ( oih * width/ imgWidth );
-                        		} else {
-                        			imgWidth = width;
-                        			imgHeight = ( oih * width ) / oiw ;
-                        		}
+                        		width = (480 - (marginLeft + marginRight));
+//                        		if( oiw < 510 ) {
+//                        			imgWidth = ( oiw  * width/ 510 );
+//                        			imgHeight = ( oih * width/ imgWidth );
+//                        		} else {
+//                        			imgWidth = width;
+//                        			imgHeight = ( oih * width ) / oiw ;
+//                        		}
                         		
                         	} else if( metrics.widthPixels <= 800 ){ //800 x 1280 
-                        		int width = (800 - (marginLeft + marginRight));
-                        		if( oiw < 510 ){
-                        			imgWidth = (  oiw * width/ 510   );
-                        			imgHeight = ( oih * width/ imgWidth );
-                        		} else {
-                        			imgWidth = width;
-                        			imgHeight = ( oih * width ) / oiw ;
-                        		}
+                        		width = (800 - (marginLeft + marginRight));
+//                        		if( oiw < 510 ){
+//                        			imgWidth = (  oiw * width/ 510   );
+//                        			imgHeight = ( oih * width/ imgWidth );
+//                        		} else {
+//                        			imgWidth = width;
+//                        			imgHeight = ( oih * width ) / oiw ;
+//                        		}
                         	}
                         	
+                        	float ratio = width/oiw;
                         	
+                    		imgWidth = oiw * ratio;
+                    		imgHeight = oih * ratio;
+                    		 
 	                        LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) imageView.getLayoutParams();
-	        				layoutParams.width = imgWidth;
-	        				layoutParams.height = imgHeight;
+	        				layoutParams.width = (int)imgWidth;
+	        				layoutParams.height = (int)imgHeight;
 	        				layoutParams.setMargins(marginLeft, 10, marginRight, 10);
 	        				imageView.setLayoutParams(layoutParams);
                         }
