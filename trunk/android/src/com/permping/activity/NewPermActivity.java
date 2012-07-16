@@ -42,6 +42,8 @@ import org.xml.sax.SAXException;
 
 import twitter4j.http.AccessToken;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -90,14 +92,14 @@ import com.permping.utils.PermUtils;
 public class NewPermActivity extends Activity implements OnClickListener {
 
 	public static List<PermBoard> boardList = new ArrayList<PermBoard>();
-	private String boardIdRe ="";
+	private String boardIdRe = "";
 	private String boardDescRe = "";
 	private String permIdRe = "";
 	private String userIdRe = "";
 	private String imagePath = "";
 	private int boardId = -1;
-	private String permAndroidLink="";
-	private String permIphoneLink="";
+	private String permAndroidLink = "";
+	private String permIphoneLink = "";
 	public static int LOGIN_FACEBOOK = 1;
 	public static int MESSAGE_LOGIN_FACEBOOK_ERROR = 100;
 	public static int LOGIN_TWITTER = 2;
@@ -123,25 +125,30 @@ public class NewPermActivity extends Activity implements OnClickListener {
 	private List<PermBoard> boards;
 	private LinearLayout btnCatilogy;
 	private ImageView rightArrow;
-//	private ProgressDialog loadingDialog;
+	// private ProgressDialog loadingDialog;
 	ProgressBar progressBar;
 	Button btnOk;
 	private Context context;
-	public static boolean  isReperm = false;
+	public static boolean isReperm = false;
 	private boolean uploadStatus = false;
 	String pathAudioFile;
 	boolean isGetRecord = false;
+
+	private LocationManager locManager;
+	private LocationListener locListener = new MyLocationListener();
+	private boolean gps_enabled = false;
+	private boolean network_enabled = false;
 	public Handler handleFbLogin = new Handler() {
 		@Override
 		public void handleMessage(Message msg) {
 			if (msg.what == LOGIN_FACEBOOK) {
-				
-//				showLoadingDialog("Processing", "Please wait...");
-//				new LoadBoards().execute();
-//				new ImageUpload(imagePath).execute();
+
+				// showLoadingDialog("Processing", "Please wait...");
+				// new LoadBoards().execute();
+				// new ImageUpload(imagePath).execute();
 				btnShareFacebook.setChecked(true);
 			}
-			
+
 			if (msg.what == MESSAGE_LOGIN_FACEBOOK_ERROR) {
 				btnShareFacebook.setChecked(false);
 			}
@@ -152,20 +159,24 @@ public class NewPermActivity extends Activity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		// setContentView(R.layout.new_perm_layout);
 		setContentView(R.layout.new_perm_layout);
-		
-		TextView textView = (TextView)findViewById(R.id.permpingTitle);
-		Typeface tf = Typeface.createFromAsset(getAssets(), "ufonts.com_franklin-gothic-demi-cond-2.ttf");
-		if(textView != null) {
+
+		TextView textView = (TextView) findViewById(R.id.permpingTitle);
+		Typeface tf = Typeface.createFromAsset(getAssets(),
+				"ufonts.com_franklin-gothic-demi-cond-2.ttf");
+		if (textView != null) {
 			textView.setTypeface(tf);
 		}
-		progressBar = (ProgressBar)findViewById(R.id.progressBar2);
+		locManager = (LocationManager) this
+				.getSystemService(Context.LOCATION_SERVICE);
+		initGetLocation();
+		progressBar = (ProgressBar) findViewById(R.id.progressBar2);
 		btnShareFacebook = (ToggleButton) findViewById(R.id.share_facebookr);
 		btnShareTwitter = (ToggleButton) findViewById(R.id.share_twitter);
 		btnShareKakao = (ToggleButton) findViewById(R.id.share_kakao);
 		btnLocation = (ToggleButton) findViewById(R.id.location);
-		btnRecordAudio = (ToggleButton)findViewById(R.id.btnRecordAudio);
+		btnRecordAudio = (ToggleButton) findViewById(R.id.btnRecordAudio);
 		btnCatilogy = (LinearLayout) findViewById(R.id.categoryItemLayout1);
-		rightArrow = (ImageView)findViewById(R.id.rightArrow);
+		rightArrow = (ImageView) findViewById(R.id.rightArrow);
 		rightArrow.setOnClickListener(this);
 		btnShareFacebook.setOnClickListener(this);
 		btnShareTwitter.setOnClickListener(this);
@@ -185,7 +196,7 @@ public class NewPermActivity extends Activity implements OnClickListener {
 		context = NewPermActivity.this;
 		Bundle extras = getIntent().getExtras();
 		if (extras != null) {
-			if(extras.get("reperm") != null){
+			if (extras.get("reperm") != null) {
 				isReperm = true;
 				boardIdRe = (String) extras.getString("boardId");
 				boardDescRe = (String) extras.getString("boardDesc");
@@ -193,10 +204,11 @@ public class NewPermActivity extends Activity implements OnClickListener {
 				userIdRe = (String) extras.getString("userId");
 				initValue();
 				new LoadBoards().execute();
-			}else{
+			} else {
 				this.imagePath = (String) extras.get("imagePath");
 				if (extras.get("permID") != null)
-					this.permID = Integer.parseInt((String) extras.get("permID"));
+					this.permID = Integer.parseInt((String) extras
+							.get("permID"));
 				new LoadBoards().execute();
 			}
 
@@ -206,13 +218,48 @@ public class NewPermActivity extends Activity implements OnClickListener {
 
 	private void initValue() {
 		// TODO Auto-generated method stub
-		if(boardDescRe != null)
+		if (boardDescRe != null)
 			permDesc.setText(this.boardDescRe);
-//		btnShareFacebook.setEnabled(false);
-//		btnShareTwitter.setEnabled(false);
+		// btnShareFacebook.setEnabled(false);
+		// btnShareTwitter.setEnabled(false);
 		btnShareKakao.setEnabled(false);
 	}
+	public void initGetLocation() {
 
+		try {
+			gps_enabled = locManager
+					.isProviderEnabled(LocationManager.GPS_PROVIDER);
+		} catch (Exception ex) {
+		}
+
+		try {
+			network_enabled = locManager
+					.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+
+		} catch (Exception ex) {
+		}
+
+		// don't start listeners if no provider is enabled
+
+		if (!gps_enabled & !network_enabled) {
+
+			AlertDialog.Builder builder = new Builder(context);
+			builder.setTitle("Attention!");
+			builder.setMessage("Sorry, location is not determined. Please enable location providers");
+			builder.create().show();
+
+		}
+
+		if (gps_enabled) {
+			locManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
+					0, 0, locListener);
+		}
+
+		if (network_enabled) {
+			locManager.requestLocationUpdates(
+					LocationManager.NETWORK_PROVIDER, 0, 0, locListener);
+		}
+	}
 	private void initToggleStatus() {
 		// TODO Auto-generated method stub
 		facebookToken = permUtils.getFacebookToken(NewPermActivity.this);
@@ -229,18 +276,18 @@ public class NewPermActivity extends Activity implements OnClickListener {
 		} else {
 			btnShareTwitter.setChecked(true);
 		}
-		if(isGetRecord){
+		if (isGetRecord) {
 			btnRecordAudio.setChecked(true);
-		}else{
+		} else {
 			btnRecordAudio.setChecked(false);
 		}
-		if (btnLocation.isChecked()) {
-			mlocManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0,
-					0, mlocListener);
-		} else {
-			lon = 0;
-			lat = 0;
-		}
+//		if (btnLocation.isChecked()) {
+//			mlocManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0,
+//					0, mlocListener);
+//		} else {
+//			lon = 0;
+//			lat = 0;
+//		}
 	}
 
 	public void onBackPressed() {
@@ -283,11 +330,11 @@ public class NewPermActivity extends Activity implements OnClickListener {
 	public void setSpinnerData() {
 		Spinner boardSelect = (Spinner) findViewById(R.id.boardSpinnerNewPerm);
 		addItemsOnMainCategory(boardSelect, boards);
-		boardSelect.setOnItemSelectedListener(new CategorySpinnerSelectedListener());
+		boardSelect
+				.setOnItemSelectedListener(new CategorySpinnerSelectedListener());
 	}
 
-	private void addItemsOnMainCategory(Spinner spinner,
-			List<PermBoard> boards2) {
+	private void addItemsOnMainCategory(Spinner spinner, List<PermBoard> boards2) {
 		BoardSpinnerAdapter boardSpinnerAdapter = new BoardSpinnerAdapter(this,
 				boards2);
 		spinner.setAdapter(boardSpinnerAdapter);
@@ -378,15 +425,19 @@ public class NewPermActivity extends Activity implements OnClickListener {
 					// HttpPost("http://10.0.2.2/perm/testupload.php");
 					HttpPost postRequest = null;
 					Charset chars = Charset.forName("UTF-8");
-					facebookToken = permUtils.getFacebookToken(NewPermActivity.this);
-					twitterAccessToken = permUtils.getTwitterAccess(NewPermActivity.this);
+					facebookToken = permUtils
+							.getFacebookToken(NewPermActivity.this);
+					twitterAccessToken = permUtils
+							.getTwitterAccess(NewPermActivity.this);
 
-					MultipartEntity reqEntity = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE, null, Charset.forName(HTTP.UTF_8));
+					MultipartEntity reqEntity = new MultipartEntity(
+							HttpMultipartMode.BROWSER_COMPATIBLE, null,
+							Charset.forName(HTTP.UTF_8));
 					if (!isReperm && filePath != null && !"".equals(filePath)) {
 						postRequest = new HttpPost(API.addNewPermUrl);
 
 						ByteArrayOutputStream bos = new ByteArrayOutputStream();
-//						Bitmap bm = BitmapFactory.decodeFile(filePath);
+						// Bitmap bm = BitmapFactory.decodeFile(filePath);
 						Bitmap bm = getBitmap2(filePath);
 						bm.compress(CompressFormat.JPEG, 75, bos);
 						byte[] data = bos.toByteArray();
@@ -396,51 +447,64 @@ public class NewPermActivity extends Activity implements OnClickListener {
 						reqEntity.addPart("img", bab);
 						reqEntity.addPart("photoCaption", new StringBody(
 								fileName, chars));
-						
-//						Upload audio to server
-						if(btnRecordAudio.isChecked()){
-//					        ByteArrayOutputStream dos = new ByteArrayOutputStream();
-//					        FileInputStream fileInputStream = null;
-					        byte[] buffer;
-//					        int maxBufferSize = 20 * 1024;
-//					        fileInputStream = new FileInputStream(new File(pathAudioFile));
-//				            // create a buffer of maximum size
-//				            buffer = new byte[Math.min((int) pathAudioFile.length(), maxBufferSize)];
-//				            int length;
-//				            // read file and write it into form...
-//				            while ((length = fileInputStream.read(buffer)) != -1) {
-//				                dos.write(buffer, 0, length);
-//				            }
-					        buffer = getByArray(pathAudioFile);
-				            ByteArrayBody baba= new ByteArrayBody(buffer, new File(pathAudioFile).getName());
-				            reqEntity.addPart("audio", baba);
-							
-							
+
+						// Upload audio to server
+						if (btnRecordAudio.isChecked()) {
+							// ByteArrayOutputStream dos = new
+							// ByteArrayOutputStream();
+							// FileInputStream fileInputStream = null;
+							byte[] buffer;
+							// int maxBufferSize = 20 * 1024;
+							// fileInputStream = new FileInputStream(new
+							// File(pathAudioFile));
+							// // create a buffer of maximum size
+							// buffer = new byte[Math.min((int)
+							// pathAudioFile.length(), maxBufferSize)];
+							// int length;
+							// // read file and write it into form...
+							// while ((length = fileInputStream.read(buffer)) !=
+							// -1) {
+							// dos.write(buffer, 0, length);
+							// }
+							buffer = getByArray(pathAudioFile);
+							ByteArrayBody baba = new ByteArrayBody(buffer,
+									new File(pathAudioFile).getName());
+							reqEntity.addPart("audio", baba);
+
 						}
-			            
-						reqEntity.addPart("uid", new StringBody(user.getId(), chars));
+
+						reqEntity.addPart("uid", new StringBody(user.getId(),
+								chars));
 						reqEntity.addPart("board",
 								new StringBody(String.valueOf(boardId), chars));
 						reqEntity.addPart("board_desc", new StringBody(permDesc
 								.getText().toString(), chars));
-					} else if (isReperm ) { // Reperm
+					} else if (isReperm) { // Reperm
 						postRequest = new HttpPost(API.repermUrl);
 
-						reqEntity.addPart("pid",
-								new StringBody(String.valueOf(permIdRe), chars));
-						reqEntity.addPart("uid", new StringBody(String.valueOf(userIdRe), chars));
+						reqEntity
+								.addPart(
+										"pid",
+										new StringBody(
+												String.valueOf(permIdRe), chars));
+						reqEntity
+								.addPart(
+										"uid",
+										new StringBody(
+												String.valueOf(userIdRe), chars));
 						reqEntity.addPart("board ",
 								new StringBody(String.valueOf(boardId), chars));
 						reqEntity.addPart("board_desc", new StringBody(permDesc
 								.getText().toString(), chars));
 					}
 					String type = "";
-					if (facebookToken != null && btnShareFacebook.isChecked()){
+					if (facebookToken != null && btnShareFacebook.isChecked()) {
 						reqEntity.addPart("fb_oauth_token", new StringBody(
 								facebookToken, chars));
 						type = "facebook";
 					}
-					if (twitterAccessToken != null && btnShareTwitter.isChecked()) {
+					if (twitterAccessToken != null
+							&& btnShareTwitter.isChecked()) {
 						reqEntity.addPart("tw_oauth_token", new StringBody(
 								twitterAccessToken.getToken(), chars));
 						reqEntity.addPart(
@@ -449,110 +513,127 @@ public class NewPermActivity extends Activity implements OnClickListener {
 										.getTokenSecret(), chars));
 						type = "twitter";
 					}
-					if( facebookToken != null && twitterAccessToken != null){
+					if (facebookToken != null && twitterAccessToken != null) {
 						type = "all";
 					}
 					reqEntity.addPart("type", new StringBody("" + type, chars));
-					reqEntity.addPart("lat", new StringBody("" + lat, chars));
-					reqEntity.addPart("long", new StringBody("" + lon, chars));
+					if(btnLocation.isChecked()){
+						reqEntity.addPart("lat", new StringBody("" + lat, chars));
+						reqEntity.addPart("long", new StringBody("" + lon, chars));
+					}else{
+						reqEntity.addPart("lat", new StringBody("" + 0, chars));
+						reqEntity.addPart("long", new StringBody("" + 0, chars));
+					}
+					Log.d("======>", "======Lat, lon==========" + lat + "==="
+							+ lon);
 					postRequest.setEntity(reqEntity);
 					HttpResponse response = httpClient.execute(postRequest);
 					HttpEntity entry = response.getEntity();
 					String readFile = EntityUtils.toString(entry);
 
 					parseXmlFile(readFile);
-					}
+				}
 			} catch (Exception e) {
 
 			}
 			// Toast.makeText(getApplicationContext(),"Please login first!",Toast.LENGTH_LONG).show();
 		}
 
+
+
 		private Bitmap checkBitmapSize(Bitmap bm) {
 			// TODO Auto-generated method stub
 			Bitmap bmResult = null;
 			return bmResult;
 		}
-		  private Bitmap getBitmap(String path) {
-			    try {
-			        final int IMAGE_MAX_SIZE = 1200000; // 1.2MP
-			        // Decode image size
-			        BitmapFactory.Options o = new BitmapFactory.Options();
-			        o.inJustDecodeBounds = true;
-			        int scale = 1;
-			        while ((o.outWidth * o.outHeight) * (1 / Math.pow(scale, 2)) > IMAGE_MAX_SIZE) {
-			            scale++;
-			        }
-			        Log.d("","scale = " + scale + ", orig-width: " + o.outWidth       + ", orig-height: " + o.outHeight);
 
-			        Bitmap b = null;
-			        if (scale > 1) {
-			            scale--;
-			            // scale to max possible inSampleSize that still yields an image
-			            // larger than target
-			            o = new BitmapFactory.Options();
-			            o.inSampleSize = scale;
-			            b = BitmapFactory.decodeFile(path);
+		private Bitmap getBitmap(String path) {
+			try {
+				final int IMAGE_MAX_SIZE = 1200000; // 1.2MP
+				// Decode image size
+				BitmapFactory.Options o = new BitmapFactory.Options();
+				o.inJustDecodeBounds = true;
+				int scale = 1;
+				while ((o.outWidth * o.outHeight) * (1 / Math.pow(scale, 2)) > IMAGE_MAX_SIZE) {
+					scale++;
+				}
+				Log.d("", "scale = " + scale + ", orig-width: " + o.outWidth
+						+ ", orig-height: " + o.outHeight);
 
-			            // resize to desired dimensions
-			            int height = b.getHeight();
-			            int width = b.getWidth();
-			            Log.d("", "1th scale operation dimenions - width: " + width    + ", height: " + height);
+				Bitmap b = null;
+				if (scale > 1) {
+					scale--;
+					// scale to max possible inSampleSize that still yields an
+					// image
+					// larger than target
+					o = new BitmapFactory.Options();
+					o.inSampleSize = scale;
+					b = BitmapFactory.decodeFile(path);
 
-			            double y = Math.sqrt(IMAGE_MAX_SIZE
-			                    / (((double) width) / height));
-			            double x = (y / height) * width;
+					// resize to desired dimensions
+					int height = b.getHeight();
+					int width = b.getWidth();
+					Log.d("", "1th scale operation dimenions - width: " + width
+							+ ", height: " + height);
 
-			            Bitmap scaledBitmap = Bitmap.createScaledBitmap(b, (int) x,     (int) y, true);
-			            b.recycle();
-			            b = scaledBitmap;
+					double y = Math.sqrt(IMAGE_MAX_SIZE
+							/ (((double) width) / height));
+					double x = (y / height) * width;
 
-			            System.gc();
-			        } else {
-			            b = BitmapFactory.decodeFile(path);
-			        }
+					Bitmap scaledBitmap = Bitmap.createScaledBitmap(b, (int) x,
+							(int) y, true);
+					b.recycle();
+					b = scaledBitmap;
 
+					System.gc();
+				} else {
+					b = BitmapFactory.decodeFile(path);
+				}
 
-			        Log.d("", "bitmap size - width: "+b.getWidth()+ ", height: " + b.getHeight()+"");
-			        return b;
-			    } catch (Exception e) {
-			        Log.e("", e.getMessage(),e);
-			        return null;
-			    }
+				Log.d("", "bitmap size - width: " + b.getWidth() + ", height: "
+						+ b.getHeight() + "");
+				return b;
+			} catch (Exception e) {
+				Log.e("", e.getMessage(), e);
+				return null;
 			}
-		  private Bitmap getBitmap2(String path) {
-			    try {
-			        final int IMAGE_MAX_SIZE = 1024; // 1.2MP
-			        // Decode image size
-			        BitmapFactory.Options o = new BitmapFactory.Options();
-			        o.inJustDecodeBounds = true;
-			        double scale = 1;
-			        while (o.outWidth  > IMAGE_MAX_SIZE) {
-			            scale = o.outWidth/IMAGE_MAX_SIZE;
-			        }
-			        Log.d("","scale = " + scale + ", orig-width: " + o.outWidth       + ", orig-height: " + o.outHeight);
+		}
 
-			        Bitmap b = null;
-			        if (scale > 1) {
-			
-			        	double y = (double)o.outHeight/scale;
-			            double x = 1024;
+		private Bitmap getBitmap2(String path) {
+			try {
+				final int IMAGE_MAX_SIZE = 1024; // 1.2MP
+				// Decode image size
+				BitmapFactory.Options o = new BitmapFactory.Options();
+				o.inJustDecodeBounds = true;
+				double scale = 1;
+				while (o.outWidth > IMAGE_MAX_SIZE) {
+					scale = o.outWidth / IMAGE_MAX_SIZE;
+				}
+				Log.d("", "scale = " + scale + ", orig-width: " + o.outWidth
+						+ ", orig-height: " + o.outHeight);
 
-			            Bitmap scaledBitmap = Bitmap.createScaledBitmap(b, (int) x,     (int) y, true);
-			            b = scaledBitmap;
-//			            System.gc();
-			        } else {
-			            b = BitmapFactory.decodeFile(path);
-			        }
+				Bitmap b = null;
+				if (scale > 1) {
 
+					double y = (double) o.outHeight / scale;
+					double x = 1024;
 
-			        Log.d("", "bitmap size - width: "+b.getWidth()+ ", height: " + b.getHeight()+"");
-			        return b;
-			    } catch (Exception e) {
-			        Log.e("", e.getMessage(),e);
-			        return null;
-			    }
+					Bitmap scaledBitmap = Bitmap.createScaledBitmap(b, (int) x,
+							(int) y, true);
+					b = scaledBitmap;
+					// System.gc();
+				} else {
+					b = BitmapFactory.decodeFile(path);
+				}
+
+				Log.d("", "bitmap size - width: " + b.getWidth() + ", height: "
+						+ b.getHeight() + "");
+				return b;
+			} catch (Exception e) {
+				Log.e("", e.getMessage(), e);
+				return null;
 			}
+		}
 
 		boolean parseXmlFile(String xmlFile) {
 			Document doc = null;
@@ -592,8 +673,10 @@ public class NewPermActivity extends Activity implements OnClickListener {
 							.getElementsByTagName("permIphoneLink");
 					Element nameElementLinkIphone = null;
 					if (nameListLinkIphone != null) {
-						nameElementLinkIphone = (Element) nameListLinkIphone.item(0);
-						nameListLinkIphone = nameElementLinkIphone.getChildNodes();
+						nameElementLinkIphone = (Element) nameListLinkIphone
+								.item(0);
+						nameListLinkIphone = nameElementLinkIphone
+								.getChildNodes();
 						permIphoneLink = ((Node) nameListLinkIphone.item(0))
 								.getNodeValue();
 
@@ -604,8 +687,7 @@ public class NewPermActivity extends Activity implements OnClickListener {
 					if (nameListId != null) {
 						nameElementId = (Element) nameListId.item(0);
 						nameListId = nameElementId.getChildNodes();
-						permId = ((Node) nameListId.item(0))
-								.getNodeValue();
+						permId = ((Node) nameListId.item(0)).getNodeValue();
 
 					}
 					NodeList nameList = fstElmnt
@@ -613,14 +695,14 @@ public class NewPermActivity extends Activity implements OnClickListener {
 					Element nameElement = null;
 					if (nameList != null) {
 						nameElement = (Element) nameList.item(0);
-						if( nameElement != null){
+						if (nameElement != null) {
 							nameList = nameElement.getChildNodes();
 							String status = ((Node) nameList.item(0))
 									.getNodeValue();
-							if (status.equals("200")){
+							if (status.equals("200")) {
 								uploadStatus = true;
 								return true;
-							}	
+							}
 						}
 					}
 
@@ -649,20 +731,21 @@ public class NewPermActivity extends Activity implements OnClickListener {
 		@Override
 		protected void onPostExecute(String sResponse) {
 
-			if (progressBar.getVisibility()==View.VISIBLE) {
+			if (progressBar.getVisibility() == View.VISIBLE) {
 				dismissLoadingDialog();
-//				ImageActivityGroup.group.back();
+				// ImageActivityGroup.group.back();
 				if (btnShareKakao.isChecked()) {
-					if( isReperm){
+					if (isReperm) {
 						Toast.makeText(getApplicationContext(),
 								"Re-Permed  and shared to Kakao app!",
 								Toast.LENGTH_LONG).show();
 						isReperm = false;
-					}else{
+					} else {
 						Toast.makeText(getApplicationContext(),
 								"Uploaded new perm \nLet share on Kakao app!",
 								Toast.LENGTH_LONG).show();
-						if (uploadStatus && btnShareKakao.isChecked()) {//uploadStatus && 
+						if (uploadStatus && btnShareKakao.isChecked()) {// uploadStatus
+																		// &&
 							try {
 								gotoKakao();
 							} catch (Exception e) {
@@ -676,18 +759,18 @@ public class NewPermActivity extends Activity implements OnClickListener {
 					}
 
 				} else {
-					if(isReperm){
-						Toast.makeText(getApplicationContext(),
-								"Re-Permed!", Toast.LENGTH_LONG).show();
-						isReperm =false;
-					}else{
+					if (isReperm) {
+						Toast.makeText(getApplicationContext(), "Re-Permed!",
+								Toast.LENGTH_LONG).show();
+						isReperm = false;
+					} else {
 						Toast.makeText(getApplicationContext(),
 								"Uploaded new perm!", Toast.LENGTH_LONG).show();
 					}
-					ImageActivityGroup.uploaded =true;
+					ImageActivityGroup.uploaded = true;
 					finish();
 				}
-				
+
 			}
 
 		}
@@ -696,10 +779,10 @@ public class NewPermActivity extends Activity implements OnClickListener {
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		dismissLoadingDialog();
-		if(requestCode==2){
+		if (requestCode == 2) {
 			Bundle bundle = data.getExtras();
 			pathAudioFile = bundle.getString("pathFile");
-			Log.d("aaaa",""+pathAudioFile);
+			Log.d("aaaa", "" + pathAudioFile);
 		}
 	}
 
@@ -709,7 +792,7 @@ public class NewPermActivity extends Activity implements OnClickListener {
 		int id = arg0.getId();
 		switch (id) {
 		case R.id.buttonCANCEL:
-//			ImageActivityGroup.group.back();
+			// ImageActivityGroup.group.back();
 			finish();
 			break;
 		case R.id.buttonOK:
@@ -731,14 +814,15 @@ public class NewPermActivity extends Activity implements OnClickListener {
 			audioOnChange();
 			break;
 		case R.id.rightArrow:
-//			new LoadBoards().execute();
+			// new LoadBoards().execute();
 			new CategorySpinnerSelectedListener();
 			break;
 		default:
 			break;
 		}
 	}
-	private byte[] getByArray(String fileName){
+
+	private byte[] getByArray(String fileName) {
 		HttpURLConnection connection = null;
 		DataOutputStream outputStream = null;
 		DataInputStream inputStream = null;
@@ -746,79 +830,81 @@ public class NewPermActivity extends Activity implements OnClickListener {
 		String urlServer = API.addNewPermUrl;
 		String lineEnd = "\r\n";
 		String twoHyphens = "--";
-		String boundary =  "*****";
+		String boundary = "*****";
 
 		int bytesRead, bytesAvailable, bufferSize;
 		byte[] buffer;
-		int maxBufferSize = 1*1024*1024;
+		int maxBufferSize = 1 * 1024 * 1024;
 
-		try
-		{
-			FileInputStream fileInputStream = new FileInputStream(new File(pathToOurFile) );
-	
+		try {
+			FileInputStream fileInputStream = new FileInputStream(new File(
+					pathToOurFile));
+
 			URL url = new URL(urlServer);
 			connection = (HttpURLConnection) url.openConnection();
-	
+
 			// Allow Inputs & Outputs
 			connection.setDoInput(true);
 			connection.setDoOutput(true);
 			connection.setUseCaches(false);
-	
+
 			// Enable POST method
 			connection.setRequestMethod("POST");
-	
+
 			connection.setRequestProperty("Connection", "Keep-Alive");
-			connection.setRequestProperty("Content-Type", "multipart/form-data;boundary="+boundary);
-	
-			outputStream = new DataOutputStream( connection.getOutputStream() );
+			connection.setRequestProperty("Content-Type",
+					"multipart/form-data;boundary=" + boundary);
+
+			outputStream = new DataOutputStream(connection.getOutputStream());
 			outputStream.writeBytes(twoHyphens + boundary + lineEnd);
-			outputStream.writeBytes("Content-Disposition: form-data; name=\"uploadedfile\";filename=\"" + pathToOurFile +"\"" + lineEnd);
+			outputStream
+					.writeBytes("Content-Disposition: form-data; name=\"uploadedfile\";filename=\""
+							+ pathToOurFile + "\"" + lineEnd);
 			outputStream.writeBytes(lineEnd);
-	
+
 			bytesAvailable = fileInputStream.available();
 			bufferSize = Math.min(bytesAvailable, maxBufferSize);
 			buffer = new byte[bufferSize];
-	
+
 			// Read file
 			bytesRead = fileInputStream.read(buffer, 0, bufferSize);
-	
-			while (bytesRead > 0)
-			{
+
+			while (bytesRead > 0) {
 				outputStream.write(buffer, 0, bufferSize);
 				bytesAvailable = fileInputStream.available();
 				bufferSize = Math.min(bytesAvailable, maxBufferSize);
 				bytesRead = fileInputStream.read(buffer, 0, bufferSize);
 			}
 			return buffer;
-		}
-		catch (Exception ex)
-		{
-		//Exception handling
+		} catch (Exception ex) {
+			// Exception handling
 			return null;
 		}
 	}
+
 	private void audioOnChange() {
 		// TODO Auto-generated method stub
-		if(btnRecordAudio.isChecked()){
-			isGetRecord =true;
-			Intent recordIntent = new Intent(NewPermActivity.this, RecorderActivity.class);
+		if (btnRecordAudio.isChecked()) {
+			isGetRecord = true;
+			Intent recordIntent = new Intent(NewPermActivity.this,
+					RecorderActivity.class);
 			startActivityForResult(recordIntent, 2);
-		}else{
+		} else {
 			isGetRecord = false;
 		}
-		
+
 	}
 
 	private void locationChange() {
 		// TODO Auto-generated method stub
-		if (btnLocation.isChecked()) {
-			lat = 0;
-			lon = 0;
-
-		} else {
-			mlocManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0,
-					0, mlocListener);
-		}
+//		if (btnLocation.isChecked()) {
+//
+//			mlocManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0,
+//					0, mlocListener);
+//		} else {
+//			lat = 0;
+//			lon = 0;
+//		}
 	}
 
 	private void shareKakao() {
@@ -833,7 +919,7 @@ public class NewPermActivity extends Activity implements OnClickListener {
 		// TODO Auto-generated method stub
 		if (twitterAccessToken == null) {
 			Intent i = new Intent(context, PrepareRequestTokenActivity.class);
-			context.startActivity(i);	
+			context.startActivity(i);
 			btnShareTwitter.setChecked(true);
 		} else {
 			btnShareTwitter.setChecked(false);
@@ -843,12 +929,12 @@ public class NewPermActivity extends Activity implements OnClickListener {
 	private void shareFb() {
 		facebookToken = permUtils.getFacebookToken(NewPermActivity.this);
 		if (facebookToken == null || facebookToken == "") {
-			permUtils.integateLoginFacebook(NewPermActivity.this,
-					handleFbLogin);
+			permUtils
+					.integateLoginFacebook(NewPermActivity.this, handleFbLogin);
 		} else {
 			btnShareFacebook.setChecked(false);
 			permUtils.logOutFacebook(NewPermActivity.this);
-		}		
+		}
 	}
 
 	private void uploadPerm() {
@@ -862,7 +948,7 @@ public class NewPermActivity extends Activity implements OnClickListener {
 				showLoadingDialog("Processing", "Please wait...");
 				new ImageUpload(imagePath).execute();
 
-			}else if(isReperm){
+			} else if (isReperm) {
 				showLoadingDialog("Processing", "Please wait...");
 				new ImageUpload(imagePath).execute();
 			}
@@ -902,11 +988,14 @@ public class NewPermActivity extends Activity implements OnClickListener {
 
 		try {
 			String strMessage = "pindetails/" + permId;// "카카오링크를 사용하여 메세지를 전달해 보세요.";
-			String strURL = "Android: "+permAndroidLink+" & Iphone: "+permIphoneLink;//"http://link.kakao.com";
+			String strURL = "Android: " + permAndroidLink + " & Iphone: "
+					+ permIphoneLink;// "http://link.kakao.com";
 			String strAppId = "com.kakao.android.image";
 			String strAppVer = "2.0";
 			String strAppName = "[Permping]";// "[카카오톡]";
-			String strInstallUrl = "Android: "+permAndroidLink+" &Iphone: "+permIphoneLink;;
+			String strInstallUrl = "Android: " + permAndroidLink + " &Iphone: "
+					+ permIphoneLink;
+			;
 			ArrayList<Map<String, String>> arrMetaInfo = new ArrayList<Map<String, String>>();
 
 			Map<String, String> metaInfoAndroid = new Hashtable<String, String>(
@@ -924,37 +1013,38 @@ public class NewPermActivity extends Activity implements OnClickListener {
 				startActivity(link.getIntent());
 			}
 			startActivity(link.getIntent());
-			
+
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
 
 	}
+
 	private void showLoadingDialog(String title, String msg) {
-//		loadingDialog = new ProgressDialog(context);
-//		loadingDialog.setMessage(msg);
-//		loadingDialog.setTitle(title);
-//		loadingDialog.setCancelable(true);
-//		loadingDialog.show();
+		// loadingDialog = new ProgressDialog(context);
+		// loadingDialog.setMessage(msg);
+		// loadingDialog.setTitle(title);
+		// loadingDialog.setCancelable(true);
+		// loadingDialog.show();
 		btnOk.setVisibility(View.INVISIBLE);
 		progressBar.setVisibility(View.VISIBLE);
 	}
 
 	private void dismissLoadingDialog() {
-//		if (loadingDialog != null )
-//			if(loadingDialog.isShowing())
-//				loadingDialog.dismiss();
-		if(progressBar.getVisibility()==View.VISIBLE){
+		// if (loadingDialog != null )
+		// if(loadingDialog.isShowing())
+		// loadingDialog.dismiss();
+		if (progressBar.getVisibility() == View.VISIBLE) {
 			progressBar.setVisibility(View.INVISIBLE);
 			btnOk.setVisibility(View.VISIBLE);
 		}
-		
+
 	}
 
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if ((keyCode == KeyEvent.KEYCODE_BACK)) {
-//			PermpingMain.back();
+			// PermpingMain.back();
 			finish();
 			return true;
 		}
