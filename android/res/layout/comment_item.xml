@@ -16,7 +16,7 @@
             android:id="@+id/commentAvatar"
             android:layout_width="@dimen/avatar_size"
             android:layout_height="@dimen/avatar_size"
-            android:paddingTop="5dp"
+            android:paddingTop="0dp"
             />
         </LinearLayout>
         <TableLayout android:layout_width="fill_parent"
