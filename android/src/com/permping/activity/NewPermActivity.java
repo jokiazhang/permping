@@ -136,7 +136,7 @@ public class NewPermActivity extends Activity implements OnClickListener {
 		public void handleMessage(Message msg) {
 			if (msg.what == LOGIN_FACEBOOK) {
 				
-				showLoadingDialog("Processing", "Please wait...");
+//				showLoadingDialog("Processing", "Please wait...");
 //				new LoadBoards().execute();
 //				new ImageUpload(imagePath).execute();
 				btnShareFacebook.setChecked(true);
