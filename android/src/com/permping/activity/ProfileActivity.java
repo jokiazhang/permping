@@ -256,12 +256,12 @@ public class ProfileActivity extends Activity implements Get_Board_delegate{
                     UrlImageViewHelper.setUrlDrawable(authorAvatar, avatar.getUrl());
                     
                     // The number of friends
-                    friends.setText(String.valueOf(user.getFriends()) + " "+ ProfileActivity.this.getString(R.string.followers));
+                    friends.setText(String.valueOf(user.getPin() + ProfileActivity.this.getString(R.string.perm) + " " + user.getFriends()) + " "+ ProfileActivity.this.getString(R.string.followers));
             	} else {
 	                authorName.setText(commentData.getAuthor().getName());
 	                PermImage avatar = commentData.getAuthor().getAvatar();
 	                UrlImageViewHelper.setUrlDrawable(authorAvatar, avatar.getUrl());
-	                friends.setText(String.valueOf(ProfileActivity.this.getString(R.string.perm) + " " + ProfileActivity.pinCount + ProfileActivity.this.getString(R.string.followers) + " " + ProfileActivity.followerCount));
+	                friends.setText(String.valueOf(ProfileActivity.this.getString(R.string.perm) + " " + ProfileActivity.pinCount + " " + ProfileActivity.this.getString(R.string.followers) + " " + ProfileActivity.followerCount));
             	}
                 
                 // The number of followings

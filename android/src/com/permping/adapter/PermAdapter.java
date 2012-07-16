@@ -197,6 +197,21 @@ public class PermAdapter extends ArrayAdapter<Perm> implements OnClickListener {
 						ImageButton previousButton = (ImageButton) footerView.findViewById(R.id.previous);
 						previousButton.setVisibility(View.INVISIBLE);
 					}
+					
+					//disable the separator view
+					int previousPosition = position - 1;
+					if(previousPosition < items.size() && previousPosition >= 0) {
+						Perm perm = items.get(previousPosition);
+						String viewId = perm.getId();
+						View previousView = viewList.get(viewId);
+						if(previousView != null) {
+							View seperatorLine = (View) previousView.findViewById(R.id.item_separator);
+							if(seperatorLine != null) {
+								seperatorLine.setVisibility(View.GONE);
+							}
+						}
+					}
+					
 					return footerView;
 				}
 				final Perm perm = items.get(position);
@@ -254,6 +269,12 @@ public class PermAdapter extends ArrayAdapter<Perm> implements OnClickListener {
 //						permViewInfo.setVisibility(View.VISIBLE);
 					}
 					
+					if(position == items.size() - 1) {
+						View seperatorLine = (View) view.findViewById(R.id.item_separator);
+						if(seperatorLine != null) {
+							seperatorLine.setVisibility(View.GONE);
+						}
+					}
 					
 					if (perm != null) {
 						

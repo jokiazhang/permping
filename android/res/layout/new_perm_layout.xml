@@ -14,11 +14,11 @@
         android:id="@+id/categoryItemLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:layout_marginTop="20dp"
-        android:padding="5dp"
-        android:background="@drawable/explorer_item_bg_first" >
+        android:background="@drawable/explorer_item_bg_first"
+        android:padding="5dp" >
 
         <EditText
             android:id="@+id/permDesc"
@@ -38,11 +38,11 @@
         android:id="@+id/categoryItemLayout1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:layout_marginTop="-3dp"
-        android:padding="5dp"
-        android:background="@drawable/explorer_item_bg" >
+        android:background="@drawable/explorer_item_bg"
+        android:padding="5dp" >
 
         <TextView
             xmlns:android="http://schemas.android.com/apk/res/android"
@@ -74,7 +74,7 @@
                     android:id="@+id/boardSpinnerNewPerm"
                     android:layout_width="260dp"
                     android:layout_height="25dp"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="20dp"
                     android:background="@android:color/transparent"
                     android:gravity="center"
                     android:paddingRight="50dp"
@@ -116,11 +116,12 @@
         android:id="@+id/categoryItemLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:layout_marginTop="-3dp"
+        android:background="@drawable/explorer_item_bg"
         android:padding="5dp"
-        android:background="@drawable/explorer_item_bg" >
+        android:visibility="gone" >
 
         <TextView
             xmlns:android="http://schemas.android.com/apk/res/android"
@@ -130,16 +131,21 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="#000000" />
 
-        <ToggleButton
-            android:id="@+id/btnRecordAudio"
-            android:layout_width="0dp"
-            android:layout_height="30dp"
-            android:layout_marginLeft="140dip"
-            android:layout_weight="1"
-            android:scaleType="fitEnd"
-            android:textOff=""
-            android:textOn=""
-            android:layout_marginBottom="3dp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right" >
+
+            <ToggleButton
+                android:id="@+id/btnRecordAudio"
+                android:layout_width="75dp"
+                android:layout_height="30dp"
+                android:layout_marginBottom="3dp"
+                android:gravity="center_vertical|right"
+                android:scaleType="fitEnd"
+                android:textOff=""
+                android:textOn="" />
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
@@ -147,11 +153,11 @@
         android:id="@+id/categoryItemLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:layout_marginTop="-3dp"
-        android:padding="5dp"
-        android:background="@drawable/explorer_item_bg_end" >
+        android:background="@drawable/explorer_item_bg_end"
+        android:padding="5dp" >
 
         <TextView
             xmlns:android="http://schemas.android.com/apk/res/android"
@@ -161,23 +167,28 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="#000000" />
 
-        <ToggleButton
-            android:id="@+id/location"
-            android:layout_width="0dp"
-            android:layout_height="30dp"
-            android:layout_marginLeft="163dip"
-            android:layout_weight="1"
-            android:scaleType="fitEnd"
-            android:textOff=""
-            android:textOn="" 
-            android:layout_marginBottom="3dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right" >
+
+            <ToggleButton
+                android:id="@+id/location"
+                android:layout_width="75dp"
+                android:layout_height="30dp"
+                android:layout_marginBottom="3dp"
+                android:gravity="center_vertical|right"
+                android:scaleType="fitEnd"
+                android:textOff=""
+                android:textOn="" />
+        </LinearLayout>
     </LinearLayout>
 
     <TextView
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
+        android:layout_marginLeft="10dp"
         android:layout_marginTop="20dp"
         android:text="Share on "
         android:textAppearance="?android:attr/textAppearanceMedium"
@@ -188,11 +199,11 @@
         android:id="@+id/categoryItemLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:layout_marginTop="20dp"
-        android:padding="5dp"
-        android:background="@drawable/explorer_item_bg_first" >
+        android:background="@drawable/explorer_item_bg_first"
+        android:padding="5dp" >
 
         <TextView
             xmlns:android="http://schemas.android.com/apk/res/android"
@@ -202,16 +213,20 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="#000000" />
 
-        <ToggleButton
-            android:id="@+id/share_facebookr"
-            android:layout_width="0dp"
-            android:layout_height="30dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="130dip"
-            android:layout_weight="1"
-            android:scaleType="fitEnd"
-            android:textOff=""
-            android:textOn="" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right" >
+
+            <ToggleButton
+                android:id="@+id/share_facebookr"
+                android:layout_width="75dp"
+                android:layout_height="30dp"
+                android:gravity="center_vertical|right"
+                android:scaleType="fitEnd"
+                android:textOff=""
+                android:textOn="" />
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
@@ -219,11 +234,11 @@
         android:id="@+id/categoryItemLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:layout_marginTop="-3dp"
-        android:padding="5dp"
-        android:background="@drawable/explorer_item_bg" >
+        android:background="@drawable/explorer_item_bg"
+        android:padding="5dp" >
 
         <TextView
             xmlns:android="http://schemas.android.com/apk/res/android"
@@ -233,16 +248,20 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="#000000" />
 
-        <ToggleButton
-            android:id="@+id/share_twitter"
-            android:layout_width="0dp"
-            android:layout_height="30dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="148dip"
-            android:layout_weight="1"
-            android:scaleType="fitEnd"
-            android:textOff=""
-            android:textOn="" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right" >
+
+            <ToggleButton
+                android:id="@+id/share_twitter"
+                android:layout_width="75dp"
+                android:layout_height="30dp"
+                android:gravity="center_vertical|right"
+                android:scaleType="fitEnd"
+                android:textOff=""
+                android:textOn="" />
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
@@ -250,11 +269,11 @@
         android:id="@+id/categoryItemLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="5dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:layout_marginTop="-3dp"
-        android:background="@drawable/explorer_item_bg_end" >
+        android:background="@drawable/explorer_item_bg_end"
+        android:padding="5dp" >
 
         <TextView
             xmlns:android="http://schemas.android.com/apk/res/android"
@@ -264,16 +283,20 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="#000000" />
 
-        <ToggleButton
-            android:id="@+id/share_kakao"
-            android:layout_width="0dp"
-            android:layout_height="30dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="130dip"
-            android:layout_weight="1"
-            android:scaleType="fitEnd"
-            android:textOff=""
-            android:textOn="" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right" >
+
+            <ToggleButton
+                android:id="@+id/share_kakao"
+                android:layout_width="75dp"
+                android:layout_height="30dp"
+                android:gravity="center_vertical|right"
+                android:scaleType="fitEnd"
+                android:textOff=""
+                android:textOn="" />
+        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>
