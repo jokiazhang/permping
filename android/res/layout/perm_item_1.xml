@@ -183,7 +183,9 @@
                 android:id="@+id/btnLocation"
                 android:layout_width="fill_parent"
                 android:layout_height="30dp"
+                android:layout_marginLeft="10dip"
                 android:layout_marginRight="5dip"
+                android:layout_gravity="center"
                 android:src="@drawable/location_icon"/>
         </LinearLayout>
     </TableRow>
