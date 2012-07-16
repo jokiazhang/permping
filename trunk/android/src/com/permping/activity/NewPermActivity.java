@@ -492,7 +492,7 @@ public class NewPermActivity extends Activity implements OnClickListener {
 										"uid",
 										new StringBody(
 												String.valueOf(userIdRe), chars));
-						reqEntity.addPart("board ",
+						reqEntity.addPart("board",
 								new StringBody(String.valueOf(boardId), chars));
 						reqEntity.addPart("board_desc", new StringBody(permDesc
 								.getText().toString(), chars));
