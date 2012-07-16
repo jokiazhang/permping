@@ -74,6 +74,7 @@
                     android:id="@+id/boardSpinnerNewPerm"
                     android:layout_width="260dp"
                     android:layout_height="25dp"
+                    android:layout_marginLeft="10dp"
                     android:background="@android:color/transparent"
                     android:gravity="center"
                     android:paddingRight="50dp"
