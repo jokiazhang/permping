@@ -77,19 +77,20 @@ public class FollowerActivityGroup extends TabGroupActivity implements Login_del
 	}
 
 	public static void createProfileActivity(Object comment, boolean isUserProfile) {		
-		PermpingApplication state = (PermpingApplication) group.getApplicationContext();
-		User user = state.getUser();
-		if(user != null) {
+//		PermpingApplication state = (PermpingApplication) group.getApplicationContext();
+//		User user = state.getUser();
+//		if(user != null) 
+//		{
 			group.clearHistory();
 			ProfileActivity.commentData = ( Comment)comment;
 			ProfileActivity.isUserProfile = false;
 			View view = group.getLocalActivityManager().startActivity( "ProfileActivity", new Intent(group, ProfileActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
 			setTabGroup(group);
 			group.replaceView(view);
-		} else {
-			String message = "Please login";
-			Toast.makeText(group, message, message.length());
-		}
+//		} else {
+//			String message = "Please login";
+//			Toast.makeText(group, message, message.length());
+//		}
 		
 	}
 	
