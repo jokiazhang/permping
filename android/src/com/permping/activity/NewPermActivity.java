@@ -1,12 +1,16 @@
 package com.permping.activity;
 
 import java.io.ByteArrayOutputStream;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Hashtable;
@@ -105,6 +109,7 @@ public class NewPermActivity extends Activity implements OnClickListener {
 	private ToggleButton btnShareTwitter;
 	private ToggleButton btnShareKakao;
 	private ToggleButton btnLocation;
+	private ToggleButton btnRecordAudio;
 	private EditText permDesc;
 	private String facebookToken;
 	private AccessToken twitterAccessToken;
@@ -124,6 +129,8 @@ public class NewPermActivity extends Activity implements OnClickListener {
 	private Context context;
 	public static boolean  isReperm = false;
 	private boolean uploadStatus = false;
+	String pathAudioFile;
+	boolean isGetRecord = false;
 	public Handler handleFbLogin = new Handler() {
 		@Override
 		public void handleMessage(Message msg) {
@@ -156,6 +163,7 @@ public class NewPermActivity extends Activity implements OnClickListener {
 		btnShareTwitter = (ToggleButton) findViewById(R.id.share_twitter);
 		btnShareKakao = (ToggleButton) findViewById(R.id.share_kakao);
 		btnLocation = (ToggleButton) findViewById(R.id.location);
+		btnRecordAudio = (ToggleButton)findViewById(R.id.btnRecordAudio);
 		btnCatilogy = (LinearLayout) findViewById(R.id.categoryItemLayout1);
 		rightArrow = (ImageView)findViewById(R.id.rightArrow);
 		rightArrow.setOnClickListener(this);
@@ -164,6 +172,7 @@ public class NewPermActivity extends Activity implements OnClickListener {
 		btnShareKakao.setOnClickListener(this);
 		btnLocation.setOnClickListener(this);
 		btnCatilogy.setOnClickListener(this);
+		btnRecordAudio.setOnClickListener(this);
 		permUtils = new PermUtils();
 		final Button buttonCANCEL = (Button) findViewById(R.id.buttonCANCEL);
 		buttonCANCEL.setOnClickListener(this);
@@ -219,6 +228,11 @@ public class NewPermActivity extends Activity implements OnClickListener {
 
 		} else {
 			btnShareTwitter.setChecked(true);
+		}
+		if(isGetRecord){
+			btnRecordAudio.setChecked(true);
+		}else{
+			btnRecordAudio.setChecked(false);
 		}
 		if (btnLocation.isChecked()) {
 			mlocManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0,
@@ -382,6 +396,28 @@ public class NewPermActivity extends Activity implements OnClickListener {
 						reqEntity.addPart("img", bab);
 						reqEntity.addPart("photoCaption", new StringBody(
 								fileName, chars));
+						
+//						Upload audio to server
+						if(btnRecordAudio.isChecked()){
+//					        ByteArrayOutputStream dos = new ByteArrayOutputStream();
+//					        FileInputStream fileInputStream = null;
+					        byte[] buffer;
+//					        int maxBufferSize = 20 * 1024;
+//					        fileInputStream = new FileInputStream(new File(pathAudioFile));
+//				            // create a buffer of maximum size
+//				            buffer = new byte[Math.min((int) pathAudioFile.length(), maxBufferSize)];
+//				            int length;
+//				            // read file and write it into form...
+//				            while ((length = fileInputStream.read(buffer)) != -1) {
+//				                dos.write(buffer, 0, length);
+//				            }
+					        buffer = getByArray(pathAudioFile);
+				            ByteArrayBody baba= new ByteArrayBody(buffer, new File(pathAudioFile).getName());
+				            reqEntity.addPart("audio", baba);
+							
+							
+						}
+			            
 						reqEntity.addPart("uid", new StringBody(user.getId(), chars));
 						reqEntity.addPart("board",
 								new StringBody(String.valueOf(boardId), chars));
@@ -399,12 +435,12 @@ public class NewPermActivity extends Activity implements OnClickListener {
 								.getText().toString(), chars));
 					}
 					String type = "";
-					if (facebookToken != null){
+					if (facebookToken != null && btnShareFacebook.isChecked()){
 						reqEntity.addPart("fb_oauth_token", new StringBody(
 								facebookToken, chars));
 						type = "facebook";
 					}
-					if (twitterAccessToken != null) {
+					if (twitterAccessToken != null && btnShareTwitter.isChecked()) {
 						reqEntity.addPart("tw_oauth_token", new StringBody(
 								twitterAccessToken.getToken(), chars));
 						reqEntity.addPart(
@@ -660,6 +696,11 @@ public class NewPermActivity extends Activity implements OnClickListener {
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		dismissLoadingDialog();
+		if(requestCode==2){
+			Bundle bundle = data.getExtras();
+			pathAudioFile = bundle.getString("pathFile");
+			Log.d("aaaa",""+pathAudioFile);
+		}
 	}
 
 	@Override
@@ -686,6 +727,9 @@ public class NewPermActivity extends Activity implements OnClickListener {
 		case R.id.location:
 			locationChange();
 			break;
+		case R.id.btnRecordAudio:
+			audioOnChange();
+			break;
 		case R.id.rightArrow:
 //			new LoadBoards().execute();
 			new CategorySpinnerSelectedListener();
@@ -693,6 +737,76 @@ public class NewPermActivity extends Activity implements OnClickListener {
 		default:
 			break;
 		}
+	}
+	private byte[] getByArray(String fileName){
+		HttpURLConnection connection = null;
+		DataOutputStream outputStream = null;
+		DataInputStream inputStream = null;
+		String pathToOurFile = fileName;
+		String urlServer = API.addNewPermUrl;
+		String lineEnd = "\r\n";
+		String twoHyphens = "--";
+		String boundary =  "*****";
+
+		int bytesRead, bytesAvailable, bufferSize;
+		byte[] buffer;
+		int maxBufferSize = 1*1024*1024;
+
+		try
+		{
+			FileInputStream fileInputStream = new FileInputStream(new File(pathToOurFile) );
+	
+			URL url = new URL(urlServer);
+			connection = (HttpURLConnection) url.openConnection();
+	
+			// Allow Inputs & Outputs
+			connection.setDoInput(true);
+			connection.setDoOutput(true);
+			connection.setUseCaches(false);
+	
+			// Enable POST method
+			connection.setRequestMethod("POST");
+	
+			connection.setRequestProperty("Connection", "Keep-Alive");
+			connection.setRequestProperty("Content-Type", "multipart/form-data;boundary="+boundary);
+	
+			outputStream = new DataOutputStream( connection.getOutputStream() );
+			outputStream.writeBytes(twoHyphens + boundary + lineEnd);
+			outputStream.writeBytes("Content-Disposition: form-data; name=\"uploadedfile\";filename=\"" + pathToOurFile +"\"" + lineEnd);
+			outputStream.writeBytes(lineEnd);
+	
+			bytesAvailable = fileInputStream.available();
+			bufferSize = Math.min(bytesAvailable, maxBufferSize);
+			buffer = new byte[bufferSize];
+	
+			// Read file
+			bytesRead = fileInputStream.read(buffer, 0, bufferSize);
+	
+			while (bytesRead > 0)
+			{
+				outputStream.write(buffer, 0, bufferSize);
+				bytesAvailable = fileInputStream.available();
+				bufferSize = Math.min(bytesAvailable, maxBufferSize);
+				bytesRead = fileInputStream.read(buffer, 0, bufferSize);
+			}
+			return buffer;
+		}
+		catch (Exception ex)
+		{
+		//Exception handling
+			return null;
+		}
+	}
+	private void audioOnChange() {
+		// TODO Auto-generated method stub
+		if(btnRecordAudio.isChecked()){
+			isGetRecord =true;
+			Intent recordIntent = new Intent(NewPermActivity.this, RecorderActivity.class);
+			startActivityForResult(recordIntent, 2);
+		}else{
+			isGetRecord = false;
+		}
+		
 	}
 
 	private void locationChange() {
@@ -722,7 +836,7 @@ public class NewPermActivity extends Activity implements OnClickListener {
 			context.startActivity(i);	
 			btnShareTwitter.setChecked(true);
 		} else {
-			btnShareTwitter.setChecked(true);
+			btnShareTwitter.setChecked(false);
 		}
 	}
 

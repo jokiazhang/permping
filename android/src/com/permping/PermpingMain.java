@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -23,6 +24,7 @@ import com.permping.activity.MyDiaryActivity;
 import com.permping.activity.MyDiaryActivityGroup;
 import com.permping.activity.ProfileActivity;
 import com.permping.activity.ProfileActivityGroup;
+import com.permping.activity.AudioPlayerActivity;
 import com.permping.model.Comment;
 import com.permping.model.User;
 import com.permping.utils.PermUtils;
@@ -287,6 +289,15 @@ public class PermpingMain extends TabActivity  {
 			Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
 			FollowerActivityGroup.context.startActivity(browserIntent);
 			FollowerActivity.isRefesh = false;
+		}else if(tab==2){
+			tabHost.setCurrentTab(2);
+		} else if(tab == 6){
+			String link = (String) data;
+			Intent playAudioIntent = new Intent(FollowerActivityGroup.context, AudioPlayerActivity.class);
+			playAudioIntent.putExtra("url", link);
+			Log.d("permAudio=",""+link);
+			FollowerActivityGroup.context.startActivity(playAudioIntent);
+//			FollowerActivity.isRefesh = false;
 		}
 		
 	}

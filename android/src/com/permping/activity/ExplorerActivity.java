@@ -27,7 +27,7 @@ import com.permping.utils.PermUtils;
 
 public class ExplorerActivity extends Activity implements get_category_delegate {
 //	public ProgressDialog loadingDialog;
-	private ProgressBar progressBar;
+//	private ProgressBar progressBar;
 	public Context context;
 	public CategoryController catController;
 	public ListView categoriesView;
@@ -40,7 +40,7 @@ public class ExplorerActivity extends Activity implements get_category_delegate 
 		if(textView != null) {
 			textView.setTypeface(tf);
 		}
-		progressBar = (ProgressBar)findViewById(R.id.progressBar);
+//		progressBar = (ProgressBar)findViewById(R.id.progressBar);
 		showLoadingDialog("Loading", "Please wait...");
 		categoriesView = (ListView) findViewById(R.id.categories);
 		final CategoryController catController = new CategoryController(ExplorerActivity.this);
@@ -67,16 +67,16 @@ public class ExplorerActivity extends Activity implements get_category_delegate 
 //		loadingDialog.setTitle(title);
 //		loadingDialog.setCancelable(true );
 //		this.loadingDialog.show();
-		progressBar.setVisibility(View.VISIBLE);
+//		progressBar.setVisibility(View.VISIBLE);
 	}
 
 	private void dismissLoadingDialog() {
 //		if (loadingDialog != null)
 //			if(loadingDialog.isShowing())
 //			loadingDialog.dismiss();
-		if(progressBar.getVisibility()==View.VISIBLE){
-			progressBar.setVisibility(View.GONE);
-		}
+//		if(progressBar.getVisibility()==View.VISIBLE){
+//			progressBar.setVisibility(View.GONE);
+//		}
 	}
 
 	@Override

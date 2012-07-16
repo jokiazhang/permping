@@ -249,7 +249,7 @@ public class PermAdapter extends ArrayAdapter<Perm> implements OnClickListener {
 					}else{
 						gotoMap.setVisibility(View.VISIBLE);
 					}
-
+					
 					
 					if (perm != null) {
 						
@@ -258,7 +258,24 @@ public class PermAdapter extends ArrayAdapter<Perm> implements OnClickListener {
 							nextItems = Integer.parseInt(perm.getNextItem());
 						else
 							nextItems = -1;
-						
+						ImageView btnPlayAudio = (ImageView)view.findViewById(R.id.btnVoice);
+						btnPlayAudio.setTag(viewId);
+						btnPlayAudio.setOnClickListener(new View.OnClickListener() {
+							
+							@Override
+							public void onClick(View v) {
+								// TODO Auto-generated method stub
+								PermpingMain.gotoTab(6, perm.getPermAudio());
+							}
+						});
+						TextView permViewInfo = (TextView)view.findViewById(R.id.permVoiceInfo);
+						if(perm.getPermAudio() !=null && !perm.getPermAudio().equals("")){
+							btnPlayAudio.setVisibility(View.VISIBLE);
+							permViewInfo.setVisibility(View.VISIBLE);
+						}else{
+							btnPlayAudio.setVisibility(View.INVISIBLE);
+							permViewInfo.setVisibility(View.INVISIBLE);
+						}
 						ImageView av = (ImageView) view.findViewById(R.id.authorAvatar);
 						if( perm.getAuthor() != null)
 							if(perm.getAuthor().getAvatar()!=null)
