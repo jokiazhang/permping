@@ -112,7 +112,7 @@
  -->
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/categoryItemLayout"
+        android:id="@+id/categoryItemLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
@@ -137,7 +137,8 @@
             android:layout_weight="1"
             android:scaleType="fitEnd"
             android:textOff=""
-            android:textOn="" />
+            android:textOn=""
+            android:layout_marginBottom="3dp" />
     </LinearLayout>
 
     <LinearLayout
@@ -167,7 +168,8 @@
             android:layout_weight="1"
             android:scaleType="fitEnd"
             android:textOff=""
-            android:textOn="" />
+            android:textOn="" 
+            android:layout_marginBottom="3dp"/>
     </LinearLayout>
 
     <TextView

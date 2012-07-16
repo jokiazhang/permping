@@ -255,7 +255,7 @@
 
         <!-- Horizonal split line -->
 
-        <LinearLayout
+        <!-- <LinearLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="25dp"
@@ -268,7 +268,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="0.5dp"
                 android:background="@android:color/darker_gray" />
-        </LinearLayout>
+        </LinearLayout> -->
     </TableRow>
 
 </TableLayout>
