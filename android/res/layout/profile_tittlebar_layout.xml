@@ -16,11 +16,11 @@
                 android:id="@+id/btAccount"
                 android:layout_width="10dp"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:layout_weight="1"
                 android:background="@drawable/title_button_bg"
                 android:text="@string/logout"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
                 android:textColor="#FFFFFF"
                 android:textSize="18px" />
 
@@ -37,13 +37,20 @@
                 android:id="@+id/fakeSpace"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text=""
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="20dp"
+                android:layout_weight="1"
+                android:text=""
                 android:textColor="#FFFFFF" />
-        </TableRow>
 
+            <ProgressBar
+                android:id="@+id/progressBarProfile"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_gravity="center_vertical|right"
+                android:layout_marginRight="15dp"
+                android:visibility="visible" />
+        </TableRow>
     </TableLayout>
 
 </LinearLayout>
