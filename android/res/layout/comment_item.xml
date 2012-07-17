@@ -11,7 +11,8 @@
 		<LinearLayout android:paddingLeft="5dp"
 		    android:orientation="horizontal"
 		    android:layout_width="wrap_content"
-		    android:layout_height="wrap_content">
+		    android:layout_height="wrap_content"
+		    android:paddingTop="5dp">
 			<ImageView
             android:id="@+id/commentAvatar"
             android:layout_width="@dimen/avatar_size"
@@ -52,7 +53,7 @@
 	</TableRow>
 	<TableRow>
     	<View
-        	android:paddingTop="10dp"
+        	android:layout_marginTop="10dp"
 	        android:layout_span="2"
 	        android:id="@+id/separator"
 	        android:layout_width="fill_parent"

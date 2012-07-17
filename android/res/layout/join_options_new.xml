@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:orientation="vertical"
     android:stretchColumns="0" >
 
-    <TableRow android:paddingTop="40dp" android:paddingBottom="20dp" >
+    <TableRow android:paddingTop="40dp" android:paddingLeft="20dp" android:paddingRight="20dp">
 
         <Button
             android:id="@+id/bt_login_with_facebook"
             android:layout_gravity="center"
-            android:background="@drawable/fb_icon"
+            android:background="@drawable/button_bg"
             android:text="@string/bt_facebook"
             android:textColor="#FFFFFF" 
             android:layout_height="40dp"/>
@@ -27,7 +27,7 @@
     <TableRow
         android:gravity="center"
         android:paddingBottom="40dp"
-        android:paddingTop="20dp" >
+        android:paddingTop="20dp" android:paddingLeft="20dp" android:paddingRight="20dp">
 
         <Button
             android:id="@+id/bt_join_permping"

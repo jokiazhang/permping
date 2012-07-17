@@ -36,10 +36,11 @@
 
 		<ImageView
 			android:id="@+id/prevMonth"
-			android:src="@drawable/calendar_left_arrow_selector"
+			android:src="@drawable/cal_left_arrow_on"
 			android:layout_width="30dip"
 			android:layout_height="30dip"
-			android:layout_marginLeft="30dip">
+			android:layout_marginLeft="30dip"
+			android:scaleType="fitXY">
 		</ImageView>
 		<Button
 			android:id="@+id/currentMonth"
@@ -54,10 +55,11 @@
 		</Button>
 		<ImageView
 			android:id="@+id/nextMonth"
-			android:src="@drawable/calendar_right_arrow_selector"
+			android:src="@drawable/cal_right_arrow_on"
 			android:layout_width="30dip"
 			android:layout_height="30dip"
-			android:layout_marginRight="30dip">
+			android:layout_marginRight="30dip"
+			android:scaleType="fitXY">
 		</ImageView>
 	</LinearLayout>
 

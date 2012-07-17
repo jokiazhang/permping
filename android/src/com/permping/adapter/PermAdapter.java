@@ -170,23 +170,26 @@ public class PermAdapter extends ArrayAdapter<Perm> implements OnClickListener {
 				join.setOnClickListener(PermAdapter.this);
 				return view;
 			} else if(items != null && !items.isEmpty() && position < items.size()){
-				if(position == 0 && PermpingMain.getCurrentTab() == 0) {
-					LayoutInflater inflater = (LayoutInflater) this.getContext()
-							.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-					final View view = inflater.inflate(R.layout.perm_item_2, null);
-						
-					join = (Button) view.findViewById(R.id.bt_join);
-					login = (Button) view.findViewById(R.id.bt_login);
-					// Process buttons					
-					login.setOnClickListener(PermAdapter.this);
-					join.setOnClickListener(PermAdapter.this);
+				if(position == 0) {
+					if( PermpingMain.getCurrentTab() == 0 || PermpingMain.getCurrentTab()==1){
+						LayoutInflater inflater = (LayoutInflater) this.getContext()
+								.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+						final View view = inflater.inflate(R.layout.perm_item_2, null);
+							
+						join = (Button) view.findViewById(R.id.bt_join);
+						login = (Button) view.findViewById(R.id.bt_login);
+						// Process buttons					
+						login.setOnClickListener(PermAdapter.this);
+						join.setOnClickListener(PermAdapter.this);
 
-					if(this.header == false) {
-						//remove button
-						TableRow loginRow = (TableRow) view.findViewById(R.id.loginBar);
-						loginRow.setVisibility(View.GONE);
+						if(this.header == false) {
+							//remove button
+							TableRow loginRow = (TableRow) view.findViewById(R.id.loginBar);
+							loginRow.setVisibility(View.GONE);
+						}
+						return view;
 					}
-					return view;
+
 				}
 				
 				if(position == items.size() - 1 && PermListController.isFooterAdded == true) {
