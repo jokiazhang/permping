@@ -231,12 +231,17 @@ public class PermAdapter extends ArrayAdapter<Perm> implements OnClickListener {
 		
 					like = (Button) view.findViewById(R.id.btnLike);
 					// Validate Like or Unlike
-					if (perm != null) {
-						if (perm.getPermUserLikeCount() != null
-								&& "0".equals(perm.getPermUserLikeCount())) {
-							like.setText(R.string.bt_like);
-						} else {
-							like.setText(R.string.bt_unlike);
+					if (perm != null && user!=null){
+						if(perm.getAuthor().getId().equals(user.getId())){
+							like.setText(textCurrentLike);
+						}else{
+							if (perm.getPermUserLikeCount() != null
+									&& "0".equals(perm.getPermUserLikeCount())) {
+								like.setText(R.string.bt_like);
+							} else {
+								like.setText(R.string.bt_unlike);
+							}
+							
 						}
 					}
 
