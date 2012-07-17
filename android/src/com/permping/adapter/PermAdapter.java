@@ -10,9 +10,11 @@ import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -924,18 +926,18 @@ public class PermAdapter extends ArrayAdapter<Perm> implements OnClickListener {
 	
 	}
 
-	private void exeLike(View v) {
+	private void exeLike(final View v) {
 		// TODO Auto-generated method stub
 		String permId = (String)v.getTag();
 		if(permId != null){
-			Perm perm = newPermList.get(permId);
+			final Perm perm = newPermList.get(permId);
 			user = PermUtils.isAuthenticated(v.getContext());
 			if (user != null) {
 				// final ProgressDialog dialog =
 				// ProgressDialog.show(v.getContext(),
 				// "Loading","Please wait...", true);
 
-				HttpPermUtils util = new HttpPermUtils();
+				final HttpPermUtils util = new HttpPermUtils();
 				Log.d("aasdfsdss", like.getText().toString()+"======="+R.string.delete);
 				if(like.getText().toString().equals(likeString) || like.getText().toString().equals(unlikeString)){
 					List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
@@ -973,17 +975,33 @@ public class PermAdapter extends ArrayAdapter<Perm> implements OnClickListener {
 					if(permStatus != null)
 						txtStatus.setText(permStatus);
 				}else if(like.getText().toString().equals(textCurrentLike)){
-					viewList.remove(perm.getId());
-					int position = v.getNextFocusDownId();
-					if(position >= 0 && items.size() > position)
-						items.remove(position);
-					notifyDataSetChanged();
-					List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
-					nameValuePairs.add(new BasicNameValuePair("delid", String
-							.valueOf(perm.getId())));
-					nameValuePairs.add(new BasicNameValuePair("uid", String
-							.valueOf(user.getId())));
-					util.sendRequest(API.deleteUrl, nameValuePairs, false);
+					AlertDialog alertDialog = new AlertDialog.Builder(context).create();		
+//					alertDialog.setTitle(AlertDialog);
+					alertDialog.setMessage(v.getContext().getString(R.string.confirm_delete));
+					alertDialog.setButton(v.getContext().getString(R.string.yes), new DialogInterface.OnClickListener() {
+					   public void onClick(DialogInterface dialog, int which) {
+					      // here you can add functions
+							viewList.remove(perm.getId());
+							int position = v.getNextFocusDownId();
+							if(position >= 0 && items.size() > position)
+								items.remove(position);
+							notifyDataSetChanged();
+							List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+							nameValuePairs.add(new BasicNameValuePair("delid", String
+									.valueOf(perm.getId())));
+							nameValuePairs.add(new BasicNameValuePair("uid", String
+									.valueOf(user.getId())));
+							util.sendRequest(API.deleteUrl, nameValuePairs, false);
+					   }
+					});
+					alertDialog.setButton2(v.getContext().getString(R.string.no), new DialogInterface.OnClickListener() {
+					   public void onClick(DialogInterface dialog, int which) {
+							      
+					   }
+					});
+					alertDialog.setIcon(R.drawable.icon);
+					alertDialog.show();
+
 					
 				}
 			} else {
