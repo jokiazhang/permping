@@ -96,14 +96,14 @@ public class MyDiaryActivity extends Activity implements View.OnClickListener , 
 
 		prevMonth = (ImageView) this.findViewById(R.id.prevMonth);
 		prevMonth.setOnClickListener(this);
-
+		prevMonth.setScaleType(ScaleType.FIT_XY);
 		currentMonth = (Button) this.findViewById(R.id.currentMonth);
 		currentMonth.setText(dateFormatter.format(dateTemplate,
 				calendar.getTime()));
 
 		nextMonth = (ImageView) this.findViewById(R.id.nextMonth);
 		nextMonth.setOnClickListener(this);
-
+		nextMonth.setScaleType(ScaleType.FIT_XY);
 		calendarView = (GridView) this.findViewById(R.id.calendar);
 		
 		metrics = new DisplayMetrics();
