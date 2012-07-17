@@ -295,18 +295,21 @@ public class ProfileActivity extends Activity implements Get_Board_delegate{
     public void exeGet( BoardAdapter boardAdapter){
     	try {
     	   
-            if (user != null) {
+//            if (user != null) {
             	if(commentData == null) {
             		// The author name
-                	String name = user.getName();
-                    authorName.setText(name);
-                    
-                    // The author avatar
-                	PermImage avatar = user.getAvatar();
-                    UrlImageViewHelper.setUrlDrawable(authorAvatar, avatar.getUrl());
-                    
-                    // The number of friends
-                    friends.setText(String.valueOf(user.getPin() + ProfileActivity.this.getString(R.string.perm) + " " + user.getFriends()) + " "+ ProfileActivity.this.getString(R.string.followers));
+            		if(user != null){
+                    	String name = user.getName();
+                        authorName.setText(name);
+                        
+                        // The author avatar
+                    	PermImage avatar = user.getAvatar();
+                        UrlImageViewHelper.setUrlDrawable(authorAvatar, avatar.getUrl());
+                        
+                        // The number of friends
+                        friends.setText(String.valueOf(user.getPin() + ProfileActivity.this.getString(R.string.perm) + " " + user.getFriends()) + " "+ ProfileActivity.this.getString(R.string.followers));
+
+            		}
             	} else {
 	                authorName.setText(commentData.getAuthor().getName());
 	                PermImage avatar = commentData.getAuthor().getAvatar();
@@ -321,9 +324,9 @@ public class ProfileActivity extends Activity implements Get_Board_delegate{
                 ListView userBoards = (ListView) findViewById(R.id.userBoards);
                 userBoards.setAdapter(boardAdapter);
                 userBoards.setOnItemClickListener(new BoardClickListener());
-            } else {
-            	PermpingMain.showLogin();
-            }        
+//            } else {
+//            	PermpingMain.showLogin();
+//            }        
 			
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -460,7 +463,8 @@ public class ProfileActivity extends Activity implements Get_Board_delegate{
 			PermpingApplication state = (PermpingApplication) getApplicationContext();
 			User user = state.getUser();
 
-			if (user != null) {
+//			if (user != null) 
+			{
 
 				HttpClient httpClient = new DefaultHttpClient();
 				HttpPost postRequest = null;
@@ -476,8 +480,14 @@ public class ProfileActivity extends Activity implements Get_Board_delegate{
 						if(isLogout){
 							filePath = filePath+user.getId();
 						}else{
-							reqEntity.addPart("loggedinuid", new StringBody(user.getId()));
-							postRequest.setEntity(reqEntity);
+							if(user != null){
+								reqEntity.addPart("loggedinuid", new StringBody(user.getId()));
+								postRequest.setEntity(reqEntity);
+							}else{
+								reqEntity.addPart("loggedinuid", new StringBody(commentData.getAuthor().getId()));
+								postRequest.setEntity(reqEntity);
+							}
+
 						}
 
 					}
