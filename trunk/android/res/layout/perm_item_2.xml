@@ -45,7 +45,7 @@
                     android:layout_width="@dimen/button_join_width"
                     android:layout_height="@dimen/button_join_height"
                     android:background="@drawable/button_style"
-                    android:textSize="@dimen/text_size_header"
+                    android:textSize="@dimen/text_size_auther_name"
                     android:text="@string/bt_join"
                     android:textColor="#5e5d5d" />
             </LinearLayout>
@@ -62,7 +62,7 @@
                     android:layout_width="@dimen/button_join_width"
                     android:layout_height="@dimen/button_join_height"
                     android:background="@drawable/button_style"
-                    android:textSize="@dimen/text_size_header"
+                    android:textSize="@dimen/text_size_auther_name"
                     android:text="@string/bt_login"
                     android:textColor="#5e5d5d" />
             </LinearLayout>
@@ -79,12 +79,12 @@
                 android:layout_span="2"
                 android:orientation="vertical"
                 android:padding="3dp"
-                android:layout_marginTop="10dp" >
+                android:layout_marginTop="7dp" >
 
                 <View
                     android:id="@+id/separator"
                     android:layout_width="fill_parent"
-                    android:layout_height="1.2dip"
+                    android:layout_height="1.7dip"
                     android:background="@android:color/darker_gray" />
             </LinearLayout>
         </TableRow>

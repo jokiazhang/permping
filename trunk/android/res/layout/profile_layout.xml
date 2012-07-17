@@ -28,6 +28,7 @@
                     android:layout_height="60dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="-5dip"
+                    android:paddingBottom="10dp"
                     android:contentDescription="The avatar of user" />
 
                 <RelativeLayout>
@@ -40,7 +41,7 @@
                         android:gravity="left"
                         android:text=""
                         android:textColor="@android:color/black"
-                        android:textSize="15dp"
+                        android:textSize="18dp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -67,12 +68,13 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:orientation="vertical"
-        android:padding="15dp" >
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp" >
 
         <View
             android:id="@+id/item_separator"
             android:layout_width="fill_parent"
-            android:layout_height="1dip"
+            android:layout_height="1.7dip"
             android:background="#000000" />
     </LinearLayout>
 
@@ -83,7 +85,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:cacheColorHint="#00000000"
             android:divider="@android:color/transparent" />
     </TableRow>
