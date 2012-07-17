@@ -992,7 +992,7 @@ public class NewPermActivity extends Activity implements OnClickListener {
 					+ permIphoneLink;// "http://link.kakao.com";
 			String strAppId = "com.kakao.android.image";
 			String strAppVer = "2.0";
-			String strAppName = "[Permping]";// "[朝朝神套]";
+			String strAppName = "Permping";// "[朝朝神套]";
 			String strInstallUrl = "Android: " + permAndroidLink + " &Iphone: "
 					+ permIphoneLink;
 			;
@@ -1003,14 +1003,14 @@ public class NewPermActivity extends Activity implements OnClickListener {
 			metaInfoAndroid.put("os", "android");
 			metaInfoAndroid.put("devicetype", "phone");
 			metaInfoAndroid.put("installurl", strInstallUrl);
-			metaInfoAndroid.put("executeurl", "android.com");
+			metaInfoAndroid.put("executeurl", "perm://newperm");
 			arrMetaInfo.add(metaInfoAndroid);
 			KakaoLink link = new KakaoLink(NewPermActivity.this, strURL,
 					strAppId, strAppVer, strMessage, strAppName, arrMetaInfo,
 					"UTF-8");
 
 			if (link.isAvailable()) {
-				startActivity(link.getIntent());
+//				startActivity(link.getIntent());
 			}
 			startActivity(link.getIntent());
 
