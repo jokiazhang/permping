@@ -31,11 +31,12 @@
                     android:paddingBottom="10dp"
                     android:contentDescription="The avatar of user" />
 
-                <RelativeLayout>
+                <RelativeLayout
+                    >
 
                     <TextView
                         android:id="@+id/authorName"
-                        android:layout_width="fill_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="7dp"
                         android:gravity="left"
@@ -60,6 +61,17 @@
                         android:layout_height="wrap_content"
                         android:layout_marginRight="10dp"
                         android:textSize="15dp" />
+                </RelativeLayout>
+                <RelativeLayout android:gravity="center_vertical" >
+                    <Button 
+                        android:layout_marginRight="15dp"
+                        android:layout_width="80dp"
+                        android:layout_height="40dp"
+                        android:text="@string/follow"
+                        android:src="@drawable/button_bg_new"
+                        android:id="@+id/btnFollow"
+                        android:gravity="center_vertical"
+                        android:layout_alignParentRight="true"/>
                 </RelativeLayout>
             </TableRow>
         </TableLayout>
