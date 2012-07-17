@@ -83,6 +83,7 @@ public class ProfileActivity extends Activity implements Get_Board_delegate{
 	private TextView friends;
 	private TextView followings;
 	private Button btnAccount;
+	private Button btnFollow; 
 	public User user;
 	public static Comment commentData = null;
 	public static boolean isUserProfile = true;
@@ -91,7 +92,7 @@ public class ProfileActivity extends Activity implements Get_Board_delegate{
 	public static int followerCount;
 	
 	public static int UPDATE_BUTTON = 1;
-	
+	public boolean isFirst=true;
 //	public ProgressDialog loadingDialog;
 	ProgressBar progressBar;
 	public PermBoard board;
@@ -114,6 +115,7 @@ public class ProfileActivity extends Activity implements Get_Board_delegate{
 		public void handleMessage(Message msg) {
 			if (msg.what == UPDATE_BUTTON) {
 				btnAccount.invalidate();
+				btnFollow.invalidate();
 			}
 		}
 	};
@@ -136,9 +138,11 @@ public class ProfileActivity extends Activity implements Get_Board_delegate{
         friends = (TextView) findViewById(R.id.friends);
         followings = (TextView) findViewById(R.id.followings);
         btnAccount = (Button) findViewById(R.id.btAccount);
+        btnFollow = (Button) findViewById(R.id.btnFollow);
 		IntentFilter intentFilter = new IntentFilter(FollowerActivity.DOWNLOAD_COMPLETED);
 		registerReceiver(receiver, intentFilter);
 		context = ProfileActivity.this;
+		initButtonStatus();
 		btnAccount.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
@@ -159,7 +163,18 @@ public class ProfileActivity extends Activity implements Get_Board_delegate{
 //					permUtils.saveTwitterAccess("twitter", "", getParent()):
 					showLoadingDialog("Pregressing", "Please wait...");
 					new exeFollow(API.logoutURL, false, true).execute(null);*/
-				}else if(buttonType.equals(context.getString(R.string.follow))){
+				}
+			}
+		});
+		btnFollow.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				PermpingApplication state = (PermpingApplication) context.getApplicationContext();
+				User user = state.getUser();
+				String buttonType = btnFollow.getText().toString();
+				if(buttonType.equals(context.getString(R.string.follow))){
 					if(user !=null){
 //						showLoadingDialog("Pregressing", "Please wait...");
 						progressBar.setVisibility(View.VISIBLE);
@@ -170,7 +185,7 @@ public class ProfileActivity extends Activity implements Get_Board_delegate{
 					}
 					progressBar.setVisibility(View.VISIBLE);
 //					showLoadingDialog("Pregressing", "Please wait...");
-					new exeFollow(API.follow, true, false).execute(null);
+//					new exeFollow(API.follow, true, false).execute(null);
 				}else if(buttonType.equals(context.getString(R.string.unfollow))){
 					if(user !=null){
 						progressBar.setVisibility(View.VISIBLE);
@@ -188,7 +203,23 @@ public class ProfileActivity extends Activity implements Get_Board_delegate{
 		PermUtils.clearViewHistory();       
     }
 	
-    protected void exeUserProfile() {
+    private void initButtonStatus() {
+		// TODO Auto-generated method stub
+		PermpingApplication state = (PermpingApplication) context.getApplicationContext();
+		User user = state.getUser();
+//		if(user !=null){
+//			btnAccount.setText(context.getString(R.string.account));	
+//		}else{
+//			btnAccount.setText(context.getString(R.string.login));
+//		}
+		if(isUserProfile){
+			btnFollow.setVisibility(View.VISIBLE);
+		}else{
+			btnFollow.setVisibility(View.GONE);
+		}
+	}
+
+	protected void exeUserProfile() {
 		// TODO Auto-generated method stub
 		if( commentData != null) {
 			if(commentData.getAuthor() != null) {
@@ -204,8 +235,11 @@ public class ProfileActivity extends Activity implements Get_Board_delegate{
     	super.onResume();
     	
     	 /** Load the information from Application (user info) when the page is loaded. */
-
-    	execGetUserProfile();
+    	if(isFirst){
+    	  	execGetUserProfile();
+        	isFirst = false;  		
+    	}
+  
     }
     public void execGetUserProfile(){
 
@@ -224,10 +258,12 @@ public class ProfileActivity extends Activity implements Get_Board_delegate{
     			btnAccount.invalidate();
     			PermpingMain.showLogin();
     		}
+    		btnFollow.setVisibility(View.GONE);
 //    		dismissLoadingDialog();
     		progressBar.setVisibility(View.GONE);
     	}else{
-    		
+    		btnFollow.setVisibility(View.VISIBLE);;
+    		btnAccount.setVisibility(View.GONE);
     		if(commentData != null){
     			if(commentData.getAuthor() != null) {
     				if(commentData.getAuthor().getId() != null){
@@ -326,14 +362,14 @@ public class ProfileActivity extends Activity implements Get_Board_delegate{
 					btnAccount.setText(context.getString(R.string.login));
 					btnAccount.invalidate();
 				}
-				else if(result.booleanValue() && btnAccount.getText().equals(context.getString(R.string.follow))) {
-					btnAccount.setText(context.getString(R.string.unfollow));
-					btnAccount.invalidate();
+				else if(result.booleanValue() && btnFollow.getText().equals(context.getString(R.string.follow))) {
+					btnFollow.setText(context.getString(R.string.unfollow));
+					btnFollow.invalidate();
 					Message message = handler.obtainMessage(UPDATE_BUTTON, "");
 					handler.sendMessage(message);
-				} else if(result.booleanValue() && btnAccount.getText().equals(context.getString(R.string.unfollow))) {
-					btnAccount.setText(context.getString(R.string.follow));
-					btnAccount.invalidate();
+				} else if(result.booleanValue() && btnFollow.getText().equals(context.getString(R.string.unfollow))) {
+					btnFollow.setText(context.getString(R.string.follow));
+					btnFollow.invalidate();
 					Message message = handler.obtainMessage(UPDATE_BUTTON, "");
 					handler.sendMessage(message);
 				}
@@ -377,11 +413,11 @@ public class ProfileActivity extends Activity implements Get_Board_delegate{
 		@Override
 		protected void onPostExecute(ArrayList<PermBoard> boards) {
 			if(ProfileActivity.userfollowcount <= 0) {
-				btnAccount.setText(context.getString(R.string.follow));
-				btnAccount.invalidate();
+				btnFollow.setText(context.getString(R.string.follow));
+				btnFollow.invalidate();
 			} else {
-				btnAccount.setText(context.getString(R.string.unfollow));
-				btnAccount.invalidate();
+				btnFollow.setText(context.getString(R.string.unfollow));
+				btnFollow.invalidate();
 			}
 //			if(loadingDialog != null)
 //			if(loadingDialog.isShowing()){

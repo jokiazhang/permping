@@ -35,6 +35,7 @@ public class PermpingMain extends TabActivity  {
 	public static String UID = "121";
 	private static TabHost tabHost;
 	public static Context context;
+	public static boolean isUserProfile = true;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -273,7 +274,7 @@ public class PermpingMain extends TabActivity  {
 		
 		if(tab == 4){			
 			//tabHost.setCurrentTab(tab);
-			
+			isUserProfile = false;
 			FollowerActivityGroup.createProfileActivity(data, false);
 			
 			
