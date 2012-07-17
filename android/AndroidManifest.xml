@@ -52,7 +52,14 @@
         <activity android:name=".activity.ImageActivity" 
             android:screenOrientation="portrait"/>
         <activity android:name=".activity.NewPermActivity" android:theme="@style/toggle_style"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait">
+            <intent-filter>
+				<action android:name="android.intent.action.VIEW" />
+				<category android:name="android.intent.category.DEFAULT" />
+				<category android:name="android.intent.category.BROWSABLE" />
+				<data android:scheme="perm" android:host="newperm" />
+			</intent-filter>
+        </activity>
         <activity android:name=".activity.MyDiaryActivity" 
             android:screenOrientation="portrait"/>
         <activity android:name=".activity.MyDiaryActivityGroup" 
