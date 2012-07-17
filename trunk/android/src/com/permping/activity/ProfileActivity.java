@@ -142,6 +142,8 @@ public class ProfileActivity extends Activity implements Get_Board_delegate{
 		IntentFilter intentFilter = new IntentFilter(FollowerActivity.DOWNLOAD_COMPLETED);
 		registerReceiver(receiver, intentFilter);
 		context = ProfileActivity.this;
+		PermpingApplication state = (PermpingApplication) context.getApplicationContext();
+		user = state.getUser();
 		initButtonStatus();
 		btnAccount.setOnClickListener(new View.OnClickListener() {
 			
@@ -205,18 +207,28 @@ public class ProfileActivity extends Activity implements Get_Board_delegate{
 	
     private void initButtonStatus() {
 		// TODO Auto-generated method stub
-		PermpingApplication state = (PermpingApplication) context.getApplicationContext();
-		User user = state.getUser();
-//		if(user !=null){
-//			btnAccount.setText(context.getString(R.string.account));	
-//		}else{
-//			btnAccount.setText(context.getString(R.string.login));
-//		}
-		if(isUserProfile){
-			btnFollow.setVisibility(View.VISIBLE);
-		}else{
-			btnFollow.setVisibility(View.GONE);
-		}
+
+    	if(commentData == null){
+    		if(user !=null){
+    			btnAccount.setText(context.getString(R.string.account));	
+    		}else{
+    			btnAccount.setText(context.getString(R.string.login));
+    		}
+    	}else{
+    		if(user == null){
+    			btnAccount.setVisibility(View.INVISIBLE);
+    		}else{
+    			if(user.getId().equals(commentData.getAuthor().getId())){
+    				btnAccount.setVisibility(View.VISIBLE);
+    				btnFollow.setVisibility(View.GONE);
+    			}else{
+    				btnAccount.setVisibility(View.INVISIBLE);
+    				btnFollow.setVisibility(View.VISIBLE);
+    			}
+    		}
+    		
+    	}
+
 	}
 
 	protected void exeUserProfile() {
@@ -235,7 +247,8 @@ public class ProfileActivity extends Activity implements Get_Board_delegate{
     	super.onResume();
     	
     	 /** Load the information from Application (user info) when the page is loaded. */
-    	if(isFirst){
+//    	if(isFirst)
+    	{
     	  	execGetUserProfile();
         	isFirst = false;  		
     	}
@@ -260,10 +273,11 @@ public class ProfileActivity extends Activity implements Get_Board_delegate{
     		}
     		btnFollow.setVisibility(View.GONE);
 //    		dismissLoadingDialog();
-    		progressBar.setVisibility(View.GONE);
+    		progressBar.setVisibility(View.INVISIBLE);
     	}else{
-    		btnFollow.setVisibility(View.VISIBLE);;
-    		btnAccount.setVisibility(View.GONE);
+//    		btnFollow.setVisibility(View.VISIBLE);
+//    		btnAccount.setVisibility(View.INVISIBLE);
+    		initButtonStatus();
     		if(commentData != null){
     			if(commentData.getAuthor() != null) {
     				if(commentData.getAuthor().getId() != null){
@@ -351,7 +365,7 @@ public class ProfileActivity extends Activity implements Get_Board_delegate{
 		@Override
 		protected void onPostExecute(Boolean result) {
 //			dismissLoadingDialog();
-			progressBar.setVisibility(View.GONE);
+			progressBar.setVisibility(View.INVISIBLE);
 			if(result != null){
 				if(result.booleanValue() && btnAccount.getText().equals(context.getString(R.string.logout))){
 					PermpingApplication state = (PermpingApplication)context.getApplicationContext();
@@ -365,11 +379,15 @@ public class ProfileActivity extends Activity implements Get_Board_delegate{
 				else if(result.booleanValue() && btnFollow.getText().equals(context.getString(R.string.follow))) {
 					btnFollow.setText(context.getString(R.string.unfollow));
 					btnFollow.invalidate();
+					pinCount++;
+					friends.setText(String.valueOf(ProfileActivity.this.getString(R.string.perm) + " " + ProfileActivity.pinCount + " " + ProfileActivity.this.getString(R.string.followers) + " " + ProfileActivity.followerCount));
 					Message message = handler.obtainMessage(UPDATE_BUTTON, "");
 					handler.sendMessage(message);
 				} else if(result.booleanValue() && btnFollow.getText().equals(context.getString(R.string.unfollow))) {
 					btnFollow.setText(context.getString(R.string.follow));
 					btnFollow.invalidate();
+					followerCount++;
+					friends.setText(String.valueOf(ProfileActivity.this.getString(R.string.perm) + " " + ProfileActivity.pinCount + " " + ProfileActivity.this.getString(R.string.followers) + " " + ProfileActivity.followerCount));
 					Message message = handler.obtainMessage(UPDATE_BUTTON, "");
 					handler.sendMessage(message);
 				}
@@ -424,7 +442,7 @@ public class ProfileActivity extends Activity implements Get_Board_delegate{
 //				dismissLoadingDialog();
 //				//PermpingMain.showLogin();				
 //			}
-			progressBar.setVisibility(View.GONE);
+			progressBar.setVisibility(View.INVISIBLE);
 			
 			if(boards != null){
 				Log.d("tttttt","OOOOOOO=======>>>>>"+boards);
