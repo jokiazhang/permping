@@ -27,6 +27,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AbsListView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -67,6 +68,7 @@ public class FollowerActivity extends FragmentActivity implements Login_delegate
 	ListView permListView;
 	Button btnRefesh;
 	ProgressBar progressBar;
+	ImageView imageViewBeforRefesh;
 	RelativeLayout headerLayout;
 	PermAdapter permListAdapter;
 	
@@ -101,12 +103,15 @@ public class FollowerActivity extends FragmentActivity implements Login_delegate
 		PermUtils.clearViewHistory();
 		loadPermList = new LoadPermList();
 		headerLayout = (RelativeLayout)findViewById(R.id.titlebar);
-		headerLayout.setBackgroundResource(R.drawable.header);
+		imageViewBeforRefesh = (ImageView)findViewById(R.id.imageBeforRefeshbtn);
+		headerLayout.setBackgroundResource(R.drawable.bg_header);
 		btnRefesh = (Button)findViewById(R.id.btnRefesh);
 		btnRefesh.setVisibility(View.VISIBLE);
+		imageViewBeforRefesh.setVisibility(View.VISIBLE);
 		btnRefesh.setOnClickListener(this);
 		
 		progressBar = (ProgressBar)findViewById(R.id.progressBar);
+		
 	}
 	@Override
 	protected void onDestroy(){
