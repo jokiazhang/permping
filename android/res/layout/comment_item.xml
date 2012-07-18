@@ -4,7 +4,7 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:stretchColumns="1"
-        android:paddingTop="8dp"
+        android:paddingTop="0dp"
         android:paddingLeft="3dip"
         android:paddingRight="3dip">
     <TableRow >
@@ -51,13 +51,13 @@
             </TableRow>
         </TableLayout>
 	</TableRow>
-	<TableRow>
+	<TableRow android:layout_marginTop="0dp">
     	<View
-        	android:layout_marginTop="10dp"
+        	
 	        android:layout_span="2"
 	        android:id="@+id/separator"
 	        android:layout_width="fill_parent"
-	        android:layout_height="1dip"
+	        android:layout_height="1.7dp"
 	        />
 	</TableRow>
 
