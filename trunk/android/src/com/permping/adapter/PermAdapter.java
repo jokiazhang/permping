@@ -272,7 +272,7 @@ public class PermAdapter extends ArrayAdapter<Perm> implements OnClickListener {
 					gotoMap.setOnClickListener(PermAdapter.this);
 					TextView permViewInfo = (TextView)view.findViewById(R.id.permVoiceInfo);
 					if(perm.getLon() ==0 && perm.getLat() == 0){
-						gotoMap.setVisibility(View.GONE);
+						gotoMap.setVisibility(View.INVISIBLE);
 //						permViewInfo.setVisibility(View.GONE);
 						
 					}else{
