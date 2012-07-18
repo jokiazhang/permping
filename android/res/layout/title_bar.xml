@@ -30,8 +30,15 @@
         android:background="@drawable/icon_refresh"
         android:text=""
         android:textColor="#FFFFFF"
-        android:visibility="gone" />
-
+        android:visibility="invisible" />
+	<ImageView android:layout_width="2dp"
+	    android:layout_marginRight="42dp"
+	    android:layout_alignParentRight="true"
+	    android:id="@+id/imageBeforRefeshbtn"
+	    android:layout_toLeftOf="@+id/btnRefesh"
+	    android:background="@drawable/bg_line"
+	    android:layout_height="match_parent"
+	    android:visibility="invisible"/>
     <ProgressBar
         android:id="@+id/progressBar"
         android:layout_width="28dp"
