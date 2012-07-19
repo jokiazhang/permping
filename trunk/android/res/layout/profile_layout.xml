@@ -24,11 +24,11 @@
 
                 <ImageView
                     android:id="@+id/authorAvatar"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:layout_marginLeft="10dp"
+                	android:layout_width="@dimen/avatar_size"
+                	android:layout_height="@dimen/avatar_size"
+                    android:layout_marginLeft="20dp"
                     android:layout_marginTop="-5dip"
-                    android:paddingBottom="10dp"
+                    android:layout_marginBottom="10dp"
                     android:contentDescription="The avatar of user" />
 
                 <RelativeLayout
@@ -71,6 +71,8 @@
                         android:src="@drawable/button_bg_new"
                         android:id="@+id/btnFollow"
                         android:gravity="center_vertical"
+                        android:layout_centerVertical="true"
+                        android:layout_marginTop="10dp"
                         android:layout_alignParentRight="true"/>
                 </RelativeLayout>
             </TableRow>
@@ -80,8 +82,8 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:orientation="vertical"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp" >
+        android:paddingLeft="25dp"
+        android:paddingRight="25dp" >
 
         <View
             android:id="@+id/item_separator"
