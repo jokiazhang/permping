@@ -35,7 +35,7 @@ import android.util.Log;
 public class HttpPermUtils {
 	private DefaultHttpClient client = new DefaultHttpClient();
 	private HttpAccess httpAccess;
-	public static int TIME_OUT = 10000;
+	public static int TIME_OUT = 30000;
 	public HttpPermUtils(HttpAccess delegate) {
 		// TODO Auto-generated constructor stub
 		httpAccess = delegate;

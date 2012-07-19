@@ -53,7 +53,7 @@ public final class UrlImageViewHelper {
         return total;
     }
     
-    static int IMAGE_MAX_SIZE = 200000;//60000;//30000;//1200000/4;//60000;//1200000;
+    static int IMAGE_MAX_SIZE = 1024000;//60000;//30000;//1200000/4;//60000;//1200000;
     static int SCALE_RATIO = 2;
     static Resources mResources;
     static DisplayMetrics mMetrics;
