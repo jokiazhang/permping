@@ -334,6 +334,16 @@ public class PermAdapter extends ArrayAdapter<Perm> implements OnClickListener {
 								PermpingMain.gotoTab(4, comment);
 							}
 						});
+						an.setOnClickListener(new View.OnClickListener() {
+							
+							@Override
+							public void onClick(View v) {
+								// TODO Auto-generated method stub
+								Comment comment = new Comment(perm.getAuthor().getId());
+								comment.setAuthor(perm.getAuthor());
+								PermpingMain.gotoTab(4, comment);
+							}
+						});
 						// Board name
 						TextView bn = (TextView) view.findViewById(R.id.boardName);
 						//holder.boardName.setText(perm.getBoard().getName());
@@ -409,6 +419,14 @@ public class PermAdapter extends ArrayAdapter<Perm> implements OnClickListener {
 										if(pcm.getContent() != null)
 											cmt.setText(pcm.getContent());
 									}
+									authorName.setOnClickListener(new View.OnClickListener() {
+										
+										@Override
+										public void onClick(View v) {
+											// TODO Auto-generated method stub
+											PermpingMain.gotoTab(4, pcm);	
+										}
+									});
 									if (i == (perm.getComments().size() - 1)) {
 										View sp = (View) cm.findViewById(R.id.separator);
 										sp.setVisibility(View.INVISIBLE);
@@ -474,6 +492,14 @@ public class PermAdapter extends ArrayAdapter<Perm> implements OnClickListener {
 
 					TextView authorName = (TextView) cm
 							.findViewById(R.id.commentAuthor);
+					authorName.setOnClickListener(new View.OnClickListener() {
+						
+						@Override
+						public void onClick(View arg0) {
+							// TODO Auto-generated method stub
+							PermpingMain.gotoTab(4, pcm);
+						}
+					});
 					if(pcm !=null){
 						if(pcm.getAuthor() != null)
 							if(pcm.getAuthor().getName() != null)
