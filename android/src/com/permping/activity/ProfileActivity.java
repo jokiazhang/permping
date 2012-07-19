@@ -153,7 +153,7 @@ public class ProfileActivity extends Activity implements Get_Board_delegate{
 				PermpingApplication state = (PermpingApplication) context.getApplicationContext();
 				User user = state.getUser();
 				String buttonType = btnAccount.getText().toString();
-				if(buttonType.equals(context.getString(R.string.logout))){
+				if(buttonType.equals(context.getString(R.string.account))){
 					Intent myIntent = new Intent(ProfileActivity.this, AccountActivity.class);
 					View accountView = ProfileActivityGroup.group.getLocalActivityManager() .startActivity("AccountActivity", myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
 					ProfileActivityGroup.group.replaceView(accountView);
@@ -212,17 +212,20 @@ public class ProfileActivity extends Activity implements Get_Board_delegate{
     		if(user !=null){
     			btnAccount.setText(context.getString(R.string.account));	
     		}else{
-    			btnAccount.setText(context.getString(R.string.login));
+//    			btnAccount.setText(context.getString(R.string.login));
     		}
     	}else{
     		if(user == null){
     			btnAccount.setVisibility(View.INVISIBLE);
+    			findViewById(R.id.imageBeforRefeshbtnNew2).setVisibility(View.INVISIBLE);
     		}else{
     			if(user.getId().equals(commentData.getAuthor().getId())){
     				btnAccount.setVisibility(View.VISIBLE);
+    				findViewById(R.id.imageBeforRefeshbtnNew2).setVisibility(View.VISIBLE);
     				btnFollow.setVisibility(View.GONE);
     			}else{
     				btnAccount.setVisibility(View.INVISIBLE);
+    				findViewById(R.id.imageBeforRefeshbtnNew2).setVisibility(View.INVISIBLE);
     				btnFollow.setVisibility(View.VISIBLE);
     			}
     		}
@@ -260,14 +263,15 @@ public class ProfileActivity extends Activity implements Get_Board_delegate{
     		
     		user = PermUtils.isAuthenticated(getApplicationContext());
     		if(user != null){
-    			btnAccount.setText(context.getString(R.string.logout));
+    			btnAccount.setText(context.getString(R.string.account));
     			ArrayList<PermBoard> boards = (ArrayList<PermBoard>) user.getBoards();
             	BoardAdapter boardAdapter = new BoardAdapter(ProfileActivity.this,R.layout.board_item, boards);
             	exeGet(boardAdapter);
             	btnAccount.setVisibility(View.VISIBLE);
+            	findViewById(R.id.imageBeforRefeshbtnNew2).setVisibility(View.VISIBLE);
             	btnAccount.invalidate();
     		}else{
-    			btnAccount.setText(context.getString(R.string.login));
+//    			btnAccount.setText(context.getString(R.string.login));
     			btnAccount.invalidate();
     			PermpingMain.showLogin();
     		}
@@ -376,7 +380,7 @@ public class ProfileActivity extends Activity implements Get_Board_delegate{
 					XMLParser.storePermpingAccount(context, "", "");
 					PermpingMain.back();
 					PermpingMain.showLogin();
-					btnAccount.setText(context.getString(R.string.login));
+//					btnAccount.setText(context.getString(R.string.login));
 					btnAccount.invalidate();
 				}
 				else if(result.booleanValue() && btnFollow.getText().equals(context.getString(R.string.follow))) {

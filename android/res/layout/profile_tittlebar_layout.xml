@@ -14,23 +14,32 @@
 
             <Button
                 android:id="@+id/btAccount"
-                android:layout_width="60dp"
-                android:layout_height="wrap_content"
+                android:layout_width="70dp"
+                android:layout_height="40dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
-                android:background="@drawable/title_button_bg"
+                android:background="@android:color/transparent"
                 android:text="@string/account"
                 android:textColor="#FFFFFF"
-                android:textSize="18px" />
-
+                android:textSize="15sp" 
+                />
+            <ImageView
+                android:id="@+id/imageBeforRefeshbtnNew2"
+                android:layout_width="2dp"
+                android:layout_height="match_parent"
+                android:layout_marginRight="0dp"
+                android:background="@drawable/bg_line"
+                android:visibility="visible" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:padding="10dip"
-                android:text="Permping"
+                android:layout_marginLeft="20dp"
+                android:text="PERMPING"
                 android:textColor="#FFFFFF"
+                android:gravity="center_horizontal"
                 android:textSize="20dip"
                 android:textStyle="bold" />
 
