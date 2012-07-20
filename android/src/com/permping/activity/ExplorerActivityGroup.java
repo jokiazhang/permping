@@ -27,6 +27,10 @@ public class ExplorerActivityGroup extends TabGroupActivity {
 		super.onCreate(savedInstanceState);
 		//View view = getLocalActivityManager().startActivity( "ExplorerActivity", new Intent(this, ExplorerActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
 		setTabGroup(this);
+		View view = getLocalActivityManager().startActivity( "ExplorerActivity", new Intent(this, ExplorerActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
+		setTabGroup(this);
+		replaceView(view);
+		clearHistory();
 		//replaceView(view);
 	}
 	
@@ -36,10 +40,10 @@ public class ExplorerActivityGroup extends TabGroupActivity {
 	
 	public void onResume() {
 		super.onResume();
-		View view = getLocalActivityManager().startActivity( "ExplorerActivity", new Intent(this, ExplorerActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
-		setTabGroup(this);
-		replaceView(view);
-		clearHistory();
+//		View view = getLocalActivityManager().startActivity( "ExplorerActivity", new Intent(this, ExplorerActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
+//		setTabGroup(this);
+//		replaceView(view);
+//		clearHistory();
 	}
 	
 

@@ -137,6 +137,9 @@ public class FollowerActivity extends FragmentActivity implements Login_delegate
 		}else if(PermpingMain.getCurrentTab() == 3) { 
 			isCalendar = true;
 			exeFollowerActivity();
+		}
+		else if(PermpingMain.getCurrentTab() == 1 && isRefesh){
+			exeFollowerActivity();
 		}else if(!isRefesh){
 			isRefesh = true;
 		}
