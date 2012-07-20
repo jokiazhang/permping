@@ -26,6 +26,7 @@ public class ProfileActivityGroup extends TabGroupActivity {
 		View view = getLocalActivityManager().startActivity( "ProfileActivity", new Intent(this, ProfileActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
 		setTabGroup(this);
 		replaceView(view);
+		createUI();
 	}
 	
 	public void onPause() {
@@ -34,7 +35,7 @@ public class ProfileActivityGroup extends TabGroupActivity {
 	
 	public void onResume(){
 		super.onResume();
-		createUI();
+		
 	}
 	
 	public void createUI() {
