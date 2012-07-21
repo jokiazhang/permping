@@ -117,6 +117,7 @@ public class FollowerActivity extends FragmentActivity implements Login_delegate
 	protected void onDestroy(){
 		super.onDestroy();
 		isCalendar =false;
+		isRefesh = true;
 	}
 	@Override
 	protected void onResume() {
@@ -136,9 +137,6 @@ public class FollowerActivity extends FragmentActivity implements Login_delegate
 			exeFollowerActivity();
 		}else if(PermpingMain.getCurrentTab() == 3) { 
 			isCalendar = true;
-			exeFollowerActivity();
-		}
-		else if(PermpingMain.getCurrentTab() == 1 && isRefesh){
 			exeFollowerActivity();
 		}else if(!isRefesh){
 			isRefesh = true;

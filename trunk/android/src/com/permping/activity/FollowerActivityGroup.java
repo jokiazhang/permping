@@ -65,8 +65,10 @@ public class FollowerActivityGroup extends TabGroupActivity implements Login_del
 	
 	public void onResume() {
 		super.onResume();
-		createFollowerActivity();
-		isReload = false;
+		if(FollowerActivity.isRefesh){
+			createFollowerActivity();
+			isReload = false;
+		}
 	}
 	
 	public void createFollowerActivity() {

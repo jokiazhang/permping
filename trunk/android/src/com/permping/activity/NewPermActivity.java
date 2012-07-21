@@ -215,7 +215,14 @@ public class NewPermActivity extends Activity implements OnClickListener {
 		}
 
 	}
-
+	@Override
+	protected void onResume() {
+		super.onResume();
+		if(PermpingMain.isKakao){
+			PermpingMain.isKakao = false;
+			finish();
+		}
+	}
 	private void initValue() {
 		// TODO Auto-generated method stub
 		if (boardDescRe != null)
@@ -747,6 +754,7 @@ public class NewPermActivity extends Activity implements OnClickListener {
 						if (uploadStatus && btnShareKakao.isChecked()) {// uploadStatus
 																		// &&
 							try {
+								finish();
 								gotoKakao();
 							} catch (Exception e) {
 								// TODO Auto-generated catch block
@@ -987,6 +995,7 @@ public class NewPermActivity extends Activity implements OnClickListener {
 	public void gotoKakao() throws Exception {
 
 		try {
+			
 			String strMessage = "pindetails/" + permId;// "카카오링크를 사용하여 메세지를 전달해 보세요.";
 			String strURL = "Android: " + permAndroidLink + " & Iphone: "
 					+ permIphoneLink;// "http://link.kakao.com";
@@ -1005,6 +1014,7 @@ public class NewPermActivity extends Activity implements OnClickListener {
 			metaInfoAndroid.put("installurl", strInstallUrl);
 			metaInfoAndroid.put("executeurl", "perm://newperm");
 			arrMetaInfo.add(metaInfoAndroid);
+			PermpingMain.isKakao = true;
 			KakaoLink link = new KakaoLink(NewPermActivity.this, strURL,
 					strAppId, strAppVer, strMessage, strAppName, arrMetaInfo,
 					"UTF-8");
