@@ -20,13 +20,12 @@ import com.permping.utils.PermUtils;
  *
  */
 public class ProfileActivityGroup extends TabGroupActivity {
-
+	public static boolean isProfileRefresh = true;
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		View view = getLocalActivityManager().startActivity( "ProfileActivity", new Intent(this, ProfileActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
+//		View view = getLocalActivityManager().startActivity( "ProfileActivity", new Intent(this, ProfileActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
 		setTabGroup(this);
-		replaceView(view);
-		createUI();
+//		replaceView(view);
 	}
 	
 	public void onPause() {
@@ -35,7 +34,8 @@ public class ProfileActivityGroup extends TabGroupActivity {
 	
 	public void onResume(){
 		super.onResume();
-		
+		if(FollowerActivity.isRefesh)
+			createUI();
 	}
 	
 	public void createUI() {
@@ -46,25 +46,25 @@ public class ProfileActivityGroup extends TabGroupActivity {
         if (user != null) {
         	View view = getLocalActivityManager().startActivity( "ProfileActivity", new Intent(this, ProfileActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
     		replaceView(view);
-    		clearHistory();
+    		clearHistory(); 
     	} else {
     		clearHistory();
 			PermpingMain.showLogin();
 		}
 	}
 	
-	@Override
-	public boolean onKeyDown(int keyCode, KeyEvent event)
-	{		
-	    if ((keyCode == KeyEvent.KEYCODE_BACK))
-	    {
-	    	Activity accountActivity = ProfileActivityGroup.group.getCurrentActivity();
-	    	if(accountActivity instanceof AccountActivity) {
-	    		return accountActivity.onKeyDown(keyCode, event);
-	    	}
-	        PermpingMain.back();
-	        return true;
-	    }
-	    return super.onKeyDown(keyCode, event);
-	}
+//	@Override
+//	public boolean onKeyDown(int keyCode, KeyEvent event)
+//	{		
+//	    if ((keyCode == KeyEvent.KEYCODE_BACK))
+//	    {
+//	    	Activity accountActivity = ProfileActivityGroup.group.getCurrentActivity();
+//	    	if(accountActivity instanceof AccountActivity) {
+//	    		return accountActivity.onKeyDown(keyCode, event);
+//	    	}
+//	        PermpingMain.back();
+//	        return true;
+//	    }
+//	    return super.onKeyDown(keyCode, event);
+//	}
 }

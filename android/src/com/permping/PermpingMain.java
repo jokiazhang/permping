@@ -36,6 +36,7 @@ public class PermpingMain extends TabActivity  {
 	private static TabHost tabHost;
 	public static Context context;
 	public static boolean isUserProfile = true;
+	public static boolean isKakao = false;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -276,7 +277,7 @@ public class PermpingMain extends TabActivity  {
 			//tabHost.setCurrentTab(tab);
 			isUserProfile = false;
 			FollowerActivityGroup.createProfileActivity(data, false);
-			
+			FollowerActivity.isRefesh = false;
 			
 			
 		}else if(tab == 5){
