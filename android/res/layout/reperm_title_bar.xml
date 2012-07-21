@@ -2,7 +2,7 @@
     android:layout_width="match_parent"
     android:layout_height="50dp"
     android:angle="90"
-    android:background="#771541"
+    android:background="@drawable/bg_header"
     android:orientation="vertical" >
 
     <TableLayout
@@ -29,7 +29,7 @@
                 android:padding="10dip"
                 android:text="@string/title_reperm"
                 android:textColor="#FFFFFF"
-                android:textSize="20dip"
+                android:textSize="@dimen/text_size_header"
                 android:textStyle="bold" />
 
             <Button

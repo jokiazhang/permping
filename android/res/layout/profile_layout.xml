@@ -39,7 +39,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="7dp"
-                        android:gravity="left"
+                        android:gravity="center"
                         android:text=""
                         android:textColor="@android:color/black"
                         android:textSize="18dp"
@@ -70,7 +70,7 @@
                         android:text="@string/follow"
                         android:src="@drawable/button_bg_new"
                         android:id="@+id/btnFollow"
-                        android:gravity="center_vertical"
+                        android:gravity="center"
                         android:layout_centerVertical="true"
                         android:layout_marginTop="10dp"
                         android:layout_alignParentRight="true"/>
