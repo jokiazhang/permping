@@ -2,14 +2,10 @@ package com.permping.activity;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
-import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -18,26 +14,21 @@ import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
 import android.util.DisplayMetrics;
-import android.util.Log;
 
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.AbsListView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.AbsListView.OnScrollListener;
 import android.widget.ListView;
 
 import com.permping.PermpingApplication;
 import com.permping.PermpingMain;
 import com.permping.R;
-import com.permping.TabGroupActivity;
 import com.permping.adapter.PermAdapter;
 import com.permping.controller.PermListController;
 import com.permping.interfaces.Login_delegate;
@@ -71,6 +62,7 @@ public class FollowerActivity extends FragmentActivity implements Login_delegate
 	ImageView imageViewBeforRefesh;
 	RelativeLayout headerLayout;
 	PermAdapter permListAdapter;
+	View headerView = null;
 	
 	public static LoadPermList loadPermList;
 	private BroadcastReceiver receiver = new BroadcastReceiver() {
@@ -87,6 +79,13 @@ public class FollowerActivity extends FragmentActivity implements Login_delegate
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		createUI();
+		IntentFilter intentFilter = new IntentFilter(DOWNLOAD_COMPLETED);
+		registerReceiver(receiver, intentFilter);
+		PermUtils.clearViewHistory();
+	}
+	
+	public void createUI() {
 		setContentView(R.layout.followers_layout);
 		
 		TextView textView = (TextView)findViewById(R.id.permpingTitle);
@@ -94,13 +93,7 @@ public class FollowerActivity extends FragmentActivity implements Login_delegate
 		if(textView != null) {
 			textView.setTypeface(tf);
 		}
-		
-		IntentFilter intentFilter = new IntentFilter(DOWNLOAD_COMPLETED);
-		registerReceiver(receiver, intentFilter);
-		
 		permListView = (ListView) findViewById(R.id.permList);
-		
-		PermUtils.clearViewHistory();
 		loadPermList = new LoadPermList();
 		headerLayout = (RelativeLayout)findViewById(R.id.titlebar);
 		imageViewBeforRefesh = (ImageView)findViewById(R.id.imageBeforRefeshbtn);
@@ -109,10 +102,9 @@ public class FollowerActivity extends FragmentActivity implements Login_delegate
 		btnRefesh.setVisibility(View.VISIBLE);
 		imageViewBeforRefesh.setVisibility(View.VISIBLE);
 		btnRefesh.setOnClickListener(this);
-		
 		progressBar = (ProgressBar)findViewById(R.id.progressBar);
-		
 	}
+	
 	@Override
 	protected void onDestroy(){
 		super.onDestroy();
@@ -256,8 +248,16 @@ public class FollowerActivity extends FragmentActivity implements Login_delegate
 		User user = PermUtils.isAuthenticated(getApplicationContext());		
 		if(permListMain != null && !permListMain.isEmpty()){
 			clearData();
+			createUI();
 			this.permListAdapter = new PermAdapter(FollowerActivityGroup.context,
 					getSupportFragmentManager(),R.layout.perm_item_1, permListMain, this, screenWidth, screenHeight, header, user);
+			if(permListAdapter != null && permListAdapter.getCount() > 0) {
+				//if( PermpingMain.getCurrentTab() == 0 || PermpingMain.getCurrentTab() == 1 ) {
+					headerView = permListAdapter.createHeaderView();
+					permListView.addHeaderView(headerView);
+				//}				
+			}
+			
 			permListView.setAdapter(permListAdapter);
 			permListView.setSelection(0);	
 		}else{
@@ -269,8 +269,11 @@ public class FollowerActivity extends FragmentActivity implements Login_delegate
 	
 	public void clearData() {
 		if(permListAdapter != null && !permListAdapter.isEmpty()) {
-			permListAdapter.clear();
+			permListAdapter.clear();			
 			UrlImageViewHelper.clearAllImageView();				
+		}
+		if(permListView != null && headerView != null) {
+			permListView.removeHeaderView(headerView);
 		}
 	}
 
