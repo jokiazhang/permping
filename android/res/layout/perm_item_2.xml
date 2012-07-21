@@ -37,35 +37,45 @@
                 xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
+                android:orientation="horizontal"
+                android:layout_span="2"
                 android:layout_gravity="center">
 
                 <Button
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="@dimen/button_join_height"
+                    android:visibility="invisible" />
+                <Button
                     android:id="@+id/bt_join"
-                    android:layout_width="@dimen/button_join_width"
+                    android:layout_width="0dp"
+                    android:layout_weight="3"
                     android:layout_height="@dimen/button_join_height"
                     android:background="@drawable/button_style"
                     android:textSize="@dimen/text_size_auther_name"
                     android:text="@string/bt_join"
                     android:textColor="#5e5d5d" />
-            </LinearLayout>
-
-            <LinearLayout
-                xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:layout_gravity="center">
-
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="@dimen/button_join_height"
+                    android:visibility="invisible" />
                 <Button
                     android:id="@+id/bt_login"
-                    android:layout_width="@dimen/button_join_width"
+                    android:layout_width="0dp"
+                    android:layout_weight="3"
                     android:layout_height="@dimen/button_join_height"
                     android:background="@drawable/button_style"
                     android:textSize="@dimen/text_size_auther_name"
                     android:text="@string/bt_login"
                     android:textColor="#5e5d5d" />
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="@dimen/button_join_height"
+                    android:visibility="invisible" />
             </LinearLayout>
+
         </TableRow>
 
         <TableRow>
