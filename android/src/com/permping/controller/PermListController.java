@@ -43,15 +43,15 @@ public class PermListController implements PermList_Delegate {
 		
 		ArrayList<Perm> permList = new ArrayList<Perm>();
 		
-		if( url == "" ){
+		if( url == "" ) {
 			url = API.popularPermsURL;
-			permList.add(new Perm());
-		} else {
+			//permList.add(new Perm());
+		}/* else {
 			if(PermpingMain.getCurrentTab() == 0) {
 				//add this for follower header
 				permList.add(new Perm());
 			}
-		}
+		}*/
 		XMLParser parser = new XMLParser( url , true );
 		Document doc = null;
 		if(parser != null)
@@ -176,13 +176,13 @@ public class PermListController implements PermList_Delegate {
 		
 		if( url == "" ) {
 			url = API.popularPermsURL;
-			permList.add(new Perm());
-		} else {
+			//permList.add(new Perm());
+		}/* else {
 			if(PermpingMain.getCurrentTab() == 0) {
 				//add this for follower header
 				permList.add(new Perm());
 			}
-		}
+		}*/
 		XMLParser parser = new XMLParser(XMLParser.PERMLIST, PermListController.this, url, nameValuePairs, true);
 		Document doc = parser.getDoc();
 		NodeList responseNodeList = doc.getElementsByTagName("response"); // TODO: actually, only 1 response in the list.
