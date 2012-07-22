@@ -21,6 +21,12 @@ import org.w3c.dom.NodeList;
 public class PermListController implements PermList_Delegate {
 
 
+	/**
+	 * MSA
+	 */
+	public static boolean isLoading = false;
+	public static int selectedPos = 0;
+	
 	public static boolean isFooterAdded = false;
 	/**
 	 * Constructor

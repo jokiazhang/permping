@@ -45,7 +45,10 @@ public class FollowerActivity extends FragmentActivity implements Login_delegate
 	public String url = "";
 	public Boolean header = true;
 
-	private ArrayList<Perm> permListMain;
+	/**
+	 * MSA
+	 */
+	private ArrayList<Perm> permListMain = new ArrayList<Perm>();
 
 	public static int screenWidth;
 	public static int screenHeight;
@@ -246,7 +249,7 @@ public class FollowerActivity extends FragmentActivity implements Login_delegate
 	private void loadPerms() {
 		User user = PermUtils.isAuthenticated(getApplicationContext());		
 		if(permListMain != null && !permListMain.isEmpty()){
-			clearData();
+			//clearData();
 			createUI();
 			this.permListAdapter = new PermAdapter(FollowerActivityGroup.context,
 					getSupportFragmentManager(),R.layout.perm_item_1, permListMain, this, screenWidth, screenHeight, header, user);
@@ -258,7 +261,7 @@ public class FollowerActivity extends FragmentActivity implements Login_delegate
 			}
 			
 			permListView.setAdapter(permListAdapter);
-			permListView.setSelection(0);	
+			permListView.setSelection(PermListController.selectedPos);	
 		}else{
 			
 			
@@ -268,7 +271,7 @@ public class FollowerActivity extends FragmentActivity implements Login_delegate
 	
 	public void clearData() {
 		if(permListAdapter != null && !permListAdapter.isEmpty()) {
-			permListAdapter.clear();			
+			//permListAdapter.clear();
 			UrlImageViewHelper.clearAllImageView();				
 		}
 		if(permListView != null && headerView != null) {
@@ -316,8 +319,12 @@ public class FollowerActivity extends FragmentActivity implements Login_delegate
 					progressBar.setVisibility(View.GONE);
 					btnRefesh.setVisibility(View.VISIBLE);
 				}*/
-			}			
-			permListMain = permList;
+			}
+			/**
+			 * MSA
+			 */
+			permListMain.addAll(permList);
+			//permListMain = permList;
 						
 			return permListMain;
 		}
@@ -329,7 +336,12 @@ public class FollowerActivity extends FragmentActivity implements Login_delegate
 
 		@Override
 		protected void onPostExecute(ArrayList< Perm> sResponse) {
+			/**
+			 * MSA
+			 */
 			loadPerms();
+			PermListController.isLoading = false;
+			
 			//permListMain.size();
 //			if (dialog != null && dialog.isShowing()) {
 //				dialog.dismiss();

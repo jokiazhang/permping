@@ -28,6 +28,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -51,6 +52,7 @@ import com.permping.activity.LoginPermActivity;
 import com.permping.activity.NewPermActivity;
 import com.permping.activity.PrepareRequestTokenActivity;
 import com.permping.controller.AuthorizeController;
+import com.permping.controller.PermController;
 import com.permping.controller.PermListController;
 import com.permping.model.Comment;
 import com.permping.model.Perm;
@@ -194,8 +196,17 @@ public class PermAdapter extends ArrayAdapter<Perm> implements OnClickListener {
 				}*/
 				
 				if(position == items.size() - 1 && PermListController.isFooterAdded == true) {
-					View footerView = createFooterView();
-					if(getNextItems() == -1) {						
+					if(!PermListController.isLoading){
+						PermListController.selectedPos = items.size() -1;
+						PermListController.isLoading = true;
+						loadMoreItems();
+					}
+					/*if(getNextItems() != -1) {
+						loadMoreItems();
+					}*/
+					//View footerView = createFooterView();
+					View footerView = createNullView();
+					/*if(getNextItems() == -1) {						
 						ImageButton nextButton = (ImageButton) footerView.findViewById(R.id.next);
 						nextButton.setVisibility(View.INVISIBLE);
 					}
@@ -204,9 +215,10 @@ public class PermAdapter extends ArrayAdapter<Perm> implements OnClickListener {
 						ImageButton previousButton = (ImageButton) footerView.findViewById(R.id.previous);
 						previousButton.setVisibility(View.INVISIBLE);
 					}
+					*/
 					
 					//disable the separator view
-					int previousPosition = position - 1;
+					/*int previousPosition = position - 1;
 					if(previousPosition < items.size() && previousPosition >= 0) {
 						Perm perm = items.get(previousPosition);
 						String viewId = perm.getId();
@@ -217,7 +229,7 @@ public class PermAdapter extends ArrayAdapter<Perm> implements OnClickListener {
 								seperatorLine.setVisibility(View.GONE);
 							}
 						}
-					}
+					}*/
 					
 					return footerView;
 				}
@@ -353,7 +365,10 @@ public class PermAdapter extends ArrayAdapter<Perm> implements OnClickListener {
 								bn.setText(perm.getBoard().getName());
 		
 						ImageView imageView = (ImageView) view.findViewById(R.id.permImage);
-						imageView.setOnClickListener(new View.OnClickListener() {
+						/**
+						 * MSA
+						 */
+						/*imageView.setOnClickListener(new View.OnClickListener() {
 							
 							public void onClick(View arg0) {
 								// TODO Auto-generated method stub
@@ -362,7 +377,7 @@ public class PermAdapter extends ArrayAdapter<Perm> implements OnClickListener {
 									PermpingMain.gotoTab(5, permUrl);
 								Log.d("=====>", "=================>go to Perm Browser >");
 							}
-						});
+						});*/
 					
 						UrlImageViewHelper.setUrlDrawable(imageView, perm.getImage().getUrl() , true ); 
 						TextView pd = (TextView) view.findViewById(R.id.permDesc);
@@ -538,6 +553,15 @@ public class PermAdapter extends ArrayAdapter<Perm> implements OnClickListener {
 		}
 	}
 	
+	/**
+	 * MSA
+	 * @return
+	 */
+	public void loadMoreItems() {
+		FollowerActivity follow = ((FollowerActivity)activity);
+		follow.loadNextItems();
+	}
+	
 	public View createFooterView() {
 		final Context context = this.getContext();
 		LayoutInflater inflater = (LayoutInflater) context
@@ -577,7 +601,7 @@ public class PermAdapter extends ArrayAdapter<Perm> implements OnClickListener {
 	public View createNullView() {
 		LayoutInflater inflater = (LayoutInflater) this.getContext()
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		View view = inflater.inflate(R.layout.perm_item_1, null);
+		View view = inflater.inflate(R.layout.perm_item_3, null);		
 		return view;
 	}
 	

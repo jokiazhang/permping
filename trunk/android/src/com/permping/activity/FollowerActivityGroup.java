@@ -36,7 +36,7 @@ public class FollowerActivityGroup extends TabGroupActivity implements Login_del
 		long lastTimeLogin = XMLParser.getLastTimeLogin(this);
 		long timeout = System.currentTimeMillis() - lastTimeLogin;
 		if(userEmail.length() > 0 && userPass.length() > 0) {
-			if(timeout < XMLParser.ACCOUNT_TIME_OUT) {
+			//if(timeout < XMLParser.ACCOUNT_TIME_OUT) {
 				List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(8);
 				nameValuePairs.add(new BasicNameValuePair("type", Constants.LOGIN_TYPE));
 				nameValuePairs.add(new BasicNameValuePair("oauth_token", ""));
@@ -45,7 +45,8 @@ public class FollowerActivityGroup extends TabGroupActivity implements Login_del
 				AuthorizeController authorizeController = new AuthorizeController(FollowerActivityGroup.this);
 				authorizeController.authorize(this, nameValuePairs);
 				isReload = true;
-			} else {
+			/*} 
+			else {
 				PermpingApplication state = (PermpingApplication) getApplicationContext();
 				User user = state.getUser();
 				if (user != null) {
@@ -54,7 +55,7 @@ public class FollowerActivityGroup extends TabGroupActivity implements Login_del
 					state.setUser(null);
 					XMLParser.storePermpingAccount(this, "", "");
 				}				
-			}
+			}*/
 		}
 		createFollowerActivity();
 		//replaceView(view);
