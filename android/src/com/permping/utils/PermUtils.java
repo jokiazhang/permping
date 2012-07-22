@@ -66,11 +66,11 @@ public class PermUtils {
 	}
 
 	public static void clearViewHistory() {
-		ExplorerActivityGroup.group.clearHistory();
+		/*ExplorerActivityGroup.group.clearHistory();
 		FollowerActivityGroup.group.clearHistory();
 		ImageActivityGroup.group.clearHistory();
 		ProfileActivityGroup.group.clearHistory();
-		MyDiaryActivityGroup.group.clearHistory();
+		MyDiaryActivityGroup.group.clearHistory();*/
 	}
 
 	/**

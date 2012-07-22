@@ -20,12 +20,12 @@ import com.permping.utils.PermUtils;
  *
  */
 public class ProfileActivityGroup extends TabGroupActivity {
-	public static boolean isProfileRefresh = true;
+	public static boolean isTabChanged = false;
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-//		View view = getLocalActivityManager().startActivity( "ProfileActivity", new Intent(this, ProfileActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
+		View view = getLocalActivityManager().startActivity( "ProfileActivity", new Intent(this, ProfileActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
 		setTabGroup(this);
-//		replaceView(view);
+		replaceView(view);
 	}
 	
 	public void onPause() {
@@ -34,8 +34,9 @@ public class ProfileActivityGroup extends TabGroupActivity {
 	
 	public void onResume(){
 		super.onResume();
-		if(FollowerActivity.isRefesh)
+		if(isTabChanged) {
 			createUI();
+		}
 	}
 	
 	public void createUI() {
@@ -53,18 +54,18 @@ public class ProfileActivityGroup extends TabGroupActivity {
 		}
 	}
 	
-//	@Override
-//	public boolean onKeyDown(int keyCode, KeyEvent event)
-//	{		
-//	    if ((keyCode == KeyEvent.KEYCODE_BACK))
-//	    {
-//	    	Activity accountActivity = ProfileActivityGroup.group.getCurrentActivity();
-//	    	if(accountActivity instanceof AccountActivity) {
-//	    		return accountActivity.onKeyDown(keyCode, event);
-//	    	}
-//	        PermpingMain.back();
-//	        return true;
-//	    }
-//	    return super.onKeyDown(keyCode, event);
-//	}
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event)
+	{		
+	    if ((keyCode == KeyEvent.KEYCODE_BACK))
+	    {
+	    	Activity accountActivity = ProfileActivityGroup.group.getCurrentActivity();
+	    	if(accountActivity instanceof AccountActivity) {
+	    		return accountActivity.onKeyDown(keyCode, event);
+	    	}
+	        PermpingMain.back();
+	        return true;
+	    }
+	    return super.onKeyDown(keyCode, event);
+	}
 }

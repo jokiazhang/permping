@@ -386,7 +386,7 @@ public class ProfileActivity extends Activity implements Get_Board_delegate{
 				else if(result.booleanValue() && btnFollow.getText().equals(context.getString(R.string.follow))) {
 					btnFollow.setText(context.getString(R.string.unfollow));
 					btnFollow.invalidate();
-					pinCount++;
+					followerCount--;
 					friends.setText(String.valueOf(ProfileActivity.this.getString(R.string.perm) + " " + ProfileActivity.pinCount + " " + ProfileActivity.this.getString(R.string.followers) + " " + ProfileActivity.followerCount));
 					Message message = handler.obtainMessage(UPDATE_BUTTON, "");
 					handler.sendMessage(message);

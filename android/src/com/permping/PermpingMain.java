@@ -11,6 +11,7 @@ import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TabHost;
+import android.widget.TabHost.OnTabChangeListener;
 import android.widget.TabHost.TabSpec;
 
 import com.permping.activity.BoardDetailActivity;
@@ -110,6 +111,41 @@ public class PermpingMain extends TabActivity  {
 				return ret;
 			}
 		});*/
+        
+        tabHost.setOnTabChangedListener(new OnTabChangeListener() {
+			
+			@Override
+			public void onTabChanged(String tabId) {
+				// TODO Auto-generated method stub
+				int currentTab = PermpingMain.getCurrentTab();
+		    	if( currentTab == 0){
+					FollowerActivityGroup.isTabChanged = false;
+					ExplorerActivityGroup.isTabChanged = true;
+					ProfileActivityGroup.isTabChanged = true;
+					MyDiaryActivityGroup.isTabChanged = true;
+		    	}else if(currentTab == 1){
+		    		FollowerActivityGroup.isTabChanged = true;
+					ExplorerActivityGroup.isTabChanged = false;
+					ProfileActivityGroup.isTabChanged = true;
+					MyDiaryActivityGroup.isTabChanged = true;
+		    	}else if(currentTab == 2){
+		    		FollowerActivityGroup.isTabChanged = true;
+					ExplorerActivityGroup.isTabChanged = true;
+					ProfileActivityGroup.isTabChanged = true;
+					MyDiaryActivityGroup.isTabChanged = true;
+		    	}else if(currentTab == 3){
+		    		FollowerActivityGroup.isTabChanged = true;
+					ExplorerActivityGroup.isTabChanged = true;
+					ProfileActivityGroup.isTabChanged = true;
+					MyDiaryActivityGroup.isTabChanged = false;
+		    	}else if(currentTab == 4){
+		    		FollowerActivityGroup.isTabChanged = true;
+					ExplorerActivityGroup.isTabChanged = true;
+					ProfileActivityGroup.isTabChanged = false;
+					MyDiaryActivityGroup.isTabChanged = true;
+		    	}
+			}
+		});
         
         // Set the event for Followers tab
         tabHost.getTabWidget().getChildAt(0).setOnTouchListener(new FollowerHandler());
@@ -277,7 +313,7 @@ public class PermpingMain extends TabActivity  {
 			//tabHost.setCurrentTab(tab);
 			isUserProfile = false;
 			FollowerActivityGroup.createProfileActivity(data, false);
-			FollowerActivity.isRefesh = false;
+			
 			
 			
 		}else if(tab == 5){
