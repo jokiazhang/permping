@@ -65,6 +65,7 @@ public class FollowerActivity extends FragmentActivity implements Login_delegate
 	ImageView imageViewBeforRefesh;
 	RelativeLayout headerLayout;
 	PermAdapter permListAdapter;
+	View headerView = null;
 	
 	public static LoadPermList loadPermList;
 	private BroadcastReceiver receiver = new BroadcastReceiver() {
@@ -81,6 +82,13 @@ public class FollowerActivity extends FragmentActivity implements Login_delegate
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		createUI();
+		IntentFilter intentFilter = new IntentFilter(DOWNLOAD_COMPLETED);
+		registerReceiver(receiver, intentFilter);
+		PermUtils.clearViewHistory();
+	}
+	
+	public void createUI() {
 		setContentView(R.layout.followers_layout);
 		
 		TextView textView = (TextView)findViewById(R.id.permpingTitle);
@@ -88,12 +96,7 @@ public class FollowerActivity extends FragmentActivity implements Login_delegate
 		if(textView != null) {
 			textView.setTypeface(tf);
 		}
-		
-		IntentFilter intentFilter = new IntentFilter(DOWNLOAD_COMPLETED);
-		registerReceiver(receiver, intentFilter);
-		
-		permListView = (ListView) findViewById(R.id.permList);		
-		PermUtils.clearViewHistory();
+		permListView = (ListView) findViewById(R.id.permList);
 		loadPermList = new LoadPermList();
 		headerLayout = (RelativeLayout)findViewById(R.id.titlebar);
 		imageViewBeforRefesh = (ImageView)findViewById(R.id.imageBeforRefeshbtn);
@@ -247,8 +250,16 @@ public class FollowerActivity extends FragmentActivity implements Login_delegate
 		User user = PermUtils.isAuthenticated(getApplicationContext());		
 		if(permListMain != null && !permListMain.isEmpty()){
 			//clearData();
+			createUI();
 			this.permListAdapter = new PermAdapter(FollowerActivityGroup.context,
 					getSupportFragmentManager(),R.layout.perm_item_1, permListMain, this, screenWidth, screenHeight, header, user);
+			if(permListAdapter != null && permListAdapter.getCount() > 0) {
+				//if( PermpingMain.getCurrentTab() == 0 || PermpingMain.getCurrentTab() == 1 ) {
+					headerView = permListAdapter.createHeaderView();
+					permListView.addHeaderView(headerView);
+				//}				
+			}
+			
 			permListView.setAdapter(permListAdapter);
 			permListView.setSelection(PermListController.selectedPos);	
 		}else{
@@ -262,6 +273,9 @@ public class FollowerActivity extends FragmentActivity implements Login_delegate
 		if(permListAdapter != null && !permListAdapter.isEmpty()) {
 			//permListAdapter.clear();
 			UrlImageViewHelper.clearAllImageView();				
+		}
+		if(permListView != null && headerView != null) {
+			permListView.removeHeaderView(headerView);
 		}
 	}
 
