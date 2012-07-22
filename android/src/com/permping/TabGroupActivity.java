@@ -47,7 +47,7 @@ public class TabGroupActivity extends ActivityGroup {
 	@Override
 	public void onResume() {
 		super.onResume();
-		long lastTimeLogin = XMLParser.getLastTimeLogin(this);
+		/*long lastTimeLogin = XMLParser.getLastTimeLogin(this);
 		long timeout = System.currentTimeMillis() - lastTimeLogin;
 		if(timeout >= XMLParser.ACCOUNT_TIME_OUT) {
 			PermpingApplication state = (PermpingApplication) getApplicationContext();
@@ -58,7 +58,7 @@ public class TabGroupActivity extends ActivityGroup {
 				state.setUser(null);
 				XMLParser.storePermpingAccount(this, "", "");
 			}
-		}
+		}*/
 	}	
 	
 	public static void setTabGroup(TabGroupActivity tabGroup) {
