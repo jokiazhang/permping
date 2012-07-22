@@ -45,6 +45,9 @@ public class ProfileActivityGroup extends TabGroupActivity {
 		User user = PermUtils.isAuthenticated(getApplicationContext());
 		setTabGroup(this);
         if (user != null) {
+        	Comment comment = new Comment(user.getId());
+			comment.setAuthor(user);
+			ProfileActivity.commentData = comment;
         	View view = getLocalActivityManager().startActivity( "ProfileActivity", new Intent(this, ProfileActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
     		replaceView(view);
     		clearHistory(); 
