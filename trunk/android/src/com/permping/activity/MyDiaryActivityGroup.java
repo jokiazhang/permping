@@ -19,6 +19,7 @@ import com.permping.utils.PermUtils;
  */
 public class MyDiaryActivityGroup extends TabGroupActivity {
 	public static MyDiaryActivityGroup context;
+	public static boolean isTabChanged = false;
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		View view = getLocalActivityManager().startActivity( "MyDiaryActivity", new Intent(this, MyDiaryActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
@@ -33,6 +34,13 @@ public class MyDiaryActivityGroup extends TabGroupActivity {
 	
 	public void onResume() {
 		super.onResume();
+		if(isTabChanged) {
+			createUI();
+		}
+		
+	}
+	
+	public void createUI() {
 		User user = PermUtils.isAuthenticated(getApplicationContext());
 		setTabGroup(this);
         if (user != null) {

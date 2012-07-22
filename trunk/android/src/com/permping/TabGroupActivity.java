@@ -116,9 +116,10 @@ public class TabGroupActivity extends ActivityGroup {
 			} else {
 				history.remove(history.size() - 1);
 				setContentView(history.get(history.size() - 1));
-				if(PermpingMain.getCurrentTab() == 0) {
+				/*if(PermpingMain.getCurrentTab() == 0 || PermpingMain.getCurrentTab() == 1) {
 					sendBroadcast("", "");					
-				}
+				}*/
+				sendBroadcast("", "");	
 			}
 		} else {
 

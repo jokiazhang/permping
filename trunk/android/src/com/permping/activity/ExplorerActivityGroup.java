@@ -22,12 +22,13 @@ import android.util.Log;
 import android.view.View;
 
 public class ExplorerActivityGroup extends TabGroupActivity {
-
+	public static boolean isTabChanged = false;
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		//View view = getLocalActivityManager().startActivity( "ExplorerActivity", new Intent(this, ExplorerActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
 		setTabGroup(this);
 		//replaceView(view);
+		createUI();
 	}
 	
 	public void onPause() {
@@ -36,13 +37,16 @@ public class ExplorerActivityGroup extends TabGroupActivity {
 	
 	public void onResume() {
 		super.onResume();
-		if(FollowerActivity.isRefesh){
-			View view = getLocalActivityManager().startActivity( "ExplorerActivity", new Intent(this, ExplorerActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
-			setTabGroup(this);
-			replaceView(view);
-			clearHistory();
-			
+		if(isTabChanged) {
+			createUI();
 		}
+	}
+	
+	public void createUI() {
+		View view = getLocalActivityManager().startActivity( "ExplorerActivity", new Intent(this, ExplorerActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
+		setTabGroup(this);
+		replaceView(view);
+		clearHistory();
 	}
 	
 

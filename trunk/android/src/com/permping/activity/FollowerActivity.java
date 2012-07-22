@@ -109,7 +109,6 @@ public class FollowerActivity extends FragmentActivity implements Login_delegate
 	protected void onDestroy(){
 		super.onDestroy();
 		isCalendar =false;
-		isRefesh = true;
 	}
 	@Override
 	protected void onResume() {

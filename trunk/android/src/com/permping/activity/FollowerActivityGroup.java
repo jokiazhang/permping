@@ -25,6 +25,7 @@ public class FollowerActivityGroup extends TabGroupActivity implements Login_del
 	
 	public static FollowerActivityGroup context;
 	public boolean isReload = true;
+	public static boolean isTabChanged = false;
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		this.context = this;
@@ -55,6 +56,7 @@ public class FollowerActivityGroup extends TabGroupActivity implements Login_del
 				}				
 			}
 		}
+		createFollowerActivity();
 		//replaceView(view);
 	}
 	
@@ -65,10 +67,10 @@ public class FollowerActivityGroup extends TabGroupActivity implements Login_del
 	
 	public void onResume() {
 		super.onResume();
-		if(FollowerActivity.isRefesh){
+		if(isTabChanged) {
 			createFollowerActivity();
-			isReload = false;
 		}
+		isReload = false;
 	}
 	
 	public void createFollowerActivity() {
@@ -83,7 +85,7 @@ public class FollowerActivityGroup extends TabGroupActivity implements Login_del
 //		User user = state.getUser();
 //		if(user != null) 
 //		{
-			group.clearHistory();
+			//group.clearHistory();
 			ProfileActivity.commentData = ( Comment)comment;
 			ProfileActivity.isUserProfile = false;
 			View view = group.getLocalActivityManager().startActivity( "ProfileActivity", new Intent(group, ProfileActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
