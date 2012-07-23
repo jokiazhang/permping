@@ -1,10 +1,14 @@
 package com.permping.activity;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 
 import android.app.Dialog;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -54,33 +58,33 @@ private int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 1224;
 	        if (requestCode == SELECT_PICTURE || requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE ) {
 	        	String selectedImagePath = "";
 	        	if( data == null  ) {
-	        		selectedImagePath = getImagePath();
+//	        		selectedImagePath = getImagePath();
+	        		selectedImagePath = ImageActivity.imagePath;
+	        		try {
+	        			InputStream is = openFileInput("MyFile.jpg");
+	        			BitmapFactory.Options options = new BitmapFactory.Options();
+	        			//options.inSampleSize = 4;
+	        			Bitmap retrievedBitmap = BitmapFactory.decodeStream(is, null, options);
+	        			}
+	        			catch(IOException e) {
+
+	        			}
 	        	} else {
-		            Uri selectedImageUri = data.getData();
-		            
-		            if( requestCode == SELECT_PICTURE ){
-		            	selectedImagePath = getPath(selectedImageUri);
-		            } else {
-		            	String[] projection = { MediaStore.Images.Media.DATA}; 
-//		                final String[] imageColumns = { MediaStore.Images.Media._ID, MediaStore.Images.Media.DATA };
-//		                final String imageOrderBy = MediaStore.Images.Media._ID+" DESC";
-		                Cursor imageCursor = managedQuery(ImageActivity.mCapturedImageURI, projection, null, null, null);
-		                if(imageCursor.moveToFirst()){
-//		                    int id = imageCursor.getInt(imageCursor.getColumnIndex(MediaStore.Images.Media._ID));
-//		                    String fullPath = imageCursor.getString(imageCursor.getColumnIndex(MediaStore.Images.Media.DATA));
-//		                    imageCursor.close();
-//		                    
-//			                if(fullPath.equals(ImageActivity.imagePath)){
-//			                	selectedImagePath = fullPath;
-//			                }else{
-//			                	selectedImagePath = "";
-//			                }
-			                int column_index_data = imageCursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA); 
-			                String capturedImageFilePath = imageCursor.getString(column_index_data);
-			                selectedImagePath = capturedImageFilePath;
-		                }else{
-		                }
-		            }
+//		            Uri selectedImageUri = data.getData();
+//		            
+//		            if( requestCode == SELECT_PICTURE ){
+//		            	selectedImagePath = getPath(selectedImageUri);
+//		            } else {
+//		            	String[] projection = { MediaStore.Images.Media.DATA}; 
+//		                Cursor imageCursor = managedQuery(ImageActivity.mCapturedImageURI, projection, null, null, null);
+//		                if(imageCursor.moveToFirst()){
+//			                int column_index_data = imageCursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA); 
+//			                String capturedImageFilePath = imageCursor.getString(column_index_data);
+//			                selectedImagePath = capturedImageFilePath;
+//		                }else{
+//		                }
+//		            }
+	        		selectedImagePath = ImageActivity.imagePath;
 	        	}
 	            //Start activity allow user input perm info
 	            Intent myIntent = new Intent(ImageActivityGroup.this, NewPermActivity.class);
@@ -93,7 +97,7 @@ private int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 1224;
 					imageActivity.showCamera();
 				}
 					
-//				ImageActivityGroup.group.replaceView(boardListView);
+
 
 	        }
 	    }
