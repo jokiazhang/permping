@@ -1,6 +1,8 @@
 package com.permping.activity;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -106,44 +108,42 @@ public class ImageActivity extends Activity {
 	}
 
 	public void showCamera(){
-		try {
-//			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.ENGLISH);
-//	        strCurDate = dateFormat.format(new Date(System.currentTimeMillis()));
-//	        imagePath = Environment.getExternalStorageDirectory() + File.separator + "images" + File.separator;
-//	        File root = new File(imagePath);
-//	        root.mkdirs();
-//	        File sdImageMainDirectory = new File(root, strCurDate);
-//	        mCapturedImageURI = Uri.fromFile(sdImageMainDirectory);
-//	        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-//	        intent.putExtra(MediaStore.EXTRA_OUTPUT, mCapturedImageURI);
+//		try {
+//
+//	        String fileName = "temp.jpg";  
+//	        ContentValues values = new ContentValues();  
+////	        values.put(MediaStore.Images.Media.TITLE, fileName);  
+//	        mCapturedImageURI = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);  
+//
+//	        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);  
+//	        intent.putExtra(MediaStore.EXTRA_OUTPUT, mCapturedImageURI);  
 //			Context context = ImageActivity.this;
 //			PackageManager packageManager = context.getPackageManager();
 //	 
 //			// if device support camera?
 //			if (packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
-//				getParent().startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
+//				 getParent().startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
 //			}
-	        String fileName = "temp.jpg";  
-	        ContentValues values = new ContentValues();  
-//	        values.put(MediaStore.Images.Media.TITLE, fileName);  
-	        mCapturedImageURI = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);  
-
-	        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);  
-	        intent.putExtra(MediaStore.EXTRA_OUTPUT, mCapturedImageURI);  
-			Context context = ImageActivity.this;
-			PackageManager packageManager = context.getPackageManager();
-	 
-			// if device support camera?
-			if (packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
-				 getParent().startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
+//	       
+//	  
+//	        
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//			Logger.appendLog(e.toString(), "takePhotoLog");
+//		}
+		try {
+			FileOutputStream fos = openFileOutput("MyFile.jpg", Context.MODE_WORLD_WRITEABLE);
+			fos.close();
+			File f = new File(getFilesDir() + File.separator + "MyFile.jpg");
+			imagePath = f.getPath();
+			startActivityForResult(
+			        new Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+			            .putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(f))
+			        , CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
 			}
-	       
-	  
-	        
-		} catch (Exception e) {
-			// TODO: handle exception
-			Logger.appendLog(e.toString(), "takePhotoLog");
-		}
+			catch(IOException e) {
+
+			}
 	}
 	
 	@Override
