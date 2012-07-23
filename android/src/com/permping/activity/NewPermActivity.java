@@ -619,7 +619,7 @@ public class NewPermActivity extends Activity implements OnClickListener {
 		private Bitmap getBitmap2(String path) {
 			try {
 				
-				final int IMAGE_MAX_SIZE = 1200000; // 1.2MP
+				final int IMAGE_MAX_SIZE = 1024;//1200000; // 1.2MP
 				BitmapFactory.Options o = new BitmapFactory.Options();
 				o.inJustDecodeBounds = true;
 				InputStream in=new FileInputStream(filePath);
@@ -629,50 +629,51 @@ public class NewPermActivity extends Activity implements OnClickListener {
 		
 				// Decode image size
 
-				int scale = 1;
-//				int currentWidth = o.outWidth;
-//				while (currentWidth > IMAGE_MAX_SIZE) {
-//					currentWidth = currentWidth / IMAGE_MAX_SIZE;
+				double scale=1;
+				int currentWidth = o.outWidth;
+				if (currentWidth > IMAGE_MAX_SIZE) {
+					scale = currentWidth / IMAGE_MAX_SIZE;
+					
+				}
+//				int scale = 1;
+//				while ((o.outWidth * o.outHeight) * (1 / Math.pow(scale, 2)) > IMAGE_MAX_SIZE) {
 //					scale++;
 //				}
-				while ((o.outWidth * o.outHeight) * (1 / Math.pow(scale, 2)) > IMAGE_MAX_SIZE) {
-					scale++;
-				}
 				Log.d("", "scale = " + scale + ", orig-width: " + o.outWidth
 						+ ", orig-height: " + o.outHeight);
 
 				Bitmap b = null;
 				if (scale > 1) {
 
-//					double y = (double) o.outHeight / scale;
-//					double x = 1024;
+					double y = (double) o.outHeight / scale;
+					double x = 1024;
+					b = BitmapFactory.decodeFile(path);
+					Bitmap scaledBitmap = Bitmap.createScaledBitmap(b, (int) x,
+							(int) y, true);
+					b = scaledBitmap;
+				    System.gc();
+//					Scale without out of memory
+//					scale--;
+//					o = new BitmapFactory.Options();
+//					o.inSampleSize = scale;
+//					b = BitmapFactory.decodeFile(path);
+//
+//					// resize to desired dimensions
+//					int height = b.getHeight();
+//					int width = b.getWidth();
+//					Log.d("", "1th scale operation dimenions - width: " + width
+//							+ ", height: " + height);
+//
+//					double y = Math.sqrt(IMAGE_MAX_SIZE
+//							/ (((double) width) / height));
+//					double x = (y / height) * width;
 //
 //					Bitmap scaledBitmap = Bitmap.createScaledBitmap(b, (int) x,
 //							(int) y, true);
+//					b.recycle();
 //					b = scaledBitmap;
-//					// System.gc();
-					scale--;
-
-					o = new BitmapFactory.Options();
-					o.inSampleSize = scale;
-					b = BitmapFactory.decodeFile(path);
-
-					// resize to desired dimensions
-					int height = b.getHeight();
-					int width = b.getWidth();
-					Log.d("", "1th scale operation dimenions - width: " + width
-							+ ", height: " + height);
-
-					double y = Math.sqrt(IMAGE_MAX_SIZE
-							/ (((double) width) / height));
-					double x = (y / height) * width;
-
-					Bitmap scaledBitmap = Bitmap.createScaledBitmap(b, (int) x,
-							(int) y, true);
-					b.recycle();
-					b = scaledBitmap;
-
-					System.gc();
+//
+//					System.gc();
 				} else {
 					b = BitmapFactory.decodeFile(path);
 				}
@@ -996,10 +997,11 @@ public class NewPermActivity extends Activity implements OnClickListener {
 
 	private void uploadPerm() {
 		// TODO Auto-generated method stub
-		if (facebookToken == null && twitterAccessToken == null) {
-			Toast.makeText(getApplicationContext(),
-					"Please choose the share type!", Toast.LENGTH_LONG).show();
-		} else {
+//		if (facebookToken == null && twitterAccessToken == null) {
+//			Toast.makeText(getApplicationContext(),
+//					"Please choose the share type!", Toast.LENGTH_LONG).show();
+//		} else 
+//		{
 			if (imagePath != "" || permID > 0) {
 
 				showLoadingDialog("Processing", "Please wait...");
@@ -1009,7 +1011,7 @@ public class NewPermActivity extends Activity implements OnClickListener {
 				showLoadingDialog("Processing", "Please wait...");
 				new ImageUpload(imagePath).execute();
 			}
-		}
+//		}
 
 	}
 
