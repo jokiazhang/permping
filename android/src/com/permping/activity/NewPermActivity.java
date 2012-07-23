@@ -278,7 +278,7 @@ public class NewPermActivity extends Activity implements OnClickListener {
 	}
 	private void initToggleStatus() {
 		// TODO Auto-generated method stub
-		facebookToken = permUtils.getFacebookToken(NewPermActivity.this);
+		facebookToken = permUtils.getFacebookToken(getApplicationContext());
 		twitterAccessToken = permUtils.getTwitterAccess(NewPermActivity.this);
 		if (facebookToken == null || facebookToken == "") {// &&
 															// facebookToken.isEmpty()
@@ -944,14 +944,19 @@ public class NewPermActivity extends Activity implements OnClickListener {
 	}
 
 	private void shareFb() {
-		facebookToken = permUtils.getFacebookToken(NewPermActivity.this);
-		if (facebookToken == null || facebookToken == "") {
-			permUtils
-					.integateLoginFacebook(NewPermActivity.this, handleFbLogin);
-		} else {
-			btnShareFacebook.setChecked(false);
-			permUtils.logOutFacebook(NewPermActivity.this);
+		if(btnShareFacebook.isChecked()){
+			facebookToken = permUtils.getFacebookToken(getApplicationContext());
+			if (facebookToken == null || facebookToken == "") {
+				permUtils
+						.integateLoginFacebook(NewPermActivity.this, handleFbLogin);
+			} else {
+//				btnShareFacebook.setChecked(false);
+//				permUtils.logOutFacebook(NewPermActivity.this);
+			}
+		}else{
+			facebookToken = null;
 		}
+
 	}
 
 	private void uploadPerm() {

@@ -183,7 +183,7 @@ public class LoginPermActivity extends Activity implements Login_delegate {
 						Log.d("", "=====>"+values.toString());
 						PermUtils permutils = new PermUtils();
 						String accessToken = values.getString("access_token");
-						permutils.saveFacebookToken("oauth_token", accessToken, activity);
+						permutils.saveFacebookToken("oauth_token", accessToken, getApplication());
 //						// Check on server
 						List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(4);
 						nameValuePairs.add(new BasicNameValuePair("type", Constants.FACEBOOK_LOGIN));

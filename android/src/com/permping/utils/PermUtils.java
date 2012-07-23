@@ -356,18 +356,23 @@ public class PermUtils {
 		return getFacebookToken(activity);
 	}
 
-	public void saveFacebookToken(String key, String value, Activity activity) {
-		SharedPreferences sharedPreferences = activity
-				.getPreferences(Context.MODE_PRIVATE);
-		SharedPreferences.Editor editor = sharedPreferences.edit();
-		editor.putString("oauth_token", value);
-		editor.commit();
+	public boolean saveFacebookToken(String key, String value, Context activity) {
+		Editor editor = activity.getSharedPreferences("TWITTER",
+				Context.MODE_PRIVATE).edit();
+		if(value != null)
+			editor.putString("fb_token", value);
+
+		return editor.commit();
 	}
 
-	public String getFacebookToken(Activity activity) {
-		SharedPreferences sharedPreferences = activity
-				.getPreferences(Context.MODE_PRIVATE);
-		return sharedPreferences.getString("oauth_token", "");
+	public String getFacebookToken(Context activity) {
+		SharedPreferences savedSession = activity.getSharedPreferences(
+				"TWITTER", Context.MODE_PRIVATE);
+		String key = savedSession.getString("fb_token", "");
+		if (key == "") {
+			return null;
+		}
+		return key;
 	}
 	public boolean saveTwitterAccess(String key, AccessToken value, Context activity) {
 		Editor editor = activity.getSharedPreferences("TWITTER",
