@@ -61,6 +61,7 @@ public class AccountActivity extends Activity {
 					authorizeController.logout(user.getId());
 					PermUtils permUtils = new PermUtils();
 					permUtils.logOutFacebook(getParent());
+					permUtils.logOutTwitter(getApplicationContext());
 					state.setUser(null);
 					XMLParser.storePermpingAccount(AccountActivity.this, "", "");
 				}

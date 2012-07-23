@@ -30,6 +30,8 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.CookieManager;
+import android.webkit.CookieSyncManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -389,7 +391,7 @@ public class PermUtils {
 				"TWITTER", Context.MODE_PRIVATE);
 		String key = savedSession.getString("twitter_key", "");
 		String secret = savedSession.getString("twitter_secret", "");
-		if (key == "" || secret == "") {
+		if (key == "" || secret == "" || key==null || secret == null) {
 			return null;
 		}
 		return new AccessToken(key, secret);
@@ -409,5 +411,13 @@ public class PermUtils {
 			return false;
 		}
 		
+	}
+
+	public void logOutTwitter(Context context) {
+		// TODO Auto-generated method stub
+		CookieSyncManager cookieSyncMngr = CookieSyncManager.createInstance(context);
+		CookieManager cookieManager = CookieManager.getInstance();
+		cookieManager.removeAllCookie();
+		saveTwitterAccess("twitter_access", new AccessToken("", ""), context);
 	}
 }
