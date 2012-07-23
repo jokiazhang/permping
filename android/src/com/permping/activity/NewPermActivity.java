@@ -1053,12 +1053,12 @@ public class NewPermActivity extends Activity implements OnClickListener {
 
 		try {
 			
-			String strMessage = "pindetails/" + permId;// "카카오링크를 사용하여 메세지를 전달해 보세요.";
+			String strMessage = "permping.com/m/" + permId;// "카카오링크를 사용하여 메세지를 전달해 보세요.";
 			String strURL = "Android: " + permAndroidLink + " & Iphone: "
 					+ permIphoneLink;// "http://link.kakao.com";
 			String strAppId = "com.kakao.android.image";
 			String strAppVer = "2.0";
-			String strAppName = "Permping";// "[카카오톡]";
+			String strAppName = context.getResources().getString(R.string.app_name_inkakao);//"Permping";// "[카카오톡]";
 			String strInstallUrl = "Android: " + permAndroidLink + " &Iphone: "
 					+ permIphoneLink;
 			;
