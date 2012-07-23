@@ -368,7 +368,7 @@ public class PermAdapter extends ArrayAdapter<Perm> implements OnClickListener {
 						/**
 						 * MSA
 						 */
-						/*imageView.setOnClickListener(new View.OnClickListener() {
+						imageView.setOnClickListener(new View.OnClickListener() {
 							
 							public void onClick(View arg0) {
 								// TODO Auto-generated method stub
@@ -377,7 +377,7 @@ public class PermAdapter extends ArrayAdapter<Perm> implements OnClickListener {
 									PermpingMain.gotoTab(5, permUrl);
 								Log.d("=====>", "=================>go to Perm Browser >");
 							}
-						});*/
+						});
 					
 						UrlImageViewHelper.setUrlDrawable(imageView, perm.getImage().getUrl() , true ); 
 						TextView pd = (TextView) view.findViewById(R.id.permDesc);
