@@ -8,6 +8,7 @@ import com.permping.PermpingMain;
 import com.permping.R;
 import com.permping.controller.AuthorizeController;
 import com.permping.model.User;
+import com.permping.utils.PermUtils;
 import com.permping.utils.XMLParser;
 
 import android.app.Activity;
@@ -58,6 +59,8 @@ public class AccountActivity extends Activity {
 				if (user != null) {
 					AuthorizeController authorizeController = new AuthorizeController();
 					authorizeController.logout(user.getId());
+					PermUtils permUtils = new PermUtils();
+					permUtils.logOutFacebook(getParent());
 					state.setUser(null);
 					XMLParser.storePermpingAccount(AccountActivity.this, "", "");
 				}
