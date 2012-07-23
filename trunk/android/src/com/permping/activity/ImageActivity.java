@@ -136,7 +136,7 @@ public class ImageActivity extends Activity {
 			fos.close();
 			File f = new File(getFilesDir() + File.separator + "MyFile.jpg");
 			imagePath = f.getPath();
-			startActivityForResult(
+			getParent().startActivityForResult(
 			        new Intent(MediaStore.ACTION_IMAGE_CAPTURE)
 			            .putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(f))
 			        , CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
