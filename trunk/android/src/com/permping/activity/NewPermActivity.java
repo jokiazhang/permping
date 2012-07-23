@@ -55,6 +55,7 @@ import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -617,13 +618,25 @@ public class NewPermActivity extends Activity implements OnClickListener {
 
 		private Bitmap getBitmap2(String path) {
 			try {
-				final int IMAGE_MAX_SIZE = 1024; // 1.2MP
-				// Decode image size
+				
+				final int IMAGE_MAX_SIZE = 1200000; // 1.2MP
 				BitmapFactory.Options o = new BitmapFactory.Options();
 				o.inJustDecodeBounds = true;
-				double scale = 1;
-				while (o.outWidth > IMAGE_MAX_SIZE) {
-					scale = o.outWidth / IMAGE_MAX_SIZE;
+				InputStream in=new FileInputStream(filePath);
+				BitmapFactory.decodeStream(in, null, o);
+				in.close();
+				in=new FileInputStream(filePath);
+		
+				// Decode image size
+
+				int scale = 1;
+//				int currentWidth = o.outWidth;
+//				while (currentWidth > IMAGE_MAX_SIZE) {
+//					currentWidth = currentWidth / IMAGE_MAX_SIZE;
+//					scale++;
+//				}
+				while ((o.outWidth * o.outHeight) * (1 / Math.pow(scale, 2)) > IMAGE_MAX_SIZE) {
+					scale++;
 				}
 				Log.d("", "scale = " + scale + ", orig-width: " + o.outWidth
 						+ ", orig-height: " + o.outHeight);
@@ -631,13 +644,35 @@ public class NewPermActivity extends Activity implements OnClickListener {
 				Bitmap b = null;
 				if (scale > 1) {
 
-					double y = (double) o.outHeight / scale;
-					double x = 1024;
+//					double y = (double) o.outHeight / scale;
+//					double x = 1024;
+//
+//					Bitmap scaledBitmap = Bitmap.createScaledBitmap(b, (int) x,
+//							(int) y, true);
+//					b = scaledBitmap;
+//					// System.gc();
+					scale--;
+
+					o = new BitmapFactory.Options();
+					o.inSampleSize = scale;
+					b = BitmapFactory.decodeFile(path);
+
+					// resize to desired dimensions
+					int height = b.getHeight();
+					int width = b.getWidth();
+					Log.d("", "1th scale operation dimenions - width: " + width
+							+ ", height: " + height);
+
+					double y = Math.sqrt(IMAGE_MAX_SIZE
+							/ (((double) width) / height));
+					double x = (y / height) * width;
 
 					Bitmap scaledBitmap = Bitmap.createScaledBitmap(b, (int) x,
 							(int) y, true);
+					b.recycle();
 					b = scaledBitmap;
-					// System.gc();
+
+					System.gc();
 				} else {
 					b = BitmapFactory.decodeFile(path);
 				}
@@ -851,7 +886,7 @@ public class NewPermActivity extends Activity implements OnClickListener {
 
 		int bytesRead, bytesAvailable, bufferSize;
 		byte[] buffer;
-		int maxBufferSize = 1 * 1024 * 1024;
+		int maxBufferSize = 1 * 512 * 512;
 
 		try {
 			FileInputStream fileInputStream = new FileInputStream(new File(
