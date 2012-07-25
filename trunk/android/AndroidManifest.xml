@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-      package="com.permping"
+      package="com.permpus.permping"
       android:versionCode="1"
       android:versionName="1.0"
       >
@@ -15,6 +15,8 @@
     <uses-permission android:name="android.permission.RECORD_AUDIO"></uses-permission>
 	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.VIBRATE"/> 
+    <uses-permission android:name="android.permission.REBOOT"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.CAMERA" />
@@ -50,7 +52,7 @@
             android:screenOrientation="portrait" />
         <activity android:name=".activity.ImageActivity" 
             android:screenOrientation="portrait"/>
-        <activity android:name=".activity.NewPermActivity" android:theme="@style/toggle_style"
+        <activity android:name=".activity.NewPermActivity"
             android:screenOrientation="portrait">
             <intent-filter>
 				<action android:name="android.intent.action.VIEW" />
