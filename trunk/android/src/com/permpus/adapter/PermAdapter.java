@@ -279,7 +279,7 @@ public class PermAdapter extends ArrayAdapter<Perm> implements OnClickListener {
 //						permViewInfo.setVisibility(View.GONE);
 						
 					}else{
-						gotoMap.setVisibility(View.VISIBLE);
+//						gotoMap.setVisibility(View.VISIBLE);
 //						permViewInfo.setVisibility(View.VISIBLE);
 					}
 					
