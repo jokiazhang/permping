@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-      package="com.permpus.permping"
+      package="com.permpus"
       android:versionCode="1"
       android:versionName="1.0"
       >
@@ -87,7 +87,7 @@
 		    android:screenOrientation="portrait" />
 		<activity android:name=".activity.RepermActivity"
 		    android:screenOrientation="portrait" />
-		<activity android:name=".activity.PrepareRequestTokenActivity" android:launchMode="singleTask"
+		<activity android:name=".activity.PrepareRequestTokenActivity" 
 		    android:screenOrientation="portrait">
 			<intent-filter>
 				<action android:name="android.intent.action.VIEW" />
