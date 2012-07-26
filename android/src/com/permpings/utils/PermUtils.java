@@ -448,7 +448,8 @@ public class PermUtils {
 		// Intent intent = getIntent();
 		if (null != intent) {
 			String action = intent.getAction();
-			if (ACTION_SEND_LOG.equals(action)) {
+//			if (ACTION_SEND_LOG.equals(action))
+			{
 				mFilterSpecs = intent.getStringArrayExtra(EXTRA_FILTER_SPECS);
 				mFormat = intent.getStringExtra(EXTRA_FORMAT);
 				mBuffer = intent.getStringExtra(EXTRA_BUFFER);
