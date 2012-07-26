@@ -228,11 +228,11 @@ public class PermAdapter extends ArrayAdapter<Perm> implements OnClickListener {
 				convertView = viewList.get(viewId);
 				newPermList.put(viewId, perm);
 				if (convertView != null){
-					Log.i(TAG, "getView() convertView != null");
+//					Log.i(TAG, "getView() convertView != null");
 					addComments(convertView, perm);
 					return convertView;
 				}else{
-					Log.i(TAG, "getView() convertView == null");
+//					Log.i(TAG, "getView() convertView == null");
 					LayoutInflater inflater = (LayoutInflater) this.getContext()
 							.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 					final View view = inflater.inflate(R.layout.perm_item_1, null);

@@ -85,6 +85,8 @@ public class FollowerActivity extends FragmentActivity implements Login_delegate
 		IntentFilter intentFilter = new IntentFilter(DOWNLOAD_COMPLETED);
 		registerReceiver(receiver, intentFilter);
 		PermUtils.clearViewHistory();
+		PermUtils utils= new PermUtils();
+		utils.writeLogFile(FollowerActivity.this.getIntent());
 	}
 	
 	public void createUI() {
