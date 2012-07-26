@@ -3,15 +3,19 @@
  */
 package com.permpings.utils;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.ArrayList;
 
 import twitter4j.http.AccessToken;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.graphics.Bitmap;
@@ -21,6 +25,7 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -48,6 +53,19 @@ import com.permpings.utils.facebook.sdk.Facebook.DialogListener;
  * 
  */
 public class PermUtils {
+	// Write log file
+	public final static String LINE_SEPARATOR = System
+			.getProperty("line.separator");//$NON-NLS-1$
+	public final static String TAG = "AndroidLogCollector";//$NON-NLS-1$
+	final int MAX_LOG_MESSAGE_LENGTH = 100000;
+	private String mAdditonalInfo;
+	public static final String EXTRA_FILTER_SPECS = "com.permpings.activity.intent.extra.FILTER_SPECS";//$NON-NLS-1$
+	public static final String EXTRA_FORMAT = "com.permpings.activity.intent.extra.FORMAT";//$NON-NLS-1$
+	public static final String EXTRA_BUFFER = "com.permpings.activity.intent.extra.BUFFER";//$NON-NLS-1$
+	public static final String ACTION_SEND_LOG = "com.permpings.activity.intent.action.SEND_LOG";//$NON-NLS-1$
+	private String[] mFilterSpecs;
+	private String mFormat;
+	private String mBuffer;
 
 	public static User isAuthenticated(Context context) {
 		PermpingApplication state = (PermpingApplication) context
@@ -61,11 +79,13 @@ public class PermUtils {
 	}
 
 	public static void clearViewHistory() {
-		/*ExplorerActivityGroup.group.clearHistory();
-		FollowerActivityGroup.group.clearHistory();
-		ImageActivityGroup.group.clearHistory();
-		ProfileActivityGroup.group.clearHistory();
-		MyDiaryActivityGroup.group.clearHistory();*/
+		/*
+		 * ExplorerActivityGroup.group.clearHistory();
+		 * FollowerActivityGroup.group.clearHistory();
+		 * ImageActivityGroup.group.clearHistory();
+		 * ProfileActivityGroup.group.clearHistory();
+		 * MyDiaryActivityGroup.group.clearHistory();
+		 */
 	}
 
 	/**
@@ -313,39 +333,44 @@ public class PermUtils {
 	}
 
 	// Login facebook get token
-	public String integateLoginFacebook(final Activity activity, final Handler handleFbLogin) {
+	public String integateLoginFacebook(final Activity activity,
+			final Handler handleFbLogin) {
 		final SharedPreferences prefs;
-	    Facebook mFacebook;
-	    String token = null;
+		Facebook mFacebook;
+		String token = null;
 		mFacebook = new Facebook(Constants.FACEBOOK_APP_ID);
 		mFacebook.authorize(activity, new String[] { "email", "status_update",
 				"user_birthday" }, new DialogListener() {
 			@Override
 			public void onComplete(Bundle values) {
-				Log.d("", "=====>"+values.toString());
+				Log.d("", "=====>" + values.toString());
 				String accessToken = values.getString("access_token");
 				saveFacebookToken("oauth_token", accessToken, activity);
-				 Message message = handleFbLogin.obtainMessage(NewPermActivity.LOGIN_FACEBOOK, "");
-				 handleFbLogin.sendMessage(message);
+				Message message = handleFbLogin.obtainMessage(
+						NewPermActivity.LOGIN_FACEBOOK, "");
+				handleFbLogin.sendMessage(message);
 			}
 
 			@Override
 			public void onFacebookError(FacebookError error) {
-				 Message message = handleFbLogin.obtainMessage(NewPermActivity.MESSAGE_LOGIN_FACEBOOK_ERROR, "");
-				 handleFbLogin.sendMessage(message);
+				Message message = handleFbLogin.obtainMessage(
+						NewPermActivity.MESSAGE_LOGIN_FACEBOOK_ERROR, "");
+				handleFbLogin.sendMessage(message);
 			}
 
 			@Override
 			public void onError(DialogError e) {
-				 Message message = handleFbLogin.obtainMessage(NewPermActivity.MESSAGE_LOGIN_FACEBOOK_ERROR, "");
-				 handleFbLogin.sendMessage(message);
+				Message message = handleFbLogin.obtainMessage(
+						NewPermActivity.MESSAGE_LOGIN_FACEBOOK_ERROR, "");
+				handleFbLogin.sendMessage(message);
 			}
 
 			@Override
 			public void onCancel() {
 				// cancel press or back press
-				 Message message = handleFbLogin.obtainMessage(NewPermActivity.MESSAGE_LOGIN_FACEBOOK_ERROR, "");
-				 handleFbLogin.sendMessage(message);
+				Message message = handleFbLogin.obtainMessage(
+						NewPermActivity.MESSAGE_LOGIN_FACEBOOK_ERROR, "");
+				handleFbLogin.sendMessage(message);
 			}
 		});
 		return getFacebookToken(activity);
@@ -354,7 +379,7 @@ public class PermUtils {
 	public boolean saveFacebookToken(String key, String value, Context activity) {
 		Editor editor = activity.getSharedPreferences("TWITTER",
 				Context.MODE_PRIVATE).edit();
-		if(value != null)
+		if (value != null)
 			editor.putString("fb_token", value);
 
 		return editor.commit();
@@ -369,12 +394,14 @@ public class PermUtils {
 		}
 		return key;
 	}
-	public boolean saveTwitterAccess(String key, AccessToken value, Context activity) {
+
+	public boolean saveTwitterAccess(String key, AccessToken value,
+			Context activity) {
 		Editor editor = activity.getSharedPreferences("TWITTER",
 				Context.MODE_PRIVATE).edit();
-		if(value.getToken() != null)
+		if (value.getToken() != null)
 			editor.putString("twitter_key", value.getToken());
-		if(value.getTokenSecret() != null)
+		if (value.getTokenSecret() != null)
 			editor.putString("twitter_secret", value.getTokenSecret());
 		return editor.commit();
 	}
@@ -384,33 +411,126 @@ public class PermUtils {
 				"TWITTER", Context.MODE_PRIVATE);
 		String key = savedSession.getString("twitter_key", "");
 		String secret = savedSession.getString("twitter_secret", "");
-		if (key == "" || secret == "" || key==null || secret == null) {
+		if (key == "" || secret == "" || key == null || secret == null) {
 			return null;
 		}
 		return new AccessToken(key, secret);
 	}
-	public boolean logOutFacebook(Activity activity){
+
+	public boolean logOutFacebook(Activity activity) {
 		String result = "";
 		try {
 			Facebook mFacebook = new Facebook(Constants.FACEBOOK_APP_ID);
 			result = mFacebook.logout(activity.getApplicationContext());
 			saveFacebookToken("oauth_token", "", activity);
-			if(result.equals("true"))
+			if (result.equals("true"))
 				return true;
-			else 
+			else
 				return false;
 		} catch (Exception e) {
 			// TODO: handle exception
 			return false;
 		}
-		
+
 	}
 
 	public void logOutTwitter(Context context) {
 		// TODO Auto-generated method stub
-		CookieSyncManager cookieSyncMngr = CookieSyncManager.createInstance(context);
+		CookieSyncManager cookieSyncMngr = CookieSyncManager
+				.createInstance(context);
 		CookieManager cookieManager = CookieManager.getInstance();
 		cookieManager.removeAllCookie();
 		saveTwitterAccess("twitter_access", new AccessToken("", ""), context);
+	}
+
+	@SuppressWarnings("unchecked")
+	public void writeLogFile(Intent intent) {
+		// Intent intent = getIntent();
+		if (null != intent) {
+			String action = intent.getAction();
+			if (ACTION_SEND_LOG.equals(action)) {
+				mFilterSpecs = intent.getStringArrayExtra(EXTRA_FILTER_SPECS);
+				mFormat = intent.getStringExtra(EXTRA_FORMAT);
+				mBuffer = intent.getStringExtra(EXTRA_BUFFER);
+				ArrayList<String> list = new ArrayList<String>();
+
+				if (mFormat != null) {
+					list.add("-v");
+					list.add(mFormat);
+				}
+
+				if (mBuffer != null) {
+					list.add("-b");
+					list.add(mBuffer);
+				}
+
+				if (mFilterSpecs != null) {
+					for (String filterSpec : mFilterSpecs) {
+						list.add(filterSpec);
+					}
+				}
+				new CollectLogTask().execute(list);
+			}
+		}
+
+	}
+
+	class CollectLogTask extends
+			AsyncTask<ArrayList<String>, Void, StringBuilder> {
+		@Override
+		protected void onPreExecute() {
+
+		}
+
+		protected StringBuilder doInBackground(ArrayList<String>... params) {
+			final StringBuilder log = new StringBuilder();
+			try {
+				ArrayList<String> commandLine = new ArrayList<String>();
+				commandLine.add("logcat");//$NON-NLS-1$
+				commandLine.add("-d");//$NON-NLS-1$
+				ArrayList<String> arguments = ((params != null) && (params.length > 0)) ? params[0]
+						: null;
+				if (null != arguments) {
+					commandLine.addAll(arguments);
+				}
+
+				Process process = Runtime.getRuntime().exec(
+						commandLine.toArray(new String[0]));
+				BufferedReader bufferedReader = new BufferedReader(
+						new InputStreamReader(process.getInputStream()));
+
+				String line;
+				while ((line = bufferedReader.readLine()) != null) {
+					log.append(line);
+					log.append(LINE_SEPARATOR);
+				}
+			} catch (IOException e) {
+				Log.e(TAG, "CollectLogTask.doInBackground failed", e);//$NON-NLS-1$
+			}
+
+			return log;
+		}
+
+		@Override
+		protected void onPostExecute(StringBuilder log) {
+			if (null != log) {
+				// truncate if necessary
+				int keepOffset = Math.max(
+						log.length() - MAX_LOG_MESSAGE_LENGTH, 0);
+				if (keepOffset > 0) {
+					log.delete(0, keepOffset);
+				}
+
+				if (mAdditonalInfo != null) {
+					log.insert(0, LINE_SEPARATOR);
+					log.insert(0, mAdditonalInfo);
+				}
+				Log.d("====>>>>", "=======Begin get log");
+				String logData = log.toString();
+				Logger.appendLog(logData, "AllLog");
+			} else {
+
+			}
+		}
 	}
 }
