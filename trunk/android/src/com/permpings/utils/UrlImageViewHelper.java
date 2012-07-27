@@ -250,8 +250,7 @@ public final class UrlImageViewHelper {
 						return null;
 					}
 					HttpEntity entity = resp.getEntity();
-					// Log.i(LOGTAG, url + " Image Content Length: " +
-					// entity.getContentLength());
+//                    Log.i(LOGTAG, url + " Image Content Length: " + entity.getContentLength());
 					InputStream is = entity.getContent();
 					FileOutputStream fos = context.openFileOutput(filename,
 							Context.MODE_PRIVATE);
@@ -271,17 +270,12 @@ public final class UrlImageViewHelper {
 					oih = o.outHeight;
 					Runtime.getRuntime().gc();
 					int scale = 1;
-					// scale = (int)Math.max(oiw/IMAGE_MAX_SIZE,
-					// oih/IMAGE_MAX_SIZE)+1;
-					// if (o.outHeight > IMAGE_MAX_SIZE || o.outWidth >
-					// IMAGE_MAX_SIZE) {
+//                      scale = (int)Math.max(oiw/IMAGE_MAX_SIZE, oih/IMAGE_MAX_SIZE)+1;
+//                      if (o.outHeight > IMAGE_MAX_SIZE || o.outWidth > IMAGE_MAX_SIZE) {
 					// // scale = 2;
-					// int scale2 = (int)Math.pow(2.0, (int)
-					// Math.round(Math.log(IMAGE_MAX_SIZE / (double)
-					// Math.max(o.outHeight, o.outWidth)) / Math.log(0.5)));
+//                    	  int scale2 = (int)Math.pow(2.0, (int) Math.round(Math.log(IMAGE_MAX_SIZE / (double) Math.max(o.outHeight, o.outWidth)) / Math.log(0.5)));
 					// }
-					// while (o.outWidth * o.outHeight / Math.pow(scale, 2) >
-					// IMAGE_MAX_SIZE) {
+//                      while (o.outWidth * o.outHeight / Math.pow(scale, 2) > IMAGE_MAX_SIZE) {
 					// scale+= 1;
 					// }
 					do {
@@ -299,8 +293,7 @@ public final class UrlImageViewHelper {
 					fis.close();
 
 					prepareResources(context);
-					// BitmapDrawable drawable = loadDrawableFromStream(context,
-					// fis);
+                      //BitmapDrawable drawable = loadDrawableFromStream(context, fis);
 					BitmapDrawable drawable = new BitmapDrawable(mResources, b);
 					mDownloadException = false;
 					if (width > 0 && height > 0) {
@@ -330,9 +323,7 @@ public final class UrlImageViewHelper {
 					// validate the url it is waiting for
 					String pendingUrl = mPendingViews.get(iv);
 					if (!url.equals(pendingUrl)) {
-						// Log.i(LOGTAG,
-						// "Ignoring out of date request to update view for " +
-						// url);
+                        //Log.i(LOGTAG, "Ignoring out of date request to update view for " + url);
 						continue;
 					}
 					mPendingViews.remove(iv);
@@ -355,39 +346,38 @@ public final class UrlImageViewHelper {
 							float imgWidth = 0;
 							float imgHeight = 0;
 							float width = 0;
-							if (metrics.widthPixels <= 320) { // 320 x 480
-								width = (320 - (marginLeft + marginRight));
-								// if( oiw < 510 ){
-
-								// imgWidth = ( oiw * width/ 510 );
-								// imgHeight = ( oih * width/ imgWidth );
-								// } else {
-								// imgWidth = width;
-								// imgHeight = ( oih * width ) / oiw ;
+//                        	if( metrics.widthPixels <= 320 ) { //320 x 480
+//                        		width = (metrics.widthPixels - (marginLeft + marginRight));
+////                        		if( oiw < 510 ){
+//                        		
+////	                        		imgWidth = (  oiw * width/ 510   );
+////	                        		imgHeight = ( oih * width/ imgWidth  );
+////                        		} else {
+////                        			imgWidth = width;
+////                        			imgHeight = ( oih * width ) / oiw ;
+////                        		}
 								// }
-							} else if (metrics.widthPixels <= 480) { // 480 x
-																		// 800
-								width = (480 - (marginLeft + marginRight));
-								// if( oiw < 510 ) {
-								// imgWidth = ( oiw * width/ 510 );
-								// imgHeight = ( oih * width/ imgWidth );
-								// } else {
-								// imgWidth = width;
-								// imgHeight = ( oih * width ) / oiw ;
+//                        	else if( metrics.widthPixels <= 480 ){ //480 x 800
+//                        		width = (metrics.widthPixels - (marginLeft + marginRight));
+////                        		if( oiw < 510 ) {
+////                        			imgWidth = ( oiw  * width/ 510 );
+////                        			imgHeight = ( oih * width/ imgWidth );
+////                        		} else {
+////                        			imgWidth = width;
+////                        			imgHeight = ( oih * width ) / oiw ;
+////                        		}
+//                        		
+//                        	} else if( metrics.widthPixels <= 800 ){ //800 x 1280 
+//                        		width = (metrics.widthPixels - (marginLeft + marginRight));
+////                        		if( oiw < 510 ){
+////                        			imgWidth = (  oiw * width/ 510   );
+////                        			imgHeight = ( oih * width/ imgWidth );
+////                        		} else {
+////                        			imgWidth = width;
+////                        			imgHeight = ( oih * width ) / oiw ;
+////                        		}
 								// }
-
-							} else if (metrics.widthPixels <= 800) { // 800 x
-																		// 1280
-								width = (800 - (marginLeft + marginRight));
-								// if( oiw < 510 ){
-								// imgWidth = ( oiw * width/ 510 );
-								// imgHeight = ( oih * width/ imgWidth );
-								// } else {
-								// imgWidth = width;
-								// imgHeight = ( oih * width ) / oiw ;
-								// }
-							}
-
+                        	width = (metrics.widthPixels - (marginLeft + marginRight));
 							float ratio = width / oiw;
 
 							imgWidth = oiw * ratio;
@@ -420,11 +410,10 @@ public final class UrlImageViewHelper {
 
 	}
 
-	public static Drawable scaleDrawable(Drawable drawable, int width,
-			int height) {
+    
+    public static Drawable scaleDrawable( Drawable drawable , int width, int height ){
 		Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
-		Bitmap scaledBitmap = Bitmap.createScaledBitmap(bitmap, width, height,
-				true);
+         Bitmap scaledBitmap = Bitmap.createScaledBitmap(bitmap, width,     height, true);
 		bitmap.recycle();
 		bitmap = scaledBitmap;
 		System.gc();
