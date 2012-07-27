@@ -378,8 +378,12 @@ public final class UrlImageViewHelper {
 ////                        		}
 								// }
                         	width = (metrics.widthPixels - (marginLeft + marginRight));
-							float ratio = width / oiw;
-
+							float ratio = 1;
+							//just scale if the image's width > screen's width
+							if(width < oiw) {
+								ratio = width / oiw;
+							}
+							
 							imgWidth = oiw * ratio;
 							imgHeight = oih * ratio;
 							Log.d("==DEVICE SIZE:==========>"," Width==="+metrics.widthPixels+"===Heigth===="+metrics.heightPixels);
@@ -413,7 +417,7 @@ public final class UrlImageViewHelper {
     
     public static Drawable scaleDrawable( Drawable drawable , int width, int height ){
 		Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
-         Bitmap scaledBitmap = Bitmap.createScaledBitmap(bitmap, width,     height, true);
+        Bitmap scaledBitmap = Bitmap.createScaledBitmap(bitmap, width, height, true);
 		bitmap.recycle();
 		bitmap = scaledBitmap;
 		System.gc();
