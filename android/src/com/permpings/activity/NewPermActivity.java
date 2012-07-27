@@ -83,6 +83,7 @@ import com.permpings.model.PermBoard;
 import com.permpings.model.User;
 import com.permpings.utils.API;
 import com.permpings.utils.KakaoLink;
+import com.permpings.utils.Logger;
 import com.permpings.utils.PermUtils;
 
 public class NewPermActivity extends Activity implements OnClickListener {
@@ -810,6 +811,7 @@ public class NewPermActivity extends Activity implements OnClickListener {
 								Toast.LENGTH_LONG).show();
 						isReperm = false;
 					} else {
+						Logger.appendLog("\n== NewPermActivity Uploaded new perm successfully", "NewPermActivity");
 						Toast.makeText(getApplicationContext(),
 								"Uploaded new perm!", Toast.LENGTH_LONG).show();
 					}
@@ -1002,7 +1004,7 @@ public class NewPermActivity extends Activity implements OnClickListener {
 //		} else 
 //		{
 			if (imagePath != "" || permID > 0) {
-
+				Logger.appendLog("\n== NewPermActivity uploadPerm function imagePath = " + imagePath + "==", "NewPermActivity");
 				showLoadingDialog("Processing", "Please wait...");
 				new ImageUpload(imagePath).execute();
 
