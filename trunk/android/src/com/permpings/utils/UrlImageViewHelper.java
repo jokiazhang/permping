@@ -378,12 +378,15 @@ public final class UrlImageViewHelper {
 ////                        		}
 								// }
                         	width = (metrics.widthPixels - (marginLeft + marginRight));
-							float ratio = 1;
-							//just scale if the image's width > screen's width
-							if(width < oiw) {
-								ratio = width / oiw;
-							}
+//							float ratio = 1;
+//							//just scale if the image's width > screen's width
+//							if(width < oiw) {
+//								ratio = width / oiw;
+//							}
 							
+                        	float ratioX = (float)width / (float)oiw;
+                        	float ratioY = (float)metrics.heightPixels / (float)oih;
+                        	float ratio = Math.min(ratioX, ratioY);
 							imgWidth = oiw * ratio;
 							imgHeight = oih * ratio;
 							Log.d("==DEVICE SIZE:==========>"," Width==="+metrics.widthPixels+"===Heigth===="+metrics.heightPixels);
