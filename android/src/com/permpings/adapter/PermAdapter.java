@@ -74,7 +74,7 @@ public class PermAdapter extends ArrayAdapter<Perm> implements OnClickListener {
 	private Activity activity;
 	private Boolean header;
 	private User user;
-
+	public static String currentPermId;
 	private FacebookConnector facebookConnector;
 
 	private SharedPreferences prefs;
@@ -225,6 +225,7 @@ public class PermAdapter extends ArrayAdapter<Perm> implements OnClickListener {
 				}
 				final Perm perm = items.get(position);
 				final String viewId = perm.getId();
+				currentPermId = viewId;
 				convertView = viewList.get(viewId);
 				newPermList.put(viewId, perm);
 				if (convertView != null){
