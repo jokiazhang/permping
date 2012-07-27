@@ -38,6 +38,7 @@ import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 
 import com.permpings.PermpingApplication;
+import com.permpings.adapter.PermAdapter;
 
 public final class UrlImageViewHelper {
 
@@ -395,7 +396,7 @@ public final class UrlImageViewHelper {
 							logShow+="==DEVICE SIZE:==========> Width==="+metrics.widthPixels+"===Heigth===="+metrics.heightPixels+"\n";
 							Log.d("==SCCALED IMAGE SIZE:==========>"," Width==="+imgWidth+"===Heigth===="+imgHeight);
 							logShow+="==SCCALED IMAGE SIZE:==========> Width==="+imgWidth+"===Heigth===="+imgHeight;
-							Logger.appendLog("Data="+logShow, "LogImageInfo");
+							Logger.appendLog("\n==For permId==="+PermAdapter.currentPermId+"=====>>>Data="+logShow, "LogImageInfo");
 							LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) imageView
 									.getLayoutParams();
 							layoutParams.width = (int) imgWidth;
