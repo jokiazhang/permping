@@ -75,14 +75,15 @@ private int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 1224;
 		            if( requestCode == SELECT_PICTURE ){
 		            	selectedImagePath = getPath(selectedImageUri);
 		            } else {
-		            	String[] projection = { MediaStore.Images.Media.DATA}; 
-		                Cursor imageCursor = managedQuery(ImageActivity.mCapturedImageURI, projection, null, null, null);
-		                if(imageCursor.moveToFirst()){
-			                int column_index_data = imageCursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA); 
-			                String capturedImageFilePath = imageCursor.getString(column_index_data);
-			                selectedImagePath = capturedImageFilePath;
-		                }else{
-		                }
+//		            	String[] projection = { MediaStore.Images.Media.DATA}; 
+//		                Cursor imageCursor = managedQuery(ImageActivity.mCapturedImageURI, projection, null, null, null);
+//		                if(imageCursor.moveToFirst()){
+//			                int column_index_data = imageCursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA); 
+//			                String capturedImageFilePath = imageCursor.getString(column_index_data);
+//			                selectedImagePath = capturedImageFilePath;
+//		                }else{
+//		                }
+		            	selectedImagePath = ImageActivity.imagePath;
 		            }
 		            Logger.appendLog("\n==ImageActivityGroup requestCode = " + requestCode + " data != null " + selectedImagePath + "==", "ImageActivityGroup");
 //	        		selectedImagePath = ImageActivity.imagePath;
