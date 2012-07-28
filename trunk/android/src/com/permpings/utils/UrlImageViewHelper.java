@@ -346,44 +346,7 @@ public final class UrlImageViewHelper {
 							float imgWidth = 0;
 							float imgHeight = 0;
 							float width = 0;
-//                        	if( metrics.widthPixels <= 320 ) { //320 x 480
-//                        		width = (metrics.widthPixels - (marginLeft + marginRight));
-////                        		if( oiw < 510 ){
-//                        		
-////	                        		imgWidth = (  oiw * width/ 510   );
-////	                        		imgHeight = ( oih * width/ imgWidth  );
-////                        		} else {
-////                        			imgWidth = width;
-////                        			imgHeight = ( oih * width ) / oiw ;
-////                        		}
-								// }
-//                        	else if( metrics.widthPixels <= 480 ){ //480 x 800
-//                        		width = (metrics.widthPixels - (marginLeft + marginRight));
-////                        		if( oiw < 510 ) {
-////                        			imgWidth = ( oiw  * width/ 510 );
-////                        			imgHeight = ( oih * width/ imgWidth );
-////                        		} else {
-////                        			imgWidth = width;
-////                        			imgHeight = ( oih * width ) / oiw ;
-////                        		}
-//                        		
-//                        	} else if( metrics.widthPixels <= 800 ){ //800 x 1280 
-//                        		width = (metrics.widthPixels - (marginLeft + marginRight));
-////                        		if( oiw < 510 ){
-////                        			imgWidth = (  oiw * width/ 510   );
-////                        			imgHeight = ( oih * width/ imgWidth );
-////                        		} else {
-////                        			imgWidth = width;
-////                        			imgHeight = ( oih * width ) / oiw ;
-////                        		}
-								// }
                         	width = (metrics.widthPixels - (marginLeft + marginRight));
-//							float ratio = 1;
-//							//just scale if the image's width > screen's width
-//							if(width < oiw) {
-//								ratio = width / oiw;
-//							}
-							
                         	float ratioX = (float)width / (float)oiw;
                         	float ratioY = (float)metrics.heightPixels / (float)oih;
                         	float ratio = Math.min(ratioX, ratioY);
