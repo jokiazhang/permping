@@ -68,6 +68,7 @@
     <string name="exit_title">종료 안내</string>
     <string name="exit_content">펌핑을 종료 하시겠습니까?</string>
     <string name="yes">종료</string>
+    <string name="yes_delete">예</string>
     <string name="no">아니오</string>
     <string name="delete">삭제</string>
     <string name="addProfile">프로파일 사진 올리기</string>
@@ -75,5 +76,5 @@
     <string name="stop_recording">Stop</string>
     <string name="start_recording">Start</string>
     <string name="record_audio">얘기 녹</string>
-    <string name="confirm_delete">당신 삭제하시겠습니까?</string>
+    <string name="confirm_delete">당신의 펌을 삭제하시겠습니까?</string>
 </resources>
