@@ -112,7 +112,7 @@ public class FollowerActivity extends FragmentActivity implements Login_delegate
 	@Override
 	protected void onDestroy(){
 		super.onDestroy();
-		clearData();
+//		clearData();
 		isCalendar =false;
 	}
 	@Override
@@ -141,8 +141,8 @@ public class FollowerActivity extends FragmentActivity implements Login_delegate
 	
 	protected void onPause () {
     	super.onPause();
-    	clearData();
-    	permListMain.clear();
+//    	clearData();
+//    	permListMain.clear();
     	nextItem = -1;
 //    	if (dialog != null && dialog.isShowing()) {
 //			dialog.dismiss();
