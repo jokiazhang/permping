@@ -115,8 +115,8 @@ public class NewPermActivity extends Activity implements OnClickListener {
 	private double lat = 0.0;
 	private double lon = 0.0;
 	private PermUtils permUtils;
-	private LocationManager mlocManager;
-	private LocationListener mlocListener;
+//	private LocationManager mlocManager;
+//	private LocationListener mlocListener;
 	private ArrayList<Category> categories;
 	private String permId;
 	private List<PermBoard> boards;
@@ -132,7 +132,7 @@ public class NewPermActivity extends Activity implements OnClickListener {
 	boolean isGetRecord = false;
 
 	private LocationManager locManager;
-	private LocationListener locListener = new MyLocationListener();
+	private LocationListener locListener;
 	private boolean gps_enabled = false;
 	private boolean network_enabled = false;
 	public Handler handleFbLogin = new Handler() {
@@ -158,7 +158,7 @@ public class NewPermActivity extends Activity implements OnClickListener {
 		
 		//Remove title bar
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-
+		context = NewPermActivity.this;
 		//Remove notification bar
 		//this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		
@@ -170,9 +170,8 @@ public class NewPermActivity extends Activity implements OnClickListener {
 		if (textView != null) {
 			textView.setTypeface(tf);
 		}
-		locManager = (LocationManager) this
-				.getSystemService(Context.LOCATION_SERVICE);
-		initGetLocation();
+
+//		initGetLocation();
 		progressBar = (ProgressBar) findViewById(R.id.progressBar2);
 		btnShareFacebook = (ToggleButton) findViewById(R.id.share_facebookr);
 		btnShareTwitter = (ToggleButton) findViewById(R.id.share_twitter);
@@ -195,9 +194,10 @@ public class NewPermActivity extends Activity implements OnClickListener {
 		btnOk.setOnClickListener(this);
 		permDesc = (EditText) findViewById(R.id.permDesc);
 		initToggleStatus();
-		mlocManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-		mlocListener = new MyLocationListener();
-		context = NewPermActivity.this;
+		
+//		mlocManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+//		mlocListener = new MyLocationListener();
+
 		Bundle extras = getIntent().getExtras();
 		if (extras != null) {
 			if (extras.get("reperm") != null) {
@@ -227,6 +227,14 @@ public class NewPermActivity extends Activity implements OnClickListener {
 			finish();
 		}
 	}
+	@Override
+    protected void onPause()
+    {
+        // TODO Auto-generated method stub
+		super.onPause();
+		if(locManager != null && locListener != null)
+			locManager.removeUpdates(locListener);
+    }
 	private void initValue() {
 		// TODO Auto-generated method stub
 		if (boardDescRe != null)
@@ -236,7 +244,9 @@ public class NewPermActivity extends Activity implements OnClickListener {
 		btnShareKakao.setEnabled(false);
 	}
 	public void initGetLocation() {
-
+		locManager = (LocationManager) context
+				.getSystemService(Context.LOCATION_SERVICE);
+		locListener = new MyLocationListener();
 		try {
 			gps_enabled = locManager
 					.isProviderEnabled(LocationManager.GPS_PROVIDER);
@@ -776,9 +786,7 @@ public class NewPermActivity extends Activity implements OnClickListener {
 
 		@Override
 		protected void onPostExecute(String sResponse) {
-			if(locListener != null)
-				locManager.removeUpdates(locListener);
-			locManager = null;
+
 			if (progressBar.getVisibility() == View.VISIBLE) {
 				dismissLoadingDialog();
 				// ImageActivityGroup.group.back();
@@ -955,6 +963,12 @@ public class NewPermActivity extends Activity implements OnClickListener {
 //			lat = 0;
 //			lon = 0;
 //		}
+		if(btnLocation.isChecked()){
+			initGetLocation();	
+		}else{
+			locManager.removeUpdates(locListener);
+		}
+		
 	}
 
 	private void shareKakao() {
