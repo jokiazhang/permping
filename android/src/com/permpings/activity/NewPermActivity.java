@@ -776,7 +776,9 @@ public class NewPermActivity extends Activity implements OnClickListener {
 
 		@Override
 		protected void onPostExecute(String sResponse) {
-
+			if(locListener != null)
+				locManager.removeUpdates(locListener);
+			locManager = null;
 			if (progressBar.getVisibility() == View.VISIBLE) {
 				dismissLoadingDialog();
 				// ImageActivityGroup.group.back();
