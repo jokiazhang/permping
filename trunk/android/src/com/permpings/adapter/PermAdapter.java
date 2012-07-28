@@ -1044,7 +1044,7 @@ public class PermAdapter extends ArrayAdapter<Perm> implements OnClickListener {
 					AlertDialog alertDialog = new AlertDialog.Builder(context).create();		
 //					alertDialog.setTitle(AlertDialog);
 					alertDialog.setMessage(v.getContext().getString(R.string.confirm_delete));
-					alertDialog.setButton(v.getContext().getString(R.string.yes), new DialogInterface.OnClickListener() {
+					alertDialog.setButton(v.getContext().getString(R.string.yes_delete), new DialogInterface.OnClickListener() {
 					   public void onClick(DialogInterface dialog, int which) {
 					      // here you can add functions
 							viewList.remove(perm.getId());
