@@ -324,11 +324,13 @@ public class FollowerActivity extends FragmentActivity implements Login_delegate
 					btnRefesh.setVisibility(View.VISIBLE);
 				}*/
 			}
-			
-			for(int i = 0; i < permList.size(); i++) {
-				if(!permListMain.contains(permList.get(i))) {
-					permListMain.add(permList.get(i));
+			if(permList != null){
+				for(int i = 0; i < permList.size(); i++) {
+					if(!permListMain.contains(permList.get(i))) {
+						permListMain.add(permList.get(i));
+					}
 				}
+				
 			}
 			/**
 			 * MSA
