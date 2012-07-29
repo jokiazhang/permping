@@ -95,8 +95,8 @@ private int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 1224;
 				if(selectedImagePath != null && selectedImagePath != ""){
 					startActivity(myIntent);
 				}else{
-					ImageActivity imageActivity = new ImageActivity();
-					imageActivity.showCamera();
+//					ImageActivity imageActivity = new ImageActivity();
+//					imageActivity.showCamera();
 				}
 					
 
