@@ -127,11 +127,13 @@ public class ImageActivity extends Activity {
 			FileOutputStream fos = openFileOutput("MyFile.jpg", Context.MODE_WORLD_WRITEABLE);
 			fos.close();
 			File f = new File(getFilesDir() + File.separator + "MyFile.jpg");
-			imagePath = f.getPath();
-			getParent().startActivityForResult(
-			        new Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-			            .putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(f))
-			        , CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
+			if(f != null){
+				imagePath = f.getPath();
+				getParent().startActivityForResult(
+				        new Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+				            .putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(f))
+				        , CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
+			}
 			}
 			catch(IOException e) {
 
