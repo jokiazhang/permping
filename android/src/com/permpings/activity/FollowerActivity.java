@@ -242,7 +242,7 @@ public class FollowerActivity extends FragmentActivity implements Login_delegate
 	public void loadNextItems() {
 		if(permListAdapter != null) {
 			nextItem = permListAdapter.getNextItems();
-			clearData();
+			//clearData();
 //	    	dialog = ProgressDialog.show(getParent(), "Loading more", "Please wait...",
 //	    			true);
 			btnRefesh.setVisibility(View.GONE);
@@ -262,18 +262,38 @@ public class FollowerActivity extends FragmentActivity implements Login_delegate
 		User user = PermUtils.isAuthenticated(getApplicationContext());		
 		if(permListMain != null && !permListMain.isEmpty()){
 			//clearData();
-			createUI();
-			this.permListAdapter = new PermAdapter(FollowerActivityGroup.context,
+			//createUI();
+			if(this.permListAdapter == null) {
+				this.permListAdapter = new PermAdapter(FollowerActivityGroup.context,
 					getSupportFragmentManager(),R.layout.perm_item_1, permListMain, this, screenWidth, screenHeight, header, user);
+			} else {
+				for(int i = 0; i < permListMain.size(); i++) {
+					Perm perm = permListMain.get(i);
+					if(!permListAdapter.isPermDuplicate(perm)) {
+						permListAdapter.add(perm);
+					}
+				}
+			}
 			if(permListAdapter != null && permListAdapter.getCount() > 0) {
 				//if( PermpingMain.getCurrentTab() == 0 || PermpingMain.getCurrentTab() == 1 ) {
-					headerView = permListAdapter.createHeaderView();
-					permListView.addHeaderView(headerView);
+					if(permListView.getHeaderViewsCount() == 0 || permListView.getAdapter() == null) {
+						headerView = permListAdapter.createHeaderView();
+						permListView.addHeaderView(headerView);
+					}
+					if(headerView != null) {
+						permListAdapter.updateHeaderView(headerView);
+					}					
 				//}				
 			}
 			
 			permListView.setAdapter(permListAdapter);
-			permListView.setSelection(PermListController.selectedPos);	
+			int selected = permListAdapter.getCount() - permListMain.size() - 2;
+			if(selected >= 0) {
+				permListView.setSelection(selected);
+			} else {
+				permListView.setSelection(0);
+			}
+			//permListView.setSelection(PermListController.selectedPos);	
 		}else{
 			
 			
@@ -332,14 +352,15 @@ public class FollowerActivity extends FragmentActivity implements Login_delegate
 					btnRefesh.setVisibility(View.VISIBLE);
 				}*/
 			}
-			if(permList != null){
+			/*if(permList != null){
 				for(int i = 0; i < permList.size(); i++) {
 					if(!permListMain.contains(permList.get(i))) {
 						permListMain.add(permList.get(i));
 					}
 				}
 				
-			}
+			}*/
+			permListMain = permList;
 			/**
 			 * MSA
 			 */
@@ -407,6 +428,8 @@ public class FollowerActivity extends FragmentActivity implements Login_delegate
 		int id = v.getId();
 		switch (id) {
 		case R.id.btnRefesh:
+			isFirst = true;
+	    	nextItem = -1;
 			exeFollowerActivity();
 			break;
 
