@@ -129,10 +129,11 @@ public class ImageActivity extends Activity {
 			File f = new File(getFilesDir() + File.separator + "MyFile.jpg");
 			if(f != null){
 				imagePath = f.getPath();
-				if(imagePath != null && Uri.fromFile(f) != null){
+				Uri uri = Uri.fromFile(f);
+				if(imagePath != null && uri != null){
 					getParent().startActivityForResult(
 					        new Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-					            .putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(f))
+					            .putExtra(MediaStore.EXTRA_OUTPUT, uri)
 					        , CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
 				}
 			}
