@@ -67,6 +67,7 @@ public class FollowerActivity extends FragmentActivity implements Login_delegate
 	View headerView = null;
 	private boolean isFirst = true;
 	public static LoadPermList loadPermList;
+	public boolean isAddHeader = false;
 	private BroadcastReceiver receiver = new BroadcastReceiver() {
 
 		@Override
@@ -107,6 +108,7 @@ public class FollowerActivity extends FragmentActivity implements Login_delegate
 		imageViewBeforRefesh.setVisibility(View.VISIBLE);
 		btnRefesh.setOnClickListener(this);
 		progressBar = (ProgressBar)findViewById(R.id.progressBar);
+		isAddHeader = true;
 	}
 	
 	@Override
@@ -276,9 +278,10 @@ public class FollowerActivity extends FragmentActivity implements Login_delegate
 			}
 			if(permListAdapter != null && permListAdapter.getCount() > 0) {
 				//if( PermpingMain.getCurrentTab() == 0 || PermpingMain.getCurrentTab() == 1 ) {
-					if(permListView.getHeaderViewsCount() == 0 || permListView.getAdapter() == null) {
+					if(isAddHeader) {
 						headerView = permListAdapter.createHeaderView();
 						permListView.addHeaderView(headerView);
+						isAddHeader = false;
 					}
 					if(headerView != null) {
 						permListAdapter.updateHeaderView(headerView);

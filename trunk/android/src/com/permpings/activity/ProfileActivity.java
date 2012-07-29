@@ -188,6 +188,7 @@ public class ProfileActivity extends Activity implements Get_Board_delegate{
 				}
 			}
 		});
+		exeUserProfile();
 		PermUtils.clearViewHistory();       
     }
 	
