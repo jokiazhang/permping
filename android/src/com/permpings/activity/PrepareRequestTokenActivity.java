@@ -59,10 +59,10 @@ public class PrepareRequestTokenActivity extends Activity implements Login_deleg
     		this.consumer = new CommonsHttpOAuthConsumer(Constants.CONSUMER_KEY, Constants.CONSUMER_SECRET);
     	    this.provider = new CommonsHttpOAuthProvider(Constants.REQUEST_URL,Constants.ACCESS_URL,Constants.AUTHORIZE_URL);
     	} catch (Exception e) {
-    		Log.e(TAG, "Error creating consumer / provider",e);
+    		//Log.e(TAG, "Error creating consumer / provider",e);
 		}
     	
-        Log.i(TAG, "Starting task to retrieve request token.");
+       //Log.i(TAG, "Starting task to retrieve request token.");
 		new OAuthRequestTokenTask(this,consumer,provider).execute();
 	}
 	public static boolean flag = false;
@@ -78,8 +78,8 @@ public class PrepareRequestTokenActivity extends Activity implements Login_deleg
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 		final Uri uri = intent.getData();
 		if (uri != null && uri.toString().startsWith(Constants.OAUTH_CALLBACK_URL)) {
-			Log.i(TAG, "Callback received : " + uri);
-			Log.i(TAG, "Retrieving Access Token");
+			//Log.i(TAG, "Callback received : " + uri);
+			//Log.i(TAG, "Retrieving Access Token");
 			new RetrieveAccessTokenTask(this,consumer,provider,prefs).execute(uri);
 			if(!LoginPermActivity.isTwitter)
 				finish();	
@@ -141,10 +141,10 @@ public class PrepareRequestTokenActivity extends Activity implements Login_deleg
 					
 				}
 			
-				Log.i(TAG, "OAuth - Access Token Retrieved");
+				//Log.i(TAG, "OAuth - Access Token Retrieved");
 				
 			} catch (Exception e) {
-				Log.e(TAG, "OAuth - Access Token Retrieval Error", e);
+				//Log.e(TAG, "OAuth - Access Token Retrieval Error", e);
 			}
 
 			return null;

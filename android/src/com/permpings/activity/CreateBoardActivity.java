@@ -126,9 +126,9 @@ public class CreateBoardActivity extends Activity implements Create_Board_delega
 			float x = event.getRawX() + w.getLeft() - scrcoords[0];
 	        float y = event.getRawY() + w.getTop() - scrcoords[1];
 
-	        Log.d("CreateBoard", "Touch event " + event.getRawX() + "," + event.getRawY() +
+	        /*Log.d("CreateBoard", "Touch event " + event.getRawX() + "," + event.getRawY() +
 	        		" " + x + "," + y + " rect " + w.getLeft() + "," + w.getTop() + "," +
-	        		w.getRight() + "," + w.getBottom() + " coords " + scrcoords[0] + "," + scrcoords[1]);
+	        		w.getRight() + "," + w.getBottom() + " coords " + scrcoords[0] + "," + scrcoords[1]);*/
 	        if (event.getAction() == MotionEvent.ACTION_UP && (x < w.getLeft() || x >= w.getRight() || y < w.getTop() || y > w.getBottom()) ) { 
 	            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
 	            imm.hideSoftInputFromWindow(getWindow().getCurrentFocus().getWindowToken(), 0);

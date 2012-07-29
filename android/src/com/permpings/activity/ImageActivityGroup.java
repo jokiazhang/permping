@@ -13,7 +13,6 @@ import android.provider.MediaStore;
 import android.view.View;
 
 import com.permpings.TabGroupActivity;
-import com.permpings.utils.Logger;
 
 public class ImageActivityGroup extends TabGroupActivity {
 
@@ -59,7 +58,7 @@ private int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 1224;
 	        	if( data == null  ) {	        		
 //	        		selectedImagePath = getImagePath();
 	        		selectedImagePath = ImageActivity.imagePath;
-	        		Logger.appendLog("\n==ImageActivityGroup requestCode = " + requestCode + " data == null " + selectedImagePath + "==", "ImageActivityGroup");
+	        		//Logger.appendLog("\n==ImageActivityGroup requestCode = " + requestCode + " data == null " + selectedImagePath + "==", "ImageActivityGroup");
 	        		try {
 	        			InputStream is = openFileInput("MyFile.jpg");
 	        			BitmapFactory.Options options = new BitmapFactory.Options();
@@ -85,7 +84,7 @@ private int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 1224;
 //		                }
 		            	selectedImagePath = ImageActivity.imagePath;
 		            }
-		            Logger.appendLog("\n==ImageActivityGroup requestCode = " + requestCode + " data != null " + selectedImagePath + "==", "ImageActivityGroup");
+		            //Logger.appendLog("\n==ImageActivityGroup requestCode = " + requestCode + " data != null " + selectedImagePath + "==", "ImageActivityGroup");
 //	        		selectedImagePath = ImageActivity.imagePath;
 	        	}
 	            //Start activity allow user input perm info

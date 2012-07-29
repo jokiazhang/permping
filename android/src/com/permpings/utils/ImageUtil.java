@@ -39,19 +39,19 @@ public class ImageUtil {
 			            options.inSampleSize = 1;
 			            Bitmap bitmap = BitmapFactory.decodeStream(is,null,options);
 			            Drawable drawable = new  BitmapDrawable(mResources, bitmap);
-			            Log.d("IMAGE_DOWNLOADER", "do in background " + url);
+			           // Log.d("IMAGE_DOWNLOADER", "do in background " + url);
 			            return drawable;
 				}
 				catch (Exception e) {
 					// TODO: handle exception
-					Log.e("IMAGE_DOWNLOADER", "onPostExcute ERROR " + url, e);
+					//Log.e("IMAGE_DOWNLOADER", "onPostExcute ERROR " + url, e);
 				}
 				return null;
 			}
 
 			protected void onPostExecute(Drawable result) {
 				if (result != null) {
-					Log.d("IMAGE_DOWNLOADER", "onPostExcute " + url);
+					//Log.d("IMAGE_DOWNLOADER", "onPostExcute " + url);
 					final Drawable newImage = result;
 					imageView.setImageDrawable(newImage);
 				}

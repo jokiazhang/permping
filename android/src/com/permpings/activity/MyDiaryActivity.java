@@ -89,8 +89,8 @@ public class MyDiaryActivity extends Activity implements View.OnClickListener , 
 		month = calendar.get(Calendar.MONTH) + 1;
 		year = calendar.get(Calendar.YEAR);
 		initMonths();
-		Log.d(TAG, "Calendar Instance:= " + "Month: " + month + " " + "Year: "
-				+ year);
+		/*Log.d(TAG, "Calendar Instance:= " + "Month: " + month + " " + "Year: "
+				+ year);*/
 
 		prevMonth = (ImageView) this.findViewById(R.id.prevMonth);
 		prevMonth.setOnClickListener(this);
@@ -166,7 +166,7 @@ public class MyDiaryActivity extends Activity implements View.OnClickListener , 
 	 }
 	 
 	private List<String> getThumbnail(String url, String uid, String id){
-		Log.d(id+"====>", ">>>======>>>"+uid);
+		//Log.d(id+"====>", ">>>======>>>"+uid);
 		List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(8);
 		nameValuePairs.add(new BasicNameValuePair("uid", uid));
 		XMLParser xmlParser = new XMLParser();
@@ -201,8 +201,8 @@ public class MyDiaryActivity extends Activity implements View.OnClickListener , 
 			} else {
 				month--;
 			}
-			Log.d(TAG, "Setting Prev Month in GridCellAdapter: " + "Month: "
-					+ month + " Year: " + year);
+			/*Log.d(TAG, "Setting Prev Month in GridCellAdapter: " + "Month: "
+					+ month + " Year: " + year);*/
 			setGridCellAdapterToDate(month, year);
 		}
 		if (v == nextMonth) {
@@ -214,8 +214,8 @@ public class MyDiaryActivity extends Activity implements View.OnClickListener , 
 			} else {
 				month++;
 			}
-			Log.d(TAG, "Setting Next Month in GridCellAdapter: " + "Month: "
-					+ month + " Year: " + year);
+			/*Log.d(TAG, "Setting Next Month in GridCellAdapter: " + "Month: "
+					+ month + " Year: " + year);*/
 			setGridCellAdapterToDate(month, year);
 		}
 
@@ -223,7 +223,7 @@ public class MyDiaryActivity extends Activity implements View.OnClickListener , 
 
 	@Override
 	public void onDestroy() {
-		Log.d(TAG, "Destroying View ...");
+		//Log.d(TAG, "Destroying View ...");
 		super.onDestroy();
 	}
 
@@ -261,14 +261,14 @@ public class MyDiaryActivity extends Activity implements View.OnClickListener , 
 			this.month = month;
 			this.year = year;
 
-			Log.d(tag, "==> Passed in Date FOR Month: " + month + " "
-					+ "Year: " + year);
+			/*Log.d(tag, "==> Passed in Date FOR Month: " + month + " "
+					+ "Year: " + year);*/
 			Calendar calendar = Calendar.getInstance();
 			setCurrentDayOfMonth(calendar.get(Calendar.DAY_OF_MONTH));
 			setCurrentWeekDay(calendar.get(Calendar.DAY_OF_WEEK));
-			Log.d(tag, "New Calendar:= " + calendar.getTime().toString());
+			/*Log.d(tag, "New Calendar:= " + calendar.getTime().toString());
 			Log.d(tag, "CurrentDayOfWeek :" + getCurrentWeekDay());
-			Log.d(tag, "CurrentDayOfMonth :" + getCurrentDayOfMonth());
+			Log.d(tag, "CurrentDayOfMonth :" + getCurrentDayOfMonth());*/
 
 			// Print Month
 			printMonth(month, year);
@@ -305,7 +305,7 @@ public class MyDiaryActivity extends Activity implements View.OnClickListener , 
 		 * @param yy
 		 */
 		private void printMonth(int mm, int yy) {
-			Log.d(tag, "==> printMonth: mm: " + mm + " " + "yy: " + yy);
+			//Log.d(tag, "==> printMonth: mm: " + mm + " " + "yy: " + yy);
 			// The number of days to leave blank at
 			// the start of this month.
 			int trailingSpaces = 0;
@@ -320,12 +320,12 @@ public class MyDiaryActivity extends Activity implements View.OnClickListener , 
 			String currentMonthName = getMonthAsString(currentMonth);
 			daysInMonth = getNumberOfDaysOfMonth(currentMonth);
 
-			Log.d(tag, "Current Month: " + " " + currentMonthName + " having "
-					+ daysInMonth + " days.");
+			/*Log.d(tag, "Current Month: " + " " + currentMonthName + " having "
+					+ daysInMonth + " days.");*/
 
 			// Gregorian Calendar : MINUS 1, set to FIRST OF MONTH
 			GregorianCalendar cal = new GregorianCalendar(yy, currentMonth, 1);
-			Log.d(tag, "Gregorian Calendar:= " + cal.getTime().toString());
+			//Log.d(tag, "Gregorian Calendar:= " + cal.getTime().toString());
 
 			if (currentMonth == 11) {
 				prevMonth = currentMonth - 1;
@@ -333,27 +333,27 @@ public class MyDiaryActivity extends Activity implements View.OnClickListener , 
 				nextMonth = 0;
 				prevYear = yy;
 				nextYear = yy + 1;
-				Log.d(tag, "*->PrevYear: " + prevYear + " PrevMonth:"
+				/*Log.d(tag, "*->PrevYear: " + prevYear + " PrevMonth:"
 						+ prevMonth + " NextMonth: " + nextMonth
-						+ " NextYear: " + nextYear);
+						+ " NextYear: " + nextYear);*/
 			} else if (currentMonth == 0) {
 				prevMonth = 11;
 				prevYear = yy - 1;
 				nextYear = yy;
 				daysInPrevMonth = getNumberOfDaysOfMonth(prevMonth);
 				nextMonth = 1;
-				Log.d(tag, "**--> PrevYear: " + prevYear + " PrevMonth:"
+				/*Log.d(tag, "**--> PrevYear: " + prevYear + " PrevMonth:"
 						+ prevMonth + " NextMonth: " + nextMonth
-						+ " NextYear: " + nextYear);
+						+ " NextYear: " + nextYear);*/
 			} else {
 				prevMonth = currentMonth - 1;
 				nextMonth = currentMonth + 1;
 				nextYear = yy;
 				prevYear = yy;
 				daysInPrevMonth = getNumberOfDaysOfMonth(prevMonth);
-				Log.d(tag, "***---> PrevYear: " + prevYear + " PrevMonth:"
+				/*Log.d(tag, "***---> PrevYear: " + prevYear + " PrevMonth:"
 						+ prevMonth + " NextMonth: " + nextMonth
-						+ " NextYear: " + nextYear);
+						+ " NextYear: " + nextYear);*/
 			}
 
 			// Compute how much to leave before before the first day of the
@@ -362,10 +362,10 @@ public class MyDiaryActivity extends Activity implements View.OnClickListener , 
 			int currentWeekDay = cal.get(Calendar.DAY_OF_WEEK) - 1;
 			trailingSpaces = currentWeekDay;
 
-			Log.d(tag, "Week Day:" + currentWeekDay + " is "
+			/*Log.d(tag, "Week Day:" + currentWeekDay + " is "
 					+ getWeekDayAsString(currentWeekDay));
 			Log.d(tag, "No. Trailing space to Add: " + trailingSpaces);
-			Log.d(tag, "No. of Days in Previous Month: " + daysInPrevMonth);
+			Log.d(tag, "No. of Days in Previous Month: " + daysInPrevMonth);*/
 
 			if (cal.isLeapYear(cal.get(Calendar.YEAR)) && mm == 1) {
 				++daysInMonth;
@@ -373,7 +373,7 @@ public class MyDiaryActivity extends Activity implements View.OnClickListener , 
 
 			// Trailing Month days
 			for (int i = 0; i < trailingSpaces; i++) {
-				Log.d(tag,
+				/*Log.d(tag,
 						"PREV MONTH:= "
 								+ prevMonth
 								+ " => "
@@ -381,7 +381,7 @@ public class MyDiaryActivity extends Activity implements View.OnClickListener , 
 								+ " "
 								+ String.valueOf((daysInPrevMonth
 										- trailingSpaces + DAY_OFFSET)
-										+ i));
+										+ i));*/
 				list.add(String
 						.valueOf((daysInPrevMonth - trailingSpaces + DAY_OFFSET)
 								+ i)
@@ -394,8 +394,8 @@ public class MyDiaryActivity extends Activity implements View.OnClickListener , 
 
 			// Current Month Days
 			for (int i = 1; i <= daysInMonth; i++) {
-				Log.d(currentMonthName, String.valueOf(i) + " "
-						+ getMonthAsString(currentMonth) + " " + yy);
+				/*Log.d(currentMonthName, String.valueOf(i) + " "
+						+ getMonthAsString(currentMonth) + " " + yy);*/
 				if (i == getCurrentDayOfMonth()) {
 					list.add(String.valueOf(i) + "-#8b9096" + "-"
 							+ getMonthAsString(currentMonth) + "-" + yy);
@@ -407,7 +407,7 @@ public class MyDiaryActivity extends Activity implements View.OnClickListener , 
 
 			// Leading Month days
 			for (int i = 0; i < list.size() % 7; i++) {
-				Log.d(tag, "NEXT MONTH:= " + getMonthAsString(nextMonth));
+				//Log.d(tag, "NEXT MONTH:= " + getMonthAsString(nextMonth));
 				list.add(String.valueOf(i + 1) + "-#88b9f4" + "-"
 						+ getMonthAsString(nextMonth) + "-" + nextYear);
 			}
@@ -456,7 +456,7 @@ public class MyDiaryActivity extends Activity implements View.OnClickListener , 
 				
 			// ACCOUNT FOR SPACING
 
-			Log.d(tag, "Current Day: " + getCurrentDayOfMonth());
+			//Log.d(tag, "Current Day: " + getCurrentDayOfMonth());
 			String[] day_color = list.get(position).split("-");
 			String theday = day_color[0];
 			String themonth = day_color[2];
@@ -482,7 +482,7 @@ public class MyDiaryActivity extends Activity implements View.OnClickListener , 
 				theday = "0"+theday;
 			String date = theyear+"-"+MyDiaryActivity.this.months.get(themonth)+"-"+theday;
 			row.setTag(date);
-			Log.d(tag, "Setting GridCell " +date);
+			//Log.d(tag, "Setting GridCell " +date);
 			String monthString = MyDiaryActivity.this.months.get(themonth);
 			if(monthString.length() == 1){
 				monthString = "0"+monthString;
@@ -666,7 +666,7 @@ public class MyDiaryActivity extends Activity implements View.OnClickListener , 
         @Override
         protected void onPostExecute(String url) {
             // TODO Auto-generated method stub
-            Log.d("====>", ">>>======>>>");
+            //Log.d("====>", ">>>======>>>");
 			if(thumb != null){
 				thumb.setImageUrl(url);
 				thumb.loadImage();

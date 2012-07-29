@@ -20,7 +20,6 @@ import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 
 import android.os.AsyncTask;
-import android.util.Log;
 
 import com.permpings.interfaces.HttpAccess;
 
@@ -66,7 +65,7 @@ public class HttpPermUtils {
 					HttpResponse postResponse = client.execute(postRequest);
 					int statusCode = postResponse.getStatusLine().getStatusCode();
 					if (statusCode != HttpStatus.SC_OK) {
-						Log.w(getClass().getSimpleName(), "ERROR: " + statusCode + " for URL: " + url); 
+						//Log.w(getClass().getSimpleName(), "ERROR: " + statusCode + " for URL: " + url); 
 			            result = null;
 			            return null;
 					}else{
@@ -76,9 +75,9 @@ public class HttpPermUtils {
 					}
 
 				} catch (IOException ioe) {
-					Logger.appendLog(ioe.toString(), "httpErrorLog");
+					//Logger.appendLog(ioe.toString(), "httpErrorLog");
 					postRequest.abort();
-					Log.w(getClass().getSimpleName(), "thien====>ERROR for URL " + url, ioe);
+					//Log.w(getClass().getSimpleName(), "thien====>ERROR for URL " + url, ioe);
 					httpAccess.onError();
 					result = null;
 					return null;
@@ -122,7 +121,7 @@ public class HttpPermUtils {
 				HttpPost postRequest = new HttpPost(url);
 				try {		
 					String charset ="UTF_8";
-					Log.d("==","=========>"+nameValuePairs.toString());
+					//Log.d("==","=========>"+nameValuePairs.toString());
 					if (nameValuePairs != null) {
 						postRequest.setHeader("Content-Type", "application/x-www-form-urlencoded;charset=" + charset);
 						postRequest.setEntity(new UrlEncodedFormEntity(nameValuePairs, HTTP.UTF_8));
@@ -136,7 +135,7 @@ public class HttpPermUtils {
 					HttpResponse postResponse = client.execute(postRequest);
 					int statusCode = postResponse.getStatusLine().getStatusCode();
 					if (statusCode != HttpStatus.SC_OK) {
-						Log.w(getClass().getSimpleName(), "ERROR: " + statusCode + " for URL: " + url); 
+						//Log.w(getClass().getSimpleName(), "ERROR: " + statusCode + " for URL: " + url); 
 			            result = null;			
 					}else{
 						HttpEntity postResponseEntity = postResponse.getEntity();
@@ -145,9 +144,9 @@ public class HttpPermUtils {
 					}
 
 				} catch (IOException ioe) {
-					Logger.appendLog(client+":"+ioe.toString()+"data"+nameValuePairs.toString(), "httpParseLog");
+					//Logger.appendLog(client+":"+ioe.toString()+"data"+nameValuePairs.toString(), "httpParseLog");
 					postRequest.abort();
-					Log.w(getClass().getSimpleName(), "thien====>ERROR for URL " + url, ioe);
+					//Log.w(getClass().getSimpleName(), "thien====>ERROR for URL " + url, ioe);
 					httpAccess.onError();
 					result = null;
 					return null;
@@ -187,16 +186,16 @@ public class HttpPermUtils {
 			HttpResponse getResponse = client.execute(getRequest);
 			int statusCode = getResponse.getStatusLine().getStatusCode();
 			if (statusCode != HttpStatus.SC_OK) {
-				Log.w(getClass().getSimpleName(), "ERROR: " + statusCode + " for URL: " + url);
+				//Log.w(getClass().getSimpleName(), "ERROR: " + statusCode + " for URL: " + url);
 				return null;
 			}
 			HttpEntity getResponseEntity = getResponse.getEntity();
 			if (getResponseEntity != null)
 				return EntityUtils.toString(getResponseEntity);					
 		} catch (IOException ioe) {
-			Logger.appendLog(ioe.toString(), "sendGetRequestLog");
+			//Logger.appendLog(ioe.toString(), "sendGetRequestLog");
 			getRequest.abort();
-			Log.w(getClass().getSimpleName(), "ERROR for URL: " + url, ioe);
+			//Log.w(getClass().getSimpleName(), "ERROR for URL: " + url, ioe);
 		}
 		
 		return null;

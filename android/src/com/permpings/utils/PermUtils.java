@@ -30,7 +30,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.CookieManager;
@@ -343,7 +342,7 @@ public class PermUtils {
 				"user_birthday" }, new DialogListener() {
 			@Override
 			public void onComplete(Bundle values) {
-				Log.d("", "=====>" + values.toString());
+				//Log.d("", "=====>" + values.toString());
 				String accessToken = values.getString("access_token");
 				saveFacebookToken("oauth_token", accessToken, activity);
 				Message message = handleFbLogin.obtainMessage(
@@ -506,7 +505,7 @@ public class PermUtils {
 					log.append(LINE_SEPARATOR);
 				}
 			} catch (IOException e) {
-				Log.e(TAG, "CollectLogTask.doInBackground failed", e);//$NON-NLS-1$
+				//Log.e(TAG, "CollectLogTask.doInBackground failed", e);//$NON-NLS-1$
 			}
 
 			return log;
@@ -526,9 +525,9 @@ public class PermUtils {
 					log.insert(0, LINE_SEPARATOR);
 					log.insert(0, mAdditonalInfo);
 				}
-				Log.d("====>>>>", "=======Begin get log");
-				String logData = log.toString();
-				Logger.appendLog(logData, "AllLog");
+				//Log.d("====>>>>", "=======Begin get log");
+				/*String logData = log.toString();
+				Logger.appendLog(logData, "AllLog");*/
 			} else {
 
 			}

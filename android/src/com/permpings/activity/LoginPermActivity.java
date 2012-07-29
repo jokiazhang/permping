@@ -170,7 +170,7 @@ public class LoginPermActivity extends Activity implements Login_delegate {
 						"user_birthday" }, new DialogListener() {
 					@Override
 					public void onComplete(Bundle values) {
-						Log.d("", "=====>"+values.toString());
+						//Log.d("", "=====>"+values.toString());
 						PermUtils permutils = new PermUtils();
 						String accessToken = values.getString("access_token");
 						permutils.saveFacebookToken("oauth_token", accessToken, getApplication());
@@ -268,7 +268,7 @@ public class LoginPermActivity extends Activity implements Login_delegate {
 @Override
 public void on_success() {
 	// TODO Auto-generated method stub
-	Logger.appendLog("test log", "LoginSuccess");
+	//Logger.appendLog("test log", "LoginSuccess");
 	if(isLoginFb){
 		FollowerActivity.isLogin = true;
 		isLoginFb = false;
@@ -294,7 +294,7 @@ public void on_success() {
 @Override
 public void on_error() {
 	// TODO Auto-generated method stub
-	Logger.appendLog("test log", "loginerror");
+	//Logger.appendLog("test log", "loginerror");
 	if(isLoginFb){
 		isLoginFb = false;
 		Intent intent = new Intent(getApplicationContext(), JoinPermActivity.class);

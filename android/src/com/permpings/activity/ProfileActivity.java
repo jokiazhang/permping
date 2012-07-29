@@ -34,7 +34,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
@@ -90,7 +89,7 @@ public class ProfileActivity extends Activity implements Get_Board_delegate{
 		public void onReceive(Context context, Intent intent) {
 
 			if (intent.getAction().equals(FollowerActivity.DOWNLOAD_COMPLETED)) {
-				Log.d("thien", "======>>>>??????");
+				//Log.d("thien", "======>>>>??????");
 				exeUserProfile();
 			} 
 		}
@@ -439,7 +438,7 @@ public class ProfileActivity extends Activity implements Get_Board_delegate{
 			progressBar.setVisibility(View.INVISIBLE);
 			
 			if(boards != null){
-				Log.d("tttttt","OOOOOOO=======>>>>>"+boards);
+				//Log.d("tttttt","OOOOOOO=======>>>>>"+boards);
 	    		user = PermUtils.isAuthenticated(getApplicationContext());
 	            BoardAdapter boardAdapter = new BoardAdapter(ProfileActivity.this,R.layout.board_item, boards);
 	    		exeGet(boardAdapter);

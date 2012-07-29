@@ -296,7 +296,7 @@ public class PermpingMain extends TabActivity  {
 			String link = (String) data;
 			Intent playAudioIntent = new Intent(FollowerActivityGroup.context, AudioPlayerActivity.class);
 			playAudioIntent.putExtra("url", link);
-			Log.d("permAudio=",""+link);
+			//Log.d("permAudio=",""+link);
 			FollowerActivityGroup.context.startActivity(playAudioIntent);
 //			FollowerActivity.isRefesh = false;
 		}

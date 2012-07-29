@@ -331,12 +331,12 @@ public class NewPermActivity extends Activity implements OnClickListener {
 			float x = event.getRawX() + w.getLeft() - scrcoords[0];
 			float y = event.getRawY() + w.getTop() - scrcoords[1];
 
-			Log.d("CreatePerm",
+			/*Log.d("CreatePerm",
 					"Touch event " + event.getRawX() + "," + event.getRawY()
 							+ " " + x + "," + y + " rect " + w.getLeft() + ","
 							+ w.getTop() + "," + w.getRight() + ","
 							+ w.getBottom() + " coords " + scrcoords[0] + ","
-							+ scrcoords[1]);
+							+ scrcoords[1]);*/
 			if (event.getAction() == MotionEvent.ACTION_UP
 					&& (x < w.getLeft() || x >= w.getRight() || y < w.getTop() || y > w
 							.getBottom())) {
@@ -545,8 +545,8 @@ public class NewPermActivity extends Activity implements OnClickListener {
 						reqEntity.addPart("lat", new StringBody("" + 0, chars));
 						reqEntity.addPart("long", new StringBody("" + 0, chars));
 					}
-					Log.d("======>", "======Lat, lon==========" + lat + "==="
-							+ lon);
+					/*Log.d("======>", "======Lat, lon==========" + lat + "==="
+							+ lon);*/
 					postRequest.setEntity(reqEntity);
 					HttpResponse response = httpClient.execute(postRequest);
 					HttpEntity entry = response.getEntity();
@@ -578,8 +578,8 @@ public class NewPermActivity extends Activity implements OnClickListener {
 				while ((o.outWidth * o.outHeight) * (1 / Math.pow(scale, 2)) > IMAGE_MAX_SIZE) {
 					scale++;
 				}
-				Log.d("", "scale = " + scale + ", orig-width: " + o.outWidth
-						+ ", orig-height: " + o.outHeight);
+				/*Log.d("", "scale = " + scale + ", orig-width: " + o.outWidth
+						+ ", orig-height: " + o.outHeight);*/
 
 				Bitmap b = null;
 				if (scale > 1) {
@@ -594,8 +594,8 @@ public class NewPermActivity extends Activity implements OnClickListener {
 					// resize to desired dimensions
 					int height = b.getHeight();
 					int width = b.getWidth();
-					Log.d("", "1th scale operation dimenions - width: " + width
-							+ ", height: " + height);
+					/*Log.d("", "1th scale operation dimenions - width: " + width
+							+ ", height: " + height);*/
 
 					double y = Math.sqrt(IMAGE_MAX_SIZE
 							/ (((double) width) / height));
@@ -611,11 +611,11 @@ public class NewPermActivity extends Activity implements OnClickListener {
 					b = BitmapFactory.decodeFile(path);
 				}
 
-				Log.d("", "bitmap size - width: " + b.getWidth() + ", height: "
-						+ b.getHeight() + "");
+				/*Log.d("", "bitmap size - width: " + b.getWidth() + ", height: "
+						+ b.getHeight() + "");*/
 				return b;
 			} catch (Exception e) {
-				Log.e("", e.getMessage(), e);
+				//Log.e("", e.getMessage(), e);
 				return null;
 			}
 		}
@@ -643,8 +643,8 @@ public class NewPermActivity extends Activity implements OnClickListener {
 //				while ((o.outWidth * o.outHeight) * (1 / Math.pow(scale, 2)) > IMAGE_MAX_SIZE) {
 //					scale++;
 //				}
-				Log.d("", "scale = " + scale + ", orig-width: " + o.outWidth
-						+ ", orig-height: " + o.outHeight);
+				/*Log.d("", "scale = " + scale + ", orig-width: " + o.outWidth
+						+ ", orig-height: " + o.outHeight);*/
 
 				Bitmap b = null;
 				if (scale > 1) {
@@ -682,11 +682,11 @@ public class NewPermActivity extends Activity implements OnClickListener {
 					b = BitmapFactory.decodeFile(path);
 				}
 
-				Log.d("", "bitmap size - width: " + b.getWidth() + ", height: "
-						+ b.getHeight() + "");
+				/*Log.d("", "bitmap size - width: " + b.getWidth() + ", height: "
+						+ b.getHeight() + "");*/
 				return b;
 			} catch (Exception e) {
-				Log.e("", e.getMessage(), e);
+				//Log.e("", e.getMessage(), e);
 				return null;
 			}
 		}
@@ -821,7 +821,7 @@ public class NewPermActivity extends Activity implements OnClickListener {
 								Toast.LENGTH_LONG).show();
 						isReperm = false;
 					} else {
-						Logger.appendLog("\n== NewPermActivity Uploaded new perm successfully", "NewPermActivity");
+						//Logger.appendLog("\n== NewPermActivity Uploaded new perm successfully", "NewPermActivity");
 						Toast.makeText(getApplicationContext(),
 								"Uploaded new perm!", Toast.LENGTH_LONG).show();
 					}
@@ -840,7 +840,7 @@ public class NewPermActivity extends Activity implements OnClickListener {
 		if (requestCode == 2) {
 			Bundle bundle = data.getExtras();
 			pathAudioFile = bundle.getString("pathFile");
-			Log.d("aaaa", "" + pathAudioFile);
+			//Log.d("aaaa", "" + pathAudioFile);
 		}
 	}
 
@@ -1020,7 +1020,7 @@ public class NewPermActivity extends Activity implements OnClickListener {
 //		} else 
 //		{
 			if (imagePath != "" || permID > 0) {
-				Logger.appendLog("\n== NewPermActivity uploadPerm function imagePath = " + imagePath + "==", "NewPermActivity");
+				//Logger.appendLog("\n== NewPermActivity uploadPerm function imagePath = " + imagePath + "==", "NewPermActivity");
 				showLoadingDialog("Processing", "Please wait...");
 				new ImageUpload(imagePath).execute();
 
