@@ -54,7 +54,7 @@ public class LoginPermActivity extends Activity implements Login_delegate {
 	Button facebookLogin;
 	Button twitterLogin;
 	Button login;
-	private boolean isLoginFb = false;
+	public static boolean isLoginFb = false;
 	public static boolean isTwitter = false;
 //	private ProgressDialog loadingDialog;
 	ProgressBar progressBar;

@@ -15,6 +15,7 @@ import com.permpings.controller.AuthorizeController;
 import com.permpings.interfaces.Login_delegate;
 import com.permpings.model.Comment;
 import com.permpings.utils.Constants;
+import com.permpings.utils.PermUtils;
 import com.permpings.utils.XMLParser;
 
 public class FollowerActivityGroup extends TabGroupActivity implements Login_delegate {
@@ -52,8 +53,23 @@ public class FollowerActivityGroup extends TabGroupActivity implements Login_del
 					XMLParser.storePermpingAccount(this, "", "");
 				}				
 			}*/
+		} else {
+			PermUtils permUtils = new PermUtils();
+			String facebookToken = permUtils.getFacebookToken(getApplicationContext());
+			if (facebookToken != null && facebookToken.length() > 0) {
+				List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(4);
+				nameValuePairs.add(new BasicNameValuePair("type", Constants.FACEBOOK_LOGIN));
+				nameValuePairs.add(new BasicNameValuePair("oauth_token", facebookToken));
+				nameValuePairs.add(new BasicNameValuePair("email", ""));
+				nameValuePairs.add(new BasicNameValuePair("password", ""));
+				AuthorizeController authorizeController = new AuthorizeController(FollowerActivityGroup.this);
+				authorizeController.authorize(this, nameValuePairs);
+				isReload = true;
+				LoginPermActivity.isLoginFb = true;
+			}
+			
 		}
-		createFollowerActivity();
+		createFollowerActivity();		
 		//replaceView(view);
 	}
 	
