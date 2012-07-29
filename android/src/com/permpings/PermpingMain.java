@@ -31,6 +31,7 @@ public class PermpingMain extends TabActivity  {
 	public static Context context;
 	public static boolean isUserProfile = true;
 	public static boolean isKakao = false;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
