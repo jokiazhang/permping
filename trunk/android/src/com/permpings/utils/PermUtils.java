@@ -66,7 +66,7 @@ public class PermUtils {
 	private String[] mFilterSpecs;
 	private String mFormat;
 	private String mBuffer;
-
+	public static boolean isFollowRereshData = true;
 	public static User isAuthenticated(Context context) {
 		PermpingApplication state = (PermpingApplication) context
 				.getApplicationContext();

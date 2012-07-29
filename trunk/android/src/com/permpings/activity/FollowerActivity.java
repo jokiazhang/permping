@@ -114,6 +114,7 @@ public class FollowerActivity extends FragmentActivity implements Login_delegate
 		super.onDestroy();
 //		clearData();
 		isCalendar =false;
+		isRefesh = true;
 	}
 	@Override
 	protected void onResume() {
@@ -130,7 +131,8 @@ public class FollowerActivity extends FragmentActivity implements Login_delegate
 			// Get the screen's size.
 			exeFollowerActivity();
 		}else if(PermpingMain.getCurrentTab() == 1 || PermpingMain.getCurrentTab() == 4){
-			exeFollowerActivity();
+			if(isRefesh)
+				exeFollowerActivity();
 		}else if(PermpingMain.getCurrentTab() == 3) { 
 			isCalendar = true;
 			exeFollowerActivity();
