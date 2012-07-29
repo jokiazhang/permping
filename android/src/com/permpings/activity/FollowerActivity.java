@@ -65,7 +65,7 @@ public class FollowerActivity extends FragmentActivity implements Login_delegate
 	RelativeLayout headerLayout;
 	PermAdapter permListAdapter;
 	View headerView = null;
-	
+	private boolean isFirst = true;
 	public static LoadPermList loadPermList;
 	private BroadcastReceiver receiver = new BroadcastReceiver() {
 
@@ -143,6 +143,7 @@ public class FollowerActivity extends FragmentActivity implements Login_delegate
     	super.onPause();
 //    	clearData();
 //    	permListMain.clear();
+    	isFirst = true;
     	nextItem = -1;
 //    	if (dialog != null && dialog.isShowing()) {
 //			dialog.dismiss();
@@ -156,6 +157,11 @@ public class FollowerActivity extends FragmentActivity implements Login_delegate
 
 	public void exeFollowerActivity() {
 		// TODO Auto-generated method stub
+		if(isFirst){
+	    	clearData();
+	    	permListMain.clear();
+	    	isFirst = false;
+		}
 		DisplayMetrics metrics = new DisplayMetrics();
 		getWindowManager().getDefaultDisplay().getMetrics(metrics);
 		
