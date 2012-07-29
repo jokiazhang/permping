@@ -187,7 +187,7 @@ public class PermAdapter extends ArrayAdapter<Perm> implements OnClickListener {
 				
 				if(position == items.size() - 1 && PermListController.isFooterAdded == true) {
 					if(!PermListController.isLoading){
-						PermListController.selectedPos = items.size() -1;
+						//PermListController.selectedPos = items.size() -1;
 						PermListController.isLoading = true;
 						loadMoreItems();
 					}
@@ -225,6 +225,9 @@ public class PermAdapter extends ArrayAdapter<Perm> implements OnClickListener {
 				}
 				final Perm perm = items.get(position);
 				final String viewId = perm.getId();
+				if(viewId == null || viewId.length() == 0) {
+					return createNullView();
+				}
 				currentPermId = viewId;
 				convertView = viewList.get(viewId);
 				newPermList.put(viewId, perm);
@@ -593,7 +596,8 @@ public class PermAdapter extends ArrayAdapter<Perm> implements OnClickListener {
 	public View createNullView() {
 		LayoutInflater inflater = (LayoutInflater) this.getContext()
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		View view = inflater.inflate(R.layout.perm_item_3, null);		
+		View view = inflater.inflate(R.layout.perm_item_3, null);
+		view.setVisibility(view.GONE);
 		return view;
 	}
 	
@@ -876,13 +880,38 @@ public class PermAdapter extends ArrayAdapter<Perm> implements OnClickListener {
 		login.setOnClickListener(PermAdapter.this);
 		join.setOnClickListener(PermAdapter.this);
 		
-		if(this.header == false) {
-			//remove button
-			TableRow loginRow = (TableRow) view.findViewById(R.id.loginBar);
-			loginRow.setVisibility(View.GONE);
-		}
+		updateHeaderView(view);
 		
 		return view;
+	}
+	
+	public void updateHeaderView(View view) {
+		TableRow loginRow = (TableRow) view.findViewById(R.id.loginBar);
+		if(loginRow == null) {
+			return;
+		}
+		user = PermUtils.isAuthenticated(view.getContext());
+		if (user != null) {
+			loginRow.setVisibility(View.GONE);
+		} else {
+			loginRow.setVisibility(View.VISIBLE);
+		}
+	}
+	
+	public boolean isPermDuplicate(Perm perm) {
+		if(perm == null || perm.getId() == null) {
+			return false;
+		}
+		for(int i = 0; i < items.size(); i++) {
+			Perm permItem = items.get(i);
+			if(permItem != null && permItem.getId() != null) {
+				if(permItem.getId().equals(perm.getId())) {
+					return true;
+				}
+			}
+		}
+		
+		return false;
 	}
 	
 	/*
