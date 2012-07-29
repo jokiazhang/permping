@@ -30,11 +30,9 @@ import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.DefaultHandler;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import com.permpings.PermpingApplication;
 import com.permpings.PermpingMain;
@@ -117,8 +115,6 @@ public class XMLParser implements HttpAccess {
 	
 	public void getXMLAsync(final String url  ) {
 		AsyncTask<Void, Void , Document > downloader = new AsyncTask<Void, Void, Document >() {
-			
-			private Activity a;
 			
 			protected void onPreExecute() {
 				
@@ -230,11 +226,11 @@ public class XMLParser implements HttpAccess {
 
 			return permList;
 		} catch (ParserConfigurationException pce) {
-			Log.e("SAX XML", "sax parse error", pce);
+			//Log.e("SAX XML", "sax parse error", pce);
 		} catch (SAXException se) {
-			Log.e("SAX XML", "sax error", se);
+			//Log.e("SAX XML", "sax error", se);
 		} catch (IOException ioe) {
-			Log.e("SAX XML", "sax parse io error", ioe);
+			//Log.e("SAX XML", "sax parse io error", ioe);
 		}
 
 		return null;
@@ -528,7 +524,7 @@ public class XMLParser implements HttpAccess {
 			
 		} catch (Exception e) {
 			// TODO: handle exception
-			Logger.appendLog(e.toString(), "parseResponseLog");
+			//Logger.appendLog(e.toString(), "parseResponseLog");
 			return null;
 		}
 		
@@ -715,13 +711,13 @@ public class XMLParser implements HttpAccess {
 	@Override
 	public void onError() {
 		// TODO Auto-generated method stub
-		Log.d("", "ERror====>");
+		//Log.d("", "ERror====>");
 		switch (type) {
 		case XMLParser.LOGIN:
 			loginDelegate.on_error();
 			break;
 		case XMLParser.MYDIARY:
-			Log.d("delegate====:", "delegate ======>:");
+			//Log.d("delegate====:", "delegate ======>:");
 			MyDiary_Delegate myDialyDelegate = (MyDiary_Delegate)delegate;
 			myDialyDelegate.onError();
 			break;
@@ -796,7 +792,7 @@ public class XMLParser implements HttpAccess {
 				loginDelegate.on_error();
 				break;
 			case XMLParser.MYDIARY:
-				Log.d("delegate====:", "delegate ======>:");
+				//Log.d("delegate====:", "delegate ======>:");
 				MyDiary_Delegate myDialyDelegate = (MyDiary_Delegate)delegate;
 				myDialyDelegate.onError();
 				break;

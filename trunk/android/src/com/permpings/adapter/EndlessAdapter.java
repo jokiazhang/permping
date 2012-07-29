@@ -153,7 +153,7 @@ abstract public class EndlessAdapter extends AdapterWrapper {
 	 * @return true if should allow retrying appending new data, false otherwise
 	 */
 	protected boolean onException(View pendingView, Exception e) {
-		Log.e("EndlessAdapter", "Exception in cacheInBackground()", e);
+		//Log.e("EndlessAdapter", "Exception in cacheInBackground()", e);
 
 		return (false);
 	}

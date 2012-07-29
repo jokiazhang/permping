@@ -1,12 +1,10 @@
 package com.permpings.utils;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.util.ArrayList;
@@ -22,7 +20,6 @@ import org.apache.http.params.HttpParams;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -32,13 +29,11 @@ import android.graphics.drawable.Drawable;
 import android.net.http.AndroidHttpClient;
 import android.os.AsyncTask;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 
 import com.permpings.PermpingApplication;
-import com.permpings.adapter.PermAdapter;
 
 public final class UrlImageViewHelper {
 
@@ -282,7 +277,7 @@ public final class UrlImageViewHelper {
 						scale++;
 					} while (fileSize / Math.pow(2, scale) > IMAGE_MAX_SIZE);
 
-					Log.d("aaaa", "=========>Scale=: " + scale);
+					//Log.d("aaaa", "=========>Scale=: " + scale);
 					// Decode with inSampleSize
 					BitmapFactory.Options o2 = new BitmapFactory.Options();
 					o2.inSampleSize = scale;
@@ -304,8 +299,8 @@ public final class UrlImageViewHelper {
 					client.close();
 					return drawable;
 				} catch (Exception ex) {
-					Log.e("PERMPING_IMAGE",
-							"Exception during Image download of " + url, ex);
+					/*Log.e("PERMPING_IMAGE",
+							"Exception during Image download of " + url, ex);*/
 					mDownloadException = true;
 					client.close();
 					return null;
@@ -336,8 +331,8 @@ public final class UrlImageViewHelper {
 							PermpingApplication state = (PermpingApplication) context
 									.getApplicationContext();
 							DisplayMetrics metrics = state.getDisplayMetrics();
-							Log.d("==ORIGINAL IMAGE SIZE:==========>"," Width==="+oiw+"===Heigth===="+oih);
-							String logShow = "==ORIGINAL IMAGE SIZE:==========> Width==="+oiw+"===Heigth===="+oih+"\n";
+							//Log.d("==ORIGINAL IMAGE SIZE:==========>"," Width==="+oiw+"===Heigth===="+oih);
+							//String logShow = "==ORIGINAL IMAGE SIZE:==========> Width==="+oiw+"===Heigth===="+oih+"\n";
 							// Calculate with & height //This should be in a
 							// function
 							int marginLeft = 6;
@@ -352,11 +347,11 @@ public final class UrlImageViewHelper {
                         	float ratio = Math.min(ratioX, ratioY);
 							imgWidth = oiw * ratio;
 							imgHeight = oih * ratio;
-							Log.d("==DEVICE SIZE:==========>"," Width==="+metrics.widthPixels+"===Heigth===="+metrics.heightPixels);
-							logShow+="==DEVICE SIZE:==========> Width==="+metrics.widthPixels+"===Heigth===="+metrics.heightPixels+"\n";
-							Log.d("==SCCALED IMAGE SIZE:==========>"," Width==="+imgWidth+"===Heigth===="+imgHeight);
-							logShow+="==SCCALED IMAGE SIZE:==========> Width==="+imgWidth+"===Heigth===="+imgHeight;
-							Logger.appendLog("\n==For permId==="+PermAdapter.currentPermId+"=====>>>Data="+logShow, "LogImageInfo");
+							//Log.d("==DEVICE SIZE:==========>"," Width==="+metrics.widthPixels+"===Heigth===="+metrics.heightPixels);
+							//logShow+="==DEVICE SIZE:==========> Width==="+metrics.widthPixels+"===Heigth===="+metrics.heightPixels+"\n";
+							//Log.d("==SCCALED IMAGE SIZE:==========>"," Width==="+imgWidth+"===Heigth===="+imgHeight);
+							//logShow+="==SCCALED IMAGE SIZE:==========> Width==="+imgWidth+"===Heigth===="+imgHeight;
+							//Logger.appendLog("\n==For permId==="+PermAdapter.currentPermId+"=====>>>Data="+logShow, "LogImageInfo");
 							LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) imageView
 									.getLayoutParams();
 							layoutParams.width = (int) imgWidth;

@@ -370,7 +370,7 @@ public class PermAdapter extends ArrayAdapter<Perm> implements OnClickListener {
 								String permUrl = perm.getPermUrl();
 								if(permUrl != null && permUrl != "")
 									PermpingMain.gotoTab(5, permUrl);
-								Log.d("=====>", "=================>go to Perm Browser >");
+								//Log.d("=====>", "=================>go to Perm Browser >");
 							}
 						});
 					
@@ -451,7 +451,7 @@ public class PermAdapter extends ArrayAdapter<Perm> implements OnClickListener {
 					}
 					//return convertView;
 					viewList.put(perm.getId(), view);
-					Log.d("aaa", "================"+view);
+					//Log.d("aaa", "================"+view);
 					return view;
 				}
 			}
@@ -464,7 +464,7 @@ public class PermAdapter extends ArrayAdapter<Perm> implements OnClickListener {
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
-			Log.d("aaa", "=========asdfsfsd======="+e.toString());
+			//Log.d("aaa", "=========asdfsfsd======="+e.toString());
 			return createNullView();
 		}
 	}
@@ -621,7 +621,7 @@ public class PermAdapter extends ArrayAdapter<Perm> implements OnClickListener {
 			// TODO Auto-generated method stub
 			Bitmap bm = null;
 			imageView = params[0];
-			Log.d("a","==========>"+imageUrl);
+			//Log.d("a","==========>"+imageUrl);
 			bm = PermUtils.scaleBitmap(imageUrl);
 			return bm;
 		}
@@ -772,7 +772,7 @@ public class PermAdapter extends ArrayAdapter<Perm> implements OnClickListener {
 							"user_birthday" }, new DialogListener() {
 						@Override
 						public void onComplete(Bundle values) {
-							Log.d("", "=====>"+values.toString());
+							//Log.d("", "=====>"+values.toString());
 							PermUtils permutils = new PermUtils();
 							String accessToken = values.getString("access_token");
 							permutils.saveFacebookToken("oauth_token", accessToken, activity);
@@ -969,7 +969,7 @@ public class PermAdapter extends ArrayAdapter<Perm> implements OnClickListener {
 			bundle.putFloat("lon", perm.getLon());
 			bundle.putString("thumbnail", perm.getImage().getUrl());
 			googleMap.putExtra("locationData", bundle);
-			Log.d("AA+++++============","========="+perm.getImage().getUrl());
+			//Log.d("AA+++++============","========="+perm.getImage().getUrl());
 			View view2 = FollowerActivityGroup.group.getLocalActivityManager().startActivity( "GoogleMapActivity"+perm.getId(), googleMap).getDecorView();
 			FollowerActivityGroup.group.replaceView(view2);
 
@@ -1033,7 +1033,7 @@ public class PermAdapter extends ArrayAdapter<Perm> implements OnClickListener {
 				// "Loading","Please wait...", true);
 
 				final HttpPermUtils util = new HttpPermUtils();
-				Log.d("aasdfsdss", like.getText().toString()+"======="+R.string.delete);
+				//Log.d("aasdfsdss", like.getText().toString()+"======="+R.string.delete);
 				if(like.getText().toString().equals(likeString) || like.getText().toString().equals(unlikeString)){
 					List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
 					nameValuePairs.add(new BasicNameValuePair("pid", String

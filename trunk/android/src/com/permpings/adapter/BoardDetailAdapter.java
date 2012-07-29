@@ -13,7 +13,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -155,7 +154,7 @@ public class BoardDetailAdapter extends BaseAdapter implements ListAdapter {
 				bundle.putFloat("lon", perm.getLon());
 				bundle.putString("thumbnail", perm.getImage().getUrl());
 				googleMap.putExtra("locationData", bundle);
-				Log.d("AA+++++============","========="+perm.getImage().getUrl());
+				//Log.d("AA+++++============","========="+perm.getImage().getUrl());
 				View view = ProfileActivityGroup.group.getLocalActivityManager().startActivity( "PrGoogleMapActivity"+perm.getId(), googleMap).getDecorView();
 				ProfileActivityGroup.group.replaceView(view);	
 			}
