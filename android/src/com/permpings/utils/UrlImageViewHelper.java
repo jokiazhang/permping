@@ -171,7 +171,7 @@ public final class UrlImageViewHelper {
 			mPendingViews.remove(imageView);
 
 		if (isNullOrEmpty(url)) {
-			if (imageView != null)
+			if (imageView != null && defaultDrawable != null)
 				imageView.setImageDrawable(defaultDrawable);
 			return;
 		}
@@ -190,8 +190,8 @@ public final class UrlImageViewHelper {
 		File file = context.getFileStreamPath(filename);
 
 		// null it while it is downloading
-		if (imageView != null)
-			imageView.setImageDrawable(defaultDrawable);
+		/*if (imageView != null)
+			imageView.setImageDrawable(defaultDrawable);*/
 
 		// since listviews reuse their views, we need to
 		// take note of which url this view is waiting for.
