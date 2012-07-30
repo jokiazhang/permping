@@ -115,8 +115,8 @@ public class NewPermActivity extends Activity implements OnClickListener {
 	private double lat = 0.0;
 	private double lon = 0.0;
 	private PermUtils permUtils;
-//	private LocationManager mlocManager;
-//	private LocationListener mlocListener;
+	// private LocationManager mlocManager;
+	// private LocationListener mlocListener;
 	private ArrayList<Category> categories;
 	private String permId;
 	private List<PermBoard> boards;
@@ -155,13 +155,14 @@ public class NewPermActivity extends Activity implements OnClickListener {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		// setContentView(R.layout.new_perm_layout);
-		
-		//Remove title bar
+
+		// Remove title bar
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		context = NewPermActivity.this;
-		//Remove notification bar
-		//this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-		
+		// Remove notification bar
+		// this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+		// WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
 		setContentView(R.layout.new_perm_layout);
 
 		TextView textView = (TextView) findViewById(R.id.permpingTitle);
@@ -171,7 +172,7 @@ public class NewPermActivity extends Activity implements OnClickListener {
 			textView.setTypeface(tf);
 		}
 
-//		initGetLocation();
+		// initGetLocation();
 		progressBar = (ProgressBar) findViewById(R.id.progressBar2);
 		btnShareFacebook = (ToggleButton) findViewById(R.id.share_facebookr);
 		btnShareTwitter = (ToggleButton) findViewById(R.id.share_twitter);
@@ -194,9 +195,10 @@ public class NewPermActivity extends Activity implements OnClickListener {
 		btnOk.setOnClickListener(this);
 		permDesc = (EditText) findViewById(R.id.permDesc);
 		initToggleStatus();
-		
-//		mlocManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-//		mlocListener = new MyLocationListener();
+
+		// mlocManager = (LocationManager)
+		// getSystemService(Context.LOCATION_SERVICE);
+		// mlocListener = new MyLocationListener();
 
 		Bundle extras = getIntent().getExtras();
 		if (extras != null) {
@@ -219,30 +221,33 @@ public class NewPermActivity extends Activity implements OnClickListener {
 		}
 
 	}
+
 	@Override
 	protected void onResume() {
 		super.onResume();
-		if(PermpingMain.isKakao){
+		if (PermpingMain.isKakao) {
 			PermpingMain.isKakao = false;
 			finish();
 		}
 	}
+
 	@Override
-    protected void onPause()
-    {
-        // TODO Auto-generated method stub
+	protected void onPause() {
+		// TODO Auto-generated method stub
 		super.onPause();
-		if(locManager != null && locListener != null)
+		if (locManager != null && locListener != null)
 			locManager.removeUpdates(locListener);
-    }
+	}
+
 	private void initValue() {
 		// TODO Auto-generated method stub
 		if (boardDescRe != null)
 			permDesc.setText(this.boardDescRe);
 		// btnShareFacebook.setEnabled(false);
 		// btnShareTwitter.setEnabled(false);
-		btnShareKakao.setEnabled(false);
+		// btnShareKakao.setEnabled(false);
 	}
+
 	public void initGetLocation() {
 		locManager = (LocationManager) context
 				.getSystemService(Context.LOCATION_SERVICE);
@@ -272,15 +277,16 @@ public class NewPermActivity extends Activity implements OnClickListener {
 		}
 
 		if (gps_enabled) {
-			locManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
-					0, 0, locListener);
+			locManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0,
+					0, locListener);
 		}
 
 		if (network_enabled) {
-			locManager.requestLocationUpdates(
-					LocationManager.NETWORK_PROVIDER, 0, 0, locListener);
+			locManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,
+					0, 0, locListener);
 		}
 	}
+
 	private void initToggleStatus() {
 		// TODO Auto-generated method stub
 		facebookToken = permUtils.getFacebookToken(getApplicationContext());
@@ -302,13 +308,13 @@ public class NewPermActivity extends Activity implements OnClickListener {
 		} else {
 			btnRecordAudio.setChecked(false);
 		}
-//		if (btnLocation.isChecked()) {
-//			mlocManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0,
-//					0, mlocListener);
-//		} else {
-//			lon = 0;
-//			lat = 0;
-//		}
+		// if (btnLocation.isChecked()) {
+		// mlocManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0,
+		// 0, mlocListener);
+		// } else {
+		// lon = 0;
+		// lat = 0;
+		// }
 	}
 
 	public void onBackPressed() {
@@ -331,12 +337,12 @@ public class NewPermActivity extends Activity implements OnClickListener {
 			float x = event.getRawX() + w.getLeft() - scrcoords[0];
 			float y = event.getRawY() + w.getTop() - scrcoords[1];
 
-			/*Log.d("CreatePerm",
-					"Touch event " + event.getRawX() + "," + event.getRawY()
-							+ " " + x + "," + y + " rect " + w.getLeft() + ","
-							+ w.getTop() + "," + w.getRight() + ","
-							+ w.getBottom() + " coords " + scrcoords[0] + ","
-							+ scrcoords[1]);*/
+			/*
+			 * Log.d("CreatePerm", "Touch event " + event.getRawX() + "," +
+			 * event.getRawY() + " " + x + "," + y + " rect " + w.getLeft() +
+			 * "," + w.getTop() + "," + w.getRight() + "," + w.getBottom() +
+			 * " coords " + scrcoords[0] + "," + scrcoords[1]);
+			 */
 			if (event.getAction() == MotionEvent.ACTION_UP
 					&& (x < w.getLeft() || x >= w.getRight() || y < w.getTop() || y > w
 							.getBottom())) {
@@ -538,15 +544,20 @@ public class NewPermActivity extends Activity implements OnClickListener {
 						type = "all";
 					}
 					reqEntity.addPart("type", new StringBody("" + type, chars));
-					if(btnLocation.isChecked()){
-						reqEntity.addPart("lat", new StringBody("" + lat, chars));
-						reqEntity.addPart("long", new StringBody("" + lon, chars));
-					}else{
+					if (btnLocation.isChecked()) {
+						reqEntity.addPart("lat",
+								new StringBody("" + lat, chars));
+						reqEntity.addPart("long", new StringBody("" + lon,
+								chars));
+					} else {
 						reqEntity.addPart("lat", new StringBody("" + 0, chars));
-						reqEntity.addPart("long", new StringBody("" + 0, chars));
+						reqEntity
+								.addPart("long", new StringBody("" + 0, chars));
 					}
-					/*Log.d("======>", "======Lat, lon==========" + lat + "==="
-							+ lon);*/
+					/*
+					 * Log.d("======>", "======Lat, lon==========" + lat + "==="
+					 * + lon);
+					 */
 					postRequest.setEntity(reqEntity);
 					HttpResponse response = httpClient.execute(postRequest);
 					HttpEntity entry = response.getEntity();
@@ -559,8 +570,6 @@ public class NewPermActivity extends Activity implements OnClickListener {
 			}
 			// Toast.makeText(getApplicationContext(),"Please login first!",Toast.LENGTH_LONG).show();
 		}
-
-
 
 		private Bitmap checkBitmapSize(Bitmap bm) {
 			// TODO Auto-generated method stub
@@ -578,8 +587,10 @@ public class NewPermActivity extends Activity implements OnClickListener {
 				while ((o.outWidth * o.outHeight) * (1 / Math.pow(scale, 2)) > IMAGE_MAX_SIZE) {
 					scale++;
 				}
-				/*Log.d("", "scale = " + scale + ", orig-width: " + o.outWidth
-						+ ", orig-height: " + o.outHeight);*/
+				/*
+				 * Log.d("", "scale = " + scale + ", orig-width: " + o.outWidth
+				 * + ", orig-height: " + o.outHeight);
+				 */
 
 				Bitmap b = null;
 				if (scale > 1) {
@@ -594,8 +605,10 @@ public class NewPermActivity extends Activity implements OnClickListener {
 					// resize to desired dimensions
 					int height = b.getHeight();
 					int width = b.getWidth();
-					/*Log.d("", "1th scale operation dimenions - width: " + width
-							+ ", height: " + height);*/
+					/*
+					 * Log.d("", "1th scale operation dimenions - width: " +
+					 * width + ", height: " + height);
+					 */
 
 					double y = Math.sqrt(IMAGE_MAX_SIZE
 							/ (((double) width) / height));
@@ -611,40 +624,45 @@ public class NewPermActivity extends Activity implements OnClickListener {
 					b = BitmapFactory.decodeFile(path);
 				}
 
-				/*Log.d("", "bitmap size - width: " + b.getWidth() + ", height: "
-						+ b.getHeight() + "");*/
+				/*
+				 * Log.d("", "bitmap size - width: " + b.getWidth() +
+				 * ", height: " + b.getHeight() + "");
+				 */
 				return b;
 			} catch (Exception e) {
-				//Log.e("", e.getMessage(), e);
+				// Log.e("", e.getMessage(), e);
 				return null;
 			}
 		}
 
 		private Bitmap getBitmap2(String path) {
 			try {
-				
-				final int IMAGE_MAX_SIZE = 1024;//1200000; // 1.2MP
+
+				final int IMAGE_MAX_SIZE = 1024;// 1200000; // 1.2MP
 				BitmapFactory.Options o = new BitmapFactory.Options();
 				o.inJustDecodeBounds = true;
-				InputStream in=new FileInputStream(filePath);
+				InputStream in = new FileInputStream(filePath);
 				BitmapFactory.decodeStream(in, null, o);
 				in.close();
-				in=new FileInputStream(filePath);
-		
+				in = new FileInputStream(filePath);
+
 				// Decode image size
 
-				double scale=1;
+				double scale = 1;
 				int currentWidth = o.outWidth;
 				if (currentWidth > IMAGE_MAX_SIZE) {
 					scale = currentWidth / IMAGE_MAX_SIZE;
-					
+
 				}
-//				int scale = 1;
-//				while ((o.outWidth * o.outHeight) * (1 / Math.pow(scale, 2)) > IMAGE_MAX_SIZE) {
-//					scale++;
-//				}
-				/*Log.d("", "scale = " + scale + ", orig-width: " + o.outWidth
-						+ ", orig-height: " + o.outHeight);*/
+				// int scale = 1;
+				// while ((o.outWidth * o.outHeight) * (1 / Math.pow(scale, 2))
+				// > IMAGE_MAX_SIZE) {
+				// scale++;
+				// }
+				/*
+				 * Log.d("", "scale = " + scale + ", orig-width: " + o.outWidth
+				 * + ", orig-height: " + o.outHeight);
+				 */
 
 				Bitmap b = null;
 				if (scale > 1) {
@@ -655,38 +673,42 @@ public class NewPermActivity extends Activity implements OnClickListener {
 					Bitmap scaledBitmap = Bitmap.createScaledBitmap(b, (int) x,
 							(int) y, true);
 					b = scaledBitmap;
-				    System.gc();
-//					Scale without out of memory
-//					scale--;
-//					o = new BitmapFactory.Options();
-//					o.inSampleSize = scale;
-//					b = BitmapFactory.decodeFile(path);
-//
-//					// resize to desired dimensions
-//					int height = b.getHeight();
-//					int width = b.getWidth();
-//					Log.d("", "1th scale operation dimenions - width: " + width
-//							+ ", height: " + height);
-//
-//					double y = Math.sqrt(IMAGE_MAX_SIZE
-//							/ (((double) width) / height));
-//					double x = (y / height) * width;
-//
-//					Bitmap scaledBitmap = Bitmap.createScaledBitmap(b, (int) x,
-//							(int) y, true);
-//					b.recycle();
-//					b = scaledBitmap;
-//
-//					System.gc();
+					System.gc();
+					// Scale without out of memory
+					// scale--;
+					// o = new BitmapFactory.Options();
+					// o.inSampleSize = scale;
+					// b = BitmapFactory.decodeFile(path);
+					//
+					// // resize to desired dimensions
+					// int height = b.getHeight();
+					// int width = b.getWidth();
+					// Log.d("", "1th scale operation dimenions - width: " +
+					// width
+					// + ", height: " + height);
+					//
+					// double y = Math.sqrt(IMAGE_MAX_SIZE
+					// / (((double) width) / height));
+					// double x = (y / height) * width;
+					//
+					// Bitmap scaledBitmap = Bitmap.createScaledBitmap(b, (int)
+					// x,
+					// (int) y, true);
+					// b.recycle();
+					// b = scaledBitmap;
+					//
+					// System.gc();
 				} else {
 					b = BitmapFactory.decodeFile(path);
 				}
 
-				/*Log.d("", "bitmap size - width: " + b.getWidth() + ", height: "
-						+ b.getHeight() + "");*/
+				/*
+				 * Log.d("", "bitmap size - width: " + b.getWidth() +
+				 * ", height: " + b.getHeight() + "");
+				 */
 				return b;
 			} catch (Exception e) {
-				//Log.e("", e.getMessage(), e);
+				// Log.e("", e.getMessage(), e);
 				return null;
 			}
 		}
@@ -793,35 +815,36 @@ public class NewPermActivity extends Activity implements OnClickListener {
 				if (btnShareKakao.isChecked()) {
 					if (isReperm) {
 						Toast.makeText(getApplicationContext(),
-								"Re-Permed  and shared to Kakao app!",
+								"Re-Permed  \n Let share to Kakao app!",
 								Toast.LENGTH_LONG).show();
 						isReperm = false;
 					} else {
 						Toast.makeText(getApplicationContext(),
 								"Uploaded new perm \nLet share on Kakao app!",
 								Toast.LENGTH_LONG).show();
-						if (uploadStatus && btnShareKakao.isChecked()) {// uploadStatus
-																		// &&
-							try {
-								finish();
-								gotoKakao();
-							} catch (Exception e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
-						} else {
-
-						}
-
 					}
-
+					if (uploadStatus && btnShareKakao.isChecked()) {// uploadStatus
+						// &&
+						try {
+							finish();
+							gotoKakao();
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					} else {
+						finish();
+					}
 				} else {
 					if (isReperm) {
 						Toast.makeText(getApplicationContext(), "Re-Permed!",
 								Toast.LENGTH_LONG).show();
 						isReperm = false;
+//						ImageActivityGroup.uploaded = true;
+//						finish();
 					} else {
-						//Logger.appendLog("\n== NewPermActivity Uploaded new perm successfully", "NewPermActivity");
+						// Logger.appendLog("\n== NewPermActivity Uploaded new perm successfully",
+						// "NewPermActivity");
 						Toast.makeText(getApplicationContext(),
 								"Uploaded new perm!", Toast.LENGTH_LONG).show();
 					}
@@ -840,7 +863,7 @@ public class NewPermActivity extends Activity implements OnClickListener {
 		if (requestCode == 2) {
 			Bundle bundle = data.getExtras();
 			pathAudioFile = bundle.getString("pathFile");
-			//Log.d("aaaa", "" + pathAudioFile);
+			// Log.d("aaaa", "" + pathAudioFile);
 		}
 	}
 
@@ -955,20 +978,20 @@ public class NewPermActivity extends Activity implements OnClickListener {
 
 	private void locationChange() {
 		// TODO Auto-generated method stub
-//		if (btnLocation.isChecked()) {
-//
-//			mlocManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0,
-//					0, mlocListener);
-//		} else {
-//			lat = 0;
-//			lon = 0;
-//		}
-		if(btnLocation.isChecked()){
-			initGetLocation();	
-		}else{
+		// if (btnLocation.isChecked()) {
+		//
+		// mlocManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0,
+		// 0, mlocListener);
+		// } else {
+		// lat = 0;
+		// lon = 0;
+		// }
+		if (btnLocation.isChecked()) {
+			initGetLocation();
+		} else {
 			locManager.removeUpdates(locListener);
 		}
-		
+
 	}
 
 	private void shareKakao() {
@@ -981,32 +1004,34 @@ public class NewPermActivity extends Activity implements OnClickListener {
 
 	private void shareTwitter() {
 		// TODO Auto-generated method stub
-		if(btnShareTwitter.isChecked()){
-			twitterAccessToken = permUtils.getTwitterAccess(getApplicationContext());
+		if (btnShareTwitter.isChecked()) {
+			twitterAccessToken = permUtils
+					.getTwitterAccess(getApplicationContext());
 			if (twitterAccessToken == null) {
-				Intent i = new Intent(context, PrepareRequestTokenActivity.class);
+				Intent i = new Intent(context,
+						PrepareRequestTokenActivity.class);
 				context.startActivity(i);
-				
+
 			} else {
-				
+
 			}
-		}else{
+		} else {
 			twitterAccessToken = null;
 		}
 
 	}
 
 	private void shareFb() {
-		if(btnShareFacebook.isChecked()){
+		if (btnShareFacebook.isChecked()) {
 			facebookToken = permUtils.getFacebookToken(getApplicationContext());
 			if (facebookToken == null || facebookToken == "") {
-				permUtils
-						.integateLoginFacebook(NewPermActivity.this, handleFbLogin);
+				permUtils.integateLoginFacebook(NewPermActivity.this,
+						handleFbLogin);
 			} else {
-//				btnShareFacebook.setChecked(false);
-//				permUtils.logOutFacebook(NewPermActivity.this);
+				// btnShareFacebook.setChecked(false);
+				// permUtils.logOutFacebook(NewPermActivity.this);
 			}
-		}else{
+		} else {
 			facebookToken = null;
 		}
 
@@ -1014,21 +1039,22 @@ public class NewPermActivity extends Activity implements OnClickListener {
 
 	private void uploadPerm() {
 		// TODO Auto-generated method stub
-//		if (facebookToken == null && twitterAccessToken == null) {
-//			Toast.makeText(getApplicationContext(),
-//					"Please choose the share type!", Toast.LENGTH_LONG).show();
-//		} else 
-//		{
-			if (imagePath != "" || permID > 0) {
-				//Logger.appendLog("\n== NewPermActivity uploadPerm function imagePath = " + imagePath + "==", "NewPermActivity");
-				showLoadingDialog("Processing", "Please wait...");
-				new ImageUpload(imagePath).execute();
+		// if (facebookToken == null && twitterAccessToken == null) {
+		// Toast.makeText(getApplicationContext(),
+		// "Please choose the share type!", Toast.LENGTH_LONG).show();
+		// } else
+		// {
+		if (imagePath != "" || permID > 0) {
+			// Logger.appendLog("\n== NewPermActivity uploadPerm function imagePath = "
+			// + imagePath + "==", "NewPermActivity");
+			showLoadingDialog("Processing", "Please wait...");
+			new ImageUpload(imagePath).execute();
 
-			} else if (isReperm) {
-				showLoadingDialog("Processing", "Please wait...");
-				new ImageUpload(imagePath).execute();
-			}
-//		}
+		} else if (isReperm) {
+			showLoadingDialog("Processing", "Please wait...");
+			new ImageUpload(imagePath).execute();
+		}
+		// }
 
 	}
 
@@ -1063,13 +1089,14 @@ public class NewPermActivity extends Activity implements OnClickListener {
 	public void gotoKakao() throws Exception {
 
 		try {
-			
+
 			String strMessage = "permping.com/m/" + permId;// "카카오링크를 사용하여 메세지를 전달해 보세요.";
 			String strURL = "Android: " + permAndroidLink + " & Iphone: "
 					+ permIphoneLink;// "http://link.kakao.com";
 			String strAppId = "com.kakao.android.image";
 			String strAppVer = "2.0";
-			String strAppName = context.getResources().getString(R.string.app_name_inkakao);//"Permping";// "[카카오톡]";
+			String strAppName = context.getResources().getString(
+					R.string.app_name_inkakao);// "Permping";// "[카카오톡]";
 			String strInstallUrl = "Android: " + permAndroidLink + " &Iphone: "
 					+ permIphoneLink;
 			;
@@ -1088,7 +1115,7 @@ public class NewPermActivity extends Activity implements OnClickListener {
 					"UTF-8");
 
 			if (link.isAvailable()) {
-//				startActivity(link.getIntent());
+				// startActivity(link.getIntent());
 			}
 			startActivity(link.getIntent());
 
