@@ -272,20 +272,32 @@ public void on_success() {
 	if(isLoginFb){
 		FollowerActivity.isLogin = true;
 		isLoginFb = false;
-		PermpingMain.back();
+		if(PermpingMain.getCurrentTab() == 0) {
+			((FollowerActivityGroup)FollowerActivityGroup.group).createFollowerActivity();
+		} else {
+			PermpingMain.back();
+		}
 	}else if(isTwitter){
 		FollowerActivity.isLogin = true;
 //		Intent intent = new Intent(context, PermpingMain.class);
 //		context.startActivity(intent);
-		PermpingMain.back();
 		isTwitter = false;
+		if(PermpingMain.getCurrentTab() == 0) {
+			((FollowerActivityGroup)FollowerActivityGroup.group).createFollowerActivity();
+		} else {
+			PermpingMain.back();
+		}
 	}else{
 		FollowerActivity.isLogin = true;
 		dismissLoadingDialog();
 		if(PermpingMain.getCurrentTab() == 4) {
 			((ProfileActivityGroup)ProfileActivityGroup.group).createUI();
 		} else {
-			PermpingMain.back();
+			if(PermpingMain.getCurrentTab() == 0) {
+				((FollowerActivityGroup)FollowerActivityGroup.group).createFollowerActivity();
+			} else {
+				PermpingMain.back();
+			}
 		}
 	}
 
