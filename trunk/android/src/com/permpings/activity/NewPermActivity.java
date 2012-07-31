@@ -107,7 +107,7 @@ public class NewPermActivity extends Activity implements OnClickListener {
 	private ToggleButton btnShareFacebook;
 	private ToggleButton btnShareTwitter;
 	private ToggleButton btnShareKakao;
-	private ToggleButton btnLocation;
+//	private ToggleButton btnLocation;
 	private ToggleButton btnRecordAudio;
 	private EditText permDesc;
 	private String facebookToken;
@@ -177,7 +177,7 @@ public class NewPermActivity extends Activity implements OnClickListener {
 		btnShareFacebook = (ToggleButton) findViewById(R.id.share_facebookr);
 		btnShareTwitter = (ToggleButton) findViewById(R.id.share_twitter);
 		btnShareKakao = (ToggleButton) findViewById(R.id.share_kakao);
-		btnLocation = (ToggleButton) findViewById(R.id.location);
+//		btnLocation = (ToggleButton) findViewById(R.id.location);
 		btnRecordAudio = (ToggleButton) findViewById(R.id.btnRecordAudio);
 		btnCatilogy = (LinearLayout) findViewById(R.id.categoryItemLayout1);
 		rightArrow = (ImageView) findViewById(R.id.rightArrow);
@@ -185,7 +185,7 @@ public class NewPermActivity extends Activity implements OnClickListener {
 		btnShareFacebook.setOnClickListener(this);
 		btnShareTwitter.setOnClickListener(this);
 		btnShareKakao.setOnClickListener(this);
-		btnLocation.setOnClickListener(this);
+//		btnLocation.setOnClickListener(this);
 		btnCatilogy.setOnClickListener(this);
 		btnRecordAudio.setOnClickListener(this);
 		permUtils = new PermUtils();
@@ -248,44 +248,44 @@ public class NewPermActivity extends Activity implements OnClickListener {
 		// btnShareKakao.setEnabled(false);
 	}
 
-	public void initGetLocation() {
-		locManager = (LocationManager) context
-				.getSystemService(Context.LOCATION_SERVICE);
-		locListener = new MyLocationListener();
-		try {
-			gps_enabled = locManager
-					.isProviderEnabled(LocationManager.GPS_PROVIDER);
-		} catch (Exception ex) {
-		}
-
-		try {
-			network_enabled = locManager
-					.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
-
-		} catch (Exception ex) {
-		}
-
-		// don't start listeners if no provider is enabled
-
-		if (!gps_enabled & !network_enabled) {
-
-			AlertDialog.Builder builder = new Builder(context);
-			builder.setTitle("Attention!");
-			builder.setMessage("Sorry, location is not determined. Please enable location providers");
-			builder.create().show();
-
-		}
-
-		if (gps_enabled) {
-			locManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0,
-					0, locListener);
-		}
-
-		if (network_enabled) {
-			locManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,
-					0, 0, locListener);
-		}
-	}
+//	public void initGetLocation() {
+//		locManager = (LocationManager) context
+//				.getSystemService(Context.LOCATION_SERVICE);
+//		locListener = new MyLocationListener();
+//		try {
+//			gps_enabled = locManager
+//					.isProviderEnabled(LocationManager.GPS_PROVIDER);
+//		} catch (Exception ex) {
+//		}
+//
+//		try {
+//			network_enabled = locManager
+//					.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+//
+//		} catch (Exception ex) {
+//		}
+//
+//		// don't start listeners if no provider is enabled
+//
+//		if (!gps_enabled & !network_enabled) {
+//
+//			AlertDialog.Builder builder = new Builder(context);
+//			builder.setTitle("Attention!");
+//			builder.setMessage("Sorry, location is not determined. Please enable location providers");
+//			builder.create().show();
+//
+//		}
+//
+//		if (gps_enabled) {
+//			locManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0,
+//					0, locListener);
+//		}
+//
+//		if (network_enabled) {
+//			locManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,
+//					0, 0, locListener);
+//		}
+//	}
 
 	private void initToggleStatus() {
 		// TODO Auto-generated method stub
@@ -544,16 +544,16 @@ public class NewPermActivity extends Activity implements OnClickListener {
 						type = "all";
 					}
 					reqEntity.addPart("type", new StringBody("" + type, chars));
-					if (btnLocation.isChecked()) {
-						reqEntity.addPart("lat",
-								new StringBody("" + lat, chars));
-						reqEntity.addPart("long", new StringBody("" + lon,
-								chars));
-					} else {
-						reqEntity.addPart("lat", new StringBody("" + 0, chars));
-						reqEntity
-								.addPart("long", new StringBody("" + 0, chars));
-					}
+//					if (btnLocation.isChecked()) {
+//						reqEntity.addPart("lat",
+//								new StringBody("" + lat, chars));
+//						reqEntity.addPart("long", new StringBody("" + lon,
+//								chars));
+//					} else {
+//						reqEntity.addPart("lat", new StringBody("" + 0, chars));
+//						reqEntity
+//								.addPart("long", new StringBody("" + 0, chars));
+//					}
 					/*
 					 * Log.d("======>", "======Lat, lon==========" + lat + "==="
 					 * + lon);
@@ -888,9 +888,9 @@ public class NewPermActivity extends Activity implements OnClickListener {
 		case R.id.share_kakao:
 			shareKakao();
 			break;
-		case R.id.location:
-			locationChange();
-			break;
+//		case R.id.location:
+//			locationChange();
+//			break;
 		case R.id.btnRecordAudio:
 			audioOnChange();
 			break;
@@ -980,17 +980,11 @@ public class NewPermActivity extends Activity implements OnClickListener {
 		// TODO Auto-generated method stub
 		// if (btnLocation.isChecked()) {
 		//
-		// mlocManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0,
-		// 0, mlocListener);
-		// } else {
-		// lat = 0;
-		// lon = 0;
-		// }
-		if (btnLocation.isChecked()) {
-			initGetLocation();
-		} else {
-			locManager.removeUpdates(locListener);
-		}
+//		if (btnLocation.isChecked()) {
+//			initGetLocation();
+//		} else {
+//			locManager.removeUpdates(locListener);
+//		}
 
 	}
 
@@ -1058,33 +1052,33 @@ public class NewPermActivity extends Activity implements OnClickListener {
 
 	}
 
-	public class MyLocationListener implements LocationListener {
-
-		@Override
-		public void onLocationChanged(Location loc) {
-
-			loc.getLatitude();
-
-			loc.getLongitude();
-			lat = loc.getLatitude();
-			lon = loc.getLongitude();
-		}
-
-		@Override
-		public void onProviderDisabled(String provider) {
-
-		}
-
-		@Override
-		public void onProviderEnabled(String provider) {
-		}
-
-		@Override
-		public void onStatusChanged(String provider, int status, Bundle extras) {
-
-		}
-
-	}/* End of Class MyLocationListener */
+//	public class MyLocationListener implements LocationListener {
+//
+//		@Override
+//		public void onLocationChanged(Location loc) {
+//
+//			loc.getLatitude();
+//
+//			loc.getLongitude();
+//			lat = loc.getLatitude();
+//			lon = loc.getLongitude();
+//		}
+//
+//		@Override
+//		public void onProviderDisabled(String provider) {
+//
+//		}
+//
+//		@Override
+//		public void onProviderEnabled(String provider) {
+//		}
+//
+//		@Override
+//		public void onStatusChanged(String provider, int status, Bundle extras) {
+//
+//		}
+//
+//	}/* End of Class MyLocationListener */
 
 	public void gotoKakao() throws Exception {
 
