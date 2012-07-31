@@ -747,11 +747,16 @@ public class MyDiaryActivity extends Activity implements View.OnClickListener , 
 	}
 	private WebImageView getThumbToLoad(String id) {
 		// TODO Auto-generated method stub
+		if(thumbListById == null) {
+			return null;
+		}
 		WebImageView result;
-		for(int i=0;i<3;i++){
-			result = thumbListById.get(id).get(i);
-			if(result.getVisibility() != View.VISIBLE)
-				return result;
+		for(int i=0;i<3;i++) {
+			if(thumbListById.get(id) != null) {
+				result = thumbListById.get(id).get(i);
+				if(result != null && result.getVisibility() != View.VISIBLE)
+					return result;
+			}			
 		}
 		return null;
 	}

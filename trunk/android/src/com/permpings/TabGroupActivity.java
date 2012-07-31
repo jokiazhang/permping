@@ -12,6 +12,7 @@ import android.view.KeyEvent;
 import android.view.View;
 
 import com.permpings.activity.FollowerActivity;
+import com.permpings.activity.FollowerActivityGroup;
 import com.permpings.model.User;
 import com.permpings.utils.PermUtils;
 public class TabGroupActivity extends ActivityGroup {
@@ -55,6 +56,11 @@ public class TabGroupActivity extends ActivityGroup {
 	}	
 	
 	public static void setTabGroup(TabGroupActivity tabGroup) {
+		if(group instanceof FollowerActivityGroup) {
+			if(!(tabGroup instanceof FollowerActivityGroup)) {
+				((FollowerActivityGroup)group).removeAllData();
+			}
+		}
 		group = tabGroup;
 	}
 	

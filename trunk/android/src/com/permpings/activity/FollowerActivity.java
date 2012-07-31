@@ -313,6 +313,13 @@ public class FollowerActivity extends FragmentActivity implements Login_delegate
 			permListView.removeHeaderView(headerView);
 		}
 	}
+	
+	public void removeAllData() {
+		if(permListAdapter != null && !permListAdapter.isEmpty()) {
+			permListAdapter.clear();						
+		}
+		clearData();
+	}
 
 	
 	// AsyncTask task for upload file
