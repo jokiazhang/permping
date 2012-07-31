@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -91,6 +92,13 @@ public class FollowerActivityGroup extends TabGroupActivity implements Login_del
 		setTabGroup(this);
 		replaceView(view);
 		clearHistory();
+	}
+	
+	public void removeAllData() {
+		Activity activity = this.getCurrentActivity();
+		if(activity instanceof FollowerActivity) {
+			((FollowerActivity) activity).removeAllData();
+		}
 	}
 
 	public static void createProfileActivity(Object comment, boolean isUserProfile) {		
