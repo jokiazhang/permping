@@ -73,11 +73,12 @@
                 <Spinner
                     android:id="@+id/boardSpinnerNewPerm"
                     android:layout_width="260dp"
-                    android:layout_height="25dp"
+                    android:layout_height="30dp"
                     android:layout_marginLeft="20dp"
                     android:background="@android:color/transparent"
                     android:gravity="center"
                     android:paddingRight="50dp"
+                    android:layout_marginTop="-5dp"
                     android:prompt="@string/board_prompt" />
             </RelativeLayout>
         </LinearLayout>
